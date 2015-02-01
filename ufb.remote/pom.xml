@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.ufufund.trade</groupId>
+		<artifactId>ufb.parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>ufb-remote</artifactId>
+	<groupId>com.ufufund.trade.ufb</groupId>
+	<packaging>jar</packaging>
+	<name>${project.artifactId}</name>
+	<description>幼富宝 remote module</description>
+	<version>${ufb.version}</version>
+	
+	<dependencies>
+		<dependency>
+			<artifactId>ufb-common</artifactId>
+			<groupId>com.ufufund.trade.ufb</groupId>
+			<version>${ufb.version}</version>
+		</dependency>
+		<dependency>
+			<artifactId>ufb-model</artifactId>
+			<groupId>com.ufufund.trade.ufb</groupId>
+			<version>${ufb.version}</version>
+		</dependency> 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+					<!-- <compilerArgument>-proc:only</compilerArgument> -->
+					<compilerArgument>-XDignore.symbol.file</compilerArgument>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

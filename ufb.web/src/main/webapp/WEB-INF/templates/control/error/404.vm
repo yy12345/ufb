@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="汇添富,网上交易,基金,优惠" />
+<meta name="Description" content="汇添富基金管理有限公司是一家高起点、国际化、充满活力的基金公司，由东方证券股份有限公司、文汇新民联合报业集团、东方航空集团三家实力雄厚、声誉卓越的集团联合发起设立。公司总部设在上海陆家嘴金融贸易区。" />
+<title>汇添富基金管理有限公司-汇我智慧 添您财富！</title>
+<link rel="stylesheet" type="text/css" href="${staticDomain}/css/404.css"/>
+</head>
+<body >
+    
+<div id="cLogin">
+<div id="wrapperVipLogin" class="bg404">
+<div id="Info404">
+<h1 class="orange"><img src="${staticDomain}/images/404/404icon.gif" width="20" height="18" />很抱歉，您访问的页面不存在，<span id="time">5</span>秒后将自动跳转首页。</h1>
+<dl>
+<dt>请尝试以下操作：</dt>
+<dd>
+<ol>
+<li>请检查您输入的网址是否正确。</li>
+<li>您也可以<a href="http://www.99fund.com/main/home/suggestions/index.shtml">点此纠错</a>。</li>
+<li>如还有疑问，请访问<a href="http://www.99fund.com/cgi-bin/service/help?utm_source=n100821016">帮助中心</a>获得解决办法。</li>
+</ol>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+	var time=5;
+	function GoTo(){
+		$('#time').html(time);
+		
+		if(time--==0){
+			$('#time').html("0");
+			window.clearInterval(goToId);
+			window.top.location.href="${macdomain}/account/index.htm";
+		}
+	}
+	var goToId=window.setInterval("GoTo()",1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<head>
+<style>
+    #main .middle {
+        margin-top: 0px;
+    }
+
+    .spage {
+        border: 1px solid #c4c4c4;
+        width: 578px;
+        margin: 0 auto;
+        background: url(${staticDomain}/images/sp_icon02.jpg) 55px 50px no-repeat #fff9f0;
+        padding: 50px 100px 25px 100px;
+    }
+
+    .spage02 {
+        background-image: url(${staticDomain}/images/sp_icon01.jpg);
+    }
+    
+    .spage03 {
+        background-image: url(${staticDomain}/images/sp_icon02.png);
+    }
+
+    .spage h1 {
+        font-size: 18px;
+        font-weight: bold;
+        padding-left: 5px;
+    }
+
+    .spage p {
+        padding: 10px 0 0 7px;
+        color: #3a382b;
+        /*background:url(${staticDomain}/images/sppPoint.jpg) 0 21px no-repeat;*/
+    }
+
+    .spage p.sppNoBg {
+        background: none;
+    }
+
+    .spage .dashLine {
+        height: 1px;
+        border-bottom: 1px dashed #a8a49e;
+        padding-top: 20px;
+        margin-bottom: 18px;
+    }
+
+    .spage p.p1 {
+        color: #fc6700;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .spage .btnLine {
+        padding-top: 15px;
+    }
+
+    .spage .btnLine input.spBtn {
+        background: url(${staticDomain}/images/sp_btnBg.jpg) 0 0 no-repeat;
+        width: 96px;
+        height: 33px;
+        border: none;
+        cursor: pointer;
+        color: #FFF;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .spage .btnLine input.spBtn:hover {
+        background-position: 0px -33px;
+    }
+
+    .spLink {
+        width: 768px;
+        margin: 0 auto;
+        text-align: right;
+        padding-top: 6px;
+        padding-bottom: 30px;
+        color: #3a382b;
+    }
+    .middle .ft-em-bar {
+        padding: 0 6px 0 0px;
+    }
+</style>
+</head>
+<div class="spage spage03">
+	<h1>您的申请已成功提交，请勿重复操作！</h1>
+	<p class="sppNoBg">
+		您可以通过交易查询，确认您的交易是否已发起，避免重复提交。
+		<a href="${ecIP}/query/cashinoutqry.jsp">立即查询</a>
+	</p>
+</div>
+<div class="spLink">
+    您可能需要：
+    <a href="${macdomain}/account/index.htm" target="_self">返回首页</a>
+    <em class="ft-em-bar ft-wt-gray ft-song">|</em><a href="${macdomain}/topup/index.htm" target="_self">继续充值</a>
+    <em class="ft-em-bar ft-wt-gray ft-song">|</em><a href="${maccardRepay}/joint/cardRepay.jsp" target="_self">信用卡还款</a>
+    <em class="ft-em-bar ft-wt-gray ft-song">|</em><a href="${ecIP}/query/cashinoutqry.jsp" target="_self">交易查询</a>
+</div>
+

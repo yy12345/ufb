@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.trade.ufb.dao.AreaMapper">
+    
+    <sql id="Base_Columns">
+    	id, province, location
+    </sql>
+    
+    <select id="getById" parameterType="String" resultType="Area">
+    	select <include refid="Base_Columns"/> from area t
+    	where t.id = #{id,jdbcType=VARCHAR}
+    </select>
+    
+    <insert id="addArea" parameterType="Area">
+    	insert into area(<include refid="Base_Columns"/>) 
+    	values(
+    		#{id,jdbcType=VARCHAR},
+    		#{province,jdbcType=VARCHAR},
+    		#{location,jdbcType=VARCHAR}
+    	)
+    </insert>
+    
+    <update id="updateLocationById">
+    	update area t set t.location = #{location,jdbcType=VARCHAR}
+    	where t.id = #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

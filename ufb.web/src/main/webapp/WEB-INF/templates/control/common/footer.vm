@@ -1,0 +1,16 @@
+<div class="footer">
+    <div class="inner clearfix">
+        <div class="about fl">
+            <h2 class="title"><a href="about.html">关于幼富通</a></h2>
+            <p>微信服务号：UFUfund</p>
+            <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
+            <br>
+            <p>海富通产品：400-8840-099</p>
+        </div>
+        <div class="copyright fr">
+            <p><img height="80" width="80" src="${staticDomain}/images/qr.jpg"></p>
+            <p>上海泛投信息科技有限公司版权所有 &copy;2014</p>
+            <p><a href="http://www.miitbeian.gov.cn/" target="_blank">沪ICP备14054347号</a></p>
+        </div>
+    </div>
+</div>

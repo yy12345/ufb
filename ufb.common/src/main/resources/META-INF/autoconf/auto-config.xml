@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <group>
+        <property name="ufb.log.path"
+                  description="日志目录" defaultValue="E:/workspace/logs"/>
+
+        <property name="ufb.log.level"
+                  description="日志级别" defaultValue="DEBUG"/>
+    </group>
+    <script>
+        <generate template="logback.xml"/>
+    </script>
+</config>

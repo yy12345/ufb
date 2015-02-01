@@ -1,0 +1,6 @@
+<div class="header">
+    <div class="inner clearfix">
+        <div class="logo fl"><a href="javascript:;">幼教金融，一站通</a></div>
+        <div class="partner fr"><img height="60" width="100" src="${staticDomain}/images/partner_header.png"></div>
+    </div>
+</div>

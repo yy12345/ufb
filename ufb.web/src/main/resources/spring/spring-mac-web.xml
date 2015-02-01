@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    </bean>
+    
+    <context:property-placeholder
+			ignore-resource-not-found="false" location="classpath*:config/*.properties" />
+			
+	<!-- 1.拦截器按照先后顺序进行拦截，2.拦截全部请求时使用"/**"， 3.拦截只针对controller -->
+	<!-- 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/no/*.htm" />
+			<mvc:exclude-mapping path="/**/*Sync.htm" />
+			<bean id="loginInterceptor" class="com.htffund.etrade.sso.interceptor.SsoInterceptor">
+				<property name="ssoLoginUrl"
+					value="http://passport.99fund.com.cn:9680/login/passPortLogin.jsp" />
+				<property name="ssoServiceUrl" value="http://10.50.115.37:6002/passport" />
+				<property name="cookieSsoKey" value="sso_cookie" />
+				<property name="ssoCharSet" value="UTF-8" />
+			</bean>
+		</mvc:interceptor> 
+	    <mvc:interceptor>
+			<mvc:mapping path="/encash/*.htm" />
+			<bean id="weixinEncashInterceptor" class="com.htffund.mvc.interceptor.WeixinInterceptor">
+			</bean>
+	    </mvc:interceptor> 
+	</mvc:interceptors>  -->
+	
+</beans>
