@@ -17,7 +17,8 @@
 		<module>ufb.model</module>
 		<module>ufb.remote</module>
 		<module>ufb.service</module> 
-		<module>ufb.common</module> 
+		<module>ufb.common</module>
+		<module>ufb.file</module> 
 	</modules>
 
 	<properties>
