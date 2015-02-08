@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.daointerface.ParameterMapper">
+
+	<select id="getParameter" resultType="package com.ufufund.dataobject.ParameterDO">
+  	 <![CDATA[
+		SELECT PMST,
+		       PMKY,
+		       PMCO,
+		       PMNM,
+		       PMV1,
+		       PMV2,
+		       PMV3,
+		       PMV4,
+		       PMV5,
+		       INSERTTIMESTAMP,
+		       UPDATETIMESTAMP
+		FROM PARAMETER  T
+		WHERE T.PMST = 'SYSTEM'  
+		ORDER BY T.PMKY
+	 ]]>
+  	</select>
+  	
+  	
+  	
+  	
+</mapper>

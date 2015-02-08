@@ -1,5 +1,6 @@
 package com.ufufund.manager;
 
+import com.ufufund.action.LoginIn;
 import com.ufufund.action.OpenAccount;
 
 public interface CustManager {
@@ -12,4 +13,11 @@ public interface CustManager {
 	 */
 	public void openAccount(OpenAccount openAccount) throws Exception;
 	
+	
+	/**
+	 * 登录
+	 * @param LoginIn
+	 * @return 
+	 */
+	public void loginIn(LoginIn loginIn) throws Exception;
 }

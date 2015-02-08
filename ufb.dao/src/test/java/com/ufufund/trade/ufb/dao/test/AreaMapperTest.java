@@ -13,16 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ufufund.trade.ufb.dao.AreaMapper;
 import com.ufufund.trade.ufb.model.db.Area;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/spring-ufb-dao.xml" })
-@TransactionConfiguration(defaultRollback = false)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = { "classpath:spring/spring-ufb-dao.xml" })
+//@TransactionConfiguration(defaultRollback = false)
 public class AreaMapperTest {
 	
 	@Autowired
 	private AreaMapper areaMapper;
 
 //	@Test
-	@Transactional
+//	@Transactional
 	public void testAddArea(){
 		
 		Area area = new Area();
@@ -35,7 +35,7 @@ public class AreaMapperTest {
 	}
 	
 //	@Test
-	@Transactional
+//	@Transactional
 	public void testUpdateLocationById(){
 		
 		int n = areaMapper.updateLocationById("a_01", "East Huaxia Road");

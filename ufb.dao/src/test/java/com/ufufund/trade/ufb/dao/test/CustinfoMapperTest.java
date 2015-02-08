@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ufufund.trade.ufb.dao.CustinfoMapper;
 import com.ufufund.trade.ufb.model.db.Custinfo;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/spring-ufb-dao.xml" })
-@TransactionConfiguration(defaultRollback = false)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = { "classpath:spring/spring-ufb-dao.xml" })
+//@TransactionConfiguration(defaultRollback = false)
 public class CustinfoMapperTest {
 
 	@Autowired
@@ -22,7 +22,7 @@ public class CustinfoMapperTest {
 	
 	
 //	@Test
-	@Transactional
+//	@Transactional
 	public void testAddCustinfo(){
 		
 		Custinfo custinfo = new Custinfo();
@@ -35,7 +35,7 @@ public class CustinfoMapperTest {
 	}
 	
 //	@Test
-	@Transactional
+//	@Transactional
 	public void testUpdateAreaByCustNo(){
 		
 		int n = custinfoMapper.updateAreaByCustNo("c_01", "a_02");

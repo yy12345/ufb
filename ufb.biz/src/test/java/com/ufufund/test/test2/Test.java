@@ -14,6 +14,9 @@ import com.ufufund.common.XmlCommon;
 public class Test {
 
 	public static void main(String[] args) {
+		
+		System.out.println("".length());
+		
 		TestBean a = new TestBean();
 		a.setDescription("aaadwd");
 		//a.setSex("nan");

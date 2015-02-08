@@ -2,7 +2,7 @@
 <config>
     <group>
         <property name="ufb.log.path"
-                  description="日志目录" defaultValue="E:/workspace/logs"/>
+                  description="日志目录" defaultValue="d:/workspace/logs"/>
 
         <property name="ufb.log.level"
                   description="日志级别" defaultValue="DEBUG"/>

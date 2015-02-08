@@ -12,15 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ufufund.trade.ufb.biz.manager.CustManager;
 import com.ufufund.trade.ufb.model.db.Area;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/spring-ufb-biz.xml" })
-@TransactionConfiguration(defaultRollback = false)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = { "classpath:spring/spring-ufb-biz.xml" })
+//@TransactionConfiguration(defaultRollback = false)
 public class CustManagerTest {
 	
 	@Autowired
 	private CustManager areaManager;
 	
-	@Test
+//	@Test
 	public void testGetAreaByCustNo(){
 		
 		Area area = areaManager.getAreaByCustNo("c_01");
@@ -28,7 +28,7 @@ public class CustManagerTest {
 	}
 	
 //	@Test
-	@Transactional
+//	@Transactional
 	public void testUpdateLocationByCustNo(){
 		int n = areaManager.updateLocationByCustNo("c_01", "Dezhi Apartment");
 		Assert.assertEquals(1, n);
