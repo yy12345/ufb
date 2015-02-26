@@ -42,9 +42,9 @@
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/ec"/>
-		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="url" value="jdbc:mysql://ufufund001.mysql.rds.aliyuncs.com:3306/ufu_dev"/>
+		<property name="username" value="user_dev" />
+		<property name="password" value="password" />
 	</bean>
 
     <!-- transaction manager, use JtaTransactionManager for global tx -->

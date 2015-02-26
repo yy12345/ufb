@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <group>
-    	
+    	<!-- 
        	<property name="ufb.jdbc.url" description="jdbc url" defaultValue="jdbc:mysql://localhost:3306/ec"/>
         <property name="ufb.jdbc.username" description="jdbc 用户名"  defaultValue="root"/>
         <property name="ufb.jdbc.password" description="jdbc 密码" defaultValue=""/>
@@ -17,9 +17,10 @@
         <property name="ufb.dbcp.timeBetweenEvictionRunsMillis" description="失效检查线程运行时间间隔" defaultValue="3600000" />
         <property name="ufb.dbcp.minEvictableIdleTimeMillis" description="大于0 ，进行连接空闲时间判断，或为0，对空闲的连接不进行验证" defaultValue="3600000" />
         <property name="ufb.datasource.jndiName" description="DataSource的JNDI名称" defaultValue="java:comp/env/EC" />
-    	
+    	 -->
     </group>
     <script>
-        <generate template="spring/spring-ufb-dao.xml" />
+    	<!-- 
+        <generate template="spring/spring-ufb-dao.xml" />  -->
     </script>
 </config>

@@ -36,40 +36,41 @@
             <version>1.0.9</version>
         </dependency>
         <dependency>
-         <groupId>org.apache.commons</groupId>
-  		 <artifactId>commons-lang3</artifactId>
-  		 <version>3.3</version>
-  		 </dependency>
+	         <groupId>org.apache.commons</groupId>
+	  		 <artifactId>commons-lang3</artifactId>
+  		</dependency>
 	</dependencies>
 	
 	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<encoding>UTF-8</encoding>
-					<!-- <compilerArgument>-proc:only</compilerArgument> -->
-					<compilerArgument>-XDignore.symbol.file</compilerArgument>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.alibaba.citrus.tool</groupId>
-				<artifactId>autoconfig-maven-plugin</artifactId>
-				<version>1.2</version>
-				<configuration>
-				</configuration>
-				<executions>
-					<execution>
-						<id>compile</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>autoconfig</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<encoding>UTF-8</encoding>
+						<!-- <compilerArgument>-proc:only</compilerArgument> -->
+						<compilerArgument>-XDignore.symbol.file</compilerArgument>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.alibaba.citrus.tool</groupId>
+					<artifactId>autoconfig-maven-plugin</artifactId>
+					<version>1.2</version>
+					<configuration>
+					</configuration>
+					<executions>
+						<execution>
+							<id>compile</id>
+							<phase>compile</phase>
+							<goals>
+								<goal>autoconfig</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>
