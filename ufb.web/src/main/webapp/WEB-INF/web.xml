@@ -49,7 +49,7 @@
 	
 	<servlet>
 		<servlet-name>CreateImageServlet</servlet-name>
-		<servlet-class>com.ufufund.trade.ufb.web.servlet.CreateImageServlet</servlet-class>
+		<servlet-class>com.ufufund.ufb.web.servlet.CreateImageServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CreateImageServlet</servlet-name>

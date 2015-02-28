@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.CustinfoMapper">
+    
+    <sql id="Base_Columns">
+    	custNo, custType, areaId
+    </sql>
+    
+    <select id="getByCustNo" parameterType="String" resultType="Custinfo">
+    	select <include refid="Base_Columns"/> from custinfo t
+    	where t.custno = #{custNo,jdbcType=VARCHAR}
+    </select>
+    
+    <insert id="addCustinfo" parameterType="Custinfo">
+    	insert into custinfo(<include refid="Base_Columns"/>) 
+    	values(
+    		#{custNo,jdbcType=VARCHAR},
+    		#{custType,jdbcType=VARCHAR},
+    		#{areaId,jdbcType=VARCHAR}
+    	)
+    </insert>
+    
+    <update id="updateAreaByCustNo">
+    	update custinfo t set t.areaid = #{areaId,jdbcType=VARCHAR}
+    	where t.custno = #{custNo,jdbcType=VARCHAR}
+    </update>
+</mapper>

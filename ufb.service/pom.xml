@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.ufufund.trade</groupId>
+		<groupId>com.ufufund</groupId>
 		<artifactId>ufb.parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>ufb-service</artifactId>
-	<groupId>com.ufufund.trade.ufb</groupId>
+	<groupId>com.ufufund.ufb</groupId>
 	<packaging>jar</packaging>
 	<name>${project.artifactId}</name>
 	<description>幼富宝 service module</description>
@@ -17,7 +17,7 @@
 	
 	<dependencies>
 		<dependency>
-			<groupId>com.ufufund.trade.ufb</groupId>
+			<groupId>com.ufufund.ufb</groupId>
 			<artifactId>ufb-model</artifactId>
 			<version>${ufb.version}</version>
 		</dependency>

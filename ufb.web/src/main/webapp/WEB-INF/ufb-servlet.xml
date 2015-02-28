@@ -22,7 +22,7 @@
     
 	<!-- enable component scanning (beware that this does not enable mapper scanning!) -->  
 	<context:component-scan base-package="com.ufufund.mvc.exception.handler" />  
-    <context:component-scan base-package="com.ufufund.trade.ufb.web" />
+    <context:component-scan base-package="com.ufufund.ufb.web.controller" />
 
 	<!-- 避免IE执行AJAX时,返回JSON出现下载文件   -->  
     <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  

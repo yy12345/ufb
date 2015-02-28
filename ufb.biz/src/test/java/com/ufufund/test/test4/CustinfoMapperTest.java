@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ufufund.common.SysoutCommon;
 import com.ufufund.daointerface.CustinfoMapper;
 import com.ufufund.dataobject.CustinfoDO;
-import com.ufufund.trade.ufb.dao.AreaMapper;
-import com.ufufund.trade.ufb.model.db.Area;
+import com.ufufund.ufb.dao.AreaMapper;
+import com.ufufund.ufb.model.Area;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/spring-ufb-dao.xml" })

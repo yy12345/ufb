@@ -9,8 +9,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ufufund.trade.ufb.biz.manager.CustManager;
-import com.ufufund.trade.ufb.model.db.Area;
+import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.model.Area;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = { "classpath:spring/spring-ufb-biz.xml" })
