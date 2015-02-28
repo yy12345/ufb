@@ -4,12 +4,9 @@ package com.ufufund.exception;
 
 
 /**
- * 应用异常
- *
- * 
+ * 应用系统异常，应用自身处理
  */
 @SuppressWarnings("serial")
-
 public class AppException extends RuntimeException{
 	
 	private String errmsg;
@@ -42,11 +39,6 @@ public class AppException extends RuntimeException{
 	}
 	
 	@Override
-	public String toString(){
-		return this.errcode +"-"+this.errmsg;
-	}
-	
-	@Override
 	public String getMessage(){
 		return this.errcode +"-"+this.errmsg;
 	}
@@ -65,6 +57,11 @@ public class AppException extends RuntimeException{
 
 	public void setErrcode(String errcode) {
 		this.errcode = errcode;
+	}
+	
+	@Override
+	public String toString(){
+		return this.errcode +"-"+this.errmsg;
 	}
 
 }
