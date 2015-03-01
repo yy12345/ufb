@@ -3,7 +3,6 @@ package com.ufufund.ufb.common.utils;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -156,5 +155,4 @@ public class HttpsClientUtil{
 	        	return true;
 	        }
 	}
-	
 }
