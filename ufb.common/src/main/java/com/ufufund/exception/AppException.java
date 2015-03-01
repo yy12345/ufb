@@ -1,8 +1,5 @@
 package com.ufufund.exception;
 
-
-
-
 /**
  * 应用系统异常，应用自身处理
  */

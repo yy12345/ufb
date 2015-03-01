@@ -29,13 +29,16 @@ public class CustManagerValidator {
 	
 	public void validator(LoginIn loginIn){
 		if(RegexUtil.isNull(loginIn.getLoginType())){
-			throw new BizException(this.getErrorInfo(""));
+			String[] msg = this.getErrorInfo("");
+			throw new BizException(msg[0], msg[1]);
 		}
 		if(RegexUtil.isNull(loginIn.getLoginCode())){
-			throw new BizException(this.getErrorInfo(""));		
+			String[] msg = this.getErrorInfo("");
+			throw new BizException(msg[0], msg[1]);	
 		}
 		if(RegexUtil.isNull(loginIn.getLoginPassword())){
-			throw new BizException(this.getErrorInfo(""));
+			String[] msg = this.getErrorInfo("");
+			throw new BizException(msg[0], msg[1]);
 		}
 	}
 	
