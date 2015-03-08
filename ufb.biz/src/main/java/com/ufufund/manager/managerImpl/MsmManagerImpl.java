@@ -10,6 +10,15 @@ public class MsmManagerImpl  implements MsmManager{
 	public void sendMessage(SendMessage sendMessage) throws Exception {
 		// TODO Auto-generated method stub
 		
+		/*
+		 * 
+		 * 判断验证码
+		 */
+		 /*
+		  * 发送短信
+		  */
+		
+		
 	}
 
 	

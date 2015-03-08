@@ -1,16 +1,18 @@
-//package com.ufufund.manager.managerImpl;
-//
-//
-//import com.ufufund.action.BankPageAuth;
-//import com.ufufund.action.BankPageVerify;
-//import com.ufufund.action.BankSwiftAuth;
-//import com.ufufund.action.BankSwiftVerify;
-//import com.ufufund.manager.BankManager;
-//
-//
-//
-//public class BankManagerImpl implements BankManager {
-//
+package com.ufufund.ufb.biz.manager.impl;
+
+
+
+import com.ufufund.action.BankPageAuth;
+import com.ufufund.action.BankPageVerify;
+import com.ufufund.action.BankSwiftAuth;
+import com.ufufund.action.BankSwiftVerify;
+import com.ufufund.ufb.biz.manager.BankManager;
+
+
+
+
+public class BankManagerImpl implements BankManager {
+
 //	@Override
 //	public void bankPageAuth(BankPageAuth bankPageAuth) throws Exception {
 //		// TODO Auto-generated method stub
@@ -35,8 +37,8 @@
 //		// TODO Auto-generated method stub
 //		
 //	}
-//
-//	
-//
-//
-//}
+
+	
+
+
+}

@@ -1,14 +1,15 @@
-//package com.ufufund.manager;
-//
-//
-//
-//import com.ufufund.action.BankPageAuth;
-//import com.ufufund.action.BankPageVerify;
-//import com.ufufund.action.BankSwiftAuth;
-//import com.ufufund.action.BankSwiftVerify;
-//
-//public interface  BankManager {
-//	
+package com.ufufund.ufb.biz.manager;
+
+
+
+
+import com.ufufund.action.BankPageAuth;
+import com.ufufund.action.BankPageVerify;
+import com.ufufund.action.BankSwiftAuth;
+import com.ufufund.action.BankSwiftVerify;
+
+public interface  BankManager {
+	
 //	/**
 //	 * 银行页面鉴权
 //	 * @param BankPageAuth
@@ -36,4 +37,7 @@
 //	 * @return 
 //	 */
 //	public void bankSwiftVerify(BankSwiftVerify bankSwiftVerify) throws Exception;
-//}
+
+	
+
+}
