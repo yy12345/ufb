@@ -1,6 +1,7 @@
 package com.ufufund.ufb.action;
 
 import com.ufufund.ufb.enums.Apkind;
+import com.ufufund.ufb.enums.Invtp;
 
 public class LoginAction  {
 	/*
@@ -8,13 +9,10 @@ public class LoginAction  {
 	 */
 	private Apkind loginType;
 	
-	
 	private String loginCode;
 	private String loginPassword;
-	
 //	private String identifyCode;//验证码
 //	private String sessionidentifyCode;//验证码
-	
 	/*
 	 * 登录不需
 	 */
@@ -22,6 +20,10 @@ public class LoginAction  {
 //	private String sessionmobileCode;//验证码
 	private String loginPassword2;//确认密码
 	
+	/*
+	 * 
+	 */
+	private Invtp invtp = Invtp.PERSONAL ;  //用户类型
 	
 	public String getLoginPassword2() {
 		return loginPassword2;
@@ -47,6 +49,14 @@ public class LoginAction  {
 	public void setLoginPassword(String loginPassword) {
 		this.loginPassword = loginPassword;
 	}
+	public Invtp getInvtp() {
+		return invtp;
+	}
+	public void setInvtp(Invtp invtp) {
+		this.invtp = invtp;
+	}
+	
+	
 //	public String getIdentifyCode() {
 //		return identifyCode;
 //	}

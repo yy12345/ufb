@@ -1,4 +1,4 @@
-package com.ufufund.cache;
+package com.ufufund.ufb.common.cache;
 
 
 

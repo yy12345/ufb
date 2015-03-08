@@ -9,12 +9,18 @@ import org.springframework.stereotype.Service;
 import com.ufufund.ufb.action.CustinfoAction;
 import com.ufufund.ufb.action.LoginAction;
 import com.ufufund.ufb.action.OpenAccountAction;
+import com.ufufund.ufb.biz.convert.BankConvert;
 import com.ufufund.ufb.biz.convert.CustConvert;
+import com.ufufund.ufb.biz.manager.BankManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.validator.CustManagerValidator;
+import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.enums.Apkind;
+import com.ufufund.ufb.model.model.Bankcardinfo;
 import com.ufufund.ufb.model.model.Custinfo;
+import com.ufufund.ufb.model.model.Tradeaccoinfo;
 
 @Service
 public class CustManagerImpl implements CustManager{
@@ -26,6 +32,10 @@ public class CustManagerImpl implements CustManager{
 
 	@Autowired
 	private CustManagerValidator custManagerValidator;
+	
+	@Autowired
+	private BankManager bankManager;
+	
 	
 	
 	/**
@@ -61,6 +71,7 @@ public class CustManagerImpl implements CustManager{
 		 * 插入流水表
 		 */
 		
+		
 	}
 	
 	/**
@@ -80,21 +91,37 @@ public class CustManagerImpl implements CustManager{
 		/*
 		 * 加载信息
 		 */
-		
-	}
-
-
-	@Override
-	public void insterCustinfo(Custinfo custinfo) throws Exception {
-		// TODO Auto-generated method stub
-		custinfoMapper.insterCustinfo(custinfo);
+		CustinfoAction custinfoAction = new CustinfoAction();
+		if(RegexUtil.isMobile(loginAction.getLoginCode())){
+			custinfoAction.setMobileno(loginAction.getLoginCode());
+		}else if(RegexUtil.isIdCardNo(loginAction.getLoginCode())){
+			custinfoAction.setIdno(loginAction.getLoginCode());
+		}else{
+			throw new Exception();
+		}
+		custinfoAction.setInvtp(loginAction.getInvtp().getValue()+"");
+		//custinfoAction.setPasswd(loginAction.getLoginPassword());
+		Custinfo custinfo = this.getCustinfo(custinfoAction);
+		if (custinfo == null) {
+			throw new Exception();
+		}
+		custinfo.setLastlogintime("");//当前时间
+		if (!loginAction.getLoginPassword().equals(custinfo.getPasswd())) {
+			if (custinfo.getPasswderr() == 4) {
+				custinfo.setCustst(Constant.CUSTST$N);
+			}
+			custinfo.setPasswderr(custinfo.getPasswderr() + 1);
+			custinfoMapper.updateCustinfo(custinfo);
+			throw new Exception();
+		}
 		/*
-		 * 
-		 * 插入变动记录表
-		 */
+		 * 登录
+		 */	
+		custinfoMapper.updateCustinfo(custinfo);
+		
 		
 	}
-	
+
 	/**
 	 *  开户
 	 * @param OpenAccount
@@ -107,12 +134,36 @@ public class CustManagerImpl implements CustManager{
 		 * 进行XML接口开户鉴权验证
 		 */
 		
+		
+		
 		Custinfo custinfo = CustConvert.convertCustinfo(openAccountAction);
 		this.insterCustinfo(custinfo);
+		Bankcardinfo bankcardinfo = BankConvert.converBankcardinfo(openAccountAction);
+		bankManager.insterBankcardinfo(bankcardinfo);
+		Tradeaccoinfo tradeaccoinfo = BankConvert.converTradeaccoinfo(openAccountAction);
+		bankManager.insterTradeaccoinfo(tradeaccoinfo);
 		/*
 		 * 
+		 */
+		/*
+		 * 插入流水表
 		 */
 		
 	}
 
+	
+	@Override
+	public void insterCustinfo(Custinfo custinfo) throws Exception {
+		// TODO Auto-generated method stub
+		custinfoMapper.insterCustinfo(custinfo);
+		/*
+		 * 
+		 * 插入变动记录表
+		 */
+		
+	}
+	
+
+	
+	
 }

@@ -7,6 +7,9 @@ import com.ufufund.action.BankPageAuth;
 import com.ufufund.action.BankPageVerify;
 import com.ufufund.action.BankSwiftAuth;
 import com.ufufund.action.BankSwiftVerify;
+import com.ufufund.ufb.model.model.Bankcardinfo;
+import com.ufufund.ufb.model.model.Custinfo;
+import com.ufufund.ufb.model.model.Tradeaccoinfo;
 
 public interface  BankManager {
 	
@@ -39,5 +42,25 @@ public interface  BankManager {
 //	public void bankSwiftVerify(BankSwiftVerify bankSwiftVerify) throws Exception;
 
 	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 银行账号基本信息表
+	 * @param Bankcardinfo
+	 * @return 
+	 */
+	public void insterBankcardinfo(Bankcardinfo bankcardinfo) throws Exception;
+	
+	/**
+	 * 交易账号表
+	 * @param Tradeaccoinfo
+	 * @return 
+	 */
+	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo) throws Exception;
 
 }

@@ -1,4 +1,4 @@
-package com.ufufund.exception;
+package com.ufufund.ufb.common.exception;
 
 /**
  * 应用系统异常，应用自身处理

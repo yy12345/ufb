@@ -1,7 +1,7 @@
 package com.ufufund.test.test3;
 
-import com.ufufund.cache.Cache;
-import com.ufufund.cache.CacheManager;
+import com.ufufund.ufb.common.cache.Cache;
+import com.ufufund.ufb.common.cache.CacheManager;
 
 
 

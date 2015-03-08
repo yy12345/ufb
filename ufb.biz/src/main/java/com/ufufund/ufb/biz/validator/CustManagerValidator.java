@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ufufund.common.DictManager;
 import com.ufufund.dataobject.ParameterDO;
-import com.ufufund.exception.BizException;
 import com.ufufund.ufb.action.LoginAction;
 import com.ufufund.ufb.action.OpenAccountAction;
 import com.ufufund.ufb.biz.common.ValidatorCommon;
+import com.ufufund.ufb.common.exception.BizException;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.enums.Apkind;
 

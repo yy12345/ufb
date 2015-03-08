@@ -32,7 +32,7 @@ public class Custinfo implements Serializable{
 	
 	private String lastlogintime;
 	
-	private String passwderr;
+	private int passwderr;
 	
 	private String opendt;
 	
@@ -128,13 +128,7 @@ public class Custinfo implements Serializable{
 		this.lastlogintime = lastlogintime;
 	}
 
-	public String getPasswderr() {
-		return passwderr;
-	}
-
-	public void setPasswderr(String passwderr) {
-		this.passwderr = passwderr;
-	}
+	
 
 	public String getOpendt() {
 		return opendt;
@@ -158,6 +152,14 @@ public class Custinfo implements Serializable{
 
 	public void setUpdatetimestamp(String updatetimestamp) {
 		this.updatetimestamp = updatetimestamp;
+	}
+
+	public int getPasswderr() {
+		return passwderr;
+	}
+
+	public void setPasswderr(int passwderr) {
+		this.passwderr = passwderr;
 	}
 
 	@Override

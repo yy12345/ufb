@@ -1,4 +1,4 @@
-package com.ufufund.exception;
+package com.ufufund.ufb.common.exception;
 
 /**
  * 业务类异常，可以展示给用户

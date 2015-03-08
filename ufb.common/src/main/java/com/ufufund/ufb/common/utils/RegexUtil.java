@@ -128,6 +128,21 @@ public class RegexUtil {
 	          return false;
 	      return Pattern.compile(reg).matcher(text).matches();
 	  }
+	  
+	  
+    
+    /**
+     * 身份证号码验证 
+     * 
+     * @param text
+     * @return
+     * @author jiqinlin
+     */
+    public final static boolean isIdCardNo(String text){
+        return match(text, "^(\\d{6})()?(\\d{4})(\\d{2})(\\d{2})(\\d{3})(\\w)$");
+    }
+    
+    
 //    
 //    /**
 //     * 匹配URL地址
@@ -242,17 +257,7 @@ public class RegexUtil {
 //    }
 //    
 
-//    
-//    /**
-//     * 身份证号码验证 
-//     * 
-//     * @param text
-//     * @return
-//     * @author jiqinlin
-//     */
-//    public final static boolean isIdCardNo(String text){
-//        return match(text, "^(\\d{6})()?(\\d{4})(\\d{2})(\\d{2})(\\d{3})(\\w)$");
-//    }
+
 //    
 //    /**
 //     * 邮政编码验证 

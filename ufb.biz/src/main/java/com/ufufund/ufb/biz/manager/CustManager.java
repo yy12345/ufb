@@ -8,16 +8,12 @@ import com.ufufund.ufb.service.CustInterface;
 
 public interface CustManager extends CustInterface{
 	
-
-	
-	
 	/**
 	 * 查询手机号是否注册
 	 * @param CustinfoAction custinfoAction
 	 * @return 
 	 */
 	public Custinfo getCustinfo(CustinfoAction custinfoAction) throws Exception;
-	
 	
 	/**
 	 * 注册
@@ -26,13 +22,23 @@ public interface CustManager extends CustInterface{
 	 */
 	public void register(LoginAction loginAction) throws Exception;
 	
-	
 	/**
 	 * 登录
 	 * @param LoginIn
 	 * @return 
 	 */
 	public void loginIn(LoginAction loginAction) throws Exception;
+	
+	/**
+	 *  开户
+	 * @param OpenAccount
+	 * @return 
+	 */
+	public void openAccount(OpenAccountAction openAccountAction) throws Exception;
+	
+	
+	
+	
 	
 	
 	
@@ -43,14 +49,6 @@ public interface CustManager extends CustInterface{
 	 * @return 
 	 */
 	public void insterCustinfo(Custinfo custinfo) throws Exception;
-	
-	
-	/**
-	 *  开户
-	 * @param OpenAccount
-	 * @return 
-	 */
-	public void openAccount(OpenAccountAction openAccountAction) throws Exception;
 	
 	
 }

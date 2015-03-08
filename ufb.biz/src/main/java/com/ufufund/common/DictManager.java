@@ -10,10 +10,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufufund.cache.Cache;
-import com.ufufund.cache.CacheManager;
 import com.ufufund.daointerface.ParameterMapper;
 import com.ufufund.dataobject.ParameterDO;
+import com.ufufund.ufb.common.cache.Cache;
+import com.ufufund.ufb.common.cache.CacheManager;
 
 
 
