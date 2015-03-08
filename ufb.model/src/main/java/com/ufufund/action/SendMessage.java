@@ -27,5 +27,9 @@ public class SendMessage {
 //	private String certificateNo;
 //	private String mobilePhone;
 //	private String extension;
+	
+	//private String mobilePhone;
+	
+	
 
 }
