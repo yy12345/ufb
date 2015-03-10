@@ -2,8 +2,8 @@ package com.ufufund.ufb.enums;
 
 public enum Idtp {
 
-	IDCARD(0), //身份证
-	OTHER(1); //其他
+	IDCARD(0); //身份证
+	//OTHER(1); //其他
 	
 	private int value;
 

@@ -27,8 +27,9 @@ public class Cache {
 	
 	private String key;// 缓存ID
 	private Object value;// 缓存数据
-	private long timeOut;// 更新时间
-	private boolean expired; // 是否终止
+	private long timeOut = 86400000;// 更新时间
+	private boolean expired=false; // 是否终止
+	
 	public Cache() {
 		super();
 	}
@@ -70,4 +71,5 @@ public class Cache {
 	public void setExpired(boolean b) {
 		expired = b;
 	}
+	
 }

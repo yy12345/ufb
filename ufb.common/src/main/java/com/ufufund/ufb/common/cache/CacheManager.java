@@ -114,13 +114,14 @@ public class CacheManager {
             if (cacheExpired(cache)) { //调用判断是否终止方法
                 cache.setExpired(true);
             }
-            return cache;
-        }else
-        	/*
-        	 * 刷新缓存
-        	 * 
-        	 */
-            return null;
+            if(cache.isExpired()){
+              return null;
+            }else{
+              return cache;
+            }
+        }else{
+        	return null;
+        }
     }
 
     //载入缓存信息

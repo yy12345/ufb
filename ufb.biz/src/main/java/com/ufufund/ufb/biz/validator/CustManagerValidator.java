@@ -2,11 +2,11 @@ package com.ufufund.ufb.biz.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ufufund.common.DictManager;
-import com.ufufund.dataobject.ParameterDO;
+import com.ufufund.ufb.action.CustinfoAction;
 import com.ufufund.ufb.action.LoginAction;
 import com.ufufund.ufb.action.OpenAccountAction;
 import com.ufufund.ufb.biz.common.ValidatorCommon;
+import com.ufufund.ufb.biz.manager.DictManager;
 import com.ufufund.ufb.common.exception.BizException;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.enums.Apkind;
@@ -55,16 +55,20 @@ public class CustManagerValidator extends ValidatorCommon {
 				//ValidatorCommon.checkIdentifyCode(action.getIdentifyCode(), action.getSessionidentifyCode());
 				//ValidatorCommon.checkmobileCode(action.getMobileCode(), action.getSessionmobileCode());
 			}
-
+		}else if(obj instanceof CustinfoAction){
+			CustinfoAction action = (CustinfoAction) obj;
+			this.necessaryUpdateCustinfo(action);
 		}else if(obj instanceof OpenAccountAction){
 			OpenAccountAction action = (OpenAccountAction) obj;
 			this.necessaryOpenAccount(action);
 		}
 
 	}
-
-	public void necessaryOpenAccount(OpenAccountAction action) throws Exception {
+	public void necessaryUpdateCustinfo(CustinfoAction action) throws Exception {
 		// TODO Auto-generated method stub
+		if (RegexUtil.isNull(action.getCustno())) {
+			throw new Exception();
+		}
 		if (RegexUtil.isNull(action.getInvtp().getValue())) {
 			throw new Exception();
 		}
@@ -80,10 +84,21 @@ public class CustManagerValidator extends ValidatorCommon {
 		if (RegexUtil.isNull(action.getTradepwd())) {
 			throw new Exception();
 		}
-		
-		if (RegexUtil.isNull(action.getTradepwd2())) {
-			throw new Exception();
-		}	
+		/*
+		 * WEB层判断
+		 */
+//		if (RegexUtil.isNull(action.getTradepwd2())) {
+//			throw new Exception();
+//		}	
+//		if (!action.getTradepwd().equals(action.getTradepwd2())) {
+//			throw new Exception();
+//		}
+	}
+	
+	
+	
+	public void necessaryOpenAccount(OpenAccountAction action) throws Exception {
+		// TODO Auto-generated method stub
 		if (RegexUtil.isNull(action.getBankno())) {
 			throw new Exception();
 		}
@@ -98,9 +113,6 @@ public class CustManagerValidator extends ValidatorCommon {
 		}
 		
 		if (RegexUtil.isNull(action.getBankacnm())) {
-			throw new Exception();
-		}
-		if (!action.getTradepwd().equals(action.getTradepwd2())) {
 			throw new Exception();
 		}
 		/*

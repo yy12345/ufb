@@ -1,4 +1,4 @@
-package com.ufufund.common;
+package com.ufufund.ufb.common.dao;
 
 
 /**

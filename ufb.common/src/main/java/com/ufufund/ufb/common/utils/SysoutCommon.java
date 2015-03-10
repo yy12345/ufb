@@ -1,4 +1,4 @@
-package com.ufufund.common;
+package com.ufufund.ufb.common.utils;
 
 
 
@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 
-import org.springframework.stereotype.Service;
 
 
 
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author gaoxin
  *
  */
-@Service
+
 public class SysoutCommon {
 	
 //	private static final Logger logger = Logger.getLogger(ValidatorMgr.class);

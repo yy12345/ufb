@@ -9,7 +9,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
 import com.ufufund.test.test3.LightTest.Light;
-import com.ufufund.common.XmlCommon;
+import com.ufufund.ufb.common.utils.XmlCommon;
 
 public class Test {
 
