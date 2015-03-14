@@ -2,16 +2,17 @@ package com.ufufund.ufb.enums;
 
 public enum Apkind {
 
-	LOGININ(1), //登录
-	REGISTER(2);//注册
+	LOGININ("1"), //登录
+	REGISTER("2"),//注册
+	CHANGE_PASSWORD("3");//修改密码
 	
-	private int value;
+	private String value;
 
-	private Apkind(int value) {
+	private Apkind(String value) {
 		this.value = value;
 	}
 
-	public int getValue() {
+	public String getValue() {
 		return value;
 	}
 

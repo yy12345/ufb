@@ -8,6 +8,7 @@ import java.io.Serializable;
  *
  */
 public class Custinfo implements Serializable{
+	
 	private static final long serialVersionUID = -6338092203128112153L;
 
 	
@@ -123,6 +124,11 @@ public class Custinfo implements Serializable{
 		this.passwderr = passwderr;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Custinfo [custno=" + custno + ", invtp=" + invtp + ", invnm=" + invnm + ", sex=" + sex + ", idtp=" + idtp + ", idno=" + idno + ", mobileno=" + mobileno + ", email=" + email
+				+ ", custst=" + custst + ", passwd=" + passwd + ", lastlogintime=" + lastlogintime + ", passwderr=" + passwderr + ", opendt=" + opendt + ", updatetimestamp=" + updatetimestamp
+				+ ", tradepwd=" + tradepwd + "]";
+	}
 	
 }
