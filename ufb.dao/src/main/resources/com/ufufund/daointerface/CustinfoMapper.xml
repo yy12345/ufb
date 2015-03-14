@@ -98,7 +98,7 @@
 	     WHERE T1.custno = #{custno,jdbcType=VARCHAR}
 	</update>
    
-    /*判断是否存在银行账号*/
+
 	<select id="isId1" resultType="int">
   		select count(1)
 		  from custinfo      t1,

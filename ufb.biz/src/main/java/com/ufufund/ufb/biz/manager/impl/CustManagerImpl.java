@@ -94,6 +94,7 @@ public class CustManagerImpl implements CustManager {
 	 * @return
 	 */
 	public void register(LoginAction loginAction) throws BizException {
+		log.debug(processId+ " 注册 :" + loginAction.toString());
 		/*
 		 * 先验证验证码
 		 */
@@ -117,6 +118,7 @@ public class CustManagerImpl implements CustManager {
 	 */
 	@Override
 	public void loginIn(LoginAction loginAction) throws BizException {
+		log.debug(processId+ " 登录 :" + loginAction.toString());
 		// TODO Auto-generated method stub
 		/*
 		 * 先验证验证码
@@ -138,7 +140,7 @@ public class CustManagerImpl implements CustManager {
 		// custinfoAction.setPasswd(loginAction.getLoginPassword());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if (custinfo == null || custinfo.getCustno() == null || "".equals(custinfo.getCustno())) {
-			throw new AppException(processId, ErrorInfo.SYSTEM_ERROR.value());
+			throw new BizException(processId, ErrorInfo.NO_IDCARDNO.value());
 		}
 		custinfo.setLastlogintime("");// 当前时间
 		if (!loginAction.getLoginPassword().equals(custinfo.getPasswd())) {
