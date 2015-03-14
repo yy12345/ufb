@@ -3,12 +3,6 @@ package com.ufufund.ufb.dao;
 import com.ufufund.ufb.common.dao.BaseDao;
 import com.ufufund.ufb.model.db.Custinfo;
 
-//public interface CustinfoMapper {
-//	public int addCustinfo(Custinfo custinfo);
-//	
-//	public int updateAreaByCustNo(@Param("custNo")String custNo, @Param("areaId")String areaId);
-//	
-//	public Custinfo getByCustNo(String custNo);
 
 public interface CustinfoMapper extends BaseDao {
 	

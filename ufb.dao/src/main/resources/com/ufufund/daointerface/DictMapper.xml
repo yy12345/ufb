@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ufufund.daointerface.ParameterMapper">
+<mapper namespace="com.ufufund.ufb.dao.DictMapper">
 
-	<select id="getParameter" resultType="package com.ufufund.dataobject.ParameterDO">
+	<select id="getDictionary" resultType="com.ufufund.ufb.model.db.Dictionary">
   	 <![CDATA[
 		SELECT PMST,
 		       PMKY,

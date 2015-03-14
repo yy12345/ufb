@@ -4,20 +4,18 @@
 
 <mapper namespace="com.ufufund.ufb.dao.CustinfoMapper">
     
-    <sql id="Base_Columns">
-    	custNo, custType, areaId
-    </sql>
+   
     
-  	<select id="getCustinfo" parameterType="java.lang.String" resultType="custinfo">
+  	<select id="getCustinfo" parameterType="com.ufufund.ufb.model.db.Custinfo" resultType="com.ufufund.ufb.model.db.Custinfo">
   		select t1.* from custinfo t1 
   		where 1=1
-		<if test="mobileno != null and mobileno !=''" >and t1.custno = #{custno}</if>
+		<if test="custno != null and custno !=''" >and t1.custno = #{custno}</if>
   		<if test="mobileno != null and mobileno !=''" >and t1.mobileno = #{mobileno}</if>
 		<if test="idno != null and idno !=''" >and t1.idno = #{idno}</if>
 		and t1.custst = 'N'
   	</select>
 
-	<insert id="insertCustinfo" parameterType="custinfo">
+	<insert id="insertCustinfo" parameterType="com.ufufund.ufb.model.db.Custinfo">
   	 <![CDATA[
 	 	insert into custinfo (
 	 		custno,
@@ -55,7 +53,7 @@
 	 ]]>
   	</insert>
 
-	<update id="updatCustinfo" parameterType="custinfo">
+	<update id="updatCustinfo" parameterType="com.ufufund.ufb.model.db.Custinfo">
 		UPDATE CUSTINFO T1
 	       SET T1.UPDATETIMESTAMP = SYSTIMESTAMP
 	       	<if test="invtp != null">
@@ -98,121 +96,9 @@
 	     WHERE T1.custno = #{custno,jdbcType=VARCHAR}
 	</update>
    
-
-	<select id="isId1" resultType="int">
-  		select count(1)
-		  from custinfo      t1,
-			   bankcardinfo  t2,
-			   tradeaccoinfo t3
-  		where t1.custno = t2.custno
-		  and t2.serialid = t3.bankserialid
-		  and t1.custst = 'N'
-		  and t2.status = 'N'
-		  and t3.tradeaccost = 'N'
-		  <if test="invnm != null and invnm !=''" >and t1.invnm = #{invnm}</if>
-		  <if test="idtp != null and idtp !=''" >and t1.idtp = #{idtp}</if>
-	      <if test="idno != null and idno !=''" >and t1.idno = #{idno}</if>
-	      <if test="bankno != null and bankno !=''" >and t1.bankno = #{bankno}</if>
-	      <if test="bankacco != null and bankacco !=''" >and t1.bankacco = #{bankacco}</if>
-		  <if test="fundcorpno != null and fundcorpno !=''" >and t1.fundcorpno = #{fundcorpno}</if>
-  	</select>
-
-    
-	<insert id="bankcardinfo" parameterType="custinfo">
-  	 <![CDATA[
-	 	insert into bankcardinfo (
-									serialid,
-									custno,
-									bankno,
-									bankacco,
-									bankaccodisplay,
-									bankidtp,
-									bankidno,
-									bankidvaliddt,
-									bankacnm,
-									subbankno,
-									banklongname,
-									issign,
-									signno,
-									bankproexists,
-									protocol_no,
-									state,
-									opendt,
-									closedt,
-									disorder,
-									updatetimestamp)
-		values (
-					#{serialid,jdbcType=VARCHAR},
-					#{custno,jdbcType=VARCHAR},
-					#{bankno,jdbcType=VARCHAR},
-					#{bankacco,jdbcType=VARCHAR},
-					#{bankaccodisplay,jdbcType=VARCHAR},
-					#{bankidtp,jdbcType=VARCHAR},
-					#{bankidno,jdbcType=VARCHAR},
-					#{bankidvaliddt,jdbcType=VARCHAR},
-					#{bankacnm,jdbcType=VARCHAR},
-					#{subbankno,jdbcType=VARCHAR},
-                    #{banklongname,jdbcType=VARCHAR},
-					#{issign,jdbcType=VARCHAR},
-					#{signno,jdbcType=VARCHAR},
-					#{bankproexists,jdbcType=VARCHAR},
-					#{protocol_no,jdbcType=VARCHAR},
-	                #{state,jdbcType=VARCHAR},
-                    #{opendt,jdbcType=VARCHAR},
-					#{closedt,jdbcType=VARCHAR},
-					#{disorder,jdbcType=VARCHAR},
-					systimestamp
-	    )
-	 ]]>
-  	</insert>
-
-	<insert id="bankcardinfo" parameterType="custinfo">
-  	 <![CDATA[
-	 	insert into bankcardinfo (
-									serialid,
-									custno,
-									bankno,
-									bankacco,
-									bankaccodisplay,
-									bankidtp,
-									bankidno,
-									bankidvaliddt,
-									bankacnm,
-									subbankno,
-									banklongname,
-									issign,
-									signno,
-									bankproexists,
-									protocol_no,
-									state,
-									opendt,
-									closedt,
-									disorder,
-									updatetimestamp)
-		values (
-					#{serialid,jdbcType=VARCHAR},
-					#{custno,jdbcType=VARCHAR},
-					#{bankno,jdbcType=VARCHAR},
-					#{bankacco,jdbcType=VARCHAR},
-					#{bankaccodisplay,jdbcType=VARCHAR},
-					#{bankidtp,jdbcType=VARCHAR},
-					#{bankidno,jdbcType=VARCHAR},
-					#{bankidvaliddt,jdbcType=VARCHAR},
-					#{bankacnm,jdbcType=VARCHAR},
-					#{subbankno,jdbcType=VARCHAR},
-                    #{banklongname,jdbcType=VARCHAR},
-					#{issign,jdbcType=VARCHAR},
-					#{signno,jdbcType=VARCHAR},
-					#{bankproexists,jdbcType=VARCHAR},
-					#{protocol_no,jdbcType=VARCHAR},
-	                #{state,jdbcType=VARCHAR},
-                    #{opendt,jdbcType=VARCHAR},
-					#{closedt,jdbcType=VARCHAR},
-					#{disorder,jdbcType=VARCHAR},
-					systimestamp
-	    )
-	 ]]>
-  	</insert>
-
+   <select id="getCustinfoSequence"  resultType="java.lang.String">
+	
+	</select>
+	
 </mapper>
 
