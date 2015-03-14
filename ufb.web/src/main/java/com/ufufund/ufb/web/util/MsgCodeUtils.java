@@ -5,6 +5,11 @@ import org.apache.commons.lang.StringUtils;
 import com.ufufund.ufb.common.exception.BizException;
 import com.ufufund.ufb.web.filter.ServletHolder;
 
+/**
+ * 短信验证码工具类
+ * @author ayis
+ * 2015-03-14
+ */
 public class MsgCodeUtils {
 
 	/**
