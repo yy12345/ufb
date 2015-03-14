@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
-import com.ufufund.ufb.biz.manager.impl.CustManagerImpl;
 import com.ufufund.ufb.model.action.LoginAction;
-import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 //import com.ufufund.ufb.model.Area;
+import com.ufufund.ufb.web.util.MsgCodeUtils;
+import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
 
 @Controller
@@ -41,6 +41,11 @@ public class CustController {
 	public String registerPerson(CustinfoVo custinfo, Model model) {
 		
 		try{
+			// 校验验证码
+			boolean checkVerifyCode = VerifyCodeUtils.validate(custinfo.getVerifycode());
+			if(!checkVerifyCode){
+				throw new BizException("验证码无效。");
+			}
 
 			// 查询手机号是否注册
 			boolean isMobileRegister = custManager.isMobileRegister(custinfo.getMobileno());
@@ -49,13 +54,11 @@ public class CustController {
 				throw new BizException("手机号已注册。");
 			}
 			
-			//校验短信验证码
-			boolean checkMsgvalicaode = false;//checkMsgvalicaode(custinfo.getMsgvalicode());
-			if(!checkMsgvalicaode){
-				throw new BizException("手机验证码无效。");
+			// 校验短信验证码
+			boolean checkMsgCode = MsgCodeUtils.validate(custinfo.getMsgcode());
+			if(!checkMsgCode){
+				throw new BizException("短信验证码无效。");
 			}
-
-			//校验登陆密码
 			
 			// 注册
 			LoginAction loginAction = new LoginAction();
