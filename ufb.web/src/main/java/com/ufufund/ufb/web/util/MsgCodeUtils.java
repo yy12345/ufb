@@ -2,7 +2,7 @@ package com.ufufund.ufb.web.util;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.ufufund.ufb.common.exception.BizException;
+import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.web.filter.ServletHolder;
 
 /**

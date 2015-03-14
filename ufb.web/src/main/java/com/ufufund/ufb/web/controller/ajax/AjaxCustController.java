@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
-import com.ufufund.ufb.common.exception.BizException;
+import com.ufufund.ufb.web.util.MsgCodeUtils;
+import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
 @Controller
 public class AjaxCustController {
@@ -22,6 +24,70 @@ public class AjaxCustController {
 	
 	@Autowired
 	private CustManager custManager;
+	
+	/**
+	 * 校验验证码
+	 * @param verifyCode
+	 * @return
+	 */
+	@RequestMapping(value = "ajaxcust/chk_verifycode", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,String> checkVerifyCode(String verifycode, Model model){
+		Map<String,String> resultMap = new HashMap<String,String>();
+		try {
+			
+			// 校验验证码
+			boolean checkVerifyCode = VerifyCodeUtils.validate(verifycode);
+			
+			if(!checkVerifyCode){
+				resultMap.put("errCode", "9999");
+				resultMap.put("errMsg", "验证码无效。");
+			}else{
+				resultMap.put("errCode", "0000");
+			}
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", e.getMessage());
+		}catch (Exception e) {
+			LOG.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 校验短信验证码
+	 * @param msgCode
+	 * @return
+	 */
+	@RequestMapping(value = "ajaxcust/chk_verifycode", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,String> checkMsgCode(String msgCode, Model model){
+		Map<String,String> resultMap = new HashMap<String,String>();
+		try {
+			
+			// 校验短信验证码
+			boolean checkVerifyCode = MsgCodeUtils.validate(msgCode);
+			
+			if(!checkVerifyCode){
+				resultMap.put("errCode", "9999");
+				resultMap.put("errMsg", "短信验证码无效。");
+			}else{
+				resultMap.put("errCode", "0000");
+			}
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", e.getMessage());
+		}catch (Exception e) {
+			LOG.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
 	
 	/**
 	 * 查询手机号是否注册
