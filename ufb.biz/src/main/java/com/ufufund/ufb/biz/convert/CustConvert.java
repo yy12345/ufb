@@ -1,11 +1,11 @@
 package com.ufufund.ufb.biz.convert;
 
-import com.ufufund.ufb.action.LoginAction;
-import com.ufufund.ufb.enums.Apkind;
-import com.ufufund.ufb.enums.TableName;
-import com.ufufund.ufb.model.model.Changerecordinfo;
-import com.ufufund.ufb.model.model.Custinfo;
-import com.ufufund.ufb.model.model.Fdacfinalresult;
+import com.ufufund.ufb.model.action.LoginAction;
+import com.ufufund.ufb.model.db.Changerecordinfo;
+import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.db.Fdacfinalresult;
+import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.TableName;
 
 public class CustConvert {
   

@@ -1,4 +1,4 @@
-package com.ufufund.ufb.model.model;
+package com.ufufund.ufb.model.db;
 
 import java.io.Serializable;
 

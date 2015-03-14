@@ -6,12 +6,12 @@ package com.ufufund.ufb.common.exception;
 @SuppressWarnings("serial")
 public class BizException extends AppException{
 
-	public BizException(String errmsg) {
-		super(errmsg);
+	public BizException(String errcode) {
+		super(errcode);
 	}
 	
-	public BizException(String errcode,String errmsg) {
-		super(errcode,errmsg);
-	}
+//	public BizException(String errcode,String errmsg) {
+//		super(errcode,errmsg);
+//	}
 	
 }

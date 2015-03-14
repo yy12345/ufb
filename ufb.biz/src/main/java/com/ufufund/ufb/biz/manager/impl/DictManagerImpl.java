@@ -15,7 +15,7 @@ import com.ufufund.ufb.common.cache.CacheManager;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.dao.DictMapper;
-import com.ufufund.ufb.model.model.Dictionary;
+import com.ufufund.ufb.model.db.Dictionary;
 
 
 

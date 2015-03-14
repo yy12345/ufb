@@ -1,11 +1,11 @@
 package com.ufufund.ufb.biz.validator;
 
-import com.ufufund.ufb.action.LoginAction;
-import com.ufufund.ufb.action.OpenAccountAction;
 import com.ufufund.ufb.biz.common.ValidatorCommon;
 import com.ufufund.ufb.common.utils.RegexUtil;
-import com.ufufund.ufb.enums.Apkind;
-import com.ufufund.ufb.model.model.Custinfo;
+import com.ufufund.ufb.model.action.LoginAction;
+import com.ufufund.ufb.model.action.OpenAccountAction;
+import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.enums.Apkind;
 
 public class CustManagerValidator extends ValidatorCommon {
 

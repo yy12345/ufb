@@ -5,36 +5,38 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufufund.ufb.action.LoginAction;
-import com.ufufund.ufb.action.OpenAccountAction;
 import com.ufufund.ufb.biz.convert.BankConvert;
 import com.ufufund.ufb.biz.convert.CustConvert;
 import com.ufufund.ufb.biz.manager.BankManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.validator.CustManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.exception.BizException;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
-import com.ufufund.ufb.enums.Apkind;
-import com.ufufund.ufb.enums.Invtp;
-import com.ufufund.ufb.model.model.Bankcardinfo;
-import com.ufufund.ufb.model.model.Changerecordinfo;
-import com.ufufund.ufb.model.model.Custinfo;
-import com.ufufund.ufb.model.model.DateInfo;
-import com.ufufund.ufb.model.model.Fdacfinalresult;
-import com.ufufund.ufb.model.model.Tradeaccoinfo;
+import com.ufufund.ufb.model.action.LoginAction;
+import com.ufufund.ufb.model.action.OpenAccountAction;
+import com.ufufund.ufb.model.db.Bankcardinfo;
+import com.ufufund.ufb.model.db.Changerecordinfo;
+import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.db.DateInfo;
+import com.ufufund.ufb.model.db.Fdacfinalresult;
+import com.ufufund.ufb.model.db.Tradeaccoinfo;
+import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.ErrorInfo;
+import com.ufufund.ufb.model.enums.Invtp;
 
 @Service
 public class CustManagerImpl implements CustManager {
 
-	private static final Logger log = LoggerFactory.getLogger(CustManagerImpl.class);
+	//private static final Logger log = LoggerFactory.getLogger(CustManagerImpl.class);
 
 	@Autowired
 	private CustinfoMapper custinfoMapper;
 
 	@Autowired
-	private CustManagerValidator custManagerValidator;
+	private CustManagerValidator custManagerValidator = new CustManagerValidator();
 
 	@Autowired
 	private BankManager bankManager;
@@ -52,7 +54,7 @@ public class CustManagerImpl implements CustManager {
 	public boolean isMobileRegister(String mobile) throws Exception {
 		boolean res = false;
 		if (!RegexUtil.isMobile(mobile)) {
-			throw new Exception();
+			throw new BizException(ErrorInfo.WRONG_MOBILE.value());
 		}
 		Custinfo custinfo = new Custinfo();
 		custinfo.setMobileno(mobile);

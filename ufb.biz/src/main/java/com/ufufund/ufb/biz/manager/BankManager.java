@@ -7,9 +7,9 @@ import com.ufufund.action.BankPageAuth;
 import com.ufufund.action.BankPageVerify;
 import com.ufufund.action.BankSwiftAuth;
 import com.ufufund.action.BankSwiftVerify;
-import com.ufufund.ufb.model.model.Bankcardinfo;
-import com.ufufund.ufb.model.model.Custinfo;
-import com.ufufund.ufb.model.model.Tradeaccoinfo;
+import com.ufufund.ufb.model.db.Bankcardinfo;
+import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.db.Tradeaccoinfo;
 
 public interface  BankManager {
 	

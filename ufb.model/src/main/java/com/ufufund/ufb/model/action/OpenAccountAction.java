@@ -1,4 +1,4 @@
-package com.ufufund.ufb.action;
+package com.ufufund.ufb.model.action;
 
 
 public class OpenAccountAction  {

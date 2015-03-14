@@ -1,4 +1,4 @@
-package com.ufufund.ufb.enums;
+package com.ufufund.ufb.model.enums;
 
 public enum Invtp {
 

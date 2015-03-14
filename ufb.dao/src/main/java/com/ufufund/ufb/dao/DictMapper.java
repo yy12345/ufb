@@ -3,7 +3,7 @@ package com.ufufund.ufb.dao;
 import java.util.List;
 
 import com.ufufund.ufb.common.dao.BaseDao;
-import com.ufufund.ufb.model.model.Dictionary;
+import com.ufufund.ufb.model.db.Dictionary;
 
 
 

@@ -1,8 +1,8 @@
 package com.ufufund.ufb.biz.manager;
 
-import com.ufufund.ufb.action.LoginAction;
-import com.ufufund.ufb.action.OpenAccountAction;
-import com.ufufund.ufb.model.model.Custinfo;
+import com.ufufund.ufb.model.action.LoginAction;
+import com.ufufund.ufb.model.action.OpenAccountAction;
+import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.service.CustInterface;
 
 public interface CustManager extends CustInterface{

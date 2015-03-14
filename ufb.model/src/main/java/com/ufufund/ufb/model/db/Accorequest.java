@@ -1,4 +1,4 @@
-package com.ufufund.ufb.model.model;
+package com.ufufund.ufb.model.db;
 
 public class Accorequest {
 	private String  serialno;// varchar(24) not null comment '流水号',

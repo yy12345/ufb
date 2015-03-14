@@ -1,3 +1,4 @@
+package com.ufufund.ufb.model.action;
 //package com.ufufund.ufb.action;
 //
 //import com.ufufund.ufb.enums.Idtp;

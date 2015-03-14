@@ -1,7 +1,7 @@
-package com.ufufund.ufb.action;
+package com.ufufund.ufb.model.action;
 
-import com.ufufund.ufb.enums.Apkind;
-import com.ufufund.ufb.enums.Invtp;
+import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.Invtp;
 
 public class LoginAction  {
 	/*

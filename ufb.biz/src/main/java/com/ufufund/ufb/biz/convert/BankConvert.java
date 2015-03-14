@@ -1,8 +1,8 @@
 package com.ufufund.ufb.biz.convert;
 
-import com.ufufund.ufb.action.OpenAccountAction;
-import com.ufufund.ufb.model.model.Bankcardinfo;
-import com.ufufund.ufb.model.model.Tradeaccoinfo;
+import com.ufufund.ufb.model.action.OpenAccountAction;
+import com.ufufund.ufb.model.db.Bankcardinfo;
+import com.ufufund.ufb.model.db.Tradeaccoinfo;
 
 public class BankConvert {
   

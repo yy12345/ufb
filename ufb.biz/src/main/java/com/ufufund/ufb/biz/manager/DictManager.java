@@ -2,7 +2,7 @@ package com.ufufund.ufb.biz.manager;
 
 import java.util.List;
 
-import com.ufufund.ufb.model.model.Dictionary;
+import com.ufufund.ufb.model.db.Dictionary;
 
 /**
  * 字典表翻译通用缓存

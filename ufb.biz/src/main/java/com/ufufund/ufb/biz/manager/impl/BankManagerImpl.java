@@ -11,8 +11,8 @@ import com.ufufund.action.BankSwiftVerify;
 import com.ufufund.ufb.biz.manager.BankManager;
 import com.ufufund.ufb.dao.BankMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
-import com.ufufund.ufb.model.model.Bankcardinfo;
-import com.ufufund.ufb.model.model.Tradeaccoinfo;
+import com.ufufund.ufb.model.db.Bankcardinfo;
+import com.ufufund.ufb.model.db.Tradeaccoinfo;
 
 
 

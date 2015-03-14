@@ -1,3 +1,4 @@
+package com.ufufund.ufb.model.enums;
 //package com.ufufund.ufb.enums;
 //
 //public enum Idtp {
