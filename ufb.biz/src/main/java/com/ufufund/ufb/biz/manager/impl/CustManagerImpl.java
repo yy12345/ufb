@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufufund.ufb.action.CustinfoAction;
 import com.ufufund.ufb.action.LoginAction;
 import com.ufufund.ufb.action.OpenAccountAction;
 import com.ufufund.ufb.biz.convert.BankConvert;
@@ -18,6 +17,7 @@ import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.enums.Apkind;
+import com.ufufund.ufb.enums.Invtp;
 import com.ufufund.ufb.model.model.Bankcardinfo;
 import com.ufufund.ufb.model.model.Changerecordinfo;
 import com.ufufund.ufb.model.model.Custinfo;
@@ -141,7 +141,7 @@ public class CustManagerImpl implements CustManager {
 		custinfo.setLastlogintime("");// 当前时间
 		if (!loginAction.getLoginPassword().equals(custinfo.getPasswd())) {
 			if (custinfo.getPasswderr() == 4) {
-				custinfo.setCustst(Constant.CUSTST$N);
+				//custinfo.setCustst(Constant.CUSTST$N);
 			}
 			custinfo.setPasswderr(custinfo.getPasswderr() + 1);
 			custinfoMapper.updateCustinfo(custinfo);
@@ -167,21 +167,7 @@ public class CustManagerImpl implements CustManager {
 		return custinfo;
 	}
 
-	/**
-	 * 没有身份证信息的绑卡
-	 * 
-	 * @param custno
-	 * @return
-	 */
-	public void openAccountFirst(OpenAccountAction openAccountAction, CustinfoAction custinfoAction) throws Exception {
-		custManagerValidator.validator(custinfoAction);
-		if (this.isIdCardNoRegister(custinfoAction.getIdno())) {
-			throw new Exception();
-		}
-		Custinfo custinfo =  CustConvert.convertCustinfo(custinfoAction);
-		this.openAccount(openAccountAction, custinfo);
-		this.updateCustinfo(custinfo);
-	}
+	
 
 	/**
 	 * 有身份证信息的绑卡 开户绑卡
@@ -191,14 +177,17 @@ public class CustManagerImpl implements CustManager {
 	 */
 	public void openAccount(OpenAccountAction openAccountAction) throws Exception {
 		Custinfo custinfo = this.getCustinfo(openAccountAction.getCustno());
-		this.openAccount(openAccountAction, custinfo);
-	}
-	
-	
-	
-	
-
-	private void openAccount(OpenAccountAction openAccountAction,Custinfo custinfo) throws Exception {
+		if(custinfo!=null && Constant.CUSTST$N.equals(custinfo.getCustst())){
+			custinfo.setInvnm(openAccountAction.getInvnm());
+			custinfo.setIdno(openAccountAction.getIdno());
+			custinfo.setTradepwd(openAccountAction.getTradepwd());
+			custinfo.setInvtp(Invtp.PERSONAL.getValue()+"");
+			custinfo.setIdtp(Constant.IDTP$0);
+			custManagerValidator.validator(custinfo);
+			if (this.isIdCardNoRegister(openAccountAction.getIdno())) {
+				throw new Exception();
+			}
+		}
 		custManagerValidator.validator(openAccountAction);
 		/*
 		 * 进行XML接口开户鉴权验证
@@ -212,7 +201,15 @@ public class CustManagerImpl implements CustManager {
 		 */
 		Fdacfinalresult fdacfinalresult = CustConvert.convertFdacfinalresult(custinfo);
 		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+		if(custinfo!=null && Constant.CUSTST$N.equals(custinfo.getCustst())){
+			this.updateCustinfo(custinfo);
+		}
 	}
+	
+	
+	
+	
+
 	
 	
 	private void insterCustinfo(Custinfo custinfo) throws Exception {

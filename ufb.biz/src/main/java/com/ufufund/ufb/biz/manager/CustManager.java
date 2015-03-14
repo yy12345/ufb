@@ -1,6 +1,5 @@
 package com.ufufund.ufb.biz.manager;
 
-import com.ufufund.ufb.action.CustinfoAction;
 import com.ufufund.ufb.action.LoginAction;
 import com.ufufund.ufb.action.OpenAccountAction;
 import com.ufufund.ufb.model.model.Custinfo;
@@ -54,16 +53,16 @@ public interface CustManager extends CustInterface{
 	public boolean isIdCardNoRegister(String idCardNo) throws Exception;
 	
 	
-	/**
-	 * 没有身份证信息的绑卡
-	 * @param custno
-	 * @return 
-	 */
-	public void openAccountFirst(OpenAccountAction openAccountAction,CustinfoAction custinfoAction) throws Exception;
+//	/**
+//	 * 没有身份证信息的绑卡
+//	 * @param custno
+//	 * @return 
+//	 */
+//	public void openAccountFirst(OpenAccountAction openAccountAction,CustinfoAction custinfoAction) throws Exception;
 	
 	
 	/**
-	 *  有身份证信息的绑卡
+	 *  绑卡
 	 *  3 开户绑卡
 	 * @param OpenAccount
 	 * @return 
