@@ -7,6 +7,7 @@ import com.ufufund.action.BankPageAuth;
 import com.ufufund.action.BankPageVerify;
 import com.ufufund.action.BankSwiftAuth;
 import com.ufufund.action.BankSwiftVerify;
+import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
@@ -54,13 +55,13 @@ public interface  BankManager {
 	 * @param Bankcardinfo
 	 * @return 
 	 */
-	public void insterBankcardinfo(Bankcardinfo bankcardinfo) throws Exception;
+	public void insterBankcardinfo(Bankcardinfo bankcardinfo) throws BizException;
 	
 	/**
 	 * 交易账号表
 	 * @param Tradeaccoinfo
 	 * @return 
 	 */
-	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo) throws Exception;
+	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo) throws BizException;
 
 }

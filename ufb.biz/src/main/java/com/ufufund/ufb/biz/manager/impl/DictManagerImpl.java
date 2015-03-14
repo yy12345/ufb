@@ -5,6 +5,7 @@ package com.ufufund.ufb.biz.manager.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,20 +44,20 @@ public class DictManagerImpl implements DictManager {
 	
 	private void getParameterMap() {	
 		List<Dictionary> dictionaryList  =  dictMapper.getDictionary();
-		List<Dictionary> chParameterDOList = new ArrayList<Dictionary>();
-		HashMap<String ,List<Dictionary>>  parameterMap = new HashMap<String ,List<Dictionary>>();
+		HashMap<String,Dictionary> chParameterDOMap = new HashMap<String,Dictionary>();
+		HashMap<String ,HashMap<String,Dictionary>>  parameterMap = new HashMap<String ,HashMap<String,Dictionary>>();
 		String dictionaryType ="";
 		if(dictionaryList!=null&&dictionaryList.size()>0){
 			dictionaryType = dictionaryList.get(0).getPmky();			
 			for(Dictionary dictionary : dictionaryList){	
 				if(!dictionaryType.equals(dictionary.getPmky())){
-						parameterMap.put(dictionaryType, chParameterDOList);
-						chParameterDOList = new ArrayList<Dictionary>();
+						parameterMap.put(dictionaryType, chParameterDOMap);
+						chParameterDOMap = new HashMap<String,Dictionary>();
 						dictionaryType = dictionary.getPmky();
 				}
-				chParameterDOList.add(dictionary);
+				chParameterDOMap.put(dictionary.getPmco(), dictionary);
 			}
-			parameterMap.put(dictionaryType, chParameterDOList);
+			parameterMap.put(dictionaryType, chParameterDOMap);
 		}
 		Cache s = new Cache();
 		s.setValue(parameterMap);
@@ -72,33 +73,33 @@ public class DictManagerImpl implements DictManager {
 	 * 字典列表
 	 * @since
 	 * @param key
-	 * @return List<ParameterDO>
+	 * @return HashMap<String,Dictionary>
 	 * <br><b>作者： gaoxin</b>
 	 * <br>创建时间：2014-7-21 上午9:18:16
 	 */
-	public List<Dictionary> getDictionaryByType(String type) {
-		List<Dictionary> list = this.dictionaryByType(type);
-		if (list.size() > 0) {
-			return list;
+	public HashMap<String,Dictionary> getDictionaryByType(String type) {
+		HashMap<String,Dictionary> map = this.dictionaryByType(type);
+		if (!map.isEmpty() && map.size() > 0) {
+			return map;
 		}
 		this.getParameterMap();
 		return this.dictionaryByType(type);
 	}
 
-	private List<Dictionary> dictionaryByType(String type) {
-		List<Dictionary> list = new ArrayList<Dictionary>();
+	private HashMap<String,Dictionary> dictionaryByType(String type) {
+		HashMap<String,Dictionary> map = new HashMap<String,Dictionary>();
 		Cache cache = CacheManager.getCacheInfo(Constant.CACHE$DICTIONARY);
 		if (cache != null) {
 			@SuppressWarnings("unchecked")
-			HashMap<String, List<Dictionary>> parameterMap = (HashMap<String, List<Dictionary>>) cache.getValue();
+			HashMap<String, HashMap<String,Dictionary>> parameterMap = (HashMap<String, HashMap<String,Dictionary>>) cache.getValue();
 			if (parameterMap != null) {
-				list = parameterMap.get(type);
-				if (list != null && list.size() > 0) {
-					return list;
+				map = parameterMap.get(type);
+				if (map != null && map.size() > 0) {
+					return map;
 				}
 			}
 		}
-		return list;
+		return map;
 	}
 	
 
@@ -114,51 +115,42 @@ public class DictManagerImpl implements DictManager {
 	 */
 	public Dictionary getDict(String type,String value){		
 		Dictionary des = new Dictionary();
+		if(StringUtils.isEmpty(type)||StringUtils.isEmpty(type)){
+			return des;
+		}
 		if(StringUtils.isEmpty(value)||StringUtils.isEmpty(type)){
 			return des;
 		}
-		List<Dictionary> parameterDOList = this.getDictionaryByType(type);
-		for(Dictionary dictionary : parameterDOList){		
-			if(value.equals(dictionary.getPmco())){				
-				return dictionary;
-			}
-		}	
+		HashMap<String,Dictionary> parameterDOMap = this.getDictionaryByType(type);
+		des = parameterDOMap.get(value);
 		return des;
 	}
 	
 	
-	/**
-	 * 字典翻译
-	 * @since
-	 * @param key
-	 * @param value
-	 * @return Pmco
-	 * <br><b>作者： gaoxin</b>
-	 * <br>创建时间：2014-7-21 上午9:18:16
-	 */
-	public Dictionary getDict(List<Dictionary> parameterDOList,String value){		
-		Dictionary des = new Dictionary();
-		if(StringUtils.isEmpty(value)||parameterDOList.isEmpty()){
-			return des;
-		}
-		for(Dictionary dictionary  : parameterDOList){		
-			if(value.equals(dictionary.getPmco())){
-				return dictionary;
-			}
-		}	
-		return des;
-	}
-
-//	public Dictionary getErrorInfo(String errorCode){
-//		if(errorMap.get(errorCode)==null){
-//			 List<ParameterDO> s = this.getParameterByType("ERRORCODE");
-//			for(ParameterDO parameterDO:s){
-//				errorMap.put(parameterDO.getPmco(), parameterDO);
-//			}
-//			 
+//	/**
+//	 * 字典翻译
+//	 * @since
+//	 * @param key
+//	 * @param value
+//	 * @return Pmco
+//	 * <br><b>作者： gaoxin</b>
+//	 * <br>创建时间：2014-7-21 上午9:18:16
+//	 */
+//	public Dictionary getDict(HashMap<String,Dictionary> parameterMap,String value){		
+//		Dictionary des = new Dictionary();
+//		if(StringUtils.isEmpty(value)||parameterMap.isEmpty()){
+//			return des;
 //		}
-//		return errorMap.get(errorCode);
+////		for(Dictionary dictionary  : parameterDOList){		
+////			if(value.equals(dictionary.getPmco())){
+////				return dictionary;
+////			}
+////		}	
+//		des = parameterMap.get(value);
+//		return des;
 //	}
+
+
 	
 	
 	

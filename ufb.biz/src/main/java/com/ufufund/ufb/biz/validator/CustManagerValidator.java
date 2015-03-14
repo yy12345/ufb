@@ -1,119 +1,138 @@
 package com.ufufund.ufb.biz.validator;
 
 import com.ufufund.ufb.biz.common.ValidatorCommon;
+import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.model.action.LoginAction;
 import com.ufufund.ufb.model.action.OpenAccountAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.ErrorInfo;
 
 public class CustManagerValidator extends ValidatorCommon {
 
-	public void necessaryLoginAction(LoginAction action) throws Exception {
-		// TODO Auto-generated method stub
+	public CustManagerValidator(String processId) {
+		super(processId);
+		// TODO Auto-generated constructor stub
+	}
+
+	private final static String LOGINCODE = "账号";
+	private final static String LOGINPASSWORD = "密码";
+	private final static String LOGINPASSWORD2 = "确认密码";
+	private final static String BANKNO = "银行编码";
+	private final static String BANKACCO = "银行卡号";
+	private final static String BANKIDTP = "银行证件类型";
+	private final static String BANKIDNO = "银行证件号码";
+	private final static String BANKACNM = "银行开户户名";
+	private final static String CUSTNO = "用户id";
+	private final static String INVTP = "用户类型";
+	private final static String INVNM = "用户姓名";
+	private final static String IDTP = "证件类型";
+	private final static String IDNO = "证件号码";
+	private final static String TRADEPWD = "交易密码";
+	private final static String MOBILE = "手机号";
+	private final static String IDCARDNO = "身份证";
+
+	private void necessaryLoginAction(LoginAction action) throws BizException {
 		if (RegexUtil.isNull(action.getLoginCode())) {
-			// String[] msg = this.getErrorInfo("");
-			// throw new BizException(msg[0], msg[1]);
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), LOGINCODE);
 		}
 		if (RegexUtil.isNull(action.getLoginPassword())) {
-			// String[] msg = this.getErrorInfo("");
-			// throw new BizException(msg[0], msg[1]);
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), LOGINPASSWORD);
 		}
 	}
 
-	public void necessaryRegister(LoginAction action) throws Exception {
+	private void necessaryRegister(LoginAction action) throws BizException {
 		if (RegexUtil.isNull(action.getLoginPassword2())) {
-			// String[] msg = this.getErrorInfo("");
-			// throw new BizException(msg[0], msg[1]);
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), LOGINPASSWORD2);
 		}
+		if (!action.getLoginPassword().equals(action.getLoginPassword2())) {
+			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD.value());
+		}
+		if (!RegexUtil.isPwd(action.getLoginPassword())) {
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(),LOGINPASSWORD);
+		}
+		this.isMobile(action.getLoginCode());
 	}
 
 	@Override
-	public void validator(Object obj) throws Exception {
+	public void validator(Object obj) throws BizException {
 		// TODO Auto-generated method stub
 		if (obj instanceof LoginAction) {
 			LoginAction action = (LoginAction) obj;
 			if (action.getLoginType() == Apkind.LOGININ) {
 				this.necessaryLoginAction(action);
-				//ValidatorCommon.checkIdentifyCode(action.getIdentifyCode(), action.getSessionidentifyCode());
 			} else if (action.getLoginType() == Apkind.REGISTER) {
 				this.necessaryLoginAction(action);
 				this.necessaryRegister(action);
-				if (!action.getLoginPassword().equals(action.getLoginPassword2())) {
-					throw new Exception();
-				}
-				if (!RegexUtil.isMobile(action.getLoginCode())) {
-					throw new Exception();
-				}
-				//ValidatorCommon.checkIdentifyCode(action.getIdentifyCode(), action.getSessionidentifyCode());
-				//ValidatorCommon.checkmobileCode(action.getMobileCode(), action.getSessionmobileCode());
 			}
-		}else if(obj instanceof Custinfo){
+		} else if (obj instanceof Custinfo) {
 			Custinfo action = (Custinfo) obj;
 			this.necessaryUpdateCustinfo(action);
-		}else if(obj instanceof OpenAccountAction){
+		} else if (obj instanceof OpenAccountAction) {
 			OpenAccountAction action = (OpenAccountAction) obj;
 			this.necessaryOpenAccount(action);
 		}
 
 	}
-	public void necessaryUpdateCustinfo(Custinfo action) throws Exception {
-		// TODO Auto-generated method stub
+
+	private void necessaryUpdateCustinfo(Custinfo action) throws BizException {
 		if (RegexUtil.isNull(action.getCustno())) {
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), CUSTNO);
 		}
 		if (RegexUtil.isNull(action.getInvtp())) {
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), INVTP);
 		}
 		if (RegexUtil.isNull(action.getInvnm())) {
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), INVNM);
 		}
 		if (RegexUtil.isNull(action.getIdtp())) {
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), IDTP);
 		}
 		if (RegexUtil.isNull(action.getIdno())) {
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), IDNO);
 		}
 		if (RegexUtil.isNull(action.getTradepwd())) {
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), TRADEPWD);
 		}
-		/*
-		 * WEB层判断
-		 */
-//		if (RegexUtil.isNull(action.getTradepwd2())) {
-//			throw new Exception();
-//		}	
-//		if (!action.getTradepwd().equals(action.getTradepwd2())) {
-//			throw new Exception();
-//		}
 	}
-	
-	
-	
-	public void necessaryOpenAccount(OpenAccountAction action) throws Exception {
+
+	private void necessaryOpenAccount(OpenAccountAction action) throws BizException {
 		// TODO Auto-generated method stub
 		if (RegexUtil.isNull(action.getBankno())) {
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKNO);
 		}
 		if (RegexUtil.isNull(action.getBankacco())) {
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKACCO);
 		}
 		if (RegexUtil.isNull(action.getBankidtp())) {
-			throw new Exception();
-		}	
-		if (RegexUtil.isNull(action.getBankidno())) {
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKIDTP);
 		}
-		
+		if (RegexUtil.isNull(action.getBankidno())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKIDNO);
+		}
 		if (RegexUtil.isNull(action.getBankacnm())) {
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKACNM);
 		}
 		/*
 		 * 校验身份证
 		 */
 	}
+	
+	
+
+	public void isMobile(String mobile) throws BizException {
+		if (!RegexUtil.isMobile(mobile)) {
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(), MOBILE);
+		}
+	}
+
+	public void isIdCardNo(String idCardNo) throws BizException {
+		if (!RegexUtil.isIdCardNo(idCardNo)) {
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(), IDCARDNO);
+		}
+	}
+
+
 
 }

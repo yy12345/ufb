@@ -1,5 +1,6 @@
 package com.ufufund.ufb.biz.manager;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.ufufund.ufb.model.db.Dictionary;
@@ -17,11 +18,11 @@ public interface DictManager {// extends AbstractCacheInter<ParameterDO>{
 	 * 
 	 * @since
 	 * @param key
-	 * @return List<ParameterDO> <br>
+	 * @return HashMap<String,Dictionary> <br>
 	 *         <b>作者： gaoxin</b> <br>
 	 *         创建时间：2014-7-21 上午9:18:16
 	 */
-	public List<Dictionary> getDictionaryByType(String type);
+	public HashMap<String,Dictionary> getDictionaryByType(String type);
 
 	/**
 	 * 字典翻译
@@ -35,16 +36,16 @@ public interface DictManager {// extends AbstractCacheInter<ParameterDO>{
 	 */
 	public Dictionary getDict(String type, String value);
 
-	/**
-	 * 字典翻译
-	 * 
-	 * @since
-	 * @param key
-	 * @param value
-	 * @return Pmco <br>
-	 *         <b>作者： gaoxin</b> <br>
-	 *         创建时间：2014-7-21 上午9:18:16
-	 */
-	public Dictionary getDict(List<Dictionary> parameterDOList, String value);
+//	/**
+//	 * 字典翻译
+//	 * 
+//	 * @since
+//	 * @param key
+//	 * @param value
+//	 * @return Pmco <br>
+//	 *         <b>作者： gaoxin</b> <br>
+//	 *         创建时间：2014-7-21 上午9:18:16
+//	 */
+//	public Dictionary getDict(HashMap<String,Dictionary> parameterMap, String value);
 
 }

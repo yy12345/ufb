@@ -1,5 +1,7 @@
 package com.ufufund.ufb.biz.manager.impl;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.convert.BankConvert;
 import com.ufufund.ufb.biz.convert.CustConvert;
+import com.ufufund.ufb.biz.exception.AppException;
+import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.validator.CustManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
-import com.ufufund.ufb.common.exception.BizException;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
@@ -30,13 +33,14 @@ import com.ufufund.ufb.model.enums.Invtp;
 @Service
 public class CustManagerImpl implements CustManager {
 
-	//private static final Logger log = LoggerFactory.getLogger(CustManagerImpl.class);
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	private String processId = "["+UUID.randomUUID().toString()+"] ";
 
 	@Autowired
 	private CustinfoMapper custinfoMapper;
 
 	@Autowired
-	private CustManagerValidator custManagerValidator = new CustManagerValidator();
+	private CustManagerValidator custManagerValidator = new CustManagerValidator(processId);
 
 	@Autowired
 	private BankManager bankManager;
@@ -51,11 +55,10 @@ public class CustManagerImpl implements CustManager {
 	 *            mobile
 	 * @return
 	 */
-	public boolean isMobileRegister(String mobile) throws Exception {
+	public boolean isMobileRegister(String mobile) throws BizException {
 		boolean res = false;
-		if (!RegexUtil.isMobile(mobile)) {
-			throw new BizException(ErrorInfo.WRONG_MOBILE.value());
-		}
+		log.debug(processId+ "查询手机号是否注册  mobile :" + mobile);
+		custManagerValidator.isMobile(mobile);
 		Custinfo custinfo = new Custinfo();
 		custinfo.setMobileno(mobile);
 		custinfo = custinfoMapper.getCustinfo(custinfo);
@@ -71,11 +74,10 @@ public class CustManagerImpl implements CustManager {
 	 * @param idCardNo
 	 * @return
 	 */
-	public boolean isIdCardNoRegister(String idCardNo) throws Exception {
+	public boolean isIdCardNoRegister(String idCardNo) throws BizException {
+		log.debug(processId+ "查询该身份证是否注册  idCardNo :" + idCardNo);
 		boolean res = false;
-		if (!RegexUtil.isIdCardNo(idCardNo)) {
-			throw new Exception();
-		}
+		custManagerValidator.isIdCardNo(idCardNo);
 		Custinfo custinfo = new Custinfo();
 		custinfo.setIdno(idCardNo);
 		custinfo = custinfoMapper.getCustinfo(custinfo);
@@ -91,12 +93,13 @@ public class CustManagerImpl implements CustManager {
 	 * @param LoginAction
 	 * @return
 	 */
-	public void register(LoginAction loginAction) throws Exception {
+	public void register(LoginAction loginAction) throws BizException {
 		/*
 		 * 先验证验证码
 		 */
 		loginAction.setLoginType(Apkind.REGISTER);
 		custManagerValidator.validator(loginAction);
+		
 		/*
 		 * 插入客户信息表
 		 */
@@ -113,7 +116,7 @@ public class CustManagerImpl implements CustManager {
 	 * @return
 	 */
 	@Override
-	public void loginIn(LoginAction loginAction) throws Exception {
+	public void loginIn(LoginAction loginAction) throws BizException {
 		// TODO Auto-generated method stub
 		/*
 		 * 先验证验证码
@@ -129,13 +132,13 @@ public class CustManagerImpl implements CustManager {
 		} else if (RegexUtil.isIdCardNo(loginAction.getLoginCode())) {
 			custinfo.setIdno(loginAction.getLoginCode());
 		} else {
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE.value());
 		}
 		custinfo.setInvtp(loginAction.getInvtp().getValue() + "");
 		// custinfoAction.setPasswd(loginAction.getLoginPassword());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if (custinfo == null || custinfo.getCustno() == null || "".equals(custinfo.getCustno())) {
-			throw new Exception();
+			throw new AppException(processId, ErrorInfo.SYSTEM_ERROR.value());
 		}
 		custinfo.setLastlogintime("");// 当前时间
 		if (!loginAction.getLoginPassword().equals(custinfo.getPasswd())) {
@@ -144,7 +147,7 @@ public class CustManagerImpl implements CustManager {
 			}
 			custinfo.setPasswderr(custinfo.getPasswderr() + 1);
 			custinfoMapper.updateCustinfo(custinfo);
-			throw new Exception();
+			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD.value());
 		}
 		/*
 		 * 登录
@@ -159,7 +162,7 @@ public class CustManagerImpl implements CustManager {
 	 * @param custno
 	 * @return
 	 */
-	public Custinfo getCustinfo(String custno) throws Exception {
+	public Custinfo getCustinfo(String custno) throws BizException {
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(custno);
 		custinfo = custinfoMapper.getCustinfo(custinfo);
@@ -174,7 +177,7 @@ public class CustManagerImpl implements CustManager {
 	 * @param OpenAccount
 	 * @return
 	 */
-	public void openAccount(OpenAccountAction openAccountAction) throws Exception {
+	public void openAccount(OpenAccountAction openAccountAction) throws BizException {
 		Custinfo custinfo = this.getCustinfo(openAccountAction.getCustno());
 		if(custinfo!=null && Constant.CUSTST$N.equals(custinfo.getCustst())){
 			custinfo.setInvnm(openAccountAction.getInvnm());
@@ -184,7 +187,7 @@ public class CustManagerImpl implements CustManager {
 			custinfo.setIdtp(Constant.IDTP$0);
 			custManagerValidator.validator(custinfo);
 			if (this.isIdCardNoRegister(openAccountAction.getIdno())) {
-				throw new Exception();
+				throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD.value());
 			}
 		}
 		custManagerValidator.validator(openAccountAction);
@@ -209,13 +212,13 @@ public class CustManagerImpl implements CustManager {
 	
 
 
-	public void updateCustinfo(Custinfo custinfo) throws Exception {
+	public void updateCustinfo(Custinfo custinfo) throws BizException {
 		// TODO Auto-generated method stub
 		custinfoMapper.updateCustinfo(custinfo);
 		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
 	}
 	
-	private void insterSerialno(Custinfo custinfo,String apkind) throws Exception {
+	private void insterSerialno(Custinfo custinfo,String apkind) throws BizException {
 		/*
 		 * 插入流水表
 		 */

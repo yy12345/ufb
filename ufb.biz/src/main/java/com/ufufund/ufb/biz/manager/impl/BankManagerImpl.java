@@ -8,6 +8,7 @@ import com.ufufund.action.BankPageAuth;
 import com.ufufund.action.BankPageVerify;
 import com.ufufund.action.BankSwiftAuth;
 import com.ufufund.action.BankSwiftVerify;
+import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankManager;
 import com.ufufund.ufb.dao.BankMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
@@ -24,7 +25,7 @@ public class BankManagerImpl implements BankManager {
 	
 	
 	@Override
-	public void insterBankcardinfo(Bankcardinfo bankcardinfo) throws Exception {
+	public void insterBankcardinfo(Bankcardinfo bankcardinfo) throws BizException {
 		bnankMapper.insterBankcardinfo(bankcardinfo);
 		/*
 		 * 
@@ -34,7 +35,7 @@ public class BankManagerImpl implements BankManager {
 
 
 	@Override
-	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo) throws Exception {
+	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo) throws BizException {
 		// TODO Auto-generated method stub
 		bnankMapper.insterTradeaccoinfo(tradeaccoinfo);
 		/*

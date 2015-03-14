@@ -1,5 +1,6 @@
 package com.ufufund.ufb.biz.manager;
 
+import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.LoginAction;
 import com.ufufund.ufb.model.action.OpenAccountAction;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -12,21 +13,21 @@ public interface CustManager extends CustInterface{
 	 * @param mobile
 	 * @return 
 	 */
-	public boolean isMobileRegister(String mobile) throws Exception;
+	public boolean isMobileRegister(String mobile) throws BizException;
 		
 	/**
 	 * 注册
 	 * @param LoginIn
 	 * @return 
 	 */
-	public void register(LoginAction loginAction) throws Exception;
+	public void register(LoginAction loginAction) throws BizException;
 	
 	/**
 	 * 登录 写入身份证到SESSION 没有就没有实名认证和绑卡 必须先开户绑卡
 	 * @param LoginIn
 	 * @return 
 	 */
-	public void loginIn(LoginAction loginAction) throws Exception;
+	public void loginIn(LoginAction loginAction) throws BizException;
 	
 	
 	
@@ -42,7 +43,7 @@ public interface CustManager extends CustInterface{
 	 * @param custno
 	 * @return 
 	 */
-	public Custinfo getCustinfo(String custno) throws Exception;
+	public Custinfo getCustinfo(String custno) throws BizException;
 	
 	
 	/**
@@ -50,7 +51,7 @@ public interface CustManager extends CustInterface{
 	 * @param idCardNo
 	 * @return 
 	 */
-	public boolean isIdCardNoRegister(String idCardNo) throws Exception;
+	public boolean isIdCardNoRegister(String idCardNo) throws BizException;
 	
 	
 //	/**
@@ -67,7 +68,7 @@ public interface CustManager extends CustInterface{
 	 * @param OpenAccount
 	 * @return 
 	 */
-	public void openAccount(OpenAccountAction openAccountAction) throws Exception;
+	public void openAccount(OpenAccountAction openAccountAction) throws BizException;
 	
 	
 	
@@ -77,7 +78,7 @@ public interface CustManager extends CustInterface{
 	 * @param OpenAccount
 	 * @return 
 	 */
-	public void updateCustinfo(Custinfo custinfo) throws Exception;
+	public void updateCustinfo(Custinfo custinfo) throws BizException;
 	
 	
 //	/**
