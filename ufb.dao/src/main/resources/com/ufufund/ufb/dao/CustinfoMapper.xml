@@ -8,22 +8,31 @@
     	custNo, custType, areaId
     </sql>
     
-    <select id="getByCustNo" parameterType="String" resultType="Custinfo">
-    	select <include refid="Base_Columns"/> from custinfo t
-    	where t.custno = #{custNo,jdbcType=VARCHAR}
-    </select>
-    
-    <insert id="addCustinfo" parameterType="Custinfo">
-    	insert into custinfo(<include refid="Base_Columns"/>) 
-    	values(
-    		#{custNo,jdbcType=VARCHAR},
-    		#{custType,jdbcType=VARCHAR},
-    		#{areaId,jdbcType=VARCHAR}
-    	)
-    </insert>
-    
-    <update id="updateAreaByCustNo">
-    	update custinfo t set t.areaid = #{areaId,jdbcType=VARCHAR}
-    	where t.custno = #{custNo,jdbcType=VARCHAR}
-    </update>
+	<insert id="insertCustinfo" parameterType="custinfo">
+  	 <![CDATA[
+	 	insert into custinfo (
+	 		CUSTNO,
+			INVTP,
+	 		INVNM,
+	 	  	SEX,
+	 	   	IDTP,
+			IDNO,
+			MOBILENO,
+			EMAIL,
+			CUSTST,
+			PASSWD,
+			LASTLOGINTIME,
+			PASSWDERR,
+			OPENDT,
+			UPDATETIMESTAMP,
+			TRADEPWD)
+		values (
+			#{serialno,jdbcType=VARCHAR},
+			#{custno,jdbcType=VARCHAR},
+			#{wxstatus,jdbcType=VARCHAR},
+			SYSTIMESTAMP,
+			SYSTIMESTAMP)
+	 ]]>
+  	</insert>
 </mapper>
+
