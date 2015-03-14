@@ -4,8 +4,8 @@ public class CustinfoVo {
 
 	private String custno;
 	private String mobileno;
-	private String msgvalicode;
-	private String valicode;
+	private String msgcode;
+	private String verifycode;
 	private String invtp; // 用户类型
 	private String intnm; // 用户姓名
 	private String idtp; // 证件类型
@@ -31,20 +31,20 @@ public class CustinfoVo {
 		this.mobileno = mobileno;
 	}
 
-	public String getMsgvalicode() {
-		return msgvalicode;
+	public String getMsgcode() {
+		return msgcode;
 	}
 
-	public void setMsgvalicode(String msgvalicode) {
-		this.msgvalicode = msgvalicode;
+	public void setMsgcode(String msgcode) {
+		this.msgcode = msgcode;
 	}
 
-	public String getValicode() {
-		return valicode;
+	public String getVerifycode() {
+		return verifycode;
 	}
 
-	public void setValicode(String valicode) {
-		this.valicode = valicode;
+	public void setVerifycode(String verifycode) {
+		this.verifycode = verifycode;
 	}
 
 	public String getInvtp() {

@@ -62,16 +62,16 @@ public class AjaxCustController {
 	 * @param msgCode
 	 * @return
 	 */
-	@RequestMapping(value = "ajaxcust/chk_verifycode", method = RequestMethod.GET)
+	@RequestMapping(value = "ajaxcust/chk_msgcode", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,String> checkMsgCode(String msgCode, Model model){
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try {
 			
 			// 校验短信验证码
-			boolean checkVerifyCode = MsgCodeUtils.validate(msgCode);
+			boolean checkMsgCode = MsgCodeUtils.validate(msgCode);
 			
-			if(!checkVerifyCode){
+			if(!checkMsgCode){
 				resultMap.put("errCode", "9999");
 				resultMap.put("errMsg", "短信验证码无效。");
 			}else{
