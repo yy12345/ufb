@@ -23,9 +23,8 @@ public class MsgCodeUtils {
 	
 	/**
 	 * 取出session中的短信码进行校验
-	 * 校验失败，直接提示业务类异常；否则，成功
 	 * @param msgCode
-	 * @return
+	 * @return 校验失败，直接提示业务类异常；否则，成功
 	 */
 	public static boolean validate(String msgCode){
 		

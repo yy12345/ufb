@@ -12,6 +12,11 @@ import com.ufufund.ufb.web.filter.ServletHolder;
  */
 public class VerifyCodeUtils {
 
+	/**
+	 * 图形验证码校验
+	 * @param veriCode
+	 * @return 校验失败，直接提示业务类异常；否则，成功
+	 */
 	public static boolean validate(String veriCode){
 		
 		String value = (String)ServletHolder.getSession().getAttribute("VerifyCode");
