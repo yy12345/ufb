@@ -21,6 +21,7 @@ import com.ufufund.ufb.enums.Invtp;
 import com.ufufund.ufb.model.model.Bankcardinfo;
 import com.ufufund.ufb.model.model.Changerecordinfo;
 import com.ufufund.ufb.model.model.Custinfo;
+import com.ufufund.ufb.model.model.DateInfo;
 import com.ufufund.ufb.model.model.Fdacfinalresult;
 import com.ufufund.ufb.model.model.Tradeaccoinfo;
 
@@ -98,13 +99,9 @@ public class CustManagerImpl implements CustManager {
 		 * 插入客户信息表
 		 */
 		Custinfo custinfo = CustConvert.convertCustinfo(loginAction);
-		this.insterCustinfo(custinfo);
-		/*
-		 * 插入流水表
-		 */
-		Fdacfinalresult fdacfinalresult = CustConvert.convertFdacfinalresult(custinfo);
-		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
-
+		custinfo.setCustno(custinfoMapper.getCustinfoSequence());
+		custinfoMapper.insterCustinfo(custinfo);
+		this.insterSerialno(custinfo, Apkind.REGISTER.getValue());
 	}
 
 	/**
@@ -199,7 +196,7 @@ public class CustManagerImpl implements CustManager {
 		/*
 		 * 插入流水表
 		 */
-		Fdacfinalresult fdacfinalresult = CustConvert.convertFdacfinalresult(custinfo);
+		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//CustConvert.convertFdacfinalresult(custinfo);
 		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		if(custinfo!=null && Constant.CUSTST$N.equals(custinfo.getCustst())){
 			this.updateCustinfo(custinfo);
@@ -208,30 +205,37 @@ public class CustManagerImpl implements CustManager {
 	
 	
 	
-	
 
-	
-	
-	private void insterCustinfo(Custinfo custinfo) throws Exception {
-		// TODO Auto-generated method stub
-		custinfoMapper.insterCustinfo(custinfo);
-		/*
-		 * 
-		 * 插入变动记录表
-		 */
-		Changerecordinfo changerecordinfo = CustConvert.convertChangerecordinfo(custinfo);
-		tradeNotesMapper.insterChangerecordinfo(changerecordinfo);
-	}
 
-	private void updateCustinfo(Custinfo custinfo) throws Exception {
+	public void updateCustinfo(Custinfo custinfo) throws Exception {
 		// TODO Auto-generated method stub
 		custinfoMapper.updateCustinfo(custinfo);
+		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
+	}
+	
+	private void insterSerialno(Custinfo custinfo,String apkind) throws Exception {
+		/*
+		 * 插入流水表
+		 */
+		String seq = tradeNotesMapper.getFdacfinalresultSeq();
+		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
+		fdacfinalresult.setCustno(custinfo.getCustno());
+		DateInfo dateInfo = tradeNotesMapper.getDateInfo();
+		fdacfinalresult.setWorkdate(dateInfo.getWorkdate());
+		fdacfinalresult.setApdt(dateInfo.getApdt());
+		fdacfinalresult.setAptm(dateInfo.getAptm());
+		fdacfinalresult.setSerialno(seq);
+		fdacfinalresult.setApkind(apkind);
 		/*
 		 * 
 		 * 插入变动记录表
 		 */
 		Changerecordinfo changerecordinfo = CustConvert.convertChangerecordinfo(custinfo);
+		changerecordinfo.setApkind(apkind);
+		changerecordinfo.setRefserialno(seq);
 		tradeNotesMapper.insterChangerecordinfo(changerecordinfo);
+		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+		
 	}
 
 }

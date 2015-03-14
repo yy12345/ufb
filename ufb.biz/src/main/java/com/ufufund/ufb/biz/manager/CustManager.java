@@ -72,8 +72,12 @@ public interface CustManager extends CustInterface{
 	
 	
 	
-	
-	
+	/**
+	 *  修改客户信息
+	 * @param OpenAccount
+	 * @return 
+	 */
+	public void updateCustinfo(Custinfo custinfo) throws Exception;
 	
 	
 //	/**
