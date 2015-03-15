@@ -15,7 +15,6 @@
     <div class="tips_box regist_tips_error" id="phone_error"></div>
     <div class="tips_box username_ok" id="phone_desc"></div>
   </li>
-  
   <li>
     <div class="form_item">
       <label>设置密码：</label>
@@ -89,13 +88,14 @@
 	        } else {
 	            $.ajax({type: "GET",url: "../ajaxcust/is_mobile_register.htm",
 	            		data: {mobileno: $("#phone").val()},
+	            		dataType: "json",
 	            		success: function(b) {
-		                    if (b.checkResult == 0) {
+		                    if (b.errCode == "0000") {
 		                        jQuery("#phone_tip").hide();
 		                        $("#phone_desc").css("display", "block");
 		                        jQuery("#phone").parents("li").removeClass("cur_error")
 		                    } else {
-		                        if (b.checkResult == 1) {
+		                        if (b.errCode == "9999") {
 		                            showPhoneError("该手机号已存在，<a href='/passport/login_input.do'>登录</a>")
 		                        }
 		                    }
