@@ -1,7 +1,6 @@
-package com.ufufund.manager.managerImpl;
+//package com.ufufund.manager.managerImpl;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 //import com.ufufund.action.LoginIn;
 //import com.ufufund.action.OpenAccount;

@@ -17,6 +17,10 @@ import com.ufufund.ufb.model.db.Dictionary;
 @Service
 public class AppException extends RuntimeException{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory.getLogger("AppException");
 	@Autowired
 	private DictManager dictManager;

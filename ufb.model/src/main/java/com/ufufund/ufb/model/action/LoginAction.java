@@ -55,32 +55,13 @@ public class LoginAction  {
 	public void setInvtp(Invtp invtp) {
 		this.invtp = invtp;
 	}
+	@Override
+	public String toString() {
+		return "LoginAction [loginType=" + loginType + ", loginCode=" + loginCode + ", loginPassword=" + loginPassword + ", loginPassword2=" + loginPassword2 + ", invtp=" + invtp + "]";
+	}
 	
 	
-//	public String getIdentifyCode() {
-//		return identifyCode;
-//	}
-//	public void setIdentifyCode(String identifyCode) {
-//		this.identifyCode = identifyCode;
-//	}
-//	public String getMobileCode() {
-//		return mobileCode;
-//	}
-//	public void setMobileCode(String mobileCode) {
-//		this.mobileCode = mobileCode;
-//	}
-//	public String getSessionidentifyCode() {
-//		return sessionidentifyCode;
-//	}
-//	public void setSessionidentifyCode(String sessionidentifyCode) {
-//		this.sessionidentifyCode = sessionidentifyCode;
-//	}
-//	public String getSessionmobileCode() {
-//		return sessionmobileCode;
-//	}
-//	public void setSessionmobileCode(String sessionmobileCode) {
-//		this.sessionmobileCode = sessionmobileCode;
-//	}
+
 
 	
 	

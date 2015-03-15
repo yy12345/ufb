@@ -4,35 +4,125 @@
 
 <mapper namespace="com.ufufund.ufb.dao.CustinfoMapper">
     
-    <sql id="Base_Columns">
-    	custNo, custType, areaId
-    </sql>
+   
     
-	<insert id="insertCustinfo" parameterType="custinfo">
+  	<select id="getCustinfo" parameterType="com.ufufund.ufb.model.db.Custinfo" resultType="com.ufufund.ufb.model.db.Custinfo">
+  		SELECT
+			T1.CUSTNO,
+			T1.INVTP,
+			T1.INVNM,
+			T1.SEX,
+			T1.IDTP,
+			T1.IDNO,
+			T1.MOBILENO,
+			T1.EMAIL,
+			T1.CUSTST,
+			T1.PASSWD,
+			DATE_FORMAT(T1.LASTLOGINTIME,'%Y-%m-%d %H:%i:%s') AS LASTLOGINTIME,
+			T1.PASSWDERR,
+			T1.OPENDT,
+			T1.UPDATETIMESTAMP,
+			T1.TRADEPWD
+  		FROM CUSTINFO T1 
+		WHERE 
+		<if test="custno != null and custno !=''" >
+		T1.CUSTNO =  #{custno,jdbcType=VARCHAR} AND
+		</if>
+  		<if test="mobileno != null and mobileno !=''" >
+  		 T1.MOBILENO = #{mobileno,jdbcType=VARCHAR} AND
+  		</if>
+		<if test="idno != null and idno !=''" >
+		 T1.IDNO = #{idno,jdbcType=VARCHAR} AND
+		</if>
+	    T1.CUSTST = 'N'
+  	</select>
+				
+	<insert id="insertCustinfo" parameterType="com.ufufund.ufb.model.db.Custinfo">
   	 <![CDATA[
-	 	insert into custinfo (
+	 		INSERT INTO CUSTINFO (
 	 		CUSTNO,
-			INVTP,
-	 		INVNM,
-	 	  	SEX,
-	 	   	IDTP,
-			IDNO,
-			MOBILENO,
-			EMAIL,
-			CUSTST,
-			PASSWD,
-			LASTLOGINTIME,
-			PASSWDERR,
-			OPENDT,
-			UPDATETIMESTAMP,
-			TRADEPWD)
-		values (
-			#{serialno,jdbcType=VARCHAR},
+		    INVTP,
+		    INVNM,
+			SEX,
+			IDTP,
+			
+		    IDNO,
+		    MOBILENO,
+		    EMAIL,
+		    CUSTST,
+		    PASSWD,
+		    
+		    LASTLOGINTIME,
+		    PASSWDERR,
+		    OPENDT,
+		    UPDATETIMESTAMP,
+		    TRADEPWD)
+		VALUES (
 			#{custno,jdbcType=VARCHAR},
-			#{wxstatus,jdbcType=VARCHAR},
-			SYSTIMESTAMP,
-			SYSTIMESTAMP)
+			#{invtp,jdbcType=VARCHAR},
+			#{invnm,jdbcType=VARCHAR},
+			#{sex,jdbcType=VARCHAR},
+			#{idtp,jdbcType=VARCHAR},
+			
+			#{idno,jdbcType=VARCHAR},
+			#{mobileno,jdbcType=VARCHAR},
+			#{email,jdbcType=VARCHAR},
+			#{custst,jdbcType=VARCHAR},
+			#{passwd,jdbcType=VARCHAR},
+			
+			sysdate(),
+			#{passwderr,jdbcType=INTEGER},
+			#{opendt,jdbcType=VARCHAR},
+			sysdate(),
+			#{tradepwd,jdbcType=VARCHAR}
+			)
 	 ]]>
   	</insert>
+
+	<update id="updateCustinfo" parameterType="com.ufufund.ufb.model.db.Custinfo">
+		UPDATE CUSTINFO T1
+	       SET T1.UPDATETIMESTAMP = sysdate()
+	       	<if test="invnm != null">
+	       	  ,T1.INVNM = #{invnm,jdbcType=VARCHAR}
+	       	</if>
+			<if test="sex != null">
+	       	  ,T1.SEX = #{sex,jdbcType=VARCHAR}
+	       	</if>
+	        <if test="idtp != null">
+	       	  ,T1.IDTP = #{idtp,jdbcType=VARCHAR}
+	       	</if>
+			<if test="idno != null">
+	       	  ,T1.IDNO = #{idno,jdbcType=VARCHAR}
+	       	</if>
+	        <if test="mobileno != null">
+	       	  ,T1.MOBILENO = #{mobileno,jdbcType=VARCHAR}
+	       	</if>
+			<if test="email != null">
+	       	  ,T1.EMAIL = #{email,jdbcType=VARCHAR}
+	       	</if>
+			<if test="custst != null">
+	       	  ,T1.CUSTST = #{custst,jdbcType=VARCHAR}
+	       	</if>
+			<if test="passwd != null">
+	       	  ,T1.PASSWD = #{passwd,jdbcType=VARCHAR}
+	       	</if>
+	        <if test="lastlogintime != null">
+	       	  ,T1.LASTLOGINTIME = STR_TO_DATE(#{lastlogintime,jdbcType=VARCHAR}, '%Y%m%d%H%i%s')
+	       	</if>
+			<if test="passwderr != null">
+	       	  ,T1.PASSWDERR = #{passwderr,jdbcType=INTEGER}
+	       	</if>
+			<if test="tradepwd != null">
+	       	  ,T1.TRADEPWD = #{tradepwd,jdbcType=VARCHAR}
+	       	</if>
+	     WHERE T1.custno = #{custno,jdbcType=VARCHAR}
+	</update>
+   
+   <select id="getCustinfoSequence" parameterType="java.lang.String" resultType="java.lang.String">
+	<![CDATA[
+	select date_format(now(),'%Y-%c-%d %h:%i:%s')
+	]]>
+   </select>
+	
 </mapper>
 

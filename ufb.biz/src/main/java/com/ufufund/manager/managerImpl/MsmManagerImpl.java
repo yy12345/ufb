@@ -1,26 +1,26 @@
-package com.ufufund.manager.managerImpl;
-
-
-import com.ufufund.action.SendMessage;
-import com.ufufund.manager.MsmManager;
-
-public class MsmManagerImpl  implements MsmManager{
-
-	@Override
-	public void sendMessage(SendMessage sendMessage) throws Exception {
-		// TODO Auto-generated method stub
-		
-		/*
-		 * 
-		 * 判断验证码
-		 */
-		 /*
-		  * 发送短信
-		  */
-		
-		
-	}
-
-	
-
-}
+//package com.ufufund.manager.managerImpl;
+//
+//
+//import com.ufufund.action.SendMessage;
+//import com.ufufund.manager.MsmManager;
+//
+//public class MsmManagerImpl  implements MsmManager{
+//
+//	@Override
+//	public void sendMessage(SendMessage sendMessage) throws Exception {
+//		// TODO Auto-generated method stub
+//		
+//		/*
+//		 * 
+//		 * 判断验证码
+//		 */
+//		 /*
+//		  * 发送短信
+//		  */
+//		
+//		
+//	}
+//
+//	
+//
+//}

@@ -1,9 +1,9 @@
-package com.ufufund.manager;
+//package com.ufufund.manager;
 
 //import com.ufufund.action.LoginIn;
 //import com.ufufund.action.OpenAccount;
 
-public interface CustManager {
+//public interface CustManager {
 	
 	
 //	/**
@@ -27,4 +27,4 @@ public interface CustManager {
 //	 * @return 
 //	 */
 //	public void register(LoginIn loginIn) throws Exception;
-}
+//}

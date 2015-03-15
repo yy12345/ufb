@@ -5,26 +5,23 @@
         </encoder>
     </appender>
 
+	<!-- 
     <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${ufb.log.path}/ufb-all.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- rollover daily -->
             <fileNamePattern>${ufb.log.path}/ufb-all-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>20</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <!-- or whenever the file size reaches 100MB -->
                 <maxFileSize>500MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
-
         <encoder charset="UTF-8">
             <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n</pattern>
         </encoder>
-    </appender>
+    </appender> -->
 
-    <root level="${ufb.log.level}">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="ROLLING"/>
     </root>
 </configuration>

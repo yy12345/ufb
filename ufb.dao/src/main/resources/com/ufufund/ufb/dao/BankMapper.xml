@@ -2,104 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ufufund.ufb.dao.CustinfoMapper">
-    
-    <sql id="Base_Columns">
-    	custNo, custType, areaId
-    </sql>
-    
-  	<select id="getCustinfo" parameterType="java.lang.String" resultType="custinfo">
-  		select t1.* from custinfo t1 
-  		where 1=1
-		<if test="mobileno != null and mobileno !=''" >and t1.custno = #{custno}</if>
-  		<if test="mobileno != null and mobileno !=''" >and t1.mobileno = #{mobileno}</if>
-		<if test="idno != null and idno !=''" >and t1.idno = #{idno}</if>
-		and t1.custst = 'N'
-  	</select>
+<mapper namespace="com.ufufund.ufb.dao.BankMapper">
 
-	<insert id="insertCustinfo" parameterType="custinfo">
-  	 <![CDATA[
-	 	insert into custinfo (
-	 		custno,
-		    invtp,
-		    invnm,
-			sex,
-			idtp,
-		    idno,
-		    mobileno,
-		    email,
-		    custst,
-		    passwd,
-		    lastlogintime,
-		    passwderr,
-		    opendt,
-		    updatetimestamp,
-		    tradepwd)
-		values (
-			#{custno,jdbcType=VARCHAR},
-			#{invtp,jdbcType=VARCHAR},
-			#{invnm,jdbcType=VARCHAR},
-			#{sex,jdbcType=VARCHAR},
-			#{idtp,jdbcType=VARCHAR},
-			#{idno,jdbcType=VARCHAR},
-			#{mobileno,jdbcType=VARCHAR},
-			#{email,jdbcType=VARCHAR},
-			#{custst,jdbcType=VARCHAR},
-			#{passwd,jdbcType=VARCHAR},
-			null,
-			#{passwderr,jdbcType=DECIMAL},
-			#{opendt,jdbcType=VARCHAR},
-			systimestamp,
-			#{tradepwd,jdbcType=VARCHAR},
-			)
-	 ]]>
-  	</insert>
-
-	<update id="updatCustinfo" parameterType="custinfo">
-		UPDATE CUSTINFO T1
-	       SET T1.UPDATETIMESTAMP = SYSTIMESTAMP
-	       	<if test="invtp != null">
-	       	  ,T1.INVTP = #{invtp,jdbcType=VARCHAR}
-	       	</if>
-	       	<if test="invnm != null">
-	       	  ,T1.INVNM = #{invnm,jdbcType=VARCHAR}
-	       	</if>
-			<if test="sex != null">
-	       	  ,T1.SEX = #{sex,jdbcType=VARCHAR}
-	       	</if>
-	        <if test="idtp != null">
-	       	  ,T1.IDTP = #{idtp,jdbcType=VARCHAR}
-	       	</if>
-			<if test="idno != null">
-	       	  ,T1.IDNO = #{idno,jdbcType=VARCHAR}
-	       	</if>
-	        <if test="mobileno != null">
-	       	  ,T1.MOBILENO = #{mobileno,jdbcType=VARCHAR}
-	       	</if>
-			<if test="email != null">
-	       	  ,T1.EMAIL = #{email,jdbcType=VARCHAR}
-	       	</if>
-			<if test="custst != null">
-	       	  ,T1.CUSTST = #{custst,jdbcType=VARCHAR}
-	       	</if>
-			<if test="passwd != null">
-	       	  ,T1.PASSWD = #{passwd,jdbcType=VARCHAR}
-	       	</if>
-	        <if test="lastlogintime != null">
-	       	  ,T1.LASTLOGINTIME = #{lastlogintime,jdbcType=timestamp}
-	       	</if>
-			<if test="passwderr != null">
-	       	  ,T1.PASSWDERR = #{passwderr,jdbcType=VARCHAR}
-	       	</if>
-	        systimestamp,
-			<if test="tradepwd != null">
-	       	  ,T1.TRADEPWD = #{tradepwd,jdbcType=VARCHAR}
-	       	</if>
-	     WHERE T1.custno = #{custno,jdbcType=VARCHAR}
-	</update>
-   
-    /*判断是否存在银行账号*/
-	<select id="isId1" resultType="int">
+	<!-- <select id="isId1"  parameterType="com.ufufund.ufb.model.db.Custinfo"  resultType="int">
   		select count(1)
 		  from custinfo      t1,
 			   bankcardinfo  t2,
@@ -116,9 +21,9 @@
 	      <if test="bankacco != null and bankacco !=''" >and t1.bankacco = #{bankacco}</if>
 		  <if test="fundcorpno != null and fundcorpno !=''" >and t1.fundcorpno = #{fundcorpno}</if>
   	</select>
-
+ -->
     
-	<insert id="bankcardinfo" parameterType="custinfo">
+	<insert id="insterBankcardinfo" parameterType="com.ufufund.ufb.model.db.Bankcardinfo">
   	 <![CDATA[
 	 	insert into bankcardinfo (
 									serialid,
@@ -166,7 +71,7 @@
 	 ]]>
   	</insert>
 
-	<insert id="bankcardinfo" parameterType="custinfo">
+	<insert id="insterTradeaccoinfo" parameterType="com.ufufund.ufb.model.db.Tradeaccoinfo">
   	 <![CDATA[
 	 	insert into bankcardinfo (
 									serialid,
@@ -214,5 +119,7 @@
 	 ]]>
   	</insert>
 
+  	
+  	
+  	
 </mapper>
-
