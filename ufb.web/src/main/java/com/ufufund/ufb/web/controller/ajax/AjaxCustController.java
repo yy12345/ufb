@@ -22,7 +22,7 @@ public class AjaxCustController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AjaxCustController.class);
 	
-	@Autowired
+//	@Autowired
 	private CustManager custManager;
 	
 	/**

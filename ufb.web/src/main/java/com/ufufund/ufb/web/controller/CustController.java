@@ -22,7 +22,7 @@ import com.ufufund.ufb.web.util.VerifyCodeUtils;
 public class CustController {
 	private static final Logger LOG = LoggerFactory.getLogger(CustController.class);
 	
-	@Autowired
+//	@Autowired
 	private CustManager custManager;
 	
 	@RequestMapping(value="test/index" , method=RequestMethod.GET)
@@ -34,7 +34,7 @@ public class CustController {
 //		log.info("--------------:"+area);
 //		model.addAttribute("custNo", custNo);
 //		model.addAttribute("area", area);
-		return "test/test_index";
+		return "cust/register_person";
 	}
 	
 	@RequestMapping(value = "cust/register_person")
@@ -49,7 +49,6 @@ public class CustController {
 
 			// 查询手机号是否注册
 			boolean isMobileRegister = custManager.isMobileRegister(custinfo.getMobileno());
-			
 			if(isMobileRegister){
 				throw new BizException("手机号已注册。");
 			}

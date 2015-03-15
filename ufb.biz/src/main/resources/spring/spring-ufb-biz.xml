@@ -18,7 +18,9 @@
      http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
     <!-- enable component scanning (beware that this does not enable mapper scanning!) -->
+    <!-- 
     <context:component-scan base-package="com.ufufund.ufb.biz.manager.impl" />
+     -->
 
     <!-- enable autowire -->
     <context:annotation-config />
