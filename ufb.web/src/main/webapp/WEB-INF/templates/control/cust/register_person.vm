@@ -10,6 +10,7 @@
     </div>
     <div class="tips_box regist_tips" id="phone_tip">
 	  <u></u>请填写正确的手机号码，以便 接收订单通知，找回密码等。
+	  
     </div>
     <div class="tips_box regist_tips_error" id="phone_error"></div>
     <div class="tips_box username_ok" id="phone_desc"></div>
