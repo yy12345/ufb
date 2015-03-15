@@ -77,7 +77,7 @@ public class CustController {
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
-			model.addAttribute("returnUrl", "register_index.htm");
+			model.addAttribute("returnUrl", "../test/index.htm");
 			return "error/error";
 		}
 

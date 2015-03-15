@@ -1,78 +1,126 @@
-<body>
-cust ${custNo}, province:${area.province}, location:${area.location}
-<div class="body">
-    <div class="kv">
-        <div id="index_kv" class="camera_wrap" style="display: block; margin-bottom: 0px; height: 400px;"><div class="camera_fakehover"><div class="camera_src camerastarted camerasliding">
-            <div data-target="_blank" data-link="http://www.wenjuan.com/s/nuyA7v/" data-src="${staticDomain}/images/banner1.jpg"></div>
-            <div data-target="_blank" data-link="http://www.wenjuan.com/s/nuyA7v/" data-src="${staticDomain}/images/banner2.jpg"></div>
-            <div data-target="_blank" data-link="http://www.wenjuan.com/s/nuyA7v/" data-src="${staticDomain}/images/banner3.jpg"></div>
-            <div data-target="_blank" data-link="http://www.wenjuan.com/s/nuyA7v/" data-src="${staticDomain}/images/banner4.jpg"></div>
-        </div><div class="camera_target"><div class="cameraCont"><div class="cameraSlide cameraSlide_0" style="visibility: visible; display: none; z-index: 1; margin-left: 0px; margin-top: 0px;"><img height="400" width="1500" src="${staticDomain}/images/banner1.jpg?1422179469320" class="imgLoaded" style="visibility: visible; height: 400px; margin-left: -82.5px; margin-top: 0px; position: absolute; width: 1500px;" data-alignment="" data-portrait=""><div class="camerarelative" style="width: 1335px; height: 400px;"></div></div><div class="cameraSlide cameraSlide_1 cameranext" style="display: none; z-index: 1; margin-left: 0px; margin-top: 0px;"><img height="400" width="1500" src="${staticDomain}/images/banner2.jpg?1422179470136" class="imgLoaded" style="visibility: visible; height: 400px; margin-left: -82.5px; margin-top: 0px; position: absolute; width: 1500px;" data-alignment="" data-portrait=""><div class="camerarelative" style="width: 1335px; height: 400px;"></div></div><div class="cameraSlide cameraSlide_2" style="display: none; z-index: 1; margin-left: 0px; margin-top: 0px;"><img height="400" width="1500" src="${staticDomain}/images/banner3.jpg?1422179475206" class="imgLoaded" style="visibility: visible; height: 400px; margin-left: -82.5px; margin-top: 0px; position: absolute; width: 1500px;" data-alignment="" data-portrait=""><div class="camerarelative" style="width: 1335px; height: 400px;"></div></div><div class="cameraSlide cameraSlide_3 cameracurrent" style="display: block; z-index: 999; margin-left: -1331.41px; margin-top: 0px;"><img height="400" width="1500" src="${staticDomain}/images/banner4.jpg?1422179478870" class="imgLoaded" style="visibility: visible; height: 400px; margin-left: -82.5px; margin-top: 0px; position: absolute; width: 1500px;" data-alignment="" data-portrait=""><div class="camerarelative" style="width: 1335px; height: 400px;"></div></div><div class="cameraSlide cameraSlide_4 cameranext" style="z-index: 1; display: none;"><div class="camerarelative" style="width: 1335px; height: 400px;"></div></div><div style="display: block; overflow: hidden; position: absolute; z-index: 1000; height: 400.997px; left: 0px; top: 0px; width: 1336px; margin-left: 3.58662px; margin-top: 0px;" class="cameraappended"><div class="cameraSlide cameraSlide_0" style="visibility: visible; z-index: 1; margin-left: 0px; margin-top: 0px; height: 400px; width: 1335px;"><img height="400" width="1500" src="${staticDomain}/images/banner1.jpg?1422179469320" class="imgLoaded" style="visibility: visible; height: 400px; margin-left: -82.5px; margin-top: 0px; position: absolute; width: 1500px;" data-alignment="" data-portrait=""><div class="camerarelative" style="width: 1335px; height: 400px;"></div></div></div></div></div><div class="camera_overlayer"></div><div class="camera_target_content"><div class="cameraContents"><div class="cameraContent" style="display: none;"><a target="_blank" href="http://www.wenjuan.com/s/nuyA7v/" class="camera_link"></a></div><div class="cameraContent" style="display: none;"><a target="_blank" href="http://www.wenjuan.com/s/nuyA7v/" class="camera_link"></a></div><div class="cameraContent" style="display: none;"><a target="_blank" href="http://www.wenjuan.com/s/nuyA7v/" class="camera_link"></a></div><div class="cameraContent cameracurrent" style="display: none;"><a target="_blank" href="http://www.wenjuan.com/s/nuyA7v/" class="camera_link"></a></div></div></div><div style="display: none; top: auto; height: 7px;" class="camera_bar"><span class="camera_bar_cont" style="opacity: 0.8; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; background-color: rgb(34, 34, 34);"><span id="pie_0" style="opacity: 0; position: absolute; background-color: rgb(238, 238, 238); left: 0px; right: 0px; top: 2px; bottom: 2px; display: none;"></span></span></div></div><div class="camera_pag"><ul class="camera_pag_ul"><li style="position:relative; z-index:1002" class="pag_nav_0 cameracurrent"><span><span>0</span></span></li><li style="position:relative; z-index:1002" class="pag_nav_1"><span><span>1</span></span></li><li style="position:relative; z-index:1002" class="pag_nav_2"><span><span>2</span></span></li><li style="position:relative; z-index:1002" class="pag_nav_3"><span><span>3</span></span></li></ul></div><div class="camera_loader" style="display: none; visibility: visible;"></div></div>
+<form action="../cust/register_person.htm">
+<div>
+<ul class="clearfix">
+  <li>
+    <div class="form_item">
+      <label>手机号：</label>
+      <!--请输入手机号码-->
+      <input type="text" class="ipt ipt_phone" value="18616502181" id="phone" 
+        onkeyup="showoff('phone_desc')" onfocus="hideOtherTips('phone')">
     </div>
-    <div class="inner clearfix">
-        <div class="main fl">
-            <h2 class="title">主打产品2</h2>
-            <div class="section shadow-normal trans shadow-hover"><i class="tag"><img src="${staticDomain}/images/tag1.png"></i><img height="210" width="690" src="${staticDomain}/images/section1.png"></div>
-            <div class="section shadow-normal trans"><i class="tag"><img src="${staticDomain}/images/tag2.png"></i><img height="210" width="690" src="${staticDomain}/images/section2.png"></div>
-        </div>
-        <div class="side shadow-normal fr">
-            <div class="intro"><a href="http://www.china06.org" target="_blank"><img height="130" width="240" src="${staticDomain}/images/side1.png"></a><a href="http://www.hftfund.com" target="_blank"><img height="100" width="240" src="${staticDomain}/images/side2.png"></a><a href="http://www.wenjuan.com/s/nuyA7v/" target="_blank"><img height="160" width="240" src="${staticDomain}/images/side3.png"></a></div>
-            <div class="tabs">
-                <ul class="clearfix">
-                    <li><a href="javascript:;"><img height="50" width="50" src="${staticDomain}/images/tab1.png"></a></li>
-                    <li><a href="javascript:;"><img height="50" width="50" src="${staticDomain}/images/tab2.png"></a></li>
-                    <li><a href="javascript:;"><img height="50" width="50" src="${staticDomain}/images/tab3.png"></a></li>
-                    <li><a href="javascript:;"><img height="50" width="50" src="${staticDomain}/images/tab4.png"></a></li>
-                </ul>
-            </div>
-        </div>
+    <div class="tips_box regist_tips" id="phone_tip">
+	  <u></u>请填写正确的手机号码，以便 接收订单通知，找回密码等。
     </div>
-    <div class="bottom">
-        <div class="inner clearfix">
-            <ul class="list">
-                <li class="item">
-                    <div class="icon"><img src="${staticDomain}/images/icon1.png"></div>
-                    <div class="text"><h3>机构理财收益高</h3><p>精选高收益机构理财产品<br>
-                        实力基金管理人定制产品<br>
-                        专注提升机构闲置资金回报</p></div>
-                </li>
-                <li class="item">
-                    <div class="icon"><img src="${staticDomain}/images/icon2.png"></div>
-                    <div class="text"><h3>机构理财更放心</h3><p>严选专业品牌基金管理机构<br>
-                        投资全程受国家严格监管<br>
-                        机构理财资金由独立第三方银行托管<br>
-                        资金赎回只回到机构注册账户</p></div>
-                </li>
-                <li class="item">
-                    <div class="icon"><img src="${staticDomain}/images/icon3.png"></div>
-                    <div class="text"><h3>机构理财更轻松</h3><p>贴心定制产品策略<br>
-                        可随时购买、快速提取<br>
-                        随时查询资产与收益</p></div>
-                </li>
-            </ul>
-        </div>
+    <div class="tips_box regist_tips_error" id="phone_error"></div>
+    <div class="tips_box username_ok" id="phone_desc"></div>
+  </li>
+  
+  <li>
+    <div class="form_item">
+      <label>设置密码：</label>
+      <!--6-20个大小写英文字母、符号或数字-->
+      <input type="password" class="ipt password none" 
+        id="password_mobile" name="user.password" 
+        oncopy="return false;" oncut="return false;" onpaste="return false;">
     </div>
+    <div class="tips_box regist_tips_error" id="password_mobile_error"></div>
+    <div class="tips_box paswd_strength" id="password_mobile_Level">
+   	  <i id="arrow_mobile" style="-webkit-transform: rotate(0deg);"></i>
+    </div>
+  </li>
+  <li>
+    <div class="form_item">
+      <label>确认密码：</label>
+      <!--请再次输入密码-->
+      <input type="text" class="ipt gay_text" name="pwd" value="">
+      <input type="password" class="ipt password none" 
+        id="password_mobile2" name="password2" 
+        readonly="readonly" 
+        style="background-color: rgb(192, 193, 196);">
+      <div class="tips_box regist_tips_error" id="password_mobile2_error"></div>
+	  <div class="tips_box username_ok" id="password_mobile2_desc"></div>
+    </div>
+  </li>
+  
+  <li class="regist_btn">
+  	<!--javascript:document.forms[0].submit();return false;-->
+    <button type="button" onclick="checkPhoneOnBlur()">注册</button>
+  </li>
+   
+</ul>
 </div>
-</body>
-
-<head>
+</form>
 <script>
-    $(function () {
-       $(".main .section").on("mouseenter", function () {
-           $(this).addClass("shadow-hover");
-       }).on("mouseleave", function () {
-           $(this).removeClass("shadow-hover");
+	//alert($("#phone").val());
+	
+	function showErrorInfo(b, a) {
+		//a is a message
+	    jQuery("#" + b + "").html("<u></u>" + a + "").show();
+	    jQuery("#" + b + "").parents("li").addClass("cur_error");
+	    var c = b.split("_");
+	    jQuery("#" + c[0] + "_desc").hide()
+	}
+	
+	function showPhoneError(a) {
+	    jQuery("#phone_tip").hide();
+	    showErrorInfo("phone_error", a)
+	}
+	
+	function check_phone() {
+	    var a = jQuery("#phone").val();
+	    if (a == "" || a == "请输入手机号码") {
+	        return 1
+	    }
+	    var b = /^1\d{10}$/;
+	    if (!b.test(a)) {
+	        return 2
+	    }
+	    return 0
+	}
+	
+	function checkPhoneOnBlur() {
+	    var a = check_phone();
+	    if (a == 1) {
+	        showPhoneError("不能为空")
+	    } else {
+	        if (a == 2) {
+	            showPhoneError("格式错误，请输入正确的手机号码")
+	        } else {
+	            $.ajax({type: "GET",url: "../ajaxcust/is_mobile_register.htm",
+	            		data: {mobileno: $("#phone").val()},
+	            		success: function(b) {
+		                    if (b.checkResult == 0) {
+		                        jQuery("#phone_tip").hide();
+		                        $("#phone_desc").css("display", "block");
+		                        jQuery("#phone").parents("li").removeClass("cur_error")
+		                    } else {
+		                        if (b.checkResult == 1) {
+		                            showPhoneError("该手机号已存在，<a href='/passport/login_input.do'>登录</a>")
+		                        }
+		                    }
+	                	}
+	                	})
+	        }
+	    }
+	}
 
-       })
-       $('#index_kv').camera({
-           height:"400px",
-           loader:"none",
-           fx:"scrollLeft",
-           navigation: false,
-           playPause:false,
-           time:2000,
-           transPeriod:1000
-       });
+   	function showoff(b) {
+		var a = b.split("_");
+	    if (a[0] != "password") {
+	        jQuery("#" + a[0] + "_error").hide();
+	        jQuery("#" + a[0] + "_tip").show()
+	    }
+	    jQuery("#" + b + "").hide()
+	}
+	
+	function hideOtherTips(a) {
+	    if (jQuery("#" + a + "").val() == "") {
+	        jQuery("#" + a + "_error").hide();
+	        jQuery("#" + a + "_tip").show()
+	    }
+	    jQuery("#" + a + "").parents("li").removeClass("cur_error")
+	}
+    $(function () {
+		
     });
 </script>
-</head>
