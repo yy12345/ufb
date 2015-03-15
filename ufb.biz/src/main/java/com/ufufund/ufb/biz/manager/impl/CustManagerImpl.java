@@ -39,7 +39,7 @@ public class CustManagerImpl implements CustManager {
 	@Autowired
 	private CustinfoMapper custinfoMapper;
 
-	@Autowired
+	
 	private CustManagerValidator custManagerValidator = new CustManagerValidator(processId);
 
 	@Autowired
@@ -106,7 +106,7 @@ public class CustManagerImpl implements CustManager {
 		 */
 		Custinfo custinfo = CustConvert.convertCustinfo(loginAction);
 		custinfo.setCustno(custinfoMapper.getCustinfoSequence());
-		custinfoMapper.insterCustinfo(custinfo);
+		custinfoMapper.insertCustinfo(custinfo);
 		this.insterSerialno(custinfo, Apkind.REGISTER.getValue());
 	}
 

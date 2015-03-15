@@ -4,8 +4,13 @@ package com.ufufund.ufb.biz.exception;
 /**
  * 业务类异常，可以展示给用户
  */
-@SuppressWarnings("serial")
+
 public class BizException extends AppException{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public BizException(String errmsg) {
 		super(errmsg);

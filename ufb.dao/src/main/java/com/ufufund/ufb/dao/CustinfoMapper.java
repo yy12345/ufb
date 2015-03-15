@@ -19,7 +19,7 @@ public interface CustinfoMapper extends BaseDao {
 	/*
 	 * 不使用  ，使用CustManager insterCustinfo方法
 	 */
-	public void insterCustinfo(Custinfo custinfo);
+	public void insertCustinfo(Custinfo custinfo);
 	
 	
 	public void updateCustinfo(Custinfo custinfo);
