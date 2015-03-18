@@ -20,6 +20,10 @@
             <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n</pattern>
         </encoder>
     </appender> -->
+    
+    <logger name="org.springframework" level="WARN"/>
+    
+    <logger name="org.apache" level="WARN"/> 
 
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
