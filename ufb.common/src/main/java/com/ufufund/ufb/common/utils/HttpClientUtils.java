@@ -18,7 +18,6 @@ import javax.net.ssl.X509TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * http及https请求工具类
  * @author ayis
@@ -27,7 +26,12 @@ import org.slf4j.LoggerFactory;
 public class HttpClientUtils {
     private static final Logger LOG = LoggerFactory.getLogger(HttpClientUtils.class);
 
-    private static final int CONNECT_TIMEOUT = 30000;  // 连接超时时间，单位：毫秒
+    // 连接超时时间，单位：毫秒
+    private static final int CONNECT_TIMEOUT = 30000;  
+    // post请求时的内容编码
+    private static final String CONTENT_ENCODING = "utf-8";
+    // response的内容编码
+    private static final String RESPONSE_ENCODING = "utf-8";
  
  
     /**
@@ -37,7 +41,7 @@ public class HttpClientUtils {
      * @param charset 上送数据的编码
      * @return
      */
-    public static byte[] httpPost(String url, String content, String charset) {
+    public static String httpPost(String url, String content) {
         
         HttpURLConnection conn = null;
         try {
@@ -50,7 +54,7 @@ public class HttpClientUtils {
             conn.connect();
             // post start
             DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-            out.write(content.getBytes(charset));
+            out.write(content.getBytes(CONTENT_ENCODING));
             out.flush();
             out.close();
             // post end
@@ -65,7 +69,7 @@ public class HttpClientUtils {
                 }
                 is.close();
                 conn.disconnect();
-                return outStream.toByteArray();
+                return new String(outStream.toByteArray(), RESPONSE_ENCODING);
             }
         } catch (Exception e) {
             LOG.error("调用post失败："+e.getMessage(), e);
@@ -85,7 +89,7 @@ public class HttpClientUtils {
      * @param url
      * @return
      */
-    public static byte[] httpGet(String url) {
+    public static String httpGet(String url) {
         
         HttpURLConnection conn = null;
         try{
@@ -104,7 +108,7 @@ public class HttpClientUtils {
                 }
                 is.close();
                 conn.disconnect();
-                return outStream.toByteArray();
+                return new String(outStream.toByteArray(), RESPONSE_ENCODING);
             }
         } catch (Exception e) {
         	LOG.error("调用get失败："+e.getMessage(), e);
@@ -126,7 +130,7 @@ public class HttpClientUtils {
      * @param charset 上送数据的编码
      * @return
      */
-    public static byte[] httpsPost(String url, String content, String charset) {
+    public static String httpsPost(String url, String content) {
     	
     	HttpsURLConnection conn = null;
     	try {
@@ -146,7 +150,7 @@ public class HttpClientUtils {
 	        conn.connect();
             // post start
             DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-            out.write(content.getBytes(charset));
+            out.write(content.getBytes(CONTENT_ENCODING));
             out.flush();
             out.close();
             // post end
@@ -161,7 +165,7 @@ public class HttpClientUtils {
                 }
                 is.close();
                 conn.disconnect();
-                return outStream.toByteArray();
+                return new String(outStream.toByteArray(), RESPONSE_ENCODING);
             }
         } catch (Exception e) {
 			LOG.error("调用post失败："+e.getMessage(), e);
@@ -181,7 +185,7 @@ public class HttpClientUtils {
      * @param url
      * @return
      */
-    public static byte[] httpsGet(String url) {
+    public static String httpsGet(String url) {
     	
         HttpsURLConnection conn = null;
     	try{
@@ -207,7 +211,7 @@ public class HttpClientUtils {
                 }
                 is.close();
                 conn.disconnect();
-                return outStream.toByteArray();
+                return new String(outStream.toByteArray(), RESPONSE_ENCODING);
             }
 	    } catch (Exception e) {
 	    	LOG.error("调用get失败："+e.getMessage(), e);
