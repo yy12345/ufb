@@ -30,7 +30,7 @@ public class EncryptUtil {
      * @return 
      */  
     private static String encrypt(String inputText, String algorithmName) {  
-        if (inputText == null || "".equals(inputText.trim())) {  
+        if (inputText == null) {  
             throw new IllegalArgumentException("请输入要加密的内容");  
         }  
         if (algorithmName == null || "".equals(algorithmName.trim())) {  
