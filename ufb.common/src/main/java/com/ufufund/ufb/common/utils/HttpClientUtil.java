@@ -23,15 +23,11 @@ import org.slf4j.LoggerFactory;
  * @author ayis
  * 2015-03-18
  */
-public class HttpClientUtils {
-    private static final Logger LOG = LoggerFactory.getLogger(HttpClientUtils.class);
+public class HttpClientUtil {
+    private static final Logger LOG = LoggerFactory.getLogger(HttpClientUtil.class);
 
     // 连接超时时间，单位：毫秒
     private static final int CONNECT_TIMEOUT = 30000;  
-    // post请求时的内容编码
-    private static final String CONTENT_ENCODING = "utf-8";
-    // response的内容编码
-    private static final String RESPONSE_ENCODING = "utf-8";
  
  
     /**
@@ -41,7 +37,7 @@ public class HttpClientUtils {
      * @param charset 上送数据的编码
      * @return
      */
-    public static String httpPost(String url, String content) {
+    public static String httpPost(String url, String content, String charset) {
         
         HttpURLConnection conn = null;
         try {
@@ -54,7 +50,7 @@ public class HttpClientUtils {
             conn.connect();
             // post start
             DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-            out.write(content.getBytes(CONTENT_ENCODING));
+            out.write(content.getBytes(charset));
             out.flush();
             out.close();
             // post end
@@ -69,7 +65,7 @@ public class HttpClientUtils {
                 }
                 is.close();
                 conn.disconnect();
-                return new String(outStream.toByteArray(), RESPONSE_ENCODING);
+                return new String(outStream.toByteArray(), charset);
             }
         } catch (Exception e) {
             LOG.error("调用post失败："+e.getMessage(), e);
@@ -87,9 +83,10 @@ public class HttpClientUtils {
     /**
      * get方式请求
      * @param url
+     * @param charset
      * @return
      */
-    public static String httpGet(String url) {
+    public static String httpGet(String url, String charset) {
         
         HttpURLConnection conn = null;
         try{
@@ -108,7 +105,7 @@ public class HttpClientUtils {
                 }
                 is.close();
                 conn.disconnect();
-                return new String(outStream.toByteArray(), RESPONSE_ENCODING);
+                return new String(outStream.toByteArray(), charset);
             }
         } catch (Exception e) {
         	LOG.error("调用get失败："+e.getMessage(), e);
@@ -130,7 +127,7 @@ public class HttpClientUtils {
      * @param charset 上送数据的编码
      * @return
      */
-    public static String httpsPost(String url, String content) {
+    public static String httpsPost(String url, String content, String charset) {
     	
     	HttpsURLConnection conn = null;
     	try {
@@ -150,7 +147,7 @@ public class HttpClientUtils {
 	        conn.connect();
             // post start
             DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-            out.write(content.getBytes(CONTENT_ENCODING));
+            out.write(content.getBytes(charset));
             out.flush();
             out.close();
             // post end
@@ -165,7 +162,7 @@ public class HttpClientUtils {
                 }
                 is.close();
                 conn.disconnect();
-                return new String(outStream.toByteArray(), RESPONSE_ENCODING);
+                return new String(outStream.toByteArray(), charset);
             }
         } catch (Exception e) {
 			LOG.error("调用post失败："+e.getMessage(), e);
@@ -183,9 +180,10 @@ public class HttpClientUtils {
     /**
      * get方式请求服务器<br/>
      * @param url
+     * @param charset
      * @return
      */
-    public static String httpsGet(String url) {
+    public static String httpsGet(String url, String charset) {
     	
         HttpsURLConnection conn = null;
     	try{
@@ -211,7 +209,7 @@ public class HttpClientUtils {
                 }
                 is.close();
                 conn.disconnect();
-                return new String(outStream.toByteArray(), RESPONSE_ENCODING);
+                return new String(outStream.toByteArray(), charset);
             }
 	    } catch (Exception e) {
 	    	LOG.error("调用get失败："+e.getMessage(), e);

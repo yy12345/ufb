@@ -24,7 +24,7 @@ public class XmlTest {
 		br.setApplicationNo("serial11120001222");
 		br.setClearingAgencyCode("0009ccc");
 		
-		Requestbody<BankAuthRequest> rb = new Requestbody<BankAuthRequest>();
+		Requestbody rb = new Requestbody();
 		rb.setRequest(br);
 		
 		MessageRequest mq = new MessageRequest();
@@ -78,7 +78,7 @@ public class XmlTest {
 		response.setReturnMsg("交易成功");
 		response.setExtension("others...");
 		
-		Responsebody<BankAuthResponse> rb = new Responsebody<BankAuthResponse>();
+		Responsebody rb = new Responsebody();
 		rb.setResponse(response);
 		
 		MessageResponse mr = new MessageResponse();

@@ -51,11 +51,9 @@ public abstract class AbstractRequest {
 	}
 	@Override
 	public String toString() {
-		return "GenericRequest [version=" + version + ", merchantId="
+		return "AbstractRequest [version=" + version + ", merchantId="
 				+ merchantId + ", distributorCode=" + distributorCode
 				+ ", businType=" + businType + ", applicationNo="
 				+ applicationNo + ", extension=" + extension + "]";
 	}
-	
-	
 }

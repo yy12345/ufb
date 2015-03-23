@@ -65,7 +65,7 @@ public abstract class AbstractResponse {
 	}
 	@Override
 	public String toString() {
-		return "GenericResponse [version=" + version + ", merchantId="
+		return "AbstractResponse [version=" + version + ", merchantId="
 				+ merchantId + ", distributorCode=" + distributorCode
 				+ ", businType=" + businType + ", applicationNo="
 				+ applicationNo + ", returnCode=" + returnCode + ", returnMsg="

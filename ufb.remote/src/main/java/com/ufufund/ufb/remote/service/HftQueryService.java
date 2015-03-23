@@ -5,6 +5,6 @@ package com.ufufund.ufb.remote.service;
  * @author ayis
  * 2015年3月22日
  */
-public class HftQueryService extends BaseService{
+public class HftQueryService extends HftBaseService{
 
 }

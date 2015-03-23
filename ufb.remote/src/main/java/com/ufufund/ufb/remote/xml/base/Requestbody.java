@@ -5,16 +5,16 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Requestbody<T> {
+public class Requestbody {
 
 	@XmlElement(name = "Request")
-	private T request;
+	private Object request;
 
-	public T getRequest() {
+	public Object getRequest() {
 		return request;
 	}
 
-	public void setRequest(T request) {
+	public void setRequest(Object request) {
 		this.request = request;
 	}
 

@@ -12,7 +12,7 @@ import com.ufufund.ufb.remote.xml.pojo.OpenAccountResponse;
  * @author ayis
  * 2015年3月22日
  */
-public class HftCustService extends BaseService{
+public class HftCustService extends HftBaseService{
 	
 	
 	/**

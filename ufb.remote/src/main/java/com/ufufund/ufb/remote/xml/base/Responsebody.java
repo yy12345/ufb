@@ -5,16 +5,16 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Responsebody<T> {
+public class Responsebody {
 
 	@XmlElement(name="Response")
-	private T response;
+	private Object response;
 
-	public T getResponse() {
+	public Object getResponse() {
 		return response;
 	}
 
-	public void setResponse(T response) {
+	public void setResponse(Object response) {
 		this.response = response;
 	}
 
