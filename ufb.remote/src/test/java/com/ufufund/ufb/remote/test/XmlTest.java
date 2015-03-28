@@ -13,7 +13,7 @@ import com.ufufund.ufb.remote.xml.pojo.BankAuthResponse;
 @SuppressWarnings("rawtypes")
 public class XmlTest {
 
-	@Test
+//	@Test
 	public void testReqToXml(){
 		
 		BankAuthRequest br = new BankAuthRequest();
@@ -92,7 +92,7 @@ public class XmlTest {
 		System.out.println(xml);
 	}
 	
-//	@Test
+	@Test
 	public void testResToBean(){
 		
 		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"
@@ -113,12 +113,16 @@ public class XmlTest {
 				+"    <Signature>ssssssss----sssss</Signature>                                                        "
 				+"</Message>                                                                                          ";
 
+		String responseXml = xml.substring(xml.indexOf("<Response>"),
+				xml.indexOf("</Response>") + "</Response>".length());
+		System.out.println(responseXml);
+		
+		
 		xml = JaxbUtil.buildResponseXml(xml, BankAuthResponse.class);
 		System.out.println(xml);
 		
 		Class[] clazzes = new Class[]{MessageResponse.class, Responsebody.class, BankAuthResponse.class};
 		MessageResponse mr = JaxbUtil.toBean(xml, clazzes);
-		
 		System.out.println(mr);
 
 	}

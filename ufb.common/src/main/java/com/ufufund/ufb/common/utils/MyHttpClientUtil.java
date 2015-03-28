@@ -23,8 +23,8 @@ import org.slf4j.LoggerFactory;
  * @author ayis
  * 2015-03-18
  */
-public class HttpClientUtil {
-    private static final Logger LOG = LoggerFactory.getLogger(HttpClientUtil.class);
+public class MyHttpClientUtil {
+    private static final Logger LOG = LoggerFactory.getLogger(MyHttpClientUtil.class);
 
     // 连接超时时间，单位：毫秒
     private static final int CONNECT_TIMEOUT = 30000;  

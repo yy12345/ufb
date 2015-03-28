@@ -95,7 +95,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
 			} else {
 				Field[] field = object.getClass().getDeclaredFields();
 				StringBuffer sb = new StringBuffer();
-				for (int i = 0; i < field.length && field.length > 0; i++) {
+				for (int i = 0; i < field.length; i++) {
 					field[i].setAccessible(true);
 					if (i == field.length - 1) {
 						sb.append(field[i].getName() + ": "

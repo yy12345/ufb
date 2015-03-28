@@ -1,17 +1,23 @@
 package com.ufufund.ufb.remote.service;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.ufufund.ufb.common.utils.HttpClientUtil;
+import com.ufufund.ufb.common.utils.EncryptUtil;
+import com.ufufund.ufb.common.utils.HftCommonUtils;
+import com.ufufund.ufb.common.utils.HttpClientUtils;
 import com.ufufund.ufb.common.utils.JaxbUtil;
-import com.ufufund.ufb.common.utils.SequenceUtil;
-import com.ufufund.ufb.remote.xml.base.MessageRequest;
 import com.ufufund.ufb.remote.xml.base.MessageResponse;
-import com.ufufund.ufb.remote.xml.base.Requestbody;
 import com.ufufund.ufb.remote.xml.base.Responsebody;
 
+/**
+ * 海富通remote接口基类
+ * @author ayis
+ * 2015年3月28日
+ */
 public class HftBaseService {
 	// 使用实例的类名记录日志
 	protected final Logger LOG = LoggerFactory.getLogger(this.getClass());
@@ -20,28 +26,41 @@ public class HftBaseService {
 	
 	@Value("${hft_requestUrl}")
 	private String requestUrl = "";
+	
+	@Value("hft_signKey")
+	private String signKey = "123456111";
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected <T> T send(Object  request, Class reqClazz, Class resClazz){
+	protected <T> T send(Object  request, Class responseClazz){
 		
-		/** 组装request的message对象 **/
-		Requestbody requestbody = new Requestbody();
-		requestbody.setRequest(request);
+		/** 解析request参数 **/
+		Map<String, String> params = HftCommonUtils.Object2Map(request);
+		String sign = HftCommonUtils.sign(params, ENCODING, signKey);
+		params.put("sign", sign);
+		// post
+		String messageXml = HttpClientUtils.post(requestUrl, params, ENCODING);
 		
-		MessageRequest messageRequest = new MessageRequest();
-		messageRequest.setId(SequenceUtil.getSerialId4Message());
-		messageRequest.setRequestbody(requestbody);
-		messageRequest.setSignature("");
+		// 获取reponse验签明文
+		String dataStr = messageXml.substring(messageXml.indexOf("<Response>"),
+				messageXml.indexOf("</Response>") + "</Response>".length());
 		
-		// 生成发送报文
-		String requestXml = JaxbUtil.toXml(messageRequest, MessageRequest.class, Requestbody.class, reqClazz);
-		// 获取响应报文
-		String responseXml = HttpClientUtil.httpsPost(requestUrl, requestXml, ENCODING);
+		/** 解析返回的xml报文 **/ 
+		messageXml = JaxbUtil.buildResponseXml(messageXml, responseClazz);
+		MessageResponse messageResponse = JaxbUtil.toBean(messageXml, MessageResponse.class, Responsebody.class, responseClazz);
 		
-		/** 获取xml的绑定对象 **/ 
-		responseXml = JaxbUtil.buildResponseXml(responseXml, resClazz);
-		MessageResponse messageResponse = JaxbUtil.toBean(responseXml, MessageResponse.class, Responsebody.class, resClazz);
-		T t = (T) messageResponse.getResponsebody().getResponse();
-		return t;
+		// 验签
+		String sign1 = EncryptUtil.md5(signKey+dataStr+signKey, ENCODING);
+		if(!sign1.equals(messageResponse.getSignature())){
+			LOG.error("验签失败：messageXml="+messageXml);
+			return null;
+		}
+		
+		// 检验message报文的id
+		// code ...
+		
+		return (T) messageResponse.getResponsebody().getResponse();
+		
 	}
+	
+	
 }

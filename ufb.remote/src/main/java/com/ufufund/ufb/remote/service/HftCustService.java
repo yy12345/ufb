@@ -1,5 +1,7 @@
 package com.ufufund.ufb.remote.service;
 
+import org.springframework.stereotype.Service;
+
 import com.ufufund.ufb.remote.xml.pojo.BankAuthRequest;
 import com.ufufund.ufb.remote.xml.pojo.BankAuthResponse;
 import com.ufufund.ufb.remote.xml.pojo.BankVeriRequest;
@@ -12,6 +14,7 @@ import com.ufufund.ufb.remote.xml.pojo.OpenAccountResponse;
  * @author ayis
  * 2015年3月22日
  */
+@Service
 public class HftCustService extends HftBaseService{
 	
 	
@@ -21,7 +24,7 @@ public class HftCustService extends HftBaseService{
 	 * @return
 	 */
 	public BankAuthResponse bankAuth(BankAuthRequest request){
-		return super.send(request, BankAuthRequest.class, BankAuthResponse.class);
+		return super.send(request, BankAuthResponse.class);
 	}
 	
 	/**
@@ -30,7 +33,7 @@ public class HftCustService extends HftBaseService{
 	 * @return
 	 */
 	public BankVeriResponse bankVeri(BankVeriRequest request){
-		return super.send(request, BankVeriRequest.class, BankVeriResponse.class);
+		return super.send(request, BankVeriResponse.class);
 	}
 	
 	/**
@@ -39,6 +42,7 @@ public class HftCustService extends HftBaseService{
 	 * @return
 	 */
 	public OpenAccountResponse openAccount(OpenAccountRequest request){
-		return super.send(request, OpenAccountRequest.class, OpenAccountResponse.class);
+		return super.send(request, OpenAccountResponse.class);
 	}
+	
 }
