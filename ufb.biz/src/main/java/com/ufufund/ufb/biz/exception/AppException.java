@@ -55,6 +55,16 @@ public class AppException extends RuntimeException{
 	public String getErrcode() {
 		return errcode;
 	}
+	
+	/**
+	 * 重写Exception类的getMessage方法，
+	 * 使能在日志中打印出异常内容
+	 * @author ayis
+	 */
+	@Override
+	public String getMessage(){
+		return errmsg;
+	}
 
 	private void initErrmsg() {
 		HashMap<String,Dictionary>  map = dictManager.getDictionaryByType(Constant.DICTIONARY$ERROR);
