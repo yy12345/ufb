@@ -25,10 +25,11 @@ public class MsgCodeUtils {
 	private static final int MINUTES = 10;
 	// 每两次发送时间间隔，单位：秒
 	private static final int SECONDS = 60;
-	
+	// 用户短信动态码有效时间，单位：分钟
+	private static final int ACTIVE_TIME = 5;
 
 	/**
-	 * 发送短信动态码
+	 * 发送短信动态码<br/>
 	 * 控制规则：
 	 *   1.每两次发送时间间隔控制：<code>SECONDS</code>
 	 *	 2.时间段内发送次数控制：在<code>MINUTES</code>内，最多<code>MAX_COUNT</code>次
@@ -80,7 +81,9 @@ public class MsgCodeUtils {
 	}
 	
 	/**
-	 * 取出session中的短信码进行校验
+	 * 验证短信动态码<br/>
+	 * 1.验证是否匹配
+	 * 2.验证是否在时效范围内
 	 * @param msgCode
 	 * @return 校验失败，直接提示业务类异常；否则，成功
 	 */
@@ -88,9 +91,14 @@ public class MsgCodeUtils {
 		
 		UserMsgCode userMsgCode =  (UserMsgCode)ServletHolder.getSession().getAttribute("userMsgCode");
 		if(userMsgCode == null || StringUtils.isBlank(userMsgCode.getMsgCode())){
-			throw new BizException("您未发送短信，或者短信已失效，请重新发送短信码！");
-		}else if(!msgCode.equals(userMsgCode.getMsgCode())){
-			throw new BizException("您输入的动态短信码不匹配！");
+			throw new BizException("您未发送短信码，请点击发送！");
+		}else if(!userMsgCode.getMsgCode().equals(msgCode)){
+			throw new BizException("您输入的短信码不匹配！");
+		}else {
+			long now = System.currentTimeMillis();
+			if(now - userMsgCode.getTimeList().get(userMsgCode.getTimeList().size() - 1) > ACTIVE_TIME*60*1000){
+				throw new BizException("您的短信码已失效，请重新发送！");
+			}
 		}
 		return true;
 	}
