@@ -12,7 +12,7 @@ import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.web.filter.ServletHolder;
 
 /**
- * 短信验证码工具类
+ * 短信动态码工具类
  * @author ayis
  * 2015-03-14
  */
@@ -20,15 +20,18 @@ public class MsgCodeUtils {
 	private static final Logger LOG = LoggerFactory.getLogger(MsgCodeUtils.class);
 	
 	// 时间段内最大发送次数
-	private static final int MAX_COUNT = 10;
+	private static final int MAX_COUNT = 5;
 	// 次数控制时间段，单位：分钟
-	private static final int MINUTES = 5;
+	private static final int MINUTES = 10;
 	// 每两次发送时间间隔，单位：秒
 	private static final int SECONDS = 60;
 	
 
 	/**
-	 * 发送短信验证码
+	 * 发送短信动态码
+	 * 控制规则：
+	 *   1.每两次发送时间间隔控制：<code>SECONDS</code>
+	 *	 2.时间段内发送次数控制：在<code>MINUTES</code>内，最多<code>MAX_COUNT</code>次
 	 * @param template 短信模版
 	 */
 	public static void sendMsg(String template){
