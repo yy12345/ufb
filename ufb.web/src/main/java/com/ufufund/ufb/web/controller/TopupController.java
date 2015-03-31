@@ -19,6 +19,7 @@ import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.BankVo;
+import com.ufufund.ufb.model.vo.TopUpComfVo;
 import com.ufufund.ufb.model.vo.TopUpVo;
 //import com.ufufund.ufb.model.Area;
 
@@ -112,4 +113,45 @@ public class TopupController {
 		
 		return "topup/topup_index";
 	}
+	
+	/**
+	 * 充值下单:b2b
+	 * @param previewVO
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="topup/pay", method = RequestMethod.POST)
+	public String b2bAdd(TopUpComfVo topUpComfVo, Model model){
+		
+		try {
+			String custNo = ""; //UserHelper.getCurrentCustno();
+			topUpComfVo.setCustNo(custNo);
+			topUpComfVo.setAcceptMode(""); //PartnerHelper.getAcceptMode()
+			topUpComfVo.setSubApkind(""); //SubApkindUtil.getSubApkind(SubApkindUtil.MAC_APKIND_0101)
+			topUpComfVo.setFundCorpNo(""); //(PartnerHelper.getBranchCode());
+//			topUpComfVo.setB2c(false);
+			
+			// 充值流水
+			String serial = ""; // Sequences.getPK();
+			topUpComfVo.setSerialNo(serial);
+//			HttpSession session = ServletContextHolder.getHttpServletRequest().getSession();
+//			session.setAttribute(TOPUP_SERIAL, serial);
+			
+			// 下单
+			//VaccoSubscribeMacResult result = topupManager.recharge(previewVO);
+			// cts的2011错误码透传
+//			if("2011".equals(result.getErrCode())){
+//				throw new BizException(result.getErrMsg());
+//			}
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			model.addAttribute("returnUrl", "TOPUP_INDEX");
+			return "error/error1";
+		}
+		return ""; //"redirect:" + TOPUP_RESULT + PartnerHelper.getRedirectPartner();
+	}
+	
+	
 }
