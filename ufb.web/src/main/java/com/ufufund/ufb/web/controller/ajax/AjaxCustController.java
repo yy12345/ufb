@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
@@ -25,8 +26,40 @@ public class AjaxCustController {
 //	@Autowired
 	private CustManager custManager;
 	
+	
 	/**
-	 * 校验验证码
+	 * 获取短信验证码
+	 * @param
+	 * @return
+	 */
+	@RequestMapping(value = "ajaxcust/chk_verifycode", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,String> sendMsgCode(){
+		Map<String,String> resultMap = new HashMap<String,String>();
+		try {
+			// 获取短信验证码
+			String msg = "";
+			
+			// 发送短信
+			MsgCodeUtils.sendMsg(msg);
+			
+			resultMap.put("errCode", "0000");
+			resultMap.put("VerifyCode", "verifyCode");
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", e.getMessage());
+		}catch (Exception e) {
+			LOG.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 校验图形验证码
 	 * @param verifyCode
 	 * @return
 	 */
@@ -36,7 +69,7 @@ public class AjaxCustController {
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try {
 			
-			// 校验验证码
+			// 校验图形验证码
 			boolean checkVerifyCode = VerifyCodeUtils.validate(verifycode);
 			
 			if(!checkVerifyCode){

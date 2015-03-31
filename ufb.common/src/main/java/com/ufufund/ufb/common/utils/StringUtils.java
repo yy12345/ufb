@@ -12,8 +12,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
 	 * @param s
 	 * @param type
 	 * @return
-	 * <br><b>作者： 周靖</b>
-	 * <br>创建时间：2014-6-17 下午4:42:24
+	 * <br><b>作者： </b>
+	 * <br>创建时间：2015-3-30
 	 */
 	public static String format(String key,String s,String type){
 		if(s == null|| "".equals(s)
@@ -54,7 +54,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils{
 	 * @param str
 	 * @param length
 	 * @return true
-	 * <br>创建时间：2014年6月17日 下午5:18:34
+	 * <br><b>作者： </b>
+	 * <br>创建时间：2015-3-30
 	 */
 	public static boolean isFixedLengthNum(String str, int length) {
 		

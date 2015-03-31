@@ -1,5 +1,11 @@
 package com.ufufund.ufb.model.vo;
 
+/**
+ * 用户VO
+ * <br>创建日期：2015年3月
+ * @author goodrich
+ * @version 1.0
+ */
 public class CustinfoVo {
 
 	private String custno;

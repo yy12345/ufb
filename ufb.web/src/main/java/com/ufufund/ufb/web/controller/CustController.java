@@ -1,5 +1,7 @@
 package com.ufufund.ufb.web.controller;
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,12 @@ public class CustController {
 		return "cust/register_person";
 	}
 	
+	/**
+	 * 注册用户
+	 * @param custinfo
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "cust/register_person")
 	public String registerPerson(CustinfoVo custinfo, Model model) {
 		
@@ -66,7 +74,7 @@ public class CustController {
 			loginAction.setLoginPassword2(custinfo.getPswpwd2());
 			loginAction.setInvtp(Invtp.PERSONAL);
 			//loginAction.setGrouptp(Grouptp.PERSONAL);
-
+			
 			custManager.register(loginAction);
 			
 			//model.addAttribute("tips", tips);
