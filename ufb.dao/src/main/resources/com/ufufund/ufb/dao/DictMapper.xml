@@ -6,20 +6,19 @@
 
 	<select id="getDictionary" resultType="com.ufufund.ufb.model.db.Dictionary">
   	 <![CDATA[
-		SELECT PMST,
-		       PMKY,
-		       PMCO,
-		       PMNM,
-		       PMV1,
-		       PMV2,
-		       PMV3,
-		       PMV4,
-		       PMV5,
-		       INSERTTIMESTAMP,
-		       UPDATETIMESTAMP
-		FROM PARAMETER  T
-		WHERE T.PMST = 'SYSTEM'  
-		ORDER BY T.PMKY
+		SELECT
+			A.PMST,
+			A.PMKY,
+			A.PMCO,
+			A.PMNM,
+			A.PMV1,
+			A.PMV2,
+			A.PMV3,
+			A.PMV4,
+			A.PMV5
+			FROM
+			SYS_DICTIONARY A
+		ORDER BY A.PMKY
 	 ]]>
   	</select>
   	

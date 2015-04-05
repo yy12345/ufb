@@ -6,22 +6,14 @@
 
 	<insert id="insterChangerecordinfo" parameterType="com.ufufund.ufb.model.db.Changerecordinfo">
   	 <![CDATA[
-	 	insert into custinfo (
-	 		custno,
-		    invtp,
-		    invnm,
-			sex,
-			idtp,
+	 	insert into CHANGERECORDINFO (
+	 		REFSERIALNO,
+		    TABLENAME,
+		    CUSTNO,
+			APKIND,
+			RECORD,
 		    idno,
-		    mobileno,
-		    email,
-		    custst,
-		    passwd,
-		    lastlogintime,
-		    passwderr,
-		    opendt,
-		    updatetimestamp,
-		    tradepwd)
+		    )
 		values (
 			#{custno,jdbcType=VARCHAR},
 			#{invtp,jdbcType=VARCHAR},

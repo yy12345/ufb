@@ -2,16 +2,16 @@ package com.ufufund.ufb.model.enums;
 
 public enum Invtp {
 
-	PERSONAL(1), //个人
-	ORGANIZATION(2);//机构
+	PERSONAL("0"), //个人
+	ORGANIZATION("1");//机构
 	
-	private int value;
+	private String value;
 
-	private Invtp(int value) {
+	private Invtp(String value) {
 		this.value = value;
 	}
 
-	public int getValue() {
+	public String getValue() {
 		return value;
 	}
 

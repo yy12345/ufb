@@ -14,7 +14,7 @@ public class CustConvert {
 		Custinfo custinfo = new Custinfo();
 		custinfo.setMobileno(loginAction.getLoginCode());
 		custinfo.setPasswd(loginAction.getLoginPassword());
-		
+		custinfo.setInvtp(loginAction.getInvtp().getValue());
 		return custinfo;
 	}
 //	public static Custinfo convertCustinfo(CustinfoAction custinfoAction){

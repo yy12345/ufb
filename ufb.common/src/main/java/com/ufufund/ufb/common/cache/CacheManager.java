@@ -4,7 +4,9 @@ package com.ufufund.ufb.common.cache;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -108,17 +110,12 @@ public class CacheManager {
 
     //获取缓存信息
     public static Cache getCacheInfo(String key) {
-
         if (hasCache(key)) {
             Cache cache = getCache(key);
             if (cacheExpired(cache)) { //调用判断是否终止方法
                 cache.setExpired(true);
-            }
-            if(cache.isExpired()){
-              return null;
-            }else{
-              return cache;
-            }
+            }          
+            return cache;
         }else{
         	return null;
         }
@@ -148,12 +145,20 @@ public class CacheManager {
         if (null == cache) { //传入的缓存不存在
             return false;
         }
-        long nowDt = System.currentTimeMillis(); //系统当前的毫秒数
+        Date d = new Date();
+   	 	SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        long nowDt = Long.parseLong(format.format(d));
         long cacheDt = cache.getTimeOut(); //缓存内的过期毫秒数
-        if (cacheDt <= 0||cacheDt>nowDt) { //过期时间小于等于零时,或者过期时间大于当前时间时，则为FALSE
-            return false;
-        } else { //大于过期时间 即过期
-            return true;
+        long lastDt = cache.getLasttimeOut();
+        if(nowDt-lastDt>cacheDt){
+        	 cache.setLasttimeOut(nowDt);
+        	 return true;
+        }else{
+        	return false;
+//        if (cacheDt <= 0||cacheDt>nowDt) { //过期时间小于等于零时,或者过期时间大于当前时间时，则为FALSE
+//            return false;
+//        } else { //大于过期时间 即过期
+//            return true;
         }
     }
 
@@ -213,6 +218,8 @@ public class CacheManager {
         }
         return a;
     }
+
+    
 
 }
 

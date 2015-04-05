@@ -21,25 +21,29 @@ public class Custinfo implements Serializable {
 	private String idno;// 证件号码',
 	private String mobileno;// 手机号',
 	private String email;// 邮箱',
-	private String custst;// 账户状态：y正常；n 已注销',
+	private String custst="N";// 账户状态：Y开户；N 注册；C注销 
 	private String passwd;// 登陆密码，md5密文',
 	private String lastlogintime;// 上次登录时间',
 	private int passwderr;// 密码错误次数',
-	private String opendt;// 开户日期',
+	//private String opendt;// 开户日期',
 	// private String updatetimestamp;//更新时间',
 	private String tradepwd;// 交易密码，md5密文',
+
+
+
+	
+
+
+
+
 
 
 
 	@Override
 	public String toString() {
 		return "Custinfo [custno=" + custno + ", invtp=" + invtp + ", invnm=" + invnm + ", sex=" + sex + ", idtp=" + idtp + ", idno=" + idno + ", mobileno=" + mobileno + ", email=" + email
-				+ ", custst=" + custst + ", passwd=" + passwd + ", lastlogintime=" + lastlogintime + ", passwderr=" + passwderr + ", opendt=" + opendt + ", tradepwd=" + tradepwd + "]";
+				+ ", custst=" + custst + ", passwd=" + passwd + ", lastlogintime=" + lastlogintime + ", passwderr=" + passwderr + ", tradepwd=" + tradepwd + "]";
 	}
-
-
-
-
 
 
 
@@ -115,9 +119,9 @@ public class Custinfo implements Serializable {
 
 
 
-	public String getOpendt() {
-		return opendt;
-	}
+//	public String getOpendt() {
+//		return opendt;
+//	}
 
 
 
@@ -199,9 +203,9 @@ public class Custinfo implements Serializable {
 
 
 
-	public void setOpendt(String opendt) {
-		this.opendt = opendt;
-	}
+//	public void setOpendt(String opendt) {
+//		this.opendt = opendt;
+//	}
 
 
 

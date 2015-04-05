@@ -24,7 +24,6 @@ import com.ufufund.ufb.web.util.VerifyCodeUtils;
 public class CustController {
 	private static final Logger LOG = LoggerFactory.getLogger(CustController.class);
 	
-//	@Autowired
 	private CustManager custManager;
 	
 	@RequestMapping(value="test/index" , method=RequestMethod.GET)

@@ -34,7 +34,7 @@
 		<if test="idno != null and idno !=''" >
 		 T1.IDNO = #{idno,jdbcType=VARCHAR} AND
 		</if>
-	    T1.CUSTST = 'N'
+	     T1.CUSTST &lt;&gt; 'C'
   	</select>
 				
 	<insert id="insertCustinfo" parameterType="com.ufufund.ufb.model.db.Custinfo">
@@ -72,7 +72,7 @@
 			
 			sysdate(),
 			#{passwderr,jdbcType=INTEGER},
-			#{opendt,jdbcType=VARCHAR},
+			sysdate(),
 			sysdate(),
 			#{tradepwd,jdbcType=VARCHAR}
 			)

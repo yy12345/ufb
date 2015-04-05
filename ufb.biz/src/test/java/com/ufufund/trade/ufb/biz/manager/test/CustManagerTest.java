@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.dao.CustinfoMapper;
+import com.ufufund.ufb.model.action.LoginAction;
 import com.ufufund.ufb.model.db.Custinfo;
 
 
@@ -25,7 +26,7 @@ public class CustManagerTest {
 	@Autowired
 	private CustinfoMapper custinfoMapper;
 	
-	@Test
+	//@Test
 	public void testgetCustinfo(){
 		Custinfo custinfo = new Custinfo();
 		custinfo.setMobileno("13611686341");
@@ -35,60 +36,73 @@ public class CustManagerTest {
 		System.out.println("----------2"+ s);
 	}
 	
-	//@Test
+	@Test
 	public void testgetInsterCustinfo(){
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno("2");
-		custinfo.setInvtp("3");
-		custinfo.setInvnm("4");
-		custinfo.setSex("5");
-		custinfo.setIdtp("6");
-		custinfo.setIdno("7");
-		custinfo.setMobileno("8");
-		custinfo.setEmail("9");
-		custinfo.setCustst("a");
-		custinfo.setPasswd("b");
-		custinfo.setLastlogintime("9");
-		custinfo.setPasswderr(2);
-		custinfo.setOpendt("c");
-		custinfo.setTradepwd("d");
+//		custinfo.setInvtp("3");
+//		custinfo.setInvnm("4");
+//		custinfo.setSex("5");
+//		custinfo.setIdtp("6");
+//		custinfo.setIdno("7");
+//		custinfo.setMobileno("13611686341");
+//		custinfo.setEmail("9");
+//		custinfo.setCustst("a");
+//		custinfo.setPasswd("b");
+//		custinfo.setLastlogintime("9");
+//		custinfo.setPasswderr(2);
+//		//custinfo.setOpendt("c");
+//		custinfo.setTradepwd("d");
+		custinfo.setMobileno("13611686341");
+		custinfo.setPasswd("1234335");
+		custinfo.setInvtp("0");
+//		
 		custinfoMapper.insertCustinfo(custinfo);
 		
 	}
 	
+	
 	//@Test
 	public void testgetUpdateCustinfo(){
-		Custinfo custinfo = new Custinfo();
+		LoginAction loginAction = new LoginAction();
 		
-		custinfo.setCustno("2");
-		custinfo.setInvtp("4");
-		custinfo.setInvnm("5");
-
-		custinfo.setSex("6");
-		custinfo.setIdtp("7");
-		custinfo.setIdno("8");
-
-		custinfo.setMobileno("9");
-		custinfo.setEmail("10");
-		custinfo.setCustst("A");
-
-
-		custinfo.setPasswd("12");
-		custinfo.setLastlogintime("20150315012253");
-		custinfo.setPasswderr(3);
-	
-		custinfo.setOpendt("B");
-		custinfo.setTradepwd("15");
-
-		custinfoMapper.updateCustinfo(custinfo);
-		
+		areaManager.register(loginAction);
 	}
 	
-	@Test
-	public void testgetCustinfoSequence(){	
-		String s =custinfoMapper.getCustinfoSequence();
-		System.out.println("----------------------aaaa---: "+ s);
-	}
+	
+//	//@Test
+//	public void testgetUpdateCustinfo(){
+//		Custinfo custinfo = new Custinfo();
+//		
+//		custinfo.setCustno("2");
+//		custinfo.setInvtp("4");
+//		custinfo.setInvnm("5");
+//
+//		custinfo.setSex("6");
+//		custinfo.setIdtp("7");
+//		custinfo.setIdno("8");
+//
+//		custinfo.setMobileno("9");
+//		custinfo.setEmail("10");
+//		custinfo.setCustst("A");
+//
+//
+//		custinfo.setPasswd("12");
+//		custinfo.setLastlogintime("20150315012253");
+//		custinfo.setPasswderr(3);
+//	
+//		custinfo.setOpendt("B");
+//		custinfo.setTradepwd("15");
+//
+//		custinfoMapper.updateCustinfo(custinfo);
+//		
+//	}
+	
+//	@Test
+//	public void testgetCustinfoSequence(){	
+//		String s =custinfoMapper.getCustinfoSequence();
+//		System.out.println("----------------------aaaa---: "+ s);
+//	}
 
 
 }
