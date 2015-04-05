@@ -2,6 +2,10 @@ package com.ufufund.ufb.model.db;
 
 public class Dictionary {
 	
+	@Override
+	public String toString() {
+		return "Dictionary [pmst=" + pmst + ", pmky=" + pmky + ", pmco=" + pmco + ", pmnm=" + pmnm + ", pmv1=" + pmv1 + ", pmv2=" + pmv2 + ", pmv3=" + pmv3 + ", pmv4=" + pmv4 + ", pmv5=" + pmv5 + "]";
+	}
 	private String pmst;
 	private String pmky;
 	private String pmco;

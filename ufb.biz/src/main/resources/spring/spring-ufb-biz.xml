@@ -21,6 +21,8 @@
     
     <context:component-scan base-package="com.ufufund.ufb.biz.manager.impl" />
     
+	
+	<bean class="com.ufufund.ufb.biz.common.UfbContextUtil"></bean>
 
     <!-- enable autowire -->
     <context:annotation-config />
@@ -29,5 +31,7 @@
 
 	<import resource="classpath*:/spring/spring-ufb-remote.xml"/>
     <import resource="classpath*:/spring/spring-ufb-dao.xml"/>
+    
+    
   
 </beans>

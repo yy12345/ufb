@@ -163,13 +163,13 @@ public class RegexUtil {
      * @author jiqinlin
      */
     public final static boolean isPwd(String str) {
-        return match(str, "^[a-zA-Z0-9]\\w{6,12}$");
+        return match(str, "^[a-zA-Z0-9]\\w{5,11}$");
     }
     
     
     
     public static void main(String[] args) {
-		System.out.println(isPwd("a23456"));
+		System.out.println(isPwd(" 12345678901_"));
 	}
     
 //    

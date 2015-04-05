@@ -9,7 +9,7 @@ public class Fdacfinalresult {
 	private String  workdate;// char(8) not null comment '工作日',
 	private String  apdt;//char(8) not null comment '申请日期',
 	private String  aptm;// char(6) not null comment '申请时间',
-	private String  status;// char(1) not null comment '状态',
+	private String  status="Y";// char(1) not null comment '状态',
 	//private String  updatetimestamp;//timestamp not null default current_timestamp on update current_timestamp comment '更新时间'
 	public String getSerialno() {
 		return serialno;

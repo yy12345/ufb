@@ -1,12 +1,9 @@
 package com.ufufund.ufb.biz.exception;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.manager.DictManager;
 import com.ufufund.ufb.common.constant.Constant;
@@ -15,7 +12,7 @@ import com.ufufund.ufb.model.db.Dictionary;
 /**
  * 应用系统异常，应用自身处理
  */
-@Service
+
 public class AppException extends RuntimeException{
 	
 	/**
@@ -23,9 +20,6 @@ public class AppException extends RuntimeException{
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory.getLogger("AppException");
-	@Autowired
-	private DictManager dictManager;
-	
 
 	private String processId="";
 	private String errmsg;
@@ -68,10 +62,10 @@ public class AppException extends RuntimeException{
 	}
 
 	private void initErrmsg() {
-		HashMap<String,Dictionary>  map = dictManager.getDictionaryByType(Constant.DICTIONARY$ERROR);
+		HashMap<String,Dictionary>  map = DictManager.getDictionaryByType(Constant.DICTIONARY$ERROR);
 		Dictionary dictionary = map.get(errcode);
 		if(dictionary!=null){
-			errmsg = otherInfo + dictionary.getPmst();
+			errmsg = otherInfo + dictionary.getPmnm();
 		}else{
 			errmsg = errcode;
 		}

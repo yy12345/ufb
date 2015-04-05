@@ -120,7 +120,7 @@
    
    <select id="getCustinfoSequence" parameterType="java.lang.String" resultType="java.lang.String">
 	<![CDATA[
-	select date_format(now(),'%Y-%c-%d %h:%i:%s')
+		select getSequence('CUSTINFO_SEQ')
 	]]>
    </select>
 	

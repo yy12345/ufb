@@ -11,78 +11,60 @@
 		    TABLENAME,
 		    CUSTNO,
 			APKIND,
-			RECORD,
-		    idno,
+			RECORDBEFORE,
+		    RECORDAFTER
 		    )
 		values (
+			#{refserialno,jdbcType=VARCHAR},
+			#{tablename,jdbcType=VARCHAR},
 			#{custno,jdbcType=VARCHAR},
-			#{invtp,jdbcType=VARCHAR},
-			#{invnm,jdbcType=VARCHAR},
-			#{sex,jdbcType=VARCHAR},
-			#{idtp,jdbcType=VARCHAR},
-			#{idno,jdbcType=VARCHAR},
-			#{mobileno,jdbcType=VARCHAR},
-			#{email,jdbcType=VARCHAR},
-			#{custst,jdbcType=VARCHAR},
-			#{passwd,jdbcType=VARCHAR},
-			null,
-			#{passwderr,jdbcType=DECIMAL},
-			#{opendt,jdbcType=VARCHAR},
-			systimestamp,
-			#{tradepwd,jdbcType=VARCHAR},
+			#{apkind,jdbcType=VARCHAR},
+			#{recordbefore,jdbcType=VARCHAR},
+			#{recordafter,jdbcType=VARCHAR}
 			)
 	 ]]>
   	</insert>
   	
   	<insert id="insterFdacfinalresult" parameterType="com.ufufund.ufb.model.db.Fdacfinalresult">
   	 <![CDATA[
-	 	insert into custinfo (
-	 		custno,
-		    invtp,
-		    invnm,
-			sex,
-			idtp,
-		    idno,
-		    mobileno,
-		    email,
-		    custst,
-		    passwd,
-		    lastlogintime,
-		    passwderr,
-		    opendt,
-		    updatetimestamp,
-		    tradepwd)
+	 	insert into fdacfinalresult (
+	 		SERIALNO,
+		    CUSTNO,
+		    TRADEACCOID,
+			BANKSERIALID,
+			APKIND,
+			
+		    WORKDATE,
+		    APDT,
+		    APTM,
+		    STATUS)
 		values (
+			#{serialno,jdbcType=VARCHAR},
 			#{custno,jdbcType=VARCHAR},
-			#{invtp,jdbcType=VARCHAR},
-			#{invnm,jdbcType=VARCHAR},
-			#{sex,jdbcType=VARCHAR},
-			#{idtp,jdbcType=VARCHAR},
-			#{idno,jdbcType=VARCHAR},
-			#{mobileno,jdbcType=VARCHAR},
-			#{email,jdbcType=VARCHAR},
-			#{custst,jdbcType=VARCHAR},
-			#{passwd,jdbcType=VARCHAR},
-			null,
-			#{passwderr,jdbcType=DECIMAL},
-			#{opendt,jdbcType=VARCHAR},
-			systimestamp,
-			#{tradepwd,jdbcType=VARCHAR},
+			#{tradeaccoid,jdbcType=VARCHAR},
+			#{bankserialid,jdbcType=VARCHAR},
+			#{apkind,jdbcType=VARCHAR},
+			
+			#{workdate,jdbcType=VARCHAR},
+			#{apdt,jdbcType=VARCHAR},
+			#{aptm,jdbcType=VARCHAR},
+			#{status,jdbcType=VARCHAR}
 			)
 	 ]]>
   	</insert>
-  	<select id="getFdacfinalresultSeq"  resultType="java.lang.String">
-	
+  	
+  	
+  	<select id="getFdacfinalresultSeq" parameterType="java.lang.String"  resultType="java.lang.String">
+	<![CDATA[	select getSequence('FDACFINALRESULT_SEQ') 
+	]]>
 	</select>
   		
   		
   	<select id="getDateInfo"  resultType="com.ufufund.ufb.model.db.DateInfo">
-  		select t1.* from custinfo t1 
-  		where 1=1
-		<if test="custno != null and custno !=''" >and t1.custno = #{custno}</if>
-  		<if test="mobileno != null and mobileno !=''" >and t1.mobileno = #{mobileno}</if>
-		<if test="idno != null and idno !=''" >and t1.idno = #{idno}</if>
-		and t1.custst = 'N'
+  	<![CDATA[	select date_format(now(),'%Y%m%d') apdt,
+			 date_format(now(),'%H%I%S') aptm,
+			 date_format(now(),'%Y%m%d') workdate 
+			 ]]>
   	</select>
   	
   	
