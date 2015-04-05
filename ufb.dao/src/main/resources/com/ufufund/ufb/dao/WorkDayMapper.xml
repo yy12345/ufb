@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.WorkDayMapper">
+
+	<sql id="Base_Columns">
+		WORKDATE, WORKFLAG
+	</sql>
+	
+	<select id="getSysTime" resultType="String">
+		select date_format(now(),'%Y%m%d%H%i%s')
+	</select>
+	
+	<select id="isWorkDay" parameterType="String" resultType="SysWorkDay">
+		select <include refid="Base_Columns"/> from sys_workdays
+		where workdate = #{day,jdbcType=VARCHAR} and workflag = 'Y'
+	</select>
+	
+	<select id="getCurrentWorkDay" parameterType="String" resultType="SysWorkDay">
+		select <include refid="Base_Columns"/> from sys_workdays
+		where workdate >= #{day,jdbcType=VARCHAR} and workflag = 'Y' 
+		limit 1
+	</select>
+	
+	<select id="getWorkDayForward" resultType="SysWorkDay">
+		select <include refid="Base_Columns"/> from (
+			select <include refid="Base_Columns"/>, 
+				(@rownum:=@rownum+1) as rownum 
+			from sys_workdays a, (select (@rownum:=0) ) b
+			where workdate &gt; #{workday,jdbcType=VARCHAR} and workflag = 'Y' 
+			order by workdate 
+			limit #{index,jdbcType=INTEGER}
+		) t where t.rownum = #{index,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getWorkDayBack" resultType="SysWorkDay">
+		select <include refid="Base_Columns"/> from (
+			select <include refid="Base_Columns"/>, 
+				(@rownum:=@rownum+1) as rownum 
+			from sys_workdays a, (select (@rownum:=0) ) b
+			where workdate &lt; #{workday,jdbcType=VARCHAR} and workflag = 'Y' 
+			order by workdate desc
+			limit #{index,jdbcType=INTEGER}
+		) t where t.rownum = #{index,jdbcType=INTEGER}
+	</select>
+  	
+</mapper>
