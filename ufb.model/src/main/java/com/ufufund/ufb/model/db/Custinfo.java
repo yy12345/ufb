@@ -30,10 +30,10 @@ public class Custinfo implements Serializable {
 	private String tradepwd;// 交易密码，md5密文',
 
 	private String  organization;//机构名称
-	private String  level;//级别
+	private String  level="0";//级别
 	private String  business;//营业执照
 
-	
+	private String  openaccount="N";//是否开户
 
 
 
@@ -247,12 +247,27 @@ public class Custinfo implements Serializable {
 
 
 
+	public String getOpenaccount() {
+		return openaccount;
+	}
+
+
+
+	public void setOpenaccount(String openaccount) {
+		this.openaccount = openaccount;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Custinfo [custno=" + custno + ", invtp=" + invtp + ", invnm=" + invnm + ", sex=" + sex + ", idtp=" + idtp + ", idno=" + idno + ", mobileno=" + mobileno + ", email=" + email
 				+ ", custst=" + custst + ", passwd=" + passwd + ", lastlogintime=" + lastlogintime + ", passwderr=" + passwderr + ", tradepwd=" + tradepwd + ", organization=" + organization
-				+ ", level=" + level + ", business=" + business + "]";
+				+ ", level=" + level + ", business=" + business + ", openaccount=" + openaccount + "]";
 	}
+
+
+
 	
 	
 	

@@ -32,7 +32,8 @@ public class CustManagerValidator extends ValidatorCommon {
 	private final static String BANKIDTP = "银行证件类型";
 	private final static String BANKIDNO = "银行证件号码";
 	private final static String BANKACNM = "银行开户户名";
-
+	private final static String BANKMOBILE = "银行开户手机号";
+	
 	
 	private final static String INVNM = "用户姓名";
 	private final static String IDNO = "证件号码";
@@ -82,8 +83,8 @@ public class CustManagerValidator extends ValidatorCommon {
 
 	
 	private void necessaryChangePasswordAction(ChangePasswordAction action) throws BizException {
-		if (RegexUtil.isNull(action.getCustno())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), CUSTNO);
+		if (RegexUtil.isNull(action.getMobile())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), MOBILE);
 		}
 		if (RegexUtil.isNull(action.getLoginPassword())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), LOGINPASSWORD);
@@ -123,25 +124,17 @@ public class CustManagerValidator extends ValidatorCommon {
 		} else if (obj instanceof LoginAction) {	
 			LoginAction action = (LoginAction) obj;
 			this.necessaryLoginAction(action);
-			
-			
-//		} else if (obj instanceof Custinfo) {
-//			Custinfo action = (Custinfo) obj;
-//			this.necessaryUpdateCustinfo(action);
+		/*
+		 * 开户	
+		 */
 		} else if (obj instanceof OpenAccountAction) {
-			OpenAccountAction action = (OpenAccountAction) obj;		
-			/*
-			 * 判断是否已经绑过卡 身份验证过
-			 */
-			if(!Constant.CUSTST$Y.equals(action.getCustst())){
-				this.necessaryopenAccountFirst(action);
-			}
-			this.necessaryOpenAccount(action);
+			OpenAccountAction action = (OpenAccountAction) obj;	
+			this.necessaryOpenAccount2(action);
 		}
 
 	}
 
-	private void necessaryopenAccountFirst(OpenAccountAction action) throws BizException {
+	public  void necessaryOpenAccount1(OpenAccountAction action) throws BizException {
 		if (RegexUtil.isNull(action.getCustno())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), CUSTNO);
 		}
@@ -163,17 +156,20 @@ public class CustManagerValidator extends ValidatorCommon {
 		if (!RegexUtil.isPwd(action.getTradepwd())) {
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(),TRADEPWD);
 		}
+		if (!RegexUtil.isIdCardNo(action.getIdno())) {
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(), IDCARDNO);
+		}
 	}
 
 	
-	
-	private void necessaryOpenAccount(OpenAccountAction action) throws BizException {
+
+	private void necessaryOpenAccount2(OpenAccountAction action) throws BizException {
 		// TODO Auto-generated method stub
 		if (RegexUtil.isNull(action.getBankno())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKNO);
 		}
-		if (RegexUtil.isNull(action.getBankacco())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKACCO);
+		if (RegexUtil.isNull(action.getBankacnm())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKACNM);
 		}
 		if (RegexUtil.isNull(action.getBankidtp())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKIDTP);
@@ -181,27 +177,19 @@ public class CustManagerValidator extends ValidatorCommon {
 		if (RegexUtil.isNull(action.getBankidno())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKIDNO);
 		}
-		if (RegexUtil.isNull(action.getBankacnm())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKACNM);
+		if (RegexUtil.isNull(action.getBankacco())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKACCO);
 		}
-		/*
-		 * 校验身份证
-		 */
+		if (RegexUtil.isNull(action.getBankmobile())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), BANKMOBILE);
+		}
+		
+
 	}
 	
 	
-
-	public void isMobile(String mobile) throws BizException {
-		if (!RegexUtil.isMobile(mobile)) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(), MOBILE);
-		}
-	}
-
-	public void isIdCardNo(String idCardNo) throws BizException {
-		if (!RegexUtil.isIdCardNo(idCardNo)) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(), IDCARDNO);
-		}
-	}
+	
+	
 
 
 

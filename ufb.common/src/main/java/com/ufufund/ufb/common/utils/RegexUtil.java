@@ -218,16 +218,16 @@ public class RegexUtil {
 //        return false;
 //    }
 //    
-//    /**
-//     * 只能输入数字
-//     * 
-//     * @param str
-//     * @return
-//     * @author jiqinlin
-//     */
-//    public final static boolean isDigits(String str) {
-//        return match(str, "^[0-9]*$");
-//    }
+	    /**
+	     * 只能输入数字
+	     * 
+	     * @param str
+	     * @return
+	     * @author jiqinlin
+	     */
+	    public final static boolean isDigits(String str) {
+	        return match(str, "^[0-9]*$");
+	    }
 //    
 //    /**
 //     * 匹配正浮点数

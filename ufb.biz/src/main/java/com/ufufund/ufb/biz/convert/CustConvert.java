@@ -1,10 +1,13 @@
 package com.ufufund.ufb.biz.convert;
 
+import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.model.action.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.TableName;
 
 public class CustConvert {
@@ -15,21 +18,12 @@ public class CustConvert {
 		custinfo.setMobileno(registerAction.getLoginCode());
 		custinfo.setPasswd(registerAction.getLoginPassword());
 		custinfo.setInvtp(registerAction.getInvtp().getValue());
-		
 		custinfo.setLevel(registerAction.getLevel().getValue());
 		custinfo.setOrganization(registerAction.getOrganization());
 		custinfo.setBusiness(registerAction.getBusiness());
 		return custinfo;
 	}
-//	public static Custinfo convertCustinfo(CustinfoAction custinfoAction){
-//		Custinfo custinfo = new Custinfo();
-////		private Invtp invtp;  //用户类型
-////		private String intnm;  //用户姓名
-////		private Idtp idtp;   //证件类型
-////		private String idno;   //证件号码
-////		private String tradepwd;
-//		return custinfo;
-//	}
+
 	
 	public static Changerecordinfo convertChangerecordinfo(Custinfo custinfo){
 		Changerecordinfo changerecordinfo = new Changerecordinfo();
@@ -37,12 +31,21 @@ public class CustConvert {
 		changerecordinfo.setRecordafter(custinfo.toString());
 		changerecordinfo.setTablename(TableName.CUSTINFO.value());
 		return changerecordinfo;
-		
 	}
-//	public static Fdacfinalresult convertFdacfinalresult(Custinfo custinfo){
-//		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
-//		fdacfinalresult.setCustno(custinfo.getCustno());//char(10) not null comment '客户编号',
-//		return fdacfinalresult;
-//		
-//	}
+	
+	
+
+	public static Custinfo convertOpenAccountAction(OpenAccountAction openAccountAction){
+		Custinfo custinfo = new Custinfo();
+		custinfo.setCustno(openAccountAction.getCustno());
+		custinfo.setInvnm(openAccountAction.getInvnm());
+		custinfo.setIdno(openAccountAction.getIdno());
+		custinfo.setTradepwd(openAccountAction.getTradepwd());
+		custinfo.setInvtp(Invtp.PERSONAL.getValue());
+		custinfo.setIdtp(Constant.IDTP$0);
+		return custinfo;
+	}
+	
+	
+	
 }

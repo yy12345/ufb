@@ -45,18 +45,18 @@ public interface  BankManager {
 	
 	
 	
-	/**
-	 * 银行账号基本信息表
-	 * @param Bankcardinfo
-	 * @return 
-	 */
-	public void insterBankcardinfo(Bankcardinfo bankcardinfo) throws BizException;
-	
-	/**
-	 * 交易账号表
-	 * @param Tradeaccoinfo
-	 * @return 
-	 */
-	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo) throws BizException;
+//	/**
+//	 * 银行账号基本信息表
+//	 * @param Bankcardinfo
+//	 * @return 
+//	 */
+//	public void insterBankcardinfo(Bankcardinfo bankcardinfo) throws BizException;
+//	
+//	/**
+//	 * 交易账号表
+//	 * @param Tradeaccoinfo
+//	 * @return 
+//	 */
+//	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo) throws BizException;
 
 }

@@ -3,7 +3,9 @@ package com.ufufund.ufb.model.enums;
 
 	public enum TableName {
 
-		CUSTINFO("CUSTINFO");
+		CUSTINFO("CUSTINFO"),
+		BANKCARDINFO("BANKCARDINFO"),
+		TRADEACCOINFO("TRADEACCOINFO");
 		
 		
 		private String value;

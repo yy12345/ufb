@@ -22,7 +22,11 @@
 			T1.PASSWDERR,
 			T1.OPENDT,
 			T1.UPDATETIMESTAMP,
-			T1.TRADEPWD
+			T1.TRADEPWD,
+			T1.LEVEL,
+			T1.ORGANIZATION,
+			T1.BUSINESS,
+			T1.OPENACCOUNT
   		FROM CUSTINFO T1 
 		WHERE 
 		<if test="custno != null and custno !=''" >

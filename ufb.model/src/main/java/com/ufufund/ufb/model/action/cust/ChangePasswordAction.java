@@ -3,16 +3,17 @@ package com.ufufund.ufb.model.action.cust;
 
 public class ChangePasswordAction {
 
-	private String custno;
+	private String mobile;
 	private String loginPassword;
 	private String loginPassword2;//确认密码
 	
 	
-	public String getCustno() {
-		return custno;
+	
+	public String getMobile() {
+		return mobile;
 	}
-	public void setCustno(String custno) {
-		this.custno = custno;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 	public String getLoginPassword() {
 		return loginPassword;
@@ -28,8 +29,10 @@ public class ChangePasswordAction {
 	}
 	@Override
 	public String toString() {
-		return "ChangePasswordAction [custno=" + custno + ", loginPassword=" + loginPassword + ", loginPassword2=" + loginPassword2 + "]";
+		return "ChangePasswordAction [mobile=" + mobile + ", loginPassword=" + loginPassword + ", loginPassword2=" + loginPassword2 + "]";
 	}
+	
+	
 	
 	
 	

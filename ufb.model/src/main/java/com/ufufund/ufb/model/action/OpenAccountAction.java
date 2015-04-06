@@ -27,7 +27,7 @@ public class OpenAccountAction  {
 	private String bankacco; //银行卡号
 	private String bankmobile; //银行卡号
 	
-	
+	private String mobileAutoCode; //手机验证码
 	/*
 	 * 不用填写
 	 */
@@ -106,11 +106,20 @@ public class OpenAccountAction  {
 	public void setCustst(String custst) {
 		this.custst = custst;
 	}
+	
+	
+	public String getMobileAutoCode() {
+		return mobileAutoCode;
+	}
+	public void setMobileAutoCode(String mobileAutoCode) {
+		this.mobileAutoCode = mobileAutoCode;
+	}
 	@Override
 	public String toString() {
 		return "OpenAccountAction [custno=" + custno + ", invnm=" + invnm + ", idno=" + idno + ", tradepwd=" + tradepwd + ", tradepwd2=" + tradepwd2 + ", bankno=" + bankno + ", bankacnm=" + bankacnm
-				+ ", bankidtp=" + bankidtp + ", bankidno=" + bankidno + ", bankacco=" + bankacco + ", bankmobile=" + bankmobile + ", custst=" + custst + "]";
+				+ ", bankidtp=" + bankidtp + ", bankidno=" + bankidno + ", bankacco=" + bankacco + ", bankmobile=" + bankmobile + ", mobileAutoCode=" + mobileAutoCode + ", custst=" + custst + "]";
 	}
+	
 	
 	
 	

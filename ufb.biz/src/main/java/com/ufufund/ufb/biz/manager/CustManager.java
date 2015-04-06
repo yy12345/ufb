@@ -89,15 +89,14 @@ public interface CustManager extends CustInterface{
 	
 	/**
 	 *  绑卡
-	 *  3 开户绑卡
+	 *  开户绑卡 1 验证身份， 2 银行快捷鉴权,3 银行手机验证  ，4 开户
 	 * @param OpenAccount
 	 * @return 
 	 */
-	public void openAccount(OpenAccountAction openAccountAction) throws BizException;
-	
-	
-	
-	
+	public void openAccount1(OpenAccountAction openAccountAction) throws BizException;
+	public void openAccount2(OpenAccountAction openAccountAction) throws BizException;
+	public void openAccount3(OpenAccountAction openAccountAction) throws BizException;
+	public void openAccount4(OpenAccountAction openAccountAction) throws BizException;
 	
 	
 //	/**

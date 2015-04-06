@@ -25,25 +25,25 @@ public class BankManagerImpl implements BankManager {
 	private BankMapper bnankMapper;
 	
 	
-	@Override
-	public void insterBankcardinfo(Bankcardinfo bankcardinfo) throws BizException {
-		bnankMapper.insterBankcardinfo(bankcardinfo);
-		/*
-		 * 
-		 * 插入变动记录表
-		 */
-	}
-
-
-	@Override
-	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo) throws BizException {
-		// TODO Auto-generated method stub
-		bnankMapper.insterTradeaccoinfo(tradeaccoinfo);
-		/*
-		 * 
-		 * 插入变动记录表
-		 */
-	}
+//	@Override
+//	public void insterBankcardinfo(Bankcardinfo bankcardinfo) throws BizException {
+//		bnankMapper.insterBankcardinfo(bankcardinfo);
+//		/*
+//		 * 
+//		 * 插入变动记录表
+//		 */
+//	}
+//
+//
+//	@Override
+//	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo) throws BizException {
+//		// TODO Auto-generated method stub
+//		bnankMapper.insterTradeaccoinfo(tradeaccoinfo);
+//		/*
+//		 * 
+//		 * 插入变动记录表
+//		 */
+//	}
 
 //	@Override
 //	public void bankPageAuth(BankPageAuth bankPageAuth) throws Exception {
