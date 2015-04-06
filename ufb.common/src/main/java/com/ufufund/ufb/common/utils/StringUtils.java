@@ -3,20 +3,9 @@ package com.ufufund.ufb.common.utils;
 
 
 import java.lang.reflect.Field;
-import java.text.NumberFormat;
 
 public class StringUtils extends org.apache.commons.lang3.StringUtils{
 	
-	
-	/**
-	 * 2位小数格式化工具
-	 */
-	public static final NumberFormat NF_2FRACTION = NumberFormat
-			.getNumberInstance();
-	static {
-		NF_2FRACTION.setMinimumFractionDigits(2);
-		NF_2FRACTION.setMaximumFractionDigits(2);
-	}
 	
 	/**
 	 * 输出对象的字段属性
