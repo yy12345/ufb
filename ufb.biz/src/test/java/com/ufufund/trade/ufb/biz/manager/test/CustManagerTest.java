@@ -13,6 +13,7 @@ import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.DictManager;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
+import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Dictionary;
@@ -63,13 +64,26 @@ public class CustManagerTest {
 	/*
 	 *测试修改密码
 	 */
-	@Test
+	//@Test
 	public void testupdateCustinfo() {
 		ChangePasswordAction custinfo =new ChangePasswordAction();
 		custinfo.setCustno("201504052210210000000012");
 		custinfo.setLoginPassword("123256789");
 		custinfo.setLoginPassword2("123256789");
 		areaManager.changePassword(custinfo);
+	}
+	
+	/*
+	 *登录测试
+	 */
+	@Test
+	public void testloginIn() {
+//		ChangePasswordAction custinfo =new ChangePasswordAction();
+//		custinfo.setCustno("201504052210210000000012");
+//		custinfo.setLoginPassword("123256789");
+//		custinfo.setLoginPassword2("123256789");
+		LoginAction loginAction  = new LoginAction();
+		areaManager.loginIn(loginAction);
 	}
 	
 	
