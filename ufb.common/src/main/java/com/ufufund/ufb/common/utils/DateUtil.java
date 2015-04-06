@@ -29,7 +29,7 @@ public class DateUtil {
 	 * @param pattern 模式
 	 * @return
 	 */
-	public static Date getDate(String time,String pattern){
+	public static Date parse(String time,String pattern){
 		Date date = null;
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		try {
@@ -63,7 +63,7 @@ public class DateUtil {
 	 * @param destPattern 目标模式
 	 * @return
 	 */
-	public static String format(String time,String sourcePattern, String destPattern){
+	public static String transfer(String time,String sourcePattern, String destPattern){
 		String str = "";
 		if(time == null || "".equals(time)){
 			return str;
