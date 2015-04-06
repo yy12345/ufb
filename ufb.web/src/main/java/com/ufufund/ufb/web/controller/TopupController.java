@@ -55,10 +55,10 @@ public class TopupController {
 			
 			// 下一工作日
 			topupVO.setNextWorkDay(
-					DateUtil.getFormatDay(
+					DateUtil.format(
 							"",//ctsService.queryNextWorkDay(), 
-							Constant.DateFormat.yyyyMMdd, 
-							Constant.DateFormat.yyyy年MM月dd日));
+							DateUtil.DATE_PATTERN_1, 
+							DateUtil.DATE_PATTERN_2));
 			
 			// 基金配置（是否可认购，及最小、最大购买份额）
 //			TopupConfig topupConfig = fundService.queryTopupConfig(custNo);
