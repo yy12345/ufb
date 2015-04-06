@@ -54,11 +54,11 @@ public class TopupController {
 			topupVO.setVcashAmtDisplay("");//NumberUtils.NF_2FRACTION.format(vcashAmt)
 			
 			// 下一工作日
-			topupVO.setNextWorkDay(
-					DateUtil.format(
-							"",//ctsService.queryNextWorkDay(), 
-							DateUtil.DATE_PATTERN_1, 
-							DateUtil.DATE_PATTERN_2));
+//			topupVO.setNextWorkDay(
+//					DateUtil.format(
+//							"",//ctsService.queryNextWorkDay(), 
+//							DateUtil.DATE_PATTERN_1, 
+//							DateUtil.DATE_PATTERN_2));
 			
 			// 基金配置（是否可认购，及最小、最大购买份额）
 //			TopupConfig topupConfig = fundService.queryTopupConfig(custNo);
