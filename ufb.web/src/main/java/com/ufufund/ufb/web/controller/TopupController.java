@@ -79,14 +79,14 @@ public class TopupController {
 				vo.setBankSerialId(bank.getBankSerialId());
 				vo.setBankNo(bank.getBankNo());
 				vo.setBankAcco(bank.getBankAcco());
-				vo.setSumaryCardName(
-						//cifService.getBankName(bank.getBankNo()) +
-						"BankName" + 
-						"[尾号" + 
-						StringUtils.format(
-								bank.getBankAccoDisplay(), 
-								"CardDisplay") + 
-						"]");
+//				vo.setSumaryCardName(
+//						//cifService.getBankName(bank.getBankNo()) +
+//						"BankName" + 
+//						"[尾号" + 
+//						StringUtils.format(
+//								bank.getBankAccoDisplay(), 
+//								"CardDisplay") + 
+//						"]");
 				
 				// 银行卡属性 B2C、限额
 //				BankCardConfig bankCardConfig = 
