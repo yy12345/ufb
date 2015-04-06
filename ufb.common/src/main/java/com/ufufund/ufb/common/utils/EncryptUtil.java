@@ -97,7 +97,7 @@ public class EncryptUtil {
     }  
     
     public static void main(String[] args) {  
-    	String str = "acc_time=20091225091010&bank_buyer_name=测试用户A&bank_card_no=6226095710221222&bank_fund_no=A2013072812000001&bank_kind_no=007&branch_bank_name=招商银行杭州分行&buyer_cert_no=360203197707136088&buyer_cert_type=1&buyer_name=测试用户A&input_charset=GBK&mobile_number=13812345678&partner=1900000107&service_version=1.0&sign_key_index=1&sign_type=MD5&spbill_create_ip=192.168.1.1&transaction_id=OP2013072812000001&user_type=1&key=111111";
+    	//String str = "acc_time=20091225091010&bank_buyer_name=测试用户A&bank_card_no=6226095710221222&bank_fund_no=A2013072812000001&bank_kind_no=007&branch_bank_name=招商银行杭州分行&buyer_cert_no=360203197707136088&buyer_cert_type=1&buyer_name=测试用户A&input_charset=GBK&mobile_number=13812345678&partner=1900000107&service_version=1.0&sign_key_index=1&sign_type=MD5&spbill_create_ip=192.168.1.1&transaction_id=OP2013072812000001&user_type=1&key=111111";
         //md5加密测试  
 //        String md5_1 = md5(str, "gbk");  
 //        String md5_2 = md5(str, "utf-8");  

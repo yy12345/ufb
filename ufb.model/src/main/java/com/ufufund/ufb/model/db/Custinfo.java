@@ -2,13 +2,15 @@ package com.ufufund.ufb.model.db;
 
 import java.io.Serializable;
 
+import com.ufufund.ufb.model.action.PrintableModel;
+
 /**
  * 用户信息表dto
  * 
  * @author ayis
  *
  */
-public class Custinfo implements Serializable {
+public class Custinfo extends PrintableModel  implements Serializable {
 
 	private static final long serialVersionUID = -6338092203128112153L;
 
@@ -255,15 +257,6 @@ public class Custinfo implements Serializable {
 
 	public void setOpenaccount(String openaccount) {
 		this.openaccount = openaccount;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "Custinfo [custno=" + custno + ", invtp=" + invtp + ", invnm=" + invnm + ", sex=" + sex + ", idtp=" + idtp + ", idno=" + idno + ", mobileno=" + mobileno + ", email=" + email
-				+ ", custst=" + custst + ", passwd=" + passwd + ", lastlogintime=" + lastlogintime + ", passwderr=" + passwderr + ", tradepwd=" + tradepwd + ", organization=" + organization
-				+ ", level=" + level + ", business=" + business + ", openaccount=" + openaccount + "]";
 	}
 
 

@@ -12,7 +12,7 @@ public class ThreadLocalUtil {
 	 */
 	public static String getProccessId(){
 		if(proccessId.get() == null){
-			proccessId.set(UUID.randomUUID().toString());
+			proccessId.set("["+UUID.randomUUID().toString()+"] ");
 		}
 		return proccessId.get();
 	}

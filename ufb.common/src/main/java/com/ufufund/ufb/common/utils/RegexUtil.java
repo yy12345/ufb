@@ -6,7 +6,7 @@ package com.ufufund.ufb.common.utils;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.regex.Matcher;
+//import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
@@ -56,12 +56,12 @@ public class RegexUtil {
         return false;
     }
     
-    public final static boolean isNull(Collection collection){
+    public final static boolean isNull(Collection<?> collection){
         if(collection==null||collection.size()==0) return true;
         return false;
     }
     
-    public final static boolean isNull(Map map){
+    public final static boolean isNull(Map<?, ?> map){
         if(map==null||map.size()==0) return true;
         return false;
     }
@@ -84,11 +84,11 @@ public class RegexUtil {
         return !isNull(str);
     }
     
-    public final static boolean isNotNull(Collection collection){
+    public final static boolean isNotNull(Collection<?> collection){
         return !isNull(collection);
     }
     
-    public final static boolean isNotNull(Map map){
+    public final static boolean isNotNull(Map<?, ?> map){
         return !isNull(map);
     }
     

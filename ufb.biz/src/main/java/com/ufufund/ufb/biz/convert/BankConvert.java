@@ -1,9 +1,8 @@
 package com.ufufund.ufb.biz.convert;
 
-import com.ufufund.ufb.model.action.OpenAccountAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
-import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.TableName;
 

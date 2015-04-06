@@ -1,7 +1,9 @@
-package com.ufufund.ufb.model.action;
+package com.ufufund.ufb.model.action.cust;
+
+import com.ufufund.ufb.model.action.CommonAction;
 
 
-public class OpenAccountAction  {
+public class OpenAccountAction   extends CommonAction {
 	
 	/*
 	 * 客户已经具有身份证账号 不需要填写以下信息
@@ -114,11 +116,7 @@ public class OpenAccountAction  {
 	public void setMobileAutoCode(String mobileAutoCode) {
 		this.mobileAutoCode = mobileAutoCode;
 	}
-	@Override
-	public String toString() {
-		return "OpenAccountAction [custno=" + custno + ", invnm=" + invnm + ", idno=" + idno + ", tradepwd=" + tradepwd + ", tradepwd2=" + tradepwd2 + ", bankno=" + bankno + ", bankacnm=" + bankacnm
-				+ ", bankidtp=" + bankidtp + ", bankidno=" + bankidno + ", bankacco=" + bankacco + ", bankmobile=" + bankmobile + ", mobileAutoCode=" + mobileAutoCode + ", custst=" + custst + "]";
-	}
+	
 	
 	
 	

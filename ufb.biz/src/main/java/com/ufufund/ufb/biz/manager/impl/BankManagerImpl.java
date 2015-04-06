@@ -5,16 +5,8 @@ package com.ufufund.ufb.biz.manager.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufufund.action.BankPageAuth;
-import com.ufufund.action.BankPageVerify;
-import com.ufufund.action.BankSwiftAuth;
-import com.ufufund.action.BankSwiftVerify;
-import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankManager;
 import com.ufufund.ufb.dao.BankMapper;
-import com.ufufund.ufb.dao.CustinfoMapper;
-import com.ufufund.ufb.model.db.Bankcardinfo;
-import com.ufufund.ufb.model.db.Tradeaccoinfo;
 
 
 

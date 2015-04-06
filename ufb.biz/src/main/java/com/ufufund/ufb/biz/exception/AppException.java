@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.ufufund.ufb.biz.manager.DictManager;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.model.db.Dictionary;
+import com.ufufund.ufb.model.enums.ErrorInfo;
 
 /**
  * 应用系统异常，应用自身处理
@@ -23,22 +24,22 @@ public class AppException extends RuntimeException{
 
 	private String processId="";
 	private String errmsg;
-	private String errcode;
+	private ErrorInfo errorInfo;
 	private String otherInfo="";
 	
 	public AppException(String errmsg){
 		this.errmsg = errmsg;
 	}
 	
-	public AppException(String processId,String errcode){
+	public AppException(String processId,ErrorInfo errorInfo){
 		this.processId =processId;
-		this.errcode = errcode;
+		this.errorInfo = errorInfo;
 		this.initErrmsg();	
 	}
 	
-	public AppException(String processId,String errcode,String otherInfo){
+	public AppException(String processId,ErrorInfo errorInfo,String otherInfo){
 		this.processId =processId;
-		this.errcode = errcode;
+		this.errorInfo = errorInfo;
 		this.otherInfo = otherInfo;
 		this.initErrmsg();	
 	}
@@ -48,7 +49,7 @@ public class AppException extends RuntimeException{
 		return errmsg;
 	}
 	public String getErrcode() {
-		return errcode;
+		return errorInfo.value();
 	}
 	
 	/**
@@ -63,13 +64,13 @@ public class AppException extends RuntimeException{
 
 	private void initErrmsg() {
 		HashMap<String,Dictionary>  map = DictManager.getDictionaryByType(Constant.DICTIONARY$ERROR);
-		Dictionary dictionary = map.get(errcode);
+		Dictionary dictionary = map.get(errorInfo.value());
 		if(dictionary!=null){
 			errmsg = otherInfo + dictionary.getPmnm();
 		}else{
-			errmsg = errcode;
+			errmsg = errorInfo.value();
 		}
-		log.debug(processId + " errcode :" + errcode+" errmsg :" + errmsg);
+		log.debug(processId + " errcode :" + errorInfo.value()+" errmsg :" + errmsg);
 	}
 
 	

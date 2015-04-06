@@ -1,22 +1,17 @@
 package com.ufufund.trade.ufb.biz.manager.test;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ufufund.ufb.biz.manager.CustManager;
-import com.ufufund.ufb.biz.manager.DictManager;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
-import com.ufufund.ufb.model.db.Custinfo;
-import com.ufufund.ufb.model.db.Dictionary;
 import com.ufufund.ufb.model.enums.Level;
 
 
@@ -31,11 +26,23 @@ public class CustManagerTest {
 	@Autowired
 	private CustinfoMapper custinfoMapper;
 	
+	
+	/*
+	 * 
+	 * 测试testrisMobileRegister
+	 */
+	//@Test
+	public void testrisMobileRegister(){
+		
+		areaManager.isMobileRegister("1111");
+	}
+
+	
 	/*
 	 * 
 	 * 测试个人注册
 	 */
-	//@Test
+	@Test
 	public void testregister(){
 		RegisterAction loginAction = new RegisterAction();
 		loginAction.setLoginCode("13611686341");
@@ -70,22 +77,18 @@ public class CustManagerTest {
 		custinfo.setMobile("13611686341");
 		custinfo.setLoginPassword("123256789");
 		custinfo.setLoginPassword2("123256789");
-		areaManager.changePassword(custinfo);
+		//areaManager.changePassword(custinfo);
 	}
 	
 	/*
 	 *登录测试
 	 */
-	@Test
+	//@Test
 	public void testloginIn() {
-//		ChangePasswordAction custinfo =new ChangePasswordAction();
-//		custinfo.setCustno("201504052210210000000012");
-//		custinfo.setLoginPassword("123256789");
-//		custinfo.setLoginPassword2("123256789");
 		LoginAction loginAction  = new LoginAction();
 		loginAction.setLoginCode("13611686341");
 		loginAction.setLoginPassword("123257");
-		areaManager.loginIn(loginAction);
+		//areaManager.loginIn(loginAction);
 	}
 	
 	

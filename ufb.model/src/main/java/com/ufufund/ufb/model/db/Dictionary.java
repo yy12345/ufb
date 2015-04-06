@@ -1,11 +1,16 @@
 package com.ufufund.ufb.model.db;
 
-public class Dictionary {
+import java.io.Serializable;
+
+import com.ufufund.ufb.model.action.PrintableModel;
+
+public class Dictionary extends PrintableModel  implements Serializable {
 	
-	@Override
-	public String toString() {
-		return "Dictionary [pmst=" + pmst + ", pmky=" + pmky + ", pmco=" + pmco + ", pmnm=" + pmnm + ", pmv1=" + pmv1 + ", pmv2=" + pmv2 + ", pmv3=" + pmv3 + ", pmv4=" + pmv4 + ", pmv5=" + pmv5 + "]";
-	}
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String pmst;
 	private String pmky;
 	private String pmco;

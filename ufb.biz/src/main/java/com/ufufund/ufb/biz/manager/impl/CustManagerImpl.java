@@ -2,26 +2,23 @@ package com.ufufund.ufb.biz.manager.impl;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufufund.ufb.biz.common.ImplCommon;
 import com.ufufund.ufb.biz.convert.BankConvert;
 import com.ufufund.ufb.biz.convert.CustConvert;
 import com.ufufund.ufb.biz.exception.BizException;
-import com.ufufund.ufb.biz.manager.BankManager;
 import com.ufufund.ufb.biz.manager.CustManager;
-import com.ufufund.ufb.biz.validator.CustManagerValidator;
+import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
-import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.dao.BankMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
-import com.ufufund.ufb.model.action.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
@@ -31,18 +28,18 @@ import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
+import com.ufufund.ufb.model.enums.TableName;
 
 @Service
-public class CustManagerImpl implements CustManager {
+public class CustManagerImpl extends ImplCommon implements CustManager {
 	
-	private final static String MOBILE = "手机号";
-	private final static String IDCARDNO = "身份证";
-	private final static String IDENTIFYING = "验证码";
-	
-	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private CustinfoMapper custinfoMapper;
+	
+	@Autowired
+	private CustManagerValidator custManagerValidator;
+	
 
 	@Autowired
 	private BankMapper bnankMapper;
@@ -57,12 +54,12 @@ public class CustManagerImpl implements CustManager {
 	 *            mobile
 	 * @return
 	 */
+	@Override
 	public boolean isMobileRegister(String mobile) throws BizException {
-		String processId = ThreadLocalUtil.getProccessId();
+		String processId = this.getProcessId(mobile);
 		boolean res = false;
-		log.debug(processId+ "查询手机号是否注册  mobile :" + mobile);
 		if (!RegexUtil.isMobile(mobile)) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(), MOBILE);
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, MOBILE);
 		}
 		Custinfo custinfo = new Custinfo();
 		custinfo.setMobileno(mobile);
@@ -74,6 +71,36 @@ public class CustManagerImpl implements CustManager {
 	}
 
 
+
+	
+	
+	
+	/**
+	 * 注册
+	 * 
+	 * @param RegisterAction
+	 * @return
+	 */
+	@Override
+	public void register(RegisterAction loginAction) throws BizException {
+		String processId = this.getProcessId(loginAction);
+		/*
+		 * 先验证验证码
+		 */
+		custManagerValidator.validator(loginAction);
+		if(this.isMobileRegister(loginAction.getLoginCode())){
+			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER);
+		}
+		/*
+		 * 插入客户信息表
+		 */
+		Custinfo custinfo = CustConvert.convertCustinfo(loginAction);
+		custinfo.setCustno(custinfoMapper.getCustinfoSequence());
+		custinfoMapper.insertCustinfo(custinfo);
+		this.insterSerialno(custinfo, Apkind.REGISTER.getValue());
+	}
+
+
 	/**
 	 * 查询该身份证是否注册
 	 * 
@@ -81,11 +108,10 @@ public class CustManagerImpl implements CustManager {
 	 * @return
 	 */
 	public boolean isIdCardNoRegister(String idCardNo) throws BizException {
-		String processId = ThreadLocalUtil.getProccessId();
-		log.debug(processId+ "查询该身份证是否注册  idCardNo :" + idCardNo);
+		String processId = this.getProcessId(idCardNo);
 		boolean res = false;
 		if (!RegexUtil.isIdCardNo(idCardNo)) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(),IDCARDNO);
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,IDCARDNO);
 		}
 		Custinfo custinfo = new Custinfo();
 		custinfo.setIdno(idCardNo);
@@ -96,48 +122,19 @@ public class CustManagerImpl implements CustManager {
 		return res;
 	}
 
-	/**
-	 * 注册
-	 * 
-	 * @param RegisterAction
-	 * @return
-	 */
-	public void register(RegisterAction loginAction) throws BizException {
-		String processId = ThreadLocalUtil.getProccessId();
-		log.debug(processId+ " 注册 :" + loginAction.toString());
-		/*
-		 * 先验证验证码
-		 */
-		CustManagerValidator custManagerValidator = new CustManagerValidator(processId);
-		custManagerValidator.validator(loginAction);
-		if(this.isMobileRegister(loginAction.getLoginCode())){
-			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER.value());
-		}
-		/*
-		 * 插入客户信息表
-		 */
-		Custinfo custinfo = CustConvert.convertCustinfo(loginAction);
-		custinfo.setCustno(custinfoMapper.getCustinfoSequence());
-		custinfoMapper.insertCustinfo(custinfo);
-		this.insterSerialno(custinfo, Apkind.REGISTER.getValue());
-	}
-	
-	
 
+//	
+//	
+//
 	@Override
 	public void changePassword(ChangePasswordAction changePasswordAction) throws BizException {
-		String processId = ThreadLocalUtil.getProccessId();
-		log.debug(processId+ " 修改密码 :" + changePasswordAction.toString());
-		CustManagerValidator custManagerValidator = new CustManagerValidator(processId);
+		String processId = this.getProcessId(changePasswordAction);
 		custManagerValidator.validator(changePasswordAction);
-		if (!RegexUtil.isMobile(changePasswordAction.getMobile())) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(), MOBILE);
-		}
 		Custinfo custinfo = new Custinfo();
 		custinfo.setMobileno(changePasswordAction.getMobile());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if (custinfo == null || custinfo.getCustno() == null ) {
-			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE.value());
+			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE);
 		}
 		custinfo.setPasswd(changePasswordAction.getLoginPassword());
 		custinfoMapper.updateCustinfo(custinfo);
@@ -157,14 +154,12 @@ public class CustManagerImpl implements CustManager {
 	 */
 	@Override
 	public Custinfo loginIn(LoginAction loginAction) throws BizException {
-		String processId = ThreadLocalUtil.getProccessId();
-		log.debug(processId+ " 登录 :" + loginAction.toString());
+		String processId = this.getProcessId(loginAction);
 		// TODO Auto-generated method stub
 		/*
 		 * 先验证验证码
 		 */
 		//loginAction.setLoginType(Apkind.LOGININ);
-		CustManagerValidator custManagerValidator = new CustManagerValidator(processId);
 		custManagerValidator.validator(loginAction);
 		/*
 		 * 加载信息
@@ -175,14 +170,14 @@ public class CustManagerImpl implements CustManager {
 		} else if (RegexUtil.isIdCardNo(loginAction.getLoginCode())) {
 			custinfo.setIdno(loginAction.getLoginCode());
 		} else {
-			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE.value());
+			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE);
 		}
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if (custinfo == null || custinfo.getCustno() == null || "".equals(custinfo.getCustno())) {
-			throw new BizException(processId, ErrorInfo.NO_IDCARDNO.value());
+			throw new BizException(processId, ErrorInfo.NO_IDCARDNO);
 		}
 		if (Constant.CUSTST$P.equals(custinfo.getCustst())) {
-			throw new BizException(processId, ErrorInfo.FREEZE_USER.value());
+			throw new BizException(processId, ErrorInfo.FREEZE_USER);
 		}
 		custinfo.setLastlogintime("systime");// 当前时间
 		if (!loginAction.getLoginPassword().equals(custinfo.getPasswd())) {
@@ -191,7 +186,7 @@ public class CustManagerImpl implements CustManager {
 				custinfo.setCustst(Constant.CUSTST$P);
 			}
 			custinfoMapper.updateCustinfo(custinfo);
-			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD.value());
+			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD);
 		}
 		/*
 		 * 登录
@@ -200,6 +195,8 @@ public class CustManagerImpl implements CustManager {
 		return custinfo;
 
 	}
+	
+	
 	
 	
 
@@ -213,16 +210,12 @@ public class CustManagerImpl implements CustManager {
 	 * @return
 	 */
 	public void openAccount1(OpenAccountAction openAccountAction) throws BizException {
-		String processId = ThreadLocalUtil.getProccessId();
-		log.debug(processId+ " 验证身份  :" + openAccountAction.toString());
-		CustManagerValidator custManagerValidator = new CustManagerValidator(processId);
-		this.validator(openAccountAction, custManagerValidator, processId);
+		this.getProcessId(openAccountAction);
+		this.validatorOpenAccount1(openAccountAction);
 	}
 	
 	public void openAccount2(OpenAccountAction openAccountAction) throws BizException {
-		String processId = ThreadLocalUtil.getProccessId();
-		log.debug(processId+ " 银行快捷鉴权  :" + openAccountAction.toString());
-		CustManagerValidator custManagerValidator = new CustManagerValidator(processId);
+		this.getProcessId(openAccountAction);
 		custManagerValidator.validator(openAccountAction);
 		/*
 		 * 进行XML接口	银行快捷鉴权
@@ -232,14 +225,13 @@ public class CustManagerImpl implements CustManager {
 	
 
 	public void openAccount3(OpenAccountAction openAccountAction) throws BizException {
-		String processId = ThreadLocalUtil.getProccessId();
-		log.debug(processId+ " 银行手机验证  :" + openAccountAction.toString());
+		String processId = this.getProcessId(openAccountAction);
 		if (RegexUtil.isNull(openAccountAction.getMobileAutoCode())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(),IDENTIFYING);
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY,IDENTIFYING);
 		}
 		if (openAccountAction.getMobileAutoCode().length()>10||
 		    !RegexUtil.isDigits(openAccountAction.getMobileAutoCode())) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(),IDENTIFYING);
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,IDENTIFYING);
 		}
 		/*
 		 * 进行XML接口 银行快捷验证
@@ -248,10 +240,9 @@ public class CustManagerImpl implements CustManager {
 	
 	
 	public void openAccount4(OpenAccountAction openAccountAction) throws BizException {
-		String processId = ThreadLocalUtil.getProccessId();
-		log.debug(processId+ " 开户  :" + openAccountAction.toString());
-		CustManagerValidator custManagerValidator = new CustManagerValidator(processId);
-		this.validator(openAccountAction, custManagerValidator, processId);
+		//String processId = 
+		this.getProcessId(openAccountAction);
+		this.validatorOpenAccount1(openAccountAction);
 		custManagerValidator.validator(openAccountAction);
 		/*
 		 * 进行XML接口 开户
@@ -298,9 +289,13 @@ public class CustManagerImpl implements CustManager {
 		fdacfinalresult.setSerialno(seq);
 		fdacfinalresult.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 		
-		Changerecordinfo changerecordinfo = CustConvert.convertChangerecordinfo(custinfo);
+		Changerecordinfo changerecordinfo = new Changerecordinfo();
+		changerecordinfo.setCustno(custinfo.getCustno());
+		changerecordinfo.setRecordafter(custinfo.toString());
+		changerecordinfo.setTablename(TableName.CUSTINFO.value());
 		changerecordinfo.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 		changerecordinfo.setRefserialno(seq);
+		
 		Changerecordinfo changerecordinfo2 = BankConvert.convertTradeaccoinfo(tradeaccoinfo);
 		changerecordinfo2.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 		changerecordinfo2.setRefserialno(seq);
@@ -317,21 +312,18 @@ public class CustManagerImpl implements CustManager {
 	 * 开户身份验证
 	 * 
 	 */
-	private void validator(OpenAccountAction openAccountAction,
-						  CustManagerValidator custManagerValidator,
-						  String processId) {
+	private void validatorOpenAccount1(OpenAccountAction openAccountAction) {
 		Custinfo custinfo = this.getCustinfo(openAccountAction.getCustno());		
 		if(custinfo==null){
-			throw new BizException(processId, ErrorInfo.NO_IDCARDNO.value());
+			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.NO_IDCARDNO);
 		}
 		if(Constant.CUSTST$P.equals(custinfo.getCustst())){
-			throw new BizException(processId, ErrorInfo.FREEZE_USER.value());
+			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.FREEZE_USER);
 		}
-		
-		custManagerValidator.necessaryOpenAccount1(openAccountAction);
+		custManagerValidator.validatorOpenAccount1(openAccountAction);
 		if(!Constant.OPENACCOUNT$Y.equals(custinfo.getCustst())){
 			if (this.isIdCardNoRegister(openAccountAction.getIdno())) {
-				throw new BizException(processId, ErrorInfo.ALREADY_REGISTER.value());
+				throw new BizException(openAccountAction.getProcessId(), ErrorInfo.ALREADY_REGISTER);
 			}
 		}
 	}
@@ -351,6 +343,9 @@ public class CustManagerImpl implements CustManager {
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		return custinfo;
 	}
+//	
+	
+	
 	
 	private void insterSerialno(Custinfo custinfo,String apkind) throws BizException {
 		/*
@@ -369,7 +364,10 @@ public class CustManagerImpl implements CustManager {
 		 * 
 		 * 插入变动记录表
 		 */
-		Changerecordinfo changerecordinfo = CustConvert.convertChangerecordinfo(custinfo);
+		Changerecordinfo changerecordinfo = new Changerecordinfo();
+		changerecordinfo.setCustno(custinfo.getCustno());
+		changerecordinfo.setRecordafter(custinfo.toString());
+		changerecordinfo.setTablename(TableName.CUSTINFO.value());
 		changerecordinfo.setApkind(apkind);
 		changerecordinfo.setRefserialno(seq);
 		tradeNotesMapper.insterChangerecordinfo(changerecordinfo);

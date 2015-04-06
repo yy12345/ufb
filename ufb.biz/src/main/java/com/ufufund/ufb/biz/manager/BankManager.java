@@ -3,9 +3,6 @@ package com.ufufund.ufb.biz.manager;
 
 
 
-import com.ufufund.ufb.biz.exception.BizException;
-import com.ufufund.ufb.model.db.Bankcardinfo;
-import com.ufufund.ufb.model.db.Tradeaccoinfo;
 
 public interface  BankManager {
 	

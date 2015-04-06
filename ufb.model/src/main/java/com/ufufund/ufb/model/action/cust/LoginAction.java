@@ -1,10 +1,10 @@
 package com.ufufund.ufb.model.action.cust;
 
+import com.ufufund.ufb.model.action.CommonAction;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.Level;
 
-public class LoginAction  {
-
+public class LoginAction  extends CommonAction {
 	
 	private String loginCode;
 	private String loginPassword;
@@ -20,10 +20,7 @@ public class LoginAction  {
 	public void setLoginPassword(String loginPassword) {
 		this.loginPassword = loginPassword;
 	}
-	@Override
-	public String toString() {
-		return "LoginAction [loginCode=" + loginCode + ", loginPassword=" + loginPassword + "]";
-	}
+
 	
 
 	

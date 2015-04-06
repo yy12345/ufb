@@ -7,7 +7,7 @@ public interface ValidatorInterface  {
 	/*
 	 * 总校验方法
 	 */
-	public void validator(Object obj) throws Exception;
+	//public void validator(Object obj) throws Exception;
 	
 	
 	/*

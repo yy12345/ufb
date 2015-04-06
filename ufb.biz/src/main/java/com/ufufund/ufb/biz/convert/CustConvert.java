@@ -1,14 +1,10 @@
 package com.ufufund.ufb.biz.convert;
 
 import com.ufufund.ufb.common.constant.Constant;
-import com.ufufund.ufb.model.action.OpenAccountAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
-import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
-import com.ufufund.ufb.model.db.Fdacfinalresult;
-import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.Invtp;
-import com.ufufund.ufb.model.enums.TableName;
 
 public class CustConvert {
   
@@ -25,13 +21,13 @@ public class CustConvert {
 	}
 
 	
-	public static Changerecordinfo convertChangerecordinfo(Custinfo custinfo){
-		Changerecordinfo changerecordinfo = new Changerecordinfo();
-		changerecordinfo.setCustno(custinfo.getCustno());
-		changerecordinfo.setRecordafter(custinfo.toString());
-		changerecordinfo.setTablename(TableName.CUSTINFO.value());
-		return changerecordinfo;
-	}
+//	public static Changerecordinfo convertChangerecordinfo(Custinfo custinfo){
+//		Changerecordinfo changerecordinfo = new Changerecordinfo();
+//		changerecordinfo.setCustno(custinfo.getCustno());
+//		changerecordinfo.setRecordafter(custinfo.toString());
+//		changerecordinfo.setTablename(TableName.CUSTINFO.value());
+//		return changerecordinfo;
+//	}
 	
 	
 

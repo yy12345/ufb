@@ -5,11 +5,11 @@ package com.ufufund.ufb.biz.common;
 public abstract class ValidatorCommon implements ValidatorInterface{
 	
 	
-	protected String processId;
-
-	public ValidatorCommon(String processId){
-		this.processId = processId;
-	}
+//	protected String processId;
+//
+//	public ValidatorCommon(String processId){
+//		this.processId = processId;
+//	}
 	
 //	protected Object action;
 	

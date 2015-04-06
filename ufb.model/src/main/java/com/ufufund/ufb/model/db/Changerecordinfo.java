@@ -1,7 +1,15 @@
 package com.ufufund.ufb.model.db;
 
-public class Changerecordinfo {
+import java.io.Serializable;
 
+import com.ufufund.ufb.model.action.PrintableModel;
+
+public class Changerecordinfo extends PrintableModel  implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//private String  serialno` varchar(24) not null comment '流水号',
 	private String  refserialno;// varchar(24) not null comment '申请流水号',
 	private String  tablename;// varchar(64) not null comment '表名',

@@ -1,9 +1,10 @@
 package com.ufufund.ufb.model.action.cust;
 
+import com.ufufund.ufb.model.action.CommonAction;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.Level;
 
-public class RegisterAction  {
+public class RegisterAction extends CommonAction {
 
 	
 	private String loginCode;
@@ -61,11 +62,11 @@ public class RegisterAction  {
 	public void setLevel(Level level) {
 		this.level = level;
 	}
-	@Override
-	public String toString() {
-		return "RegisterAction [loginCode=" + loginCode + ", loginPassword=" + loginPassword + ", loginPassword2=" + loginPassword2 + ", invtp=" + invtp.getValue() + ", organization=" + organization
-				+ ", level=" + level.getValue() + ", business=" + business + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "RegisterAction [loginCode=" + loginCode + ", loginPassword=" + loginPassword + ", loginPassword2=" + loginPassword2 + ", invtp=" + invtp.getValue() + ", organization=" + organization
+//				+ ", level=" + level.getValue() + ", business=" + business + "]";
+//	}
 
 	
 

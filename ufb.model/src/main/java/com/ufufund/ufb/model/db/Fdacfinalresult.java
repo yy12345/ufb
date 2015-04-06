@@ -1,6 +1,14 @@
 package com.ufufund.ufb.model.db;
 
-public class Fdacfinalresult {
+import java.io.Serializable;
+
+import com.ufufund.ufb.model.action.PrintableModel;
+
+public class Fdacfinalresult extends PrintableModel  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String  serialno;//varchar(24) not null comment '流水号',
 	private String  custno;//char(10) not null comment '客户编号',
 	private String  tradeaccoid;// varchar(24) not null comment '交易账号',

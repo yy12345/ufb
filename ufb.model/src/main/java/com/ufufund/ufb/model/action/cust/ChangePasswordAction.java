@@ -1,7 +1,9 @@
 package com.ufufund.ufb.model.action.cust;
 
+import com.ufufund.ufb.model.action.CommonAction;
 
-public class ChangePasswordAction {
+
+public class ChangePasswordAction  extends CommonAction {
 
 	private String mobile;
 	private String loginPassword;
@@ -27,10 +29,7 @@ public class ChangePasswordAction {
 	public void setLoginPassword2(String loginPassword2) {
 		this.loginPassword2 = loginPassword2;
 	}
-	@Override
-	public String toString() {
-		return "ChangePasswordAction [mobile=" + mobile + ", loginPassword=" + loginPassword + ", loginPassword2=" + loginPassword2 + "]";
-	}
+
 	
 	
 	
