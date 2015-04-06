@@ -210,7 +210,7 @@ public class CustController {
 //			}
 			
 			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
-			changePasswordAction.setCustno(custinfoVo.getMobileno());
+			changePasswordAction.setMobile(custinfoVo.getMobileno());
 			changePasswordAction.setLoginPassword(custinfoVo.getPswpwd());
 			changePasswordAction.setLoginPassword2(custinfoVo.getPswpwd2());
 			custManager.changePassword(changePasswordAction);
