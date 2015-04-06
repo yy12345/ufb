@@ -29,7 +29,9 @@ public class Custinfo implements Serializable {
 	// private String updatetimestamp;//更新时间',
 	private String tradepwd;// 交易密码，md5密文',
 
-
+	private String  organization;//机构名称
+	private String  level;//级别
+	private String  business;//营业执照
 
 	
 
@@ -39,13 +41,7 @@ public class Custinfo implements Serializable {
 
 
 
-	@Override
-	public String toString() {
-		return "Custinfo [custno=" + custno + ", invtp=" + invtp + ", invnm=" + invnm + ", sex=" + sex + ", idtp=" + idtp + ", idno=" + idno + ", mobileno=" + mobileno + ", email=" + email
-				+ ", custst=" + custst + ", passwd=" + passwd + ", lastlogintime=" + lastlogintime + ", passwderr=" + passwderr + ", tradepwd=" + tradepwd + "]";
-	}
-
-
+	
 
 	public String getCustno() {
 		return custno;
@@ -211,6 +207,51 @@ public class Custinfo implements Serializable {
 
 	public void setTradepwd(String tradepwd) {
 		this.tradepwd = tradepwd;
+	}
+
+
+
+	public String getOrganization() {
+		return organization;
+	}
+
+
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+
+
+
+	public String getLevel() {
+		return level;
+	}
+
+
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+
+
+	public String getBusiness() {
+		return business;
+	}
+
+
+
+	public void setBusiness(String business) {
+		this.business = business;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Custinfo [custno=" + custno + ", invtp=" + invtp + ", invnm=" + invnm + ", sex=" + sex + ", idtp=" + idtp + ", idno=" + idno + ", mobileno=" + mobileno + ", email=" + email
+				+ ", custst=" + custst + ", passwd=" + passwd + ", lastlogintime=" + lastlogintime + ", passwderr=" + passwderr + ", tradepwd=" + tradepwd + ", organization=" + organization
+				+ ", level=" + level + ", business=" + business + "]";
 	}
 	
 	

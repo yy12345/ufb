@@ -12,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.DictManager;
 import com.ufufund.ufb.dao.CustinfoMapper;
-import com.ufufund.ufb.model.action.LoginAction;
+import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
+import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Dictionary;
+import com.ufufund.ufb.model.enums.Level;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,14 +30,46 @@ public class CustManagerTest {
 	@Autowired
 	private CustinfoMapper custinfoMapper;
 	
-
-	@Test
-	public void testgetUpdateCustinfo(){
-		LoginAction loginAction = new LoginAction();
+	/*
+	 * 
+	 * 测试个人注册
+	 */
+	//@Test
+	public void testregister(){
+		RegisterAction loginAction = new RegisterAction();
 		loginAction.setLoginCode("13611686341");
 		loginAction.setLoginPassword("123257");
 		loginAction.setLoginPassword2("123257");
 		areaManager.register(loginAction);
+	}
+	
+	
+	/*
+	 * 
+	 * 测试机构注册
+	 */
+	//@Test
+	public void testOrgregister(){
+		RegisterAction loginAction = new RegisterAction();
+		loginAction.setLoginCode("13611686342");
+		loginAction.setLoginPassword("123257");
+		loginAction.setLoginPassword2("123257");
+		loginAction.setLevel(Level.OPERATOR);
+		loginAction.setOrganization("Organization");
+		loginAction.setBusiness("business");
+		areaManager.register(loginAction);
+	}
+	
+	/*
+	 *测试修改密码
+	 */
+	@Test
+	public void testupdateCustinfo() {
+		ChangePasswordAction custinfo =new ChangePasswordAction();
+		custinfo.setCustno("201504052210210000000012");
+		custinfo.setLoginPassword("123256789");
+		custinfo.setLoginPassword2("123256789");
+		areaManager.changePassword(custinfo);
 	}
 	
 	

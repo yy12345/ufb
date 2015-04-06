@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
-import com.ufufund.ufb.model.action.LoginAction;
+import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 //import com.ufufund.ufb.model.Area;
@@ -67,7 +67,7 @@ public class CustController {
 			}
 			
 			// 注册
-			LoginAction loginAction = new LoginAction();
+			RegisterAction loginAction = new RegisterAction();
 			loginAction.setLoginCode(custinfo.getMobileno());
 			loginAction.setLoginPassword(custinfo.getPswpwd());
 			loginAction.setLoginPassword2(custinfo.getPswpwd2());

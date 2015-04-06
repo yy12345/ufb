@@ -18,8 +18,10 @@ import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
-import com.ufufund.ufb.model.action.LoginAction;
 import com.ufufund.ufb.model.action.OpenAccountAction;
+import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
+import com.ufufund.ufb.model.action.cust.LoginAction;
+import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -90,17 +92,19 @@ public class CustManagerImpl implements CustManager {
 	/**
 	 * 注册
 	 * 
-	 * @param LoginAction
+	 * @param RegisterAction
 	 * @return
 	 */
-	public void register(LoginAction loginAction) throws BizException {
+	public void register(RegisterAction loginAction) throws BizException {
 		log.debug(processId+ " 注册 :" + loginAction.toString());
 		/*
 		 * 先验证验证码
 		 */
-		loginAction.setLoginType(Apkind.REGISTER);
+//		loginAction.setLoginType(Apkind.REGISTER);
 		custManagerValidator.validator(loginAction);
-		
+		if(this.isMobileRegister(loginAction.getLoginCode())){
+			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER.value());
+		}
 		/*
 		 * 插入客户信息表
 		 */
@@ -109,11 +113,29 @@ public class CustManagerImpl implements CustManager {
 		custinfoMapper.insertCustinfo(custinfo);
 		this.insterSerialno(custinfo, Apkind.REGISTER.getValue());
 	}
+	
+	
 
+	@Override
+	public void changePassword(ChangePasswordAction changePasswordAction) throws BizException {
+		log.debug(processId+ " 修改密码 :" + changePasswordAction.toString());
+		custManagerValidator.validator(changePasswordAction);
+		Custinfo custinfo = new Custinfo ();
+		custinfo.setCustno(changePasswordAction.getCustno());
+		custinfo.setPasswd(changePasswordAction.getLoginPassword());
+		custinfoMapper.updateCustinfo(custinfo);
+		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
+	}
+	
+	
+
+	
+	
+	
 	/**
 	 * 登录
 	 * 
-	 * @param LoginAction
+	 * @param RegisterAction
 	 * @return
 	 */
 	@Override
@@ -123,7 +145,7 @@ public class CustManagerImpl implements CustManager {
 		/*
 		 * 先验证验证码
 		 */
-		loginAction.setLoginType(Apkind.LOGININ);
+		//loginAction.setLoginType(Apkind.LOGININ);
 		custManagerValidator.validator(loginAction);
 		/*
 		 * 加载信息
@@ -136,18 +158,19 @@ public class CustManagerImpl implements CustManager {
 		} else {
 			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE.value());
 		}
-		custinfo.setInvtp(loginAction.getInvtp().getValue() + "");
-		// custinfoAction.setPasswd(loginAction.getLoginPassword());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if (custinfo == null || custinfo.getCustno() == null || "".equals(custinfo.getCustno())) {
 			throw new BizException(processId, ErrorInfo.NO_IDCARDNO.value());
 		}
-		custinfo.setLastlogintime("");// 当前时间
+		if (Constant.CUSTST$P.equals(custinfo.getCustst())) {
+			throw new BizException(processId, ErrorInfo.FREEZE_USER.value());
+		}
+		custinfo.setLastlogintime("systime");// 当前时间
 		if (!loginAction.getLoginPassword().equals(custinfo.getPasswd())) {
-			if (custinfo.getPasswderr() == 4) {
-				//custinfo.setCustst(Constant.CUSTST$N);
-			}
 			custinfo.setPasswderr(custinfo.getPasswderr() + 1);
+			if (custinfo.getPasswderr() == 5) {
+				custinfo.setCustst(Constant.CUSTST$P);
+			}
 			custinfoMapper.updateCustinfo(custinfo);
 			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD.value());
 		}
@@ -157,6 +180,8 @@ public class CustManagerImpl implements CustManager {
 		custinfoMapper.updateCustinfo(custinfo);
 
 	}
+	
+	
 
 	/**
 	 * 根据缓存获取custno 获取客户信息 判断是否具有身份证 没有 必须完善个人信息绑卡
@@ -181,7 +206,7 @@ public class CustManagerImpl implements CustManager {
 	 */
 	public void openAccount(OpenAccountAction openAccountAction) throws BizException {
 		Custinfo custinfo = this.getCustinfo(openAccountAction.getCustno());
-		if(custinfo!=null && Constant.CUSTST$N.equals(custinfo.getCustst())){
+		if(custinfo!=null && Constant.CUSTST$P.equals(custinfo.getCustst())){
 			custinfo.setInvnm(openAccountAction.getInvnm());
 			custinfo.setIdno(openAccountAction.getIdno());
 			custinfo.setTradepwd(openAccountAction.getTradepwd());
@@ -205,7 +230,7 @@ public class CustManagerImpl implements CustManager {
 		 */
 		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//CustConvert.convertFdacfinalresult(custinfo);
 		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
-		if(custinfo!=null && Constant.CUSTST$N.equals(custinfo.getCustst())){
+		if(custinfo!=null && Constant.CUSTST$P.equals(custinfo.getCustst())){
 			this.updateCustinfo(custinfo);
 		}
 	}
@@ -214,7 +239,7 @@ public class CustManagerImpl implements CustManager {
 	
 
 
-	public void updateCustinfo(Custinfo custinfo) throws BizException {
+	private void updateCustinfo(Custinfo custinfo) throws BizException {
 		// TODO Auto-generated method stub
 		custinfoMapper.updateCustinfo(custinfo);
 		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
@@ -244,5 +269,7 @@ public class CustManagerImpl implements CustManager {
 		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		
 	}
+
+	
 
 }

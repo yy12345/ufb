@@ -1,6 +1,6 @@
 package com.ufufund.ufb.biz.convert;
 
-import com.ufufund.ufb.model.action.LoginAction;
+import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
@@ -10,11 +10,15 @@ import com.ufufund.ufb.model.enums.TableName;
 public class CustConvert {
   
 
-	public static Custinfo convertCustinfo(LoginAction loginAction){
+	public static Custinfo convertCustinfo(RegisterAction registerAction){
 		Custinfo custinfo = new Custinfo();
-		custinfo.setMobileno(loginAction.getLoginCode());
-		custinfo.setPasswd(loginAction.getLoginPassword());
-		custinfo.setInvtp(loginAction.getInvtp().getValue());
+		custinfo.setMobileno(registerAction.getLoginCode());
+		custinfo.setPasswd(registerAction.getLoginPassword());
+		custinfo.setInvtp(registerAction.getInvtp().getValue());
+		
+		custinfo.setLevel(registerAction.getLevel().getValue());
+		custinfo.setOrganization(registerAction.getOrganization());
+		custinfo.setBusiness(registerAction.getBusiness());
 		return custinfo;
 	}
 //	public static Custinfo convertCustinfo(CustinfoAction custinfoAction){

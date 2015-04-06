@@ -1,8 +1,10 @@
 package com.ufufund.ufb.biz.manager;
 
 import com.ufufund.ufb.biz.exception.BizException;
-import com.ufufund.ufb.model.action.LoginAction;
 import com.ufufund.ufb.model.action.OpenAccountAction;
+import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
+import com.ufufund.ufb.model.action.cust.LoginAction;
+import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.service.CustInterface;
 
@@ -20,7 +22,19 @@ public interface CustManager extends CustInterface{
 	 * @param LoginIn
 	 * @return 
 	 */
-	public void register(LoginAction loginAction) throws BizException;
+	public void register(RegisterAction loginAction) throws BizException;
+	
+	
+	
+	/**
+	 *  修改密码
+	 * @param OpenAccount
+	 * @return 
+	 */
+	public void changePassword(ChangePasswordAction changePasswordAction) throws BizException;
+	
+	
+	
 	
 	/**
 	 * 登录 写入身份证到SESSION 没有就没有实名认证和绑卡 必须先开户绑卡
@@ -28,6 +42,17 @@ public interface CustManager extends CustInterface{
 	 * @return 
 	 */
 	public void loginIn(LoginAction loginAction) throws BizException;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -73,12 +98,6 @@ public interface CustManager extends CustInterface{
 	
 	
 	
-	/**
-	 *  修改客户信息
-	 * @param OpenAccount
-	 * @return 
-	 */
-	public void updateCustinfo(Custinfo custinfo) throws BizException;
 	
 	
 //	/**

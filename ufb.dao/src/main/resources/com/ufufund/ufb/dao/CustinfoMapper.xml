@@ -56,7 +56,10 @@
 		    PASSWDERR,
 		    OPENDT,
 		    UPDATETIMESTAMP,
-		    TRADEPWD)
+		    TRADEPWD,
+		    LEVEL,
+		    ORGANIZATION,
+		    BUSINESS)
 		VALUES (
 			#{custno,jdbcType=VARCHAR},
 			#{invtp,jdbcType=VARCHAR},
@@ -74,7 +77,11 @@
 			#{passwderr,jdbcType=INTEGER},
 			sysdate(),
 			sysdate(),
-			#{tradepwd,jdbcType=VARCHAR}
+			#{tradepwd,jdbcType=VARCHAR},
+			
+			#{level,jdbcType=VARCHAR},
+			#{organization,jdbcType=VARCHAR},
+			#{business,jdbcType=VARCHAR}
 			)
 	 ]]>
   	</insert>
@@ -107,7 +114,7 @@
 	       	  ,T1.PASSWD = #{passwd,jdbcType=VARCHAR}
 	       	</if>
 	        <if test="lastlogintime != null">
-	       	  ,T1.LASTLOGINTIME = STR_TO_DATE(#{lastlogintime,jdbcType=VARCHAR}, '%Y%m%d%H%i%s')
+	       	  ,T1.LASTLOGINTIME = sysdate()
 	       	</if>
 			<if test="passwderr != null">
 	       	  ,T1.PASSWDERR = #{passwderr,jdbcType=INTEGER}
