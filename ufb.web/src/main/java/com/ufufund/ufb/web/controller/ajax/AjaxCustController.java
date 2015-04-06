@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
-import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
@@ -34,7 +32,8 @@ public class AjaxCustController {
 	 */
 	@RequestMapping(value = "ajaxcust/chk_verifycode", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String,String> sendMsgCode(){
+	public Map<String,String> sendMsgCode(String msgType){
+		//msgType: 注册REGISTER、找回登录密码GETLOGINPWD
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try {
 			// 获取短信验证码
@@ -44,7 +43,7 @@ public class AjaxCustController {
 			MsgCodeUtils.sendMsg(msg);
 			
 			resultMap.put("errCode", "0000");
-			resultMap.put("VerifyCode", "verifyCode");
+			resultMap.put("VerifyCode" + "_" + msgType, "verifyCode");
 			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -65,12 +64,12 @@ public class AjaxCustController {
 	 */
 	@RequestMapping(value = "ajaxcust/chk_verifycode", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String,String> checkVerifyCode(String verifycode, Model model){
+	public Map<String,String> checkVerifyCode(String verifyType, String verifycode, Model model){
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try {
 			
 			// 校验图形验证码
-			boolean checkVerifyCode = VerifyCodeUtils.validate(verifycode);
+			boolean checkVerifyCode = VerifyCodeUtils.validate(verifyType, verifycode);
 			
 			if(!checkVerifyCode){
 				resultMap.put("errCode", "9999");

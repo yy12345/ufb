@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -44,7 +45,7 @@ public class CustController {
 	
 	/**
 	 * 注册用户
-	 * @param custinfo
+	 * @param custinfoVo
 	 * @param model
 	 * @return
 	 */
@@ -53,7 +54,7 @@ public class CustController {
 		
 		try{
 //			// 校验验证码
-//			boolean checkVerifyCode = VerifyCodeUtils.validate(custinfo.getVerifycode());
+//			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
 //			if(!checkVerifyCode){
 //				throw new BizException("验证码无效。");
 //			}
@@ -97,7 +98,7 @@ public class CustController {
 	
 	/**
 	 * 登录 写入身份证到SESSION 没有就没有实名认证和绑卡 必须先开户绑卡
-	 * @param custinfo
+	 * @param custinfoVo
 	 * @param model
 	 * @return
 	 */
@@ -105,6 +106,13 @@ public class CustController {
 	public String loginIn(CustinfoVo custinfoVo, Model model) {
 		
 		try{
+			
+//			// 校验验证码
+//			boolean checkVerifyCode = VerifyCodeUtils.validate(custinfo.getVerifycode());
+//			if(!checkVerifyCode){
+//				throw new BizException("验证码无效。");
+//			}
+			
 			LoginAction loginAction = new LoginAction();
 			loginAction.setLoginCode(custinfoVo.getMobileno());
 			loginAction.setLoginPassword(custinfoVo.getPswpwd());
@@ -122,5 +130,100 @@ public class CustController {
 
 		return "cust/login_home";
 	}
+	
+	/**
+	 * 找回登录密码Page
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="password/getLoginPwdPage" , method=RequestMethod.GET)
+	public String getLoginPwdPage(Model model){
+		
+		return "password/getLoginPwdChk";
+	}
+	
+	/**
+	 * 找回登录密码Check
+	 * @param custinfoVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "password/getLoginPwdChk")
+	public String getLoginPwdChk(CustinfoVo custinfoVo, Model model) {
+		
+		try{
+			//AjaxCustController.sendMsgCode
+			//msgType: 注册REGISTER、找回登录密码GETLOGINPWD
+			
+			// 校验验证码
+			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
+			if(!checkVerifyCode){
+				throw new BizException("验证码无效。");
+			}
 
+			// 查询手机号是否注册
+			boolean isMobileRegister = custManager.isMobileRegister(custinfoVo.getMobileno());
+			if(!isMobileRegister){
+				throw new BizException("手机号未注册。");
+			}
+			
+			// 校验短信验证码
+			boolean checkMsgCode = MsgCodeUtils.validate(custinfoVo.getMsgcode());
+			if(!checkMsgCode){
+				throw new BizException("短信验证码无效。");
+			}
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			model.addAttribute("returnUrl", "password/getLoginPwdChk");
+			return "error/error";
+		}
+
+		return "password/getLoginPwdSet";
+	}
+	
+	/**
+	 * 找回登录密码Set
+	 * @param custinfoVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "password/getLoginPwdSet")
+	public String getLoginPwdSet(CustinfoVo custinfoVo, Model model) {
+		
+		try{
+			// 校验验证码
+			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
+			if(!checkVerifyCode){
+				throw new BizException("验证码无效。");
+			}
+
+			// 查询手机号是否注册
+			boolean isMobileRegister = custManager.isMobileRegister(custinfoVo.getMobileno());
+			if(!isMobileRegister){
+				throw new BizException("手机号未注册。");
+			}
+			
+			// 校验短信验证码
+			boolean checkMsgCode = MsgCodeUtils.validate(custinfoVo.getMsgcode());
+			if(!checkMsgCode){
+				throw new BizException("短信验证码无效。");
+			}
+			
+			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
+			changePasswordAction.setCustno(custinfoVo.getMobileno());
+			changePasswordAction.setLoginPassword(custinfoVo.getPswpwd());
+			changePasswordAction.setLoginPassword2(custinfoVo.getPswpwd2());
+			custManager.changePassword(changePasswordAction);
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			model.addAttribute("returnUrl", "password/getLoginPwdSet");
+			return "error/error";
+		}
+
+		return "password/getLoginPwdSuccess";
+	}
 }
