@@ -75,7 +75,7 @@ public class WorkDayManagerImpl implements WorkDayManager{
 		if(hour <= 15){
 			return date;
 		}else{
-			Date date1 = DateUtil.getDate(systime, DateUtil.FULL_PATTERN_1);
+			Date date1 = DateUtil.parse(systime, DateUtil.FULL_PATTERN_1);
 			Date date2 = DateUtil.getNextDay(date1, 1);
 			return DateUtil.format(date2, DateUtil.DATE_PATTERN_1);
 		}
