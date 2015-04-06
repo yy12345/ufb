@@ -6,73 +6,7 @@ import java.lang.reflect.Field;
 import java.text.NumberFormat;
 
 public class StringUtils extends org.apache.commons.lang3.StringUtils{
-	/**
-	 * 格式化输出
-	 * @since
-	 * @param s
-	 * @param type
-	 * @return
-	 * <br><b>作者： </b>
-	 * <br>创建时间：2015-3-30
-	 */
-	public static String format(String key,String s,String type){
-		if(s == null|| "".equals(s)
-		|| key == null || "".equals(key)){
-			return "";
-		}
-		if(type == null){
-			return s;
-		}
-		
-		if("LogFormat".equals(type)){
-			return key.toUpperCase()+"=["+s+"] ";
-		}else{
-			format(s,type);
-		}
-		return s;
-	}
 	
-	public static String format(String s,String type){
-		if(s == null|| "".equals(s)){
-			return "";
-		}
-		if(type == null){
-			return s;
-		}
-		if("PwdFormat".equals(type)){
-			return "******";
-		}else if("CardDisplay".equals(type)){
-			return s.substring(s.length()-4, s.length());
-		}
-		return s;
-	}
-	
-	
-	/**
-	 * 验证输入的信息{是否为纯数字，以及长度为length}
-	 * @since
-	 * @param str
-	 * @param length
-	 * @return true
-	 * <br><b>作者： </b>
-	 * <br>创建时间：2015-3-30
-	 */
-	public static boolean isFixedLengthNum(String str, int length) {
-		
-//		if (str == null) {
-//			throw new BizException("您输入的信息不能为空！");
-//		} else {
-//			if (str.length() != length) {
-//				throw new BizException("您输入的信息:"+ str +" 非法，长度必须为" + length + "!");
-//			}
-//			
-//			if (!org.apache.commons.lang3.StringUtils.isNumeric(str)) {
-//				throw new BizException("您输入的信息:"+ str +" 非法，必须为纯数字！");
-//			}
-//		}
-		
-		return true;
-	}
 	
 	/**
 	 * 2位小数格式化工具
