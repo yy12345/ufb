@@ -83,7 +83,7 @@ public class DateUtil {
 	 * @return
 	 */
 	public static Today getToday(){
-		String time = format(new Date(), "yyyyMMddHHmmss");
+		String time = format(new Date(), FULL_PATTERN_1);
 		Today today = new Today();
 		today.setDate(time.substring(0, 8));
 		today.setTime(time.substring(8, 14));
@@ -120,14 +120,11 @@ public class DateUtil {
 
 	public static void main(String args[]){
 		
-//		Date date = DateUtil.getDate("20150405120015", DateUtil.FULL_PATTERN_1);
-//		
-//		Date date1 = DateUtil.getNextDay(date, -10);
-//		
-//		int str1 = DateUtil.subDateToDay(date1, date);
-//		System.out.println(str1);
+		Date date = DateUtil.parse("20150405120015", DateUtil.FULL_PATTERN_1);
 		
-		int n = -13;
-		System.out.println(Math.abs(n));
+		Date date1 = DateUtil.getNextDay(date, -10);
+		
+		int str1 = DateUtil.subDateToDay(date1, date);
+		System.out.println(str1);
 	}
 }

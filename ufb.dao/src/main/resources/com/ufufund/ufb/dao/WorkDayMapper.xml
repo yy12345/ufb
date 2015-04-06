@@ -20,6 +20,7 @@
 	<select id="getCurrentWorkDay" parameterType="String" resultType="SysWorkDay">
 		select <include refid="Base_Columns"/> from sys_workdays
 		where workdate >= #{day,jdbcType=VARCHAR} and workflag = 'Y' 
+		order by workdate
 		limit 1
 	</select>
 	
