@@ -1,7 +1,5 @@
 package com.ufufund.ufb.web.controller;
 
-import java.util.HashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,7 +154,7 @@ public class CustController {
 			//msgType: 注册REGISTER、找回登录密码GETLOGINPWD
 			
 			// 校验验证码
-			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
+			boolean checkVerifyCode = VerifyCodeUtils.validate(custinfoVo.getVerifycode());
 			if(!checkVerifyCode){
 				throw new BizException("验证码无效。");
 			}
@@ -193,23 +191,23 @@ public class CustController {
 	public String getLoginPwdSet(CustinfoVo custinfoVo, Model model) {
 		
 		try{
-			// 校验验证码
-			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
-			if(!checkVerifyCode){
-				throw new BizException("验证码无效。");
-			}
-
-			// 查询手机号是否注册
-			boolean isMobileRegister = custManager.isMobileRegister(custinfoVo.getMobileno());
-			if(!isMobileRegister){
-				throw new BizException("手机号未注册。");
-			}
-			
-			// 校验短信验证码
-			boolean checkMsgCode = MsgCodeUtils.validate(custinfoVo.getMsgcode());
-			if(!checkMsgCode){
-				throw new BizException("短信验证码无效。");
-			}
+//			// 校验验证码
+//			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
+//			if(!checkVerifyCode){
+//				throw new BizException("验证码无效。");
+//			}
+//
+//			// 查询手机号是否注册
+//			boolean isMobileRegister = custManager.isMobileRegister(custinfoVo.getMobileno());
+//			if(!isMobileRegister){
+//				throw new BizException("手机号未注册。");
+//			}
+//			
+//			// 校验短信验证码
+//			boolean checkMsgCode = MsgCodeUtils.validate(custinfoVo.getMsgcode());
+//			if(!checkMsgCode){
+//				throw new BizException("短信验证码无效。");
+//			}
 			
 			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
 			changePasswordAction.setCustno(custinfoVo.getMobileno());

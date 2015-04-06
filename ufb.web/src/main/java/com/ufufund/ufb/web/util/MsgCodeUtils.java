@@ -91,7 +91,7 @@ public class MsgCodeUtils {
 		
 		UserMsgCode userMsgCode =  (UserMsgCode)ServletHolder.getSession().getAttribute("userMsgCode");
 		if(userMsgCode == null || StringUtils.isBlank(userMsgCode.getMsgCode())){
-			throw new BizException("您未发送短信码，请点击发送！");
+			throw new BizException("您未发送短信码或已失效，请重新发送！");
 		}else if(!userMsgCode.getMsgCode().equals(msgCode)){
 			throw new BizException("您输入的短信码不匹配！");
 		}else {
@@ -100,6 +100,7 @@ public class MsgCodeUtils {
 				throw new BizException("您的短信码已失效，请重新发送！");
 			}
 		}
+		ServletHolder.getSession().removeAttribute("userMsgCode");
 		return true;
 	}
 	

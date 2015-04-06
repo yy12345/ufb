@@ -64,12 +64,12 @@ public class AjaxCustController {
 	 */
 	@RequestMapping(value = "ajaxcust/chk_verifycode", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String,String> checkVerifyCode(String verifyType, String verifycode, Model model){
+	public Map<String,String> checkVerifyCode(String verifycode, Model model){
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try {
 			
 			// 校验图形验证码
-			boolean checkVerifyCode = VerifyCodeUtils.validate(verifyType, verifycode);
+			boolean checkVerifyCode = VerifyCodeUtils.validate(verifycode);
 			
 			if(!checkVerifyCode){
 				resultMap.put("errCode", "9999");
