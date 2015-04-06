@@ -10,54 +10,30 @@ public class OpenAccountAction  {
 //	private Invtp invtp = Invtp.PERSONAL;  //用户类型
 //	private Idtp idtp = Idtp.IDCARD;   //证件类型
 
-	
-	private String invnm;//用户姓名',
-	private String idno;//证件号码',
-	private String tradepwd;//交易密码，md5密文',
 	/*
 	 * 绑卡必填信息
 	 */
 	private String custno;
-	private String bankno;  //银行编码
-	private String bankacco; //银行卡号
-	private String bankidtp; //'银行证件类型',  默认身份证
-	private String bankidno; // '银行证件号码', 默认idno
+	
+	private String invnm;//用户姓名',
+	private String idno;//证件号码',
+	private String tradepwd;//交易密码，md5密文',
+	private String tradepwd2;//交易密码，md5密文',
+	
+	private String bankno;  //UFB银行编码
 	private String bankacnm; //'银行开户户名',  默认intnm
+	private String bankidtp; //UFB'银行证件类型',  默认身份证
+	private String bankidno; //UFB '银行证件号码', 默认idno
+	private String bankacco; //银行卡号
+	private String bankmobile; //银行卡号
 	
 	
-
-
+	/*
+	 * 不用填写
+	 */
+	private String custst;
 	
-	public String getBankno() {
-		return bankno;
-	}
-	public void setBankno(String bankno) {
-		this.bankno = bankno;
-	}
-	public String getBankacco() {
-		return bankacco;
-	}
-	public void setBankacco(String bankacco) {
-		this.bankacco = bankacco;
-	}
-	public String getBankidtp() {
-		return bankidtp;
-	}
-	public void setBankidtp(String bankidtp) {
-		this.bankidtp = bankidtp;
-	}
-	public String getBankidno() {
-		return bankidno;
-	}
-	public void setBankidno(String bankidno) {
-		this.bankidno = bankidno;
-	}
-	public String getBankacnm() {
-		return bankacnm;
-	}
-	public void setBankacnm(String bankacnm) {
-		this.bankacnm = bankacnm;
-	}
+	
 	public String getCustno() {
 		return custno;
 	}
@@ -82,6 +58,65 @@ public class OpenAccountAction  {
 	public void setTradepwd(String tradepwd) {
 		this.tradepwd = tradepwd;
 	}
+	public String getTradepwd2() {
+		return tradepwd2;
+	}
+	public void setTradepwd2(String tradepwd2) {
+		this.tradepwd2 = tradepwd2;
+	}
+	public String getBankno() {
+		return bankno;
+	}
+	public void setBankno(String bankno) {
+		this.bankno = bankno;
+	}
+	public String getBankacnm() {
+		return bankacnm;
+	}
+	public void setBankacnm(String bankacnm) {
+		this.bankacnm = bankacnm;
+	}
+	public String getBankidtp() {
+		return bankidtp;
+	}
+	public void setBankidtp(String bankidtp) {
+		this.bankidtp = bankidtp;
+	}
+	public String getBankidno() {
+		return bankidno;
+	}
+	public void setBankidno(String bankidno) {
+		this.bankidno = bankidno;
+	}
+	public String getBankacco() {
+		return bankacco;
+	}
+	public void setBankacco(String bankacco) {
+		this.bankacco = bankacco;
+	}
+	public String getBankmobile() {
+		return bankmobile;
+	}
+	public void setBankmobile(String bankmobile) {
+		this.bankmobile = bankmobile;
+	}
+	public String getCustst() {
+		return custst;
+	}
+	public void setCustst(String custst) {
+		this.custst = custst;
+	}
+	@Override
+	public String toString() {
+		return "OpenAccountAction [custno=" + custno + ", invnm=" + invnm + ", idno=" + idno + ", tradepwd=" + tradepwd + ", tradepwd2=" + tradepwd2 + ", bankno=" + bankno + ", bankacnm=" + bankacnm
+				+ ", bankidtp=" + bankidtp + ", bankidno=" + bankidno + ", bankacco=" + bankacco + ", bankmobile=" + bankmobile + ", custst=" + custst + "]";
+	}
+	
+	
+	
+
+
+	
 	
 	
 	

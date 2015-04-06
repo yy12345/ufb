@@ -2,6 +2,7 @@ package com.ufufund.ufb.biz.validator;
 
 import com.ufufund.ufb.biz.common.ValidatorCommon;
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.model.action.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
@@ -32,11 +33,11 @@ public class CustManagerValidator extends ValidatorCommon {
 	private final static String BANKIDNO = "银行证件号码";
 	private final static String BANKACNM = "银行开户户名";
 
-	private final static String INVTP = "用户类型";
+	
 	private final static String INVNM = "用户姓名";
-	private final static String IDTP = "证件类型";
 	private final static String IDNO = "证件号码";
 	private final static String TRADEPWD = "交易密码";
+	
 	private final static String MOBILE = "手机号";
 	private final static String IDCARDNO = "身份证";
 
@@ -110,34 +111,42 @@ public class CustManagerValidator extends ValidatorCommon {
 		if (obj instanceof RegisterAction) {
 			RegisterAction action = (RegisterAction) obj;
 			this.necessaryRegister(action);
+		/*
+		 * 修改密码	
+		 */
 		} else if (obj instanceof ChangePasswordAction) {
 			ChangePasswordAction action = (ChangePasswordAction) obj;
 			this.necessaryChangePasswordAction(action);
+		/*
+		 * 登录	
+		 */
 		} else if (obj instanceof LoginAction) {	
 			LoginAction action = (LoginAction) obj;
 			this.necessaryLoginAction(action);
-		} else if (obj instanceof Custinfo) {
-			Custinfo action = (Custinfo) obj;
-			this.necessaryUpdateCustinfo(action);
+			
+			
+//		} else if (obj instanceof Custinfo) {
+//			Custinfo action = (Custinfo) obj;
+//			this.necessaryUpdateCustinfo(action);
 		} else if (obj instanceof OpenAccountAction) {
-			OpenAccountAction action = (OpenAccountAction) obj;
+			OpenAccountAction action = (OpenAccountAction) obj;		
+			/*
+			 * 判断是否已经绑过卡 身份验证过
+			 */
+			if(!Constant.CUSTST$Y.equals(action.getCustst())){
+				this.necessaryopenAccountFirst(action);
+			}
 			this.necessaryOpenAccount(action);
 		}
 
 	}
 
-	private void necessaryUpdateCustinfo(Custinfo action) throws BizException {
+	private void necessaryopenAccountFirst(OpenAccountAction action) throws BizException {
 		if (RegexUtil.isNull(action.getCustno())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), CUSTNO);
 		}
-		if (RegexUtil.isNull(action.getInvtp())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), INVTP);
-		}
 		if (RegexUtil.isNull(action.getInvnm())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), INVNM);
-		}
-		if (RegexUtil.isNull(action.getIdtp())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), IDTP);
 		}
 		if (RegexUtil.isNull(action.getIdno())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), IDNO);
@@ -145,8 +154,19 @@ public class CustManagerValidator extends ValidatorCommon {
 		if (RegexUtil.isNull(action.getTradepwd())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), TRADEPWD);
 		}
+		if (RegexUtil.isNull(action.getTradepwd2())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY.value(), LOGINPASSWORD2);
+		}
+		if (!action.getTradepwd().equals(action.getTradepwd2())) {
+			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD.value());
+		}
+		if (!RegexUtil.isPwd(action.getTradepwd())) {
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG.value(),TRADEPWD);
+		}
 	}
 
+	
+	
 	private void necessaryOpenAccount(OpenAccountAction action) throws BizException {
 		// TODO Auto-generated method stub
 		if (RegexUtil.isNull(action.getBankno())) {

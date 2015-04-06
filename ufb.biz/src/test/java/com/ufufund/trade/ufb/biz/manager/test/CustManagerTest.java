@@ -83,6 +83,8 @@ public class CustManagerTest {
 //		custinfo.setLoginPassword("123256789");
 //		custinfo.setLoginPassword2("123256789");
 		LoginAction loginAction  = new LoginAction();
+		loginAction.setLoginCode("13611686341");
+		loginAction.setLoginPassword("123257");
 		areaManager.loginIn(loginAction);
 	}
 	

@@ -41,34 +41,9 @@ public interface CustManager extends CustInterface{
 	 * @param LoginIn
 	 * @return 
 	 */
-	public void loginIn(LoginAction loginAction) throws BizException;
+	public Custinfo loginIn(LoginAction loginAction) throws BizException;
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * 根据缓存获取custno
-	 * 获取客户信息 判断是否具有身份证
-	 * 没有 必须完善个人信息绑卡
-	 * @param custno
-	 * @return 
-	 */
-	public Custinfo getCustinfo(String custno) throws BizException;
 	
 	
 	/**
@@ -78,6 +53,31 @@ public interface CustManager extends CustInterface{
 	 */
 	public boolean isIdCardNoRegister(String idCardNo) throws BizException;
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	/**
+//	 * 根据缓存获取custno
+//	 * 获取客户信息 判断是否具有身份证
+//	 * 没有 必须完善个人信息绑卡
+//	 * @param custno
+//	 * @return 
+//	 */
+//	public Custinfo getCustinfo(String custno) throws BizException;
+	
+	
+
 	
 //	/**
 //	 * 没有身份证信息的绑卡

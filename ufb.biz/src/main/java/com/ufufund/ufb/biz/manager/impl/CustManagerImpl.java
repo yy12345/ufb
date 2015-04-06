@@ -36,6 +36,7 @@ import com.ufufund.ufb.model.enums.Invtp;
 public class CustManagerImpl implements CustManager {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	private String processId = "["+UUID.randomUUID().toString()+"] ";
 
 	@Autowired
@@ -139,7 +140,7 @@ public class CustManagerImpl implements CustManager {
 	 * @return
 	 */
 	@Override
-	public void loginIn(LoginAction loginAction) throws BizException {
+	public Custinfo loginIn(LoginAction loginAction) throws BizException {
 		log.debug(processId+ " 登录 :" + loginAction.toString());
 		// TODO Auto-generated method stub
 		/*
@@ -178,23 +179,12 @@ public class CustManagerImpl implements CustManager {
 		 * 登录
 		 */
 		custinfoMapper.updateCustinfo(custinfo);
-
-	}
-	
-	
-
-	/**
-	 * 根据缓存获取custno 获取客户信息 判断是否具有身份证 没有 必须完善个人信息绑卡
-	 * 
-	 * @param custno
-	 * @return
-	 */
-	public Custinfo getCustinfo(String custno) throws BizException {
-		Custinfo custinfo = new Custinfo();
-		custinfo.setCustno(custno);
-		custinfo = custinfoMapper.getCustinfo(custinfo);
 		return custinfo;
+
 	}
+	
+	
+
 
 	
 
@@ -205,17 +195,28 @@ public class CustManagerImpl implements CustManager {
 	 * @return
 	 */
 	public void openAccount(OpenAccountAction openAccountAction) throws BizException {
-		Custinfo custinfo = this.getCustinfo(openAccountAction.getCustno());
-		if(custinfo!=null && Constant.CUSTST$P.equals(custinfo.getCustst())){
-			custinfo.setInvnm(openAccountAction.getInvnm());
-			custinfo.setIdno(openAccountAction.getIdno());
-			custinfo.setTradepwd(openAccountAction.getTradepwd());
-			custinfo.setInvtp(Invtp.PERSONAL.getValue()+"");
-			custinfo.setIdtp(Constant.IDTP$0);
-			custManagerValidator.validator(custinfo);
-			if (this.isIdCardNoRegister(openAccountAction.getIdno())) {
-				throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD.value());
-			}
+		log.debug(processId+ " 开户绑卡  :" + openAccountAction.toString());
+		Custinfo custinfo = this.getCustinfo(openAccountAction.getCustno());		
+		if(custinfo==null){
+			throw new BizException(processId, ErrorInfo.NO_IDCARDNO.value());
+		}
+		if(Constant.CUSTST$P.equals(custinfo.getCustst())){
+			throw new BizException(processId, ErrorInfo.FREEZE_USER.value());
+		}
+		openAccountAction.setCustst(custinfo.getCustst());
+		/*
+		 * 判断是否已经绑过卡 身份验证过
+		 */
+		if(Constant.CUSTST$Y.equals(custinfo.getCustst())){			
+//			custinfo.setInvnm(openAccountAction.getInvnm());
+//			custinfo.setIdno(openAccountAction.getIdno());
+//			custinfo.setTradepwd(openAccountAction.getTradepwd());
+//			custinfo.setInvtp(Invtp.PERSONAL.getValue()+"");
+//			custinfo.setIdtp(Constant.IDTP$0);
+//			custManagerValidator.validator(custinfo);
+//			if (this.isIdCardNoRegister(openAccountAction.getIdno())) {
+//				throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD.value());
+//			}
 		}
 		custManagerValidator.validator(openAccountAction);
 		/*
@@ -231,19 +232,34 @@ public class CustManagerImpl implements CustManager {
 		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//CustConvert.convertFdacfinalresult(custinfo);
 		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		if(custinfo!=null && Constant.CUSTST$P.equals(custinfo.getCustst())){
-			this.updateCustinfo(custinfo);
+			//this.updateCustinfo(custinfo);
 		}
 	}
 	
 	
 	
-
-
-	private void updateCustinfo(Custinfo custinfo) throws BizException {
-		// TODO Auto-generated method stub
-		custinfoMapper.updateCustinfo(custinfo);
-		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
+	/**
+	 * 根据缓存获取custno 获取客户信息 
+	 * 
+	 * @param custno
+	 * @return
+	 */
+	private Custinfo getCustinfo(String custno) throws BizException {
+		Custinfo custinfo = new Custinfo();
+		custinfo.setCustno(custno);
+		custinfo = custinfoMapper.getCustinfo(custinfo);
+		return custinfo;
 	}
+
+
+
+//	private void updateCustinfo(Custinfo custinfo) throws BizException {
+//		// TODO Auto-generated method stub
+//		custinfoMapper.updateCustinfo(custinfo);
+//		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
+//	}
+	
+	
 	
 	private void insterSerialno(Custinfo custinfo,String apkind) throws BizException {
 		/*
