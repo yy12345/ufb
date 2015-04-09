@@ -31,7 +31,7 @@ public class HftBaseService {
 	private static final String ENCODING = "utf-8";
 	
 	@Value("${hft_requestUrl}")
-	private String requestUrl = "";
+	private String requestUrl = "http://60.191.25.162:12002/ecg/ecsg/prepositionaccess";
 	
 	@Value("hft_signKey")
 	private String signKey = "123456111";

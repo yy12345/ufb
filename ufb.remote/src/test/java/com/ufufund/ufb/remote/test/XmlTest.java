@@ -95,28 +95,25 @@ public class XmlTest {
 	@Test
 	public void testResToBean(){
 		
-		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"
-				+"<Message id=\"000000011111\">                            "
-				+"    <Responsebody>                                     "
-				+"        <Response>"
-				+"            <version>1.0.0</version>                                                                "
-				+"            <merchantId>000100059</merchantId>                                                      "
-				+"            <distributorCode>001002</distributorCode>                                               "
-				+"            <businType>001</businType>                                                              "
-				+"            <applicationNo>serial11120001222</applicationNo>                                        "
-				+"            <returnCode>0000</returnCode>                                                           "
-				+"            <returnMsg>交易成功</returnMsg>                                                         "
-				+"            <extension>others...</extension>                                                        "
-				+"            <accoreqSerial>ac--111</accoreqSerial>                                                  "
-				+"        </Response>                                                                                 "
-				+"    </Responsebody>                                                                                 "
-				+"    <Signature>ssssssss----sssss</Signature>                                                        "
-				+"</Message>                                                                                          ";
+//		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"
+//				+"<Message id=\"000000011111\">                            "
+//				+"    <Responsebody>                                     "
+//				+"        <Response>"
+//				+"            <version>1.0.0</version>                                                                "
+//				+"            <merchantId>000100059</merchantId>                                                      "
+//				+"            <distributorCode>001002</distributorCode>                                               "
+//				+"            <businType>001</businType>                                                              "
+//				+"            <applicationNo>serial11120001222</applicationNo>                                        "
+//				+"            <returnCode>0000</returnCode>                                                           "
+//				+"            <returnMsg>交易成功</returnMsg>                                                         "
+//				+"            <extension>others...</extension>                                                        "
+//				+"            <accoreqSerial>ac--111</accoreqSerial>                                                  "
+//				+"        </Response>                                                                                 "
+//				+"    </Responsebody>                                                                                 "
+//				+"    <Signature>ssssssss----sssss</Signature>                                                        "
+//				+"</Message>                                                                                          ";
 
-		String responseXml = xml.substring(xml.indexOf("<Response>"),
-				xml.indexOf("</Response>") + "</Response>".length());
-		System.out.println(responseXml);
-		
+		String xml = "<Message><Responsebody><Response><ReturnCode>5004</ReturnCode><ReturnMsg>参数检验出错</ReturnMsg></Response></Responsebody><Signature>17C51EEDB8F177E5B8FA02C08B802ED2</Signature></Message>";
 		
 		xml = JaxbUtil.buildResponseXml(xml, BankAuthResponse.class);
 		System.out.println(xml);

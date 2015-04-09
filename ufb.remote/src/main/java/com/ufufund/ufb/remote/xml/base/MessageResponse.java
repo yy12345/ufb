@@ -42,12 +42,9 @@ public class MessageResponse {
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
-
 	@Override
 	public String toString() {
-		return "MessageRequest [id=" + id + ", requestbody=" + responsebody
+		return "MessageResponse [id=" + id + ", responsebody=" + responsebody
 				+ ", signature=" + signature + "]";
 	}
-
-	
 }

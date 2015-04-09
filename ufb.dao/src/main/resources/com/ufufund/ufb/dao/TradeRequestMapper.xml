@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.TradeRequestMapper">
+
+	<sql id="Base_Columns">
+		SERIALNO       ,
+		CUSTNO         ,
+		FUNDCORPNO     ,
+		TRADEACCOID    ,
+		APKIND         ,
+		APDT           ,
+		APTM           ,
+		WORKDATE       ,
+		SUBQUTY        ,
+		SUBAMT         ,
+		BANKNO         ,
+		BANKACCO       ,
+		BANKSERIALID   ,
+		FUNDID         ,
+		REFERNO        ,
+		REMARK         ,
+		SUBAPKIND      ,
+		ACCPTMD        ,
+		UPDATETIMESTAMP
+	</sql>
+	
+	<insert id="add" parameterType="TradeRequest">
+  	 	insert into traderequest values(
+  	 		#{serialno,jdbcType=VARCHAR},      
+			#{custno,jdbcType=VARCHAR},        
+			#{fundcorpno,jdbcType=VARCHAR},    
+			#{tradeacco,jdbcType=VARCHAR},     
+			#{apkind,jdbcType=VARCHAR},        
+			#{apdt,jdbcType=VARCHAR},          
+			#{aptm,jdbcType=VARCHAR},          
+			#{workdate,jdbcType=VARCHAR},      
+			#{subquty,jdbcType=VARCHAR},       
+			#{subamt,jdbcType=VARCHAR},        
+			#{bankno,jdbcType=VARCHAR},        
+			#{bankacco,jdbcType=VARCHAR},      
+			#{bankserialid,jdbcType=VARCHAR},  
+			#{fundid,jdbcType=VARCHAR},        
+			#{referno,jdbcType=VARCHAR},       
+			#{remark,jdbcType=VARCHAR},        
+			#{subapkind,jdbcType=VARCHAR},     
+			#{accptmd,jdbcType=VARCHAR},       
+			now())
+  	</insert>
+	
+	<update id="update" parameterType="TradeRequest">
+		update traderequest set
+	</update>
+	
+	
+</mapper>

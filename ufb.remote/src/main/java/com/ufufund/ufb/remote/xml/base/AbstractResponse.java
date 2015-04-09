@@ -2,17 +2,33 @@ package com.ufufund.ufb.remote.xml.base;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractResponse {
 
+	@XmlElement(name="Version")
 	private String version;
+	
+	@XmlElement(name="MerchantId")
 	private String merchantId;
+	
+	@XmlElement(name="DistributorCode")
 	private String distributorCode;
+	
+	@XmlElement(name="BusinType")
 	private String businType;
+	
+	@XmlElement(name="ApplicationNo")
 	private String applicationNo;
+	
+	@XmlElement(name="ReturnCode")
 	private String returnCode;
+	
+	@XmlElement(name="ReturnMsg")
 	private String returnMsg;
+	
+	@XmlElement(name="Extension")
 	private String extension;
 	
 	public String getVersion() {
