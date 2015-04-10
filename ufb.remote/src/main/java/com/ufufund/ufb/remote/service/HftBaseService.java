@@ -30,51 +30,53 @@ public class HftBaseService {
 	// http交易的编码
 	private static final String ENCODING = "utf-8";
 	
-	@Value("${hft_requestUrl}")
+//	@Value("${hft_requestUrl}")
 	private String requestUrl = "http://60.191.25.162:12002/ecg/ecsg/prepositionaccess";
 	
-	@Value("hft_signKey")
-	private String signKey = "123456111";
+//	@Value("hft_signKey")
+	private String signKey = "8db4a013a8b515349c307f1e448ce836";
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected <T> T send(Object  request, Class responseClazz){
 		
 		/** 解析request参数 **/
-		Map<String, String> params = request2Map(request);
-		String sign = requestSign(params, ENCODING, signKey);
+		Map<String, String> params = Object2Map(request);
+		String sign = sign(params, ENCODING, signKey);
 		params.put("sign", sign);
-		// post
-		String messageXml = HttpClientUtils.post(requestUrl, params, ENCODING);
 		
+		// post
+		LOG.debug("请求参数："+params);
+		String messageXml = HttpClientUtils.post(requestUrl, params, ENCODING);
+		LOG.debug("响应报文："+messageXml);
 		// 获取reponse验签明文
-		String dataStr = messageXml.substring(messageXml.indexOf("<Response>"),
-				messageXml.indexOf("</Response>") + "</Response>".length());
+//		String dataStr = messageXml.substring(messageXml.indexOf("<Response>"),
+//				messageXml.indexOf("</Response>") + "</Response>".length());
 		
 		/** 解析返回的xml报文 **/ 
 		messageXml = JaxbUtil.buildResponseXml(messageXml, responseClazz);
 		MessageResponse messageResponse = JaxbUtil.toBean(messageXml, MessageResponse.class, Responsebody.class, responseClazz);
 		
+		T response = (T) messageResponse.getResponsebody().getResponse();
+		
 		// 验签
-		String sign1 = EncryptUtil.md5(signKey+dataStr+signKey, ENCODING);
+		Map<String, String> responseFields = Object2Map(response);
+		String sign1 = sign(responseFields, ENCODING, signKey);
 		if(!sign1.equals(messageResponse.getSignature())){
 			LOG.error("验签失败：messageXml="+messageXml);
 			return null;
 		}
 		
-		// 检验message报文的id
-		// code ...
-		
-		return (T) messageResponse.getResponsebody().getResponse();
+		return response;
 		
 	}
 	
 	
 	/**
-	 * request对象转换为map
+	 * request、response对象转换为map
 	 * @param obj pojo对象
 	 * @return
 	 */
-	private Map<String, String> request2Map(Object obj){
+	private Map<String, String> Object2Map(Object obj){
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			if(obj != null){
@@ -105,7 +107,7 @@ public class HftBaseService {
 	 * @param signKey
 	 * @return
 	 */
-	private String requestSign(Map<String, String> map, String charset, String signKey){
+	private String sign(Map<String, String> map, String charset, String signKey){
         StringBuffer sBuffer = new StringBuffer();
         List<String> msgList = new ArrayList<String>();
         // 拼装原始签名参数
@@ -126,6 +128,7 @@ public class HftBaseService {
         }
         //密钥
         sBuffer.append("&key="+signKey);
+        LOG.debug("签名原串："+sBuffer.toString());
         //加密
         return EncryptUtil.md5(sBuffer.toString(), charset).toUpperCase();
     }

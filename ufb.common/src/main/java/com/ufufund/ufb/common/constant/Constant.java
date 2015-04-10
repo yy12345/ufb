@@ -13,7 +13,7 @@ public interface Constant {
 	
 	
 	public interface HftSysConfig{
-		public static final String DistributorCode = "233";
+		public static final String DistributorCode = "223";
 		public static final String MerchantId = "00000001";
 		public static final String Version = "1.0.0";
 	}

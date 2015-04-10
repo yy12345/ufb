@@ -8,60 +8,60 @@ import com.ufufund.ufb.remote.xml.base.AbstractRequest;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BankAuthRequest extends AbstractRequest{
 
-	private String clearingAgencyCode;
-	private String acctNameOfInvestorInClearingAgency;
-	private String acctNoOfInvestorInClearingAgency;
-	private String certificateType;
-	private String certificateNo;
-	private String mobileTelNo;
+	private String ClearingAgencyCode;
+	private String AcctNameOfInvestorInClearingAgency;
+	private String AcctNoOfInvestorInClearingAgency;
+	private String CertificateType;
+	private String CertificateNo;
+	private String MobileTelNo;
 	
 	public String getClearingAgencyCode() {
-		return clearingAgencyCode;
+		return ClearingAgencyCode;
 	}
 	public void setClearingAgencyCode(String clearingAgencyCode) {
-		this.clearingAgencyCode = clearingAgencyCode;
+		ClearingAgencyCode = clearingAgencyCode;
 	}
 	public String getAcctNameOfInvestorInClearingAgency() {
-		return acctNameOfInvestorInClearingAgency;
+		return AcctNameOfInvestorInClearingAgency;
 	}
 	public void setAcctNameOfInvestorInClearingAgency(
 			String acctNameOfInvestorInClearingAgency) {
-		this.acctNameOfInvestorInClearingAgency = acctNameOfInvestorInClearingAgency;
+		AcctNameOfInvestorInClearingAgency = acctNameOfInvestorInClearingAgency;
 	}
 	public String getAcctNoOfInvestorInClearingAgency() {
-		return acctNoOfInvestorInClearingAgency;
+		return AcctNoOfInvestorInClearingAgency;
 	}
 	public void setAcctNoOfInvestorInClearingAgency(
 			String acctNoOfInvestorInClearingAgency) {
-		this.acctNoOfInvestorInClearingAgency = acctNoOfInvestorInClearingAgency;
+		AcctNoOfInvestorInClearingAgency = acctNoOfInvestorInClearingAgency;
 	}
 	public String getCertificateType() {
-		return certificateType;
+		return CertificateType;
 	}
 	public void setCertificateType(String certificateType) {
-		this.certificateType = certificateType;
+		CertificateType = certificateType;
 	}
 	public String getCertificateNo() {
-		return certificateNo;
+		return CertificateNo;
 	}
 	public void setCertificateNo(String certificateNo) {
-		this.certificateNo = certificateNo;
+		CertificateNo = certificateNo;
 	}
 	public String getMobileTelNo() {
-		return mobileTelNo;
+		return MobileTelNo;
 	}
 	public void setMobileTelNo(String mobileTelNo) {
-		this.mobileTelNo = mobileTelNo;
+		MobileTelNo = mobileTelNo;
 	}
 	@Override
 	public String toString() {
-		return "BankAuthRequest [clearingAgencyCode=" + clearingAgencyCode
-				+ ", acctNameOfInvestorInClearingAgency="
-				+ acctNameOfInvestorInClearingAgency
-				+ ", acctNoOfInvestorInClearingAgency="
-				+ acctNoOfInvestorInClearingAgency + ", certificateType="
-				+ certificateType + ", certificateNo=" + certificateNo
-				+ ", mobileTelNo=" + mobileTelNo + ", toString()="
+		return "BankAuthRequest [ClearingAgencyCode=" + ClearingAgencyCode
+				+ ", AcctNameOfInvestorInClearingAgency="
+				+ AcctNameOfInvestorInClearingAgency
+				+ ", AcctNoOfInvestorInClearingAgency="
+				+ AcctNoOfInvestorInClearingAgency + ", CertificateType="
+				+ CertificateType + ", CertificateNo=" + CertificateNo
+				+ ", MobileTelNo=" + MobileTelNo + ", toString()="
 				+ super.toString() + "]";
 	}
 	

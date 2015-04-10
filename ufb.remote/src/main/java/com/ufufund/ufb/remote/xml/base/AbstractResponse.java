@@ -2,90 +2,73 @@ package com.ufufund.ufb.remote.xml.base;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractResponse {
 
-	@XmlElement(name="Version")
-	private String version;
-	
-	@XmlElement(name="MerchantId")
-	private String merchantId;
-	
-	@XmlElement(name="DistributorCode")
-	private String distributorCode;
-	
-	@XmlElement(name="BusinType")
-	private String businType;
-	
-	@XmlElement(name="ApplicationNo")
-	private String applicationNo;
-	
-	@XmlElement(name="ReturnCode")
-	private String returnCode;
-	
-	@XmlElement(name="ReturnMsg")
-	private String returnMsg;
-	
-	@XmlElement(name="Extension")
-	private String extension;
+	private String Version;
+	private String MerchantId;
+	private String DistributorCode;
+	private String BusinType;
+	private String ApplicationNo;
+	private String ReturnCode;
+	private String ReturnMsg;
+	private String Extension;
 	
 	public String getVersion() {
-		return version;
+		return Version;
 	}
 	public void setVersion(String version) {
-		this.version = version;
+		Version = version;
 	}
 	public String getMerchantId() {
-		return merchantId;
+		return MerchantId;
 	}
 	public void setMerchantId(String merchantId) {
-		this.merchantId = merchantId;
+		MerchantId = merchantId;
 	}
 	public String getDistributorCode() {
-		return distributorCode;
+		return DistributorCode;
 	}
 	public void setDistributorCode(String distributorCode) {
-		this.distributorCode = distributorCode;
+		DistributorCode = distributorCode;
 	}
 	public String getBusinType() {
-		return businType;
+		return BusinType;
 	}
 	public void setBusinType(String businType) {
-		this.businType = businType;
+		BusinType = businType;
 	}
 	public String getApplicationNo() {
-		return applicationNo;
+		return ApplicationNo;
 	}
 	public void setApplicationNo(String applicationNo) {
-		this.applicationNo = applicationNo;
+		ApplicationNo = applicationNo;
 	}
 	public String getReturnCode() {
-		return returnCode;
+		return ReturnCode;
 	}
 	public void setReturnCode(String returnCode) {
-		this.returnCode = returnCode;
+		ReturnCode = returnCode;
 	}
 	public String getReturnMsg() {
-		return returnMsg;
+		return ReturnMsg;
 	}
 	public void setReturnMsg(String returnMsg) {
-		this.returnMsg = returnMsg;
+		ReturnMsg = returnMsg;
 	}
 	public String getExtension() {
-		return extension;
+		return Extension;
 	}
 	public void setExtension(String extension) {
-		this.extension = extension;
+		Extension = extension;
 	}
 	@Override
 	public String toString() {
-		return "AbstractResponse [version=" + version + ", merchantId="
-				+ merchantId + ", distributorCode=" + distributorCode
-				+ ", businType=" + businType + ", applicationNo="
-				+ applicationNo + ", returnCode=" + returnCode + ", returnMsg="
-				+ returnMsg + ", extension=" + extension + "]";
+		return "AbstractResponse [Version=" + Version + ", MerchantId="
+				+ MerchantId + ", DistributorCode=" + DistributorCode
+				+ ", BusinType=" + BusinType + ", ApplicationNo="
+				+ ApplicationNo + ", ReturnCode=" + ReturnCode + ", ReturnMsg="
+				+ ReturnMsg + ", Extension=" + Extension + "]";
 	}
-	
 }
