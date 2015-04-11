@@ -2,7 +2,6 @@ package com.ufufund.ufb.remote.xml.base;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -10,22 +9,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="Message")
 public class MessageRequest {
 
-	@XmlAttribute
-	private String id;
-	
 	@XmlElement(name="Requestbody", type= Requestbody.class)
 	private Requestbody requestbody;
 	
 	@XmlElement(name="Signature")
 	private String signature;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public Requestbody getRequestbody() {
 		return requestbody;
@@ -45,9 +33,8 @@ public class MessageRequest {
 
 	@Override
 	public String toString() {
-		return "MessageRequest [id=" + id + ", requestbody=" + requestbody
+		return "MessageRequest [requestbody=" + requestbody
 				+ ", signature=" + signature + "]";
 	}
-
 	
 }

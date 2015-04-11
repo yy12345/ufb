@@ -1,5 +1,14 @@
-package com.ufufund.ufb.remote.service;
+package com.ufufund.ufb.remote.test;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.ufufund.ufb.remote.service.HftTradeService;
 import com.ufufund.ufb.remote.xml.pojo.BuyApplyRequest;
 import com.ufufund.ufb.remote.xml.pojo.BuyApplyResponse;
 import com.ufufund.ufb.remote.xml.pojo.BuyNotifyRequest;
@@ -19,20 +28,21 @@ import com.ufufund.ufb.remote.xml.pojo.TransferResponse;
 import com.ufufund.ufb.remote.xml.pojo.UnFrozenRequest;
 import com.ufufund.ufb.remote.xml.pojo.UnFrozenResponse;
 
-/**
- * 海富通交易相关接口
- * @author ayis
- * 2015年3月22日
- */
-public class HftTradeService extends HftBaseService{
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:spring/spring-ufb-remote.xml"})
+public class HftTradeServiceTest {
+	private static Logger LOG = LoggerFactory.getLogger(HftTradeServiceTest.class);
+	
+	@Autowired
+	private HftTradeService hftTradeService;
+	
 	/**
 	 * 认购
 	 * @param request
 	 * @return
 	 */
-	public SubApplyResponse subApply(SubApplyRequest request){
-		return super.send(request, SubApplyResponse.class);
+	@Test
+	public void subApply(SubApplyRequest request){
 	}
 	
 	/**
@@ -40,8 +50,8 @@ public class HftTradeService extends HftBaseService{
 	 * @param request
 	 * @return
 	 */
-	public BuyApplyResponse buyApply(BuyApplyRequest request){
-		return super.send(request, BuyApplyResponse.class);
+	@Test
+	public void buyApply(BuyApplyRequest request){
 	}
 	
 	/**
@@ -49,8 +59,8 @@ public class HftTradeService extends HftBaseService{
 	 * @param request
 	 * @return
 	 */
-	public RedeemResponse redeem(RedeemRequest request){
-		return super.send(request, RedeemResponse.class);
+	@Test
+	public void redeem(RedeemRequest request){
 	}
 	
 	/**
@@ -58,8 +68,8 @@ public class HftTradeService extends HftBaseService{
 	 * @param request
 	 * @return
 	 */
-	public RealRedeemResponse realRedeem(RealRedeemRequest request){
-		return super.send(request, RealRedeemResponse.class);
+	@Test
+	public void realRedeem(RealRedeemRequest request){
 	}
 	
 	/**
@@ -67,8 +77,8 @@ public class HftTradeService extends HftBaseService{
 	 * @param request
 	 * @return
 	 */
-	public CancelResponse cancel(CancelRequest request){
-		return super.send(request, CancelResponse.class);
+	@Test
+	public void cancel(CancelRequest request){
 	}
 	
 	/**
@@ -76,8 +86,8 @@ public class HftTradeService extends HftBaseService{
 	 * @param request
 	 * @return
 	 */
-	public BuyNotifyResponse buyNotify(BuyNotifyRequest request){
-		return super.send(request, BuyNotifyResponse.class);
+	@Test
+	public void buyNotify(BuyNotifyRequest request){
 	}
 	
 	/**
@@ -85,8 +95,8 @@ public class HftTradeService extends HftBaseService{
 	 * @param request
 	 * @return
 	 */
-	public FrozenResponse frozen(FrozenRequest request){
-		return super.send(request, FrozenResponse.class);
+	@Test
+	public void frozen(FrozenRequest request){
 	}
 	
 	/**
@@ -94,8 +104,8 @@ public class HftTradeService extends HftBaseService{
 	 * @param request
 	 * @return
 	 */
-	public UnFrozenResponse unfrozen(UnFrozenRequest request){
-		return super.send(request, UnFrozenResponse.class);
+	@Test
+	public void unfrozen(UnFrozenRequest request){
 	}
 	
 	/**
@@ -103,7 +113,7 @@ public class HftTradeService extends HftBaseService{
 	 * @param request
 	 * @return
 	 */
-	public TransferResponse transfer(TransferRequest request){
-		return super.send(request, TransferResponse.class);
+	@Test
+	public void transfer(TransferRequest request){
 	}
 }

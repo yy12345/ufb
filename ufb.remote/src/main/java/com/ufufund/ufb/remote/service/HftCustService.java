@@ -10,7 +10,7 @@ import com.ufufund.ufb.remote.xml.pojo.OpenAccountRequest;
 import com.ufufund.ufb.remote.xml.pojo.OpenAccountResponse;
 
 /**
- * 银行鉴权、开户等相关接口（海富通）
+ * 海富通银行鉴权、开户相关接口
  * @author ayis
  * 2015年3月22日
  */
