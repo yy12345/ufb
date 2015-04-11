@@ -33,13 +33,6 @@ public class CustController {
 	
 	@RequestMapping(value="register" , method=RequestMethod.GET)
 	public String getPage(Model model){
-		
-//		String custNo = "c_01";
-//		Area area =  new  Area();//custManager.getAreaByCustNo(custNo);
-//		
-//		log.info("--------------:"+area);
-//		model.addAttribute("custNo", custNo);
-//		model.addAttribute("area", area);
 		return "cust/register";
 	}
 	
@@ -49,7 +42,7 @@ public class CustController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "cust/register_person")
+	@RequestMapping(value = "cust/register")
 	public String registerPerson(CustinfoVo custinfoVo, Model model) {
 		
 		try{
@@ -90,10 +83,10 @@ public class CustController {
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
 			model.addAttribute("returnUrl", "../test/index.htm");
-			return "error/error";
+			return "cust/register";
 		}
 
-		return "cust/register_person";
+		return "cust/registerOK";
 	}
 	
 	/**

@@ -1,4 +1,20 @@
-    
+<!DOCTYPE html>
+<html>
+<head>
+<title>幼富通 - 注册</title>
+<script>
+$(function(){
+	var tab = $(".tab-org");
+	var panels = $(".register-panels .panel");
+    tab.addClass("on").siblings().removeClass("on");
+    panels.addClass("slide-out").eq(1).removeClass("slide-out");
+});
+
+        
+        
+</script>
+</head>
+<body>
 <div class="body">
     <div class="inner container-register">
         <div class="register-tabs clearfix">
@@ -7,7 +23,7 @@
         </div>
         <div class="register-panels">
             <div class="panel panel-family slide-on">
-                <form method="post" action="registerOK.html" id="register-family" class="form-register">
+                <form method="post" action="${staticDomain}/cust/register.htm" id="register-family" class="form-register">
                     <ul>
                         <li class="error">
                             <span class="form-title">手机号</span>
@@ -50,36 +66,40 @@
                 </form>
             </div>
             <div class="panel panel-org slide-out">
-                <form method="post" action="registerOK.html" id="register-org" class="form-register">
+                <form method="post" action="${staticDomain}/cust/register.htm" id="register-org" class="form-register">
                     <ul>
-                        <li>
+                        <li
+                        #if($errMsg)
+                        class="error"
+                        #end
+                        >
                             <span class="form-title">经办人手机号</span>
-                            <input class="input-text" type="text" value="">
+                            <input id="mobileno" name="mobileno" class="input-text" type="text" value="18616502181">
                             <span class="tips-normal">请输入手机号</span>
-                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            <span class="tips-check"><i class="icon"></i>$!{errMsg}</span>
                         </li>
                         <li>
                             <span class="form-title">验证码</span>
-                            <input class="input-code" type="text" value="">
+                            <input id="verifycode" name="verifycode" class="input-code" type="text" value="1234">
                             <span class="tips-normal">请输入验证码</span>
                             <span class="tips-check"><i class="icon"></i>验证提示</span>
                         </li>
                         <li>
                             <span class="form-title">手机验证码</span>
-                            <input class="input-code" type="text" value="">
+                            <input id="msgcode" name="msgcode" class="input-code" type="text" value="123456">
                             <input class="input-button" type="button" value="获取验证码">
                             <span class="tips-normal">6位验证码</span>
                             <span class="tips-check"><i class="icon"></i>验证提示</span>
                         </li>
                         <li>
                             <span class="form-title">设置新密码</span>
-                            <input class="input-text" type="text" value="">
+                            <input id="pswpwd" name="pswpwd" class="input-text" type="text" value="123qwe">
                             <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
                             <span class="tips-check"><i class="icon"></i>验证提示</span>
                         </li>
                         <li>
                             <span class="form-title">确认新密码</span>
-                            <input class="input-text" type="text" value="">
+                            <input id="pswpwd2" name="pswpwd2" class="input-text" type="text" value="123qwe">
                             <span class="tips-normal">请再次输入密码</span>
                             <span class="tips-check"><i class="icon"></i>验证提示</span>
                         </li>
@@ -108,3 +128,5 @@
     </div>
 </div>
 <script src="${staticDomain}/js/scripts/load.js"></script>
+</body>
+</html>
