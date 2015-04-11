@@ -31,7 +31,7 @@ public class CustController {
 	@Autowired
 	private CustManager custManager;
 	
-	@RequestMapping(value="test/index" , method=RequestMethod.GET)
+	@RequestMapping(value="register" , method=RequestMethod.GET)
 	public String getPage(Model model){
 		
 //		String custNo = "c_01";
@@ -40,7 +40,7 @@ public class CustController {
 //		log.info("--------------:"+area);
 //		model.addAttribute("custNo", custNo);
 //		model.addAttribute("area", area);
-		return "cust/register_person";
+		return "cust/register";
 	}
 	
 	/**

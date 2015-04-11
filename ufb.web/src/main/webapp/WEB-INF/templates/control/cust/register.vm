@@ -1,0 +1,110 @@
+    
+<div class="body">
+    <div class="inner container-register">
+        <div class="register-tabs clearfix">
+            <a class="tab tab-family fl on" href="javascript:;">家庭注册</a>
+            <a class="tab tab-org fl" href="javascript:;">幼教机构注册</a>
+        </div>
+        <div class="register-panels">
+            <div class="panel panel-family slide-on">
+                <form method="post" action="registerOK.html" id="register-family" class="form-register">
+                    <ul>
+                        <li class="error">
+                            <span class="form-title">手机号</span>
+                            <input class="input-text" type="text" value="">
+                            <span class="tips-normal">请输入手机号</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li class="ok">
+                            <span class="form-title">验证码</span>
+                            <input class="input-code" type="text" value="">
+                            <span class="tips-normal">请输入验证码</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">手机验证码</span>
+                            <input class="input-code" type="text" value="">
+                            <span class="tips-normal">6位验证码</span>
+                            <input class="input-button" type="button" value="获取验证码">
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">设置新密码</span>
+                            <input class="input-text" type="text" value="">
+                            <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">确认新密码</span>
+                            <input class="input-text" type="text" value="">
+                            <span class="tips-normal">请再次输入密码</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <label><input class="input-checkbox" type="checkbox">我已阅读并同意<a href="javascript:;">《幼富通用户注册协议》</a></label>
+                        </li>
+                        <li>
+                            <input class="input-button" type="submit" value="注&nbsp;册">
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <div class="panel panel-org slide-out">
+                <form method="post" action="registerOK.html" id="register-org" class="form-register">
+                    <ul>
+                        <li>
+                            <span class="form-title">经办人手机号</span>
+                            <input class="input-text" type="text" value="">
+                            <span class="tips-normal">请输入手机号</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">验证码</span>
+                            <input class="input-code" type="text" value="">
+                            <span class="tips-normal">请输入验证码</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">手机验证码</span>
+                            <input class="input-code" type="text" value="">
+                            <input class="input-button" type="button" value="获取验证码">
+                            <span class="tips-normal">6位验证码</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">设置新密码</span>
+                            <input class="input-text" type="text" value="">
+                            <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">确认新密码</span>
+                            <input class="input-text" type="text" value="">
+                            <span class="tips-normal">请再次输入密码</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">幼教机构名称</span>
+                            <input class="input-text" type="text" value="">
+                            <span class="tips-normal">请按照营业执照填写</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">营业执照注册号</span>
+                            <input class="input-text" type="text" value="">
+                            <span class="tips-normal">请按照营业执照填写</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <label><input class="input-checkbox" type="checkbox">我已阅读并同意<a href="javascript:;">《幼富通用户注册协议》</a></label>
+                        </li>
+                        <li>
+                            <input class="input-button ok" type="submit" value="注&nbsp;册">
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
