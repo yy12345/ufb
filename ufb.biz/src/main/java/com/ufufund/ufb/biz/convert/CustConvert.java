@@ -94,7 +94,7 @@ public class CustConvert {
 												A-台胞证*/
 		req.setCertificateNo(openAccountAction.getBankidno());//	C	30	投资人证件号码	
 		req.setMobileTelNo(openAccountAction.getBankidno());//C	24	投资人手机号码	
-		req.setMobileAutoCode(openAccountAction.getMobileAutoCode());
+		req.setMobileAuthCode(openAccountAction.getMobileAutoCode());
 		
 		/*
 		 * 

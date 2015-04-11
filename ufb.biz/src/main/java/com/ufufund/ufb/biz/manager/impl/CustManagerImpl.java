@@ -273,18 +273,18 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			 * 模拟器
 			 */
 			bankVeriResponse = new BankVeriResponse();
-			//bankVeriResponse.setReturnCode("0000");
+			bankVeriResponse.setReturnCode("0000");
 		}
 		/*
 		 * 返回码转换
 		 */
-//		Dictionary dictionary =  DictManager.getDict("DICTIONARY$HTFERROR", bankVeriResponse.getReturnCode());
-//		if(!"0000".equals(dictionary.getPmv1())){
-//			throw new BizException(processId,dictionary.getPmv1());
-//		}
-//		if(bankVeriResponse.getValidateState()==null||!"1".equals(bankVeriResponse.getValidateState())){
-//			throw new BizException(processId,dictionary.getPmv1());
-//		}
+		Dictionary dictionary =  DictManager.getDict("DICTIONARY$HTFERROR", bankVeriResponse.getReturnCode());
+		if(!"0000".equals(dictionary.getPmv1())){
+			throw new BizException(processId,dictionary.getPmv1());
+		}
+		if(bankVeriResponse.getValidateState()==null||!"1".equals(bankVeriResponse.getValidateState())){
+			throw new BizException(processId,dictionary.getPmv1());
+		}
 	}
 	
 	
