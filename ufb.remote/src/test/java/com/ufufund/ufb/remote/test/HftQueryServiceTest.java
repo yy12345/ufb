@@ -1,5 +1,6 @@
 package com.ufufund.ufb.remote.test;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +27,8 @@ public class HftQueryServiceTest {
 	 * @param request
 	 * @return
 	 */
-	public TransQueryResponse transQuery(TransQueryRequest request){
-		return super.send(request, TransQueryResponse.class);
+	@Test
+	public void transQuery(TransQueryRequest request){
 	}
 	
 	/**
@@ -35,7 +36,7 @@ public class HftQueryServiceTest {
 	 * @param request
 	 * @return
 	 */
-	public BalanceQueryResponse balanceQuery(BalanceQueryRequest request){
-		return super.send(request, BalanceQueryResponse.class);
+	@Test
+	public void balanceQuery(BalanceQueryRequest request){
 	}
 }

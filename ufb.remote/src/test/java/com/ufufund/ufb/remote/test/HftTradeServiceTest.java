@@ -1,5 +1,6 @@
 package com.ufufund.ufb.remote.test;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,8 +41,8 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-	public SubApplyResponse subApply(SubApplyRequest request){
-		return super.send(request, SubApplyResponse.class);
+	@Test
+	public void subApply(SubApplyRequest request){
 	}
 	
 	/**
@@ -49,8 +50,8 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-	public BuyApplyResponse buyApply(BuyApplyRequest request){
-		return super.send(request, BuyApplyResponse.class);
+	@Test
+	public void buyApply(BuyApplyRequest request){
 	}
 	
 	/**
@@ -58,8 +59,8 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-	public RedeemResponse redeem(RedeemRequest request){
-		return super.send(request, RedeemResponse.class);
+	@Test
+	public void redeem(RedeemRequest request){
 	}
 	
 	/**
@@ -67,8 +68,8 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-	public RealRedeemResponse realRedeem(RealRedeemRequest request){
-		return super.send(request, RealRedeemResponse.class);
+	@Test
+	public void realRedeem(RealRedeemRequest request){
 	}
 	
 	/**
@@ -76,8 +77,8 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-	public CancelResponse cancel(CancelRequest request){
-		return super.send(request, CancelResponse.class);
+	@Test
+	public void cancel(CancelRequest request){
 	}
 	
 	/**
@@ -85,8 +86,8 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-	public BuyNotifyResponse buyNotify(BuyNotifyRequest request){
-		return super.send(request, BuyNotifyResponse.class);
+	@Test
+	public void buyNotify(BuyNotifyRequest request){
 	}
 	
 	/**
@@ -94,8 +95,8 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-	public FrozenResponse frozen(FrozenRequest request){
-		return super.send(request, FrozenResponse.class);
+	@Test
+	public void frozen(FrozenRequest request){
 	}
 	
 	/**
@@ -103,8 +104,8 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-	public UnFrozenResponse unfrozen(UnFrozenRequest request){
-		return super.send(request, UnFrozenResponse.class);
+	@Test
+	public void unfrozen(UnFrozenRequest request){
 	}
 	
 	/**
@@ -112,7 +113,7 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-	public TransferResponse transfer(TransferRequest request){
-		return super.send(request, TransferResponse.class);
+	@Test
+	public void transfer(TransferRequest request){
 	}
 }
