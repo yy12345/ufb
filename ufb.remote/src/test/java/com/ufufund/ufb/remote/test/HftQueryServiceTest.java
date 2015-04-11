@@ -34,8 +34,8 @@ public class HftQueryServiceTest {
 	public void transQuery() {
 		TransQueryRequest request = new TransQueryRequest();
 
-		request.setTransactionAccountID("");
-		request.setAppSheetSerialNo("");
+		request.setTransactionAccountID("xxxx000011111");
+		request.setAppSheetSerialNo("cccc0000111");
 		request.setPageNo("1");
 		request.setPageSize("10");
 
@@ -44,7 +44,6 @@ public class HftQueryServiceTest {
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.TransQuery);
 		request.setApplicationNo("20150410CC0001");
-		request.setExtension("");
 
 		TransQueryResponse response = hftQueryService.transQuery(request);
 		LOG.debug("返回对象:" + response.toString());
@@ -60,8 +59,8 @@ public class HftQueryServiceTest {
 	public void balanceQuery() {
 		BalanceQueryRequest request = new BalanceQueryRequest();
 		
-		request.setTransactionAccountID("");
-		request.setFundCode("");
+		request.setTransactionAccountID("xxxx000011111");
+		request.setFundCode("001002");
 		request.setPageNo("1");
 		request.setPageSize("10");
 		request.setShareClass("10");
