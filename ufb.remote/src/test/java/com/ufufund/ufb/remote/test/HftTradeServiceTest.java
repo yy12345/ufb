@@ -19,6 +19,7 @@ import com.ufufund.ufb.remote.xml.pojo.BuyNotifyResponse;
 import com.ufufund.ufb.remote.xml.pojo.CancelRequest;
 import com.ufufund.ufb.remote.xml.pojo.CancelResponse;
 import com.ufufund.ufb.remote.xml.pojo.FrozenRequest;
+import com.ufufund.ufb.remote.xml.pojo.FrozenResponse;
 import com.ufufund.ufb.remote.xml.pojo.RealRedeemRequest;
 import com.ufufund.ufb.remote.xml.pojo.RealRedeemResponse;
 import com.ufufund.ufb.remote.xml.pojo.RedeemRequest;
@@ -26,7 +27,9 @@ import com.ufufund.ufb.remote.xml.pojo.RedeemResponse;
 import com.ufufund.ufb.remote.xml.pojo.SubApplyRequest;
 import com.ufufund.ufb.remote.xml.pojo.SubApplyResponse;
 import com.ufufund.ufb.remote.xml.pojo.TransferRequest;
+import com.ufufund.ufb.remote.xml.pojo.TransferResponse;
 import com.ufufund.ufb.remote.xml.pojo.UnFrozenRequest;
+import com.ufufund.ufb.remote.xml.pojo.UnFrozenResponse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring/spring-ufb-remote.xml"})
@@ -171,25 +174,63 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-//	@Test
-	public void frozen(FrozenRequest request){
+	//@Test
+	public void frozen() {
+		FrozenRequest request = new FrozenRequest();
+		request.setVersion(Constant.HftSysConfig.Version);
+		request.setMerchantId(Constant.HftSysConfig.MerchantId);
+		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
+		request.setBusinType(Constant.HftBusiType.Frozen);
+		request.setTransactionAccountID("88888888");
+		request.setApplicationNo("2015041100001");
+		request.setFundCode("888888");
+		request.setApplicationVol(new BigDecimal("88.88"));
+		request.setShareClass("0");
+
+		FrozenResponse response = hftTradeService.frozen(request);
+		LOG.debug(response.toString());
 	}
-	
+
 	/**
 	 * 解冻
 	 * @param request
 	 * @return
 	 */
 //	@Test
-	public void unfrozen(UnFrozenRequest request){
+	public void unfrozen() {
+		UnFrozenRequest request = new UnFrozenRequest();
+		request.setVersion(Constant.HftSysConfig.Version);
+		request.setMerchantId(Constant.HftSysConfig.MerchantId);
+		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
+		request.setBusinType(Constant.HftBusiType.Unfrozen);
+		request.setTransactionAccountID("0001");
+		request.setApplicationNo("2015041100002");
+		request.setOriginalAppSheetNo("2015041100001");
+		request.setApplicationVol(new BigDecimal("22.22"));
+
+		UnFrozenResponse response = hftTradeService.unfrozen(request);
+		LOG.debug(response.toString());
 	}
-	
+
 	/**
 	 * 快速过户
 	 * @param request
 	 * @return
 	 */
-//	@Test
-	public void transfer(TransferRequest request){
+    @Test
+	public void transfer() {
+		TransferRequest request = new TransferRequest();
+		request.setVersion(Constant.HftSysConfig.Version);
+		request.setMerchantId(Constant.HftSysConfig.MerchantId);
+		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
+		request.setBusinType(Constant.HftBusiType.Transfer);
+		request.setApplicationNo("2015041100003");
+		request.setTransactionAccountID("8888");
+		request.setFundCode("888888");
+		request.setApplicationVol(new BigDecimal("111111"));
+
+		TransferResponse response = hftTradeService.transfer(request);
+		LOG.debug(response.toString());
 	}
+    
 }

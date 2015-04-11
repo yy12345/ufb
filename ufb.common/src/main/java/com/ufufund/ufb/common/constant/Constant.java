@@ -32,6 +32,7 @@ public interface Constant {
 		public static final String Redeem = "redeemApply";
 		public static final String RealRedeem = "realTimeRedeemApply";
 		public static final String BuyNotify = "buyApplyNotify";
+		public static final String Frozen = "frozenShare";
 		public static final String Unfrozen = "unfrozenShare";
 		public static final String Transfer = "swiftTransfer";
 		public static final String TransQuery = "transResultQuery";
