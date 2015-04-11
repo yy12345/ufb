@@ -12,9 +12,11 @@ import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.Invtp;
+import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 //import com.ufufund.ufb.model.Area;
@@ -223,5 +225,120 @@ public class CustController {
 		}
 
 		return "password/getLoginPwdSuccess";
+	}
+	
+	/**
+	 * 绑卡-Page
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="bankcard/addBankCardPage" , method=RequestMethod.GET)
+	public String addBankCardPage(Model model){
+
+		return "bankcard/addBankCardPage";
+	}
+	
+	
+	/**
+	 * 绑卡-验证身份
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="bankcard/addBankCardInit" , method=RequestMethod.GET)
+	public String addBankCard1(BankCardVo bankCardVo, Model model){
+		
+		try{
+			//营业执照
+			//幼教机构
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setCustno(bankCardVo.getCustNo());
+			openAccountAction.setInvnm(bankCardVo.getBankAcnm());
+			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
+			openAccountAction.setBankidno(bankCardVo.getBankIdno());
+			//TODO 重复
+			openAccountAction.setIdno(bankCardVo.getBankIdno());
+			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
+			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
+			custManager.openAccount1(openAccountAction);
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			model.addAttribute("returnUrl", "password/getLoginPwdSet");
+			return "bankcard/addBankCardPage";
+		}
+
+		return "bankcard/addBankCardAuthPage";
+	}
+	
+	/**
+	 * 绑卡-银行卡绑定(鉴权)
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="bankcard/addBankAuth" , method=RequestMethod.GET)
+	public String addBankCard2(BankCardVo bankCardVo, Model model){
+		
+		try{
+			//TODO ajax
+//			// 校验验证码
+//			boolean checkVerifyCode = VerifyCodeUtils.validate(bankCardVo.getVerifycode());
+//			if(!checkVerifyCode){
+//				throw new BizException("验证码无效。");
+//			}
+			
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setBankno(bankCardVo.getBankNo());
+			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
+			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
+			openAccountAction.setBankidno(bankCardVo.getBankIdno());
+			openAccountAction.setBankacco(bankCardVo.getBankAcco());
+			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
+			
+			custManager.openAccount2(openAccountAction);
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			model.addAttribute("returnUrl", "password/getLoginPwdSet");
+			return "bankcard/addBankCardAuthPage";
+		}
+
+		return "bankcard/addBankCardAuthPage";
+	}
+	
+	/**
+	 * 绑卡-银行卡绑定(验证) + 开户
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.GET)
+	public String addBankCard3(BankCardVo bankCardVo, Model model){
+		
+		try{
+//			// 校验验证码
+//			boolean checkVerifyCode = VerifyCodeUtils.validate(bankCardVo.getVerifycode());
+//			if(!checkVerifyCode){
+//				throw new BizException("验证码无效。");
+//			}
+			
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setBankno(bankCardVo.getBankNo());
+			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
+			openAccountAction.setBankacco(bankCardVo.getBankAcco());
+			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
+			openAccountAction.setBankidno(bankCardVo.getBankIdno());
+			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
+			
+			custManager.openAccount3(openAccountAction);
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			model.addAttribute("returnUrl", "password/getLoginPwdSet");
+			return "bankcard/addBankCardAuthPage";
+		}
+
+		return "cust/openAccoPage";
 	}
 }

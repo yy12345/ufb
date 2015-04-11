@@ -13,7 +13,7 @@ public class CustinfoVo {
 	private String msgcode;
 	private String verifycode;
 	private String invtp; // 用户类型
-	private String intnm; // 用户姓名
+	private String invnm; // 用户姓名
 	private String idtp; // 证件类型
 	private String idno; // 证件号码
 	private String pswpwd;
@@ -61,12 +61,12 @@ public class CustinfoVo {
 		this.invtp = invtp;
 	}
 
-	public String getIntnm() {
-		return intnm;
+	public String getInvnm() {
+		return invnm;
 	}
 
-	public void setIntnm(String intnm) {
-		this.intnm = intnm;
+	public void setInvnm(String invnm) {
+		this.invnm = invnm;
 	}
 
 	public String getIdtp() {
