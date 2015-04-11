@@ -25,6 +25,12 @@ public class BizException extends AppException{
 	public BizException(String processId,ErrorInfo errorInfo,String otherInfo) {
 		super(processId,errorInfo,otherInfo);
 	}
+	public BizException(String processId,String errorInfovalue,String otherInfo) {
+		super(processId,errorInfovalue,otherInfo);
+	}
+	public BizException(String processId,String errorInfovalue) {
+		super(processId,errorInfovalue);
+	}
 	
 //	public BizException(String errcode,String errmsg) {
 //		super(errcode,errmsg);

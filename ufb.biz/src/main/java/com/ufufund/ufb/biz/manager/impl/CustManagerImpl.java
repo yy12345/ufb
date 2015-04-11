@@ -10,6 +10,7 @@ import com.ufufund.ufb.biz.convert.BankConvert;
 import com.ufufund.ufb.biz.convert.CustConvert;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.biz.manager.DictManager;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
@@ -24,11 +25,17 @@ import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.DateInfo;
+import com.ufufund.ufb.model.db.Dictionary;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
+import com.ufufund.ufb.remote.service.HftCustService;
+import com.ufufund.ufb.remote.xml.pojo.BankAuthRequest;
+import com.ufufund.ufb.remote.xml.pojo.BankAuthResponse;
+import com.ufufund.ufb.remote.xml.pojo.BankVeriRequest;
+import com.ufufund.ufb.remote.xml.pojo.BankVeriResponse;
 
 @Service
 public class CustManagerImpl extends ImplCommon implements CustManager {
@@ -47,6 +54,8 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	@Autowired
 	private TradeNotesMapper tradeNotesMapper;
 
+	@Autowired
+	private HftCustService hftCustService;
 	/**
 	 * 查询手机号是否注册
 	 * 
@@ -215,11 +224,30 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	}
 	
 	public void openAccount2(OpenAccountAction openAccountAction) throws BizException {
-		this.getProcessId(openAccountAction);
+		String processId =  this.getProcessId(openAccountAction);
 		custManagerValidator.validator(openAccountAction);
 		/*
 		 * 进行XML接口	银行快捷鉴权
 		 */
+		BankAuthRequest bankAuthRequest =  CustConvert.convertBankAuthRequest(openAccountAction);
+		//bankAuthRequest.setAccoreqSerial	C	20	请求序列号	
+		BankAuthResponse bankAuthResponse = null;
+		if(!Constant.TEST){
+			bankAuthResponse = hftCustService.bankAuth(bankAuthRequest);	
+		}else{
+			/*
+			 * 模拟器
+			 */
+			bankAuthResponse = new BankAuthResponse();
+			bankAuthResponse.setReturnCode("0000");
+		}
+		/*
+		 * 返回码转换
+		 */
+		Dictionary dictionary =  DictManager.getDict("DICTIONARY$HTFERROR", bankAuthResponse.getReturnCode());
+		if(!"0000".equals(dictionary.getPmv1())){
+			throw new BizException(processId,dictionary.getPmv1());
+		}
 		
 	}
 	
@@ -236,6 +264,27 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		/*
 		 * 进行XML接口 银行快捷验证
 		 */
+		BankVeriRequest bankVeriRequest =  CustConvert.convertBankVeriRequest(openAccountAction);
+		BankVeriResponse bankVeriResponse = null;
+		if(!Constant.TEST){
+			bankVeriResponse = hftCustService.bankVeri(bankVeriRequest);	
+		}else{
+			/*
+			 * 模拟器
+			 */
+			bankVeriResponse = new BankVeriResponse();
+			//bankVeriResponse.setReturnCode("0000");
+		}
+		/*
+		 * 返回码转换
+		 */
+//		Dictionary dictionary =  DictManager.getDict("DICTIONARY$HTFERROR", bankVeriResponse.getReturnCode());
+//		if(!"0000".equals(dictionary.getPmv1())){
+//			throw new BizException(processId,dictionary.getPmv1());
+//		}
+//		if(bankVeriResponse.getValidateState()==null||!"1".equals(bankVeriResponse.getValidateState())){
+//			throw new BizException(processId,dictionary.getPmv1());
+//		}
 	}
 	
 	
