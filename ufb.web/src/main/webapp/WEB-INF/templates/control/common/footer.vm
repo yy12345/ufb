@@ -1,18 +1,33 @@
-<!--
-<div class="footer">
-    <div class="inner clearfix">
-        <div class="about fl">
-            <h2 class="title"><a href="about.html">关于幼富通</a></h2>
-            <p>微信服务号：UFUfund</p>
-            <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
-            <br>
-            <p>海富通产品：400-8840-099</p>
-        </div>
-        <div class="copyright fr">
-            <p><img height="80" width="80" src="${staticDomain}/images/qr.jpg"></p>
-            <p>上海泛投信息科技有限公司版权所有 &copy;2014</p>
-            <p><a href="http://www.miitbeian.gov.cn/" target="_blank">沪ICP备14054347号</a></p>
+ <div class="footer">
+        <div class="inner clearfix">
+            <div class="notice fl">
+                <h2 class="title">理财机构须知</h2>
+                <ul class="list">
+                    <li><a href="javascript:;">幼教机构如何注册幼富通？</a></li>
+                    <li><a href="javascript:;">如何购买幼富通的机构理财产品？</a></li>
+                    <li><a href="javascript:;">机构理财的交易安全有什么保障？</a></li>
+                    <li><a href="javascript:;">如何联系我们？</a></li>
+                </ul>
+            </div>
+            <div class="qa fl">
+                <h2 class="title">常见问题</h2>
+                <ul class="list">
+                    <li><a href="javascript:;">什么是机构理财专户？</a></li>
+                    <li><a href="javascript:;">什么是幼富宝？</a></li>
+                    <li><a href="javascript:;">购买幼富宝有什么好处？</a></li>
+                </ul>
+            </div>
+            <div class="about fl">
+                <h2 class="title"><a href="about.html">关于幼富通&nbsp;<span>|</span></a></h2>
+                <div class="info">
+                    <p>微信服务号：UFUfund</p>
+                    <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
+                    <p>海富通产品：400-8840-099</p>
+                </div>
+                <div class="copyright">
+                    <p>上海泛投信息科技有限公司版权所有 ©2015</p>
+                    <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
--->
