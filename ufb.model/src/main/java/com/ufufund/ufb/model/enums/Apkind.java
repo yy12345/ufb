@@ -14,12 +14,15 @@ public enum Apkind {
 	REDEEM("023"),		// 普通赎回
 	REALREDEEM("023"),  // 快速赎回
 	CANCEL("025"),		// 撤单
-	PAYNOTIFY("026"),	// 认申购支付通知
-	UNFROZEN("027"),	// 解冻
+	BUYNOTIFY("026"),	// 认申购支付通知
+	
+	FROZEN("031"),		// 冻结
+	UNFROZEN("032"),	// 解冻
+	TRANSFER("033"),	// 过户
 	
 	/** 查询类  **/
-	TRANSRESULTQUERY("031"),   // 交易结果查询
-	STATICSHAREQUERY("032");	   // 份额查询
+	TRANSRESULTQUERY("041"),   // 交易结果查询
+	STATICSHAREQUERY("042");   // 份额查询
 	
 	private String value;
 

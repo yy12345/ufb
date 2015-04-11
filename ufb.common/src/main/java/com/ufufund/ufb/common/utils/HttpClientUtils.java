@@ -56,8 +56,7 @@ public class HttpClientUtils {
         	CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(url);
             List <NameValuePair> nvps = map2NameValuePairs(map);
-//            httpPost.setHeader(z, value);
-            httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+            httpPost.setEntity(new UrlEncodedFormEntity(nvps, charset));
             response = httpClient.execute(httpPost);
             HttpEntity entity = response.getEntity();
             result = EntityUtils.toString(entity,charset);

@@ -14,6 +14,7 @@ public class BankAuthRequest extends AbstractRequest{
 	private String CertificateType;
 	private String CertificateNo;
 	private String MobileTelNo;
+	private String AccoreqSerial;
 	
 	public String getClearingAgencyCode() {
 		return ClearingAgencyCode;
@@ -53,6 +54,12 @@ public class BankAuthRequest extends AbstractRequest{
 	public void setMobileTelNo(String mobileTelNo) {
 		MobileTelNo = mobileTelNo;
 	}
+	public String getAccoreqSerial() {
+		return AccoreqSerial;
+	}
+	public void setAccoreqSerial(String accoreqSerial) {
+		AccoreqSerial = accoreqSerial;
+	}
 	@Override
 	public String toString() {
 		return "BankAuthRequest [ClearingAgencyCode=" + ClearingAgencyCode
@@ -61,8 +68,8 @@ public class BankAuthRequest extends AbstractRequest{
 				+ ", AcctNoOfInvestorInClearingAgency="
 				+ AcctNoOfInvestorInClearingAgency + ", CertificateType="
 				+ CertificateType + ", CertificateNo=" + CertificateNo
-				+ ", MobileTelNo=" + MobileTelNo + ", toString()="
-				+ super.toString() + "]";
+				+ ", MobileTelNo=" + MobileTelNo + ", AccoreqSerial="
+				+ AccoreqSerial + ", toString()=" + super.toString() + "]";
 	}
 	
 }

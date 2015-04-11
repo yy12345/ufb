@@ -28,7 +28,6 @@ public class XmlTest {
 		rb.setRequest(br);
 		
 		MessageRequest mq = new MessageRequest();
-		mq.setId("mq001001002");
 		mq.setRequestbody(rb);
 		mq.setSignature("asdfsadfsafsafsdfasasdfs");
 		
@@ -73,7 +72,6 @@ public class XmlTest {
 		response.setDistributorCode("001002");
 		response.setBusinType("001");
 		response.setApplicationNo("serial11120001222");
-		response.setAccoreqSerial("ac--111");
 		response.setReturnCode("0000");
 		response.setReturnMsg("交易成功");
 		response.setExtension("others...");
@@ -82,7 +80,6 @@ public class XmlTest {
 		rb.setResponse(response);
 		
 		MessageResponse mr = new MessageResponse();
-		mr.setId("000000011111");
 		mr.setResponsebody(rb);
 		mr.setSignature("ssssssss----sssss");
 

@@ -8,20 +8,25 @@ import com.ufufund.ufb.remote.xml.base.AbstractResponse;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BankAuthResponse extends AbstractResponse{
 
-	private String AccoreqSerial;
-
-	public String getAccoreqSerial() {
-		return AccoreqSerial;
+	private String OtherSerial;
+	private String ProtocolNo;
+	
+	public String getOtherSerial() {
+		return OtherSerial;
 	}
-
-	public void setAccoreqSerial(String accoreqSerial) {
-		AccoreqSerial = accoreqSerial;
+	public void setOtherSerial(String otherSerial) {
+		OtherSerial = otherSerial;
 	}
-
+	public String getProtocolNo() {
+		return ProtocolNo;
+	}
+	public void setProtocolNo(String protocolNo) {
+		ProtocolNo = protocolNo;
+	}
 	@Override
 	public String toString() {
-		return "BankAuthResponse [AccoreqSerial=" + AccoreqSerial
-				+ ", toString()=" + super.toString() + "]";
+		return "BankAuthResponse [OtherSerial=" + OtherSerial + ", ProtocolNo="
+				+ ProtocolNo + ", toString()=" + super.toString() + "]";
 	}
 
 }

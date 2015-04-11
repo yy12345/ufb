@@ -8,115 +8,121 @@ import com.ufufund.ufb.remote.xml.base.AbstractRequest;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class OpenAccountRequest extends AbstractRequest{
 
-	private String clearingAgencyCode;
-	private String acctNameOfInvestorInClearingAgency;
-	private String acctNoOfInvestorInClearingAgency;
-	private String investorName;
-	private String certificateType;
-	private String certificateNo;
-	private String certValidDate;
-	private String emailAddress;
-	private String mobileTelNo;
-	private String officeTelNo;
-	private String faxNo;
-	private String address;
-	private String postCode;
+	private String ClearingAgencyCode;
+	private String AcctNameOfInvestorInClearingAgency;
+	private String AcctNoOfInvestorInClearingAgency;
+	private String InvestorName;
+	private String CertificateType;
+	private String CertificateNo;
+	private String CertValidDate;
+	private String EmailAddress;
+	private String MobileTelNo;
+	private String OfficeTelNo;
+	private String FaxNo;
+	private String Address;
+	private String PostCode;
+	private String ProtocolNo;
 	
 	public String getClearingAgencyCode() {
-		return clearingAgencyCode;
+		return ClearingAgencyCode;
 	}
 	public void setClearingAgencyCode(String clearingAgencyCode) {
-		this.clearingAgencyCode = clearingAgencyCode;
+		ClearingAgencyCode = clearingAgencyCode;
 	}
 	public String getAcctNameOfInvestorInClearingAgency() {
-		return acctNameOfInvestorInClearingAgency;
+		return AcctNameOfInvestorInClearingAgency;
 	}
 	public void setAcctNameOfInvestorInClearingAgency(
 			String acctNameOfInvestorInClearingAgency) {
-		this.acctNameOfInvestorInClearingAgency = acctNameOfInvestorInClearingAgency;
+		AcctNameOfInvestorInClearingAgency = acctNameOfInvestorInClearingAgency;
 	}
 	public String getAcctNoOfInvestorInClearingAgency() {
-		return acctNoOfInvestorInClearingAgency;
+		return AcctNoOfInvestorInClearingAgency;
 	}
 	public void setAcctNoOfInvestorInClearingAgency(
 			String acctNoOfInvestorInClearingAgency) {
-		this.acctNoOfInvestorInClearingAgency = acctNoOfInvestorInClearingAgency;
+		AcctNoOfInvestorInClearingAgency = acctNoOfInvestorInClearingAgency;
 	}
 	public String getInvestorName() {
-		return investorName;
+		return InvestorName;
 	}
 	public void setInvestorName(String investorName) {
-		this.investorName = investorName;
+		InvestorName = investorName;
 	}
 	public String getCertificateType() {
-		return certificateType;
+		return CertificateType;
 	}
 	public void setCertificateType(String certificateType) {
-		this.certificateType = certificateType;
+		CertificateType = certificateType;
 	}
 	public String getCertificateNo() {
-		return certificateNo;
+		return CertificateNo;
 	}
 	public void setCertificateNo(String certificateNo) {
-		this.certificateNo = certificateNo;
+		CertificateNo = certificateNo;
 	}
 	public String getCertValidDate() {
-		return certValidDate;
+		return CertValidDate;
 	}
 	public void setCertValidDate(String certValidDate) {
-		this.certValidDate = certValidDate;
+		CertValidDate = certValidDate;
 	}
 	public String getEmailAddress() {
-		return emailAddress;
+		return EmailAddress;
 	}
 	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+		EmailAddress = emailAddress;
 	}
 	public String getMobileTelNo() {
-		return mobileTelNo;
+		return MobileTelNo;
 	}
 	public void setMobileTelNo(String mobileTelNo) {
-		this.mobileTelNo = mobileTelNo;
+		MobileTelNo = mobileTelNo;
 	}
 	public String getOfficeTelNo() {
-		return officeTelNo;
+		return OfficeTelNo;
 	}
 	public void setOfficeTelNo(String officeTelNo) {
-		this.officeTelNo = officeTelNo;
+		OfficeTelNo = officeTelNo;
 	}
 	public String getFaxNo() {
-		return faxNo;
+		return FaxNo;
 	}
 	public void setFaxNo(String faxNo) {
-		this.faxNo = faxNo;
+		FaxNo = faxNo;
 	}
 	public String getAddress() {
-		return address;
+		return Address;
 	}
 	public void setAddress(String address) {
-		this.address = address;
+		Address = address;
 	}
 	public String getPostCode() {
-		return postCode;
+		return PostCode;
 	}
 	public void setPostCode(String postCode) {
-		this.postCode = postCode;
+		PostCode = postCode;
+	}
+	public String getProtocolNo() {
+		return ProtocolNo;
+	}
+	public void setProtocolNo(String protocolNo) {
+		ProtocolNo = protocolNo;
 	}
 	@Override
 	public String toString() {
-		return "OpenAccountRequest [clearingAgencyCode=" + clearingAgencyCode
-				+ ", acctNameOfInvestorInClearingAgency="
-				+ acctNameOfInvestorInClearingAgency
-				+ ", acctNoOfInvestorInClearingAgency="
-				+ acctNoOfInvestorInClearingAgency + ", investorName="
-				+ investorName + ", certificateType=" + certificateType
-				+ ", certificateNo=" + certificateNo + ", certValidDate="
-				+ certValidDate + ", emailAddress=" + emailAddress
-				+ ", mobileTelNo=" + mobileTelNo + ", officeTelNo="
-				+ officeTelNo + ", faxNo=" + faxNo + ", address=" + address
-				+ ", postCode=" + postCode + ", toString()=" + super.toString()
-				+ "]";
+		return "OpenAccountRequest [ClearingAgencyCode=" + ClearingAgencyCode
+				+ ", AcctNameOfInvestorInClearingAgency="
+				+ AcctNameOfInvestorInClearingAgency
+				+ ", AcctNoOfInvestorInClearingAgency="
+				+ AcctNoOfInvestorInClearingAgency + ", InvestorName="
+				+ InvestorName + ", CertificateType=" + CertificateType
+				+ ", CertificateNo=" + CertificateNo + ", CertValidDate="
+				+ CertValidDate + ", EmailAddress=" + EmailAddress
+				+ ", MobileTelNo=" + MobileTelNo + ", OfficeTelNo="
+				+ OfficeTelNo + ", FaxNo=" + FaxNo + ", Address=" + Address
+				+ ", PostCode=" + PostCode + ", ProtocolNo=" + ProtocolNo
+				+ ", toString()=" + super.toString() + "]";
 	}
-	
 	
 }

@@ -8,76 +8,83 @@ import com.ufufund.ufb.remote.xml.base.AbstractRequest;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BankVeriRequest extends AbstractRequest{
 
-	private String clearingAgencyCode;
-	private String acctNameOfInvestorInClearingAgency;
-	private String acctNoOfInvestorInClearingAgency;
-	private String certificateType;
-	private String certificateNo;       
-	private String mobileTelNo;
-	private String mobileAutoCode;
-	private String accoreqSerial;
+	private String ClearingAgencyCode;
+	private String AcctNameOfInvestorInClearingAgency;
+	private String AcctNoOfInvestorInClearingAgency;
+	private String CertificateType;
+	private String CertificateNo;       
+	private String MobileTelNo;
+	private String MobileAuthCode;
+	private String AccoreqSerial;
+	private String OtherSerial;
 	
 	public String getClearingAgencyCode() {
-		return clearingAgencyCode;
+		return ClearingAgencyCode;
 	}
 	public void setClearingAgencyCode(String clearingAgencyCode) {
-		this.clearingAgencyCode = clearingAgencyCode;
+		ClearingAgencyCode = clearingAgencyCode;
 	}
 	public String getAcctNameOfInvestorInClearingAgency() {
-		return acctNameOfInvestorInClearingAgency;
+		return AcctNameOfInvestorInClearingAgency;
 	}
 	public void setAcctNameOfInvestorInClearingAgency(
 			String acctNameOfInvestorInClearingAgency) {
-		this.acctNameOfInvestorInClearingAgency = acctNameOfInvestorInClearingAgency;
+		AcctNameOfInvestorInClearingAgency = acctNameOfInvestorInClearingAgency;
 	}
 	public String getAcctNoOfInvestorInClearingAgency() {
-		return acctNoOfInvestorInClearingAgency;
+		return AcctNoOfInvestorInClearingAgency;
 	}
 	public void setAcctNoOfInvestorInClearingAgency(
 			String acctNoOfInvestorInClearingAgency) {
-		this.acctNoOfInvestorInClearingAgency = acctNoOfInvestorInClearingAgency;
+		AcctNoOfInvestorInClearingAgency = acctNoOfInvestorInClearingAgency;
 	}
 	public String getCertificateType() {
-		return certificateType;
+		return CertificateType;
 	}
 	public void setCertificateType(String certificateType) {
-		this.certificateType = certificateType;
+		CertificateType = certificateType;
 	}
 	public String getCertificateNo() {
-		return certificateNo;
+		return CertificateNo;
 	}
 	public void setCertificateNo(String certificateNo) {
-		this.certificateNo = certificateNo;
+		CertificateNo = certificateNo;
 	}
 	public String getMobileTelNo() {
-		return mobileTelNo;
+		return MobileTelNo;
 	}
 	public void setMobileTelNo(String mobileTelNo) {
-		this.mobileTelNo = mobileTelNo;
+		MobileTelNo = mobileTelNo;
 	}
-	public String getMobileAutoCode() {
-		return mobileAutoCode;
+	public String getMobileAuthCode() {
+		return MobileAuthCode;
 	}
-	public void setMobileAutoCode(String mobileAutoCode) {
-		this.mobileAutoCode = mobileAutoCode;
+	public void setMobileAuthCode(String mobileAuthCode) {
+		MobileAuthCode = mobileAuthCode;
 	}
 	public String getAccoreqSerial() {
-		return accoreqSerial;
+		return AccoreqSerial;
 	}
 	public void setAccoreqSerial(String accoreqSerial) {
-		this.accoreqSerial = accoreqSerial;
+		AccoreqSerial = accoreqSerial;
+	}
+	public String getOtherSerial() {
+		return OtherSerial;
+	}
+	public void setOtherSerial(String otherSerial) {
+		OtherSerial = otherSerial;
 	}
 	@Override
 	public String toString() {
-		return "BankVeriRequest [clearingAgencyCode=" + clearingAgencyCode
-				+ ", acctNameOfInvestorInClearingAgency="
-				+ acctNameOfInvestorInClearingAgency
-				+ ", acctNoOfInvestorInClearingAgency="
-				+ acctNoOfInvestorInClearingAgency + ", certificateType="
-				+ certificateType + ", certificateNo=" + certificateNo
-				+ ", mobileTelNo=" + mobileTelNo + ", mobileAutoCode="
-				+ mobileAutoCode + ", accoreqSerial=" + accoreqSerial
-				+ ", toString()=" + super.toString() + "]";
+		return "BankVeriRequest [ClearingAgencyCode=" + ClearingAgencyCode
+				+ ", AcctNameOfInvestorInClearingAgency="
+				+ AcctNameOfInvestorInClearingAgency
+				+ ", AcctNoOfInvestorInClearingAgency="
+				+ AcctNoOfInvestorInClearingAgency + ", CertificateType="
+				+ CertificateType + ", CertificateNo=" + CertificateNo
+				+ ", MobileTelNo=" + MobileTelNo + ", MobileAuthCode="
+				+ MobileAuthCode + ", AccoreqSerial=" + AccoreqSerial
+				+ ", OtherSerial=" + OtherSerial + ", toString()="
+				+ super.toString() + "]";
 	}
-	
 }

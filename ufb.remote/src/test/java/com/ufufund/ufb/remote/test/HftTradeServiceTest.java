@@ -1,5 +1,13 @@
-package com.ufufund.ufb.remote.service;
+package com.ufufund.ufb.remote.test;
 
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.ufufund.ufb.remote.service.HftTradeService;
 import com.ufufund.ufb.remote.xml.pojo.BuyApplyRequest;
 import com.ufufund.ufb.remote.xml.pojo.BuyApplyResponse;
 import com.ufufund.ufb.remote.xml.pojo.BuyNotifyRequest;
@@ -19,13 +27,14 @@ import com.ufufund.ufb.remote.xml.pojo.TransferResponse;
 import com.ufufund.ufb.remote.xml.pojo.UnFrozenRequest;
 import com.ufufund.ufb.remote.xml.pojo.UnFrozenResponse;
 
-/**
- * 海富通交易相关接口
- * @author ayis
- * 2015年3月22日
- */
-public class HftTradeService extends HftBaseService{
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:spring/spring-ufb-remote.xml"})
+public class HftTradeServiceTest {
+	private static Logger LOG = LoggerFactory.getLogger(HftTradeServiceTest.class);
+	
+	@Autowired
+	private HftTradeService hftTradeService;
+	
 	/**
 	 * 认购
 	 * @param request

@@ -2,28 +2,31 @@ package com.ufufund.ufb.remote.xml.pojo;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 
-import com.ufufund.ufb.remote.xml.base.AbstractRequest;
+import com.ufufund.ufb.remote.xml.base.AbstractResponse;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BankVeriResponse extends AbstractRequest{
+public class BankVeriResponse extends AbstractResponse{
 
-	@XmlElement(name="ValidateState")
-	private String validateState;
-
+	private String ValidateState;
+	private String ProtocolNo;
+	
 	public String getValidateState() {
-		return validateState;
+		return ValidateState;
 	}
-
 	public void setValidateState(String validateState) {
-		this.validateState = validateState;
+		ValidateState = validateState;
 	}
-
+	public String getProtocolNo() {
+		return ProtocolNo;
+	}
+	public void setProtocolNo(String protocolNo) {
+		ProtocolNo = protocolNo;
+	}
 	@Override
 	public String toString() {
-		return "BankVeriResponse [validateState=" + validateState
-				+ ", toString()=" + super.toString() + "]";
+		return "BankVeriResponse [ValidateState=" + ValidateState
+				+ ", ProtocolNo=" + ProtocolNo + ", toString()="
+				+ super.toString() + "]";
 	}
-
 }

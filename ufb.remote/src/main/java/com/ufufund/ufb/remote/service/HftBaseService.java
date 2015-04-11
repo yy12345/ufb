@@ -44,25 +44,22 @@ public class HftBaseService {
 		String sign = sign(params, ENCODING, signKey);
 		params.put("sign", sign);
 		
-		// post
+		// 发送请求
 		LOG.debug("请求参数："+params);
-		String messageXml = HttpClientUtils.post(requestUrl, params, ENCODING);
-		LOG.debug("响应报文："+messageXml);
-		// 获取reponse验签明文
-//		String dataStr = messageXml.substring(messageXml.indexOf("<Response>"),
-//				messageXml.indexOf("</Response>") + "</Response>".length());
+		String responseXml = HttpClientUtils.post(requestUrl, params, ENCODING);
+		LOG.debug("响应报文："+responseXml);
 		
 		/** 解析返回的xml报文 **/ 
-		messageXml = JaxbUtil.buildResponseXml(messageXml, responseClazz);
-		MessageResponse messageResponse = JaxbUtil.toBean(messageXml, MessageResponse.class, Responsebody.class, responseClazz);
+		responseXml = JaxbUtil.buildResponseXml(responseXml, responseClazz);
+		MessageResponse messageResponse = JaxbUtil.toBean(responseXml, MessageResponse.class, Responsebody.class, responseClazz);
 		
 		T response = (T) messageResponse.getResponsebody().getResponse();
 		
 		// 验签
-		Map<String, String> responseFields = Object2Map(response);
-		String sign1 = sign(responseFields, ENCODING, signKey);
+		Map<String, String> resMap = Object2Map(response);
+		String sign1 = sign(resMap, ENCODING, signKey);
 		if(!sign1.equals(messageResponse.getSignature())){
-			LOG.error("验签失败：messageXml="+messageXml);
+			LOG.error("验签失败：messageXml="+responseXml);
 			return null;
 		}
 		
@@ -102,7 +99,7 @@ public class HftBaseService {
 	}
 
 	/**
-	 * 请求参数签名
+	 * 签名：请求签名或响应验签
 	 * @param map
 	 * @param signKey
 	 * @return
