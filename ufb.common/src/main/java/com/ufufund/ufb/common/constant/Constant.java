@@ -8,6 +8,7 @@ public interface Constant {
 	
 	public final static String CACHE$DICTIONARY = "DICTIONARY";
 	public final static String DICTIONARY$ERROR = "ERROR";
+	public final static boolean TEST = true;
 	
 	
 	public interface HftSysConfig{

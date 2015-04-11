@@ -24,7 +24,7 @@ public class AppException extends RuntimeException{
 
 	private String processId="";
 	private String errmsg;
-	private ErrorInfo errorInfo;
+	private String errorInfovalue;
 	private String otherInfo="";
 	
 	public AppException(String errmsg){
@@ -33,23 +33,36 @@ public class AppException extends RuntimeException{
 	
 	public AppException(String processId,ErrorInfo errorInfo){
 		this.processId =processId;
-		this.errorInfo = errorInfo;
+		this.errorInfovalue = errorInfo.value();
 		this.initErrmsg();	
 	}
 	
 	public AppException(String processId,ErrorInfo errorInfo,String otherInfo){
 		this.processId =processId;
-		this.errorInfo = errorInfo;
+		this.errorInfovalue = errorInfo.value();
 		this.otherInfo = otherInfo;
 		this.initErrmsg();	
 	}
 	
+	
+	public AppException(String processId,String errorInfovalue){
+		this.processId =processId;
+		this.errorInfovalue = errorInfovalue;
+		this.initErrmsg();	
+	}
+	
+	public AppException(String processId,String errorInfovalue, String otherInfo){
+		this.processId =processId;
+		this.errorInfovalue = errorInfovalue;
+		this.otherInfo = otherInfo;
+		this.initErrmsg();	
+	}
 
 	public String getErrmsg() {
 		return errmsg;
 	}
 	public String getErrcode() {
-		return errorInfo.value();
+		return errorInfovalue;
 	}
 	
 	/**
@@ -64,15 +77,16 @@ public class AppException extends RuntimeException{
 
 	private void initErrmsg() {
 		HashMap<String,Dictionary>  map = DictManager.getDictionaryByType(Constant.DICTIONARY$ERROR);
-		Dictionary dictionary = map.get(errorInfo.value());
+		Dictionary dictionary = map.get(errorInfovalue);
 		if(dictionary!=null){
 			errmsg = otherInfo + dictionary.getPmnm();
 		}else{
-			errmsg = errorInfo.value();
+			errmsg = errorInfovalue;
 		}
-		log.debug(processId + " errcode :" + errorInfo.value()+" errmsg :" + errmsg);
+		log.debug(processId + " errcode :" + errorInfovalue+" errmsg :" + errmsg);
 	}
 
+	
 	
 	
 //
