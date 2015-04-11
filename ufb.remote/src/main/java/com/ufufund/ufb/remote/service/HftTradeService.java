@@ -1,5 +1,7 @@
 package com.ufufund.ufb.remote.service;
 
+import org.springframework.stereotype.Service;
+
 import com.ufufund.ufb.remote.xml.pojo.BuyApplyRequest;
 import com.ufufund.ufb.remote.xml.pojo.BuyApplyResponse;
 import com.ufufund.ufb.remote.xml.pojo.BuyNotifyRequest;
@@ -24,6 +26,7 @@ import com.ufufund.ufb.remote.xml.pojo.UnFrozenResponse;
  * @author ayis
  * 2015年3月22日
  */
+@Service
 public class HftTradeService extends HftBaseService{
 
 	/**
