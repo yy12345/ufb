@@ -5,8 +5,8 @@ import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.Invtp;
-import com.ufufund.ufb.remote.xml.pojo.BankAuthRequest;
-import com.ufufund.ufb.remote.xml.pojo.BankVeriRequest;
+import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
+import com.ufufund.ufb.model.remote.hft.BankVeriRequest;
 
 public class CustConvert {
   

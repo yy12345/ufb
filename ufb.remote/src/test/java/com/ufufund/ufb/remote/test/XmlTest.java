@@ -3,12 +3,12 @@ package com.ufufund.ufb.remote.test;
 import org.junit.Test;
 
 import com.ufufund.ufb.common.utils.JaxbUtil;
-import com.ufufund.ufb.remote.xml.base.MessageRequest;
-import com.ufufund.ufb.remote.xml.base.MessageResponse;
-import com.ufufund.ufb.remote.xml.base.Requestbody;
-import com.ufufund.ufb.remote.xml.base.Responsebody;
-import com.ufufund.ufb.remote.xml.pojo.BankAuthRequest;
-import com.ufufund.ufb.remote.xml.pojo.BankAuthResponse;
+import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
+import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
+import com.ufufund.ufb.model.remote.hft.MessageRequest;
+import com.ufufund.ufb.model.remote.hft.MessageResponse;
+import com.ufufund.ufb.model.remote.hft.Requestbody;
+import com.ufufund.ufb.model.remote.hft.Responsebody;
 
 @SuppressWarnings("rawtypes")
 public class XmlTest {

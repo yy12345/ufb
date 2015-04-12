@@ -12,7 +12,7 @@ public enum Apkind {
 	SUBAPPLY("021"),    // 认购
 	BUYAPPLY("022"),   	// 申购
 	REDEEM("023"),		// 普通赎回
-	REALREDEEM("023"),  // 快速赎回
+	REALREDEEM("024"),  // 快速赎回
 	CANCEL("025"),		// 撤单
 	BUYNOTIFY("026"),	// 认申购支付通知
 	

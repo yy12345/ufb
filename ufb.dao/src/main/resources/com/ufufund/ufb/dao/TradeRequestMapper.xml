@@ -5,53 +5,93 @@
 <mapper namespace="com.ufufund.ufb.dao.TradeRequestMapper">
 
 	<sql id="Base_Columns">
-		SERIALNO       ,
-		CUSTNO         ,
-		FUNDCORPNO     ,
-		TRADEACCOID    ,
-		APKIND         ,
-		APDT           ,
-		APTM           ,
-		WORKDATE       ,
-		SUBQUTY        ,
-		SUBAMT         ,
-		BANKNO         ,
-		BANKACCO       ,
-		BANKSERIALID   ,
-		FUNDID         ,
-		REFERNO        ,
-		REMARK         ,
-		SUBAPKIND      ,
-		ACCPTMD        ,
-		UPDATETIMESTAMP
+		SERIALNO     ,
+		SHEETSERIALNO,
+		CUSTNO       ,
+		FUNDCORPNO   ,
+		TRADEACCO    ,
+		APPDATE      ,
+		APPTIME      ,
+		ACKDATE      ,
+		ACKTIME      ,
+		WORKDAY      ,
+		APKIND       ,
+		FUNDCODE     ,
+		APPAMT       ,
+		APPVOL       ,
+		ACKAMT       ,
+		ACKVOL       ,
+		STATE        ,
+		TRANST       ,
+		PAYST        ,
+		SHARECLASS   ,
+		DIVIDENTTYPE ,
+		FEE          ,
+		REFERNO      ,
+		UPDATETIME   
 	</sql>
+	
+	<select id="getBySerialno" parameterType="String" resultType="TradeRequest">
+		select <include refid="Base_Columns" /> from traderequest
+		where serialno = #{serialno,jdbcType=VARCHAR} 
+	</select>
 	
 	<insert id="add" parameterType="TradeRequest">
   	 	insert into traderequest values(
-  	 		#{serialno,jdbcType=VARCHAR},      
+  	 		#{serialno,jdbcType=VARCHAR},        
+			#{sheetserialno,jdbcType=VARCHAR},        
 			#{custno,jdbcType=VARCHAR},        
-			#{fundcorpno,jdbcType=VARCHAR},    
-			#{tradeacco,jdbcType=VARCHAR},     
+			#{fundcorpno,jdbcType=VARCHAR},        
+			#{tradeacco,jdbcType=VARCHAR},        
+			#{appdate,jdbcType=VARCHAR},        
+			#{apptime,jdbcType=VARCHAR},        
+			#{ackdate,jdbcType=VARCHAR},        
+			#{acktime,jdbcType=VARCHAR},        
+			#{workday,jdbcType=VARCHAR},        
 			#{apkind,jdbcType=VARCHAR},        
-			#{apdt,jdbcType=VARCHAR},          
-			#{aptm,jdbcType=VARCHAR},          
-			#{workdate,jdbcType=VARCHAR},      
-			#{subquty,jdbcType=VARCHAR},       
-			#{subamt,jdbcType=VARCHAR},        
-			#{bankno,jdbcType=VARCHAR},        
-			#{bankacco,jdbcType=VARCHAR},      
-			#{bankserialid,jdbcType=VARCHAR},  
-			#{fundid,jdbcType=VARCHAR},        
-			#{referno,jdbcType=VARCHAR},       
-			#{remark,jdbcType=VARCHAR},        
-			#{subapkind,jdbcType=VARCHAR},     
-			#{accptmd,jdbcType=VARCHAR},       
+			#{fundcode ,jdbcType=VARCHAR},        
+			#{appamt,jdbcType=VARCHAR},        
+			#{appvol,jdbcType=VARCHAR},        
+			#{ackamt,jdbcType=VARCHAR},        
+			#{ackvol,jdbcType=VARCHAR},        
+			'N',        
+			'N',        
+			'N',        
+			#{shareclass,jdbcType=VARCHAR},        
+			#{dividenttype,jdbcType=VARCHAR},        
+			#{fee,jdbcType=VARCHAR},        
+			#{referno,jdbcType=VARCHAR},           
 			now())
   	</insert>
 	
 	<update id="update" parameterType="TradeRequest">
 		update traderequest set
+		<if test="sheetserialno != null">
+			sheetserialno = #{sheetserialno,jdbcType=VARCHAR}, 
+		</if>
+		<if test="ackdate != null">
+			ackdate = #{ackdate,jdbcType=VARCHAR}, 
+		</if>
+		<if test="acktime != null">
+			acktime = #{acktime,jdbcType=VARCHAR}, 
+		</if>
+		<if test="ackamt != null">
+			ackamt = #{ackamt,jdbcType=DECIMAL}, 
+		</if>
+		<if test="ackvol != null">
+			ackvol = #{ackvol,jdbcType=DECIMAL}, 
+		</if>
+		<if test="state != null">
+			state = #{state,jdbcType=VARCHAR}, 
+		</if>
+		<if test="transt != null">
+			transt = #{transt,jdbcType=VARCHAR}, 
+		</if>
+		<if test="payst != null">
+			payst = #{payst,jdbcType=VARCHAR}, 
+		</if>
+			updatetime = now()
+		where serialno = #{serialno,jdbcType=VARCHAR}
 	</update>
-	
 	
 </mapper>

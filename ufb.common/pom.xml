@@ -15,6 +15,11 @@
 	<version>${ufb.version}</version>
 	
 	<dependencies>
+		<dependency>
+			<groupId>com.ufufund.ufb</groupId>
+			<artifactId>ufb-model</artifactId>
+			<version>${ufb.version}</version>
+		</dependency> 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

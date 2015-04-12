@@ -1,5 +1,7 @@
 package com.ufufund.ufb.biz.manager;
 
+import com.ufufund.ufb.model.vo.Today;
+
 /**
  * 工作日manager接口定义
  * @author ayis
@@ -45,4 +47,10 @@ public interface WorkDayManager {
 	 * @return
 	 */
 	public String getNextWorkDay(String workday, int n);
+	
+	/**
+	 * 获取当前工作日及申请时间信息
+	 * @return
+	 */
+	public Today getSysDayInfo();
 }

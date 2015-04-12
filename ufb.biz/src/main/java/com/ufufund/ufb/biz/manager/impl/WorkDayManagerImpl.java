@@ -9,6 +9,7 @@ import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.dao.WorkDayMapper;
 import com.ufufund.ufb.model.db.SysWorkDay;
+import com.ufufund.ufb.model.vo.Today;
 
 @Service
 public class WorkDayManagerImpl implements WorkDayManager{
@@ -79,6 +80,19 @@ public class WorkDayManagerImpl implements WorkDayManager{
 			Date date2 = DateUtil.getNextDay(date1, 1);
 			return DateUtil.format(date2, DateUtil.DATE_PATTERN_1);
 		}
+	}
+
+	@Override
+	public Today getSysDayInfo() {
+		String systime = workDayMapper.getSysTime();
+		String date = dealNaturalDay(systime);
+		SysWorkDay workday = workDayMapper.getCurrentWorkDay(date);
+		
+		Today today = new Today();
+		today.setDate(systime.substring(0, 8));
+		today.setTime(systime.substring(8));
+		today.setWorkday(workday.getWorkdate());
+		return today;
 	}
 	
 }

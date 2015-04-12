@@ -31,11 +31,11 @@ import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
-import com.ufufund.ufb.remote.service.HftCustService;
-import com.ufufund.ufb.remote.xml.pojo.BankAuthRequest;
-import com.ufufund.ufb.remote.xml.pojo.BankAuthResponse;
-import com.ufufund.ufb.remote.xml.pojo.BankVeriRequest;
-import com.ufufund.ufb.remote.xml.pojo.BankVeriResponse;
+import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
+import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
+import com.ufufund.ufb.model.remote.hft.BankVeriRequest;
+import com.ufufund.ufb.model.remote.hft.BankVeriResponse;
+import com.ufufund.ufb.remote.HftCustService;
 
 @Service
 public class CustManagerImpl extends ImplCommon implements CustManager {

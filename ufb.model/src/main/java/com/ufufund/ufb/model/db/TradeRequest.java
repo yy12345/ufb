@@ -6,31 +6,42 @@ import java.math.BigDecimal;
 public class TradeRequest implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private String serialno       ;
-	private String custno         ;
-	private String fundcorpno     ;
-	private String tradeacco      ;
-	private String apkind         ;
-	private String apdt           ;
-	private String aptm           ;
-	private String workdate       ;
-	private BigDecimal subquty        ;
-	private BigDecimal subamt         ;
-	private String bankno         ;
-	private String bankacco       ;
-	private String bankserialid   ;
-	private String fundid         ;
-	private String referno        ;
-	private String remark         ;
-	private String subapkind      ;
-	private String accptmd        ;
-	private String updatetimestamp;
+	private String serialno;             
+	private String sheetserialno;        
+	private String custno;               
+	private String fundcorpno;           
+	private String tradeacco;            
+	private String appdate;              
+	private String apptime;              
+	private String ackdate;              
+	private String acktime;              
+	private String workday;              
+	private String apkind ;              
+	private String fundcode;             
+	private BigDecimal appamt;               
+	private BigDecimal appvol;               
+	private BigDecimal ackamt;               
+	private BigDecimal ackvol;               
+	private String state ;               
+	private String transt;               
+	private String payst ;               
+	private String shareclass;           
+	private String dividenttype;         
+	private BigDecimal fee  ;                
+	private String referno ;             
+	private String updatetime;
 	
 	public String getSerialno() {
 		return serialno;
 	}
 	public void setSerialno(String serialno) {
 		this.serialno = serialno;
+	}
+	public String getSheetserialno() {
+		return sheetserialno;
+	}
+	public void setSheetserialno(String sheetserialno) {
+		this.sheetserialno = sheetserialno;
 	}
 	public String getCustno() {
 		return custno;
@@ -50,65 +61,107 @@ public class TradeRequest implements Serializable{
 	public void setTradeacco(String tradeacco) {
 		this.tradeacco = tradeacco;
 	}
+	public String getAppdate() {
+		return appdate;
+	}
+	public void setAppdate(String appdate) {
+		this.appdate = appdate;
+	}
+	public String getApptime() {
+		return apptime;
+	}
+	public void setApptime(String apptime) {
+		this.apptime = apptime;
+	}
+	public String getAckdate() {
+		return ackdate;
+	}
+	public void setAckdate(String ackdate) {
+		this.ackdate = ackdate;
+	}
+	public String getAcktime() {
+		return acktime;
+	}
+	public void setAcktime(String acktime) {
+		this.acktime = acktime;
+	}
+	public String getWorkday() {
+		return workday;
+	}
+	public void setWorkday(String workday) {
+		this.workday = workday;
+	}
 	public String getApkind() {
 		return apkind;
 	}
 	public void setApkind(String apkind) {
 		this.apkind = apkind;
 	}
-	public String getApdt() {
-		return apdt;
+	public String getFundcode() {
+		return fundcode;
 	}
-	public void setApdt(String apdt) {
-		this.apdt = apdt;
+	public void setFundcode(String fundcode) {
+		this.fundcode = fundcode;
 	}
-	public String getAptm() {
-		return aptm;
+	public BigDecimal getAppamt() {
+		return appamt;
 	}
-	public void setAptm(String aptm) {
-		this.aptm = aptm;
+	public void setAppamt(BigDecimal appamt) {
+		this.appamt = appamt;
 	}
-	public String getWorkdate() {
-		return workdate;
+	public BigDecimal getAppvol() {
+		return appvol;
 	}
-	public void setWorkdate(String workdate) {
-		this.workdate = workdate;
+	public void setAppvol(BigDecimal appvol) {
+		this.appvol = appvol;
 	}
-	public BigDecimal getSubquty() {
-		return subquty;
+	public BigDecimal getAckamt() {
+		return ackamt;
 	}
-	public void setSubquty(BigDecimal subquty) {
-		this.subquty = subquty;
+	public void setAckamt(BigDecimal ackamt) {
+		this.ackamt = ackamt;
 	}
-	public BigDecimal getSubamt() {
-		return subamt;
+	public BigDecimal getAckvol() {
+		return ackvol;
 	}
-	public void setSubamt(BigDecimal subamt) {
-		this.subamt = subamt;
+	public void setAckvol(BigDecimal ackvol) {
+		this.ackvol = ackvol;
 	}
-	public String getBankno() {
-		return bankno;
+	public String getState() {
+		return state;
 	}
-	public void setBankno(String bankno) {
-		this.bankno = bankno;
+	public void setState(String state) {
+		this.state = state;
 	}
-	public String getBankacco() {
-		return bankacco;
+	public String getTranst() {
+		return transt;
 	}
-	public void setBankacco(String bankacco) {
-		this.bankacco = bankacco;
+	public void setTranst(String transt) {
+		this.transt = transt;
 	}
-	public String getBankserialid() {
-		return bankserialid;
+	public String getPayst() {
+		return payst;
 	}
-	public void setBankserialid(String bankserialid) {
-		this.bankserialid = bankserialid;
+	public void setPayst(String payst) {
+		this.payst = payst;
 	}
-	public String getFundid() {
-		return fundid;
+	public String getShareclass() {
+		return shareclass;
 	}
-	public void setFundid(String fundid) {
-		this.fundid = fundid;
+	public void setShareclass(String shareclass) {
+		this.shareclass = shareclass;
+	}
+	public String getDividenttype() {
+		return dividenttype;
+	}
+	public void setDividenttype(String dividenttype) {
+		this.dividenttype = dividenttype;
+	}
+	public BigDecimal getFee() {
+		return fee;
+	}
+	public void setFee(BigDecimal fee) {
+		this.fee = fee;
 	}
 	public String getReferno() {
 		return referno;
@@ -116,41 +169,25 @@ public class TradeRequest implements Serializable{
 	public void setReferno(String referno) {
 		this.referno = referno;
 	}
-	public String getRemark() {
-		return remark;
+	public String getUpdatetime() {
+		return updatetime;
 	}
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-	public String getSubapkind() {
-		return subapkind;
-	}
-	public void setSubapkind(String subapkind) {
-		this.subapkind = subapkind;
-	}
-	public String getAccptmd() {
-		return accptmd;
-	}
-	public void setAccptmd(String accptmd) {
-		this.accptmd = accptmd;
-	}
-	public String getUpdatetimestamp() {
-		return updatetimestamp;
-	}
-	public void setUpdatetimestamp(String updatetimestamp) {
-		this.updatetimestamp = updatetimestamp;
+	public void setUpdatetime(String updatetime) {
+		this.updatetime = updatetime;
 	}
 	@Override
 	public String toString() {
-		return "TradeRequest [serialno=" + serialno + ", custno=" + custno
-				+ ", fundcorpno=" + fundcorpno + ", tradeacco=" + tradeacco
-				+ ", apkind=" + apkind + ", apdt=" + apdt + ", aptm=" + aptm
-				+ ", workdate=" + workdate + ", subquty=" + subquty
-				+ ", subamt=" + subamt + ", bankno=" + bankno + ", bankacco="
-				+ bankacco + ", bankserialid=" + bankserialid + ", fundid="
-				+ fundid + ", referno=" + referno + ", remark=" + remark
-				+ ", subapkind=" + subapkind + ", accptmd=" + accptmd
-				+ ", updatetimestamp=" + updatetimestamp + "]";
-	}
+		return "TradeRequest [serialno=" + serialno + ", sheetserialno="
+				+ sheetserialno + ", custno=" + custno + ", fundcorpno="
+				+ fundcorpno + ", tradeacco=" + tradeacco + ", appdate="
+				+ appdate + ", apptime=" + apptime + ", ackdate=" + ackdate
+				+ ", acktime=" + acktime + ", workday=" + workday + ", apkind="
+				+ apkind + ", fundcode=" + fundcode + ", appamt=" + appamt
+				+ ", appvol=" + appvol + ", ackamt=" + ackamt + ", ackvol="
+				+ ackvol + ", state=" + state + ", transt=" + transt
+				+ ", payst=" + payst + ", shareclass=" + shareclass
+				+ ", devidenttype=" + dividenttype + ", fee=" + fee
+				+ ", referno=" + referno + ", updatetime=" + updatetime + "]";
+	}           
 	
 }

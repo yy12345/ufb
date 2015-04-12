@@ -11,10 +11,17 @@ public interface Constant {
 	public final static boolean TEST = true;
 	
 	
+	public static final String RES_CODE_SUCCESS = "0000";
+	public static final String RES_CODE_FAIL = "9999";
+	
 	public interface HftSysConfig{
+		/** 海富通分配给直销平台的销售代码及商户编号 **/
 		public static final String DistributorCode = "223";
 		public static final String MerchantId = "00000001";
+		// 海富通接口版本号
 		public static final String Version = "1.0.0";
+		// 直销平台对海富通基金公司的编码
+		public static final String HftFundCorpno = "01";
 	}
 	
 	/**

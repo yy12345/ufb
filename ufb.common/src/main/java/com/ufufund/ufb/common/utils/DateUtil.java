@@ -8,7 +8,7 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ufufund.ufb.common.bean.Today;
+import com.ufufund.ufb.model.vo.Today;
 
 public class DateUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(DateUtil.class);

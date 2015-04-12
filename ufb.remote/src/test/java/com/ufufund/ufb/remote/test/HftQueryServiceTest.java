@@ -9,11 +9,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ufufund.ufb.common.constant.Constant;
-import com.ufufund.ufb.remote.service.HftQueryService;
-import com.ufufund.ufb.remote.xml.pojo.BalanceQueryRequest;
-import com.ufufund.ufb.remote.xml.pojo.BalanceQueryResponse;
-import com.ufufund.ufb.remote.xml.pojo.TransQueryRequest;
-import com.ufufund.ufb.remote.xml.pojo.TransQueryResponse;
+import com.ufufund.ufb.model.remote.hft.BalanceQueryRequest;
+import com.ufufund.ufb.model.remote.hft.BalanceQueryResponse;
+import com.ufufund.ufb.model.remote.hft.TransQueryRequest;
+import com.ufufund.ufb.model.remote.hft.TransQueryResponse;
+import com.ufufund.ufb.remote.HftQueryService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/spring-ufb-remote.xml" })
