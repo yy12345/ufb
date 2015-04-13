@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
@@ -31,8 +32,14 @@ public class CustController {
 	@Autowired
 	private CustManager custManager;
 	
-	@RequestMapping(value="register" , method=RequestMethod.GET)
-	public String getPage(Model model){
+	@RequestMapping(value="cust/register" , method=RequestMethod.GET)
+	public String getPage(CustinfoVo custinfoVo, Model model){
+		
+		if(null == custinfoVo.getInvtp()){
+			custinfoVo.setInvtp("0");
+		}
+		
+		model.addAttribute("CustinfoVo", custinfoVo);
 		return "cust/register";
 	}
 	
@@ -42,10 +49,31 @@ public class CustController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "cust/register")
+	@RequestMapping(value = "cust/register_org")
 	public String registerPerson(CustinfoVo custinfoVo, Model model) {
 		
+		
+		//FOR TEST
+		if(StringUtils.isBlank(custinfoVo.getMobileno())){
+			custinfoVo.setMobileno("18616502181");
+		}
+		if(StringUtils.isBlank(custinfoVo.getVerifycode())){
+			custinfoVo.setVerifycode("1234");;
+		}
+		if(StringUtils.isBlank(custinfoVo.getMsgcode())){
+			custinfoVo.setMsgcode("1q2w3e");;
+		}
+		if(StringUtils.isBlank(custinfoVo.getPswpwd())){
+			custinfoVo.setPswpwd("123qwe");;
+		}
+		if(StringUtils.isBlank(custinfoVo.getPswpwd2())){
+			custinfoVo.setPswpwd2("123qwe");;
+		}
+		//
+		
 		try{
+			custinfoVo.setInvtp("1");
+			
 //			// 校验验证码
 //			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
 //			if(!checkVerifyCode){
@@ -83,6 +111,7 @@ public class CustController {
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
 			model.addAttribute("returnUrl", "../test/index.htm");
+			model.addAttribute("CustinfoVo", custinfoVo);
 			return "cust/register";
 		}
 
