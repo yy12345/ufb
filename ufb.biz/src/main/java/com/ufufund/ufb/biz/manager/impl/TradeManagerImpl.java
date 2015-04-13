@@ -27,11 +27,10 @@ import com.ufufund.ufb.model.vo.CancelVo;
 import com.ufufund.ufb.model.vo.RedeemVo;
 import com.ufufund.ufb.model.vo.Today;
 import com.ufufund.ufb.remote.HftTradeService;
-import com.ufufund.ufb.remote.test.HftTradeServiceTest;
 
 @Service
 public class TradeManagerImpl implements TradeManager{
-	private static Logger LOG = LoggerFactory.getLogger(HftTradeServiceTest.class);
+	private static Logger LOG = LoggerFactory.getLogger(TradeManagerImpl.class);
 
 	@Autowired
 	private HftTradeService hftTradeService;
