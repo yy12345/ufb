@@ -8,8 +8,6 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ufufund.ufb.model.vo.Today;
-
 public class DateUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(DateUtil.class);
 	
@@ -76,18 +74,6 @@ public class DateUtil {
 			LOG.error(e.getMessage(), e);
 		}
 		return str;
-	}
-	
-	/**
-	 * 获取当前时间 <来源：应用服务器时间>
-	 * @return
-	 */
-	public static Today getToday(){
-		String time = format(new Date(), FULL_PATTERN_1);
-		Today today = new Today();
-		today.setDate(time.substring(0, 8));
-		today.setTime(time.substring(8, 14));
-		return today;
 	}
 	
 	/**
