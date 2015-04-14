@@ -33,7 +33,7 @@ public interface Constant {
 		public static final String BankAuth = "bankSwiftAuth";
 		public static final String BankVeri = "bankSwiftVerify";
 		public static final String OpenAccount = "openAccount";
-		public static final String SubApply = "subsribeApply";
+		public static final String SubApply = "subscribeApply";
 		public static final String BuyApply = "buyApply";
 		public static final String Cancel = "cancelApplyQuery";
 		public static final String Redeem = "redeemApply";

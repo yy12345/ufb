@@ -34,10 +34,10 @@ public class HftBaseService {
 	// http交易的编码
 	private static final String ENCODING = "utf-8";
 	
-	@Value("${hft_requestUrl}")
+//	@Value("${hft_requestUrl}")
 	private String requestUrl = "http://60.191.25.162:12002/ecg/ecsg/prepositionaccess";
 	
-	@Value("hft_signKey")
+//	@Value("hft_signKey")
 	private String signKey = "8db4a013a8b515349c307f1e448ce836";
 
 	/**
