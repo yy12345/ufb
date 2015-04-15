@@ -1,5 +1,9 @@
 package com.ufufund.ufb.web.controller;
 
+import java.sql.SQLException;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +38,6 @@ public class CustController {
 	
 	@RequestMapping(value="cust/register" , method=RequestMethod.GET)
 	public String getPage(CustinfoVo custinfoVo, Model model){
-		
 		if(null == custinfoVo.getInvtp()){
 			custinfoVo.setInvtp("0");
 		}
@@ -83,6 +86,7 @@ public class CustController {
 			// 查询手机号是否注册
 			boolean isMobileRegister = custManager.isMobileRegister(custinfoVo.getMobileno());
 			if(isMobileRegister){
+				model.addAttribute("errMsg_mobileno", "手机号已注册。");
 				throw new BizException("手机号已注册。");
 			}
 //			
@@ -109,6 +113,23 @@ public class CustController {
 		
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
+			
+			if("手机号".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_mobileno", e.getMessage());
+			}else
+			if("密码".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_pswpwd", e.getMessage());
+			}else
+			if("确认密码".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_pswpwd2", e.getMessage());
+			}else
+			if("机构名称".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_organization", e.getMessage());
+			}else
+			if("营业执照".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_business", e.getMessage());
+			}
+			
 			model.addAttribute("errMsg", e.getMessage());
 			model.addAttribute("returnUrl", "../test/index.htm");
 			model.addAttribute("CustinfoVo", custinfoVo);

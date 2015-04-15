@@ -27,6 +27,10 @@ public class AppException extends RuntimeException{
 	private String errorInfovalue;
 	private String otherInfo="";
 	
+	public String getOtherInfo(){
+		return this.otherInfo;
+	}
+	
 	public AppException(String errmsg){
 		this.errmsg = errmsg;
 	}

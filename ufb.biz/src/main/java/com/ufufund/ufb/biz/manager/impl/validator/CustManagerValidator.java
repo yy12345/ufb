@@ -59,7 +59,7 @@ public class CustManagerValidator extends ValidatorCommon {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, LOGINPASSWORD2);
 		}
 		if (!action.getLoginPassword().equals(action.getLoginPassword2())) {
-			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD);
+			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, LOGINPASSWORD);
 		}
 		if (!RegexUtil.isPwd(action.getLoginPassword())) {
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,LOGINPASSWORD);
