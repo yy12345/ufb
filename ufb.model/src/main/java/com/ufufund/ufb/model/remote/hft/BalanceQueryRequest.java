@@ -54,9 +54,10 @@ public class BalanceQueryRequest extends AbstractRequest {
 
 	@Override
 	public String toString() {
-		return "TransQueryRequest [TransactionAccountID="
+		return "BalanceQueryRequest [TransactionAccountID="
 				+ TransactionAccountID + ", FundCode=" + FundCode + ", PageNo="
 				+ PageNo + ", PageSize=" + PageSize + ", ShareClass="
 				+ ShareClass + ", toString()=" + super.toString() + "]";
 	}
+
 }

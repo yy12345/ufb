@@ -33,17 +33,15 @@ public class HftQueryServiceTest {
 	@Test
 	public void transQuery() {
 		TransQueryRequest request = new TransQueryRequest();
-
-		request.setTransactionAccountID("xxxx000011111");
-		request.setAppSheetSerialNo("cccc0000111");
-		request.setPageNo("1");
-		request.setPageSize("10");
-
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.TransQuery);
-		request.setApplicationNo("20150410CC0001");
+		request.setApplicationNo("20150410QQ0002");
+		request.setTransactionAccountID("225000006320");
+//		request.setAppSheetSerialNo("cccc0000111");
+		request.setPageNo("1");
+		request.setPageSize("10");
 
 		TransQueryResponse response = hftQueryService.transQuery(request);
 		LOG.debug("返回对象:" + response.toString());
@@ -55,22 +53,20 @@ public class HftQueryServiceTest {
 	 * @param request
 	 * @return
 	 */
-	@Test
+//	@Test
 	public void balanceQuery() {
 		BalanceQueryRequest request = new BalanceQueryRequest();
 		
-		request.setTransactionAccountID("xxxx000011111");
-		request.setFundCode("001002");
-		request.setPageNo("1");
-		request.setPageSize("10");
-		request.setShareClass("10");
-
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.TransQuery);
-		request.setApplicationNo("20150410CC0001");
-		request.setExtension("");
+		request.setBusinType(Constant.HftBusiType.BalanceQuery);
+		request.setApplicationNo("20150410QQ0001");
+		request.setTransactionAccountID("225000006320");
+		request.setFundCode("025020");
+		request.setPageNo("1");
+		request.setPageSize("10");
+		request.setShareClass("0");
 
 		BalanceQueryResponse response = hftQueryService.balanceQuery(request);
 		LOG.debug("返回对象:" + response.toString());

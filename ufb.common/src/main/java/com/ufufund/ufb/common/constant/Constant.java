@@ -35,7 +35,7 @@ public interface Constant {
 		public static final String OpenAccount = "openAccount";
 		public static final String SubApply = "subscribeApply";
 		public static final String BuyApply = "buyApply";
-		public static final String Cancel = "cancelApplyQuery";
+		public static final String Cancel = "cancelApply";
 		public static final String Redeem = "redeemApply";
 		public static final String RealRedeem = "realTimeRedeemApply";
 		public static final String BuyNotify = "buyApplyNotify";
@@ -43,7 +43,7 @@ public interface Constant {
 		public static final String Unfrozen = "unfrozenShare";
 		public static final String Transfer = "swiftTransfer";
 		public static final String TransQuery = "transResultQuery";
-		public static final String BalanceQuery= "staitcshareQuery";
+		public static final String BalanceQuery= "staticShareQuery";
 	}
 	
 }
