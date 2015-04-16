@@ -25,6 +25,34 @@ public class CustinfoVo {
 	private String organization;// 幼教机构名称
 	private String business; // 营业执照注册号
 
+	private String custst;
+	private String level;
+	private String openaccount;
+
+	public String getCustst() {
+		return custst;
+	}
+
+	public void setCustst(String custst) {
+		this.custst = custst;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public String getOpenaccount() {
+		return openaccount;
+	}
+
+	public void setOpenaccount(String openaccount) {
+		this.openaccount = openaccount;
+	}
+
 	public String getOrganization() {
 		return organization;
 	}

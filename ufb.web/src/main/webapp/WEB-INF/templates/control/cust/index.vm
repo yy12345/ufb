@@ -55,6 +55,7 @@
                         </div>
                         <div class="detail-list fr">
                             <div class="list-title">资金明细</div>
+							#if ($CustinfoVo.openaccount == "Y")
                             <div class="tabs list-tabs clearfix">
                                 <a class="tab on" href="javascript:;">充值</a>
                                 <a class="tab" href="javascript:;">取现</a>
@@ -109,6 +110,8 @@
                                     </table>
                                 </div>
                             </div>
+							#end
+							
                         </div>
                     </div>
                 </li>

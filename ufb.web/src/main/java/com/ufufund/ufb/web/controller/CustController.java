@@ -214,6 +214,9 @@ public class CustController {
 			s_custinfo.setTradepwd2(custinfo.getTradepwd());
 			s_custinfo.setOrganization(custinfo.getOrganization()); 
 			s_custinfo.setBusiness(custinfo.getBusiness()); 
+			s_custinfo.setCustst(custinfo.getCustst());
+			s_custinfo.setLevel(custinfo.getLevel());
+			s_custinfo.setOpenaccount(custinfo.getOpenaccount());
 			
 			model.addAttribute("CustinfoVo", s_custinfo);
 			ServletHolder.getSession().setAttribute("S_CUSTINFO", s_custinfo);
