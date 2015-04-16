@@ -1,8 +1,9 @@
 package com.ufufund.ufb.model.vo;
 
 /**
- * 用户VO
- * <br>创建日期：2015年3月
+ * 用户VO <br>
+ * 创建日期：2015年3月
+ * 
  * @author goodrich
  * @version 1.0
  */
@@ -20,6 +21,25 @@ public class CustinfoVo {
 	private String pswpwd2;
 	private String tradepwd;
 	private String tradepwd2;// 交易密码
+
+	private String organization;// 幼教机构名称
+	private String business; // 营业执照注册号
+
+	public String getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+
+	public String getBusiness() {
+		return business;
+	}
+
+	public void setBusiness(String business) {
+		this.business = business;
+	}
 
 	public String getCustno() {
 		return custno;

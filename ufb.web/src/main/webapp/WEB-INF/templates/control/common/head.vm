@@ -1,13 +1,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
-		<!--
     #if("$!{title}"=="")
 	    <title>幼富通 </title>
 	#else
 	    $!{title}
 	#end
--->
     <link rel="stylesheet" href="${staticDomain}/css/reset.css">
     <link rel='stylesheet' href='${staticDomain}/css/camera.css'>
     <link rel="stylesheet" href="${staticDomain}/css/common.css">

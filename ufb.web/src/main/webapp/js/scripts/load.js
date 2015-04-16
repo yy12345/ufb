@@ -1,6 +1,5 @@
 $(function () {
-    /* index */
-    $(".main .section").on("mouseenter", function () {
+    $(".shadow-normal").on("mouseenter", function () {
         $(this).addClass("shadow-hover");
     }).on("mouseleave", function () {
         $(this).removeClass("shadow-hover");
@@ -26,6 +25,22 @@ $(function () {
             panels.addClass("slide-out").eq(index).removeClass("slide-out");
         });
     });
+    $(".project-item .tabs").on("mouseenter", ".tab", function () {
+        var _tab = $(this);
+        var _tabs = _tab.parent(".tabs");
+        var _index = _tabs.find(".tab").index(_tab);
+        var _panel = _tabs.siblings(".panels").find(".panel");
+        _tab.addClass("on").siblings().removeClass("on");
+        _panel.addClass("slide-out").eq(_index).removeClass("slide-out");
+    });
+    $(".password-tabs").on("click", ".tab", function () {
+        var _tab = $(this);
+        var _tabs = _tab.parent(".tabs");
+        var _index = _tabs.find(".tab").index(_tab);
+        var _panel = _tabs.siblings(".panels").find(".panel");
+        _tab.addClass("on").siblings().removeClass("on");
+        _panel.addClass("slide-out").eq(_index).removeClass("slide-out");
+    });
     /*
      event - form
      */
@@ -46,12 +61,24 @@ $(function () {
             _this.siblings(".tips-normal").show();
         }
     });
-	$("form").on("click", ".input-select", function () {
-		$(this).toggleClass("open");
+    $(".input-select *:first-child").on("click", function () {
+        var _this = $(this);
+        _this.parent().toggleClass("open");
     });
-	$(".input-options img").on("click", function () {
-		var _this = $(this);
-		_this.parents(".input-options").siblings(".bank").attr("src",_this.attr("src"));
+    $(".input-options .bank-list").on("click", ".bank", function () {
+        var _this = $(this);
+        var _select = $(".input-select");
+        _select.removeClass("open").find(".bank-current").html(_this.html());
     });
-
+    $(".input-options .card-list").on("click", ".card", function () {
+        var _this = $(this);
+        var _select = $(".input-select");
+        _select.removeClass("open").find(".card-current").html(_this.html());
+    });
+    /* ex - card */
+    $(".setting").on("mouseenter",".card", function () {
+        $(this).addClass("card-hover");
+    }).on("mouseleave", ".card", function () {
+        $(this).removeClass("card-hover");
+    });
 });

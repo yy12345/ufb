@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.utils.StringUtils;
+import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
@@ -35,6 +37,17 @@ public class CustController {
 	
 	@Autowired
 	private CustManager custManager;
+	
+//	@RequestMapping(value="cust/login" , method=RequestMethod.GET)
+//	public String getLogin(CustinfoVo custinfoVo, Model model){
+//		if(null == custinfoVo.getInvtp()){
+//			custinfoVo.setInvtp("0");
+//		}
+//		
+//		model.addAttribute("CustinfoVo", custinfoVo);
+//		return "cust/index";
+//	}
+	
 	
 	@RequestMapping(value="cust/register" , method=RequestMethod.GET)
 	public String getPage(CustinfoVo custinfoVo, Model model){
@@ -86,8 +99,8 @@ public class CustController {
 			// 查询手机号是否注册
 			boolean isMobileRegister = custManager.isMobileRegister(custinfoVo.getMobileno());
 			if(isMobileRegister){
-				model.addAttribute("errMsg_mobileno", "手机号已注册。");
-				throw new BizException("手机号已注册。");
+				throw new BizException(ThreadLocalUtil.getProccessId(),
+						ErrorInfo.ALREADY_REGISTER, "手机号");
 			}
 //			
 //			// 校验短信验证码
@@ -96,12 +109,24 @@ public class CustController {
 //				throw new BizException("短信验证码无效。");
 //			}
 			
+			if(StringUtils.isBlank(custinfoVo.getOrganization())){
+				throw new BizException(ThreadLocalUtil.getProccessId(),
+						ErrorInfo.NECESSARY_EMPTY, "机构名称");
+			}
+			
+			if(StringUtils.isBlank(custinfoVo.getBusiness())){
+				throw new BizException(ThreadLocalUtil.getProccessId(),
+						ErrorInfo.NECESSARY_EMPTY, "营业执照");
+			}
+			
 			// 注册
 			RegisterAction registerAction = new RegisterAction();
 			registerAction.setLoginCode(custinfoVo.getMobileno());
 			registerAction.setLoginPassword(custinfoVo.getPswpwd());
 			registerAction.setLoginPassword2(custinfoVo.getPswpwd2());
 			registerAction.setInvtp(Invtp.PERSONAL);
+			registerAction.setOrganization(custinfoVo.getOrganization());
+			registerAction.setBusiness(custinfoVo.getBusiness());
 			//registerAction.setGrouptp(Grouptp.PERSONAL);
 			
 			custManager.register(registerAction);
@@ -135,6 +160,8 @@ public class CustController {
 			model.addAttribute("CustinfoVo", custinfoVo);
 			return "cust/register";
 		}
+		
+		ServletHolder.getSession().setAttribute("S_CUSTINFO", custinfoVo);
 
 		return "cust/registerOK";
 	}
@@ -149,6 +176,17 @@ public class CustController {
 	public String loginIn(CustinfoVo custinfoVo, Model model) {
 		
 		try{
+			LoginAction loginAction = new LoginAction();
+			
+			CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
+			
+			if(null != s_custinfo){
+				loginAction.setLoginCode(s_custinfo.getMobileno());
+				loginAction.setLoginPassword(s_custinfo.getPswpwd());
+			}else{
+				loginAction.setLoginCode(custinfoVo.getMobileno());
+				loginAction.setLoginPassword(custinfoVo.getPswpwd());
+			}
 			
 //			// 校验验证码
 //			boolean checkVerifyCode = VerifyCodeUtils.validate(custinfo.getVerifycode());
@@ -156,13 +194,29 @@ public class CustController {
 //				throw new BizException("验证码无效。");
 //			}
 			
-			LoginAction loginAction = new LoginAction();
-			loginAction.setLoginCode(custinfoVo.getMobileno());
-			loginAction.setLoginPassword(custinfoVo.getPswpwd());
-			
 			// 登录 写入身份证到SESSION 没有就没有实名认证和绑卡 必须先开户绑卡
 			Custinfo custinfo = custManager.loginIn(loginAction);
-			ServletHolder.getSession().setAttribute("CUSTINFO", custinfo);
+			
+			s_custinfo = new CustinfoVo();
+			
+			
+			s_custinfo.setCustno(custinfo.getCustno());;                      
+			s_custinfo.setMobileno(custinfo.getMobileno());                    
+//			s_custinfo.setMsgcode();                     
+//			s_custinfo.setVerifycode();                  
+			s_custinfo.setInvtp(custinfo.getInvtp()); 
+			s_custinfo.setInvnm(custinfo.getInvnm());        
+			s_custinfo.setIdtp(custinfo.getIdtp());     
+			s_custinfo.setIdno(custinfo.getIdno());             
+			s_custinfo.setPswpwd(custinfo.getPasswd());                      
+			s_custinfo.setPswpwd2(custinfo.getPasswd());                     
+			s_custinfo.setTradepwd(custinfo.getTradepwd());                    
+			s_custinfo.setTradepwd2(custinfo.getTradepwd());
+			s_custinfo.setOrganization(custinfo.getOrganization()); 
+			s_custinfo.setBusiness(custinfo.getBusiness()); 
+			
+			model.addAttribute("CustinfoVo", s_custinfo);
+			ServletHolder.getSession().setAttribute("S_CUSTINFO", s_custinfo);
 			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -171,7 +225,7 @@ public class CustController {
 			return "error/error";
 		}
 
-		return "cust/login_home";
+		return "cust/index";
 	}
 	
 	/**

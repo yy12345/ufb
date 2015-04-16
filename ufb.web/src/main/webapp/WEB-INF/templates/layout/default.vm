@@ -2,11 +2,15 @@
 <html>
 #parse("control/common/head.vm")
 <body>
-<div class="container">
+<!--	
+<div class="container center">
 #parse("control/common/header.vm")
+-->
 $body
+<!--
 #parse("control/common/footer.vm")
 </div>
+-->
 $!{script}
 </body>
 </html>

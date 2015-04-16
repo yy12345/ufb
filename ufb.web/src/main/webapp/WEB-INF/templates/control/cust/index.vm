@@ -1,0 +1,194 @@
+<html>
+<div class="container center">
+<div class="header">
+    <div class="inner clearfix rel">
+        <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+        <div class="nav"><a 
+			href="javascript:;">登录</a>|<a
+			href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
+			href="javascript:;">我的幼富通</a>|<a class="last" 
+			href="javascript:;">帮助</a></div>
+    </div>
+</div>
+<div class="body">
+    <div class="inner clearfix">
+        <div class="title clearfix">
+            <h2 class="title-main fl">资产总览</h2>
+            <h2 class="title-side fr">账户</h2>
+        </div>
+        <div class="main fl">
+            <ul class="project-list">
+                <li class="project-item item-main shadow-normal trans">
+                    <i class="tag"><img src="${staticDomain}/images/tag2.png"></i>
+                    <div class="item-base clearfix">
+                        <table class="base-table fl">
+                            <thead>
+                            <tr>
+                                <td width="33%">昨日收益</td>
+                                <td width="33%">资产总额（元）</td>
+                                <td>累计收益（元）</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="base-btn fr">
+                            <div class="clearfix"><a class="fl btn off" href="javascript:;">充值</a><span class="tips fl">自动充值</span></div>
+                            <div class="clearfix"><a class="fl btn off" href="javascript:;">取现</a><span class="tips fl">自动取现</span></div>
+                        </div>
+                    </div>
+                    <div class="item-detail clearfix">
+                        <div class="detail-chart fl">
+                            <div class="tabs chart-tabs clearfix">
+                                <a class="tab on" href="javascript:;">7日年化收益率(%)  4.8270</a>
+                                <a class="tab" href="javascript:;">万份收益(元)  1.2440</a>
+                            </div>
+                            <div class="panels chart-panels">
+                                <div id="chart-syl" class="panel slide-in">表一</div>
+                                <div id="chart-sy" class="panel slide-out">表二</div>
+                            </div>
+                        </div>
+                        <div class="detail-list fr">
+                            <div class="list-title">资金明细</div>
+                            <div class="tabs list-tabs clearfix">
+                                <a class="tab on" href="javascript:;">充值</a>
+                                <a class="tab" href="javascript:;">取现</a>
+                            </div>
+                            <div class="panels list-panels">
+                                <div class="panel slide-in">
+                                    <table width="100%">
+                                        <tr>
+                                            <td class="tl" width="30%">招商银行</td>
+                                            <td class="tc" width="30%">+1000</td>
+                                            <td class="tr">2015-02-10</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tl">招商银行</td>
+                                            <td class="tc">+1000</td>
+                                            <td class="tr">2015-02-10</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tl">招商银行</td>
+                                            <td class="tc">+1000</td>
+                                            <td class="tr">2015-02-10</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tl">招商银行</td>
+                                            <td class="tc">+1000</td>
+                                            <td class="tr">2015-02-10</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="panel slide-out">
+                                    <table width="100%">
+                                        <tr>
+                                            <td class="tl" width="30%">招商银行</td>
+                                            <td class="tc" width="30%">-1000</td>
+                                            <td class="tr">2015-02-10</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tl">招商银行</td>
+                                            <td class="tc">-1000</td>
+                                            <td class="tr">2015-02-10</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tl">招商银行</td>
+                                            <td class="tc">-1000</td>
+                                            <td class="tr">2015-02-10</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tl">招商银行</td>
+                                            <td class="tc">-1000</td>
+                                            <td class="tr">2015-02-10</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="project-item item-sub shadow-normal trans">
+                    <i class="tag"><img src="${staticDomain}/images/tag1.png"></i>
+                    <div class="item-base clearfix">
+                        <table class="base-table fl">
+                            <thead>
+                            <tr>
+                                <td width="33%">昨日收益</td>
+                                <td width="33%">资产总额（元）</td>
+                                <td>累计收益（元）</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="base-btn fr">
+                            <div class="clearfix"><a class="fl btn off" href="javascript:;">购买</a></div>
+                            <div class="clearfix"><a class="fl btn off" href="javascript:;">取现</a></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="side fr">
+            <div class="info-account">
+                <div class="account-header">
+                    <a href="javascript:;" class="header-avatar"><img src="${staticDomain}/images/avatar.png" width="100%"></a>
+                    <div class="header-name">
+					#if ($CustinfoVo.invnm)
+                	    $!{CustinfoVo.invnm}
+                	#else
+                	    $!{CustinfoVo.mobileno}
+                	#end
+					</div>
+                    <a href="javascript:;" class="header-setting"></a>
+                </div>
+                <ul class="account-list">
+                    <li class="account-item">
+                        <div class="name">资产总金额（元）</div>
+                        <div class="value"></div>
+                    </li>
+                    <li class="account-item">
+                        <div class="name">累计总收益（元）</div>
+                        <div class="value"></div>
+                    </li>
+                </ul>
+                <div class="account-btn">
+                    <a class="btn" href="javascript:;">开办理财账户</a>
+                </div>
+            </div>
+            <div class="info-yield">
+                <div class="yield-title">幼富宝</div>
+                <div class="yield-data">
+                    <div class="data-value">4.9510</div>
+                    <div class="data-name">七日年化收益率（%）</div>
+                    <div class="data-source">数据来源：海富通基金</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="inner clearfix">
+        <div class="info fl">
+            <p>微信服务号：UFUfund</p>
+            <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
+            <p>海富通产品：400-8840-099</p>
+        </div>
+        <div class="copyright fr">
+            <p>上海泛投信息科技有限公司版权所有 ©2015</p>
+            <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
+        </div>
+    </div>
+</div>
+</div>
+</html>

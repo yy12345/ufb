@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!--
 <title>幼富通 - 注册成功</title>
+-->
+<script>
+$(function(){
+	$("#btn-login").on("click",function(){
+		$("#form-login").submit();
+	});
+});
+</script>
 </head>
 <body>
+<div class="container">
+<div class="header">
+    <div class="inner clearfix rel">
+        <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+        <div class="nav"><a 
+			href="javascript:;">登录</a>|<a 
+			href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
+			href="javascript:;">我的幼富通</a>|<a class="last" 
+			href="javascript:;">帮助</a></div>
+    </div>
+</div>
 <div class="body">
     <div class="inner container-register rel">
+		<form id="form-login" method="post" action="${staticDomain}/cust/login.htm">
         <div class="form-done">
             <div class="title">注册成功</div>
-            <a class="btn" href="javascript:;">进入幼富通</a>
+            <a id="btn-login" class="btn" href="javascript:;">进入幼富通</a>
         </div>
+		</form>
     </div>
 </div>
 <div class="footer">
@@ -44,6 +66,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

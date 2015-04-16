@@ -14,7 +14,7 @@
         <pattern>error/*</pattern>
     </errorPages>  -->
 	
-	<layout page="layout/default.vm" default="true">
+    <layout page="layout/default.vm" default="true">
         <pattern>/ufu/**/*</pattern>
     </layout>
 </layouts>
