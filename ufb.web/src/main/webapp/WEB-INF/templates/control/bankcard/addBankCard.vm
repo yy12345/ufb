@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+<title>幼富通 - 资产总览</title>
+-->
+<script>
+$(function(){
+	$("#btn-openAccount").on("click",function(){
+		//check #register-org #mobileno
+		$("#form-index").attr("action", "../bankcard/addBankCardPage.htm");
+		$("#form-index").submit();
+	});
+});
+</script>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="inner clearfix rel">
+            <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+            <div class="nav"><a 
+				href="javascript:;">登录</a>|<a 
+				href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
+				href="${staticDomain}/cust/login.htm">我的幼富通</a>|<a class="last" 
+				href="javascript:;">帮助</a></div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="inner container-find">
+            <div class="find-tabs tabs-step1 clearfix">
+                <a class="tab fl on" href="javascript:;">1-验证身份</a>
+                <a class="tab fl" href="javascript:;">2-银行卡绑定</a>
+                <a class="tab fl" href="javascript:;">3-开户结果</a>
+            </div>
+            <div class="find-panels">
+            	<div class="tips tips-float">
+                	<p>安全提示：</p>
+                    <p>您正在访问幼富通安全网址，请放心操作。<br>
+					为了更好的提供金融服务，您需要填写真实身份信息。<br>
+					我们会严格保密您的隐私信息。</p>
+                </div>
+                <form class="common-form" method="post" action="openAccountStep2.html">
+                    <div class="panel">
+                        <ul>
+                            <li class="ok">
+                                <span class="form-title">幼教机构</span>
+                                <input class="input-text" type="text" value="">
+                                <span class="tips-normal">XXX幼儿园</span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li class="error">
+                                <span class="form-title">营业执照</span>
+                                <input class="input-text" type="text" value="">
+                                <span class="tips-normal">123456</span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li class="error">
+                                <span class="form-title">经办人姓名</span>
+                                <input class="input-text" type="text" value="">
+                                <span class="tips-normal">请填写真实姓名</span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li class="error">
+                                <span class="form-title">身份证号</span>
+                                <input class="input-text" type="text" value="">
+                                <span class="tips-normal">请填写身份证号</span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li class="error">
+                                <span class="form-title">交易密码</span>
+                                <input class="input-text" type="text" value="">
+                                <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li class="error">
+                                <span class="form-title">交易密码确认</span>
+                                <input class="input-text" type="text" value="">
+                                <span class="tips-normal">请再次输入密码</span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li>
+                                <input class="input-button ok" type="submit" value="下一步">
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="inner clearfix">
+            <div class="notice fl">
+                <h2 class="title">理财机构须知</h2>
+                <ul class="list">
+                    <li><a href="javascript:;">幼教机构如何注册幼富通？</a></li>
+                    <li><a href="javascript:;">如何购买幼富通的机构理财产品？</a></li>
+                    <li><a href="javascript:;">机构理财的交易安全有什么保障？</a></li>
+                    <li><a href="javascript:;">如何联系我们？</a></li>
+                </ul>
+            </div>
+            <div class="qa fl">
+                <h2 class="title">常见问题</h2>
+                <ul class="list">
+                    <li><a href="javascript:;">什么是机构理财专户？</a></li>
+                    <li><a href="javascript:;">什么是幼富宝？</a></li>
+                    <li><a href="javascript:;">购买幼富宝有什么好处？</a></li>
+                </ul>
+            </div>
+            <div class="about fl">
+                <h2 class="title"><a href="about.html">关于幼富通&nbsp;<span>|</span></a></h2>
+                <div class="info">
+                    <p>微信服务号：UFUfund</p>
+                    <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
+                    <p>海富通产品：400-8840-099</p>
+                </div>
+                <div class="copyright">
+                    <p>上海泛投信息科技有限公司版权所有 ©2015</p>
+                    <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

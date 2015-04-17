@@ -337,7 +337,7 @@ public class CustController {
 		
 		CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
 
-		return "bankcard/addBankCardPage";
+		return "bankcard/addBankCard";
 	}
 	
 	
