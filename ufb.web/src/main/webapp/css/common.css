@@ -263,12 +263,12 @@ a.btn {
 	background: none;
 }
 /* common - form */
-form li {
+.common-form li {
 	padding:10px 0 10px 120px;
 	position: relative;
 	font-size: 14px;
 }
-form li .form-title {
+.common-form li .form-title {
 	position: absolute;
 	top: 50%;
 	left: 0;
@@ -278,7 +278,7 @@ form li .form-title {
 	line-height: 20px;
 	text-align: right;
 }
-form li input {
+.common-form li input {
 	height: 34px;
 	margin: 0 20px 0 0;
 	padding: 0 12px;
@@ -287,33 +287,33 @@ form li input {
 	font-family: "microsoft yahei";
 	color: inherit;
 }
-form li input.input-checkbox {
+.common-form li input.input-checkbox {
 	margin-right: 6px;
 }
-form li input.input-button {
+.common-form li input.input-button {
 	width: 121px;
 	height: 36px;
 	border: 0;
 	color: #ffffff;
 	background-color: #b4b4b5;
 }
-form li input.input-button.ok {
+.common-form li input.input-button.ok {
 	color: #ffffff;
 	background-color: #CB3849;
 }
-form li input.input-code {
+.common-form li input.input-code {
 	width: 95px;
 }
-form li input.input-code.focus {
+.common-form li input.input-code.focus {
 	border-color: #2F8FBF;
 }
-form li input.input-text {
+.common-form li input.input-text {
 	width: 240px;
 }
-form li input.input-text.focus {
+.common-form li input.input-text.focus {
 	border-color: #2F8FBF;
 }
-form li .tips-normal {
+.common-form li .tips-normal {
 	position: absolute;
 	top: 50%;
 	left: 132px;
@@ -322,14 +322,14 @@ form li .tips-normal {
 	margin-top: -10px;
 	color: #b4b4b5;
 }
-form li .tips-check {
+.common-form li .tips-check {
 	position: relative;
 	display: none;
 	padding-left: 20px;
 	font-size: 12px;
 	line-height: 36px;
 }
-form li .tips-check .icon {
+.common-form li .tips-check .icon {
 	position: absolute;
 	left: 0px;
 	top: 50%;
@@ -337,21 +337,21 @@ form li .tips-check .icon {
 	height: 13px;
 	margin-top:-6px;
 }
-form li.ok .tips-check {
+.common-form li.ok .tips-check {
 	display: inline;
 	color: #8dc21f;
 }
-form li.ok .tips-check .icon {
+.common-form li.ok .tips-check .icon {
 	background: url("../images/icon.png") no-repeat 0 -84px;
 }
-form li.error .tips-check {
+.common-form li.error .tips-check {
 	display: inline;
 	color: #CB3849;
 }
-form li.error .tips-check .icon {
+.common-form li.error .tips-check .icon {
 	background: url("../images/icon.png") no-repeat 0 -97px;
 }
-form li a.find {
+.common-form li a.find {
 	color: #cb3849;
 	font-size: 12px;
 	text-decoration: underline;

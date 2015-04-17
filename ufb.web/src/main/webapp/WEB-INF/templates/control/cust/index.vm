@@ -1,4 +1,22 @@
+<!DOCTYPE html>
 <html>
+<head>
+<!--
+<title>幼富通 - 资产总览</title>
+-->
+<script>
+$(function(){
+	$("#btn-openAccount").on("click",function(){
+		//check #register-org #mobileno
+		$("#form-index").attr("action", "../bankcard/addBankCardPage.htm");
+		$("#form-index").submit();
+	});
+});
+</script>
+</head>
+<body>
+	
+	
 <div class="container center">
 <div class="header">
     <div class="inner clearfix rel">
@@ -10,6 +28,7 @@
 			href="javascript:;">帮助</a></div>
     </div>
 </div>
+<form id="form-index" method="post" action="${staticDomain}/cust/index.htm">
 <div class="body">
     <div class="inner clearfix">
         <div class="title clearfix">
@@ -166,7 +185,7 @@
                     </li>
                 </ul>
                 <div class="account-btn">
-                    <a class="btn" href="javascript:;">开办理财账户</a>
+                    <a id="btn-openAccount" class="btn" href="#">开办理财账户</a>
                 </div>
             </div>
             <div class="info-yield">
@@ -180,6 +199,7 @@
         </div>
     </div>
 </div>
+</form>
 <div class="footer">
     <div class="inner clearfix">
         <div class="info fl">
@@ -194,4 +214,5 @@
     </div>
 </div>
 </div>
+</body>
 </html>

@@ -332,8 +332,10 @@ public class CustController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="bankcard/addBankCardPage" , method=RequestMethod.GET)
-	public String addBankCardPage(Model model){
+	@RequestMapping(value="bankcard/addBankCardPage")
+	public String addBankCardPage(BankCardVo bankCardVo, Model model){
+		
+		CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
 
 		return "bankcard/addBankCardPage";
 	}
@@ -344,7 +346,7 @@ public class CustController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="bankcard/addBankCardInit" , method=RequestMethod.GET)
+	@RequestMapping(value="bankcard/addBankCardInit" , method=RequestMethod.POST)
 	public String addBankCard1(BankCardVo bankCardVo, Model model){
 		
 		try{
@@ -376,7 +378,7 @@ public class CustController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="bankcard/addBankAuth" , method=RequestMethod.GET)
+	@RequestMapping(value="bankcard/addBankAuth" , method=RequestMethod.POST)
 	public String addBankCard2(BankCardVo bankCardVo, Model model){
 		
 		try{
@@ -412,7 +414,7 @@ public class CustController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.GET)
+	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
 	public String addBankCard3(BankCardVo bankCardVo, Model model){
 		
 		try{
