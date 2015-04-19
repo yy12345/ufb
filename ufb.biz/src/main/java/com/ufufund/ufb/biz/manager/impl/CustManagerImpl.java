@@ -13,6 +13,7 @@ import com.ufufund.ufb.biz.convert.BankConvert;
 import com.ufufund.ufb.biz.convert.CustConvert;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
@@ -26,12 +27,12 @@ import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
-import com.ufufund.ufb.model.db.DateInfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
+import com.ufufund.ufb.model.vo.Today;
 
 
 @Service
@@ -50,7 +51,8 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 
 	@Autowired
 	private TradeNotesMapper tradeNotesMapper;
-
+	@Autowired
+	private WorkDayManager workDayManager;
 //	@Autowired
 //	private HftCustService hftCustService;
 	/**
@@ -326,12 +328,12 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		 * 插入流水表
 		 */
 		fdacfinalresult.setCustno(custinfo.getCustno());
-		DateInfo dateInfo = tradeNotesMapper.getDateInfo();
+		Today today = workDayManager.getSysDayInfo();
 		fdacfinalresult.setBankserialid(bankcardinfodef.getSerialid());
 		fdacfinalresult.setTradeaccoid(openAccountAction.getTransactionAccountID());
-		fdacfinalresult.setWorkdate(dateInfo.getWorkdate());
-		fdacfinalresult.setApdt(dateInfo.getApdt());
-		fdacfinalresult.setAptm(dateInfo.getAptm());
+		fdacfinalresult.setWorkdate(today.getWorkday());
+		fdacfinalresult.setApdt(today.getDate());
+		fdacfinalresult.setAptm(today.getTime());
 		fdacfinalresult.setSerialno(seq);
 		fdacfinalresult.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 		
@@ -403,10 +405,10 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		String seq = tradeNotesMapper.getFdacfinalresultSeq();
 		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
 		fdacfinalresult.setCustno(custinfo.getCustno());
-		DateInfo dateInfo = tradeNotesMapper.getDateInfo();
-		fdacfinalresult.setWorkdate(dateInfo.getWorkdate());
-		fdacfinalresult.setApdt(dateInfo.getApdt());
-		fdacfinalresult.setAptm(dateInfo.getAptm());
+		Today today = workDayManager.getSysDayInfo();
+		fdacfinalresult.setWorkdate(today.getWorkday());
+		fdacfinalresult.setApdt(today.getDate());
+		fdacfinalresult.setAptm(today.getTime());
 		fdacfinalresult.setSerialno(seq);
 		fdacfinalresult.setApkind(apkind);
 		/*
