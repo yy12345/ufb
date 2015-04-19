@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufufund.ufb.biz.Merchant.MerchantFund;
+import com.ufufund.ufb.biz.Merchant.OpenAccount;
 import com.ufufund.ufb.biz.common.ImplCommon;
+import com.ufufund.ufb.biz.common.MerchantCommon;
 import com.ufufund.ufb.biz.convert.BankConvert;
 import com.ufufund.ufb.biz.convert.CustConvert;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
-import com.ufufund.ufb.biz.manager.DictManager;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
@@ -25,17 +27,18 @@ import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.DateInfo;
-import com.ufufund.ufb.model.db.Dictionary;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
+
 import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
 import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
 import com.ufufund.ufb.model.remote.hft.BankVeriRequest;
 import com.ufufund.ufb.model.remote.hft.BankVeriResponse;
 import com.ufufund.ufb.remote.HftCustService;
+
 
 @Service
 public class CustManagerImpl extends ImplCommon implements CustManager {
@@ -54,8 +57,8 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	@Autowired
 	private TradeNotesMapper tradeNotesMapper;
 
-	@Autowired
-	private HftCustService hftCustService;
+//	@Autowired
+//	private HftCustService hftCustService;
 	/**
 	 * 查询手机号是否注册
 	 * 
@@ -218,41 +221,35 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 * @param OpenAccount
 	 * @return
 	 */
-	public void openAccount1(OpenAccountAction openAccountAction) throws BizException {
+	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction) throws BizException {
 		this.getProcessId(openAccountAction);
 		this.validatorOpenAccount1(openAccountAction);
+		return openAccountAction;
 	}
 	
-	public void openAccount2(OpenAccountAction openAccountAction) throws BizException {
+	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException {
 		String processId =  this.getProcessId(openAccountAction);
 		custManagerValidator.validator(openAccountAction);
 		/*
 		 * 进行XML接口	银行快捷鉴权
 		 */
-		BankAuthRequest bankAuthRequest =  CustConvert.convertBankAuthRequest(openAccountAction);
-		//bankAuthRequest.setAccoreqSerial	C	20	请求序列号	
-		BankAuthResponse bankAuthResponse = null;
-		if(!Constant.TEST){
-			bankAuthResponse = hftCustService.bankAuth(bankAuthRequest);	
-		}else{
-			/*
-			 * 模拟器
-			 */
-			bankAuthResponse = new BankAuthResponse();
-			bankAuthResponse.setReturnCode("0000");
-		}
+		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
+		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		MerchantFund merchantFund = MerchantCommon.getMerchant(openAccountAction.getMerchant());
+		OpenAccount openAccount = merchantFund.bankAuth(openAccountAction);
 		/*
 		 * 返回码转换
 		 */
-		Dictionary dictionary =  DictManager.getDict("DICTIONARY$HTFERROR", bankAuthResponse.getReturnCode());
-		if(!"0000".equals(dictionary.getPmv1())){
-			throw new BizException(processId,dictionary.getPmv1());
+		if(!"0000".equals(openAccount.getReturncode())){
+			throw new BizException(processId,openAccount.getReturncode());
 		}
-		
+		openAccountAction.setOtherserial(openAccount.getOtherserial());
+		openAccountAction.setProtocolno(openAccount.getProtocolno());
+		return openAccountAction;
 	}
 	
 
-	public void openAccount3(OpenAccountAction openAccountAction) throws BizException {
+	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException {
 		String processId = this.getProcessId(openAccountAction);
 		if (RegexUtil.isNull(openAccountAction.getMobileAutoCode())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY,IDENTIFYING);
@@ -261,45 +258,49 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		    !RegexUtil.isDigits(openAccountAction.getMobileAutoCode())) {
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,IDENTIFYING);
 		}
+		if (RegexUtil.isNull(openAccountAction.getOtherserial())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY);
+		}
+	
 		/*
 		 * 进行XML接口 银行快捷验证
 		 */
-		BankVeriRequest bankVeriRequest =  CustConvert.convertBankVeriRequest(openAccountAction);
-		BankVeriResponse bankVeriResponse = null;
-		if(!Constant.TEST){
-			bankVeriResponse = hftCustService.bankVeri(bankVeriRequest);	
-		}else{
-			/*
-			 * 模拟器
-			 */
-			bankVeriResponse = new BankVeriResponse();
-			bankVeriResponse.setReturnCode("0000");
-		}
-		/*
+		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		MerchantFund merchantFund = MerchantCommon.getMerchant(openAccountAction.getMerchant());
+		OpenAccount openAccount = merchantFund.bankVeri(openAccountAction);
+		
+		/*说
 		 * 返回码转换
 		 */
-		Dictionary dictionary =  DictManager.getDict("DICTIONARY$HTFERROR", bankVeriResponse.getReturnCode());
-		if(!"0000".equals(dictionary.getPmv1())){
-			throw new BizException(processId,dictionary.getPmv1());
+		if(!"0000".equals(openAccount.getReturncode())){
+			throw new BizException(processId,openAccount.getReturncode());
 		}
-		if(bankVeriResponse.getValidateState()==null||!"1".equals(bankVeriResponse.getValidateState())){
-			throw new BizException(processId,dictionary.getPmv1());
-		}
+		return openAccountAction;
 	}
 	
 	
 	public void openAccount4(OpenAccountAction openAccountAction) throws BizException {
-		//String processId = 
-		this.getProcessId(openAccountAction);
+		String processId =  this.getProcessId(openAccountAction);
 		this.validatorOpenAccount1(openAccountAction);
 		custManagerValidator.validator(openAccountAction);
 		/*
 		 * 进行XML接口 开户
 		 */
+		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		MerchantFund merchantFund = MerchantCommon.getMerchant(openAccountAction.getMerchant());
+		OpenAccount openAccount = merchantFund.openAccount(openAccountAction);
+		/*说
+		 * 返回码转换
+		 */
+		if(!"0000".equals(openAccount.getReturncode())){
+			throw new BizException(processId,openAccount.getReturncode());
+		}
+		
+		//TransactionAccountID
 		Custinfo custinfo = CustConvert.convertOpenAccountAction(openAccountAction);
 		custinfoMapper.updateCustinfo(custinfo);
 		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//CustConvert.convertFdacfinalresult(custinfo);
-		String seq = tradeNotesMapper.getFdacfinalresultSeq();
+		String seq = openAccountAction.getSerialno();
 		
 		Bankcardinfo bankcardinfodef = null;
 		List<Bankcardinfo> bankList = bnankMapper.getBankcardinfo(custinfo.getCustno());
@@ -321,9 +322,9 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		}		
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
 		tradeaccoinfo.setCustno(openAccountAction.getCustno());// char(10) not null comment '客户编号',
-		tradeaccoinfo.setFundcorpno("hft");// char(2) not null default '' comment '交易账号类型：归属基金公司',
+		tradeaccoinfo.setFundcorpno(openAccountAction.getMerchant().Value());// char(2) not null default '' comment '交易账号类型：归属基金公司',
 		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
-		tradeaccoinfo.setTradeacco("hftAcco");// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
+		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionAccountID());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
 		bnankMapper.insterTradeaccoinfo(tradeaccoinfo);
 		/*
 		 * 插入流水表
@@ -331,7 +332,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		fdacfinalresult.setCustno(custinfo.getCustno());
 		DateInfo dateInfo = tradeNotesMapper.getDateInfo();
 		fdacfinalresult.setBankserialid(bankcardinfodef.getSerialid());
-		fdacfinalresult.setTradeaccoid("hftAcco");
+		fdacfinalresult.setTradeaccoid(openAccountAction.getTransactionAccountID());
 		fdacfinalresult.setWorkdate(dateInfo.getWorkdate());
 		fdacfinalresult.setApdt(dateInfo.getApdt());
 		fdacfinalresult.setAptm(dateInfo.getAptm());

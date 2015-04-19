@@ -17,4 +17,6 @@ public interface TradeNotesMapper extends BaseDao {
 	
 	public DateInfo getDateInfo();
 	
+	
+	public String getAccoreqSerialSeq();
 }

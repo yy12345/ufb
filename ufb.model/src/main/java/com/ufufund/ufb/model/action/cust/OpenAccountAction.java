@@ -1,6 +1,7 @@
 package com.ufufund.ufb.model.action.cust;
 
 import com.ufufund.ufb.model.action.CommonAction;
+import com.ufufund.ufb.model.enums.Merchant;
 
 
 public class OpenAccountAction   extends CommonAction {
@@ -27,13 +28,35 @@ public class OpenAccountAction   extends CommonAction {
 	private String bankidtp; //UFB'银行证件类型',  默认身份证
 	private String bankidno; //UFB '银行证件号码', 默认idno
 	private String bankacco; //银行卡号
-	private String bankmobile; //银行卡号
+	private String bankmobile; //
 	
 	private String mobileAutoCode; //手机验证码
+	
+	//private String custst;
+	private Merchant merchant = Merchant.HFT_FUND;//默认开户机构 海富通
 	/*
 	 * 不用填写
 	 */
-	private String custst;
+	
+	private String otherserial;
+	private String protocolno;
+	private String serialno;//varchar(24) not null comment '流水号'
+	private String accoreqSerial;
+	private String transactionAccountID;
+	
+	public String getOtherserial() {
+		return otherserial;
+	}
+	public void setOtherserial(String otherserial) {
+		this.otherserial = otherserial;
+	}
+	public String getProtocolno() {
+		return protocolno;
+	}
+	public void setProtocolno(String protocolno) {
+		this.protocolno = protocolno;
+	}
+	
 	
 	
 	public String getCustno() {
@@ -102,12 +125,12 @@ public class OpenAccountAction   extends CommonAction {
 	public void setBankmobile(String bankmobile) {
 		this.bankmobile = bankmobile;
 	}
-	public String getCustst() {
-		return custst;
-	}
-	public void setCustst(String custst) {
-		this.custst = custst;
-	}
+//	public String getCustst() {
+//		return custst;
+//	}
+//	public void setCustst(String custst) {
+//		this.custst = custst;
+//	}
 	
 	
 	public String getMobileAutoCode() {
@@ -115,6 +138,30 @@ public class OpenAccountAction   extends CommonAction {
 	}
 	public void setMobileAutoCode(String mobileAutoCode) {
 		this.mobileAutoCode = mobileAutoCode;
+	}
+	public Merchant getMerchant() {
+		return merchant;
+	}
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+	public String getSerialno() {
+		return serialno;
+	}
+	public void setSerialno(String serialno) {
+		this.serialno = serialno;
+	}
+	public String getAccoreqSerial() {
+		return accoreqSerial;
+	}
+	public void setAccoreqSerial(String accoreqSerial) {
+		this.accoreqSerial = accoreqSerial;
+	}
+	public String getTransactionAccountID() {
+		return transactionAccountID;
+	}
+	public void setTransactionAccountID(String transactionAccountID) {
+		this.transactionAccountID = transactionAccountID;
 	}
 	
 	

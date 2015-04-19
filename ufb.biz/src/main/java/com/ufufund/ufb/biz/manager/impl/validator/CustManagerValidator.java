@@ -33,6 +33,7 @@ public class CustManagerValidator extends ValidatorCommon {
 	private final static String TRADEPWD = "交易密码";
 	private final static String MOBILE = "手机号";
 	private final static String IDCARDNO = "身份证";
+	private final static String MERCHANT = "开户机构";
 
 	public void validator(LoginAction action) throws BizException {
 		String processId = action.getProcessId();
@@ -127,6 +128,9 @@ public class CustManagerValidator extends ValidatorCommon {
 		}
 		if (!RegexUtil.isIdCardNo(action.getIdno())) {
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, IDCARDNO);
+		}
+		if (action.getMerchant()==null||RegexUtil.isNull(action.getMerchant().Value())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, MERCHANT);
 		}
 	}
 

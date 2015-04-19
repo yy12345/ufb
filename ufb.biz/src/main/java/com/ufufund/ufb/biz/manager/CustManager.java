@@ -61,9 +61,9 @@ public interface CustManager extends CustInterface{
 	 * @param OpenAccountAction
 	 * @return 
 	 */
-	public void openAccount1(OpenAccountAction openAccountAction) throws BizException;
-	public void openAccount2(OpenAccountAction openAccountAction) throws BizException;
-	public void openAccount3(OpenAccountAction openAccountAction) throws BizException;
+	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction) throws BizException;
+	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException;
+	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException;
 	public void openAccount4(OpenAccountAction openAccountAction) throws BizException;
 //	
 //	

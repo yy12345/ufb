@@ -8,8 +8,12 @@ public interface Constant {
 	
 	public final static String CACHE$DICTIONARY = "DICTIONARY";
 	public final static String DICTIONARY$ERROR = "ERROR";
-	public final static boolean TEST = true;
-	
+//	public final static boolean TEST = true;
+	public final static String DICTIONARY$SYS = "SYS";
+	public final static String TEST = "TEST";
+	public final static String DICTIONARY$HTFERROR = "HFTERROR";
+	public final static String DICTIONARY$HFTBANKNO = "HFTBANKNO";
+	public final static String DICTIONARY$HFTIDTP = "HFTIDTP ";
 	
 	public static final String RES_CODE_SUCCESS = "0000";
 	public static final String RES_CODE_FAIL = "9999";
