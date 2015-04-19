@@ -38,10 +38,10 @@ public class OpenAccountAction   extends CommonAction {
 	 * 不用填写
 	 */
 	
-	private String otherserial;
-	private String protocolno;
+	private String otherserial;//对方序列号
+	private String protocolno;//银行协议编号
 	private String serialno;//varchar(24) not null comment '流水号'
-	private String accoreqSerial;
+	private String accoreqSerial;//请求序列号
 	private String transactionAccountID;
 	
 	public String getOtherserial() {

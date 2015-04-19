@@ -126,6 +126,9 @@
 			<if test="tradepwd != null">
 	       	  ,T1.TRADEPWD = #{tradepwd,jdbcType=VARCHAR}
 	       	</if>
+	       	<if test="openaccount != null">
+	       	  ,T1.OPENACCOUNT = #{openaccount,jdbcType=VARCHAR}
+	       	</if>
 	     WHERE T1.custno = #{custno,jdbcType=VARCHAR}
 	</update>
    

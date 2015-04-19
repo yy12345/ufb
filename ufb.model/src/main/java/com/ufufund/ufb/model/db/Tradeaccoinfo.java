@@ -1,6 +1,10 @@
 package com.ufufund.ufb.model.db;
 
-public class Tradeaccoinfo {
+import java.io.Serializable;
+
+import com.ufufund.ufb.model.action.PrintableModel;
+
+public class Tradeaccoinfo extends PrintableModel  implements Serializable {
 	 
 	//private String tradeaccoid;// varchar(24) not null comment '交易账号编号(本地生成的)',
 	 private String custno;// char(10) not null comment '客户编号',

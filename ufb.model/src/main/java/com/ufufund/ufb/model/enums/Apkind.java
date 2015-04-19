@@ -8,6 +8,10 @@ public enum Apkind {
 	CHANGE_PASSWORD("013"),//修改密码
 	OPEN_ACCOUNT("014"),//开户 
 	
+	
+	SWIFTAUTH("901"),	// 银行快捷鉴权
+	SWIFTVERIFY("902"),	// 银行快捷验证
+	
 	/** 交易类  **/
 	SUBAPPLY("021"),    // 认购
 	BUYAPPLY("022"),   	// 申购

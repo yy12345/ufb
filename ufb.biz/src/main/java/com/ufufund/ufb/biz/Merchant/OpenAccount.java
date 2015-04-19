@@ -2,8 +2,8 @@ package com.ufufund.ufb.biz.Merchant;
 
 public class OpenAccount extends BaseResponse {
 
-	private String otherserial;
-	private String protocolno;
+	private String otherserial;//对方序列号
+	private String protocolno;//银行协议编号
 	private String transactionAccountID;
 	
 	public String getOtherserial() {

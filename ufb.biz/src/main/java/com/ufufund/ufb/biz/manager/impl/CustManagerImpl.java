@@ -33,12 +33,6 @@ import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
 
-import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
-import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
-import com.ufufund.ufb.model.remote.hft.BankVeriRequest;
-import com.ufufund.ufb.model.remote.hft.BankVeriResponse;
-import com.ufufund.ufb.remote.HftCustService;
-
 
 @Service
 public class CustManagerImpl extends ImplCommon implements CustManager {
@@ -295,7 +289,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		if(!"0000".equals(openAccount.getReturncode())){
 			throw new BizException(processId,openAccount.getReturncode());
 		}
-		
+		openAccountAction.setTransactionAccountID(openAccount.getTransactionAccountID());
 		//TransactionAccountID
 		Custinfo custinfo = CustConvert.convertOpenAccountAction(openAccountAction);
 		custinfoMapper.updateCustinfo(custinfo);
@@ -303,7 +297,9 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		String seq = openAccountAction.getSerialno();
 		
 		Bankcardinfo bankcardinfodef = null;
-		List<Bankcardinfo> bankList = bnankMapper.getBankcardinfo(custinfo.getCustno());
+		Bankcardinfo bankcardinfoqey = new Bankcardinfo();
+		bankcardinfoqey.setCustno(custinfo.getCustno());
+		List<Bankcardinfo> bankList = bnankMapper.getBankcardinfo(bankcardinfoqey);
 		for(Bankcardinfo bankcardinfo : bankList){
 			if(bankcardinfo.getBankno()!=null && bankcardinfo.getBankno().equals(openAccountAction.getBankno())){
 				bankcardinfodef = bankcardinfo;
@@ -363,6 +359,9 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 * 
 	 */
 	private void validatorOpenAccount1(OpenAccountAction openAccountAction) {
+		if(openAccountAction.getCustno()==null||"".equals(openAccountAction.getCustno())){
+			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.NO_IDCARDNO);
+		}
 		Custinfo custinfo = this.getCustinfo(openAccountAction.getCustno());		
 		if(custinfo==null){
 			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.NO_IDCARDNO);

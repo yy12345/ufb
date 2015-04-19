@@ -12,7 +12,7 @@ public interface BankMapper extends BaseDao {
 	
 	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo);
 	
-	public List<Bankcardinfo> getBankcardinfo(String custno);
+	public List<Bankcardinfo> getBankcardinfo(Bankcardinfo bankcardinfo);
 	
 	public String  getBankcardinfoSequence();
 }

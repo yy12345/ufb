@@ -67,5 +67,10 @@
 			 ]]>
   	</select>
   	
+  	<select id="getAccoreqSerialSeq" parameterType="java.lang.String"  resultType="java.lang.String">
+	<![CDATA[	select getSequenceBylen('ACCOREQSERIAL_SEQ',20) 
+	]]>
+	</select>
+  	
   	
 </mapper>

@@ -11,6 +11,7 @@ import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.enums.Level;
 
@@ -42,7 +43,7 @@ public class CustManagerTest {
 	 * 
 	 * 测试个人注册
 	 */
-	@Test
+	//@Test
 	public void testregister(){
 		RegisterAction loginAction = new RegisterAction();
 		loginAction.setLoginCode("13611686341");
@@ -90,6 +91,36 @@ public class CustManagerTest {
 		loginAction.setLoginPassword("123257");
 		//areaManager.loginIn(loginAction);
 	}
+	
+	
+	
+	/*
+	 *开户测试
+	 */
+	@Test
+	public void testOpenAccountAction() {
+		
+		OpenAccountAction openAccountAction = new OpenAccountAction();
+		openAccountAction.setCustno("CU2015040611112600000001");
+		openAccountAction.setIdno("430726198602261338");
+		openAccountAction.setInvnm("测试");
+		openAccountAction.setTradepwd("1234567");
+		openAccountAction.setTradepwd2("1234567");
+		openAccountAction = areaManager.openAccount1(openAccountAction);
+		openAccountAction.setBankno("002");
+		openAccountAction.setBankacnm("尼玛");
+		openAccountAction.setBankidtp("0");
+		openAccountAction.setBankidno("123456789");
+		openAccountAction.setBankacco("1234567890");
+		openAccountAction.setBankmobile("13611686341");
+		openAccountAction = areaManager.openAccount2(openAccountAction);
+		openAccountAction.setMobileAutoCode("12345678");	
+		openAccountAction = areaManager.openAccount3(openAccountAction);
+		areaManager.openAccount4(openAccountAction);
+		//areaManager.loginIn(loginAction);
+	}
+	
+	
 	
 	
 //	//@Test

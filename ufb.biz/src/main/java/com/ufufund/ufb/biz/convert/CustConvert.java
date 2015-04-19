@@ -40,6 +40,7 @@ public class CustConvert {
 		custinfo.setTradepwd(openAccountAction.getTradepwd());
 		custinfo.setInvtp(Invtp.PERSONAL.getValue());
 		custinfo.setIdtp(Constant.IDTP$0);
+		custinfo.setOpenaccount("Y");
 		return custinfo;
 	}
 	

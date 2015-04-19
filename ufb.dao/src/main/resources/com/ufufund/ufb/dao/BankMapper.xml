@@ -4,25 +4,8 @@
 
 <mapper namespace="com.ufufund.ufb.dao.BankMapper">
 
-	<!-- <select id="isId1"  parameterType="com.ufufund.ufb.model.db.Custinfo"  resultType="int">
-  		select count(1)
-		  from custinfo      t1,
-			   bankcardinfo  t2,
-			   tradeaccoinfo t3
-  		where t1.custno = t2.custno
-		  and t2.serialid = t3.bankserialid
-		  and t1.custst = 'N'
-		  and t2.status = 'N'
-		  and t3.tradeaccost = 'N'
-		  <if test="invnm != null and invnm !=''" >and t1.invnm = #{invnm}</if>
-		  <if test="idtp != null and idtp !=''" >and t1.idtp = #{idtp}</if>
-	      <if test="idno != null and idno !=''" >and t1.idno = #{idno}</if>
-	      <if test="bankno != null and bankno !=''" >and t1.bankno = #{bankno}</if>
-	      <if test="bankacco != null and bankacco !=''" >and t1.bankacco = #{bankacco}</if>
-		  <if test="fundcorpno != null and fundcorpno !=''" >and t1.fundcorpno = #{fundcorpno}</if>
-  	</select>
- -->
-    
+
+
 	<insert id="insterBankcardinfo" parameterType="com.ufufund.ufb.model.db.Bankcardinfo">
   	 <![CDATA[
 	 	insert into bankcardinfo (
@@ -66,60 +49,77 @@
                     #{opendt,jdbcType=VARCHAR},
 					#{closedt,jdbcType=VARCHAR},
 					#{disorder,jdbcType=VARCHAR},
-					systimestamp
+					sysdate()
 	    )
 	 ]]>
-  	</insert>
+	</insert>
 
 	<insert id="insterTradeaccoinfo" parameterType="com.ufufund.ufb.model.db.Tradeaccoinfo">
   	 <![CDATA[
-	 	insert into bankcardinfo (
-									serialid,
-									custno,
-									bankno,
-									bankacco,
-									bankaccodisplay,
-									bankidtp,
-									bankidno,
-									bankidvaliddt,
-									bankacnm,
-									subbankno,
-									banklongname,
-									issign,
-									signno,
-									bankproexists,
-									protocol_no,
-									state,
-									opendt,
-									closedt,
-									disorder,
-									updatetimestamp)
+	 	insert into tradeaccoinfo (
+			  CUSTNO,
+			  FUNDCORPNO,
+			  BANKSERIALID,
+			  TRADEACCO,
+			  TRADEACCOST,
+			  OPENDT,
+			  CLOSEDT,
+			  UPDATETIME				
+		)
 		values (
-					#{serialid,jdbcType=VARCHAR},
+					
 					#{custno,jdbcType=VARCHAR},
-					#{bankno,jdbcType=VARCHAR},
-					#{bankacco,jdbcType=VARCHAR},
-					#{bankaccodisplay,jdbcType=VARCHAR},
-					#{bankidtp,jdbcType=VARCHAR},
-					#{bankidno,jdbcType=VARCHAR},
-					#{bankidvaliddt,jdbcType=VARCHAR},
-					#{bankacnm,jdbcType=VARCHAR},
-					#{subbankno,jdbcType=VARCHAR},
-                    #{banklongname,jdbcType=VARCHAR},
-					#{issign,jdbcType=VARCHAR},
-					#{signno,jdbcType=VARCHAR},
-					#{bankproexists,jdbcType=VARCHAR},
-					#{protocol_no,jdbcType=VARCHAR},
-	                #{state,jdbcType=VARCHAR},
-                    #{opendt,jdbcType=VARCHAR},
+					#{fundcorpno,jdbcType=VARCHAR},
+					#{bankserialid,jdbcType=VARCHAR},
+					#{tradeacco,jdbcType=VARCHAR},
+					#{tradeaccost,jdbcType=VARCHAR},
+					#{opendt,jdbcType=VARCHAR},
 					#{closedt,jdbcType=VARCHAR},
-					#{disorder,jdbcType=VARCHAR},
-					systimestamp
+					sysdate()
 	    )
 	 ]]>
-  	</insert>
+	</insert>
 
-  	
-  	
-  	
+
+	<select id="getBankcardinfo" parameterType="com.ufufund.ufb.model.db.Bankcardinfo"
+		resultType="com.ufufund.ufb.model.db.Bankcardinfo">
+
+		SELECT
+		bankcardinfo.SERIALID,
+		bankcardinfo.CUSTNO,
+		bankcardinfo.FUNDCORPNO,
+		bankcardinfo.BANKNO,
+		bankcardinfo.BANKACCO,
+		bankcardinfo.BANKACCODISPLAY,
+		bankcardinfo.BANKIDTP,
+		bankcardinfo.BANKIDNO,
+		bankcardinfo.BANKIDVALIDDT,
+		bankcardinfo.BANKACNM,
+		bankcardinfo.BANKMOBILE,
+		bankcardinfo.SUBBANKNO,
+		bankcardinfo.BANKLONGNAME,
+		bankcardinfo.ISSIGN,
+		bankcardinfo.SIGNNO,
+		bankcardinfo.BANKPROEXISTS,
+		bankcardinfo.PROTOCOL_NO,
+		bankcardinfo.STATE,
+		bankcardinfo.OPENDT,
+		bankcardinfo.CLOSEDT,
+		bankcardinfo.DISORDER
+		FROM
+		bankcardinfo
+		WHERE
+		<if test="custno != null and custno !=''">
+			bankcardinfo.CUSTNO = #{custno,jdbcType=VARCHAR} AND
+		</if>
+		bankcardinfo.STATE &lt;&gt; 'N'
+	</select>
+
+	<select id="getBankcardinfoSequence" parameterType="java.lang.String"
+		resultType="java.lang.String">
+	<![CDATA[
+		select getSequence('BANKCARDINFO_SEQ')
+	]]>
+	</select>
+
 </mapper>

@@ -8,6 +8,7 @@ import com.ufufund.ufb.biz.manager.DictManager;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.Dictionary;
+import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
 import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
 import com.ufufund.ufb.model.remote.hft.BankVeriRequest;
@@ -34,6 +35,9 @@ public class HtfFund extends MerchantFund {
 			 */
 			bankAuthResponse = new BankAuthResponse();
 			bankAuthResponse.setReturnCode("0000");
+			bankAuthResponse.setOtherSerial("OtherSerial1");
+			bankAuthResponse.setProtocolNo("ProtocolNo1");
+			bankAuthResponse.setReturnMsg("ReturnMsg");
 		}
 		OpenAccount openAccount = new OpenAccount();
 		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HTFERROR, bankAuthResponse.getReturnCode());
@@ -62,6 +66,7 @@ public class HtfFund extends MerchantFund {
 			 */
 			bankVeriResponse = new BankVeriResponse();
 			bankVeriResponse.setReturnCode("0000");
+			bankVeriResponse.setValidateState("1");
 		}
 		OpenAccount openAccount = new OpenAccount();
 		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HTFERROR, bankVeriResponse.getReturnCode());
@@ -93,6 +98,7 @@ public class HtfFund extends MerchantFund {
 			 */
 			openAccountResponse = new OpenAccountResponse();
 			openAccountResponse.setReturnCode("0000");
+			openAccountResponse.setTransactionAccountID("AccountID");
 		}
 		OpenAccount openAccount = new OpenAccount();
 		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HTFERROR, openAccountResponse.getReturnCode());
@@ -119,7 +125,8 @@ public class HtfFund extends MerchantFund {
 		req.setVersion("");//版本号 
 		req.setMerchantId("");//机构标识  
 		req.setDistributorCode("");// 销售人代码	
-		req.setBusinType("bankSwiftAuth");//业务类型  
+		Dictionary dictionary3 =  DictManager.getDict(Constant.DICTIONARY$HFTAPKIND, Apkind.SWIFTAUTH.getValue());
+		req.setBusinType(dictionary3.getPmnm());//业务类型  
 		req.setApplicationNo(openAccountAction.getSerialno());//合作平台申请单编号
 		req.setExtension(null);
 		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HFTBANKNO, openAccountAction.getBankno());
@@ -154,7 +161,8 @@ public class HtfFund extends MerchantFund {
 		req.setVersion("");//版本号 
 		req.setMerchantId("");//机构标识  
 		req.setDistributorCode("");// 销售人代码	
-		req.setBusinType("bankSwiftAuth");//业务类型  
+		Dictionary dictionary3 =  DictManager.getDict(Constant.DICTIONARY$HFTAPKIND, Apkind.SWIFTVERIFY.getValue());
+		req.setBusinType(dictionary3.getPmnm());//业务类型  
 		req.setApplicationNo(openAccountAction.getSerialno());//合作平台申请单编号
 		req.setExtension(null);
 		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HFTBANKNO, openAccountAction.getBankno());
@@ -185,7 +193,8 @@ public class HtfFund extends MerchantFund {
 		req.setVersion("");//版本号 
 		req.setMerchantId("");//机构标识  
 		req.setDistributorCode("");// 销售人代码	
-		req.setBusinType("bankSwiftAuth");//业务类型  
+		Dictionary dictionary3 =  DictManager.getDict(Constant.DICTIONARY$HFTAPKIND, Apkind.OPEN_ACCOUNT.getValue());
+		req.setBusinType(dictionary3.getPmnm());//业务类型  
 		req.setApplicationNo(openAccountAction.getSerialno());//合作平台申请单编号
 		req.setExtension(null);
 		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HFTBANKNO, openAccountAction.getBankno());

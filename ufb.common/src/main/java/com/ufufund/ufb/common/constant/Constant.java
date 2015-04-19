@@ -13,7 +13,9 @@ public interface Constant {
 	public final static String TEST = "TEST";
 	public final static String DICTIONARY$HTFERROR = "HFTERROR";
 	public final static String DICTIONARY$HFTBANKNO = "HFTBANKNO";
-	public final static String DICTIONARY$HFTIDTP = "HFTIDTP ";
+	public final static String DICTIONARY$HFTIDTP = "HFTIDTP";
+	public final static String DICTIONARY$HFTAPKIND = "HFTAPKIND";
+	
 	
 	public static final String RES_CODE_SUCCESS = "0000";
 	public static final String RES_CODE_FAIL = "9999";
