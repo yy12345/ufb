@@ -98,7 +98,9 @@ public class HftBaseService {
 				Field[] fields = obj.getClass().getDeclaredFields();
 				for(Field f : fields){
 					f.setAccessible(true);
-					map.put(f.getName(), f.get(obj)== null?"":f.get(obj).toString());
+					if(!"assets".equals(f.getName())){
+						map.put(f.getName(), f.get(obj)== null?"":f.get(obj).toString());
+					}
 				}
 			}
 		} catch (IllegalArgumentException e) {
