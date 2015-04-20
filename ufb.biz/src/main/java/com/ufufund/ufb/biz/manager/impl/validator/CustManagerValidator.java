@@ -114,20 +114,20 @@ public class CustManagerValidator extends ValidatorCommon {
 		if (RegexUtil.isNull(action.getIdno())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, IDNO);
 		}
+		if (!RegexUtil.isIdCardNo(action.getIdno())) {
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, IDCARDNO);
+		}
 		if (RegexUtil.isNull(action.getTradepwd())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, TRADEPWD);
+		}
+		if (!RegexUtil.isPwd(action.getTradepwd())) {
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, TRADEPWD);
 		}
 		if (RegexUtil.isNull(action.getTradepwd2())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, LOGINPASSWORD2);
 		}
 		if (!action.getTradepwd().equals(action.getTradepwd2())) {
-			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD);
-		}
-		if (!RegexUtil.isPwd(action.getTradepwd())) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,TRADEPWD);
-		}
-		if (!RegexUtil.isIdCardNo(action.getIdno())) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, IDCARDNO);
+			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, TRADEPWD);
 		}
 		if (action.getMerchant()==null||RegexUtil.isNull(action.getMerchant().Value())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, MERCHANT);

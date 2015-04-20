@@ -370,19 +370,19 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 */
 	private void validatorOpenAccount1(OpenAccountAction openAccountAction) {
 		if(openAccountAction.getCustno()==null||"".equals(openAccountAction.getCustno())){
-			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.NO_IDCARDNO);
+			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.NO_IDCARDNO, "用户id");
 		}
 		Custinfo custinfo = this.getCustinfo(openAccountAction.getCustno());		
 		if(custinfo==null){
-			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.NO_IDCARDNO);
+			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.NO_IDCARDNO, "用户id");
 		}
 		if(Constant.CUSTST$P.equals(custinfo.getCustst())){
-			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.FREEZE_USER);
+			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.FREEZE_USER, "用户id");
 		}
 		custManagerValidator.validatorOpenAccount1(openAccountAction);
 		if(!Constant.OPENACCOUNT$Y.equals(custinfo.getCustst())){
 			if (this.isIdCardNoRegister(openAccountAction.getIdno())) {
-				throw new BizException(openAccountAction.getProcessId(), ErrorInfo.ALREADY_REGISTER);
+				throw new BizException(openAccountAction.getProcessId(), ErrorInfo.ALREADY_REGISTER, "用户id");
 			}
 		}
 	}

@@ -79,7 +79,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">经办人姓名</span>
-                                <input id="mobileno" name="mobileno" class="input-text" type="text" value="$!{BankCardVo.bankAcnm}">
+                                <input id="bankAcnm" name="bankAcnm" class="input-text" type="text" value="$!{BankCardVo.bankAcnm}">
                                 <span class="tips-normal">请填写真实姓名</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcnm}</span>
                             </li>
@@ -89,7 +89,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">身份证号</span>
-                                <input id="mobileno" name="mobileno" class="input-text" type="text" value="$!{BankCardVo.bankIdno}">
+                                <input id="bankIdno" name="bankIdno" class="input-text" type="text" value="$!{BankCardVo.bankIdno}">
                                 <span class="tips-normal">请填写身份证号</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankIdno}</span>
                             </li>
@@ -99,7 +99,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">交易密码</span>
-                                <input id="mobileno" name="mobileno" class="input-text" type="text" value="$!{BankCardVo.tradePwd}">
+                                <input id="tradePwd" name="tradePwd" class="input-text" type="text" value="$!{BankCardVo.tradePwd}">
                                 <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_tradePwd}</span>
                             </li>
@@ -109,7 +109,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">交易密码确认</span>
-                                <input id="mobileno" name="mobileno" class="input-text" type="text" value="$!{BankCardVo.tradePwd2}">
+                                <input id="tradePwd2" name="tradePwd2" class="input-text" type="text" value="$!{BankCardVo.tradePwd2}">
                                 <span class="tips-normal">请再次输入密码</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_tradePwd2}</span>
                             </li>

@@ -348,8 +348,19 @@ public class CustController {
 	public String addBankCard1(BankCardVo bankCardVo, Model model){
 		
 		try{
-			//营业执照
+			
 			//幼教机构
+			if(StringUtils.isBlank(bankCardVo.getOrganization())){
+				throw new BizException(ThreadLocalUtil.getProccessId(),
+						ErrorInfo.NECESSARY_EMPTY, "机构名称");
+			}
+			
+			//营业执照
+			if(StringUtils.isBlank(bankCardVo.getBusiness())){
+				throw new BizException(ThreadLocalUtil.getProccessId(),
+						ErrorInfo.NECESSARY_EMPTY, "营业执照");
+			}
+			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setCustno(bankCardVo.getCustNo());
 			openAccountAction.setInvnm(bankCardVo.getBankAcnm());
@@ -362,6 +373,32 @@ public class CustController {
 			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
+			
+			if("用户id".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg", e.getMessage());
+			}else
+			if("用户姓名".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_bankAcnm", e.getMessage());
+			}else
+			if("证件号码".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_bankIdno", e.getMessage());
+			}else
+			if("交易密码".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_tradePwd", e.getMessage());
+			}else
+			if("确认密码".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_tradePwd2", e.getMessage());
+			}else
+			if("身份证".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_bankIdno", e.getMessage());
+			}else
+			if("开户机构".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_organization", e.getMessage());
+			}else
+			if("营业执照".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_business", e.getMessage());
+			}
+			
 			model.addAttribute("errMsg", e.getMessage());
 			model.addAttribute("BankCardVo", bankCardVo);
 			return "bankcard/addBankCard";
