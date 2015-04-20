@@ -112,6 +112,25 @@ public class BankCardVo implements Serializable {
 	 * 短信验证码
 	 */
 	private String msgcode;
+	
+	private String organization;// 幼教机构名称
+	private String business; // 营业执照注册号
+	
+	public String getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+
+	public String getBusiness() {
+		return business;
+	}
+
+	public void setBusiness(String business) {
+		this.business = business;
+	}
 
 	public String getBankSerialId() {
 		return bankSerialId;

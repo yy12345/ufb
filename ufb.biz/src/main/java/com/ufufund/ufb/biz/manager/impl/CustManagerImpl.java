@@ -49,10 +49,12 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	@Autowired
 	private BankMapper bnankMapper;
 
-	@Autowired
-	private TradeNotesMapper tradeNotesMapper;
+//	@Autowired
+//	private TradeNotesMapper tradeNotesMapper;
+	
 	@Autowired
 	private WorkDayManager workDayManager;
+	
 //	@Autowired
 //	private HftCustService hftCustService;
 	/**
@@ -229,8 +231,9 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		/*
 		 * 进行XML接口	银行快捷鉴权
 		 */
-		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
-		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		//TODO GR
+//		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
+//		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
 		MerchantFund merchantFund = MerchantCommon.getMerchant(openAccountAction.getMerchant());
 		OpenAccount openAccount = merchantFund.bankAuth(openAccountAction);
 		/*
@@ -261,7 +264,8 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		/*
 		 * 进行XML接口 银行快捷验证
 		 */
-		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		//TODO GR
+//		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
 		MerchantFund merchantFund = MerchantCommon.getMerchant(openAccountAction.getMerchant());
 		OpenAccount openAccount = merchantFund.bankVeri(openAccountAction);
 		
@@ -282,7 +286,8 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		/*
 		 * 进行XML接口 开户
 		 */
-		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		//TODO GR
+//		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
 		MerchantFund merchantFund = MerchantCommon.getMerchant(openAccountAction.getMerchant());
 		OpenAccount openAccount = merchantFund.openAccount(openAccountAction);
 		/*说
@@ -316,7 +321,9 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			Changerecordinfo changerecordinfo1 = BankConvert.convertBankcardinfo(bankcardinfodef);
 			changerecordinfo1.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 			changerecordinfo1.setRefserialno(seq);
-			tradeNotesMapper.insterChangerecordinfo(changerecordinfo1);
+			
+			//TODO GR
+//			tradeNotesMapper.insterChangerecordinfo(changerecordinfo1);
 		}		
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
 		tradeaccoinfo.setCustno(openAccountAction.getCustno());// char(10) not null comment '客户编号',
@@ -347,9 +354,10 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		Changerecordinfo changerecordinfo2 = BankConvert.convertTradeaccoinfo(tradeaccoinfo);
 		changerecordinfo2.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 		changerecordinfo2.setRefserialno(seq);
-		tradeNotesMapper.insterChangerecordinfo(changerecordinfo);	
-		tradeNotesMapper.insterChangerecordinfo(changerecordinfo2);
-		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+		//TODO GR
+//		tradeNotesMapper.insterChangerecordinfo(changerecordinfo);	
+//		tradeNotesMapper.insterChangerecordinfo(changerecordinfo2);
+//		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		
 	}
 	
@@ -402,14 +410,16 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		/*
 		 * 插入流水表
 		 */
-		String seq = tradeNotesMapper.getFdacfinalresultSeq();
+		//TODO GR
+//		String seq = tradeNotesMapper.getFdacfinalresultSeq();
 		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
 		fdacfinalresult.setCustno(custinfo.getCustno());
 		Today today = workDayManager.getSysDayInfo();
 		fdacfinalresult.setWorkdate(today.getWorkday());
 		fdacfinalresult.setApdt(today.getDate());
 		fdacfinalresult.setAptm(today.getTime());
-		fdacfinalresult.setSerialno(seq);
+		//TODO GR
+//		fdacfinalresult.setSerialno(seq);
 		fdacfinalresult.setApkind(apkind);
 		/*
 		 * 
@@ -420,9 +430,10 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		changerecordinfo.setRecordafter(custinfo.toString());
 		changerecordinfo.setTablename(TableName.CUSTINFO.value());
 		changerecordinfo.setApkind(apkind);
-		changerecordinfo.setRefserialno(seq);
-		tradeNotesMapper.insterChangerecordinfo(changerecordinfo);
-		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+		//TODO GR
+//		changerecordinfo.setRefserialno(seq);
+//		tradeNotesMapper.insterChangerecordinfo(changerecordinfo);
+//		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		
 	}
 

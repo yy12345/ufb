@@ -4,6 +4,8 @@
 
 <mapper namespace="com.ufufund.ufb.dao.TradeNotesMapper">
 
+<!-- 
+
 	<insert id="insterChangerecordinfo" parameterType="com.ufufund.ufb.model.db.Changerecordinfo">
   	 <![CDATA[
 	 	insert into CHANGERECORDINFO (
@@ -72,5 +74,5 @@
 	]]>
 	</select>
   	
-  	
+  	 -->
 </mapper>

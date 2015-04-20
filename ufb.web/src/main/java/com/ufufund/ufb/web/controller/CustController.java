@@ -1,9 +1,5 @@
 package com.ufufund.ufb.web.controller;
 
-import java.sql.SQLException;
-
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,17 +33,6 @@ public class CustController {
 	
 	@Autowired
 	private CustManager custManager;
-	
-//	@RequestMapping(value="cust/login" , method=RequestMethod.GET)
-//	public String getLogin(CustinfoVo custinfoVo, Model model){
-//		if(null == custinfoVo.getInvtp()){
-//			custinfoVo.setInvtp("0");
-//		}
-//		
-//		model.addAttribute("CustinfoVo", custinfoVo);
-//		return "cust/index";
-//	}
-	
 	
 	@RequestMapping(value="cust/register" , method=RequestMethod.GET)
 	public String getPage(CustinfoVo custinfoVo, Model model){
@@ -156,7 +141,6 @@ public class CustController {
 			}
 			
 			model.addAttribute("errMsg", e.getMessage());
-			model.addAttribute("returnUrl", "../test/index.htm");
 			model.addAttribute("CustinfoVo", custinfoVo);
 			return "cust/register";
 		}
@@ -224,7 +208,6 @@ public class CustController {
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
-			model.addAttribute("returnUrl", "../test/index.htm");
 			return "error/error";
 		}
 
@@ -333,10 +316,25 @@ public class CustController {
 	 * @return
 	 */
 	@RequestMapping(value="bankcard/addBankCardPage")
-	public String addBankCardPage(BankCardVo bankCardVo, Model model){
+	public String addBankCardPage(Model model){
 		
-		CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
-
+		try{
+			BankCardVo bankCardVo = new BankCardVo();
+			
+			CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
+			if(null != s_custinfo){
+				bankCardVo.setOrganization(s_custinfo.getOrganization());
+				bankCardVo.setBusiness(s_custinfo.getBusiness());
+				bankCardVo.setCustNo(s_custinfo.getCustno());
+			}
+			
+			model.addAttribute("BankCardVo", bankCardVo);
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			return "cust/index";
+		}
+		
 		return "bankcard/addBankCard";
 	}
 	
@@ -357,7 +355,6 @@ public class CustController {
 			openAccountAction.setInvnm(bankCardVo.getBankAcnm());
 			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
 			openAccountAction.setBankidno(bankCardVo.getBankIdno());
-			//TODO 重复
 			openAccountAction.setIdno(bankCardVo.getBankIdno());
 			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
 			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
@@ -366,8 +363,8 @@ public class CustController {
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
-			model.addAttribute("returnUrl", "password/getLoginPwdSet");
-			return "bankcard/addBankCardPage";
+			model.addAttribute("BankCardVo", bankCardVo);
+			return "bankcard/addBankCard";
 		}
 
 		return "bankcard/addBankCardAuthPage";

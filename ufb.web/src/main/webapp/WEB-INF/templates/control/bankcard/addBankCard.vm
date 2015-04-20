@@ -6,16 +6,24 @@
 -->
 <script>
 $(function(){
-	$("#btn-openAccount").on("click",function(){
+	$("#btn-addBankCardInit").on("click",function(){
 		//check #register-org #mobileno
-		$("#form-index").attr("action", "../bankcard/addBankCardPage.htm");
-		$("#form-index").submit();
+		$("#form-addBankCard").attr("action", "../bankcard/addBankCardInit.htm");
+		$("#form-addBankCard").submit();
 	});
+	
+	$("form input[type=text]").each(function () {
+        var _this = $(this);
+		if(_this.val()!="") {
+            _this.siblings(".tips-normal").hide();
+        }
+    });
 });
 </script>
 </head>
 <body>
 <div class="container">
+	<!--
     <div class="header">
         <div class="inner clearfix rel">
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
@@ -26,6 +34,7 @@ $(function(){
 				href="javascript:;">帮助</a></div>
         </div>
     </div>
+	-->
     <div class="body">
         <div class="inner container-find">
             <div class="find-tabs tabs-step1 clearfix">
@@ -40,47 +49,72 @@ $(function(){
 					为了更好的提供金融服务，您需要填写真实身份信息。<br>
 					我们会严格保密您的隐私信息。</p>
                 </div>
-                <form class="common-form" method="post" action="openAccountStep2.html">
+				<form id="form-addBankCard" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardPage.htm">
+					<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
                     <div class="panel">
                         <ul>
-                            <li class="ok">
+                            <li
+                            #if($errMsg_organization)
+                            class="error"
+                            #end
+                            >
                                 <span class="form-title">幼教机构</span>
-                                <input class="input-text" type="text" value="">
-                                <span class="tips-normal">XXX幼儿园</span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+								<input id="organization" name="organization" class="input-text" type="text" value="$!{BankCardVo.organization}">
+                                <span class="tips-normal">请按照营业执照填写</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_organization}</span>
                             </li>
-                            <li class="error">
+                            <li
+                            #if($errMsg_business)
+                            class="error"
+                            #end
+                            >
                                 <span class="form-title">营业执照</span>
-                                <input class="input-text" type="text" value="">
-                                <span class="tips-normal">123456</span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+								<input id="business" name="business" class="input-text" type="text" value="$!{BankCardVo.business}">
+                                <span class="tips-normal">请按照营业执照填写</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_business}</span>
                             </li>
-                            <li class="error">
+                            <li
+                            #if($errMsg_bankAcnm)
+                            class="error"
+                            #end
+                            >
                                 <span class="form-title">经办人姓名</span>
-                                <input class="input-text" type="text" value="">
+                                <input id="mobileno" name="mobileno" class="input-text" type="text" value="$!{BankCardVo.bankAcnm}">
                                 <span class="tips-normal">请填写真实姓名</span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcnm}</span>
                             </li>
-                            <li class="error">
+                            <li
+                            #if($errMsg_bankIdno)
+                            class="error"
+                            #end
+                            >
                                 <span class="form-title">身份证号</span>
-                                <input class="input-text" type="text" value="">
+                                <input id="mobileno" name="mobileno" class="input-text" type="text" value="$!{BankCardVo.bankIdno}">
                                 <span class="tips-normal">请填写身份证号</span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankIdno}</span>
                             </li>
-                            <li class="error">
+                            <li
+                            #if($errMsg_tradePwd)
+                            class="error"
+                            #end
+                            >
                                 <span class="form-title">交易密码</span>
-                                <input class="input-text" type="text" value="">
+                                <input id="mobileno" name="mobileno" class="input-text" type="text" value="$!{BankCardVo.tradePwd}">
                                 <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_tradePwd}</span>
                             </li>
-                            <li class="error">
+                            <li
+                            #if($errMsg_tradePwd2)
+                            class="error"
+                            #end
+                            >
                                 <span class="form-title">交易密码确认</span>
-                                <input class="input-text" type="text" value="">
+                                <input id="mobileno" name="mobileno" class="input-text" type="text" value="$!{BankCardVo.tradePwd2}">
                                 <span class="tips-normal">请再次输入密码</span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_tradePwd2}</span>
                             </li>
                             <li>
-                                <input class="input-button ok" type="submit" value="下一步">
+								<input id="btn-addBankCardInit" class="input-button ok" type="button" value="下一步">
                             </li>
                         </ul>
                     </div>
@@ -88,6 +122,7 @@ $(function(){
             </div>
         </div>
     </div>
+	<!--
     <div class="footer">
         <div class="inner clearfix">
             <div class="notice fl">
@@ -121,6 +156,8 @@ $(function(){
             </div>
         </div>
     </div>
+	-->
 </div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
 </body>
 </html>
