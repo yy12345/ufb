@@ -90,7 +90,7 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-	@Test
+//	@Test
 	public void redeem(){
 		RedeemRequest request = new RedeemRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
@@ -119,9 +119,9 @@ public class HftTradeServiceTest {
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.RealRedeem);
-		request.setApplicationNo("20150410AA0005");
+		request.setApplicationNo("20150411AA0008");
 		request.setTransactionAccountID("225000006320");
-		request.setFundCode("025020");
+		request.setFundCode("225010");
 		request.setApplicationVol(new BigDecimal("2000.00"));
 		request.setShareClass("0");
 		
@@ -174,17 +174,17 @@ public class HftTradeServiceTest {
 	 * @param request
 	 * @return
 	 */
-	//@Test
+//	@Test
 	public void frozen() {
 		FrozenRequest request = new FrozenRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.Frozen);
-		request.setTransactionAccountID("88888888");
-		request.setApplicationNo("2015041100001");
-		request.setFundCode("888888");
-		request.setApplicationVol(new BigDecimal("88.88"));
+		request.setTransactionAccountID("225000006320");
+		request.setApplicationNo("20150409AA0004");
+		request.setFundCode("025020");
+		request.setApplicationVol(new BigDecimal("1000.00"));
 		request.setShareClass("0");
 
 		FrozenResponse response = hftTradeService.frozen(request);
@@ -203,10 +203,10 @@ public class HftTradeServiceTest {
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.Unfrozen);
-		request.setTransactionAccountID("0001");
-		request.setApplicationNo("2015041100002");
-		request.setOriginalAppSheetNo("2015041100001");   // 此字段基金公司不检查，可直接解冻份额
-		request.setApplicationVol(new BigDecimal("22.22"));
+		request.setTransactionAccountID("225000006320");
+		request.setApplicationNo("20150408AA0001");
+		request.setOriginalAppSheetNo("20150416001736"); 
+		request.setApplicationVol(new BigDecimal("1000.00"));
 
 		UnFrozenResponse response = hftTradeService.unfrozen(request);
 		LOG.debug(response.toString());

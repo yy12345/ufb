@@ -30,7 +30,7 @@ public class HftQueryServiceTest {
 	 * @param request
 	 * @return
 	 */
-	@Test
+//	@Test
 	public void transQuery() {
 		TransQueryRequest request = new TransQueryRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
@@ -53,7 +53,7 @@ public class HftQueryServiceTest {
 	 * @param request
 	 * @return
 	 */
-//	@Test
+	@Test
 	public void balanceQuery() {
 		BalanceQueryRequest request = new BalanceQueryRequest();
 		
@@ -61,7 +61,7 @@ public class HftQueryServiceTest {
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.BalanceQuery);
-		request.setApplicationNo("20150410QQ0001");
+		request.setApplicationNo("20150410QQ0003");
 		request.setTransactionAccountID("225000006320");
 		request.setFundCode("025020");
 		request.setPageNo("1");
