@@ -53,6 +53,11 @@ $(function(){
 					<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
                     <div class="panel">
                         <ul>
+							#if($errMsg)
+							<li class="error">
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg}</span>
+                            </li>
+                            #end
                             <li
                             #if($errMsg_organization)
                             class="error"

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+<title>幼富通 - 开户流程</title>
+-->
+<script>
+$(function(){
+	$("#btn-addBankCardAuth").on("click",function(){
+		//check #register-org #mobileno
+		$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCardAuth.htm");
+		$("#form-addBankCardAuth").submit();
+	});
+	$("#btn-addBankCardPage").on("click",function(){
+		//check #register-org #mobileno
+		$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCardPage.htm");
+		$("#form-addBankCardAuth").submit();
+	});
+	
+	$("form input[type=text]").each(function () {
+        var _this = $(this);
+		if(_this.val()!="") {
+            _this.siblings(".tips-normal").hide();
+        }
+    });
+});
+</script>
+</head>
+<body>
+
+<div class="container">
+	<!--
+    <div class="header">
+        <div class="inner clearfix rel">
+            <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+            <div class="nav"><a 
+				href="javascript:;">登录</a>|<a 
+				href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
+				href="${staticDomain}/cust/login.htm">我的幼富通</a>|<a class="last" 
+				href="javascript:;">帮助</a></div>
+        </div>
+    </div>
+	-->
+    <div class="body">
+        <div class="inner container-find">
+            <div class="find-tabs tabs-step2 clearfix">
+                <a class="tab fl" href="javascript:;">1-验证身份</a>
+                <a class="tab fl on" href="javascript:;">2-银行卡绑定</a>
+                <a class="tab fl" href="javascript:;">3-开户结果</a>
+            </div>
+            <div class="find-panels">
+            	<div class="tips tips-float">
+                	<p>提示信息：</p>
+                    <p><span class="mark">所有银行卡仅支持借记卡，需事先开通网银</span><br>
+					快捷银行开户，是通过银行卡号加手机验证码即可开户<br>
+					非快捷银行开户，需跳往银行网银开户<br>
+                    <span class="mark">企业网银开户即将上线</span></p>
+                </div>
+                <form id="form-addBankCardAuth" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardAuth.htm">
+				<input id="custNo" name="custNo" type="text" value="$!{BankCardVo.custNo}">
+				<input id="organization" name="organization" type="text" value="$!{BankCardVo.organization}">
+				<input id="business" name="business" type="text" value="$!{BankCardVo.business}">
+				<input id="bankAcnm" name="bankAcnm" type="text" value="$!{BankCardVo.bankAcnm}">
+				<input id="bankIdno" name="bankIdno" type="text" value="$!{BankCardVo.bankIdno}">
+				<input id="tradePwd" name="tradePwd" type="text" value="$!{BankCardVo.tradePwd}">
+				<input id="tradePwd2" name="tradePwd2" type="text" value="$!{BankCardVo.tradePwd2}">
+                    <div class="panel">
+                        <ul>
+                            <li class="ok clearfix">
+                                <span class="form-title">银行选择</span>
+                                <div class="input-select">
+                                    <div class="bank bank-current"><img src="${staticDomain}/images/bank_01.png"></div>
+                                    <div class="input-options">
+                                        <div class="bank-list clearfix">
+                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_01.png"></a>
+                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_02.png"></a>
+                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_03.png"></a>
+                                            <a class="bank active" href="javascript:;"><i class="icon"></i><img src="${staticDomain}/images/bank_04.png"></a>
+                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_05.png"></a>
+                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_06.png"></a>
+                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_07.png"></a>
+                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_08.png"></a>
+                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_09.png"></a>
+                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_10.png"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="tips-normal"></span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li class="error">
+                                <span class="form-title">经办人姓名</span>
+                                <input class="input-text" type="text" value="">
+                                <span class="tips-normal">经办人姓名</span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li class="error">
+                                <span class="form-title">身份证号</span>
+                                <input class="input-text" type="text" value="">
+                                <span class="tips-normal">身份证号</span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li class="error">
+                                <span class="form-title">银行卡号</span>
+                                <input class="input-text" type="text" value="">
+                                <span class="tips-normal">银行卡号</span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li class="error">
+                                <span class="form-title">银行预留手机号</span>
+                                <input class="input-text" type="text" value="">
+                                <span class="tips-normal">银行预留手机号</span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li class="error">
+                                <span class="form-title">手机验证码</span>
+                                <input class="input-code" type="text" value="">
+                                <span class="tips-normal">6位验证码</span>
+                                <input class="input-button" type="button" value="获取验证码">
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li>
+								<input id="btn-addBankCardPage" class="input-button" type="button" value="上一步">
+                                <input class="input-button ok" type="submit" value="提&nbsp;交">
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+	<!--
+    <div class="footer">
+        <div class="inner clearfix">
+            <div class="notice fl">
+                <h2 class="title">理财机构须知</h2>
+                <ul class="list">
+                    <li><a href="javascript:;">幼教机构如何注册幼富通？</a></li>
+                    <li><a href="javascript:;">如何购买幼富通的机构理财产品？</a></li>
+                    <li><a href="javascript:;">机构理财的交易安全有什么保障？</a></li>
+                    <li><a href="javascript:;">如何联系我们？</a></li>
+                </ul>
+            </div>
+            <div class="qa fl">
+                <h2 class="title">常见问题</h2>
+                <ul class="list">
+                    <li><a href="javascript:;">什么是机构理财专户？</a></li>
+                    <li><a href="javascript:;">什么是幼富宝？</a></li>
+                    <li><a href="javascript:;">购买幼富宝有什么好处？</a></li>
+                </ul>
+            </div>
+            <div class="about fl">
+                <h2 class="title"><a href="about.html">关于幼富通&nbsp;<span>|</span></a></h2>
+                <div class="info">
+                    <p>微信服务号：UFUfund</p>
+                    <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
+                    <p>海富通产品：400-8840-099</p>
+                </div>
+                <div class="copyright">
+                    <p>上海泛投信息科技有限公司版权所有 ©2015</p>
+                    <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+	-->
+</div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+</body>
+</html>

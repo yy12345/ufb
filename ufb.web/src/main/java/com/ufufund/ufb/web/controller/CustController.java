@@ -347,12 +347,28 @@ public class CustController {
 	@RequestMapping(value="bankcard/addBankCardInit" , method=RequestMethod.POST)
 	public String addBankCard1(BankCardVo bankCardVo, Model model){
 		
+		
+		//FOR TEST
+		if(StringUtils.isBlank(bankCardVo.getBankAcnm())){
+			bankCardVo.setBankAcnm("goodrich");;
+		}
+		if(StringUtils.isBlank(bankCardVo.getBankIdno())){
+			bankCardVo.setBankIdno("310108198202182814");;
+		}
+		if(StringUtils.isBlank(bankCardVo.getTradePwd())){
+			bankCardVo.setTradePwd("123qwe");;
+		}
+		if(StringUtils.isBlank(bankCardVo.getTradePwd2())){
+			bankCardVo.setTradePwd2("123qwe");;
+		}
+		//
+		
 		try{
 			
 			//幼教机构
 			if(StringUtils.isBlank(bankCardVo.getOrganization())){
 				throw new BizException(ThreadLocalUtil.getProccessId(),
-						ErrorInfo.NECESSARY_EMPTY, "机构名称");
+						ErrorInfo.NECESSARY_EMPTY, "开户机构");
 			}
 			
 			//营业执照
@@ -370,6 +386,8 @@ public class CustController {
 			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
 			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
 			custManager.openAccount1(openAccountAction);
+			
+			model.addAttribute("BankCardVo", bankCardVo);
 			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -397,14 +415,15 @@ public class CustController {
 			}else
 			if("营业执照".equals(e.getOtherInfo())){
 				model.addAttribute("errMsg_business", e.getMessage());
+			}else{
+				model.addAttribute("errMsg", e.getMessage());
 			}
 			
-			model.addAttribute("errMsg", e.getMessage());
 			model.addAttribute("BankCardVo", bankCardVo);
 			return "bankcard/addBankCard";
 		}
 
-		return "bankcard/addBankCardAuthPage";
+		return "bankcard/addBankCardAuth";
 	}
 	
 	/**
@@ -412,7 +431,7 @@ public class CustController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="bankcard/addBankAuth" , method=RequestMethod.POST)
+	@RequestMapping(value="bankcard/addBankCardAuth" , method=RequestMethod.POST)
 	public String addBankCard2(BankCardVo bankCardVo, Model model){
 		
 		try{
@@ -437,10 +456,10 @@ public class CustController {
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
 			model.addAttribute("returnUrl", "password/getLoginPwdSet");
-			return "bankcard/addBankCardAuthPage";
+			return "bankcard/addBankCardAuth";
 		}
 
-		return "bankcard/addBankCardAuthPage";
+		return "bankcard/addBankCardChk";
 	}
 	
 	/**
