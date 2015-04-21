@@ -14,27 +14,48 @@ $(function(){
 		$("#form-addBankCardAuth").submit();
 	});
 	
-	// 上一页
+	// 验证码
 	$("#btn-addBankCardAuth").on("click",function(){
-        Jquery.ajax({
+		$(".panel ul li").removeClass("error").removeClass("ok");
+        $.ajax({
      		type: "GET",
     		url: "../ajaxbankcard/addBankCardAuth.htm",
     		data: {
-    			bankAcnm: $("#bankAcnm").val()
+    			bankAcnm: $("#bankAcnm").val(),
+				bankIdno: $("#bankIdno").val(),
+				bankAcco: $("#bankAcco").val(),
+				bankMobile: $("#bankMobile").val()
     		},
     		dataType: "json",
     		success: function(b) {
-				alert(b);
-                //if (b.errCode == "0000") {
-                //    jQuery("#phone_tip").hide();
-                //    $("#phone_desc").css("display", "block");
-                //    jQuery("#phone").parents("li").removeClass("cur_error")
-                //} else {
-                //    if (b.errCode == "9999") {
-                //    	showPhoneError(b.errMsg)
-                //        //showPhoneError("该手机号已存在，<a href='/passport/login_input.do'>登录</a>")
-                //    }
-                //}
+                if (b.errCode == "0000") {
+                    //jQuery("#phone_tip").hide();
+                    //$("#phone_desc").css("display", "block");
+                    //jQuery("#phone").parents("li").removeClass("cur_error")
+					alert("手机验证码已发送");
+                } else {
+                    if (b.errCode == "9999") {
+					
+						var errOtherInfo = b.errOtherInfo;
+						alert(errOtherInfo);
+						if(errOtherInfo=="银行开户户名"){
+							$("#errMsg_bankAcnm").addClass("error");
+						}else
+						if(errOtherInfo=="银行证件号码"){
+							$("#errMsg_bankIdno").addClass("error");
+						}else
+						if(errOtherInfo=="银行编码"){
+							$("#errMsg_bankAcco").addClass("error");
+						}else
+						if(errOtherInfo=="银行开户手机号"){
+							$("#errMsg_bankMobile").addClass("error");
+						}else{
+							//
+						}
+                    	//showPhoneError(b.errMsg)
+                        //showPhoneError("该手机号已存在，<a href='/passport/login_input.do'>登录</a>")
+                    }
+                }
         	}
         });
 	});
@@ -44,9 +65,6 @@ $(function(){
 		$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCardChk.htm");
 		$("#form-addBankCardAuth").submit();
 	});
-	
-	
-	 
 	
 	//
 	$("form input[type=text]").each(function () {
@@ -98,7 +116,7 @@ $(function(){
 				-->
                     <div class="panel">
                         <ul>
-                            <li class="ok clearfix">
+                            <li class="clearfix">
                                 <span class="form-title">银行选择</span>
 								<div class="input-select">
                                     <div class="bank bank-current"><img src="${staticDomain}/images/bank_01.png"></div>
@@ -120,7 +138,7 @@ $(function(){
                                 <span class="tips-normal"></span>
 								<span class="tips-check"><i class="icon"></i>$!{errMsg_organization}</span>
                             </li>
-                            <li
+                            <li id="errMsg_bankAcnm"
                             #if($errMsg_bankAcnm)
                             class="error"
                             #end
@@ -130,7 +148,7 @@ $(function(){
                                 <span class="tips-normal">经办人姓名</span>
 								<span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcnm}</span>
                             </li>
-                            <li
+                            <li id="errMsg_bankIdno"
                             #if($errMsg_bankIdno)
                             class="error"
                             #end
@@ -140,7 +158,7 @@ $(function(){
                                 <span class="tips-normal">身份证号</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankIdno}</span>
                             </li>
-                            <li
+                            <li id="errMsg_bankAcco"
                             #if($errMsg_bankAcco)
                             class="error"
                             #end

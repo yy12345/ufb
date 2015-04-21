@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class AjaxCustController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AjaxCustController.class);
 	
-//	@Autowired
+	@Autowired
 	private CustManager custManager;
 	
 	
@@ -224,11 +225,15 @@ public class AjaxCustController {
 	@RequestMapping(value = "ajaxbankcard/addBankCardAuth", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,String> addBankCardAuth(BankCardVo bankCardVo, Model model){
+		//FOR TEST 
+		bankCardVo.setBankNo("007");
+		//
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try{
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setBankno(bankCardVo.getBankNo());
 			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
+			bankCardVo.setBankIdtp("0");
 			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
 			openAccountAction.setBankidno(bankCardVo.getBankIdno());
 			openAccountAction.setBankacco(bankCardVo.getBankAcco());
@@ -244,6 +249,7 @@ public class AjaxCustController {
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			resultMap.put("errCode", "9999");
+			resultMap.put("errOtherInfo", e.getOtherInfo());
 			resultMap.put("errMsg", e.getMessage());
 		}catch (Exception e) {
 			LOG.error(e.getMessage(), e);
