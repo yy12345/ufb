@@ -7,11 +7,14 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
+import com.ufufund.ufb.biz.manager.impl.validator.TradeManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.dao.TradeRequestMapper;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.TradeStatus;
 import com.ufufund.ufb.model.remote.hft.BuyApplyRequest;
 import com.ufufund.ufb.model.remote.hft.BuyApplyResponse;
 import com.ufufund.ufb.model.remote.hft.CancelRequest;
@@ -41,10 +44,15 @@ public class TradeManagerImpl implements TradeManager{
 	@Autowired
 	private WorkDayManager workDayManager;
 	
+	@Autowired
+	private TradeManagerValidator validator;
+	
 	@Override
 	public String subApply(ApplyVo vo) {
+		//  参数及业务规则验证
+		validator.validateSubApply(vo);
 		
-		String serialno = "";
+		String serialno = SequenceUtil.getSerial();
 		Today today = workDayManager.getSysDayInfo();
 		
 		/** 生成本地交易流水 **/
@@ -66,11 +74,11 @@ public class TradeManagerImpl implements TradeManager{
 		tradeRequest.setReferno("");
 		
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 生成认购流水："+tradeRequest);
+				+", 认购流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 生成认购流水：serialno="+tradeRequest.getSerialno());
+					+", <Failed> 认购流水：serialno="+tradeRequest.getSerialno());
 			return null;
 		}
 		
@@ -87,7 +95,7 @@ public class TradeManagerImpl implements TradeManager{
 		request.setShareClass(vo.getShareclass());
 		
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 海富通认购下单："+request);
+				+", 认购下单："+request);
 		SubApplyResponse response = hftTradeService.subApply(request);
 		
 		String result = null;
@@ -97,14 +105,36 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		if(result == null){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 海富通认购下单：serialno="+request.getApplicationNo());
+					+", <Failed> 认购下单：serialno="+request.getApplicationNo());
 		}
+		
+		/** 回写交易执行结果  **/
+		if(result != null){
+			tradeRequest = new TradeRequest();
+			tradeRequest.setSerialno(serialno);
+			tradeRequest.setSheetserialno(response.getAppSheetSerialNo());
+			tradeRequest.setAppdate(response.getTransactionDate());
+			tradeRequest.setApptime(response.getTransactiontime());
+			tradeRequest.setState(TradeStatus.I.getValue());
+			
+			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
+					+", 认购回写："+tradeRequest);
+			n = tradeRequestMapper.update(tradeRequest);
+			if(n < 1){
+				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+						+", <Failed> 认购回写：serialno="+tradeRequest.getSerialno());
+			}
+		}
+		
 		return result;
 	}
-
+	
 	@Override
 	public String buyApply(ApplyVo vo) {
-		String serialno = "";
+		//  参数及业务规则验证
+		validator.validateBuyApply(vo);
+		
+		String serialno = SequenceUtil.getSerial();
 		Today today = workDayManager.getSysDayInfo();
 		
 		/** 生成本地交易流水 **/
@@ -126,11 +156,11 @@ public class TradeManagerImpl implements TradeManager{
 		tradeRequest.setReferno("");
 		
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 生成申购流水："+tradeRequest);
+				+", 申购流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 生成申购流水：serialno="+tradeRequest.getSerialno());
+					+", <Failed> 申购流水：serialno="+tradeRequest.getSerialno());
 			return null;
 		}
 		
@@ -148,7 +178,7 @@ public class TradeManagerImpl implements TradeManager{
 		request.setAutoFrozen("0");
 		
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 海富通申购下单："+request);
+				+", 申购下单："+request);
 		BuyApplyResponse response = hftTradeService.buyApply(request);
 		
 		String result = null;
@@ -158,14 +188,36 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		if(result == null){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 海富通申购下单：serialno="+request.getApplicationNo());
+					+", <Failed> 申购下单：serialno="+request.getApplicationNo());
 		}
+		
+		/** 回写交易执行结果  **/
+		if(result != null){
+			tradeRequest = new TradeRequest();
+			tradeRequest.setSerialno(serialno);
+			tradeRequest.setSheetserialno(response.getAppSheetSerialNo());
+			tradeRequest.setAppdate(response.getTransactionDate());
+			tradeRequest.setApptime(response.getTransactiontime());
+			tradeRequest.setState(TradeStatus.I.getValue());
+			
+			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
+					+", 申购回写："+tradeRequest);
+			n = tradeRequestMapper.update(tradeRequest);
+			if(n < 1){
+				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+						+", <Failed> 申购回写：serialno="+tradeRequest.getSerialno());
+			}
+		}
+		
 		return result;
 	}
 
 	@Override
 	public String redeem(RedeemVo vo) {
-		String serialno = "";
+		//  参数及业务规则验证
+		validator.validateRedeem(vo);
+		
+		String serialno = SequenceUtil.getSerial();
 		Today today = workDayManager.getSysDayInfo();
 		
 		/** 生成本地交易流水 **/
@@ -187,7 +239,7 @@ public class TradeManagerImpl implements TradeManager{
 		tradeRequest.setReferno("");
 		
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 生成普通赎回流水："+tradeRequest);
+				+", 普通赎回流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
@@ -208,7 +260,7 @@ public class TradeManagerImpl implements TradeManager{
 		request.setShareClass("1");
 		
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 海富通普通赎回下单："+request);
+				+", 普通赎回下单："+request);
 		RedeemResponse response = hftTradeService.redeem(request);
 		
 		String result = null;
@@ -218,14 +270,36 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		if(result == null){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 海富通普通赎回下单：serialno="+request.getApplicationNo());
+					+", <Failed> 普通赎回下单：serialno="+request.getApplicationNo());
 		}
+		
+		/** 回写交易执行结果  **/
+		if(result != null){
+			tradeRequest = new TradeRequest();
+			tradeRequest.setSerialno(serialno);
+			tradeRequest.setSheetserialno(response.getAppSheetSerialNo());
+			tradeRequest.setAppdate(response.getTransactionDate());
+			tradeRequest.setApptime(response.getTransactiontime());
+			tradeRequest.setState(TradeStatus.I.getValue());
+			
+			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
+					+", 普通赎回回写："+tradeRequest);
+			n = tradeRequestMapper.update(tradeRequest);
+			if(n < 1){
+				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+						+", <Failed> 普通赎回回写：serialno="+tradeRequest.getSerialno());
+			}
+		}
+		
 		return result;
 	}
 
 	@Override
 	public String realRedeem(RedeemVo vo) {
-		String serialno = "";
+		//  参数及业务规则验证
+		validator.validateRealRedeem(vo);
+		
+		String serialno = SequenceUtil.getSerial();
 		Today today = workDayManager.getSysDayInfo();
 		
 		/** 生成本地交易流水 **/
@@ -247,11 +321,11 @@ public class TradeManagerImpl implements TradeManager{
 		tradeRequest.setReferno("");
 		
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 生成快速赎回流水："+tradeRequest);
+				+", 快速赎回流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 生成快速赎回流水：serialno="+tradeRequest.getSerialno());
+					+", <Failed> 快速赎回流水：serialno="+tradeRequest.getSerialno());
 			return null;
 		}
 		
@@ -268,7 +342,7 @@ public class TradeManagerImpl implements TradeManager{
 		request.setShareClass("1");
 		
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 海富通快速赎回下单："+request);
+				+", 快速赎回下单："+request);
 		RealRedeemResponse response = hftTradeService.realRedeem(request);
 		
 		String result = null;
@@ -278,8 +352,27 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		if(result == null){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 海富通快速赎回下单：serialno="+request.getApplicationNo());
+					+", <Failed> 快速赎回下单：serialno="+request.getApplicationNo());
 		}
+		
+		/** 回写交易执行结果  **/
+		if(result != null){
+			tradeRequest = new TradeRequest();
+			tradeRequest.setSerialno(serialno);
+			tradeRequest.setSheetserialno(response.getAppSheetSerialNo());
+			tradeRequest.setAppdate(response.getTransactionDate());
+			tradeRequest.setApptime(response.getTransactiontime());
+			tradeRequest.setState(TradeStatus.I.getValue());
+			
+			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
+					+", 快速赎回回写："+tradeRequest);
+			n = tradeRequestMapper.update(tradeRequest);
+			if(n < 1){
+				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+						+", <Failed> 快速赎回回写：serialno="+tradeRequest.getSerialno());
+			}
+		}
+		
 		return result;
 	}
 
@@ -296,7 +389,7 @@ public class TradeManagerImpl implements TradeManager{
 		request.setOriginalAppSheetNo("20150410CC0001");
 		
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 海富通撤单申请："+request);
+				+", 撤单申请："+request);
 		CancelResponse response = hftTradeService.cancel(request);
 		
 		String result = null;
@@ -306,7 +399,7 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		if(result == null){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 海富通撤单申请：serialno="+request.getApplicationNo());
+					+", <Failed> 撤单申请：serialno="+request.getApplicationNo());
 		}
 		return result;
 	}

@@ -69,6 +69,12 @@
 		<if test="sheetserialno != null">
 			sheetserialno = #{sheetserialno,jdbcType=VARCHAR}, 
 		</if>
+		<if test="appdate != null">
+			appdate = #{appdate,jdbcType=VARCHAR}, 
+		</if>
+		<if test="apptime != null">
+			apptime = #{apptime,jdbcType=VARCHAR}, 
+		</if>
 		<if test="ackdate != null">
 			ackdate = #{ackdate,jdbcType=VARCHAR}, 
 		</if>

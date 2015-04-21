@@ -19,7 +19,7 @@ public interface TradeManager {
 	public String subApply(ApplyVo vo);
 	
 	/**
-	 * 认购接口
+	 * 申购接口
 	 * @param vo
 	 * @return 成功，返回申请流水号；否则，返回null；业务类异常，直接通过BizException响应给用户
 	 */

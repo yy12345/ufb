@@ -1,24 +1,10 @@
 
 
-<div class="result-page"> 
-    <div class="spage spage02">
-        <h1 id="errormsg">$!{errMsg}</h1>
-        <p class="sppNoBg">您的申请提交失败，请重新操作，如始终无法提交申请可联系400-888-9918客服热线！</p>
-        <div class="btnLine">
-            #if("$!{returnUrl}" != "")
-            <input class="spBtn" onclick="window.location.href='$!returnUrl#if($partner)?partner=${partner}#end'" type="button" value="再试一次">
-            #end
-        </div>
-    </div>
-    
-    #if(!$partner)
-    <div class="spLink" style="width: 768px;">
-        您可能需要： 
-        <a href="${macdomain}/mac/index.htm">返回现金宝首页</a>
-        <em class="ft-em-bar ft-wt-gray ft-song">|</em><a href="${macdomain}/topup/index.htm">充值</a>
-        <em class="ft-em-bar ft-wt-gray ft-song">|</em><a href="${cardRepay}/joint/cardRepay.htm">信用卡还款</a>
-        <em class="ft-em-bar ft-wt-gray ft-song">|</em><a href="${ecIP}/query/cashinoutqry.jsp">交易查询</a>
-    </div>
+<h1 id="errormsg">$!{errMsg}</h1>
+<p class="sppNoBg">您的申请提交失败，请重新操作，如始终无法提交申请可联系400-888-9918客服热线！</p>
+<div class="btnLine">
+    #if("$!{returnUrl}" != "")
+    <input class="spBtn" onclick="window.location.href='${returnUrl}'" type="button" value="再试一次">
     #end
 </div>
 
