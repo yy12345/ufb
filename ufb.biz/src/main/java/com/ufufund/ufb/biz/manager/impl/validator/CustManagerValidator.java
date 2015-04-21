@@ -155,14 +155,5 @@ public class CustManagerValidator extends ValidatorCommon {
 		if (RegexUtil.isNull(action.getBankmobile())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKMOBILE);
 		}
-		
-
 	}
-	
-	
-	
-	
-
-
-
 }

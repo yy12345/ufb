@@ -286,16 +286,19 @@ a.btn {
 	font-size: 14px;
 	font-family: "microsoft yahei";
 	color: inherit;
+	vertical-align: top;
 }
 .common-form li input.input-checkbox {
 	margin-right: 6px;
+	vertical-align: middle;
 }
 .common-form li input.input-button {
 	width: 121px;
 	height: 36px;
 	border: 0;
 	color: #ffffff;
-	background-color: #b4b4b5;
+	background-color: #CB3849;
+	/*background-color: #b4b4b5;*/
 }
 .common-form li input.input-button.ok {
 	color: #ffffff;

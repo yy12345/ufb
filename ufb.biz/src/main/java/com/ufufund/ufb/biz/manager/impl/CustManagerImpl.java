@@ -250,12 +250,13 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 
 	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException {
 		String processId = this.getProcessId(openAccountAction);
+		custManagerValidator.validator(openAccountAction);
 		if (RegexUtil.isNull(openAccountAction.getMobileAutoCode())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY,IDENTIFYING);
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY,MOBILE);
 		}
 		if (openAccountAction.getMobileAutoCode().length()>10||
 		    !RegexUtil.isDigits(openAccountAction.getMobileAutoCode())) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,IDENTIFYING);
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,MOBILE);
 		}
 		if (RegexUtil.isNull(openAccountAction.getOtherserial())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY);

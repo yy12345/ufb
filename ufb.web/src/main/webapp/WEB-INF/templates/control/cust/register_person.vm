@@ -148,7 +148,7 @@
 	        if (a == 2) {
 	            showPhoneError("格式错误，请输入正确的手机号码")
 	        } else {
-	            $.ajax({type: "GET",
+	            Jquery.ajax({type: "GET",
 	            		url: "../ajaxcust/is_mobile_register.htm",
 	            		data: {
 	            			mobileno: $("#phone").val()
@@ -201,7 +201,7 @@
 	        if (a == 2) {
 	            showPhoneError("格式错误，请输入正确的手机号码")
 	        } else {
-	            $.ajax({type: "GET",
+	            Jquery.ajax({type: "GET",
 	            		url: "../ajaxcust/is_mobile_register.htm",
 	            		data: {
 	            			mobileno: $("#phone").val()

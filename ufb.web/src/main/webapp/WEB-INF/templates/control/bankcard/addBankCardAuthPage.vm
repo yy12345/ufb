@@ -6,17 +6,49 @@
 -->
 <script>
 $(function(){
-	$("#btn-addBankCardAuth").on("click",function(){
+
+	// 上一页
+	$("#btn-addBankCard").on("click",function(){
 		//check #register-org #mobileno
-		$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCardAuth.htm");
-		$("#form-addBankCardAuth").submit();
-	});
-	$("#btn-addBankCardPage").on("click",function(){
-		//check #register-org #mobileno
-		$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCardPage.htm");
+		$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCard.htm");
 		$("#form-addBankCardAuth").submit();
 	});
 	
+	// 上一页
+	$("#btn-addBankCardAuth").on("click",function(){
+        Jquery.ajax({
+     		type: "GET",
+    		url: "../ajaxbankcard/addBankCardAuth.htm",
+    		data: {
+    			bankAcnm: $("#bankAcnm").val()
+    		},
+    		dataType: "json",
+    		success: function(b) {
+				alert(b);
+                //if (b.errCode == "0000") {
+                //    jQuery("#phone_tip").hide();
+                //    $("#phone_desc").css("display", "block");
+                //    jQuery("#phone").parents("li").removeClass("cur_error")
+                //} else {
+                //    if (b.errCode == "9999") {
+                //    	showPhoneError(b.errMsg)
+                //        //showPhoneError("该手机号已存在，<a href='/passport/login_input.do'>登录</a>")
+                //    }
+                //}
+        	}
+        });
+	});
+	
+	$("#btn-addBankCardChk").on("click",function(){
+		//check #register-org #mobileno
+		$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCardChk.htm");
+		$("#form-addBankCardAuth").submit();
+	});
+	
+	
+	 
+	
+	//
 	$("form input[type=text]").each(function () {
         var _this = $(this);
 		if(_this.val()!="") {
@@ -60,15 +92,15 @@ $(function(){
 				<input id="custNo" name="custNo" type="text" value="$!{BankCardVo.custNo}">
 				<input id="organization" name="organization" type="text" value="$!{BankCardVo.organization}">
 				<input id="business" name="business" type="text" value="$!{BankCardVo.business}">
-				<input id="bankAcnm" name="bankAcnm" type="text" value="$!{BankCardVo.bankAcnm}">
-				<input id="bankIdno" name="bankIdno" type="text" value="$!{BankCardVo.bankIdno}">
+				<!--
 				<input id="tradePwd" name="tradePwd" type="text" value="$!{BankCardVo.tradePwd}">
 				<input id="tradePwd2" name="tradePwd2" type="text" value="$!{BankCardVo.tradePwd2}">
+				-->
                     <div class="panel">
                         <ul>
                             <li class="ok clearfix">
                                 <span class="form-title">银行选择</span>
-                                <div class="input-select">
+								<div class="input-select">
                                     <div class="bank bank-current"><img src="${staticDomain}/images/bank_01.png"></div>
                                     <div class="input-options">
                                         <div class="bank-list clearfix">
@@ -86,42 +118,62 @@ $(function(){
                                     </div>
                                 </div>
                                 <span class="tips-normal"></span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+								<span class="tips-check"><i class="icon"></i>$!{errMsg_organization}</span>
                             </li>
-                            <li class="error">
+                            <li
+                            #if($errMsg_bankAcnm)
+                            class="error"
+                            #end
+                            >
                                 <span class="form-title">经办人姓名</span>
-                                <input class="input-text" type="text" value="">
+								<input id="bankAcnm" name="bankAcnm" class="input-text" type="text" value="$!{BankCardVo.bankAcnm}">
                                 <span class="tips-normal">经办人姓名</span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+								<span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcnm}</span>
                             </li>
-                            <li class="error">
+                            <li
+                            #if($errMsg_bankIdno)
+                            class="error"
+                            #end
+                            >
                                 <span class="form-title">身份证号</span>
-                                <input class="input-text" type="text" value="">
+                                <input id="bankIdno" name="bankIdno" class="input-text" type="text" value="$!{BankCardVo.bankIdno}">
                                 <span class="tips-normal">身份证号</span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankIdno}</span>
                             </li>
-                            <li class="error">
+                            <li
+                            #if($errMsg_bankAcco)
+                            class="error"
+                            #end
+                            >
                                 <span class="form-title">银行卡号</span>
-                                <input class="input-text" type="text" value="">
+                                <input id="bankAcco" name="bankAcco" class="input-text" type="text" value="$!{BankCardVo.bankAcco}">
                                 <span class="tips-normal">银行卡号</span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcco}</span>
                             </li>
-                            <li class="error">
+                            <li
+                            #if($errMsg_bankMobile)
+                            class="error"
+                            #end
+                            >
                                 <span class="form-title">银行预留手机号</span>
-                                <input class="input-text" type="text" value="">
+                                <input id="bankMobile" name="bankMobile" class="input-text" type="text" value="$!{BankCardVo.bankMobile}">
                                 <span class="tips-normal">银行预留手机号</span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankMobile}</span>
                             </li>
-                            <li class="error">
+                            <li
+                            #if($errMsg_msgcode)
+                            class="error"
+                            #end
+                            >
                                 <span class="form-title">手机验证码</span>
-                                <input class="input-code" type="text" value="">
+								<input id="msgcode" name="msgcode" class="input-text" type="text" value="$!{BankCardVo.msgcode}">
                                 <span class="tips-normal">6位验证码</span>
-                                <input class="input-button" type="button" value="获取验证码">
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                                <input id="btn-addBankCardAuth" class="input-button" type="button" value="获取验证码">
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>
                             </li>
                             <li>
-								<input id="btn-addBankCardPage" class="input-button" type="button" value="上一步">
-                                <input class="input-button ok" type="submit" value="提&nbsp;交">
+								<input id="btn-addBankCard" class="input-button" type="button" value="上一步">
+                                <input id="btn-addBankCardChk" class="input-button ok" type="submit" value="提&nbsp;交">
                             </li>
                         </ul>
                     </div>

@@ -214,6 +214,225 @@ public class CustController {
 		return "cust/index";
 	}
 	
+	
+	/**
+	 * 绑卡-Page
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="bankcard/addBankCard")
+	public String addBankCard(BankCardVo bankCardVo, Model model){
+		
+		try{
+			CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
+			if(null != s_custinfo){
+				bankCardVo.setOrganization(s_custinfo.getOrganization());
+				bankCardVo.setBusiness(s_custinfo.getBusiness());
+				bankCardVo.setCustNo(s_custinfo.getCustno());
+			}
+			
+			model.addAttribute("BankCardVo", bankCardVo);
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			return "cust/index";
+		}
+		
+		return "bankcard/addBankCardPage";
+	}
+	
+	
+	/**
+	 * 绑卡-验证身份
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="bankcard/addBankCardInit" , method=RequestMethod.POST)
+	public String addBankCardInit(BankCardVo bankCardVo, Model model){
+		
+		
+		//FOR TEST
+		if(StringUtils.isBlank(bankCardVo.getBankAcnm())){
+			bankCardVo.setBankAcnm("goodrich");;
+		}
+		if(StringUtils.isBlank(bankCardVo.getBankIdno())){
+			bankCardVo.setBankIdno("310108198202182814");;
+		}
+		if(StringUtils.isBlank(bankCardVo.getTradePwd())){
+			bankCardVo.setTradePwd("123qwe");;
+		}
+		if(StringUtils.isBlank(bankCardVo.getTradePwd2())){
+			bankCardVo.setTradePwd2("123qwe");;
+		}
+		//
+		
+		try{
+			
+			//幼教机构
+			if(StringUtils.isBlank(bankCardVo.getOrganization())){
+				throw new BizException(ThreadLocalUtil.getProccessId(),
+						ErrorInfo.NECESSARY_EMPTY, "开户机构");
+			}
+			
+			//营业执照
+			if(StringUtils.isBlank(bankCardVo.getBusiness())){
+				throw new BizException(ThreadLocalUtil.getProccessId(),
+						ErrorInfo.NECESSARY_EMPTY, "营业执照");
+			}
+			
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setCustno(bankCardVo.getCustNo());
+			openAccountAction.setInvnm(bankCardVo.getBankAcnm());
+			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
+			openAccountAction.setBankidno(bankCardVo.getBankIdno());
+			openAccountAction.setIdno(bankCardVo.getBankIdno());
+			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
+			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
+			custManager.openAccount1(openAccountAction);
+			
+			model.addAttribute("BankCardVo", bankCardVo);
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			
+			if("用户id".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg", e.getMessage());
+			}else
+			if("用户姓名".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_bankAcnm", e.getMessage());
+			}else
+			if("证件号码".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_bankIdno", e.getMessage());
+			}else
+			if("交易密码".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_tradePwd", e.getMessage());
+			}else
+			if("确认密码".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_tradePwd2", e.getMessage());
+			}else
+			if("身份证".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_bankIdno", e.getMessage());
+			}else
+			if("开户机构".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_organization", e.getMessage());
+			}else
+			if("营业执照".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_business", e.getMessage());
+			}else{
+				model.addAttribute("errMsg", e.getMessage());
+			}
+			
+			model.addAttribute("BankCardVo", bankCardVo);
+			return "bankcard/addBankCardPage";
+		}
+
+		return "bankcard/addBankCardAuthPage";
+	}
+	
+	/**
+	 * 绑卡-银行卡绑定(鉴权)
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="bankcard/addBankCardAuth" , method=RequestMethod.POST)
+	public String addBankCardAuth(BankCardVo bankCardVo, Model model){
+		
+		try{
+			//TODO ajax
+//			// 校验验证码
+//			boolean checkVerifyCode = VerifyCodeUtils.validate(bankCardVo.getVerifycode());
+//			if(!checkVerifyCode){
+//				throw new BizException("验证码无效。");
+//			}
+			
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setBankno(bankCardVo.getBankNo());
+			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
+			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
+			openAccountAction.setBankidno(bankCardVo.getBankIdno());
+			openAccountAction.setBankacco(bankCardVo.getBankAcco());
+			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
+			
+			custManager.openAccount2(openAccountAction);
+			
+			model.addAttribute("BankCardVo", bankCardVo);
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			model.addAttribute("BankCardVo", bankCardVo);
+			return "bankcard/addBankCardAuthPage";
+		}
+
+		return "bankcard/addBankCardChkPage";
+	}
+	
+	/**
+	 * 绑卡-银行卡绑定(验证) + 开户
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
+	public String addBankCard3(BankCardVo bankCardVo, Model model){
+		
+		try{
+//			// 校验验证码
+//			boolean checkVerifyCode = VerifyCodeUtils.validate(bankCardVo.getVerifycode());
+//			if(!checkVerifyCode){
+//				throw new BizException("验证码无效。");
+//			}
+			
+			
+			
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setBankno(bankCardVo.getBankNo());
+			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
+			openAccountAction.setBankacco(bankCardVo.getBankAcco());
+			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
+			openAccountAction.setBankidno(bankCardVo.getBankIdno());
+			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
+			
+			custManager.openAccount3(openAccountAction);
+			
+		}catch (BizException e){
+			
+			//验证码
+			LOG.error(e.getErrmsg(), e);
+			
+			if("手机号".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_msgcode", e.getMessage());
+			}else
+//			if("用户姓名".equals(e.getOtherInfo())){
+//				model.addAttribute("errMsg_bankAcnm", e.getMessage());
+//			}else
+//			if("证件号码".equals(e.getOtherInfo())){
+//				model.addAttribute("errMsg_bankIdno", e.getMessage());
+//			}else
+//			if("交易密码".equals(e.getOtherInfo())){
+//				model.addAttribute("errMsg_tradePwd", e.getMessage());
+//			}else
+//			if("确认密码".equals(e.getOtherInfo())){
+//				model.addAttribute("errMsg_tradePwd2", e.getMessage());
+//			}else
+//			if("身份证".equals(e.getOtherInfo())){
+//				model.addAttribute("errMsg_bankIdno", e.getMessage());
+//			}else
+//			if("开户机构".equals(e.getOtherInfo())){
+//				model.addAttribute("errMsg_organization", e.getMessage());
+//			}else
+			if("营业执照".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_business", e.getMessage());
+			}else{
+				model.addAttribute("errMsg", e.getMessage());
+			}
+			
+			return "bankcard/addBankCardAuthPage";
+		}
+
+		return "cust/openAccoPage";
+	}
+	
+	
 	/**
 	 * 找回登录密码Page
 	 * @param model
@@ -308,192 +527,5 @@ public class CustController {
 		}
 
 		return "password/getLoginPwdSuccess";
-	}
-	
-	/**
-	 * 绑卡-Page
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="bankcard/addBankCardPage")
-	public String addBankCardPage(Model model){
-		
-		try{
-			BankCardVo bankCardVo = new BankCardVo();
-			
-			CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
-			if(null != s_custinfo){
-				bankCardVo.setOrganization(s_custinfo.getOrganization());
-				bankCardVo.setBusiness(s_custinfo.getBusiness());
-				bankCardVo.setCustNo(s_custinfo.getCustno());
-			}
-			
-			model.addAttribute("BankCardVo", bankCardVo);
-		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("errMsg", e.getMessage());
-			return "cust/index";
-		}
-		
-		return "bankcard/addBankCard";
-	}
-	
-	
-	/**
-	 * 绑卡-验证身份
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="bankcard/addBankCardInit" , method=RequestMethod.POST)
-	public String addBankCard1(BankCardVo bankCardVo, Model model){
-		
-		
-		//FOR TEST
-		if(StringUtils.isBlank(bankCardVo.getBankAcnm())){
-			bankCardVo.setBankAcnm("goodrich");;
-		}
-		if(StringUtils.isBlank(bankCardVo.getBankIdno())){
-			bankCardVo.setBankIdno("310108198202182814");;
-		}
-		if(StringUtils.isBlank(bankCardVo.getTradePwd())){
-			bankCardVo.setTradePwd("123qwe");;
-		}
-		if(StringUtils.isBlank(bankCardVo.getTradePwd2())){
-			bankCardVo.setTradePwd2("123qwe");;
-		}
-		//
-		
-		try{
-			
-			//幼教机构
-			if(StringUtils.isBlank(bankCardVo.getOrganization())){
-				throw new BizException(ThreadLocalUtil.getProccessId(),
-						ErrorInfo.NECESSARY_EMPTY, "开户机构");
-			}
-			
-			//营业执照
-			if(StringUtils.isBlank(bankCardVo.getBusiness())){
-				throw new BizException(ThreadLocalUtil.getProccessId(),
-						ErrorInfo.NECESSARY_EMPTY, "营业执照");
-			}
-			
-			OpenAccountAction openAccountAction = new OpenAccountAction();
-			openAccountAction.setCustno(bankCardVo.getCustNo());
-			openAccountAction.setInvnm(bankCardVo.getBankAcnm());
-			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
-			openAccountAction.setBankidno(bankCardVo.getBankIdno());
-			openAccountAction.setIdno(bankCardVo.getBankIdno());
-			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
-			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
-			custManager.openAccount1(openAccountAction);
-			
-			model.addAttribute("BankCardVo", bankCardVo);
-			
-		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			
-			if("用户id".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg", e.getMessage());
-			}else
-			if("用户姓名".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg_bankAcnm", e.getMessage());
-			}else
-			if("证件号码".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg_bankIdno", e.getMessage());
-			}else
-			if("交易密码".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg_tradePwd", e.getMessage());
-			}else
-			if("确认密码".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg_tradePwd2", e.getMessage());
-			}else
-			if("身份证".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg_bankIdno", e.getMessage());
-			}else
-			if("开户机构".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg_organization", e.getMessage());
-			}else
-			if("营业执照".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg_business", e.getMessage());
-			}else{
-				model.addAttribute("errMsg", e.getMessage());
-			}
-			
-			model.addAttribute("BankCardVo", bankCardVo);
-			return "bankcard/addBankCard";
-		}
-
-		return "bankcard/addBankCardAuth";
-	}
-	
-	/**
-	 * 绑卡-银行卡绑定(鉴权)
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="bankcard/addBankCardAuth" , method=RequestMethod.POST)
-	public String addBankCard2(BankCardVo bankCardVo, Model model){
-		
-		try{
-			//TODO ajax
-//			// 校验验证码
-//			boolean checkVerifyCode = VerifyCodeUtils.validate(bankCardVo.getVerifycode());
-//			if(!checkVerifyCode){
-//				throw new BizException("验证码无效。");
-//			}
-			
-			OpenAccountAction openAccountAction = new OpenAccountAction();
-			openAccountAction.setBankno(bankCardVo.getBankNo());
-			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
-			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
-			openAccountAction.setBankidno(bankCardVo.getBankIdno());
-			openAccountAction.setBankacco(bankCardVo.getBankAcco());
-			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
-			
-			custManager.openAccount2(openAccountAction);
-			
-		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("errMsg", e.getMessage());
-			model.addAttribute("returnUrl", "password/getLoginPwdSet");
-			return "bankcard/addBankCardAuth";
-		}
-
-		return "bankcard/addBankCardChk";
-	}
-	
-	/**
-	 * 绑卡-银行卡绑定(验证) + 开户
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
-	public String addBankCard3(BankCardVo bankCardVo, Model model){
-		
-		try{
-//			// 校验验证码
-//			boolean checkVerifyCode = VerifyCodeUtils.validate(bankCardVo.getVerifycode());
-//			if(!checkVerifyCode){
-//				throw new BizException("验证码无效。");
-//			}
-			
-			OpenAccountAction openAccountAction = new OpenAccountAction();
-			openAccountAction.setBankno(bankCardVo.getBankNo());
-			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
-			openAccountAction.setBankacco(bankCardVo.getBankAcco());
-			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
-			openAccountAction.setBankidno(bankCardVo.getBankIdno());
-			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
-			
-			custManager.openAccount3(openAccountAction);
-			
-		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("errMsg", e.getMessage());
-			model.addAttribute("returnUrl", "password/getLoginPwdSet");
-			return "bankcard/addBankCardAuthPage";
-		}
-
-		return "cust/openAccoPage";
 	}
 }

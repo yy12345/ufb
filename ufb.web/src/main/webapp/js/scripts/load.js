@@ -49,12 +49,12 @@ $(function () {
         _this[0].reset();
     });
     $("form").on("click", ".tips-normal", function () {
-        $(this).hide().siblings("input[type=text]").focus();
+        $(this).hide().siblings("input[type=text],input[type=password]").focus();
     });
-    $("form").on("focus", "input[type=text]", function () {
+    $("form").on("focus", "input[type=text],input[type=password]", function () {
         $(this).addClass("focus").siblings(".tips-normal").hide();
     });
-    $("form").on("blur", "input[type=text]", function () {
+    $("form").on("blur", "input[type=text],input[type=password]", function () {
         var _this = $(this);
         _this.removeClass("focus").siblings(".tips-normal").hide();
         if(_this.val()=="") {

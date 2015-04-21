@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
+import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
@@ -30,7 +32,7 @@ public class AjaxCustController {
 	 * @param
 	 * @return
 	 */
-	@RequestMapping(value = "ajaxcust/chk_verifycode", method = RequestMethod.GET)
+	@RequestMapping(value = "ajaxcust/chk_msgcode", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,String> sendMsgCode(String msgType){
 		//msgType: 注册REGISTER、找回登录密码GETLOGINPWD
@@ -213,5 +215,45 @@ public class AjaxCustController {
 		}
 		return resultMap;
 	}
+	
+	/**
+	 * 检查银行卡是否已注册
+	 * @param idCardNo
+	 * @return
+	 */
+	@RequestMapping(value = "ajaxbankcard/addBankCardAuth", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,String> addBankCardAuth(BankCardVo bankCardVo, Model model){
+		Map<String,String> resultMap = new HashMap<String,String>();
+		try{
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setBankno(bankCardVo.getBankNo());
+			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
+			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
+			openAccountAction.setBankidno(bankCardVo.getBankIdno());
+			openAccountAction.setBankacco(bankCardVo.getBankAcco());
+			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
+			
+			custManager.openAccount2(openAccountAction);
+			
+//			model.addAttribute("BankCardVo", bankCardVo);
+			
+			resultMap.put("errCode", "0000");
+			resultMap.put("errMsg", "银行卡鉴权成功");
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", e.getMessage());
+		}catch (Exception e) {
+			LOG.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+
+		return resultMap;
+	}
+	
+	
 
 }
