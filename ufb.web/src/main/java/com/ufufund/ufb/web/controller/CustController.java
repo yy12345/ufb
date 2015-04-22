@@ -56,7 +56,7 @@ public class CustController {
 		
 		//FOR TEST
 		if(StringUtils.isBlank(custinfoVo.getMobileno())){
-			custinfoVo.setMobileno("18616502181");
+			custinfoVo.setMobileno("18617502181");
 		}
 		if(StringUtils.isBlank(custinfoVo.getVerifycode())){
 			custinfoVo.setVerifycode("1234");;
@@ -329,43 +329,43 @@ public class CustController {
 		return "bankcard/addBankCardAuthPage";
 	}
 	
-	/**
-	 * 绑卡-银行卡绑定(鉴权)
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="bankcard/addBankCardAuth" , method=RequestMethod.POST)
-	public String addBankCardAuth(BankCardVo bankCardVo, Model model){
-		
-		try{
-			//TODO ajax
-//			// 校验验证码
-//			boolean checkVerifyCode = VerifyCodeUtils.validate(bankCardVo.getVerifycode());
-//			if(!checkVerifyCode){
-//				throw new BizException("验证码无效。");
-//			}
-			
-			OpenAccountAction openAccountAction = new OpenAccountAction();
-			openAccountAction.setBankno(bankCardVo.getBankNo());
-			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
-			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
-			openAccountAction.setBankidno(bankCardVo.getBankIdno());
-			openAccountAction.setBankacco(bankCardVo.getBankAcco());
-			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
-			
-			custManager.openAccount2(openAccountAction);
-			
-			model.addAttribute("BankCardVo", bankCardVo);
-			
-		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("errMsg", e.getMessage());
-			model.addAttribute("BankCardVo", bankCardVo);
-			return "bankcard/addBankCardAuthPage";
-		}
-
-		return "bankcard/addBankCardChkPage";
-	}
+//	/**
+//	 * 绑卡-银行卡绑定(鉴权)
+//	 * @param model
+//	 * @return
+//	 */
+//	@RequestMapping(value="bankcard/addBankCardAuth" , method=RequestMethod.POST)
+//	public String addBankCardAuth(BankCardVo bankCardVo, Model model){
+//		
+//		try{
+//			//TODO ajax
+////			// 校验验证码
+////			boolean checkVerifyCode = VerifyCodeUtils.validate(bankCardVo.getVerifycode());
+////			if(!checkVerifyCode){
+////				throw new BizException("验证码无效。");
+////			}
+//			
+//			OpenAccountAction openAccountAction = new OpenAccountAction();
+//			openAccountAction.setBankno(bankCardVo.getBankNo());
+//			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
+//			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
+//			openAccountAction.setBankidno(bankCardVo.getBankIdno());
+//			openAccountAction.setBankacco(bankCardVo.getBankAcco());
+//			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
+//			
+//			custManager.openAccount2(openAccountAction);
+//			
+//			model.addAttribute("BankCardVo", bankCardVo);
+//			
+//		}catch (BizException e){
+//			LOG.error(e.getErrmsg(), e);
+//			model.addAttribute("errMsg", e.getMessage());
+//			model.addAttribute("BankCardVo", bankCardVo);
+//			return "bankcard/addBankCardAuthPage";
+//		}
+//
+//		return "bankcard/addBankCardChkPage";
+//	}
 	
 	/**
 	 * 绑卡-银行卡绑定(验证) + 开户
@@ -374,58 +374,50 @@ public class CustController {
 	 */
 	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
 	public String addBankCard3(BankCardVo bankCardVo, Model model){
-		
+		//FOR TEST 
+		bankCardVo.setBankNo("007");
+		//
 		try{
-//			// 校验验证码
-//			boolean checkVerifyCode = VerifyCodeUtils.validate(bankCardVo.getVerifycode());
-//			if(!checkVerifyCode){
-//				throw new BizException("验证码无效。");
-//			}
-			
-			
+			// 校验短信验证码
+//			boolean checkMsgCode = MsgCodeUtils.validate(bankCardVo.getMsgcode());
 			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setBankno(bankCardVo.getBankNo());
 			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
 			openAccountAction.setBankacco(bankCardVo.getBankAcco());
+			bankCardVo.setBankIdtp("0");
 			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
 			openAccountAction.setBankidno(bankCardVo.getBankIdno());
 			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
 			
 			custManager.openAccount3(openAccountAction);
 			
+			System.out.println("done");
+			
 		}catch (BizException e){
 			
 			//验证码
 			LOG.error(e.getErrmsg(), e);
 			
-			if("手机号".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg_msgcode", e.getMessage());
+			if("银行开户户名".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_bankAcnm", e.getMessage());
 			}else
-//			if("用户姓名".equals(e.getOtherInfo())){
-//				model.addAttribute("errMsg_bankAcnm", e.getMessage());
-//			}else
-//			if("证件号码".equals(e.getOtherInfo())){
-//				model.addAttribute("errMsg_bankIdno", e.getMessage());
-//			}else
-//			if("交易密码".equals(e.getOtherInfo())){
-//				model.addAttribute("errMsg_tradePwd", e.getMessage());
-//			}else
-//			if("确认密码".equals(e.getOtherInfo())){
-//				model.addAttribute("errMsg_tradePwd2", e.getMessage());
-//			}else
-//			if("身份证".equals(e.getOtherInfo())){
-//				model.addAttribute("errMsg_bankIdno", e.getMessage());
-//			}else
-//			if("开户机构".equals(e.getOtherInfo())){
-//				model.addAttribute("errMsg_organization", e.getMessage());
-//			}else
-			if("营业执照".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg_business", e.getMessage());
+			if("银行证件号码".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_bankIdno", e.getMessage());
+			}else
+			if("银行卡号".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_bankAcco", e.getMessage());
+			}else
+			if("银行开户手机号".equals(e.getOtherInfo()) || "手机号".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_bankMobile", e.getMessage());
+			}else
+			if("手机验证码".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_msgcode", e.getMessage());
 			}else{
 				model.addAttribute("errMsg", e.getMessage());
 			}
 			
+			model.addAttribute("BankCardVo", bankCardVo);
 			return "bankcard/addBankCardAuthPage";
 		}
 

@@ -138,21 +138,27 @@ public class CustManagerValidator extends ValidatorCommon {
 		// TODO Auto-generated method stub
 		String processId = action.getProcessId();
 		if (RegexUtil.isNull(action.getBankno())) {
+			//银行编码
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKNO);
 		}
 		if (RegexUtil.isNull(action.getBankacnm())) {
+			//银行开户户名
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKACNM);
 		}
 		if (RegexUtil.isNull(action.getBankidtp())) {
+			//银行证件类型
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKIDTP);
 		}
 		if (RegexUtil.isNull(action.getBankidno())) {
+			//银行证件号码
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKIDNO);
 		}
 		if (RegexUtil.isNull(action.getBankacco())) {
+			//银行卡号
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKACCO);
 		}
 		if (RegexUtil.isNull(action.getBankmobile())) {
+			//银行开户手机号
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKMOBILE);
 		}
 	}
