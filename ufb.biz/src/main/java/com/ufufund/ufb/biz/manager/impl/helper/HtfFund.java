@@ -1,6 +1,7 @@
-package com.ufufund.ufb.biz.Merchant.htf;
+package com.ufufund.ufb.biz.manager.impl.helper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.Merchant.MerchantFund;
 import com.ufufund.ufb.biz.Merchant.OpenAccount;
@@ -17,6 +18,7 @@ import com.ufufund.ufb.model.remote.hft.OpenAccountRequest;
 import com.ufufund.ufb.model.remote.hft.OpenAccountResponse;
 import com.ufufund.ufb.remote.HftCustService;
 
+@Service
 public class HtfFund extends MerchantFund {
 
 	@Autowired

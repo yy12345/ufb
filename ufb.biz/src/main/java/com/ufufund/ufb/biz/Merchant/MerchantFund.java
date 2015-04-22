@@ -7,7 +7,7 @@ import com.ufufund.ufb.model.db.Dictionary;
 
 public abstract class MerchantFund {
 	
-	protected static boolean isTest = getTest();
+	protected static boolean isTest = false;
     // DictManager.getDict("DICTIONARY$HTFERROR", bankAuthResponse.getReturnCode());
 	
 	

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.ufufund.ufb.biz.Merchant.MerchantFund;
 import com.ufufund.ufb.biz.Merchant.OpenAccount;
 import com.ufufund.ufb.biz.common.ImplCommon;
-import com.ufufund.ufb.biz.common.MerchantCommon;
 import com.ufufund.ufb.biz.convert.BankConvert;
 import com.ufufund.ufb.biz.convert.CustConvert;
 import com.ufufund.ufb.biz.exception.BizException;
@@ -57,6 +56,9 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	
 //	@Autowired
 //	private HftCustService hftCustService;
+	
+	@Autowired
+	private MerchantFund merchantFund;
 	/**
 	 * 查询手机号是否注册
 	 * 
@@ -233,7 +235,6 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		 */
 		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-		MerchantFund merchantFund = MerchantCommon.getMerchant(openAccountAction.getMerchant());
 		OpenAccount openAccount = merchantFund.bankAuth(openAccountAction);
 		/*
 		 * 返回码转换
@@ -266,7 +267,6 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		 */
 		//TODO GR
 //		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-		MerchantFund merchantFund = MerchantCommon.getMerchant(openAccountAction.getMerchant());
 		OpenAccount openAccount = merchantFund.bankVeri(openAccountAction);
 		
 		/*说
@@ -288,7 +288,6 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		 */
 		//TODO GR
 //		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-		MerchantFund merchantFund = MerchantCommon.getMerchant(openAccountAction.getMerchant());
 		OpenAccount openAccount = merchantFund.openAccount(openAccountAction);
 		/*说
 		 * 返回码转换
