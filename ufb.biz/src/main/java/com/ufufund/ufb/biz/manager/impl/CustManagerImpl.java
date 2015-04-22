@@ -49,8 +49,8 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	@Autowired
 	private BankMapper bnankMapper;
 
-//	@Autowired
-//	private TradeNotesMapper tradeNotesMapper;
+	@Autowired
+	private TradeNotesMapper tradeNotesMapper;
 	
 	@Autowired
 	private WorkDayManager workDayManager;
@@ -231,9 +231,8 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		/*
 		 * 进行XML接口	银行快捷鉴权
 		 */
-		//TODO GR
-//		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
-//		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
+		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
 		MerchantFund merchantFund = MerchantCommon.getMerchant(openAccountAction.getMerchant());
 		OpenAccount openAccount = merchantFund.bankAuth(openAccountAction);
 		/*

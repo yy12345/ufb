@@ -52,8 +52,6 @@ public class CustController {
 	 */
 	@RequestMapping(value = "cust/register_org")
 	public String registerPerson(CustinfoVo custinfoVo, Model model) {
-		
-		
 		//FOR TEST
 		if(StringUtils.isBlank(custinfoVo.getMobileno())){
 			custinfoVo.setMobileno("18617502181");
@@ -182,8 +180,6 @@ public class CustController {
 			Custinfo custinfo = custManager.loginIn(loginAction);
 			
 			s_custinfo = new CustinfoVo();
-			
-			
 			s_custinfo.setCustno(custinfo.getCustno());;                      
 			s_custinfo.setMobileno(custinfo.getMobileno());                    
 //			s_custinfo.setMsgcode();                     
@@ -230,14 +226,12 @@ public class CustController {
 				bankCardVo.setBusiness(s_custinfo.getBusiness());
 				bankCardVo.setCustNo(s_custinfo.getCustno());
 			}
-			
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
 			return "cust/index";
 		}
-		
 		return "bankcard/addBankCardPage";
 	}
 	
@@ -249,8 +243,6 @@ public class CustController {
 	 */
 	@RequestMapping(value="bankcard/addBankCardInit" , method=RequestMethod.POST)
 	public String addBankCardInit(BankCardVo bankCardVo, Model model){
-		
-		
 		//FOR TEST
 		if(StringUtils.isBlank(bankCardVo.getBankAcnm())){
 			bankCardVo.setBankAcnm("goodrich");;
@@ -267,13 +259,11 @@ public class CustController {
 		//
 		
 		try{
-			
 			//幼教机构
 			if(StringUtils.isBlank(bankCardVo.getOrganization())){
 				throw new BizException(ThreadLocalUtil.getProccessId(),
 						ErrorInfo.NECESSARY_EMPTY, "开户机构");
 			}
-			
 			//营业执照
 			if(StringUtils.isBlank(bankCardVo.getBusiness())){
 				throw new BizException(ThreadLocalUtil.getProccessId(),
@@ -329,44 +319,6 @@ public class CustController {
 		return "bankcard/addBankCardAuthPage";
 	}
 	
-//	/**
-//	 * 绑卡-银行卡绑定(鉴权)
-//	 * @param model
-//	 * @return
-//	 */
-//	@RequestMapping(value="bankcard/addBankCardAuth" , method=RequestMethod.POST)
-//	public String addBankCardAuth(BankCardVo bankCardVo, Model model){
-//		
-//		try{
-//			//TODO ajax
-////			// 校验验证码
-////			boolean checkVerifyCode = VerifyCodeUtils.validate(bankCardVo.getVerifycode());
-////			if(!checkVerifyCode){
-////				throw new BizException("验证码无效。");
-////			}
-//			
-//			OpenAccountAction openAccountAction = new OpenAccountAction();
-//			openAccountAction.setBankno(bankCardVo.getBankNo());
-//			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
-//			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
-//			openAccountAction.setBankidno(bankCardVo.getBankIdno());
-//			openAccountAction.setBankacco(bankCardVo.getBankAcco());
-//			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
-//			
-//			custManager.openAccount2(openAccountAction);
-//			
-//			model.addAttribute("BankCardVo", bankCardVo);
-//			
-//		}catch (BizException e){
-//			LOG.error(e.getErrmsg(), e);
-//			model.addAttribute("errMsg", e.getMessage());
-//			model.addAttribute("BankCardVo", bankCardVo);
-//			return "bankcard/addBankCardAuthPage";
-//		}
-//
-//		return "bankcard/addBankCardChkPage";
-//	}
-	
 	/**
 	 * 绑卡-银行卡绑定(验证) + 开户
 	 * @param model
@@ -391,8 +343,6 @@ public class CustController {
 			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
 			
 			custManager.openAccount3(openAccountAction);
-			
-			System.out.println("done");
 			
 		}catch (BizException e){
 			

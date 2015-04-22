@@ -27,7 +27,7 @@ public class HtfFund extends MerchantFund {
 		OpenAccountAction openAccountAction = (OpenAccountAction) obj;
 		BankAuthRequest bankAuthRequest = convertBankAuthRequest(openAccountAction);
 		BankAuthResponse bankAuthResponse = null;
-		if(!isTest){
+		if(isTest){
 			bankAuthResponse = hftCustService.bankAuth(bankAuthRequest);	
 		}else{
 			/*

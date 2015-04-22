@@ -54,13 +54,6 @@
 			)
 	 ]]>
   	</insert>
-  	
-  	
-  	<select id="getFdacfinalresultSeq" parameterType="java.lang.String"  resultType="java.lang.String">
-	<![CDATA[	select getSequence('FDACFINALRESULT_SEQ') 
-	]]>
-	</select>
-  		
   		
   	<select id="getDateInfo"  resultType="com.ufufund.ufb.model.db.DateInfo">
   	<![CDATA[	select date_format(now(),'%Y%m%d') apdt,
@@ -68,11 +61,16 @@
 			 date_format(now(),'%Y%m%d') workdate 
 			 ]]>
   	</select>
-  	
+  	 -->
+  	 
   	<select id="getAccoreqSerialSeq" parameterType="java.lang.String"  resultType="java.lang.String">
 	<![CDATA[	select getSequenceBylen('ACCOREQSERIAL_SEQ',20) 
 	]]>
 	</select>
-  	
-  	 -->
+	
+	<select id="getFdacfinalresultSeq" parameterType="java.lang.String"  resultType="java.lang.String">
+	<![CDATA[	select getSequence('FDACFINALRESULT_SEQ') 
+	]]>
+	</select>
+  		
 </mapper>

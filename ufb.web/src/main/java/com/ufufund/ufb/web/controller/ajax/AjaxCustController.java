@@ -241,11 +241,10 @@ public class AjaxCustController {
 			
 			custManager.openAccount2(openAccountAction);
 			
-//			model.addAttribute("BankCardVo", bankCardVo);
-			
 			resultMap.put("errCode", "0000");
 			resultMap.put("errMsg", "银行卡鉴权成功");
-			MsgCodeUtils.sendMsg("");
+			resultMap.put("errCode", openAccountAction.getOtherserial());
+			
 			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
