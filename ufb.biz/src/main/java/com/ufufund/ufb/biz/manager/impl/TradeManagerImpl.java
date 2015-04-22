@@ -14,8 +14,6 @@ import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.dao.TradeRequestMapper;
 import com.ufufund.ufb.model.db.TradeRequest;
-import com.ufufund.ufb.model.enums.Apkind;
-import com.ufufund.ufb.model.enums.TradeStatus;
 import com.ufufund.ufb.model.remote.hft.BuyApplyRequest;
 import com.ufufund.ufb.model.remote.hft.BuyApplyResponse;
 import com.ufufund.ufb.model.remote.hft.CancelRequest;
@@ -70,7 +68,7 @@ public class TradeManagerImpl implements TradeManager{
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 认购流水：serialno="+tradeRequest.getSerialno());
+					+", <Failed>认购流水：serialno="+tradeRequest.getSerialno());
 			return null;
 		}
 		
@@ -87,7 +85,7 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		if(result == null){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 认购下单：serialno="+request.getApplicationNo());
+					+", <Failed>认购下单：serialno="+request.getApplicationNo());
 		}
 		
 		/** 回写交易执行结果  **/
@@ -98,7 +96,7 @@ public class TradeManagerImpl implements TradeManager{
 			n = tradeRequestMapper.update(tradeRequest);
 			if(n < 1){
 				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed> 认购回写：serialno="+tradeRequest.getSerialno());
+						+", <Failed>认购回写：serialno="+tradeRequest.getSerialno());
 			}
 		}
 		
@@ -124,7 +122,7 @@ public class TradeManagerImpl implements TradeManager{
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 申购流水：serialno="+tradeRequest.getSerialno());
+					+", <Failed>申购流水：serialno="+tradeRequest.getSerialno());
 			return null;
 		}
 		
@@ -141,7 +139,7 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		if(result == null){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 申购下单：serialno="+request.getApplicationNo());
+					+", <Failed>申购下单：serialno="+request.getApplicationNo());
 		}
 		
 		/** 回写交易执行结果  **/
@@ -152,7 +150,7 @@ public class TradeManagerImpl implements TradeManager{
 			n = tradeRequestMapper.update(tradeRequest);
 			if(n < 1){
 				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed> 申购回写：serialno="+tradeRequest.getSerialno());
+						+", <Failed>申购回写：serialno="+tradeRequest.getSerialno());
 			}
 		}
 		
@@ -178,7 +176,7 @@ public class TradeManagerImpl implements TradeManager{
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 生成普通赎回流水：serialno="+tradeRequest.getSerialno());
+					+", <Failed>生成普通赎回流水：serialno="+tradeRequest.getSerialno());
 			return null;
 		}
 		
@@ -195,7 +193,7 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		if(result == null){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 普通赎回下单：serialno="+request.getApplicationNo());
+					+", <Failed>普通赎回下单：serialno="+request.getApplicationNo());
 		}
 		
 		/** 回写交易执行结果  **/
@@ -206,7 +204,7 @@ public class TradeManagerImpl implements TradeManager{
 			n = tradeRequestMapper.update(tradeRequest);
 			if(n < 1){
 				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed> 普通赎回回写：serialno="+tradeRequest.getSerialno());
+						+", <Failed>普通赎回回写：serialno="+tradeRequest.getSerialno());
 			}
 		}
 		
@@ -232,7 +230,7 @@ public class TradeManagerImpl implements TradeManager{
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 快速赎回流水：serialno="+tradeRequest.getSerialno());
+					+", <Failed>快速赎回流水：serialno="+tradeRequest.getSerialno());
 			return null;
 		}
 		
@@ -249,7 +247,7 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		if(result == null){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 快速赎回下单：serialno="+request.getApplicationNo());
+					+", <Failed>快速赎回下单：serialno="+request.getApplicationNo());
 		}
 		
 		/** 回写交易执行结果  **/
@@ -260,7 +258,7 @@ public class TradeManagerImpl implements TradeManager{
 			n = tradeRequestMapper.update(tradeRequest);
 			if(n < 1){
 				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed> 快速赎回回写：serialno="+tradeRequest.getSerialno());
+						+", <Failed>快速赎回回写：serialno="+tradeRequest.getSerialno());
 			}
 		}
 		
@@ -290,7 +288,7 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		if(result == null){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed> 撤单申请：serialno="+request.getApplicationNo());
+					+", <Failed>撤单申请：serialno="+request.getApplicationNo());
 		}
 		return result;
 	}
