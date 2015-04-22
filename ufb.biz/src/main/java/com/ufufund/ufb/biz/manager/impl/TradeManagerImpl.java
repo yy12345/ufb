@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
+import com.ufufund.ufb.biz.manager.impl.helper.TradeManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.TradeManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.SequenceUtil;
@@ -47,6 +48,9 @@ public class TradeManagerImpl implements TradeManager{
 	@Autowired
 	private TradeManagerValidator validator;
 	
+	@Autowired
+	private TradeManagerHelper helper;
+	
 	@Override
 	public String subApply(ApplyVo vo) {
 		//  参数及业务规则验证
@@ -54,25 +58,13 @@ public class TradeManagerImpl implements TradeManager{
 		
 		String serialno = SequenceUtil.getSerial();
 		Today today = workDayManager.getSysDayInfo();
+		vo.setSerialno(serialno);
+		vo.setAppdate(today.getDate());
+		vo.setApptime(today.getTime());
+		vo.setWorkday(today.getWorkday());
 		
 		/** 生成本地交易流水 **/
-		TradeRequest tradeRequest = new TradeRequest();
-		tradeRequest.setSerialno(serialno);
-		tradeRequest.setCustno(vo.getCustno());
-		tradeRequest.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-		tradeRequest.setTradeacco(vo.getTradeacco());
-		tradeRequest.setAppdate(today.getDate());
-		tradeRequest.setApptime(today.getTime());
-		tradeRequest.setWorkday(today.getWorkday());
-		tradeRequest.setApkind(Apkind.SUBAPPLY.getValue());
-		tradeRequest.setFundcode(vo.getFundcode());
-		tradeRequest.setAppamt(vo.getAppamt());
-		tradeRequest.setAppvol(vo.getAppvol());
-		tradeRequest.setShareclass("0");
-		tradeRequest.setDividenttype("0");
-		tradeRequest.setFee(vo.getFee());
-		tradeRequest.setReferno("");
-		
+		TradeRequest tradeRequest = helper.toTradeRequest4SubApply(vo);
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 				+", 认购流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
@@ -83,17 +75,7 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		
 		/** 调用基金公司接口 **/
-		SubApplyRequest request = new SubApplyRequest();
-		request.setVersion(Constant.HftSysConfig.Version);
-		request.setMerchantId(Constant.HftSysConfig.MerchantId);
-		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.SubApply);
-		request.setApplicationNo(serialno);
-		request.setTransactionAccountID(vo.getTradeacco());
-		request.setFundCode(vo.getFundcode());
-		request.setApplicationAmount(vo.getAppamt());
-		request.setShareClass(vo.getShareclass());
-		
+		SubApplyRequest request = helper.toSubApplyRequest(vo);
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 				+", 认购下单："+request);
 		SubApplyResponse response = hftTradeService.subApply(request);
@@ -110,13 +92,7 @@ public class TradeManagerImpl implements TradeManager{
 		
 		/** 回写交易执行结果  **/
 		if(result != null){
-			tradeRequest = new TradeRequest();
-			tradeRequest.setSerialno(serialno);
-			tradeRequest.setSheetserialno(response.getAppSheetSerialNo());
-			tradeRequest.setAppdate(response.getTransactionDate());
-			tradeRequest.setApptime(response.getTransactiontime());
-			tradeRequest.setState(TradeStatus.I.getValue());
-			
+			tradeRequest = helper.toResponse4SubApply(response);
 			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 					+", 认购回写："+tradeRequest);
 			n = tradeRequestMapper.update(tradeRequest);
@@ -136,25 +112,13 @@ public class TradeManagerImpl implements TradeManager{
 		
 		String serialno = SequenceUtil.getSerial();
 		Today today = workDayManager.getSysDayInfo();
+		vo.setSerialno(serialno);
+		vo.setAppdate(today.getDate());
+		vo.setApptime(today.getTime());
+		vo.setWorkday(today.getWorkday());
 		
 		/** 生成本地交易流水 **/
-		TradeRequest tradeRequest = new TradeRequest();
-		tradeRequest.setSerialno(serialno);
-		tradeRequest.setCustno(vo.getCustno());
-		tradeRequest.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-		tradeRequest.setTradeacco(vo.getTradeacco());
-		tradeRequest.setAppdate(today.getDate());
-		tradeRequest.setApptime(today.getTime());
-		tradeRequest.setWorkday(today.getWorkday());
-		tradeRequest.setApkind(Apkind.BUYAPPLY.getValue());
-		tradeRequest.setFundcode(vo.getFundcode());
-		tradeRequest.setAppamt(vo.getAppamt());
-		tradeRequest.setAppvol(vo.getAppvol());
-		tradeRequest.setShareclass("0");
-		tradeRequest.setDividenttype("0");
-		tradeRequest.setFee(vo.getFee());
-		tradeRequest.setReferno("");
-		
+		TradeRequest tradeRequest = helper.toTradeRequest4BuyApply(vo);
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 				+", 申购流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
@@ -165,18 +129,7 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		
 		/** 调用基金公司接口 **/
-		BuyApplyRequest request = new BuyApplyRequest();
-		request.setVersion(Constant.HftSysConfig.Version);
-		request.setMerchantId(Constant.HftSysConfig.MerchantId);
-		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.BuyApply);
-		request.setApplicationNo(serialno);
-		request.setTransactionAccountID(vo.getTradeacco());
-		request.setFundCode(vo.getFundcode());
-		request.setApplicationAmount(vo.getAppamt());
-		request.setShareClass(vo.getShareclass());
-		request.setAutoFrozen("0");
-		
+		BuyApplyRequest request = helper.toBuyApplyRequest(vo);
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 				+", 申购下单："+request);
 		BuyApplyResponse response = hftTradeService.buyApply(request);
@@ -193,13 +146,7 @@ public class TradeManagerImpl implements TradeManager{
 		
 		/** 回写交易执行结果  **/
 		if(result != null){
-			tradeRequest = new TradeRequest();
-			tradeRequest.setSerialno(serialno);
-			tradeRequest.setSheetserialno(response.getAppSheetSerialNo());
-			tradeRequest.setAppdate(response.getTransactionDate());
-			tradeRequest.setApptime(response.getTransactiontime());
-			tradeRequest.setState(TradeStatus.I.getValue());
-			
+			tradeRequest = helper.toResponse4BuyApply(response);
 			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 					+", 申购回写："+tradeRequest);
 			n = tradeRequestMapper.update(tradeRequest);
@@ -219,25 +166,13 @@ public class TradeManagerImpl implements TradeManager{
 		
 		String serialno = SequenceUtil.getSerial();
 		Today today = workDayManager.getSysDayInfo();
+		vo.setSerialno(serialno);
+		vo.setAppdate(today.getDate());
+		vo.setApptime(today.getTime());
+		vo.setWorkday(today.getWorkday());
 		
 		/** 生成本地交易流水 **/
-		TradeRequest tradeRequest = new TradeRequest();
-		tradeRequest.setSerialno(serialno);
-		tradeRequest.setCustno(vo.getCustno());
-		tradeRequest.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-		tradeRequest.setTradeacco(vo.getTradeacco());
-		tradeRequest.setAppdate(today.getDate());
-		tradeRequest.setApptime(today.getTime());
-		tradeRequest.setWorkday(today.getWorkday());
-		tradeRequest.setApkind(Apkind.REDEEM.getValue());
-		tradeRequest.setFundcode(vo.getFundcode());
-		tradeRequest.setAppamt(vo.getAppamt());
-		tradeRequest.setAppvol(vo.getAppvol());
-		tradeRequest.setShareclass("0");
-		tradeRequest.setDividenttype("0");
-		tradeRequest.setFee(vo.getFee());
-		tradeRequest.setReferno("");
-		
+		TradeRequest tradeRequest = helper.toTradeRequest4Redeem(vo);
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 				+", 普通赎回流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
@@ -248,17 +183,7 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		
 		/** 调用基金公司接口 **/
-		RedeemRequest request = new RedeemRequest();
-		request.setVersion(Constant.HftSysConfig.Version);
-		request.setMerchantId(Constant.HftSysConfig.MerchantId);
-		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.Redeem);
-		request.setApplicationNo(serialno);
-		request.setTransactionAccountID(vo.getTradeacco());
-		request.setFundCode(vo.getFundcode());
-		request.setApplicationVol(vo.getAppvol());
-		request.setShareClass("1");
-		
+		RedeemRequest request = helper.toRedeemRequest(vo);
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 				+", 普通赎回下单："+request);
 		RedeemResponse response = hftTradeService.redeem(request);
@@ -275,13 +200,7 @@ public class TradeManagerImpl implements TradeManager{
 		
 		/** 回写交易执行结果  **/
 		if(result != null){
-			tradeRequest = new TradeRequest();
-			tradeRequest.setSerialno(serialno);
-			tradeRequest.setSheetserialno(response.getAppSheetSerialNo());
-			tradeRequest.setAppdate(response.getTransactionDate());
-			tradeRequest.setApptime(response.getTransactiontime());
-			tradeRequest.setState(TradeStatus.I.getValue());
-			
+			tradeRequest = helper.toResponse4Redeem(response);
 			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 					+", 普通赎回回写："+tradeRequest);
 			n = tradeRequestMapper.update(tradeRequest);
@@ -301,25 +220,13 @@ public class TradeManagerImpl implements TradeManager{
 		
 		String serialno = SequenceUtil.getSerial();
 		Today today = workDayManager.getSysDayInfo();
+		vo.setSerialno(serialno);
+		vo.setAppdate(today.getDate());
+		vo.setApptime(today.getTime());
+		vo.setWorkday(today.getWorkday());
 		
 		/** 生成本地交易流水 **/
-		TradeRequest tradeRequest = new TradeRequest();
-		tradeRequest.setSerialno(serialno);
-		tradeRequest.setCustno(vo.getCustno());
-		tradeRequest.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-		tradeRequest.setTradeacco(vo.getTradeacco());
-		tradeRequest.setAppdate(today.getDate());
-		tradeRequest.setApptime(today.getTime());
-		tradeRequest.setWorkday(today.getWorkday());
-		tradeRequest.setApkind(Apkind.REALREDEEM.getValue());
-		tradeRequest.setFundcode(vo.getFundcode());
-		tradeRequest.setAppamt(vo.getAppamt());
-		tradeRequest.setAppvol(vo.getAppvol());
-		tradeRequest.setShareclass("0");
-		tradeRequest.setDividenttype("0");
-		tradeRequest.setFee(vo.getFee());
-		tradeRequest.setReferno("");
-		
+		TradeRequest tradeRequest = helper.toTradeRequest4RealRedeem(vo);
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 				+", 快速赎回流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
@@ -330,17 +237,7 @@ public class TradeManagerImpl implements TradeManager{
 		}
 		
 		/** 调用基金公司接口 **/
-		RealRedeemRequest request = new RealRedeemRequest();
-		request.setVersion(Constant.HftSysConfig.Version);
-		request.setMerchantId(Constant.HftSysConfig.MerchantId);
-		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.RealRedeem);
-		request.setApplicationNo(serialno);
-		request.setTransactionAccountID(vo.getTradeacco());
-		request.setFundCode(vo.getFundcode());
-		request.setApplicationVol(vo.getAppvol());
-		request.setShareClass("1");
-		
+		RealRedeemRequest request = helper.toRealRedeemRequest(vo);
 		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 				+", 快速赎回下单："+request);
 		RealRedeemResponse response = hftTradeService.realRedeem(request);
@@ -357,13 +254,7 @@ public class TradeManagerImpl implements TradeManager{
 		
 		/** 回写交易执行结果  **/
 		if(result != null){
-			tradeRequest = new TradeRequest();
-			tradeRequest.setSerialno(serialno);
-			tradeRequest.setSheetserialno(response.getAppSheetSerialNo());
-			tradeRequest.setAppdate(response.getTransactionDate());
-			tradeRequest.setApptime(response.getTransactiontime());
-			tradeRequest.setState(TradeStatus.I.getValue());
-			
+			tradeRequest = helper.toResponse4RealRedeem(response);
 			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 					+", 快速赎回回写："+tradeRequest);
 			n = tradeRequestMapper.update(tradeRequest);
