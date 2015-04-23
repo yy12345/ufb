@@ -243,6 +243,7 @@ public class AjaxCustController {
 			
 			resultMap.put("errCode", "0000");
 			resultMap.put("errMsg", "银行卡鉴权成功");
+			//TODO
 			resultMap.put("errCode", openAccountAction.getOtherserial());
 			
 			
