@@ -27,7 +27,7 @@ public class HftCustServiceTest {
 	@Autowired
 	private HftCustService hftCustService;
 	
-//	@Test
+	@Test
 	public void testBankAuth() throws UnsupportedEncodingException{
 	
 		BankAuthRequest request = new BankAuthRequest();
@@ -71,7 +71,7 @@ public class HftCustServiceTest {
 	}
 	
 	
-	@Test
+	//@Test
 	public void testOpenAccount(){
 		OpenAccountRequest request = new OpenAccountRequest();
 		request.setVersion(Constant.HftSysConfig.Version);

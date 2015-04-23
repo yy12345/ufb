@@ -15,7 +15,6 @@ public class UfbContextUtil implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext contex)
 			throws BeansException {
 		this.context = contex;
-		//this.setApplicationContext(contex);
 	}
 
 	public static ApplicationContext getContext() {

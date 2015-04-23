@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.common.UfbContextUtil;
 import com.ufufund.ufb.common.cache.Cache;
@@ -19,6 +20,7 @@ import com.ufufund.ufb.model.db.Dictionary;
  * @author gaoxin
  *
  */
+@Service
 public class DictManager {
 
 	// private final Logger log = Logger.getLogger(DictManager.class);

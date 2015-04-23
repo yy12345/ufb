@@ -23,15 +23,15 @@ public class HtfFund extends MerchantFund {
 
 	@Autowired
 	private HftCustService hftCustService;
-	
+
 	@Override
 	public OpenAccount bankAuth(Object obj) {
 		OpenAccountAction openAccountAction = (OpenAccountAction) obj;
 		BankAuthRequest bankAuthRequest = convertBankAuthRequest(openAccountAction);
 		BankAuthResponse bankAuthResponse = null;
-		if(isTest){
-			bankAuthResponse = hftCustService.bankAuth(bankAuthRequest);	
-		}else{
+		if (TestHelp.isTest) {
+			bankAuthResponse = hftCustService.bankAuth(bankAuthRequest);
+		} else {
 			/*
 			 * 模拟器
 			 */
@@ -42,27 +42,27 @@ public class HtfFund extends MerchantFund {
 			bankAuthResponse.setReturnMsg("ReturnMsg");
 		}
 		OpenAccount openAccount = new OpenAccount();
-		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HTFERROR, bankAuthResponse.getReturnCode());
-		if(dictionary!=null){
+		Dictionary dictionary = DictManager.getDict(
+				Constant.DICTIONARY$HTFERROR, bankAuthResponse.getReturnCode());
+		if (dictionary != null) {
 			openAccount.setReturncode(dictionary.getPmnm());
-		}else{
+		} else {
 			openAccount.setReturncode(bankAuthResponse.getReturnCode());
-		}		
+		}
 		openAccount.setReturnMsg(bankAuthResponse.getReturnMsg());
 		openAccount.setOtherserial(bankAuthResponse.getOtherSerial());
 		openAccount.setProtocolno(bankAuthResponse.getProtocolNo());
 		return openAccount;
 	}
-	
-	
+
 	@Override
 	public OpenAccount bankVeri(Object obj) {
 		OpenAccountAction openAccountAction = (OpenAccountAction) obj;
-		BankVeriRequest bankVeriRequest =  convertBankVeriRequest(openAccountAction);
+		BankVeriRequest bankVeriRequest = convertBankVeriRequest(openAccountAction);
 		BankVeriResponse bankVeriResponse = null;
-		if(!isTest){
-			bankVeriResponse = hftCustService.bankVeri(bankVeriRequest);	
-		}else{
+		if (!TestHelp.isTest) {
+			bankVeriResponse = hftCustService.bankVeri(bankVeriRequest);
+		} else {
 			/*
 			 * 模拟器
 			 */
@@ -71,14 +71,16 @@ public class HtfFund extends MerchantFund {
 			bankVeriResponse.setValidateState("1");
 		}
 		OpenAccount openAccount = new OpenAccount();
-		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HTFERROR, bankVeriResponse.getReturnCode());
-		if(dictionary!=null){
+		Dictionary dictionary = DictManager.getDict(
+				Constant.DICTIONARY$HTFERROR, bankVeriResponse.getReturnCode());
+		if (dictionary != null) {
 			openAccount.setReturncode(dictionary.getPmnm());
-		}else{
+		} else {
 			openAccount.setReturncode(bankVeriResponse.getReturnCode());
-		}		
+		}
 		openAccount.setReturnMsg(bankVeriResponse.getReturnMsg());
-		if(bankVeriResponse.getValidateState()==null||!"1".equals(bankVeriResponse.getValidateState())){
+		if (bankVeriResponse.getValidateState() == null
+				|| !"1".equals(bankVeriResponse.getValidateState())) {
 			/*
 			 * 鉴权失败返回码
 			 */
@@ -86,15 +88,16 @@ public class HtfFund extends MerchantFund {
 		}
 		return openAccount;
 	}
-	
+
 	@Override
 	public OpenAccount openAccount(Object obj) {
 		OpenAccountAction openAccountAction = (OpenAccountAction) obj;
-		OpenAccountRequest openAccountRequest =  convertOpenAccountRequest(openAccountAction);
+		OpenAccountRequest openAccountRequest = convertOpenAccountRequest(openAccountAction);
 		OpenAccountResponse openAccountResponse = null;
-		if(!isTest){
-			openAccountResponse = hftCustService.openAccount(openAccountRequest);		
-		}else{
+		if (!TestHelp.isTest) {
+			openAccountResponse = hftCustService
+					.openAccount(openAccountRequest);
+		} else {
 			/*
 			 * 模拟器
 			 */
@@ -103,131 +106,146 @@ public class HtfFund extends MerchantFund {
 			openAccountResponse.setTransactionAccountID("AccountID");
 		}
 		OpenAccount openAccount = new OpenAccount();
-		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HTFERROR, openAccountResponse.getReturnCode());
-		if(dictionary!=null){
+		Dictionary dictionary = DictManager.getDict(
+				Constant.DICTIONARY$HTFERROR,
+				openAccountResponse.getReturnCode());
+		if (dictionary != null) {
 			openAccount.setReturncode(dictionary.getPmnm());
-		}else{
+		} else {
 			openAccount.setReturncode(openAccountResponse.getReturnCode());
-		}		
+		}
 		openAccount.setReturnMsg(openAccountResponse.getReturnMsg());
-		openAccount.setTransactionAccountID(openAccountResponse.getTransactionAccountID());
+		openAccount.setTransactionAccountID(openAccountResponse
+				.getTransactionAccountID());
 		return openAccount;
 	}
-	
-	
-	
-	
-	
-	
-	private static BankAuthRequest convertBankAuthRequest(OpenAccountAction openAccountAction){
+
+	private BankAuthRequest convertBankAuthRequest(
+			OpenAccountAction openAccountAction) {
 		BankAuthRequest req = new BankAuthRequest();
 		/*
-		 *  目前写死 后面从字典转换
+		 * 目前写死 后面从字典转换
 		 */
-		req.setVersion("");//版本号 
-		req.setMerchantId("");//机构标识  
-		req.setDistributorCode("");// 销售人代码	
-		Dictionary dictionary3 =  DictManager.getDict(Constant.DICTIONARY$HFTAPKIND, Apkind.SWIFTAUTH.getValue());
-		req.setBusinType(dictionary3.getPmnm());//业务类型  
-		req.setApplicationNo(openAccountAction.getSerialno());//合作平台申请单编号
-		req.setExtension(null);
-		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HFTBANKNO, openAccountAction.getBankno());
-		req.setClearingAgencyCode(dictionary.getPmnm());//A	9	投资人收款银行账户开户行	
-		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());//	C	60	投资人收款银行账户户名	
-		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());//	C	28	投资人收款银行账户账号	
-		Dictionary dictionary2 =  DictManager.getDict(Constant.DICTIONARY$HFTIDTP, openAccountAction.getBankidtp());
-		req.setCertificateType(dictionary2.getPmnm());//	C	1	机构证件类型	
-												/*0-身份证，1-护照
-												2-军官证，3-士兵证
-												4-港澳居民来往内地通行证，5-户口本
-												6-外国护照，7-其它
-												8-文职证，9-警官证
-												A-台胞证*/
-		req.setCertificateNo(openAccountAction.getBankidno());//	C	30	投资人证件号码	
-		req.setMobileTelNo(openAccountAction.getBankmobile());//C	24	投资人手机号码	
-		req.setApplicationNo(openAccountAction.getAccoreqSerial());
+		req.setVersion(Constant.HftSysConfig.Version);// 版本号
+		req.setMerchantId(Constant.HftSysConfig.MerchantId);// 机构标识
+		req.setDistributorCode(Constant.HftSysConfig.DistributorCode);// 销售人代码
+
+		// TODO
+		// Dictionary dictionary3 = DictManager.getDict(Constant.DICTIONARY$HFTAPKIND, Apkind.SWIFTAUTH.getValue());
+		// req.setBusinType(dictionary3.getPmnm());// 业务类型
+		req.setBusinType(Constant.HftBusiType.BankAuth);// 业务类型
+
+		//TODO
+		req.setApplicationNo(openAccountAction.getSerialno());// 合作平台申请单编号
+
+		//不要的
+		//req.setExtension(null);
+
+		// TODO
+		// Dictionary dictionary = DictManager.getDict(Constant.DICTIONARY$HFTBANKNO, openAccountAction.getBankno());
+		// req.setClearingAgencyCode(dictionary.getPmnm());//A 9 投资人收款银行账户开户行
+		req.setClearingAgencyCode("012");// A 9 投资人收款银行账户开户行
+
+		//TODO
+		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());
+
+		//TODO
+		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());// C 28 投资人收款银行账户账号
+
+		// TODO
+		// Dictionary dictionary2 = DictManager.getDict(Constant.DICTIONARY$HFTIDTP, openAccountAction.getBankidtp());
+		// req.setCertificateType(dictionary2.getPmnm());
+		req.setCertificateType("0");
+
+		//TODO
+		req.setCertificateNo(openAccountAction.getBankidno());// C 30 投资人证件号码
+		
+		//TODO
+		req.setMobileTelNo(openAccountAction.getBankmobile());// C 24 投资人手机号码
+		req.setMobileTelNo("18616502181");// C 24 投资人手机号码
+		
+		//TODO
+		req.setAccoreqSerial(openAccountAction.getAccoreqSerial());
 		return req;
 	}
 
-
-	
-
-	
-	
-	
-	private static BankVeriRequest convertBankVeriRequest(OpenAccountAction openAccountAction){
+	private static BankVeriRequest convertBankVeriRequest(
+			OpenAccountAction openAccountAction) {
 		BankVeriRequest req = new BankVeriRequest();
 		/*
-		 *  目前写死 后面从字典转换
+		 * 目前写死 后面从字典转换
 		 */
-		req.setVersion("");//版本号 
-		req.setMerchantId("");//机构标识  
-		req.setDistributorCode("");// 销售人代码	
-		Dictionary dictionary3 =  DictManager.getDict(Constant.DICTIONARY$HFTAPKIND, Apkind.SWIFTVERIFY.getValue());
-		req.setBusinType(dictionary3.getPmnm());//业务类型  
-		req.setApplicationNo(openAccountAction.getSerialno());//合作平台申请单编号
+		req.setVersion("");// 版本号
+		req.setMerchantId("");// 机构标识
+		req.setDistributorCode("");// 销售人代码
+		Dictionary dictionary3 = DictManager.getDict(
+				Constant.DICTIONARY$HFTAPKIND, Apkind.SWIFTVERIFY.getValue());
+		req.setBusinType(dictionary3.getPmnm());// 业务类型
+		req.setApplicationNo(openAccountAction.getSerialno());// 合作平台申请单编号
 		req.setExtension(null);
-		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HFTBANKNO, openAccountAction.getBankno());
-		req.setClearingAgencyCode(dictionary.getPmnm());//A	9	投资人收款银行账户开户行	
-		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());//	C	60	投资人收款银行账户户名	
-		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());//	C	28	投资人收款银行账户账号	
-		Dictionary dictionary2 =  DictManager.getDict(Constant.DICTIONARY$HFTIDTP, openAccountAction.getBankidtp());
-		req.setCertificateType(dictionary2.getPmnm());//	C	1	机构证件类型	
-												/*0-身份证，1-护照
-												2-军官证，3-士兵证
-												4-港澳居民来往内地通行证，5-户口本
-												6-外国护照，7-其它
-												8-文职证，9-警官证
-												A-台胞证*/
-		req.setCertificateNo(openAccountAction.getBankidno());//	C	30	投资人证件号码	
-		req.setMobileTelNo(openAccountAction.getBankidno());//C	24	投资人手机号码	
+		Dictionary dictionary = DictManager.getDict(
+				Constant.DICTIONARY$HFTBANKNO, openAccountAction.getBankno());
+		req.setClearingAgencyCode(dictionary.getPmnm());// A 9 投资人收款银行账户开户行
+		req.setAcctNameOfInvestorInClearingAgency(openAccountAction
+				.getBankacnm());// C 60 投资人收款银行账户户名
+		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());// C
+																					// 28
+																					// 投资人收款银行账户账号
+		Dictionary dictionary2 = DictManager.getDict(
+				Constant.DICTIONARY$HFTIDTP, openAccountAction.getBankidtp());
+		req.setCertificateType(dictionary2.getPmnm());// C 1 机构证件类型
+		/*
+		 * 0-身份证，1-护照 2-军官证，3-士兵证 4-港澳居民来往内地通行证，5-户口本 6-外国护照，7-其它 8-文职证，9-警官证
+		 * A-台胞证
+		 */
+		req.setCertificateNo(openAccountAction.getBankidno());// C 30 投资人证件号码
+		req.setMobileTelNo(openAccountAction.getBankidno());// C 24 投资人手机号码
 		req.setMobileAuthCode(openAccountAction.getMobileAutoCode());
 		req.setOtherSerial(openAccountAction.getOtherserial());
 		req.setAccoreqSerial(openAccountAction.getAccoreqSerial());
 		return req;
 	}
 
-	public static OpenAccountRequest convertOpenAccountRequest(OpenAccountAction openAccountAction){
+	public static OpenAccountRequest convertOpenAccountRequest(
+			OpenAccountAction openAccountAction) {
 		OpenAccountRequest req = new OpenAccountRequest();
 		/*
-		 *  目前写死 后面从字典转换
+		 * 目前写死 后面从字典转换
 		 */
-		req.setVersion("");//版本号 
-		req.setMerchantId("");//机构标识  
-		req.setDistributorCode("");// 销售人代码	
-		Dictionary dictionary3 =  DictManager.getDict(Constant.DICTIONARY$HFTAPKIND, Apkind.OPEN_ACCOUNT.getValue());
-		req.setBusinType(dictionary3.getPmnm());//业务类型  
-		req.setApplicationNo(openAccountAction.getSerialno());//合作平台申请单编号
+		req.setVersion("");// 版本号
+		req.setMerchantId("");// 机构标识
+		req.setDistributorCode("");// 销售人代码
+		Dictionary dictionary3 = DictManager.getDict(
+				Constant.DICTIONARY$HFTAPKIND, Apkind.OPEN_ACCOUNT.getValue());
+		req.setBusinType(dictionary3.getPmnm());// 业务类型
+		req.setApplicationNo(openAccountAction.getSerialno());// 合作平台申请单编号
 		req.setExtension(null);
-		Dictionary dictionary =  DictManager.getDict(Constant.DICTIONARY$HFTBANKNO, openAccountAction.getBankno());
-		req.setClearingAgencyCode(dictionary.getPmnm());//A	9	投资人收款银行账户开户行	
-		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());//	C	60	投资人收款银行账户户名	
-		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());//	C	28	投资人收款银行账户账号	
-		Dictionary dictionary2 =  DictManager.getDict(Constant.DICTIONARY$HFTIDTP, openAccountAction.getBankidtp());
-		req.setCertificateType(dictionary2.getPmnm());//	C	1	机构证件类型	
-												/*0-身份证，1-护照
-												2-军官证，3-士兵证
-												4-港澳居民来往内地通行证，5-户口本
-												6-外国护照，7-其它
-												8-文职证，9-警官证
-												A-台胞证*/
-		req.setCertificateNo(openAccountAction.getBankidno());//	C	30	投资人证件号码	
-		req.setMobileTelNo(openAccountAction.getBankidno());//C	24	投资人手机号码	
-		
-		
+		Dictionary dictionary = DictManager.getDict(
+				Constant.DICTIONARY$HFTBANKNO, openAccountAction.getBankno());
+		req.setClearingAgencyCode(dictionary.getPmnm());// A 9 投资人收款银行账户开户行
+		req.setAcctNameOfInvestorInClearingAgency(openAccountAction
+				.getBankacnm());// C 60 投资人收款银行账户户名
+		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());// C
+																					// 28
+																					// 投资人收款银行账户账号
+		Dictionary dictionary2 = DictManager.getDict(
+				Constant.DICTIONARY$HFTIDTP, openAccountAction.getBankidtp());
+		req.setCertificateType(dictionary2.getPmnm());// C 1 机构证件类型
+		/*
+		 * 0-身份证，1-护照 2-军官证，3-士兵证 4-港澳居民来往内地通行证，5-户口本 6-外国护照，7-其它 8-文职证，9-警官证
+		 * A-台胞证
+		 */
+		req.setCertificateNo(openAccountAction.getBankidno());// C 30 投资人证件号码
+		req.setMobileTelNo(openAccountAction.getBankidno());// C 24 投资人手机号码
+
 		/*
 		 * 
-			286	CertValidDate	A	8	证件有效期
-			49	EmailAddress	C	40	投资人E-MAIL地址
-			88	OfficeTelNo	C	22	投资人单位电话号码
-			51	FaxNo	C	24	投资人传真号码
-			4	Address	C	120	通讯地址
-			101	PostCode	A	6	投资人邮政编码
-			5027	ProtocolNo	A	32	银行协议编号
-
+		 * 286 CertValidDate A 8 证件有效期 49 EmailAddress C 40 投资人E-MAIL地址 88
+		 * OfficeTelNo C 22 投资人单位电话号码 51 FaxNo C 24 投资人传真号码 4 Address C 120 通讯地址
+		 * 101 PostCode A 6 投资人邮政编码 5027 ProtocolNo A 32 银行协议编号
 		 */
-		req.setProtocolNo(openAccountAction.getProtocolno());//	A	32	银行协议编号
+		req.setProtocolNo(openAccountAction.getProtocolno());// A 32 银行协议编号
 		return req;
 	}
-	
+
 }

@@ -27,6 +27,49 @@ public class AjaxCustController {
 	@Autowired
 	private CustManager custManager;
 	
+	/**
+	 * 检查银行卡是否已注册
+	 * @param idCardNo
+	 * @return
+	 */
+	@RequestMapping(value = "ajaxbankcard/addBankCardAuth", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,String> addBankCardAuth(BankCardVo bankCardVo, Model model){
+		//FOR TEST 
+		bankCardVo.setBankNo("007");
+		//
+		Map<String,String> resultMap = new HashMap<String,String>();
+		try{
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setBankno(bankCardVo.getBankNo());
+			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
+			bankCardVo.setBankIdtp("0");
+			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
+			openAccountAction.setBankidno(bankCardVo.getBankIdno());
+			openAccountAction.setBankacco(bankCardVo.getBankAcco());
+			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
+			
+			custManager.openAccount2(openAccountAction);
+			
+			resultMap.put("errCode", "0000");
+			resultMap.put("errMsg", "银行卡鉴权成功");
+			//TODO
+			resultMap.put("errCode", openAccountAction.getOtherserial());
+			
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errOtherInfo", e.getOtherInfo());
+			resultMap.put("errMsg", e.getMessage());
+		}catch (Exception e) {
+			LOG.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+
+		return resultMap;
+	}
 	
 	/**
 	 * 获取短信验证码
@@ -216,51 +259,4 @@ public class AjaxCustController {
 		}
 		return resultMap;
 	}
-	
-	/**
-	 * 检查银行卡是否已注册
-	 * @param idCardNo
-	 * @return
-	 */
-	@RequestMapping(value = "ajaxbankcard/addBankCardAuth", method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String,String> addBankCardAuth(BankCardVo bankCardVo, Model model){
-		//FOR TEST 
-		bankCardVo.setBankNo("007");
-		//
-		Map<String,String> resultMap = new HashMap<String,String>();
-		try{
-			OpenAccountAction openAccountAction = new OpenAccountAction();
-			openAccountAction.setBankno(bankCardVo.getBankNo());
-			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
-			bankCardVo.setBankIdtp("0");
-			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
-			openAccountAction.setBankidno(bankCardVo.getBankIdno());
-			openAccountAction.setBankacco(bankCardVo.getBankAcco());
-			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
-			
-			custManager.openAccount2(openAccountAction);
-			
-			resultMap.put("errCode", "0000");
-			resultMap.put("errMsg", "银行卡鉴权成功");
-			//TODO
-			resultMap.put("errCode", openAccountAction.getOtherserial());
-			
-			
-		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			resultMap.put("errCode", "9999");
-			resultMap.put("errOtherInfo", e.getOtherInfo());
-			resultMap.put("errMsg", e.getMessage());
-		}catch (Exception e) {
-			LOG.error(e.getMessage(), e);
-			resultMap.put("errCode", "9999");
-			resultMap.put("errMsg", "系统出现异常！");
-		}
-
-		return resultMap;
-	}
-	
-	
-
 }
