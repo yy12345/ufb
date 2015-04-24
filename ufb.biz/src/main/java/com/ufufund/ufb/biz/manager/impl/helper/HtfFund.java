@@ -27,9 +27,11 @@ public class HtfFund extends MerchantFund {
 	@Override
 	public OpenAccount bankAuth(Object obj) {
 		OpenAccountAction openAccountAction = (OpenAccountAction) obj;
-		BankAuthRequest bankAuthRequest = convertBankAuthRequest(openAccountAction);
+		//组装Request
+		BankAuthRequest bankAuthRequest = this.convertBankAuthRequest(openAccountAction);
 		BankAuthResponse bankAuthResponse = null;
-		if (TestHelp.isTest) {
+		if (!TestHelp.isTest) {
+			//调用恒生接口
 			bankAuthResponse = hftCustService.bankAuth(bankAuthRequest);
 		} else {
 			/*
@@ -41,14 +43,17 @@ public class HtfFund extends MerchantFund {
 			bankAuthResponse.setProtocolNo("ProtocolNo1");
 			bankAuthResponse.setReturnMsg("ReturnMsg");
 		}
+		
+		//解析Response返回值
 		OpenAccount openAccount = new OpenAccount();
-		Dictionary dictionary = DictManager.getDict(
-				Constant.DICTIONARY$HTFERROR, bankAuthResponse.getReturnCode());
-		if (dictionary != null) {
-			openAccount.setReturncode(dictionary.getPmnm());
-		} else {
-			openAccount.setReturncode(bankAuthResponse.getReturnCode());
-		}
+//		Dictionary dictionary = DictManager.getDict(
+//				Constant.DICTIONARY$HTFERROR, bankAuthResponse.getReturnCode());
+//		if (dictionary != null) {
+//			openAccount.setReturncode(dictionary.getPmnm());
+//		} else {
+//			openAccount.setReturncode(bankAuthResponse.getReturnCode());
+//		}
+		openAccount.setReturncode(bankAuthResponse.getReturnCode());
 		openAccount.setReturnMsg(bankAuthResponse.getReturnMsg());
 		openAccount.setOtherserial(bankAuthResponse.getOtherSerial());
 		openAccount.setProtocolno(bankAuthResponse.getProtocolNo());
@@ -58,7 +63,7 @@ public class HtfFund extends MerchantFund {
 	@Override
 	public OpenAccount bankVeri(Object obj) {
 		OpenAccountAction openAccountAction = (OpenAccountAction) obj;
-		BankVeriRequest bankVeriRequest = convertBankVeriRequest(openAccountAction);
+		BankVeriRequest bankVeriRequest = this.convertBankVeriRequest(openAccountAction);
 		BankVeriResponse bankVeriResponse = null;
 		if (!TestHelp.isTest) {
 			bankVeriResponse = hftCustService.bankVeri(bankVeriRequest);
@@ -123,54 +128,52 @@ public class HtfFund extends MerchantFund {
 	private BankAuthRequest convertBankAuthRequest(
 			OpenAccountAction openAccountAction) {
 		BankAuthRequest req = new BankAuthRequest();
-		/*
-		 * 目前写死 后面从字典转换
-		 */
-		req.setVersion(Constant.HftSysConfig.Version);// 版本号
-		req.setMerchantId(Constant.HftSysConfig.MerchantId);// 机构标识
-		req.setDistributorCode(Constant.HftSysConfig.DistributorCode);// 销售人代码
-
+		// 版本号
+		req.setVersion(Constant.HftSysConfig.Version);
+		// 机构标识
+		req.setMerchantId(Constant.HftSysConfig.MerchantId);
+		// 销售人代码
+		req.setDistributorCode(Constant.HftSysConfig.DistributorCode);
+		
 		// TODO
+		// 业务类型
 		// Dictionary dictionary3 = DictManager.getDict(Constant.DICTIONARY$HFTAPKIND, Apkind.SWIFTAUTH.getValue());
-		// req.setBusinType(dictionary3.getPmnm());// 业务类型
-		req.setBusinType(Constant.HftBusiType.BankAuth);// 业务类型
-
-		//TODO
-		req.setApplicationNo(openAccountAction.getSerialno());// 合作平台申请单编号
-
-		//不要的
+		// req.setBusinType(dictionary3.getPmnm());
+		
+		req.setBusinType(Constant.HftBusiType.BankAuth);
+		// 合作平台申请单编号
+		req.setApplicationNo(openAccountAction.getSerialno());
+		// 不要
 		//req.setExtension(null);
 
 		// TODO
+		// A 9 投资人收款银行账户开户行
 		// Dictionary dictionary = DictManager.getDict(Constant.DICTIONARY$HFTBANKNO, openAccountAction.getBankno());
-		// req.setClearingAgencyCode(dictionary.getPmnm());//A 9 投资人收款银行账户开户行
-		req.setClearingAgencyCode("012");// A 9 投资人收款银行账户开户行
+		// req.setClearingAgencyCode(dictionary.getPmnm());
+		req.setClearingAgencyCode("012");
 
-		//TODO
+		// 投资人银行账户姓名
 		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());
 
-		//TODO
-		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());// C 28 投资人收款银行账户账号
+		// C 28 投资人收款银行账户账号
+		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());
 
 		// TODO
+		// 投资人银行证件类型
 		// Dictionary dictionary2 = DictManager.getDict(Constant.DICTIONARY$HFTIDTP, openAccountAction.getBankidtp());
 		// req.setCertificateType(dictionary2.getPmnm());
-		req.setCertificateType("0");
+		req.setCertificateType(openAccountAction.getBankidtp());
 
-		//TODO
-		req.setCertificateNo(openAccountAction.getBankidno());// C 30 投资人证件号码
-		
-		//TODO
-		req.setMobileTelNo(openAccountAction.getBankmobile());// C 24 投资人手机号码
-		req.setMobileTelNo("18616502181");// C 24 投资人手机号码
-		
-		//TODO
+		// C 30 投资人证件号码
+		req.setCertificateNo(openAccountAction.getBankidno());
+		// C 24 投资人手机号码
+		req.setMobileTelNo(openAccountAction.getBankmobile());
+		// 请求序列号 给通联的流水号 UFT生成
 		req.setAccoreqSerial(openAccountAction.getAccoreqSerial());
 		return req;
 	}
 
-	private static BankVeriRequest convertBankVeriRequest(
-			OpenAccountAction openAccountAction) {
+	private BankVeriRequest convertBankVeriRequest(OpenAccountAction openAccountAction) {
 		BankVeriRequest req = new BankVeriRequest();
 		/*
 		 * 目前写死 后面从字典转换
@@ -206,7 +209,7 @@ public class HtfFund extends MerchantFund {
 		return req;
 	}
 
-	public static OpenAccountRequest convertOpenAccountRequest(
+	public OpenAccountRequest convertOpenAccountRequest(
 			OpenAccountAction openAccountAction) {
 		OpenAccountRequest req = new OpenAccountRequest();
 		/*

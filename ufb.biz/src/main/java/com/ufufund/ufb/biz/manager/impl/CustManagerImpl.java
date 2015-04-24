@@ -16,6 +16,7 @@ import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
+import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.dao.BankMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
@@ -229,12 +230,16 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	
 	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException {
 		String processId =  this.getProcessId(openAccountAction);
+		// 验证银行编码、银行开户户名、银行证件类型、银行证件号码、银行卡号、银行开户手机号是否空
 		custManagerValidator.validator(openAccountAction);
-		/*
-		 * 进行XML接口	银行快捷鉴权
-		 */
-		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
+		// 合作平台申请单编号 UFT生成
+		// SequenceUtil.getSerial() 
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		// 请求序列号 给通联的流水号 UFT生成
+		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
+		/*
+		 * 进行XML接口 银行快捷鉴权
+		 */
 		OpenAccount openAccount = merchantFund.bankAuth(openAccountAction);
 		/*
 		 * 返回码转换

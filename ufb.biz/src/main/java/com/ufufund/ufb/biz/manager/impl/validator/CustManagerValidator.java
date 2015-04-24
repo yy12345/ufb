@@ -137,6 +137,7 @@ public class CustManagerValidator extends ValidatorCommon {
 	public void validator(OpenAccountAction action) throws BizException {
 		// TODO Auto-generated method stub
 		String processId = action.getProcessId();
+		
 		if (RegexUtil.isNull(action.getBankno())) {
 			//银行编码
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKNO);

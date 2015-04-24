@@ -28,8 +28,9 @@ public class AjaxCustController {
 	private CustManager custManager;
 	
 	/**
-	 * 检查银行卡是否已注册
-	 * @param idCardNo
+	 * 银行快捷鉴权
+	 * @param bankCardVo
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "ajaxbankcard/addBankCardAuth", method = RequestMethod.GET)
@@ -41,14 +42,15 @@ public class AjaxCustController {
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try{
 			OpenAccountAction openAccountAction = new OpenAccountAction();
-			openAccountAction.setBankno(bankCardVo.getBankNo());
-			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
-			bankCardVo.setBankIdtp("0");
-			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
-			openAccountAction.setBankidno(bankCardVo.getBankIdno());
-			openAccountAction.setBankacco(bankCardVo.getBankAcco());
-			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
+			openAccountAction.setBankno(bankCardVo.getBankNo());//银行编号
+			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());//银行用户名
+			bankCardVo.setBankIdtp("0");//银行证件类型
+			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());//银行证件类型
+			openAccountAction.setBankidno(bankCardVo.getBankIdno());//银行证件号
+			openAccountAction.setBankacco(bankCardVo.getBankAcco());//银行卡号码
+			openAccountAction.setBankmobile(bankCardVo.getBankMobile());//银行手机号
 			
+			//调用银行快捷鉴权
 			custManager.openAccount2(openAccountAction);
 			
 			resultMap.put("errCode", "0000");
