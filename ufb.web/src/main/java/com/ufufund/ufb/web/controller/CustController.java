@@ -382,7 +382,7 @@ public class CustController {
 			return "bankcard/addBankCardAuthPage";
 		}
 
-		return "cust/openAccoPage";
+		return "bankcard/addBankCardSuccessPage";
 	}
 	
 	
