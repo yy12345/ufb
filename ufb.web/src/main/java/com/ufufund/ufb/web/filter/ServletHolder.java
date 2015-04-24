@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
  */
 public class ServletHolder {
 
-	private static ThreadLocal<HttpServletRequest> request = new ThreadLocal();
-	private static ThreadLocal<HttpServletResponse> response = new ThreadLocal();
+	private static ThreadLocal<HttpServletRequest> request = new ThreadLocal<HttpServletRequest>();
+	private static ThreadLocal<HttpServletResponse> response = new ThreadLocal<HttpServletResponse>();
 	
 	
 	public static HttpServletRequest getRequest() {

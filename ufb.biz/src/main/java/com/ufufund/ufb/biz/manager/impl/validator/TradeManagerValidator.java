@@ -13,6 +13,42 @@ import com.ufufund.ufb.model.vo.RedeemVo;
 @Service
 public class TradeManagerValidator {
 
+	/**
+	 * 认购校验
+	 * @param vo
+	 */
+	public void validateSubApply(ApplyVo vo){
+		// 参数检查
+		paramCheck4Apply(vo);
+	}
+	
+	/**
+	 * 申购校验
+	 * @param vo
+	 */
+	public void validateBuyApply(ApplyVo vo){
+		// 参数检查
+		paramCheck4Apply(vo);
+	}
+	
+	/**
+	 * 普通赎回校验
+	 * @param vo
+	 */
+	public void validateRedeem(RedeemVo vo){
+		// 参数检查
+		paramCheck4Redeem(vo);
+	}
+	
+	/**
+	 * 快速赎回校验
+	 * @param vo
+	 */
+	public void validateRealRedeem(RedeemVo vo){
+		// 参数检查
+		paramCheck4Redeem(vo);
+	}
+	
 	private void paramCheck4Apply(ApplyVo vo){
 		if(StringUtils.isBlank(vo.getCustno())){
 			throw new BizException("参数[custno]不能为空！");
@@ -34,22 +70,6 @@ public class TradeManagerValidator {
 		}
 	}
 	
-	public void validateSubApply(ApplyVo vo){
-		
-		// 输入参数检查
-		paramCheck4Apply(vo);
-		// 业务规则检查
-		// code...
-	}
-	
-	public void validateBuyApply(ApplyVo vo){
-		
-		// 输入参数检查
-		paramCheck4Apply(vo);
-		// 业务规则检查
-		// code...
-	}
-	
 	private void paramCheck4Redeem(RedeemVo vo){
 		if(StringUtils.isBlank(vo.getCustno())){
 			throw new BizException("参数[custno]不能为空！");
@@ -69,21 +89,5 @@ public class TradeManagerValidator {
 		if(vo.getFee() == null || vo.getFee().compareTo(new BigDecimal("0")) <= 0){
 			throw new BizException("参数[fee]不能为空！");
 		}
-	}
-	
-	public void validateRedeem(RedeemVo vo){
-		
-		// 输入参数检查
-		paramCheck4Redeem(vo);
-		// 业务规则检查
-		// code...
-	}
-	
-	public void validateRealRedeem(RedeemVo vo){
-		
-		// 输入参数检查
-		paramCheck4Redeem(vo);
-		// 业务规则检查
-		// code...
 	}
 }
