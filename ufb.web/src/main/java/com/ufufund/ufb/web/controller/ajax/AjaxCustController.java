@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
@@ -36,9 +37,7 @@ public class AjaxCustController {
 	@RequestMapping(value = "ajaxbankcard/addBankCardAuth", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,String> addBankCardAuth(BankCardVo bankCardVo, Model model){
-		//FOR TEST 
-		bankCardVo.setBankNo("007");
-		//
+
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try{
 			OpenAccountAction openAccountAction = new OpenAccountAction();
@@ -55,15 +54,14 @@ public class AjaxCustController {
 			
 			resultMap.put("errCode", "0000");
 			resultMap.put("errMsg", "银行卡鉴权成功");
-			//TODO
-			resultMap.put("errCode", openAccountAction.getOtherserial());
-			
+			// 对方序列号
+			resultMap.put("otherserial", openAccountAction.getAccoreqSerial());
 			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			resultMap.put("errCode", "9999");
-			resultMap.put("errOtherInfo", e.getOtherInfo());
+			resultMap.put("errCode", e.getOtherInfo());
 			resultMap.put("errMsg", e.getMessage());
+			
 		}catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 			resultMap.put("errCode", "9999");

@@ -113,9 +113,23 @@ public class BankCardVo implements Serializable {
 	 */
 	private String msgcode;
 	
+	/**
+	 * 
+	 */
+	private String otherserial;
+	
+	
 	private String organization;// 幼教机构名称
 	private String business; // 营业执照注册号
 	
+	public String getOtherserial() {
+		return otherserial;
+	}
+
+	public void setOtherserial(String otherserial) {
+		this.otherserial = otherserial;
+	}
+
 	public String getOrganization() {
 		return organization;
 	}

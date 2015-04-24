@@ -256,6 +256,15 @@ public class CustController {
 		if(StringUtils.isBlank(bankCardVo.getTradePwd2())){
 			bankCardVo.setTradePwd2("123qwe");;
 		}
+		if(StringUtils.isBlank(bankCardVo.getBankNo())){
+			bankCardVo.setBankNo("007");;
+		}
+		if(StringUtils.isBlank(bankCardVo.getBankMobile())){
+			bankCardVo.setBankMobile("18616502181");;
+		}
+		if(StringUtils.isBlank(bankCardVo.getBankAcco())){
+			bankCardVo.setBankAcco("6230201111200000");;
+		}
 		//
 		
 		try{
@@ -327,7 +336,7 @@ public class CustController {
 	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
 	public String addBankCard3(BankCardVo bankCardVo, Model model){
 		//FOR TEST 
-		bankCardVo.setBankNo("007");
+		//bankCardVo.setBankNo("007");
 		//
 		try{
 			// 校验短信验证码
@@ -341,6 +350,8 @@ public class CustController {
 			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
 			openAccountAction.setBankidno(bankCardVo.getBankIdno());
 			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
+			openAccountAction.setMobileAutoCode(bankCardVo.getMsgcode());
+			openAccountAction.setOtherserial(bankCardVo.getOtherserial());
 			
 			custManager.openAccount3(openAccountAction);
 			
@@ -361,7 +372,7 @@ public class CustController {
 			if("银行开户手机号".equals(e.getOtherInfo()) || "手机号".equals(e.getOtherInfo())){
 				model.addAttribute("errMsg_bankMobile", e.getMessage());
 			}else
-			if("手机验证码".equals(e.getOtherInfo())){
+			if("验证码".equals(e.getOtherInfo())){
 				model.addAttribute("errMsg_msgcode", e.getMessage());
 			}else{
 				model.addAttribute("errMsg", e.getMessage());

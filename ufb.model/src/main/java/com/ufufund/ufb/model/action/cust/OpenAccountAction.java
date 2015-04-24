@@ -4,7 +4,7 @@ import com.ufufund.ufb.model.action.CommonAction;
 import com.ufufund.ufb.model.enums.Merchant;
 
 
-public class OpenAccountAction   extends CommonAction {
+public class OpenAccountAction extends CommonAction {
 	
 	/*
 	 * 客户已经具有身份证账号 不需要填写以下信息

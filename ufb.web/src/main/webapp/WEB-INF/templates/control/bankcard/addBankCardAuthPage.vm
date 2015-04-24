@@ -21,6 +21,7 @@ $(function(){
      		type: "GET",
     		url: "../ajaxbankcard/addBankCardAuth.htm",
     		data: {
+				bankNo: $("#bankNo").val(),
     			bankAcnm: $("#bankAcnm").val(),
 				bankIdno: $("#bankIdno").val(),
 				bankAcco: $("#bankAcco").val(),
@@ -32,36 +33,35 @@ $(function(){
                     //jQuery("#phone_tip").hide();
                     //$("#phone_desc").css("display", "block");
                     //jQuery("#phone").parents("li").removeClass("cur_error")
+					$("#otherserial").val(b.otherserial);
 					alert("手机验证码已发送");
                 } else {
-                    if (b.errCode == "9999") {
-					
-						var errOtherInfo = b.errOtherInfo;
-						var errMsg = b.errMsg;
-						if(errOtherInfo=="银行开户户名"){
-							//经办人姓名
-							$("#errMsg_bankAcnm").addClass("error");
-							$("#errMsg_bankAcnm > .tips-check").html("<i class=icon></i>" + errMsg);
-						}else
-						if(errOtherInfo=="银行证件号码"){
-							//身份证号
-							$("#errMsg_bankIdno").addClass("error");
-							$("#errMsg_bankIdno > .tips-check").html("<i class=icon></i>" + errMsg);
-						}else
-						if(errOtherInfo=="银行卡号"){
-							$("#errMsg_bankAcco").addClass("error");
-							$("#errMsg_bankAcco > .tips-check").html("<i class=icon></i>" + errMsg);
-						}else
-						if(errOtherInfo=="银行开户手机号"){
-							//银行预留手机号
-							$("#errMsg_bankMobile").addClass("error");
-							$("#errMsg_bankMobile > .tips-check").html("<i class=icon></i>" + errMsg);
-						}else{
-							//
-						}
-                    	//showPhoneError(b.errMsg)
-                        //showPhoneError("该手机号已存在，<a href='/passport/login_input.do'>登录</a>")
-                    }
+                  	var errCode = b.errCode;
+					var errMsg = b.errMsg;
+					if(errCode=="银行开户户名"){
+						//经办人姓名
+						$("#errMsg_bankAcnm").addClass("error");
+						$("#errMsg_bankAcnm > .tips-check").html("<i class=icon></i>" + errMsg);
+					}else
+					if(errCode=="银行证件号码"){
+						//身份证号
+						$("#errMsg_bankIdno").addClass("error");
+						$("#errMsg_bankIdno > .tips-check").html("<i class=icon></i>" + errMsg);
+					}else
+					if(errCode=="银行卡号"){
+						$("#errMsg_bankAcco").addClass("error");
+						$("#errMsg_bankAcco > .tips-check").html("<i class=icon></i>" + errMsg);
+					}else
+					if(errCode=="银行开户手机号"){
+						//银行预留手机号
+						$("#errMsg_bankMobile").addClass("error");
+						$("#errMsg_bankMobile > .tips-check").html("<i class=icon></i>" + errMsg);
+					}else{
+						$("#errMsg").addClass("error");
+						$("#errMsg_bankMobile > .tips-check").html("<i class=icon></i>" + errMsg);
+					}
+                	//showPhoneError(b.errMsg)
+                    //showPhoneError("该手机号已存在，<a href='/passport/login_input.do'>登录</a>")
                 }
         	}
         });
@@ -117,6 +117,8 @@ $(function(){
 				<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
 				<input id="organization" name="organization" type="hidden" value="$!{BankCardVo.organization}">
 				<input id="business" name="business" type="hidden" value="$!{BankCardVo.business}">
+				<input id="otherserial" name="otherserial" type="text" value="$!{BankCardVo.otherserial}">
+				<input id="bankNo" name="bankNo" type="text" value="$!{BankCardVo.bankNo}">	
 				<!--
 				<input id="tradePwd" name="tradePwd" type="hidden" value="$!{BankCardVo.tradePwd}">
 				<input id="tradePwd2" name="tradePwd2" type="hidden" value="$!{BankCardVo.tradePwd2}">
@@ -178,7 +180,7 @@ $(function(){
                                 <span class="form-title">银行卡号</span>
                                 <input id="bankAcco" name="bankAcco" class="input-text" type="text" value="$!{BankCardVo.bankAcco}">
                                 <span class="tips-normal">银行卡号</span>
-                                <span class="tips-check"><i class="icon"></i>111$!{errMsg_bankAcco}</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcco}</span>
                             </li>
                             <li id="errMsg_bankMobile"
                             #if($errMsg_bankMobile)

@@ -154,6 +154,10 @@ public class CustManagerValidator extends ValidatorCommon {
 			//银行证件号码
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKIDNO);
 		}
+		if (!RegexUtil.isIdCardNo(action.getBankidno())) {
+			//银行证件号码 isIdCardNo
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKIDNO);
+		}
 		if (RegexUtil.isNull(action.getBankacco())) {
 			//银行卡号
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKACCO);
@@ -161,6 +165,10 @@ public class CustManagerValidator extends ValidatorCommon {
 		if (RegexUtil.isNull(action.getBankmobile())) {
 			//银行开户手机号
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKMOBILE);
+		}
+		if(!RegexUtil.isMobile(action.getBankmobile())){
+			//银行开户手机号 isMobile
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,MOBILE);
 		}
 	}
 }

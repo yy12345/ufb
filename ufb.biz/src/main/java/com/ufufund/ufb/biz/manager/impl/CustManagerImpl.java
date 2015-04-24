@@ -38,13 +38,11 @@ import com.ufufund.ufb.model.vo.Today;
 @Service
 public class CustManagerImpl extends ImplCommon implements CustManager {
 	
-	
 	@Autowired
 	private CustinfoMapper custinfoMapper;
 	
 	@Autowired
 	private CustManagerValidator custManagerValidator;
-	
 
 	@Autowired
 	private BankMapper bnankMapper;
@@ -82,12 +80,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		}
 		return res;
 	}
-
-
-
-	
-	
-	
+ 
 	/**
 	 * 注册
 	 * 
@@ -135,10 +128,6 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		return res;
 	}
 
-
-//	
-//	
-//
 	@Override
 	public void changePassword(ChangePasswordAction changePasswordAction) throws BizException {
 		String processId = this.getProcessId(changePasswordAction);
@@ -153,11 +142,6 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		custinfoMapper.updateCustinfo(custinfo);
 		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
 	}
-	
-	
-
-	
-	
 	
 	/**
 	 * 登录
@@ -208,13 +192,6 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		return custinfo;
 
 	}
-	
-	
-	
-	
-
-
-	
 
 	/**
 	 *  1 验证身份， 2 银行快捷鉴权,3 银行手机验证  ，4 开户
@@ -237,49 +214,49 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
 		// 请求序列号 给通联的流水号 UFT生成
 		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
+		
 		/*
 		 * 进行XML接口 银行快捷鉴权
 		 */
 		OpenAccount openAccount = merchantFund.bankAuth(openAccountAction);
+		
 		/*
 		 * 返回码转换
 		 */
 		if(!"0000".equals(openAccount.getReturncode())){
-			throw new BizException(processId,openAccount.getReturncode());
+			throw new BizException(processId, openAccount.getReturnMsg(), openAccount.getReturncode());
 		}
 		openAccountAction.setOtherserial(openAccount.getOtherserial());
 		openAccountAction.setProtocolno(openAccount.getProtocolno());
 		return openAccountAction;
 	}
 	
-
 	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException {
 		String processId = this.getProcessId(openAccountAction);
 		custManagerValidator.validator(openAccountAction);
-		if (RegexUtil.isNull(openAccountAction.getBankmobile())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY,MOBILE);
-		}
-		if (openAccountAction.getBankmobile().length()>10||
-		    !RegexUtil.isDigits(openAccountAction.getBankmobile())) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,MOBILE);
+		if (openAccountAction.getMobileAutoCode().length()>6 ||
+		    !RegexUtil.isDigits(openAccountAction.getMobileAutoCode())) {
+			// 手机验证码
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, IDENTIFYING);
 		}
 		if (RegexUtil.isNull(openAccountAction.getOtherserial())) {
+			// 对方序列号
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, "对方序列号");
 		}
 	
 		/*
 		 * 进行XML接口 银行快捷验证
 		 */
-		//TODO GR
-//		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
 		OpenAccount openAccount = merchantFund.bankVeri(openAccountAction);
 		
-		/*说
+		/*
 		 * 返回码转换
 		 */
 		if(!"0000".equals(openAccount.getReturncode())){
-			throw new BizException(processId,openAccount.getReturncode());
+			throw new BizException(processId, openAccount.getReturnMsg(), openAccount.getReturncode());
 		}
+		
 		return openAccountAction;
 	}
 	
