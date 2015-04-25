@@ -1,14 +1,16 @@
 package com.ufufund.ufb.model.remote.hft;
 
+import java.math.BigDecimal;
+
 
 public class RealRedeemResponse  extends AbstractResponse{
 
 	private String AppSheetSerialNo;
 	private String TransactionDate ;
 	private String Transactiontime ;
-	private String TotalFundVol    ;
-	private String AvailableVol    ;
-	private String TotalFrozenVol  ;
+	private BigDecimal TotalFundVol    ;
+	private BigDecimal AvailableVol    ;
+	private BigDecimal TotalFrozenVol  ;
 	
 	public String getAppSheetSerialNo() {
 		return AppSheetSerialNo;
@@ -28,22 +30,22 @@ public class RealRedeemResponse  extends AbstractResponse{
 	public void setTransactiontime(String transactiontime) {
 		Transactiontime = transactiontime;
 	}
-	public String getTotalFundVol() {
+	public BigDecimal getTotalFundVol() {
 		return TotalFundVol;
 	}
-	public void setTotalFundVol(String totalFundVol) {
+	public void setTotalFundVol(BigDecimal totalFundVol) {
 		TotalFundVol = totalFundVol;
 	}
-	public String getAvailableVol() {
+	public BigDecimal getAvailableVol() {
 		return AvailableVol;
 	}
-	public void setAvailableVol(String availableVol) {
+	public void setAvailableVol(BigDecimal availableVol) {
 		AvailableVol = availableVol;
 	}
-	public String getTotalFrozenVol() {
+	public BigDecimal getTotalFrozenVol() {
 		return TotalFrozenVol;
 	}
-	public void setTotalFrozenVol(String totalFrozenVol) {
+	public void setTotalFrozenVol(BigDecimal totalFrozenVol) {
 		TotalFrozenVol = totalFrozenVol;
 	}
 	@Override
