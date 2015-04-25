@@ -1,4 +1,4 @@
-package com.ufufund.ufb.biz.convert;
+package com.ufufund.ufb.biz.manager.impl.helper;
 
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;

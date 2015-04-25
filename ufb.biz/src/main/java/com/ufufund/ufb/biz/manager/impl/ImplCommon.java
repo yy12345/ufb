@@ -1,4 +1,4 @@
-package com.ufufund.ufb.biz.common;
+package com.ufufund.ufb.biz.manager.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -19,7 +19,7 @@ import com.ufufund.ufb.model.vo.RedeemVo;
 
 @Service
 public class TradeManagerHelper {
-
+	
 	/**
 	 * 生成TradeRequest对象 - for 认购
 	 * @param vo
@@ -80,7 +80,6 @@ public class TradeManagerHelper {
 		tradeRequest.setState(TradeStatus.I.getValue());
 		return tradeRequest;
 	}
-	
 	
 	
 	/**
@@ -144,7 +143,6 @@ public class TradeManagerHelper {
 		tradeRequest.setState(TradeStatus.I.getValue());
 		return tradeRequest;
 	}
-	
 	
 	/**
 	 * 生成TradeRequest对象 - for 普通赎回

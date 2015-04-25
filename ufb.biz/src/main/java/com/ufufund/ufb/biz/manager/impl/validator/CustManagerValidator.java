@@ -2,7 +2,6 @@ package com.ufufund.ufb.biz.manager.impl.validator;
 
 import org.springframework.stereotype.Service;
 
-import com.ufufund.ufb.biz.common.ValidatorCommon;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
