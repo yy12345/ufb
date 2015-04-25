@@ -36,7 +36,7 @@ import com.ufufund.ufb.remote.HftTradeService;
  * @author ayis
  * 2015年3月22日
  */
-@Service
+//@Service
 public class HftTradeServiceSimulator extends HftTradeService{
 	private static final Logger LOG = LoggerFactory.getLogger(HftTradeServiceSimulator.class);
 	
