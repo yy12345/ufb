@@ -30,6 +30,7 @@ public class HftCustServiceSimulator extends HftCustService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public BankAuthResponse bankAuth(BankAuthRequest request){
 		
 		BankAuthResponse response = new BankAuthResponse();
@@ -50,6 +51,7 @@ public class HftCustServiceSimulator extends HftCustService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public BankVeriResponse bankVeri(BankVeriRequest request){
 		
 		BankVeriResponse response = new BankVeriResponse();
@@ -73,6 +75,7 @@ public class HftCustServiceSimulator extends HftCustService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public OpenAccountResponse openAccount(OpenAccountRequest request){
 		
 		OpenAccountResponse response = new OpenAccountResponse();

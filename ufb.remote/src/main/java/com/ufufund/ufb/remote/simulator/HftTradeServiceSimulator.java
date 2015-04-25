@@ -45,6 +45,7 @@ public class HftTradeServiceSimulator extends HftTradeService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public SubApplyResponse subApply(SubApplyRequest request){
 		SubApplyResponse response = new SubApplyResponse();
 		response.setVersion(Constant.HftSysConfig.Version);
@@ -69,6 +70,7 @@ public class HftTradeServiceSimulator extends HftTradeService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public BuyApplyResponse buyApply(BuyApplyRequest request){
 		BuyApplyResponse response = new BuyApplyResponse();
 		response.setVersion(Constant.HftSysConfig.Version);
@@ -93,6 +95,7 @@ public class HftTradeServiceSimulator extends HftTradeService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public RedeemResponse redeem(RedeemRequest request){
 		RedeemResponse response = new RedeemResponse();
 		response.setVersion(Constant.HftSysConfig.Version);
@@ -120,6 +123,7 @@ public class HftTradeServiceSimulator extends HftTradeService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public RealRedeemResponse realRedeem(RealRedeemRequest request){
 		RealRedeemResponse response = new RealRedeemResponse();
 		response.setVersion(Constant.HftSysConfig.Version);
@@ -147,6 +151,7 @@ public class HftTradeServiceSimulator extends HftTradeService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public CancelResponse cancel(CancelRequest request){
 		return super.send(request, CancelResponse.class);
 	}
@@ -156,6 +161,7 @@ public class HftTradeServiceSimulator extends HftTradeService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public BuyNotifyResponse buyNotify(BuyNotifyRequest request){
 		return super.send(request, BuyNotifyResponse.class);
 	}
@@ -165,6 +171,7 @@ public class HftTradeServiceSimulator extends HftTradeService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public FrozenResponse frozen(FrozenRequest request){
 		return super.send(request, FrozenResponse.class);
 	}
@@ -174,6 +181,7 @@ public class HftTradeServiceSimulator extends HftTradeService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public UnFrozenResponse unfrozen(UnFrozenRequest request){
 		return super.send(request, UnFrozenResponse.class);
 	}
@@ -183,7 +191,9 @@ public class HftTradeServiceSimulator extends HftTradeService{
 	 * @param request
 	 * @return
 	 */
+	@Override
 	public TransferResponse transfer(TransferRequest request){
 		return super.send(request, TransferResponse.class);
 	}
+	
 }
