@@ -19,4 +19,9 @@
 	    <parameter name="depth" value="2"/>
 	    <parameter name="skip" value="month"/>
 	</tool>
+	<tool>
+		<key>refreshTools</key>
+		<scope>application</scope>
+		<class>com.ufufund.ufb.web.filter.RefreshHolder</class>
+	</tool>
 </toolbox>
