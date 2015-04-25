@@ -6,8 +6,8 @@
 -->
 <script>
 $(function(){
-	var invtp = $("#invtp_org").val();
-	if("1" == invtp){
+	var level_1 = $("#level_1").val();
+	if("1" == level_1){
 		var tab = $(".tab-org");
 		var panels = $(".register-panels .panel");
     	tab.addClass("on").siblings().removeClass("on");
@@ -59,10 +59,10 @@ $(function(){
             <div class="panel panel-family slide-on">
 				<!--
 				<form:form modelAttribute="CustinfoVo" method="post">   
-					<form:input path="invtp" items="${CustinfoVo.invtp}"//>
+					<form:input path="level" items="${CustinfoVo.level}"//>
                 -->
                 <form method="post" action="${staticDomain}/cust/register_person.htm" id="register-family" class="form-register common-form">
-					<input id="invtp_person" type="hidden" name="invtp" value="${CustinfoVo.invtp}"/>
+					<input id="level_0" type="hidden" name="level" value="${CustinfoVo.level}"/>
 					<ul>
                         <li class="error">
                             <span class="form-title">手机号</span>
@@ -109,7 +109,7 @@ $(function(){
             </div>
             <div class="panel panel-org slide-out">
                 <form method="post" action="${staticDomain}/cust/register_org.htm" id="register-org" class="common-form form-register">
-                    <input id="invtp_org" type="hidden" name="invtp" value="${CustinfoVo.invtp}"/>
+                    <input id="level_1" type="hidden" name="level" value="${CustinfoVo.level}"/>
 					<ul>
                         <li
                         #if($errMsg_mobileno)

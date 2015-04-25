@@ -23,7 +23,6 @@ $(function(){
 </head>
 <body>
 <div class="container">
-	<!--
     <div class="header">
         <div class="inner clearfix rel">
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
@@ -34,7 +33,6 @@ $(function(){
 				href="javascript:;">帮助</a></div>
         </div>
     </div>
-	-->
     <div class="body">
         <div class="inner container-find">
             <div class="find-tabs tabs-step1 clearfix">
@@ -131,7 +129,6 @@ $(function(){
             </div>
         </div>
     </div>
-	<!--
     <div class="footer">
         <div class="inner clearfix">
             <div class="notice fl">
@@ -165,7 +162,6 @@ $(function(){
             </div>
         </div>
     </div>
-	-->
 </div>
 <script src="${staticDomain}/js/scripts/load.js"></script>
 </body>

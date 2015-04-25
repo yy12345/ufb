@@ -16,7 +16,6 @@ import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
-import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.dao.BankMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
@@ -90,13 +89,13 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	@Override
 	public void register(RegisterAction loginAction) throws BizException {
 		String processId = this.getProcessId(loginAction);
-		/*
-		 * 先验证验证码
-		 */
+		// 先验证验证码
 		custManagerValidator.validator(loginAction);
+		// 查询手机号是否注册
 		if(this.isMobileRegister(loginAction.getLoginCode())){
-			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER);
+			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, "手机号");
 		}
+		
 		/*
 		 * 插入客户信息表
 		 */
@@ -152,7 +151,6 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	@Override
 	public Custinfo loginIn(LoginAction loginAction) throws BizException {
 		String processId = this.getProcessId(loginAction);
-		// TODO Auto-generated method stub
 		/*
 		 * 先验证验证码
 		 */
@@ -163,8 +161,10 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		 */
 		Custinfo custinfo = new Custinfo();
 		if (RegexUtil.isMobile(loginAction.getLoginCode())) {
+			// 手机登录
 			custinfo.setMobileno(loginAction.getLoginCode());
 		} else if (RegexUtil.isIdCardNo(loginAction.getLoginCode())) {
+			// 身份证登录
 			custinfo.setIdno(loginAction.getLoginCode());
 		} else {
 			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE);
@@ -177,6 +177,8 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			throw new BizException(processId, ErrorInfo.FREEZE_USER);
 		}
 		custinfo.setLastlogintime("systime");// 当前时间
+		
+		//5次密码输错，冻结用户
 		if (!loginAction.getLoginPassword().equals(custinfo.getPasswd())) {
 			custinfo.setPasswderr(custinfo.getPasswderr() + 1);
 			if (custinfo.getPasswderr() == 5) {
@@ -185,6 +187,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			custinfoMapper.updateCustinfo(custinfo);
 			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD);
 		}
+		
 		/*
 		 * 登录
 		 */
