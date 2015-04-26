@@ -337,7 +337,10 @@ public class CustController {
 			openAccountAction.setMobileAutoCode(bankCardVo.getMsgcode());
 			openAccountAction.setOtherserial(bankCardVo.getOtherserial());
 			
-			custManager.openAccount3(openAccountAction);
+			//custManager.openAccount3(openAccountAction);
+			
+			openAccountAction.setCustno(bankCardVo.getCustNo());
+			custManager.openAccount4(openAccountAction);
 			
 		}catch (BizException e){
 			
@@ -356,8 +359,12 @@ public class CustController {
 			if("银行开户手机号".equals(e.getOtherInfo()) || "手机号".equals(e.getOtherInfo())){
 				model.addAttribute("errMsg_bankMobile", e.getMessage());
 			}else
-			if("验证码".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg_msgcode", e.getMessage());
+			if("验证码".equals(e.getOtherInfo()) || "对方序列号".equals(e.getOtherInfo())){
+				if("对方序列号".equals(e.getOtherInfo())){
+					model.addAttribute("errMsg_msgcode", "手机验证码无效！");
+				}else{
+					model.addAttribute("errMsg_msgcode", e.getMessage());
+				}
 			}else{
 				model.addAttribute("errMsg", e.getMessage());
 			}

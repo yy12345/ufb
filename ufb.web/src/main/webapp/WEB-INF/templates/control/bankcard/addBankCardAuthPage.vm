@@ -7,6 +7,26 @@
 <script>
 $(function(){
 
+	// 页面初始化
+	// 隐藏TIPS
+	$("form input[type=text]").each(function () {
+        var _this = $(this);
+		if(_this.val()!="") {
+            _this.siblings(".tips-normal").hide();
+        }
+    });
+	
+	#if($errMsg_msgcode)
+		//alert("提交按钮有效");
+	#elseif($errMsg)
+		//alert("提交按钮有效");
+	#else
+		// 提交按钮无效
+		//alert("提交按钮无效");
+		$("#btn-addBankCardChk").attr("disabled","disabled");
+	#end
+	
+
 	// 上一页
 	$("#btn-addBankCard").on("click",function(){
 		//check #register-org #mobileno
@@ -17,6 +37,11 @@ $(function(){
 	// 验证码
 	$("#btn-addBankCardAuth").on("click",function(){
 		$(".panel ul li").removeClass("error").removeClass("ok");
+		
+		// 获取验证码按钮无效并倒计时 
+		$("#btn-addBankCardAuth").attr("disabled","disabled");
+		$("#btn-addBankCardAuth").addClass("off");
+					
         $.ajax({
      		type: "GET",
     		url: "../ajaxbankcard/addBankCardAuth.htm",
@@ -30,14 +55,15 @@ $(function(){
     		dataType: "json",
     		success: function(b) {
                 if (b.errCode == "0000") {
-                    //jQuery("#phone_tip").hide();
-                    //$("#phone_desc").css("display", "block");
-                    //jQuery("#phone").parents("li").removeClass("cur_error")
 					$("#otherserial").val(b.otherserial);
+					// 提交按钮有效 
+					$("#btn-addBankCardChk").removeAttr("disabled");
+					$("#btn-addBankCardChk").removeClass("off");
 					alert("手机验证码已发送");
                 } else {
                   	var errCode = b.errCode;
 					var errMsg = b.errMsg;
+					//alert(errCode + ": " + errMsg);
 					if(errCode=="银行开户户名"){
 						//经办人姓名
 						$("#errMsg_bankAcnm").addClass("error");
@@ -57,8 +83,8 @@ $(function(){
 						$("#errMsg_bankMobile").addClass("error");
 						$("#errMsg_bankMobile > .tips-check").html("<i class=icon></i>" + errMsg);
 					}else{
-						$("#errMsg").addClass("error");
-						$("#errMsg_bankMobile > .tips-check").html("<i class=icon></i>" + errMsg);
+						$("#errMsg_msgcode").addClass("error");
+						$("#errMsg_msgcode > .tips-check").html("<i class=icon></i>" + errMsg);
 					}
                 	//showPhoneError(b.errMsg)
                     //showPhoneError("该手机号已存在，<a href='/passport/login_input.do'>登录</a>")
@@ -73,13 +99,6 @@ $(function(){
 		$("#form-addBankCardAuth").submit();
 	});
 	
-	//
-	$("form input[type=text]").each(function () {
-        var _this = $(this);
-		if(_this.val()!="") {
-            _this.siblings(".tips-normal").hide();
-        }
-    });
 });
 </script>
 </head>
@@ -198,14 +217,22 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">手机验证码</span>
-								<input id="msgcode" name="msgcode" class="input-text" type="text" value="$!{BankCardVo.msgcode}">
+								<input style="width:95px" id="msgcode" name="msgcode" class="input-text" type="text" value="$!{BankCardVo.msgcode}">
                                 <span class="tips-normal">6位验证码</span>
                                 <input id="btn-addBankCardAuth" class="input-button" type="button" value="获取验证码">
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>
                             </li>
                             <li>
 								<input id="btn-addBankCard" class="input-button" type="button" value="上一步">
-                                <input id="btn-addBankCardChk" class="input-button ok" type="submit" value="提&nbsp;交">
+                                <input id="btn-addBankCardChk" class="input-button 
+									 #if($errMsg_msgcode)
+										ok
+									 #elseif($errMsg)
+										ok
+									 #else
+										off
+									 #end
+									" type="button" value="提&nbsp;交">
                             </li>
                         </ul>
                     </div>
