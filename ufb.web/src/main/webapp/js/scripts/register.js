@@ -110,6 +110,20 @@ function check_pwd2(ipt) {
     }
     return 0
 }
+var check_organization = function (ipt) {
+    var value = ipt.val();
+    if (value == "" || value == ipt.context.defaultValue) {
+        return 1
+    }
+    return 0
+}
+var check_business = function (ipt) {
+    var value = ipt.val();
+    if (value == "" || value == ipt.context.defaultValue) {
+        return 1
+    }
+    return 0
+}
 /* bind mod */
 
 $(".ipt-phoneNum").bind("blur", function() {
@@ -200,6 +214,30 @@ $(".ipt-password2").on("blur", function() {
             break;
         case 2:
             showTips(_this, "两次密码输入不一致");
+            break;
+        case 0:
+            showTips(_this, 0);
+    }
+});
+
+$(".ipt-organization").bind("blur", function() {
+    var _this = $(this);
+    var checkCode = check_organization(_this);
+    switch (checkCode) {
+        case 1:
+            showTips(_this, "幼教机构名称不能为空");
+            break;
+        case 0:
+            showTips(_this, 0);
+    }
+});
+
+$(".ipt-business").bind("blur", function() {
+    var _this = $(this);
+    var checkCode = check_business(_this);
+    switch (checkCode) {
+        case 1:
+            showTips(_this, "营业执照注册号不能为空");
             break;
         case 0:
             showTips(_this, 0);

@@ -31,7 +31,13 @@ $(function(){
 	
 	$("#btn-org").on("click",function(){
 		//check #register-org #mobileno
-		$("#register-org").submit();
+		var errLen = $("ul li.error").length;
+		if(errLen>0){
+			$("ul li.error:eq(0) input[type=text]").focus();
+			$("ul li.error:eq(0) input[type=password]").focus();
+		}else{
+			$("#register-org").submit();
+		}
 	});
 });
 </script>
@@ -64,32 +70,32 @@ $(function(){
                 <form method="post" action="${staticDomain}/cust/register_person.htm" id="register-family" class="form-register common-form">
 					<input id="level_0" type="hidden" name="level" value="${CustinfoVo.level}"/>
 					<ul>
-                        <li class="error">
+                        <li>
                             <span class="form-title">手机号</span>
                             <input class="input-text" type="text" value="">
                             <span class="tips-normal">请输入手机号</span>
                             <span class="tips-check"><i class="icon"></i>验证提示</span>
                         </li>
-                        <li class="error">
+                        <li>
                             <span class="form-title">验证码</span>
                             <input class="input-code" type="text" value="">
                             <span class="tips-normal">请输入验证码</span>
                             <span class="tips-check"><i class="icon"></i>验证提示</span>
                         </li>
-                        <li class="error">
+                        <li>
                             <span class="form-title">手机验证码</span>
                             <input class="input-code" type="text" value="">
                             <span class="tips-normal">6位验证码</span>
                             <input class="input-button" type="button" value="获取验证码">
                             <span class="tips-check"><i class="icon"></i>验证提示</span>
                         </li>
-                        <li class="error">
+                        <li>
                             <span class="form-title">设置新密码</span>
                             <input class="input-text" type="text" value="">
                             <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
                             <span class="tips-check"><i class="icon"></i>验证提示</span>
                         </li>
-                        <li class="error">
+                        <li>
                             <span class="form-title">确认新密码</span>
                             <input class="input-text" type="text" value="">
                             <span class="tips-normal">请再次输入密码</span>
@@ -160,7 +166,7 @@ $(function(){
                         #end
                         >
 							<span class="form-title">幼教机构名称</span>
-							<input id="organization" name="organization" class="input-text" type="text" value="$!{CustinfoVo.organization}">
+							<input id="organization" name="organization" class="ipt-organization input-text" type="text" value="$!{CustinfoVo.organization}">
 							<span class="tips-normal">请按照营业执照填写</span>
                             <span class="tips-check"><i class="icon"></i>$!{errMsg_organization}</span>
                         </li>
@@ -170,7 +176,7 @@ $(function(){
                         #end
                         >
 							<span class="form-title">营业执照注册号</span>
-							<input id="business" name="business" class="input-text" type="text" value="$!{CustinfoVo.business}">
+							<input id="business" name="business" class="ipt-business input-text" type="text" value="$!{CustinfoVo.business}">
 							<span class="tips-normal">请按照营业执照填写</span>
                             <span class="tips-check"><i class="icon"></i>$!{errMsg_business}</span>
                         </li>
