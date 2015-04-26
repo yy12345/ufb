@@ -1,4 +1,4 @@
-package com.ufufund.ufb.biz.convert;
+package com.ufufund.ufb.biz.manager.impl.helper;
 
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.Bankcardinfo;

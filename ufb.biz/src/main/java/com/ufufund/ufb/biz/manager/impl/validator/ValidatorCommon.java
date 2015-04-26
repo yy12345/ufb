@@ -1,4 +1,4 @@
-package com.ufufund.ufb.biz.common;
+package com.ufufund.ufb.biz.manager.impl.validator;
 
 
 

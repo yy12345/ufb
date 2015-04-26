@@ -9,7 +9,12 @@ import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.TradeManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.TradeManagerValidator;
+import com.ufufund.ufb.biz.util.HftResponseUtil;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.exception.SysErrorCode;
+import com.ufufund.ufb.common.exception.SysException;
+import com.ufufund.ufb.common.exception.UserErrorCode;
+import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.dao.TradeRequestMapper;
@@ -69,27 +74,18 @@ public class TradeManagerImpl implements TradeManager{
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
 					+", <Failed>认购流水：serialno="+tradeRequest.getSerialno());
-			return null;
+			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		
 		/** 调用基金公司接口 **/
 		SubApplyRequest request = helper.toSubApplyRequest(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 认购下单："+request);
+		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 认购下单："+request);
 		SubApplyResponse response = hftTradeService.subApply(request);
 		
-		String result = null;
+		/** 处理交易执行结果  **/
 		if(response != null 
 				&& Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
-			result = response.getApplicationNo();
-		}
-		if(result == null){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>认购下单：serialno="+request.getApplicationNo());
-		}
-		
-		/** 回写交易执行结果  **/
-		if(result != null){
+			// 执行成功，回写本地数据
 			tradeRequest = helper.toResponse4SubApply(response);
 			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 					+", 认购回写："+tradeRequest);
@@ -97,10 +93,16 @@ public class TradeManagerImpl implements TradeManager{
 			if(n < 1){
 				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
 						+", <Failed>认购回写：serialno="+tradeRequest.getSerialno());
+				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
+		}else {
+			// 执行失败，处理返回异常码
+			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+					+", <Failed>认购下单：serialno="+request.getApplicationNo());
+			HftResponseUtil.dealResponseCode(response);
 		}
 		
-		return result;
+		return response.getApplicationNo();
 	}
 	
 	@Override
@@ -123,27 +125,18 @@ public class TradeManagerImpl implements TradeManager{
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
 					+", <Failed>申购流水：serialno="+tradeRequest.getSerialno());
-			return null;
+			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		
 		/** 调用基金公司接口 **/
 		BuyApplyRequest request = helper.toBuyApplyRequest(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 申购下单："+request);
+		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 申购下单："+request);
 		BuyApplyResponse response = hftTradeService.buyApply(request);
 		
-		String result = null;
+		/** 处理交易执行结果  **/
 		if(response != null 
 				&& Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
-			result = response.getApplicationNo();
-		}
-		if(result == null){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>申购下单：serialno="+request.getApplicationNo());
-		}
-		
-		/** 回写交易执行结果  **/
-		if(result != null){
+			// 执行成功，回写本地数据
 			tradeRequest = helper.toResponse4BuyApply(response);
 			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 					+", 申购回写："+tradeRequest);
@@ -151,10 +144,16 @@ public class TradeManagerImpl implements TradeManager{
 			if(n < 1){
 				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
 						+", <Failed>申购回写：serialno="+tradeRequest.getSerialno());
+				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
+		}else{
+			// 执行失败，处理返回异常码
+			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+					+", <Failed>申购下单：serialno="+request.getApplicationNo());
+			HftResponseUtil.dealResponseCode(response);
 		}
 		
-		return result;
+		return response.getApplicationNo();
 	}
 
 	@Override
@@ -177,27 +176,18 @@ public class TradeManagerImpl implements TradeManager{
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
 					+", <Failed>生成普通赎回流水：serialno="+tradeRequest.getSerialno());
-			return null;
+			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		
 		/** 调用基金公司接口 **/
 		RedeemRequest request = helper.toRedeemRequest(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 普通赎回下单："+request);
+		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 普通赎回下单："+request);
 		RedeemResponse response = hftTradeService.redeem(request);
 		
-		String result = null;
+		/** 处理交易执行结果  **/
 		if(response != null 
 				&& Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
-			result = response.getApplicationNo();
-		}
-		if(result == null){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>普通赎回下单：serialno="+request.getApplicationNo());
-		}
-		
-		/** 回写交易执行结果  **/
-		if(result != null){
+			// 执行成功，回写本地数据
 			tradeRequest = helper.toResponse4Redeem(response);
 			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 					+", 普通赎回回写："+tradeRequest);
@@ -205,10 +195,16 @@ public class TradeManagerImpl implements TradeManager{
 			if(n < 1){
 				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
 						+", <Failed>普通赎回回写：serialno="+tradeRequest.getSerialno());
+				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
+		}else {
+			// 执行失败，处理返回异常码
+			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+					+", <Failed>普通赎回下单：serialno="+request.getApplicationNo());
+			HftResponseUtil.dealResponseCode(response);
 		}
 		
-		return result;
+		return response.getApplicationNo();
 	}
 
 	@Override
@@ -231,27 +227,18 @@ public class TradeManagerImpl implements TradeManager{
 		if(n < 1){
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
 					+", <Failed>快速赎回流水：serialno="+tradeRequest.getSerialno());
-			return null;
+			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		
 		/** 调用基金公司接口 **/
 		RealRedeemRequest request = helper.toRealRedeemRequest(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 快速赎回下单："+request);
+		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 快速赎回下单："+request);
 		RealRedeemResponse response = hftTradeService.realRedeem(request);
 		
-		String result = null;
+		/** 处理交易执行结果  **/
 		if(response != null 
 				&& Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
-			result = response.getApplicationNo();
-		}
-		if(result == null){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>快速赎回下单：serialno="+request.getApplicationNo());
-		}
-		
-		/** 回写交易执行结果  **/
-		if(result != null){
+			// 执行成功，回写本地数据
 			tradeRequest = helper.toResponse4RealRedeem(response);
 			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
 					+", 快速赎回回写："+tradeRequest);
@@ -259,10 +246,16 @@ public class TradeManagerImpl implements TradeManager{
 			if(n < 1){
 				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
 						+", <Failed>快速赎回回写：serialno="+tradeRequest.getSerialno());
+				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
+		}else {
+			// 执行失败，处理返回异常码
+			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+					+", <Failed>快速赎回下单：serialno="+request.getApplicationNo());
+			HftResponseUtil.dealResponseCode(response);
 		}
 		
-		return result;
+		return response.getApplicationNo();
 	}
 
 	@Override
@@ -277,20 +270,21 @@ public class TradeManagerImpl implements TradeManager{
 		request.setTransactionAccountID("0001");
 		request.setOriginalAppSheetNo("20150410CC0001");
 		
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 撤单申请："+request);
+		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 撤单申请："+request);
 		CancelResponse response = hftTradeService.cancel(request);
 		
-		String result = null;
+		/** 处理交易执行结果  **/
 		if(response != null 
 				&& Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
-			result = response.getApplicationNo();
-		}
-		if(result == null){
+			// 执行成功，回写本地数据
+			// code...
+		}else {
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
 					+", <Failed>撤单申请：serialno="+request.getApplicationNo());
+			HftResponseUtil.dealResponseCode(response);
 		}
-		return result;
+		
+		return response.getApplicationNo();
 	}
 
 }

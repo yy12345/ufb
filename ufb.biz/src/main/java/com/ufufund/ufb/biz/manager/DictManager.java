@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.ufufund.ufb.biz.common.UfbContextUtil;
+import com.ufufund.ufb.biz.util.UfbContextUtil;
 import com.ufufund.ufb.common.cache.Cache;
 import com.ufufund.ufb.common.cache.CacheManager;
 import com.ufufund.ufb.common.constant.Constant;

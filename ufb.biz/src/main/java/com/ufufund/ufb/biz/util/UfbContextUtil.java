@@ -1,4 +1,4 @@
-package com.ufufund.ufb.biz.common;
+package com.ufufund.ufb.biz.util;
 
 
 import org.springframework.beans.BeansException;

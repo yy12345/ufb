@@ -7,12 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.Merchant.MerchantFund;
 import com.ufufund.ufb.biz.Merchant.OpenAccount;
-import com.ufufund.ufb.biz.common.ImplCommon;
-import com.ufufund.ufb.biz.convert.BankConvert;
-import com.ufufund.ufb.biz.convert.CustConvert;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
+import com.ufufund.ufb.biz.manager.impl.helper.BankConvert;
+import com.ufufund.ufb.biz.manager.impl.helper.CustConvert;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
