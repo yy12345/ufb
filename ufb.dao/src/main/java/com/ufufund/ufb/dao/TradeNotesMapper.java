@@ -6,9 +6,9 @@ import com.ufufund.ufb.model.db.Fdacfinalresult;
 
 public interface TradeNotesMapper extends BaseDao {
 	
-//	public void insterChangerecordinfo(Changerecordinfo changerecordinfo);
+	public void insterChangerecordinfo(Changerecordinfo changerecordinfo);
 	
-//	public void insterFdacfinalresult(Fdacfinalresult fdacfinalresult);
+	public void insterFdacfinalresult(Fdacfinalresult fdacfinalresult);
 	
 	public String getFdacfinalresultSeq();
 	

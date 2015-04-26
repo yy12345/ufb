@@ -34,6 +34,11 @@ public class CustManagerValidator extends ValidatorCommon {
 	private final static String IDCARDNO = "身份证";
 	private final static String MERCHANT = "开户机构";
 
+	/**
+	 * 登录的validator
+	 * @param action
+	 * @throws BizException
+	 */
 	public void validator(LoginAction action) throws BizException {
 		String processId = action.getProcessId();
 		if (RegexUtil.isNull(action.getLoginCode())) {
@@ -44,8 +49,10 @@ public class CustManagerValidator extends ValidatorCommon {
 		}
 	}
 	
-	/*
-	 * 注册验证
+	/**
+	 * 注册的validator
+	 * @param action
+	 * @throws BizException
 	 */
 	public void validator(RegisterAction action) throws BizException {
 		String processId = action.getProcessId();
@@ -88,20 +95,29 @@ public class CustManagerValidator extends ValidatorCommon {
 		}
 	}
 	
+	/**
+	 * 基本信息验证（用户名、身份证、交易密码、开户机构）
+	 * @param action
+	 * @throws BizException
+	 */
 	public void validatorOpenAccount1(OpenAccountAction action) throws BizException {
 		String processId = action.getProcessId();
+		// CustNo
 		if (RegexUtil.isNull(action.getCustno())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, CUSTNO);
 		}
+		// 用户名
 		if (RegexUtil.isNull(action.getInvnm())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, INVNM);
 		}
+		// 证件号
 		if (RegexUtil.isNull(action.getIdno())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, IDNO);
 		}
 		if (!RegexUtil.isIdCardNo(action.getIdno())) {
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, IDCARDNO);
 		}
+		// 交易密码
 		if (RegexUtil.isNull(action.getTradepwd())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, TRADEPWD);
 		}
@@ -114,11 +130,19 @@ public class CustManagerValidator extends ValidatorCommon {
 		if (!action.getTradepwd().equals(action.getTradepwd2())) {
 			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, TRADEPWD);
 		}
+		// 
 		if (action.getMerchant()==null||RegexUtil.isNull(action.getMerchant().Value())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, MERCHANT);
 		}
 	}
 
+	/**
+	 * 绑卡2鉴权的validator
+	 * 绑卡3验证的validator
+	 * 绑卡4开户的validator
+	 * @param action
+	 * @throws BizException
+	 */
 	public void validator(OpenAccountAction action) throws BizException {
 		// TODO Auto-generated method stub
 		String processId = action.getProcessId();

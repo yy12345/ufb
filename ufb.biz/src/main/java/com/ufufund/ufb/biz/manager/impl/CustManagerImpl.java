@@ -192,24 +192,34 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		 */
 		custinfoMapper.updateCustinfo(custinfo);
 		return custinfo;
-
 	}
 
 	/**
-	 *  1 验证身份， 2 银行快捷鉴权,3 银行手机验证  ，4 开户
+	 *  1 验证身份
+	 *  1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户
 	 * 
 	 * @param OpenAccount
 	 * @return
 	 */
 	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction) throws BizException {
 		this.getProcessId(openAccountAction);
-		this.validatorOpenAccount1(openAccountAction);
+		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
+		custManagerValidator.validatorOpenAccount1(openAccountAction);
+		// 用户注册、冻结、已开户验证
+		this.validatorOpenAccount(openAccountAction);
 		return openAccountAction;
 	}
 	
+	/**
+	 *  2 银行快捷鉴权
+	 *  1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户
+	 * 
+	 * @param OpenAccount
+	 * @return
+	 */
 	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException {
 		String processId =  this.getProcessId(openAccountAction);
-		// 验证银行编码、银行开户户名、银行证件类型、银行证件号码、银行卡号、银行开户手机号是否空
+		// 银行基本信息验证
 		custManagerValidator.validator(openAccountAction);
 		// 合作平台申请单编号 UFT生成
 		// SequenceUtil.getSerial() 
@@ -217,14 +227,10 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		// 请求序列号 给通联的流水号 UFT生成
 		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
 		
-		/*
-		 * 进行XML接口 银行快捷鉴权
-		 */
+		// 进行XML接口 银行快捷鉴权
 		OpenAccount openAccount = merchantFund.bankAuth(openAccountAction);
 		
-		/*
-		 * 返回码转换
-		 */
+		// 返回码转换
 		if(!"0000".equals(openAccount.getReturncode())){
 			throw new BizException(processId, openAccount.getReturnMsg(), openAccount.getReturncode());
 		}
@@ -233,8 +239,16 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		return openAccountAction;
 	}
 	
+	/**
+	 *  3 银行手机验证
+	 *  1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户
+	 * 
+	 * @param OpenAccount
+	 * @return
+	 */
 	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException {
 		String processId = this.getProcessId(openAccountAction);
+		// 银行基本信息验证
 		custManagerValidator.validator(openAccountAction);
 		if (openAccountAction.getMobileAutoCode().length()>6 ||
 		    !RegexUtil.isDigits(openAccountAction.getMobileAutoCode())) {
@@ -246,45 +260,45 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, "对方序列号");
 		}
 	
-		/*
-		 * 进行XML接口 银行快捷验证
-		 */
+		// 进行XML接口 银行快捷验证
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
 		OpenAccount openAccount = merchantFund.bankVeri(openAccountAction);
-		
-		/*
-		 * 返回码转换
-		 */
+		// 返回码转换
 		if(!"0000".equals(openAccount.getReturncode())){
 			throw new BizException(processId, openAccount.getReturnMsg(), openAccount.getReturncode());
 		}
-		
+		openAccountAction.setProtocolno(openAccount.getProtocolno());
 		return openAccountAction;
 	}
 	
-	
+	/**
+	 *  4 开户
+	 *  1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户
+	 * 
+	 * @param OpenAccount
+	 * @return
+	 */
 	public void openAccount4(OpenAccountAction openAccountAction) throws BizException {
 		String processId =  this.getProcessId(openAccountAction);
-		this.validatorOpenAccount1(openAccountAction);
+		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
+		custManagerValidator.validatorOpenAccount1(openAccountAction);
+		// 用户注册、冻结、已开户验证
+		this.validatorOpenAccount(openAccountAction);
+		// 银行基本信息验证
 		custManagerValidator.validator(openAccountAction);
-		/*
-		 * 进行XML接口 开户
-		 */
-		//TODO GR
-//		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		
+		// *** 进行XML接口开户
+		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
 		OpenAccount openAccount = merchantFund.openAccount(openAccountAction);
-		/*说
-		 * 返回码转换
-		 */
+		// 返回码转换
 		if(!"0000".equals(openAccount.getReturncode())){
 			throw new BizException(processId,openAccount.getReturncode());
 		}
+		
+		// *** 开户成功，更新custinfo表的交易帐号、投资人姓名、证件类型、证件号、开户状态、交易密码
 		openAccountAction.setTransactionAccountID(openAccount.getTransactionAccountID());
-		//TransactionAccountID
 		Custinfo custinfo = CustConvert.convertOpenAccountAction(openAccountAction);
 		custinfoMapper.updateCustinfo(custinfo);
-		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//CustConvert.convertFdacfinalresult(custinfo);
-		String seq = openAccountAction.getSerialno();
 		
 		Bankcardinfo bankcardinfodef = null;
 		Bankcardinfo bankcardinfoqey = new Bankcardinfo();
@@ -300,23 +314,24 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			bankcardinfodef = BankConvert.converBankcardinfo(openAccountAction);
 			String bankSeq = bnankMapper.getBankcardinfoSequence();
 			bankcardinfodef.setSerialid(bankSeq);
+			bankcardinfodef.setState("Y");
 			bnankMapper.insterBankcardinfo(bankcardinfodef);
 			Changerecordinfo changerecordinfo1 = BankConvert.convertBankcardinfo(bankcardinfodef);
 			changerecordinfo1.setApkind(Apkind.OPEN_ACCOUNT.getValue());
-			changerecordinfo1.setRefserialno(seq);
-			
-			//TODO GR
-//			tradeNotesMapper.insterChangerecordinfo(changerecordinfo1);
+			changerecordinfo1.setRefserialno(openAccountAction.getSerialno());
+			// **** 变更表
+			tradeNotesMapper.insterChangerecordinfo(changerecordinfo1);
 		}		
+		
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
 		tradeaccoinfo.setCustno(openAccountAction.getCustno());// char(10) not null comment '客户编号',
 		tradeaccoinfo.setFundcorpno(openAccountAction.getMerchant().Value());// char(2) not null default '' comment '交易账号类型：归属基金公司',
 		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
 		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionAccountID());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
 		bnankMapper.insterTradeaccoinfo(tradeaccoinfo);
-		/*
-		 * 插入流水表
-		 */
+
+		// *** 插入流水表
+		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//CustConvert.convertFdacfinalresult(custinfo);
 		fdacfinalresult.setCustno(custinfo.getCustno());
 		Today today = workDayManager.getSysDayInfo();
 		fdacfinalresult.setBankserialid(bankcardinfodef.getSerialid());
@@ -324,46 +339,50 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		fdacfinalresult.setWorkdate(today.getWorkday());
 		fdacfinalresult.setApdt(today.getDate());
 		fdacfinalresult.setAptm(today.getTime());
-		fdacfinalresult.setSerialno(seq);
+		fdacfinalresult.setSerialno(openAccountAction.getSerialno());
 		fdacfinalresult.setApkind(Apkind.OPEN_ACCOUNT.getValue());
+		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		
-		Changerecordinfo changerecordinfo = new Changerecordinfo();
-		changerecordinfo.setCustno(custinfo.getCustno());
-		changerecordinfo.setRecordafter(custinfo.toString());
-		changerecordinfo.setTablename(TableName.CUSTINFO.value());
-		changerecordinfo.setApkind(Apkind.OPEN_ACCOUNT.getValue());
-		changerecordinfo.setRefserialno(seq);
-		
-		Changerecordinfo changerecordinfo2 = BankConvert.convertTradeaccoinfo(tradeaccoinfo);
+		Changerecordinfo changerecordinfo2 = new Changerecordinfo();
+		changerecordinfo2.setCustno(custinfo.getCustno());
+		changerecordinfo2.setRecordafter(custinfo.toString());
+		changerecordinfo2.setTablename(TableName.CUSTINFO.value());
 		changerecordinfo2.setApkind(Apkind.OPEN_ACCOUNT.getValue());
-		changerecordinfo2.setRefserialno(seq);
-		//TODO GR
-//		tradeNotesMapper.insterChangerecordinfo(changerecordinfo);	
-//		tradeNotesMapper.insterChangerecordinfo(changerecordinfo2);
-//		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+		changerecordinfo2.setRefserialno(openAccountAction.getSerialno());
+		// **** 变更表
+		tradeNotesMapper.insterChangerecordinfo(changerecordinfo2);	
 		
+		Changerecordinfo changerecordinfo3 = BankConvert.convertTradeaccoinfo(tradeaccoinfo);
+		changerecordinfo3.setApkind(Apkind.OPEN_ACCOUNT.getValue());
+		changerecordinfo3.setRefserialno(openAccountAction.getSerialno());
+		// **** 变更表
+		tradeNotesMapper.insterChangerecordinfo(changerecordinfo3);
 	}
 	
-	
-	
-	
-	/*
-	 * 开户身份验证
-	 * 
+	/**
+	 *  用户注册、冻结、已开户验证
+	 * @param openAccountAction
 	 */
-	private void validatorOpenAccount1(OpenAccountAction openAccountAction) {
+	private void validatorOpenAccount(OpenAccountAction openAccountAction) {
+		// Custno 验证
 		if(openAccountAction.getCustno()==null||"".equals(openAccountAction.getCustno())){
 			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.NO_IDCARDNO, "用户id");
 		}
+		// CustNo 用户是否注册验证
 		Custinfo custinfo = this.getCustinfo(openAccountAction.getCustno());		
 		if(custinfo==null){
 			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.NO_IDCARDNO, "用户id");
 		}
+		// Custst 用户是否冻结验证
 		if(Constant.CUSTST$P.equals(custinfo.getCustst())){
 			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.FREEZE_USER, "用户id");
 		}
-		custManagerValidator.validatorOpenAccount1(openAccountAction);
-		if(!Constant.OPENACCOUNT$Y.equals(custinfo.getCustst())){
+		
+		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
+		// custManagerValidator.validatorOpenAccount1(openAccountAction);
+		
+		// Custst 用户是否开户验证
+		if(!Constant.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
 			if (this.isIdCardNoRegister(openAccountAction.getIdno())) {
 				throw new BizException(openAccountAction.getProcessId(), ErrorInfo.ALREADY_REGISTER, "用户id");
 			}
@@ -385,25 +404,23 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		return custinfo;
 	}
-//	
-	
-	
 	
 	private void insterSerialno(Custinfo custinfo,String apkind) throws BizException {
+		String seq = tradeNotesMapper.getFdacfinalresultSeq();
+
 		/*
 		 * 插入流水表
 		 */
-		//TODO GR
-//		String seq = tradeNotesMapper.getFdacfinalresultSeq();
 		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
 		fdacfinalresult.setCustno(custinfo.getCustno());
 		Today today = workDayManager.getSysDayInfo();
 		fdacfinalresult.setWorkdate(today.getWorkday());
 		fdacfinalresult.setApdt(today.getDate());
 		fdacfinalresult.setAptm(today.getTime());
-		//TODO GR
-//		fdacfinalresult.setSerialno(seq);
+		fdacfinalresult.setSerialno(seq);
 		fdacfinalresult.setApkind(apkind);
+		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+		
 		/*
 		 * 
 		 * 插入变动记录表
@@ -413,10 +430,10 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		changerecordinfo.setRecordafter(custinfo.toString());
 		changerecordinfo.setTablename(TableName.CUSTINFO.value());
 		changerecordinfo.setApkind(apkind);
-		//TODO GR
-//		changerecordinfo.setRefserialno(seq);
-//		tradeNotesMapper.insterChangerecordinfo(changerecordinfo);
-//		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+		changerecordinfo.setRefserialno(seq);
+		tradeNotesMapper.insterChangerecordinfo(changerecordinfo);
+		
+
 		
 	}
 

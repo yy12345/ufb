@@ -4,8 +4,6 @@
 
 <mapper namespace="com.ufufund.ufb.dao.TradeNotesMapper">
 
-<!-- 
-
 	<insert id="insterChangerecordinfo" parameterType="com.ufufund.ufb.model.db.Changerecordinfo">
   	 <![CDATA[
 	 	insert into CHANGERECORDINFO (
@@ -54,6 +52,7 @@
 			)
 	 ]]>
   	</insert>
+<!-- 
   		
   	<select id="getDateInfo"  resultType="com.ufufund.ufb.model.db.DateInfo">
   	<![CDATA[	select date_format(now(),'%Y%m%d') apdt,

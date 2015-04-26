@@ -57,7 +57,7 @@ public interface CustManager extends CustInterface{
 	
 	/**
 	 *  
-	 *  开户绑卡 1 验证身份， 2 银行快捷鉴权,3 银行手机验证  ，4 开户
+	 * 开户绑卡 1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户
 	 * @param OpenAccountAction
 	 * @return 
 	 */

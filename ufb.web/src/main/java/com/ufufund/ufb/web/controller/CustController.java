@@ -20,6 +20,7 @@ import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.Level;
+import com.ufufund.ufb.model.enums.Merchant;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
@@ -56,7 +57,7 @@ public class CustController {
 	public String registerOrg(CustinfoVo custinfoVo, Model model) {
 		//FOR TEST
 		if(StringUtils.isBlank(custinfoVo.getMobileno())){
-			custinfoVo.setMobileno("18604252181");
+			custinfoVo.setMobileno("18604262101");
 		}
 		if(StringUtils.isBlank(custinfoVo.getVerifycode())){
 			custinfoVo.setVerifycode("1234");;
@@ -90,7 +91,7 @@ public class CustController {
 			registerAction.setLoginCode(custinfoVo.getMobileno());
 			registerAction.setLoginPassword(custinfoVo.getPswpwd());
 			registerAction.setLoginPassword2(custinfoVo.getPswpwd2());
-			registerAction.setInvtp(Invtp.ORGANIZATION);// 0：个人 1：机构
+			registerAction.setInvtp(Invtp.PERSONAL);// 0：个人 1：机构
 			registerAction.setLevel(Level.OPERATOR); // 经办人
 			registerAction.setOrganization(custinfoVo.getOrganization());
 			registerAction.setBusiness(custinfoVo.getBusiness());
@@ -271,6 +272,7 @@ public class CustController {
 			openAccountAction.setIdno(bankCardVo.getBankIdno());
 			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
 			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
+			
 			custManager.openAccount1(openAccountAction);
 			
 			model.addAttribute("BankCardVo", bankCardVo);
@@ -319,13 +321,7 @@ public class CustController {
 	 */
 	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
 	public String addBankCard3(BankCardVo bankCardVo, Model model){
-		//FOR TEST 
-		//bankCardVo.setBankNo("007");
-		//
 		try{
-			// 校验短信验证码
-//			boolean checkMsgCode = MsgCodeUtils.validate(bankCardVo.getMsgcode());
-			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setBankno(bankCardVo.getBankNo());
 			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
@@ -337,11 +333,20 @@ public class CustController {
 			openAccountAction.setMobileAutoCode(bankCardVo.getMsgcode());
 			openAccountAction.setOtherserial(bankCardVo.getOtherserial());
 			
-			//custManager.openAccount3(openAccountAction);
+			// 3 银行手机验证 
+			custManager.openAccount3(openAccountAction);
 			
+			// 4 开户
 			openAccountAction.setCustno(bankCardVo.getCustNo());
+			openAccountAction.setInvnm(bankCardVo.getBankAcnm());
+			openAccountAction.setIdno(bankCardVo.getBankIdno());
+			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
+			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
+			openAccountAction.setMerchant(Merchant.HFT_FUND);
+			
 			custManager.openAccount4(openAccountAction);
 			
+			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
 			
 			//验证码
