@@ -1,7 +1,7 @@
 /**
  * Created by FingerLink008A on 2015/4/20.
  */
-var commonSymbol = "[\\,\\`\\~\\!\\@\\#\\$\\%\\\\^\\&\\*\\(\\)\\-\\_\\=\\+\\[\\{\\]\\}\\\\|\\;\\:\\‘\\’\\“\\”\\<\\>\\/?]+";
+var commonSymbol = "[\\,\\`\\~\\!\\@\\#\\$\\%\\\\^\\&\\*\\(\\)\\-\\_\\+\\[\\{\\]\\}\\\\|\\;\\:\\‘\\’\\“\\”\\<\\>\\/?]+";
 var spliter = ",";
 
 function isSameWord(str) {
@@ -55,6 +55,16 @@ var check_code = function (ipt) {
         return 1
     }
     if (value.length != 4) {
+        return 2
+    }
+    return 0
+}
+var check_phoneCode = function (ipt) {
+    var value = ipt.val();
+    if (value == "" || value == ipt.context.defaultValue) {
+        return 1
+    }
+    if (value.length != 6) {
         return 2
     }
     return 0
@@ -158,7 +168,7 @@ $(".ipt-code").bind("blur", function() {
 
 $(".ipt-phoneCode").bind("blur", function() {
     var _this = $(this);
-    var checkCode = check_code(_this);
+    var checkCode = check_phoneCode(_this);
     switch (checkCode) {
         case 1:
             showTips(_this, "手机验证码不能为空");

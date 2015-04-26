@@ -124,8 +124,8 @@ public class RegexUtil {
 	   * @author jiqinlin
 	   */
 	  private final static boolean match(String text, String reg) {
-	      if (StringUtils.isBlank(text) || StringUtils.isBlank(reg))
-	          return false;
+//	      if (StringUtils.isBlank(text) || StringUtils.isBlank(reg))
+//	          return false;
 	      return Pattern.compile(reg).matcher(text).matches();
 	  }
 	  
@@ -160,16 +160,51 @@ public class RegexUtil {
      * 
      * @param str
      * @return
-     * @author jiqinlin
+     * @author goodrich
      */
-    public final static boolean isPwd(String str) {
-        return match(str, "^[a-zA-Z0-9]\\w{5,11}$");
-    }
-    
-    
+	public final static boolean isPwd(String value) {
+		String commonSymbol = "[\\,\\`\\~\\!\\@\\#\\$\\%\\\\^\\&\\*\\(\\)\\-\\_\\+\\[\\{\\]\\}\\\\|\\;\\:\\‘\\’\\“\\”\\<\\>\\/?]+";
+		// return match(str, "^[a-zA-Z0-9]\\w{5,11}$");
+
+		if (StringUtils.isBlank(value)) {
+			return false;
+		}
+		if (value.length() > 20) {
+			return false;
+		}
+		if (value.length() < 6) {
+			return false;
+		}
+		String regex1 = "\\s+";
+		//System.out.println("fuck: " + Pattern.compile("\\s+").matcher("1  2").matches());
+		if (match(value, regex1)) {
+			return false;
+		}
+		String regex2 = "^[0-9]+$";
+		if (match(value, regex2)) {
+			return false;
+		}
+		String regex3 = "^[a-zA-Z]+$";
+		if (match(value, regex3)) {
+			return false;
+		}
+		String regex4 = "^[^0-9A-Za-z]+$";
+		if (match(value, regex4)) {
+			return false;
+		}
+		String n = "d*" + commonSymbol + "";
+		
+		String regexAll = "\\d+[A-Za-z]|[A-Za-z]+[0-9]+|[A-Za-z]+"
+				+ commonSymbol + "[0-9]+|[A-Za-z]+[0-9]+" + commonSymbol + "|"
+				+ n + "";
+		if (!match(value, regexAll)) {
+			return true;
+		}
+		return true;
+	}
     
     public static void main(String[] args) {
-		System.out.println(isPwd(" 12345678901_"));
+		System.out.println(isPwd("aaaa1111aaa"));
 	}
     
 //    

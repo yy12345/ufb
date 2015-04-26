@@ -8,8 +8,15 @@
 $(function(){
 	$("#btn-addBankCardInit").on("click",function(){
 		//check #register-org #mobileno
-		$("#form-addBankCard").attr("action", "../bankcard/addBankCardInit.htm");
-		$("#form-addBankCard").submit();
+		
+		var errLen = $("ul li.error").length;
+		if(errLen>0){
+			$("ul li.error:eq(0) input[type=text]").focus();
+			$("ul li.error:eq(0) input[type=password]").focus();
+		}else{
+			$("#form-addBankCard").attr("action", "../bankcard/addBankCardInit.htm");
+			$("#form-addBankCard").submit();
+		}
 	});
 	
 	$("form input[type=text]").each(function () {
