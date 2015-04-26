@@ -7,12 +7,15 @@
 		<pattern>/**/*.ajax</pattern>
 	</excludes>
 	
-	<!-- 
-	<errorPages page="layout/layoutWithoutMenu.vm">
+	<errorPages page="layout/default_1.vm">
         <pattern>error/404.vm</pattern>
         <pattern>error/500.vm</pattern>
         <pattern>error/*</pattern>
-    </errorPages>  -->
+    </errorPages> 
+	
+	<layout page="layout/default_1.vm">
+        <pattern>/ufb/trade/*.htm</pattern>
+    </layout>
 	
     <layout page="layout/default.vm" default="true">
         <pattern>/ufu/**/*</pattern>

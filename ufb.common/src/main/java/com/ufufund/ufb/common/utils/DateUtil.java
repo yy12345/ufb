@@ -61,7 +61,7 @@ public class DateUtil {
 	 * @param destPattern 目标模式
 	 * @return
 	 */
-	public static String transfer(String time,String sourcePattern, String destPattern){
+	public static String convert(String time,String sourcePattern, String destPattern){
 		String str = "";
 		if(time == null || "".equals(time)){
 			return str;
@@ -88,6 +88,18 @@ public class DateUtil {
 		calendar.add(Calendar.DAY_OF_MONTH, n);
 		date = calendar.getTime();
 		return date;
+	}
+	
+	/**
+	 * 取当前日期的N天后
+	 * @param date yyyyMMdd型字符串日期
+	 * @param n N天后（可为负数，为负数则前N天）
+	 * @return
+	 */
+	public static String getNextDay(String date,int n) {
+		Date now = parse(date, DATE_PATTERN_1);
+		Date later = getNextDay(now, n);
+		return format(later, DATE_PATTERN_1);
 	}
 	
 	/**

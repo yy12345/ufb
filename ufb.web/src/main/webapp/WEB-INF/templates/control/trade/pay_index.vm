@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>幼富通 - 充值中心</title>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+</head>
+<body>
+<div class="body">
+    <div class="inner clearfix">
+        <div class="title clearfix">
+            <h2 class="title-main fl">资产总览 | 充值</h2>
+        </div>
+        <div class="notice">公告：15:00前转入资金（以支付成功时间为准），第二个工作日确认份额，收益将在确认后次日发放，15:00后转入资金顺延1个工作日发放收益。双休日及国家法定假期，基金公司不进行份额确认。</div>
+        <div class="date-line">
+            <div class="line-point point-left">
+                <div class="point-icon"></div>
+                <div class="point-text">
+                    <div class="text-name">充值日期</div>
+                    <div class="text-date">${today}</div>
+                </div>
+            </div>
+            <div class="line-point point-center">
+                <div class="point-icon"></div>
+                <div class="point-text">
+                    <div class="text-name">计算收益</div>
+                    <div class="text-date">${nextWorkDay}</div>
+                </div>
+            </div>
+            <div class="line-point point-right">
+                <div class="point-icon"></div>
+                <div class="point-text">
+                    <div class="text-name">预计收益到账</div>
+                    <div class="text-date">${profitArriveDay}</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-payInto">
+            <form class="common-form" action="${ufbDomain}/trade/pay_result.htm" method="post">
+                ${refreshTools.genInputHtml()}
+				<ul>
+                    <li class="clearfix">
+                        <span class="form-title">银行选择</span>
+                        <div class="input-select">
+                            <div class="card card-current">
+                                <img src="${staticDomain}/images/bank_01.png">
+                                <span class="card-lastNumber">尾号：8888</span>
+                            </div>
+                            <div class="input-options">
+                                <div class="card-list clearfix">
+                                    <a class="card" href="javascript:;">
+                                        <img src="${staticDomain}/images/bank_01.png">
+                                        <span class="card-lastNumber">尾号：8888</span>
+                                    </a>
+                                    <a class="card" href="javascript:;">
+                                        <img src="${staticDomain}/images/bank_02.png">
+                                        <span class="card-lastNumber">尾号：8888</span>
+                                    </a>
+                                    <a class="card active" href="javascript:;">
+                                        <i class="icon"></i>
+                                        <img src="${staticDomain}/images/bank_03.png">
+                                        <span class="card-lastNumber">尾号：8888</span>
+                                    </a>
+                                    <a class="card" href="javascript:;">
+                                        <img src="${staticDomain}/images/bank_04.png">
+                                        <span class="card-lastNumber">尾号：8888</span>
+                                    </a>
+                                    <a class="card" href="javascript:;">
+                                        <img src="${staticDomain}/images/bank_05.png">
+                                        <span class="card-lastNumber">尾号：8888</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="tips-normal"></span>
+                        <span class="tips-check"><i class="icon"></i>验证提示</span>
+                    </li>
+                    <li>
+                        <span class="form-title">充值金额</span>
+                        <input class="input-text" type="text" value="">元
+                        <span class="tips-normal"></span>
+                        <span class="tips-check"><i class="icon"></i>验证提示</span>
+                    </li>
+                    <li>
+                        <span class="form-title">交易密码</span>
+                        <input class="input-text" type="password" value=""><a class="find" href="javascript:;">忘记密码?</a>
+                        <span class="tips-normal"></span>
+                        <span class="tips-check"><i class="icon"></i>验证提示</span>
+                    </li>
+                    <li>
+                        <input class="input-button ok" type="submit" value="充&nbsp;值">
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

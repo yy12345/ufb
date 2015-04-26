@@ -5,14 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufufund.ufb.biz.Merchant.MerchantFund;
-import com.ufufund.ufb.biz.Merchant.OpenAccount;
+import com.ufufund.action.OpenAccount;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
-import com.ufufund.ufb.biz.manager.impl.helper.BankConvert;
-import com.ufufund.ufb.biz.manager.impl.helper.CustConvert;
+import com.ufufund.ufb.biz.manager.impl.helper.CustManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
+import com.ufufund.ufb.biz.util.HftResponseUtil;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.BankMapper;
@@ -30,7 +29,14 @@ import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
+import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
+import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
+import com.ufufund.ufb.model.remote.hft.BankVeriRequest;
+import com.ufufund.ufb.model.remote.hft.BankVeriResponse;
+import com.ufufund.ufb.model.remote.hft.OpenAccountRequest;
+import com.ufufund.ufb.model.remote.hft.OpenAccountResponse;
 import com.ufufund.ufb.model.vo.Today;
+import com.ufufund.ufb.remote.HftCustService;
 
 
 @Service
@@ -51,11 +57,11 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	@Autowired
 	private WorkDayManager workDayManager;
 	
-//	@Autowired
-//	private HftCustService hftCustService;
+	@Autowired
+	private HftCustService hftCustService;
 	
 	@Autowired
-	private MerchantFund merchantFund;
+	private CustManagerHelper helper;
 	/**
 	 * 查询手机号是否注册
 	 * 
@@ -98,7 +104,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		/*
 		 * 插入客户信息表
 		 */
-		Custinfo custinfo = CustConvert.convertCustinfo(loginAction);
+		Custinfo custinfo = helper.toCustinfo(loginAction);
 		custinfo.setCustno(custinfoMapper.getCustinfoSequence());
 		custinfoMapper.insertCustinfo(custinfo);
 		this.insterSerialno(custinfo, Apkind.REGISTER.getValue());
@@ -218,24 +224,20 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 * @return
 	 */
 	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException {
-		String processId =  this.getProcessId(openAccountAction);
-		// 银行基本信息验证
+		// 验证
 		custManagerValidator.validator(openAccountAction);
-		// 合作平台申请单编号 UFT生成
-		// SequenceUtil.getSerial() 
+		
+		// 生成流水号
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-		// 请求序列号 给通联的流水号 UFT生成
 		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
 		
-		// 进行XML接口 银行快捷鉴权
-		OpenAccount openAccount = merchantFund.bankAuth(openAccountAction);
+		// 执行鉴权交易
+		BankAuthRequest request = helper.toBankAuthRequest(openAccountAction);
+		BankAuthResponse response = hftCustService.bankAuth(request);
 		
-		// 返回码转换
-		if(!"0000".equals(openAccount.getReturncode())){
-			throw new BizException(processId, openAccount.getReturnMsg(), openAccount.getReturncode());
-		}
-		openAccountAction.setOtherserial(openAccount.getOtherserial());
-		openAccountAction.setProtocolno(openAccount.getProtocolno());
+		// 处理返回异常码
+		HftResponseUtil.dealResponseCode(response);
+		
 		return openAccountAction;
 	}
 	
@@ -247,27 +249,18 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 * @return
 	 */
 	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException {
-		String processId = this.getProcessId(openAccountAction);
-		// 银行基本信息验证
+		// 参数验证
 		custManagerValidator.validator(openAccountAction);
-		if (openAccountAction.getMobileAutoCode().length()>6 ||
-		    !RegexUtil.isDigits(openAccountAction.getMobileAutoCode())) {
-			// 手机验证码
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, IDENTIFYING);
-		}
-		if (RegexUtil.isNull(openAccountAction.getOtherserial())) {
-			// 对方序列号
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, "对方序列号");
-		}
-	
-		// 进行XML接口 银行快捷验证
+		
+		// 执行银行验证交易
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-		OpenAccount openAccount = merchantFund.bankVeri(openAccountAction);
-		// 返回码转换
-		if(!"0000".equals(openAccount.getReturncode())){
-			throw new BizException(processId, openAccount.getReturnMsg(), openAccount.getReturncode());
-		}
-		openAccountAction.setProtocolno(openAccount.getProtocolno());
+		BankVeriRequest request = helper.toBankVeriRequest(openAccountAction);
+		BankVeriResponse response = hftCustService.bankVeri(request);
+		
+		// 处理返回异常码
+		HftResponseUtil.dealResponseCode(response);
+		
+		openAccountAction.setProtocolno(response.getProtocolNo());
 		return openAccountAction;
 	}
 	
@@ -287,17 +280,17 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		// 银行基本信息验证
 		custManagerValidator.validator(openAccountAction);
 		
-		// *** 进行XML接口开户
+		// 执行开户交易
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-		OpenAccount openAccount = merchantFund.openAccount(openAccountAction);
-		// 返回码转换
-		if(!"0000".equals(openAccount.getReturncode())){
-			throw new BizException(processId,openAccount.getReturncode());
-		}
+		OpenAccountRequest request = helper.toOpenAccountRequest(openAccountAction);
+		OpenAccountResponse response = hftCustService.openAccount(request);
+		
+		// 处理返回异常码
+		HftResponseUtil.dealResponseCode(response);
 		
 		// *** 开户成功，更新custinfo表的交易帐号、投资人姓名、证件类型、证件号、开户状态、交易密码
-		openAccountAction.setTransactionAccountID(openAccount.getTransactionAccountID());
-		Custinfo custinfo = CustConvert.convertOpenAccountAction(openAccountAction);
+		openAccountAction.setTransactionAccountID(response.getTransactionAccountID());
+		Custinfo custinfo = helper.toOpenAccountAction(openAccountAction);
 		custinfoMapper.updateCustinfo(custinfo);
 		
 		Bankcardinfo bankcardinfodef = null;
@@ -311,12 +304,12 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			}
 		}
 		if(bankcardinfodef==null){
-			bankcardinfodef = BankConvert.converBankcardinfo(openAccountAction);
+			bankcardinfodef = helper.toBankcardinfo(openAccountAction);
 			String bankSeq = bnankMapper.getBankcardinfoSequence();
 			bankcardinfodef.setSerialid(bankSeq);
 			bankcardinfodef.setState("Y");
 			bnankMapper.insterBankcardinfo(bankcardinfodef);
-			Changerecordinfo changerecordinfo1 = BankConvert.convertBankcardinfo(bankcardinfodef);
+			Changerecordinfo changerecordinfo1 = helper.toBankcardinfo(bankcardinfodef);
 			changerecordinfo1.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 			changerecordinfo1.setRefserialno(openAccountAction.getSerialno());
 			// **** 变更表
@@ -331,7 +324,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		bnankMapper.insterTradeaccoinfo(tradeaccoinfo);
 
 		// *** 插入流水表
-		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//CustConvert.convertFdacfinalresult(custinfo);
+		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//helper.toFdacfinalresult(custinfo);
 		fdacfinalresult.setCustno(custinfo.getCustno());
 		Today today = workDayManager.getSysDayInfo();
 		fdacfinalresult.setBankserialid(bankcardinfodef.getSerialid());
@@ -352,7 +345,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		// **** 变更表
 		tradeNotesMapper.insterChangerecordinfo(changerecordinfo2);	
 		
-		Changerecordinfo changerecordinfo3 = BankConvert.convertTradeaccoinfo(tradeaccoinfo);
+		Changerecordinfo changerecordinfo3 = helper.toTradeaccoinfo(tradeaccoinfo);
 		changerecordinfo3.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 		changerecordinfo3.setRefserialno(openAccountAction.getSerialno());
 		// **** 变更表

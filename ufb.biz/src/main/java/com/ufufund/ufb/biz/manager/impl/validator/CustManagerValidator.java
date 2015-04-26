@@ -12,7 +12,7 @@ import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.Level;
 
 @Service
-public class CustManagerValidator extends ValidatorCommon {
+public class CustManagerValidator {
 
 
 	private final static String CUSTNO = "用户id";

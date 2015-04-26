@@ -28,8 +28,8 @@ public class SysException extends RuntimeException{
 		return code;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public String getCodeMsg() {
+		return code+"-"+super.getMessage();
 	}
 	
 	

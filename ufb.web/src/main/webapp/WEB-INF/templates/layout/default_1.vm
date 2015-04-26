@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 #parse("control/common/head.vm")
-<body>
-<div id="index" class="container">
+<body>	
+<div class="container center">
 #parse("control/common/header.vm")
 $body
-#parse("control/common/footer.vm")
+#parse("control/common/footer1.vm")
 </div>
 $!{script}
 </body>

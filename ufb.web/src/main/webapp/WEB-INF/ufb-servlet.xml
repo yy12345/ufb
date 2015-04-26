@@ -66,6 +66,7 @@
 		<!-- 公共变量 --> 
 		<property name="attributesMap">
 			<map>
+				<entry key="ufbDomain" value="http://localhost:8080/ufb"/>
 				<entry key="staticDomain" value="http://localhost:8080/ufb"/>
 			</map>
 		</property>
