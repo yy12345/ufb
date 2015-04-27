@@ -6,6 +6,10 @@
 -->
 <script>
 $(function(){
+	$("#btn-logout").on("click",function(){
+		$("#form-addBankCardSuccess").attr("action", "../cust/logout.htm");
+		$("#form-addBankCardSuccess").submit();
+	});
 });
 </script>
 </head>
@@ -14,8 +18,8 @@ $(function(){
 	<div class="header">
         <div class="inner clearfix rel">
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
-            <div class="nav"><a 
-				href="javascript:;">登录</a>|<a 
+            <div class="nav"><a id="btn-logout"
+				href="javascript:;">登出</a>|<a 
 				href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
 				href="${staticDomain}/cust/login.htm">我的幼富通</a>|<a class="last" 
 				href="javascript:;">帮助</a></div>
@@ -41,8 +45,8 @@ $(function(){
                 </div>
             </div>
 			<form id="form-addBankCardSuccess" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardSuccess.htm">
-				<input id="custNo" name="custNo" type="text" value="$!{BankCardVo.custNo}">
-				<input id="reqSeq" name="reqSeq" type="text" value="$!{BankCardVo.reqSeq}">
+				<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
+				<input id="reqSeq" name="reqSeq" type="hidden" value="$!{BankCardVo.reqSeq}">
             </form>
         </div>
     </div>
