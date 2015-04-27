@@ -59,7 +59,7 @@ public class CustManagerValidator {
 		String processId = action.getProcessId();
 		if (RegexUtil.isNull(action.getLoginCode())) {
 			// 账号
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, LOGINCODE);
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, MOBILE);
 		}
 		if (RegexUtil.isNull(action.getLoginPassword())) {
 			// 密码

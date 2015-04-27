@@ -107,7 +107,7 @@ public class CustController {
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			
-			if("手机号".equals(e.getOtherInfo())){
+			if("手机号".equals(e.getOtherInfo()) || "账号".equals(e.getOtherInfo())){
 				model.addAttribute("errMsg_mobileno", e.getMessage());
 			}else
 			if("密码".equals(e.getOtherInfo())){
@@ -243,9 +243,9 @@ public class CustController {
 //		if(StringUtils.isBlank(bankCardVo.getTradePwd2())){
 //			bankCardVo.setTradePwd2("1234test");;
 //		}
-//		if(StringUtils.isBlank(bankCardVo.getBankNo())){
-//			bankCardVo.setBankNo("000");;
-//		}
+		if(StringUtils.isBlank(bankCardVo.getBankNo())){
+			bankCardVo.setBankNo("000");;
+		}
 //		if(StringUtils.isBlank(bankCardVo.getBankMobile())){
 //			bankCardVo.setBankMobile("18616502181");;
 //		}
