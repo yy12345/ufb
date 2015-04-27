@@ -175,9 +175,9 @@ public class RegexUtil {
 		if (value.length() < 6) {
 			return false;
 		}
-		String regex1 = "\\s+";
+		String regex1 = "[^ ]+";
 		//System.out.println("fuck: " + Pattern.compile("\\s+").matcher("1  2").matches());
-		if (match(value, regex1)) {
+		if (!match(value, regex1)) {
 			return false;
 		}
 		String regex2 = "^[0-9]+$";
@@ -204,7 +204,7 @@ public class RegexUtil {
 	}
     
     public static void main(String[] args) {
-		System.out.println(isPwd("aaaa1111aaa"));
+		System.out.println(isPwd("aaaa1 11aaa"));
 	}
     
 //    
