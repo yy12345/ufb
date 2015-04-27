@@ -75,6 +75,15 @@ public class CustController {
 //		//
 		
 		try{
+			// 防止重复注册
+			CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
+			// 有Session，Session登录
+			if(null != s_custinfo){
+				// Session登录 已注册
+				model.addAttribute("CustinfoVo", s_custinfo);
+				return "cust/registerSuccessPage";
+			}
+			
 //			// 校验验证码
 //			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
 //			if(!checkVerifyCode){
@@ -102,6 +111,7 @@ public class CustController {
 			
 			custinfoVo.setInvtp("0"); // 0：个人 1：机构
 			custinfoVo.setLevel("1"); // 0：个人 1：经办人
+			model.addAttribute("CustinfoVo", custinfoVo);
 			ServletHolder.getSession().setAttribute("S_CUSTINFO", custinfoVo);
 			
 		}catch (BizException e){
@@ -194,6 +204,34 @@ public class CustController {
 		}
 
 		return "cust/indexPage";
+	}
+	
+	/**
+	 * 登录 写入身份证到SESSION 没有就没有实名认证和绑卡 必须先开户绑卡
+	 * @param custinfoVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "cust/logout")
+	public String logOut(Model model) {
+		
+		try{
+			CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
+			// 有Session，Session登出
+			if(null != s_custinfo){
+				// Session登出
+				ServletHolder.getSession().removeAttribute("S_CUSTINFO");
+			}else{
+			}
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			// TODO 调到登录页面
+			return "error/error";
+		}
+
+		return "home/indexPage";
 	}
 	
 	

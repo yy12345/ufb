@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>幼富通 - 首页</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel='stylesheet' href='css/camera.css'>
+    <link rel="stylesheet" href="css/common.css">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="./libs/html5.js"></script>
+    <![endif]-->
+    <script type='text/javascript' src='libs/jquery.min.js'></script>
+    <script type='text/javascript' src='libs/jquery.mobile.customized.min.js'></script>
+    <script type='text/javascript' src='libs/jquery.easing.1.3.js'></script>
+    <script type='text/javascript' src='libs/camera.min.js'></script>
+</head>
+<body>
+<div class="index container" id="index">
+    <div class="header">
+        <div class="inner clearfix rel">
+            <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+            <div class="nav"><a href="javascript:;">登录</a>|<a href="javascript:;">注册</a>|<a class="member" href="javascript:;">我的幼富通</a>|<a class="last" href="helpNotice.html">帮助</a></div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="kv"><!--
+            <div class="inner">
+                <div class="login">
+                    <div class="login-tabs tabs clearfix">
+                        <a class="tab tab-family fl on" href="javascript:;">家庭注册</a>
+                        <a class="tab tab-org fl" href="javascript:;">幼教机构注册</a>
+                    </div>
+                    <div class="login-panels">
+                        <div class="panel">
+                            <form class="login-form">
+                                <ul>
+                                    <li><a class="link-register" href="javascript:;">免费注册</a></li>
+                                    <li class="input-wrap"><input type="text" class="input-text"></li>
+                                    <li><input type="password" class="input-text"></li>
+                                    <li class="clearfix"><span class="fl">验证码</span><a class="link-find fr" href="javascript:;">忘记密码?</a></li>
+                                    <li><input type="text" class="input-code"></li>
+                                    <li><input type="submit" class="input-button" value="立即登录"> </li>
+                                </ul>
+                            </form>
+                        </div>
+                        <div class="panel"></div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="camera_wrap" id="index_kv">
+                <div data-src="images/banner1.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
+                <div data-src="images/banner2.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
+                <div data-src="images/banner3.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
+                <div data-src="images/banner4.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
+            </div>
+        </div>
+        <div class="inner clearfix">
+            <div class="main fl">
+                <h2 class="title">主打产品</h2>
+                <ul class="project-list">
+                    <li class="project-item shadow-normal"><i class="tag"><img src="images/tag2.png"></i><img src="images/section2.png" width="100%"></li>
+                    <li class="project-item shadow-normal"><i class="tag"><img src="images/tag1.png"></i><img src="images/section1.png" width="100%"></li>
+                </ul>
+            </div>
+            <div class="side shadow-normal fr">
+                <div class="intro"><a target="_blank" href="http://www.china06.org"><img src="images/side1.png" width="240" height="130"></a><a target="_blank" href="http://www.hftfund.com"><img src="images/side2.png" width="240" height="100"></a><a target="_blank" href="http://www.wenjuan.com/s/nuyA7v/"><img src="images/side3.png" width="240" height="160"></a></div>
+                <div class="tabs">
+                    <ul class="clearfix">
+                        <li><a href="javascript:;"><img src="images/tab1.png" width="50" height="50"></a></li>
+                        <li><a href="javascript:;"><img src="images/tab2.png" width="50" height="50"></a></li>
+                        <li><a href="javascript:;"><img src="images/tab3.png" width="50" height="50"></a></li>
+                        <li><a href="javascript:;"><img src="images/tab4.png" width="50" height="50"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="inner clearfix">
+                <ul class="list">
+                    <li class="item">
+                        <div class="icon"><img src="images/icon1.png"></div>
+                        <div class="text"><h3>机构理财收益高</h3><p>精选高收益机构理财产品<br>
+                            实力基金管理人定制产品<br>
+                            专注提升机构闲置资金回报</p></div>
+                    </li>
+                    <li class="item">
+                        <div class="icon"><img src="images/icon2.png"></div>
+                        <div class="text"><h3>机构理财更放心</h3><p>严选专业品牌基金管理机构<br>
+                            投资全程受国家严格监管<br>
+                            机构理财资金由独立第三方银行托管<br>
+                            资金赎回只回到机构注册账户</p></div>
+                    </li>
+                    <li class="item">
+                        <div class="icon"><img src="images/icon3.png"></div>
+                        <div class="text"><h3>机构理财更轻松</h3><p>贴心定制产品策略<br>
+                            可随时购买、快速提取<br>
+                            随时查询资产与收益</p></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="inner clearfix">
+            <div class="notice fl">
+                <h2 class="title">理财机构须知</h2>
+                <ul class="list">
+                    <li><a href="helpNotice.html#n1">幼教机构如何注册幼富通？</a></li>
+                    <li><a href="helpNotice.html#n2">如何购买幼富通的机构理财产品？</a></li>
+                    <li><a href="helpNotice.html#n3">机构理财的交易安全有什么保障？</a></li>
+                    <li><a href="helpNotice.html#n4">如何联系我们？</a></li>
+                </ul>
+            </div>
+            <div class="qa fl">
+                <h2 class="title">常见问题</h2>
+                <ul class="list">
+                    <li><a href="helpQA.html#q1">什么是机构理财专户？</a></li>
+                    <li><a href="helpQA.html#q2">什么是幼富宝？</a></li>
+                    <li><a href="helpQA.html#q3">购买幼富宝有什么好处？</a></li>
+                </ul>
+            </div>
+            <div class="about fl">
+                <h2 class="title"><a href="helpAbout.html">关于幼富通&nbsp;<span>|</span></a></h2>
+                <div class="info">
+                    <p>微信服务号：UFUfund</p>
+                    <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
+                    <p>海富通产品：400-8840-099</p>
+                </div>
+                <div class="copyright">
+                    <p>上海泛投信息科技有限公司版权所有 ©2015</p>
+                    <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="scripts/load.js"></script>
+</body>
+</html>

@@ -38,6 +38,12 @@
 		<if test="idno != null and idno !=''" >
 		 T1.IDNO = #{idno,jdbcType=VARCHAR} AND
 		</if>
+		<if test="passwd != null and passwd !=''" >
+  		 T1.PASSWD = #{passwd,jdbcType=VARCHAR} AND
+  		</if>
+  		<if test="custst != null and custst !=''" >
+  		 T1.CUSTST = #{custst,jdbcType=VARCHAR} AND
+  		</if>
 	     T1.CUSTST &lt;&gt; 'C'
   	</select>
 				

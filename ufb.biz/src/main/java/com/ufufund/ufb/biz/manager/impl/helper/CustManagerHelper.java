@@ -126,12 +126,12 @@ public class CustManagerHelper {
 		req.setCertificateType(openAccountAction.getBankidtp());
 		req.setCertificateNo(openAccountAction.getBankidno());
 		req.setMobileTelNo(openAccountAction.getBankmobile());
-		req.setCertValidDate("20181022");
-		req.setEmailAddress("15211827360@163.com");
-		req.setOfficeTelNo("02188592231");
-		req.setFaxNo("02188592231");
-		req.setAddress("东方路");
-		req.setPostCode("200000");
+//		req.setCertValidDate("20181022");
+//		req.setEmailAddress("15211827360@163.com");
+//		req.setOfficeTelNo("02188592231");
+//		req.setFaxNo("02188592231");
+//		req.setAddress("东方路");
+//		req.setPostCode("200000");
 		req.setProtocolNo(openAccountAction.getProtocolno());
 		return req;
 	}
