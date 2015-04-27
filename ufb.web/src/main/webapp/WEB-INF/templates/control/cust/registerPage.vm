@@ -67,6 +67,9 @@ $(function(){
 				<form:form modelAttribute="CustinfoVo" method="post">   
 					<form:input path="level" items="${CustinfoVo.level}"//>
                 -->
+				<div>家庭用户敬请期待...</div>
+				<!--
+				
                 <form method="post" action="${staticDomain}/cust/register_person.htm" id="register-family" class="form-register common-form">
 					<input id="level_0" type="hidden" name="level" value="${CustinfoVo.level}"/>
 					<ul>
@@ -109,6 +112,7 @@ $(function(){
                         </li>
                     </ul>
                 </form>
+				-->
 				<!--
 				</form:form>
 				-->
