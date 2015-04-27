@@ -174,6 +174,15 @@ var check_business = function (ipt) {//营业执照注册号
 	return showTips(ipt, 0)
 }
 
+var check_bankAcnm = function (ipt) {//经办人姓名
+	var value = ipt.val();
+	if (isNull(value)) {
+		return showTips(ipt, "经办人姓名不能为空");
+	}
+	return showTips(ipt, 0)
+}
+
+
 var check_bankCard = function (ipt) {//验证银行卡
     var value = ipt.val();
     if (isNull(value)) {
@@ -223,3 +232,6 @@ $(".ipt-bankCard").on("blur", function() {
     check_bankCard($(this));
 });
 
+$(".ipt-bankAcnm").on("blur", function() {
+    check_bankAcnm($(this));
+});

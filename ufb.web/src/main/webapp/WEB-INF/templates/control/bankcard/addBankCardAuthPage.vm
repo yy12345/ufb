@@ -17,12 +17,11 @@ $(function(){
     });
 	
 	#if($errMsg_msgcode)
-		//alert("提交按钮有效");
+		// 提交按钮有效
 	#elseif($errMsg)
-		//alert("提交按钮有效");
+		// 提交按钮有效
 	#else
 		// 提交按钮无效
-		//alert("提交按钮无效");
 		$("#btn-addBankCardChk").attr("disabled","disabled");
 	#end
 	
@@ -36,6 +35,16 @@ $(function(){
 	
 	// 验证码
 	$("#btn-addBankCardAuth").on("click",function(){
+	
+		var errLen = $("ul li.error").length;
+		if(errLen>0){
+			$("ul li.error:eq(0) input[type=text]").focus();
+			$("ul li.error:eq(0) input[type=password]").focus();
+			return false;
+		}else{
+			
+		}
+		
 		$(".panel ul li").removeClass("error").removeClass("ok");
 		
 		// 获取验证码按钮无效并倒计时 
@@ -95,8 +104,14 @@ $(function(){
 	
 	$("#btn-addBankCardChk").on("click",function(){
 		//check #register-org #mobileno
-		$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCardChk.htm");
+		var errLen = $("ul li.error").length;
+		if(errLen>0){
+			$("ul li.error:eq(0) input[type=text]").focus();
+			$("ul li.error:eq(0) input[type=password]").focus();
+		}else{
+			$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCardChk.htm");
 		$("#form-addBankCardAuth").submit();
+		}
 	});
 	
 });
@@ -147,7 +162,7 @@ $(function(){
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg}</span>
                             </li>
                             #end
-                            <li class="clearfix">
+                            <li class="ok clearfix">
                                 <span class="form-title">银行选择</span>
 								<div class="input-select">
                                     <div class="bank bank-current"><img src="${staticDomain}/images/bank_01.png"></div>
@@ -175,7 +190,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">经办人姓名</span>
-								<input id="bankAcnm" name="bankAcnm" class="input-text" type="text" value="$!{BankCardVo.bankAcnm}">
+								<input id="bankAcnm" name="bankAcnm" class="ipt-bankAcnm input-text" type="text" value="$!{BankCardVo.bankAcnm}">
                                 <span class="tips-normal">经办人姓名</span>
 								<span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcnm}</span>
                             </li>
@@ -185,7 +200,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">身份证号</span>
-                                <input id="bankIdno" name="bankIdno" class="input-text" type="text" value="$!{BankCardVo.bankIdno}">
+                                <input id="bankIdno" name="bankIdno" class="ipt-idCard input-text" type="text" value="$!{BankCardVo.bankIdno}">
                                 <span class="tips-normal">身份证号</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankIdno}</span>
                             </li>
@@ -195,7 +210,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">银行卡号</span>
-                                <input id="bankAcco" name="bankAcco" class="input-text" type="text" value="$!{BankCardVo.bankAcco}">
+                                <input id="bankAcco" name="bankAcco" class="ipt-bankCard input-text" type="text" value="$!{BankCardVo.bankAcco}">
                                 <span class="tips-normal">银行卡号</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcco}</span>
                             </li>
@@ -205,7 +220,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">银行预留手机号</span>
-                                <input id="bankMobile" name="bankMobile" class="input-text" type="text" value="$!{BankCardVo.bankMobile}">
+                                <input id="bankMobile" name="bankMobile" class="ipt-phoneNum input-text" type="text" value="$!{BankCardVo.bankMobile}">
                                 <span class="tips-normal">银行预留手机号</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankMobile}</span>
                             </li>
@@ -215,7 +230,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">手机验证码</span>
-								<input style="width:95px" id="msgcode" name="msgcode" class="input-text" type="text" value="$!{BankCardVo.msgcode}">
+								<input style="width:95px" id="msgcode" name="msgcode" class="ipt-phoneCode input-text" type="text" value="$!{BankCardVo.msgcode}">
                                 <span class="tips-normal">6位验证码</span>
                                 <input id="btn-addBankCardAuth" class="input-button" type="button" value="获取验证码">
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>
@@ -238,7 +253,6 @@ $(function(){
             </div>
         </div>
     </div>
-	<!--
     <div class="footer">
         <div class="inner clearfix">
             <div class="notice fl">
@@ -272,8 +286,8 @@ $(function(){
             </div>
         </div>
     </div>
-	-->
 </div>
 <script src="${staticDomain}/js/scripts/load.js"></script>
+<script src="${staticDomain}/js/scripts/register.js"></script>
 </body>
 </html>

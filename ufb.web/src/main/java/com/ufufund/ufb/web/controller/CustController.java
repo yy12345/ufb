@@ -57,19 +57,19 @@ public class CustController {
 	public String registerOrg(CustinfoVo custinfoVo, Model model) {
 		//FOR TEST
 		if(StringUtils.isBlank(custinfoVo.getMobileno())){
-			custinfoVo.setMobileno("18604262101");
+			custinfoVo.setMobileno("18604282001");
 		}
 		if(StringUtils.isBlank(custinfoVo.getVerifycode())){
 			custinfoVo.setVerifycode("1234");;
 		}
 		if(StringUtils.isBlank(custinfoVo.getMsgcode())){
-			custinfoVo.setMsgcode("123456");;
+			custinfoVo.setMsgcode("123test");;
 		}
 		if(StringUtils.isBlank(custinfoVo.getPswpwd())){
-			custinfoVo.setPswpwd("123qwe");;
+			custinfoVo.setPswpwd("1qaztest");;
 		}
 		if(StringUtils.isBlank(custinfoVo.getPswpwd2())){
-			custinfoVo.setPswpwd2("123qwe");;
+			custinfoVo.setPswpwd2("1qaztest");;
 		}
 		//
 		
@@ -210,6 +210,7 @@ public class CustController {
 				bankCardVo.setOrganization(s_custinfo.getOrganization());
 				bankCardVo.setBusiness(s_custinfo.getBusiness());
 				bankCardVo.setCustNo(s_custinfo.getCustno());
+				bankCardVo.setBankMobile(s_custinfo.getMobileno());
 			}
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
@@ -230,25 +231,25 @@ public class CustController {
 	public String addBankCardInit(BankCardVo bankCardVo, Model model){
 		//FOR TEST
 		if(StringUtils.isBlank(bankCardVo.getBankAcnm())){
-			bankCardVo.setBankAcnm("goodrich");;
+			bankCardVo.setBankAcnm("test");;
 		}
 		if(StringUtils.isBlank(bankCardVo.getBankIdno())){
 			bankCardVo.setBankIdno("310108198202182814");;
 		}
 		if(StringUtils.isBlank(bankCardVo.getTradePwd())){
-			bankCardVo.setTradePwd("123qwe");;
+			bankCardVo.setTradePwd("1234test");;
 		}
 		if(StringUtils.isBlank(bankCardVo.getTradePwd2())){
-			bankCardVo.setTradePwd2("123qwe");;
+			bankCardVo.setTradePwd2("1234test");;
 		}
 		if(StringUtils.isBlank(bankCardVo.getBankNo())){
-			bankCardVo.setBankNo("007");;
+			bankCardVo.setBankNo("000");;
 		}
 		if(StringUtils.isBlank(bankCardVo.getBankMobile())){
 			bankCardVo.setBankMobile("18616502181");;
 		}
 		if(StringUtils.isBlank(bankCardVo.getBankAcco())){
-			bankCardVo.setBankAcco("6230201111200000");;
+			bankCardVo.setBankAcco("6230201111200001");;
 		}
 		//
 		
