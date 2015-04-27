@@ -97,7 +97,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		custManagerValidator.validator(loginAction);
 		// 查询手机号是否注册
 		if(this.isMobileRegister(loginAction.getLoginCode())){
-			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, "手机号");
+			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, MOBILE);
 		}
 		
 		/*

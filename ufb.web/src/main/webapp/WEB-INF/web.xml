@@ -69,7 +69,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CreateImageServlet</servlet-name>
-		<url-pattern>createImageservlet</url-pattern>
+		<url-pattern>/createImageservlet</url-pattern>
 	</servlet-mapping>
 	
 	<error-page>
