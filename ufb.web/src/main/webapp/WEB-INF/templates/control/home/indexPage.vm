@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>幼富通 - 首页</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel='stylesheet' href='css/camera.css'>
-    <link rel="stylesheet" href="css/common.css">
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="./libs/html5.js"></script>
-    <![endif]-->
-    <script type='text/javascript' src='libs/jquery.min.js'></script>
-    <script type='text/javascript' src='libs/jquery.mobile.customized.min.js'></script>
-    <script type='text/javascript' src='libs/jquery.easing.1.3.js'></script>
-    <script type='text/javascript' src='libs/camera.min.js'></script>
+<!--
+<title>幼富通 - 资产总览</title>
+-->
+<script type='text/javascript' src='${staticDomain}/js/libs/camera.min.js'></script>
+<script>
+$(function(){
+	$("#btn-openAccount").on("click",function(){
+		//check #register-org #mobileno
+		$("#form-index").attr("action", "../bankcard/addBankCard.htm");
+		$("#form-index").submit();
+	});
+});
+</script>
 </head>
 <body>
 <div class="index container" id="index">
     <div class="header">
         <div class="inner clearfix rel">
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
-            <div class="nav"><a href="javascript:;">登录</a>|<a href="javascript:;">注册</a>|<a class="member" href="javascript:;">我的幼富通</a>|<a class="last" href="helpNotice.html">帮助</a></div>
+            <div class="nav"><a 
+				href="javascript:;">登录</a>|<a 
+				href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
+				href="javascript:;">我的幼富通</a>|<a class="last" 
+				href="helpNotice.html">帮助</a></div>
         </div>
     </div>
     <div class="body">
@@ -49,28 +53,28 @@
                 </div>
             </div>-->
             <div class="camera_wrap" id="index_kv">
-                <div data-src="images/banner1.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
-                <div data-src="images/banner2.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
-                <div data-src="images/banner3.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
-                <div data-src="images/banner4.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
+                <div data-src="${staticDomain}/images/banner1.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
+                <div data-src="${staticDomain}/images/banner2.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
+                <div data-src="${staticDomain}/images/banner3.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
+                <div data-src="${staticDomain}/images/banner4.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
             </div>
         </div>
         <div class="inner clearfix">
             <div class="main fl">
                 <h2 class="title">主打产品</h2>
                 <ul class="project-list">
-                    <li class="project-item shadow-normal"><i class="tag"><img src="images/tag2.png"></i><img src="images/section2.png" width="100%"></li>
-                    <li class="project-item shadow-normal"><i class="tag"><img src="images/tag1.png"></i><img src="images/section1.png" width="100%"></li>
+                    <li class="project-item shadow-normal"><i class="tag"><img src="${staticDomain}/images/tag2.png"></i><img src="${staticDomain}/images/section2.png" width="100%"></li>
+                    <li class="project-item shadow-normal"><i class="tag"><img src="${staticDomain}/images/tag1.png"></i><img src="${staticDomain}/images/section1.png" width="100%"></li>
                 </ul>
             </div>
             <div class="side shadow-normal fr">
-                <div class="intro"><a target="_blank" href="http://www.china06.org"><img src="images/side1.png" width="240" height="130"></a><a target="_blank" href="http://www.hftfund.com"><img src="images/side2.png" width="240" height="100"></a><a target="_blank" href="http://www.wenjuan.com/s/nuyA7v/"><img src="images/side3.png" width="240" height="160"></a></div>
+                <div class="intro"><a target="_blank" href="http://www.china06.org"><img src="${staticDomain}/images/side1.png" width="240" height="130"></a><a target="_blank" href="http://www.hftfund.com"><img src="${staticDomain}/images/side2.png" width="240" height="100"></a><a target="_blank" href="http://www.wenjuan.com/s/nuyA7v/"><img src="${staticDomain}/images/side3.png" width="240" height="160"></a></div>
                 <div class="tabs">
                     <ul class="clearfix">
-                        <li><a href="javascript:;"><img src="images/tab1.png" width="50" height="50"></a></li>
-                        <li><a href="javascript:;"><img src="images/tab2.png" width="50" height="50"></a></li>
-                        <li><a href="javascript:;"><img src="images/tab3.png" width="50" height="50"></a></li>
-                        <li><a href="javascript:;"><img src="images/tab4.png" width="50" height="50"></a></li>
+                        <li><a href="javascript:;"><img src="${staticDomain}/images/tab1.png" width="50" height="50"></a></li>
+                        <li><a href="javascript:;"><img src="${staticDomain}/images/tab2.png" width="50" height="50"></a></li>
+                        <li><a href="javascript:;"><img src="${staticDomain}/images/tab3.png" width="50" height="50"></a></li>
+                        <li><a href="javascript:;"><img src="${staticDomain}/images/tab4.png" width="50" height="50"></a></li>
                     </ul>
                 </div>
             </div>
@@ -79,20 +83,20 @@
             <div class="inner clearfix">
                 <ul class="list">
                     <li class="item">
-                        <div class="icon"><img src="images/icon1.png"></div>
+                        <div class="icon"><img src="${staticDomain}/images/icon1.png"></div>
                         <div class="text"><h3>机构理财收益高</h3><p>精选高收益机构理财产品<br>
                             实力基金管理人定制产品<br>
                             专注提升机构闲置资金回报</p></div>
                     </li>
                     <li class="item">
-                        <div class="icon"><img src="images/icon2.png"></div>
+                        <div class="icon"><img src="${staticDomain}/images/icon2.png"></div>
                         <div class="text"><h3>机构理财更放心</h3><p>严选专业品牌基金管理机构<br>
                             投资全程受国家严格监管<br>
                             机构理财资金由独立第三方银行托管<br>
                             资金赎回只回到机构注册账户</p></div>
                     </li>
                     <li class="item">
-                        <div class="icon"><img src="images/icon3.png"></div>
+                        <div class="icon"><img src="${staticDomain}/images/icon3.png"></div>
                         <div class="text"><h3>机构理财更轻松</h3><p>贴心定制产品策略<br>
                             可随时购买、快速提取<br>
                             随时查询资产与收益</p></div>
@@ -135,6 +139,6 @@
         </div>
     </div>
 </div>
-<script src="scripts/load.js"></script>
+<script src="${staticDomain}/js/scripts/load.js"></script>
 </body>
 </html>
