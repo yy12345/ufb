@@ -31,14 +31,15 @@ public class TradeManagerHelper {
 		tradeRequest.setSerialno(vo.getSerialno());
 		tradeRequest.setCustno(vo.getCustno());
 		tradeRequest.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-		tradeRequest.setTradeacco(vo.getTradeacco());
+		// 获取tranAcco
+		tradeRequest.setTradeacco("TranAcco001");
 		tradeRequest.setAppdate(vo.getAppdate());
 		tradeRequest.setApptime(vo.getApptime());
 		tradeRequest.setWorkday(vo.getWorkday());
 		tradeRequest.setApkind(Apkind.SUBAPPLY.getValue());
 		tradeRequest.setFundcode(vo.getFundcode());
 		tradeRequest.setAppamt(vo.getAppamt());
-		tradeRequest.setAppvol(vo.getAppvol());
+		tradeRequest.setAppvol(vo.getAppamt());
 		tradeRequest.setShareclass("0");
 		tradeRequest.setDividenttype("0");
 		tradeRequest.setFee(vo.getFee());
@@ -93,7 +94,8 @@ public class TradeManagerHelper {
 		tradeRequest.setSerialno(vo.getSerialno());
 		tradeRequest.setCustno(vo.getCustno());
 		tradeRequest.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-		tradeRequest.setTradeacco(vo.getTradeacco());
+		// 获取tranAcco
+		tradeRequest.setTradeacco("TranAcco001");
 		tradeRequest.setAppdate(vo.getAppdate());
 		tradeRequest.setApptime(vo.getApptime());
 		tradeRequest.setWorkday(vo.getWorkday());

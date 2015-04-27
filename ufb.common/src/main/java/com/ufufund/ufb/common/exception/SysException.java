@@ -8,7 +8,7 @@ package com.ufufund.ufb.common.exception;
 public class SysException extends RuntimeException{
 	private static final long serialVersionUID = 1L;
 	
-	private String code;
+	private String code = "9999";
 	
 	public SysException(String msg){
 		super(msg);

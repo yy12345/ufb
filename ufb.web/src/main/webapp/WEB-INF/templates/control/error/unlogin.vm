@@ -1,0 +1,6 @@
+<div style="text-align: center; padding-top: 100px; padding-bottom: 100px;">
+	<h1>用户未登录！</h1>
+	<p>您还未登录，请您登录后再进行操作！请点击进入&nbsp;&nbsp;&nbsp;
+	   <a href="${ufbDomain}/account/login.htm">登录</a>
+	</p>
+</div>
