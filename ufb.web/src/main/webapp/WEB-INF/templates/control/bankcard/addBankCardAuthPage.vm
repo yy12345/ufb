@@ -24,7 +24,6 @@ $(function(){
 		// 提交按钮无效
 		$("#btn-addBankCardChk").attr("disabled","disabled");
 	#end
-	
 
 	// 上一页
 	$("#btn-addBankCard").on("click",function(){
@@ -36,7 +35,7 @@ $(function(){
 	// 验证码
 	$("#btn-addBankCardAuth").on("click",function(){
 	
-		var errLen = $("ul li.error").length;
+		var errLen = $("ul li.error").not("#errMsg_msgcode").length;
 		if(errLen>0){
 			$("ul li.error:eq(0) input[type=text]").focus();
 			$("ul li.error:eq(0) input[type=password]").focus();
@@ -70,6 +69,10 @@ $(function(){
 					$("#btn-addBankCardChk").removeClass("off");
 					alert("手机验证码已发送");
                 } else {
+					// 获取验证码按钮有效并取消倒计时 
+            		$("#btn-addBankCardAuth").removeAttr("disabled");
+            		$("#btn-addBankCardAuth").removeClass("off");
+				
                   	var errCode = b.errCode;
 					var errMsg = b.errMsg;
 					//alert(errCode + ": " + errMsg);
@@ -120,7 +123,6 @@ $(function(){
 <body>
 
 <div class="container">
-	<!--
     <div class="header">
         <div class="inner clearfix rel">
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
@@ -131,7 +133,6 @@ $(function(){
 				href="javascript:;">帮助</a></div>
         </div>
     </div>
-	-->
     <div class="body">
         <div class="inner container-find">
             <div class="find-tabs tabs-step2 clearfix">

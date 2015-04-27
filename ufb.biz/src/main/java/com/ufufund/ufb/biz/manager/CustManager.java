@@ -24,17 +24,12 @@ public interface CustManager extends CustInterface{
 	 */
 	public void register(RegisterAction loginAction) throws BizException;
 	
-	
-	
 	/**
 	 * 修改密码
 	 * @param ChangePasswordAction changePasswordAction
 	 * @return 
 	 */
 	public void changePassword(ChangePasswordAction changePasswordAction) throws BizException;
-	
-	
-	
 	
 	/**
 	 * 登录 
@@ -43,17 +38,12 @@ public interface CustManager extends CustInterface{
 	 */
 	public Custinfo loginIn(LoginAction loginAction) throws BizException;
 	
-	
-	
-	
 	/**
 	 * 检查输入的身份证是否已注册
 	 * @param idCardNo
 	 * @return 
 	 */
 	public boolean isIdCardNoRegister(String idCardNo) throws BizException;
-	
-	
 	
 	/**
 	 *  
@@ -65,46 +55,27 @@ public interface CustManager extends CustInterface{
 	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException;
 	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException;
 	public void openAccount4(OpenAccountAction openAccountAction) throws BizException;
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-//	
-////	/**
-////	 * 根据缓存获取custno
-////	 * 获取客户信息 判断是否具有身份证
-////	 * 没有 必须完善个人信息绑卡
-////	 * @param custno
-////	 * @return 
-////	 */
-////	public Custinfo getCustinfo(String custno) throws BizException;
-//	
-//	
-//
-//	
-////	/**
-////	 * 没有身份证信息的绑卡
-////	 * @param custno
-////	 * @return 
-////	 */
-////	public void openAccountFirst(OpenAccountAction openAccountAction,CustinfoAction custinfoAction) throws Exception;
-//	
-//	
-//	
-//	
-////	/**
-////	 * 插入客户信息表
-////	 * @param Custinfo
-////	 * @return 
-////	 */
-////	public void insterCustinfo(Custinfo custinfo) throws Exception;
+
+	/**
+	 * 根据缓存获取custno
+	 * 获取客户信息 判断是否具有身份证
+	 * 没有 必须完善个人信息绑卡
+	 * @param custno
+	 * @return 
+	 */
+	public Custinfo getCustinfo(String custno) throws BizException;
 	
+//	/**
+//	 * 没有身份证信息的绑卡
+//	 * @param custno
+//	 * @return 
+//	 */
+//	public void openAccountFirst(OpenAccountAction openAccountAction,CustinfoAction custinfoAction) throws Exception;
+//	/**
+//	 * 插入客户信息表
+//	 * @param Custinfo
+//	 * @return 
+//	 */
+//	public void insterCustinfo(Custinfo custinfo) throws Exception;
 	
 }

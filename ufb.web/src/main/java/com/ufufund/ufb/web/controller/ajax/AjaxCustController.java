@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.vo.BankCardVo;
@@ -61,11 +62,13 @@ public class AjaxCustController {
 			LOG.error(e.getErrmsg(), e);
 			resultMap.put("errCode", e.getOtherInfo());
 			resultMap.put("errMsg", e.getMessage());
-			
 			//TODO
 			resultMap.put("errCode", "0000");
 			resultMap.put("errMsg", "银行卡鉴权成功");
-			
+		}catch (UserException e) {
+			LOG.error(e.getMessage(), e);
+			resultMap.put("errCode", e.getCode());
+			resultMap.put("errMsg", e.getMessage());
 		}catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 			resultMap.put("errCode", "9999");

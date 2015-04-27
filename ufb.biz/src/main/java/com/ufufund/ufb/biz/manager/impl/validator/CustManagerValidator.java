@@ -31,6 +31,7 @@ public class CustManagerValidator {
 	private final static String IDNO = "证件号码";
 	private final static String TRADEPWD = "交易密码";
 	private final static String MOBILE = "手机号";
+	private final static String MOBILEAUTOCODE = "验证码";
 	private final static String IDCARDNO = "身份证";
 	private final static String MERCHANT = "开户机构";
 
@@ -177,7 +178,15 @@ public class CustManagerValidator {
 		}
 		if(!RegexUtil.isMobile(action.getBankmobile())){
 			//银行开户手机号 isMobile
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,MOBILE);
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, MOBILE);
+		}
+		
+		// 绑卡验证需要验证
+		if("3".equals(action.getReqSeq())){
+			if(RegexUtil.isNull(action.getMobileAutoCode())){
+				//银行开户手机验证吗 isNull
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, MOBILEAUTOCODE);
+			}
 		}
 	}
 	

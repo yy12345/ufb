@@ -40,6 +40,10 @@ $(function(){
                     </div>
                 </div>
             </div>
+			<form id="form-addBankCardSuccess" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardSuccess.htm">
+				<input id="custNo" name="custNo" type="text" value="$!{BankCardVo.custNo}">
+				<input id="reqSeq" name="reqSeq" type="text" value="$!{BankCardVo.reqSeq}">
+            </form>
         </div>
     </div>
     <div class="footer">

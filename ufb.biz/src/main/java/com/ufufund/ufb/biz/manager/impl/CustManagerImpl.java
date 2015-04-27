@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufufund.action.OpenAccount;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
@@ -272,7 +271,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 * @return
 	 */
 	public void openAccount4(OpenAccountAction openAccountAction) throws BizException {
-		String processId =  this.getProcessId(openAccountAction);
+//		String processId =  this.getProcessId(openAccountAction);
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
 		custManagerValidator.validatorOpenAccount1(openAccountAction);
 		// 用户注册、冻结、已开户验证
@@ -377,7 +376,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		// Custst 用户是否开户验证
 		if(!Constant.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
 			if (this.isIdCardNoRegister(openAccountAction.getIdno())) {
-				throw new BizException(openAccountAction.getProcessId(), ErrorInfo.ALREADY_REGISTER, "用户id");
+				throw new BizException(openAccountAction.getProcessId(), ErrorInfo.ALREADY_REGISTER, "用户证件号");
 			}
 		}
 	}
@@ -391,7 +390,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 * @param custno
 	 * @return
 	 */
-	private Custinfo getCustinfo(String custno) throws BizException {
+	public Custinfo getCustinfo(String custno) throws BizException {
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(custno);
 		custinfo = custinfoMapper.getCustinfo(custinfo);

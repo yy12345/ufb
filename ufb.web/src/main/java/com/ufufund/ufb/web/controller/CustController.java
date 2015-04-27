@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
@@ -281,8 +282,8 @@ public class CustController {
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			
-			if("用户id".equals(e.getOtherInfo())){
-				model.addAttribute("errMsg", e.getMessage());
+			if("用户证件号".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_bankIdno", e.getMessage());
 			}else
 			if("用户姓名".equals(e.getOtherInfo())){
 				model.addAttribute("errMsg_bankAcnm", e.getMessage());
@@ -323,7 +324,14 @@ public class CustController {
 	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
 	public String addBankCard3(BankCardVo bankCardVo, Model model){
 		try{
+			Custinfo custinfo = custManager.getCustinfo(bankCardVo.getCustNo());		
+			// Custst 是否已开户
+			if(Constant.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
+				return "bankcard/addBankCardSuccessPage";
+			}
+			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setReqSeq("3");
 			openAccountAction.setBankno(bankCardVo.getBankNo());
 			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
 			openAccountAction.setBankacco(bankCardVo.getBankAcco());

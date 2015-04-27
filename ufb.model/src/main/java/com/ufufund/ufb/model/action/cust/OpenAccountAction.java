@@ -6,6 +6,7 @@ import com.ufufund.ufb.model.enums.Merchant;
 
 public class OpenAccountAction extends CommonAction {
 	
+	private String reqSeq; // 绑卡开户顺序号 1初始化、2鉴权、3验证、4开户
 	/*
 	 * 客户已经具有身份证账号 不需要填写以下信息
 	 * 如果没有 则必须填写
@@ -17,48 +18,34 @@ public class OpenAccountAction extends CommonAction {
 	 * 绑卡必填信息
 	 */
 	private String custno;
-	
 	private String invnm;//用户姓名',
 	private String idno;//证件号码',
 	private String tradepwd;//交易密码，md5密文',
 	private String tradepwd2;//交易密码，md5密文',
-	
 	private String bankno;  //UFB银行编码
 	private String bankacnm; //'银行开户户名',  默认intnm
 	private String bankidtp; //UFB'银行证件类型',  默认身份证
 	private String bankidno; //UFB '银行证件号码', 默认idno
 	private String bankacco; //银行卡号
 	private String bankmobile; //
-	
 	private String mobileAutoCode; //手机验证码
-	
 	//private String custst;
 	private Merchant merchant = Merchant.HFT_FUND;//默认开户机构 海富通
+	
 	/*
 	 * 不用填写
 	 */
-	
 	private String otherserial;//对方序列号
 	private String protocolno;//银行协议编号
 	private String serialno;//varchar(24) not null comment '流水号'
 	private String accoreqSerial;//请求序列号
 	private String transactionAccountID;
-	
-	public String getOtherserial() {
-		return otherserial;
+	public String getReqSeq() {
+		return reqSeq;
 	}
-	public void setOtherserial(String otherserial) {
-		this.otherserial = otherserial;
+	public void setReqSeq(String reqSeq) {
+		this.reqSeq = reqSeq;
 	}
-	public String getProtocolno() {
-		return protocolno;
-	}
-	public void setProtocolno(String protocolno) {
-		this.protocolno = protocolno;
-	}
-	
-	
-	
 	public String getCustno() {
 		return custno;
 	}
@@ -125,14 +112,6 @@ public class OpenAccountAction extends CommonAction {
 	public void setBankmobile(String bankmobile) {
 		this.bankmobile = bankmobile;
 	}
-//	public String getCustst() {
-//		return custst;
-//	}
-//	public void setCustst(String custst) {
-//		this.custst = custst;
-//	}
-	
-	
 	public String getMobileAutoCode() {
 		return mobileAutoCode;
 	}
@@ -144,6 +123,18 @@ public class OpenAccountAction extends CommonAction {
 	}
 	public void setMerchant(Merchant merchant) {
 		this.merchant = merchant;
+	}
+	public String getOtherserial() {
+		return otherserial;
+	}
+	public void setOtherserial(String otherserial) {
+		this.otherserial = otherserial;
+	}
+	public String getProtocolno() {
+		return protocolno;
+	}
+	public void setProtocolno(String protocolno) {
+		this.protocolno = protocolno;
 	}
 	public String getSerialno() {
 		return serialno;
@@ -163,20 +154,4 @@ public class OpenAccountAction extends CommonAction {
 	public void setTransactionAccountID(String transactionAccountID) {
 		this.transactionAccountID = transactionAccountID;
 	}
-	
-	
-	
-	
-	
-
-
-	
-	
-	
-	
-
-	
-	
-	
-	
 }
