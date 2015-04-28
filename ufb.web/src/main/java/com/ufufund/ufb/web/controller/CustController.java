@@ -1,5 +1,7 @@
 package com.ufufund.ufb.web.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.StringUtils;
@@ -17,6 +20,7 @@ import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
+import com.ufufund.ufb.model.db.BankBaseInfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.Invtp;
@@ -36,6 +40,9 @@ public class CustController {
 	
 	@Autowired
 	private CustManager custManager;
+	
+	@Autowired
+	private BankBaseManager bankBaseManager;
 	
 	@RequestMapping(value="cust/register" , method=RequestMethod.GET)
 	public String getPage(CustinfoVo custinfoVo, Model model){
@@ -281,9 +288,9 @@ public class CustController {
 //		if(StringUtils.isBlank(bankCardVo.getTradePwd2())){
 //			bankCardVo.setTradePwd2("1234test");;
 //		}
-		if(StringUtils.isBlank(bankCardVo.getBankNo())){
-			bankCardVo.setBankNo("000");;
-		}
+//		if(StringUtils.isBlank(bankCardVo.getBankNo())){
+//			bankCardVo.setBankNo("000");;
+//		}
 //		if(StringUtils.isBlank(bankCardVo.getBankMobile())){
 //			bankCardVo.setBankMobile("18616502181");;
 //		}
@@ -315,6 +322,15 @@ public class CustController {
 			
 			custManager.openAccount1(openAccountAction);
 			
+			List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
+			if(StringUtils.isBlank(bankCardVo.getBankNo())){
+				model.addAttribute("curBank", bankBaseList.get(0));
+			}else{
+				BankBaseInfo bankBaseInfo = new BankBaseInfo();
+				bankBaseInfo.setBankno(bankCardVo.getBankNo());
+				model.addAttribute("curBank", bankBaseInfo);
+			}
+			model.addAttribute("bankList", bankBaseList);
 			model.addAttribute("BankCardVo", bankCardVo);
 			
 		}catch (BizException e){

@@ -128,6 +128,7 @@ $(function(){
 <body>
 
 <div class="container">
+	<!--
     <div class="header">
         <div class="inner clearfix rel">
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
@@ -138,6 +139,7 @@ $(function(){
 				href="javascript:;">帮助</a></div>
         </div>
     </div>
+	-->
     <div class="body">
         <div class="inner container-find">
             <div class="find-tabs tabs-step2 clearfix">
@@ -170,23 +172,40 @@ $(function(){
                             #end
                             <li class="ok clearfix">
                                 <span class="form-title">银行选择</span>
+								<!--
 								<div class="input-select">
                                     <div class="bank bank-current"><img src="${staticDomain}/images/bank_01.png"></div>
                                     <div class="input-options">
                                         <div class="bank-list clearfix">
-                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_01.png"></a>
-                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_02.png"></a>
-                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_03.png"></a>
-                                            <a class="bank active" href="javascript:;"><i class="icon"></i><img src="${staticDomain}/images/bank_04.png"></a>
-                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_05.png"></a>
-                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_06.png"></a>
-                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_07.png"></a>
-                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_08.png"></a>
-                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_09.png"></a>
-                                            <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_10.png"></a>
+                                            <a id="001" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_01.png"></a>
+                                            <a id="002" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_02.png"></a>
+                                            <a id="003" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_03.png"></a>
+                                            <a id="004" class="bank active" href="javascript:;"><i class="icon"></i><img src="${staticDomain}/images/bank_04.png" ></a>
+                                            <a id="005" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_05.png"></a>
+                                            <a id="006" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_06.png"></a>
+                                            <a id="007" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_07.png"></a>
+                                            <a id="008" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_08.png"></a>
+                                            <a id="009" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_09.png"></a>
+                                            <a id="010" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_10.png"></a>
                                         </div>
                                     </div>
                                 </div>
+								-->
+								<div class="input-select">
+                                    <div class="bank bank-current">
+                                        <img src="${staticDomain}/images/bank_${curBank.bankno}.png">
+                                    </div>
+                                    <div class="input-options">
+                                        <div class="bank-list clearfix">
+        									#foreach($bank in $bankList)
+											<a bankno="${bank.bankno}" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_${bank.bankno}.png"></a>
+        									#end
+                                        </div>
+                                    </div>
+                                </div>
+								
+								
+								
                                 <span class="tips-normal"></span>
 								<span class="tips-check"><i class="icon"></i>$!{errMsg_organization}</span>
                             </li>

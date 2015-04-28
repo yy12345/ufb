@@ -68,6 +68,9 @@ $(function () {
     $(".input-options .bank-list").on("click", ".bank", function () {
         var _this = $(this);
         var _select = $(".input-select");
+        //ADD BY GH
+        var _this_bankno = $(this).attr("bankno");
+        $("#bankNo").val(_this_bankno);
         _select.removeClass("open").find(".bank-current").html(_this.html());
     });
     $(".input-options .card-list").on("click", ".card", function () {

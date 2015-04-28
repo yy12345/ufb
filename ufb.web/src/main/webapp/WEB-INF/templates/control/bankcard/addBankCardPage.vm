@@ -67,10 +67,9 @@ $(function(){
                 </div>
 				<form id="form-addBankCard" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardPage.htm">
 					<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
+					<input id="bankNo" name="bankNo" type="hidden" value="$!{BankCardVo.bankNo}">
 					<input id="bankAcco" name="bankAcco" type="hidden" value="$!{BankCardVo.bankAcco}">
 					<input id="bankMobile" name="bankMobile" type="hidden" value="$!{BankCardVo.bankMobile}">
-						
-						
                     <div class="panel">
                         <ul>
 							#if($errMsg)

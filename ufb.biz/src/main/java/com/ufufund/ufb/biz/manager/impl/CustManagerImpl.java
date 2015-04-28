@@ -13,6 +13,7 @@ import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.biz.util.HftResponseUtil;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
+import com.ufufund.ufb.dao.BankBaseMapper;
 import com.ufufund.ufb.dao.BankMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
@@ -47,6 +48,9 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	@Autowired
 	private CustManagerValidator custManagerValidator;
 
+	@Autowired
+	private BankBaseMapper bankBaseMapper;
+	
 	@Autowired
 	private BankMapper bnankMapper;
 
