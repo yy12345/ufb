@@ -36,7 +36,7 @@ $(function(){
                 <div class="panel">
                     <div class="form-done">
                         <div class="title">恭喜开户成功</div>
-                        <a class="btn" href="javascript:;">立即赚钱</a>
+                        <a class="btn" href="${staticDomain}/trade/pay_index.htm">立即赚钱</a>
                         <div class="tips">
                         	<p>温馨提示：</p>
 							<p>可以使用本账户进行理财产品的快速购买。</p>
