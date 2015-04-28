@@ -1,5 +1,6 @@
 package com.ufufund.ufb.web.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.DateUtil;
+import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.vo.ApplyVo;
 import com.ufufund.ufb.model.vo.RedeemVo;
@@ -74,6 +76,8 @@ public class TradeController {
 //			String custno = UserHelper.getCustno();
 			String custno = "cu20150427001";
 			vo.setCustno(custno);
+			vo.setAppvol(vo.getAppamt());
+			vo.setTradeacco("tranAcco001");
 			
 			tradeManager.buyApply(vo);
 			
@@ -98,11 +102,14 @@ public class TradeController {
 			
 			// 获取用户总资产
 			// code...
+			BigDecimal totalBalance = new BigDecimal("50000.00");
 			
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
 			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
 			
+			model.addAttribute("totalBalance", totalBalance);
+			model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(totalBalance));
 			model.addAttribute("curCard", bankCardList.get(0));
 			model.addAttribute("cardList", bankCardList);
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
@@ -124,6 +131,8 @@ public class TradeController {
 //			String custno = UserHelper.getCustno();
 			String custno = "cu20150427001";
 			vo.setCustno(custno);
+			vo.setAppvol(vo.getAppamt());
+			vo.setTradeacco("tranAcco002");
 			
 			tradeManager.redeem(vo);
 			

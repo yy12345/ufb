@@ -31,15 +31,14 @@ public class TradeManagerHelper {
 		tradeRequest.setSerialno(vo.getSerialno());
 		tradeRequest.setCustno(vo.getCustno());
 		tradeRequest.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-		// 获取tranAcco
-		tradeRequest.setTradeacco("TranAcco001");
+		tradeRequest.setTradeacco(vo.getTradeacco());
 		tradeRequest.setAppdate(vo.getAppdate());
 		tradeRequest.setApptime(vo.getApptime());
 		tradeRequest.setWorkday(vo.getWorkday());
 		tradeRequest.setApkind(Apkind.SUBAPPLY.getValue());
 		tradeRequest.setFundcode(vo.getFundcode());
 		tradeRequest.setAppamt(vo.getAppamt());
-		tradeRequest.setAppvol(vo.getAppamt());
+		tradeRequest.setAppvol(vo.getAppvol());
 		tradeRequest.setShareclass("0");
 		tradeRequest.setDividenttype("0");
 		tradeRequest.setFee(vo.getFee());
@@ -94,8 +93,7 @@ public class TradeManagerHelper {
 		tradeRequest.setSerialno(vo.getSerialno());
 		tradeRequest.setCustno(vo.getCustno());
 		tradeRequest.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-		// 获取tranAcco
-		tradeRequest.setTradeacco("TranAcco001");
+		tradeRequest.setTradeacco(vo.getTradeacco());
 		tradeRequest.setAppdate(vo.getAppdate());
 		tradeRequest.setApptime(vo.getApptime());
 		tradeRequest.setWorkday(vo.getWorkday());
@@ -163,7 +161,7 @@ public class TradeManagerHelper {
 		tradeRequest.setApkind(Apkind.REDEEM.getValue());
 		tradeRequest.setFundcode(vo.getFundcode());
 		tradeRequest.setAppamt(vo.getAppamt());
-		tradeRequest.setAppvol(vo.getAppvol());
+		tradeRequest.setAppvol(vo.getAppamt());
 		tradeRequest.setShareclass("0");
 		tradeRequest.setDividenttype("0");
 		tradeRequest.setFee(vo.getFee());

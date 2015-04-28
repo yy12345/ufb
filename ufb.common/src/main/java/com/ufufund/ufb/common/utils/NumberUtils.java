@@ -60,21 +60,16 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils{
 	}
 
 	/**
-	 * 资金转换工具，转换后100,000
-	 */
-	public static final DecimalFormat DEF_CASH = new DecimalFormat(",##0");
-
-	/**
 	 * 资金转换工具，转换后100 000
 	 */
-	public static final DecimalFormat DEF_CASH_NO_COMMA = new DecimalFormat(
-			"##0");
+	public static final DecimalFormat DF_CASH = new DecimalFormat(
+			"##0.00");
 
 	/**
-	 * 资金转换工具，转换后100000.00 2010-03-05 XUL
+	 * 资金转换工具，转换后100000.00 
 	 */
-	public static final DecimalFormat DEF_CASH_COMMON = new DecimalFormat(
-			"##0.00");
+	public static final DecimalFormat DF_CASH_CONMMA = new DecimalFormat(
+			",##0.00");
 	
 	/**
 	 * 验证输入的信息{是否为纯数字，以及长度为length}

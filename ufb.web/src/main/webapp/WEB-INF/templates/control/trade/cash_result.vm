@@ -1,0 +1,6 @@
+<div style="text-align: center; padding-top: 100px; padding-bottom: 100px;">
+	<h1>取现成功！</h1>
+	<p>您的取现已成功，资金将于第二个工作日下午17点前，到达您的银行卡中，可通过交易查询查询记录状态。
+	   <a href="${ufbDomain}/query/trade_detail.htm">立即查询</a>
+	</p>
+</div>

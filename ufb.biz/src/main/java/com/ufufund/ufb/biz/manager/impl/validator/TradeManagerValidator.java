@@ -87,11 +87,8 @@ public class TradeManagerValidator {
 		if(StringUtils.isBlank(vo.getCustno())){
 			throw new UserException("参数[custno]不能为空！");
 		}
-		if(vo.getAppvol() == null || vo.getAppvol().compareTo(new BigDecimal("0")) <= 0){
-			throw new UserException("参数[appvol]不能为空！");
-		}
-		if(vo.getFee() == null || vo.getFee().compareTo(new BigDecimal("0")) <= 0){
-			throw new UserException("参数[fee]不能为空！");
+		if(vo.getAppamt() == null || vo.getAppamt().compareTo(new BigDecimal("0")) <= 0){
+			throw new UserException("参数[appamt]不能为空！");
 		}
 	}
 }

@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="form-payInto">
-            <form id="myform" class="common-form" action="${ufbDomain}/trade/pay_result.htm" method="post">
+            <form class="common-form" action="${ufbDomain}/trade/pay_result.htm" method="post">
                 ##${refreshTools.genInputHtml()}
 				<input id="bankno" name="bankno" value="${curCard.bankno}" type="hidden"/>
 				<input id="bankid" name="bankid" value="${curCard.serialid}" type="hidden"/>
@@ -52,7 +52,7 @@
                             <div class="input-options">
                                 <div class="card-list clearfix">
 									#foreach($card in $cardList)
-                                    <a id="card_${i}" class="card" href="javascript:;"
+                                    <a class="card" href="javascript:;"
 										bankno="${card.bankno}" bankid="${card.serialid}">
 										#set($tailStr=$card.bankaccodisplay)
 										#set($start=$tailStr.length() - 4)
@@ -106,7 +106,7 @@
 				$("#appamtTips").show();
 				return false;
 			}else if($("#tradePwd").val() == ""){
-				var tradePwdMsg = "<i class=\"icon\"></i>请输入交易密码！";
+				var tradePwdMsg = '<i class="icon"></i>请输入交易密码！';
 				$("#tradePwdTips").html(tradePwdMsg);
 				$("#tradePwdTips").show();
 				return false;
