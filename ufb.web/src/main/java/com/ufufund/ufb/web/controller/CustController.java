@@ -31,6 +31,7 @@ import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 //import com.ufufund.ufb.model.Area;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
+import com.ufufund.ufb.web.util.UserHelper;
 import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
 
@@ -40,7 +41,6 @@ public class CustController {
 	
 	@Autowired
 	private CustManager custManager;
-	
 	@Autowired
 	private BankBaseManager bankBaseManager;
 	
@@ -50,7 +50,6 @@ public class CustController {
 			custinfoVo.setInvtp("0");
 			custinfoVo.setLevel("1");
 		}
-		
 		model.addAttribute("CustinfoVo", custinfoVo);
 		return "cust/registerPage";
 	}
@@ -63,27 +62,9 @@ public class CustController {
 	 */
 	@RequestMapping(value = "cust/register_org")
 	public String registerOrg(CustinfoVo custinfoVo, Model model) {
-//		//FOR TEST
-//		if(StringUtils.isBlank(custinfoVo.getMobileno())){
-//			custinfoVo.setMobileno("18604282001");
-//		}
-//		if(StringUtils.isBlank(custinfoVo.getVerifycode())){
-//			custinfoVo.setVerifycode("1234");;
-//		}
-//		if(StringUtils.isBlank(custinfoVo.getMsgcode())){
-//			custinfoVo.setMsgcode("123test");;
-//		}
-//		if(StringUtils.isBlank(custinfoVo.getPswpwd())){
-//			custinfoVo.setPswpwd("1qaztest");;
-//		}
-//		if(StringUtils.isBlank(custinfoVo.getPswpwd2())){
-//			custinfoVo.setPswpwd2("1qaztest");;
-//		}
-//		//
-		
 		try{
 			// 防止重复注册
-			CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			// 有Session，Session登录
 			if(null != s_custinfo){
 				// Session登录 已注册
@@ -92,12 +73,9 @@ public class CustController {
 			}
 			
 			// 校验验证码
-			boolean checkVerifyCode = VerifyCodeUtils.validate(custinfoVo.getVerifycode());
-			if(!checkVerifyCode){
-				throw new BizException("验证码无效。");
-			}
-//			
-//			// 校验短信验证码
+			VerifyCodeUtils.validate(custinfoVo.getVerifycode());
+
+			// 校验短信验证码
 //			boolean checkMsgCode = MsgCodeUtils.validate(custinfo.getMsgcode());
 //			if(!checkMsgCode){
 //				throw new BizException("短信验证码无效。");
@@ -163,7 +141,7 @@ public class CustController {
 		try{
 			LoginAction loginAction = new LoginAction();
 			
-			CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			// 有Session，Session登录
 			if(null != s_custinfo){
 				// Session登录
@@ -173,13 +151,10 @@ public class CustController {
 				// 普通登录
 				loginAction.setLoginCode(custinfoVo.getMobileno());
 				loginAction.setLoginPassword(custinfoVo.getPswpwd());
+				
+				// 校验验证码
+				VerifyCodeUtils.validate(custinfoVo.getVerifycode());
 			}
-			
-//			// 校验验证码
-//			boolean checkVerifyCode = VerifyCodeUtils.validate(custinfo.getVerifycode());
-//			if(!checkVerifyCode){
-//				throw new BizException("验证码无效。");
-//			}
 			
 			// 登录 写入身份证到SESSION 没有就没有实名认证和绑卡 必须先开户绑卡
 			Custinfo custinfo = custManager.loginIn(loginAction);
@@ -240,7 +215,6 @@ public class CustController {
 			// TODO 调到登录页面
 			return "error/error";
 		}
-
 		return "home/indexPage";
 	}
 	
@@ -327,6 +301,7 @@ public class CustController {
 			
 			List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
 			if(StringUtils.isBlank(bankCardVo.getBankNo())){
+				bankCardVo.setBankIdno(bankBaseList.get(0).getBankno());
 				model.addAttribute("curBank", bankBaseList.get(0));
 			}else{
 				BankBaseInfo bankBaseInfo = new BankBaseInfo();

@@ -12,4 +12,15 @@ public interface BankCardManager {
 	 * @return
 	 */
 	public List<Bankcardinfo> getBankcardinfoList(String custno);
+	
+//	/**
+//	 *  
+//	 * 开户绑卡 1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户
+//	 * @param OpenAccountAction
+//	 * @return 
+//	 */
+//	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction) throws BizException;
+//	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException;
+//	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException;
+//	public void openAccount4(OpenAccountAction openAccountAction) throws BizException;
 }
