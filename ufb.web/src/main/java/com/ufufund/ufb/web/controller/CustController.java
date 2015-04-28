@@ -91,11 +91,11 @@ public class CustController {
 				return "cust/registerSuccessPage";
 			}
 			
-//			// 校验验证码
-//			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
-//			if(!checkVerifyCode){
-//				throw new BizException("验证码无效。");
-//			}
+			// 校验验证码
+			boolean checkVerifyCode = VerifyCodeUtils.validate(custinfoVo.getVerifycode());
+			if(!checkVerifyCode){
+				throw new BizException("验证码无效。");
+			}
 //			
 //			// 校验短信验证码
 //			boolean checkMsgCode = MsgCodeUtils.validate(custinfo.getMsgcode());
@@ -126,6 +126,9 @@ public class CustController {
 			
 			if("手机号".equals(e.getOtherInfo()) || "账号".equals(e.getOtherInfo())){
 				model.addAttribute("errMsg_mobileno", e.getMessage());
+			}else
+			if("验证码".equals(e.getOtherInfo())){
+				model.addAttribute("errMsg_verifycode", e.getMessage());
 			}else
 			if("密码".equals(e.getOtherInfo())){
 				model.addAttribute("errMsg_pswpwd", e.getMessage());

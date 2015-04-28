@@ -130,11 +130,18 @@ $(function(){
                             <span class="tips-normal">请输入手机号</span>
                             <span class="tips-check"><i class="icon"></i>$!{errMsg_mobileno}</span>
                         </li>
-                        <li>
+                        <li
+                        #if($errMsg_verifycode)
+                        class="error"
+                        #end
+                        >
                             <span class="form-title">验证码</span>
                             <input id="verifycode" name="verifycode" class="ipt-code input-code" type="text" value="$!{CustinfoVo.verifycode}">
                             <span class="tips-normal">请输入验证码</span>
-                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+							<span class="form-verifyCode">
+								<img src="${staticDomain}/createImageservlet" onclick="javascript:this.src=this.src+'?time='+(+new Date())"/>
+							</span>
+                            <span class="tips-check"><i class="icon"></i>$!{errMsg_verifycode}</span>
                         </li>
                         <li>
                             <span class="form-title">手机验证码</span>

@@ -128,7 +128,6 @@ $(function(){
 <body>
 
 <div class="container">
-	<!--
     <div class="header">
         <div class="inner clearfix rel">
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
@@ -139,7 +138,6 @@ $(function(){
 				href="javascript:;">帮助</a></div>
         </div>
     </div>
-	-->
     <div class="body">
         <div class="inner container-find">
             <div class="find-tabs tabs-step2 clearfix">

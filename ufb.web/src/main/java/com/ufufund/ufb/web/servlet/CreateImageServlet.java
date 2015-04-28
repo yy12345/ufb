@@ -97,7 +97,7 @@ public class CreateImageServlet extends HttpServlet{
         log.debug("created verifyCode="+sRand);
         
         HttpSession session = request.getSession();
-        session.setAttribute("VerifyCode", sRand);
+        session.setAttribute("VERIFYCODE", sRand);
         g.dispose();
         long endTime = System.currentTimeMillis();
         beginTime = System.currentTimeMillis();

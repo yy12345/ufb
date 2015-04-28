@@ -296,6 +296,15 @@ a.btn {
 	line-height: 20px;
 	text-align: right;
 }
+.common-form li .form-verifyCode {
+	margin-right: 20px;
+}
+.common-form li .form-verifyCode img {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	vertical-align: middle;
+}	
 .common-form li input {
 	height: 34px;
 	margin: 0 20px 0 0;
