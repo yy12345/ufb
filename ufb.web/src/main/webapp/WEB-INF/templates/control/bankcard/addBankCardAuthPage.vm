@@ -191,7 +191,7 @@ $(function(){
 								-->
 								<div class="input-select">
                                     <div class="bank bank-current">
-                                        <img src="${staticDomain}/images/bank_${curBank.bankno}.png">
+                                        <img src="${staticDomain}/images/bank_${BankCardVo.bankNo}.png">
                                     </div>
                                     <div class="input-options">
                                         <div class="bank-list clearfix">

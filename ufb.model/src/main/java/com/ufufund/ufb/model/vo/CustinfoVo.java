@@ -21,10 +21,8 @@ public class CustinfoVo {
 	private String pswpwd2;
 	private String tradepwd;
 	private String tradepwd2;// 交易密码
-
 	private String organization;// 幼教机构名称
 	private String business; // 营业执照注册号
-
 	private String custst;
 	private String level;
 	private String openaccount;

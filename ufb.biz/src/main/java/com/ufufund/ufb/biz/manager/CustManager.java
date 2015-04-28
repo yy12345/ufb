@@ -1,7 +1,6 @@
 package com.ufufund.ufb.biz.manager;
 
 import com.ufufund.ufb.biz.exception.BizException;
-import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
@@ -11,26 +10,12 @@ import com.ufufund.ufb.service.CustInterface;
 public interface CustManager extends CustInterface{
 	
 	/**
-	 * 查询手机号是否注册
-	 * @param mobile
-	 * @return 
-	 */
-	public boolean isMobileRegister(String mobile) throws BizException;
-		
-	/**
 	 * 注册
 	 * @param RegisterAction loginAction
 	 * @return 
 	 */
 	public void register(RegisterAction loginAction) throws BizException;
-	
-	/**
-	 * 修改密码
-	 * @param ChangePasswordAction changePasswordAction
-	 * @return 
-	 */
-	public void changePassword(ChangePasswordAction changePasswordAction) throws BizException;
-	
+
 	/**
 	 * 登录 
 	 * @param LoginAction
@@ -44,6 +29,13 @@ public interface CustManager extends CustInterface{
 	 * @return 
 	 */
 	public boolean isIdCardNoRegister(String idCardNo) throws BizException;
+	
+	/**
+	 * 查询手机号是否注册
+	 * @param mobile
+	 * @return 
+	 */
+	public boolean isMobileRegister(String mobile) throws BizException;
 	
 	/**
 	 *  
@@ -63,8 +55,14 @@ public interface CustManager extends CustInterface{
 	 * @param custno
 	 * @return 
 	 */
-	public Custinfo getCustinfo(String custno) throws BizException;
+	public Custinfo getCustinfoByNo(String custno) throws BizException;
 	
+//	/**
+//	 * 修改密码
+//	 * @param ChangePasswordAction changePasswordAction
+//	 * @return 
+//	 */
+//	public void changePassword(ChangePasswordAction changePasswordAction) throws BizException;
 //	/**
 //	 * 没有身份证信息的绑卡
 //	 * @param custno

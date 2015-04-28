@@ -6,6 +6,7 @@
 -->
 <script>
 $(function(){
+	//经办人注册开户
 	var level_1 = $("#level_1").val();
 	if("1" == level_1){
 		var tab = $(".tab-org");
@@ -14,13 +15,13 @@ $(function(){
     	panels.addClass("slide-out").eq(1).removeClass("slide-out");
 	}
 	
+	//页面初始化 
 	$("form input[type=text]").each(function () {
         var _this = $(this);
 		if(_this.val()!="") {
             _this.siblings(".tips-normal").hide();
         }
     });
-	
 	$("form input[type=password]").each(function () {
         var _this = $(this);
 		if(_this.val()!="") {
@@ -28,8 +29,8 @@ $(function(){
         }
     });
 	
+	//注册按钮
 	$("#btn-org").on("click",function(){
-		//check #register-org #mobileno
 		var errLen = $("ul li.error").length;
 		if(errLen>0){
 			$("ul li.error:eq(0) input[type=text]").focus();

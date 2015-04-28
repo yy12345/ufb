@@ -44,10 +44,12 @@ public class CustController {
 	@Autowired
 	private BankBaseManager bankBaseManager;
 	
-	@RequestMapping(value="cust/register" , method=RequestMethod.GET)
+	@RequestMapping(value="cust/register")
 	public String getPage(CustinfoVo custinfoVo, Model model){
 		if(null == custinfoVo.getInvtp()){
+			//个人注册开户
 			custinfoVo.setInvtp("0");
+			//经办人身份
 			custinfoVo.setLevel("1");
 		}
 		model.addAttribute("CustinfoVo", custinfoVo);
@@ -63,43 +65,40 @@ public class CustController {
 	@RequestMapping(value = "cust/register_org")
 	public String registerOrg(CustinfoVo custinfoVo, Model model) {
 		try{
+			custinfoVo.setInvtp(Invtp.PERSONAL.getValue()); // 个人
+			custinfoVo.setLevel(Level.OPERATOR.getValue()); // 经办人
+			
 			// 防止重复注册
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			// 有Session，Session登录
 			if(null != s_custinfo){
-				// Session登录 已注册
+				// Session登录
 				model.addAttribute("CustinfoVo", s_custinfo);
 				return "cust/registerSuccessPage";
 			}
 			
 			// 校验验证码
 			VerifyCodeUtils.validate(custinfoVo.getVerifycode());
-
 			// 校验短信验证码
-//			boolean checkMsgCode = MsgCodeUtils.validate(custinfo.getMsgcode());
-//			if(!checkMsgCode){
-//				throw new BizException("短信验证码无效。");
-//			}
+			// MsgCodeUtils.validate(custinfo.getMsgcode());
 			
-			// 注册
+			// 注册对象封装 
 			RegisterAction registerAction = new RegisterAction();
 			registerAction.setLoginCode(custinfoVo.getMobileno());
 			registerAction.setLoginPassword(custinfoVo.getPswpwd());
 			registerAction.setLoginPassword2(custinfoVo.getPswpwd2());
-			registerAction.setInvtp(Invtp.PERSONAL);// 0：个人 1：机构
+			registerAction.setInvtp(Invtp.PERSONAL);// 个人
 			registerAction.setLevel(Level.OPERATOR); // 经办人
 			registerAction.setOrganization(custinfoVo.getOrganization());
 			registerAction.setBusiness(custinfoVo.getBusiness());
-			//registerAction.setGrouptp(Grouptp.PERSONAL);
-			
+			// 注册
 			custManager.register(registerAction);
+			// 注册成功，保存用户至session
+			UserHelper.saveCustinfoVo(custinfoVo);
 			
-			custinfoVo.setInvtp("0"); // 0：个人 1：机构
-			custinfoVo.setLevel("1"); // 0：个人 1：经办人
 			model.addAttribute("CustinfoVo", custinfoVo);
-			ServletHolder.getSession().setAttribute("S_CUSTINFO", custinfoVo);
 			
 		}catch (BizException e){
+			// TODO
 			LOG.error(e.getErrmsg(), e);
 			
 			if("手机号".equals(e.getOtherInfo()) || "账号".equals(e.getOtherInfo())){
@@ -130,7 +129,7 @@ public class CustController {
 	}
 	
 	/**
-	 * 登录 写入身份证到SESSION 没有就没有实名认证和绑卡 必须先开户绑卡
+	 * 登录
 	 * @param custinfoVo
 	 * @param model
 	 * @return
@@ -142,7 +141,6 @@ public class CustController {
 			LoginAction loginAction = new LoginAction();
 			
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			// 有Session，Session登录
 			if(null != s_custinfo){
 				// Session登录
 				loginAction.setLoginCode(s_custinfo.getMobileno());
@@ -156,14 +154,11 @@ public class CustController {
 				VerifyCodeUtils.validate(custinfoVo.getVerifycode());
 			}
 			
-			// 登录 写入身份证到SESSION 没有就没有实名认证和绑卡 必须先开户绑卡
+			// 登录
 			Custinfo custinfo = custManager.loginIn(loginAction);
-			
 			s_custinfo = new CustinfoVo();
 			s_custinfo.setCustno(custinfo.getCustno());;                      
 			s_custinfo.setMobileno(custinfo.getMobileno());                    
-//			s_custinfo.setMsgcode();                     
-//			s_custinfo.setVerifycode();                  
 			s_custinfo.setInvtp(custinfo.getInvtp()); 
 			s_custinfo.setInvnm(custinfo.getInvnm());        
 			s_custinfo.setIdtp(custinfo.getIdtp());     
@@ -177,23 +172,21 @@ public class CustController {
 			s_custinfo.setCustst(custinfo.getCustst());
 			s_custinfo.setLevel(custinfo.getLevel());
 			s_custinfo.setOpenaccount(custinfo.getOpenaccount());
+			// 登录成功，保存用户至session
+			UserHelper.saveCustinfoVo(s_custinfo);
 			
 			model.addAttribute("CustinfoVo", s_custinfo);
-			ServletHolder.getSession().setAttribute("S_CUSTINFO", s_custinfo);
-			
 		}catch (BizException e){
+			// TODO 调到登录页面
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
-			// TODO 调到登录页面
 			return "error/error";
 		}
-
 		return "cust/indexPage";
 	}
 	
 	/**
-	 * 登录 写入身份证到SESSION 没有就没有实名认证和绑卡 必须先开户绑卡
-	 * @param custinfoVo
+	 * 登出
 	 * @param model
 	 * @return
 	 */
@@ -201,23 +194,19 @@ public class CustController {
 	public String logOut(Model model) {
 		
 		try{
-			CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
-			// 有Session，Session登出
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
 				// Session登出
-				ServletHolder.getSession().removeAttribute("S_CUSTINFO");
-			}else{
+				UserHelper.removeCustinfoVo();
 			}
-			
 		}catch (BizException e){
+			// TODO 调到登录页面
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
-			// TODO 调到登录页面
 			return "error/error";
 		}
 		return "home/indexPage";
 	}
-	
 	
 	/**
 	 * 绑卡-Page
@@ -228,22 +217,22 @@ public class CustController {
 	public String addBankCard(BankCardVo bankCardVo, Model model){
 		
 		try{
-			CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
-				bankCardVo.setOrganization(s_custinfo.getOrganization());
-				bankCardVo.setBusiness(s_custinfo.getBusiness());
 				bankCardVo.setCustNo(s_custinfo.getCustno());
 				bankCardVo.setBankMobile(s_custinfo.getMobileno());
+				bankCardVo.setOrganization(s_custinfo.getOrganization());
+				bankCardVo.setBusiness(s_custinfo.getBusiness());
 			}
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
+			// TODO 
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
 			return "cust/indexPage";
 		}
 		return "bankcard/addBankCardPage";
 	}
-	
 	
 	/**
 	 * 绑卡-验证身份
@@ -252,29 +241,6 @@ public class CustController {
 	 */
 	@RequestMapping(value="bankcard/addBankCardInit" , method=RequestMethod.POST)
 	public String addBankCardInit(BankCardVo bankCardVo, Model model){
-//		//FOR TEST
-//		if(StringUtils.isBlank(bankCardVo.getBankAcnm())){
-//			bankCardVo.setBankAcnm("test");;
-//		}
-//		if(StringUtils.isBlank(bankCardVo.getBankIdno())){
-//			bankCardVo.setBankIdno("310108198202182814");;
-//		}
-//		if(StringUtils.isBlank(bankCardVo.getTradePwd())){
-//			bankCardVo.setTradePwd("1234test");;
-//		}
-//		if(StringUtils.isBlank(bankCardVo.getTradePwd2())){
-//			bankCardVo.setTradePwd2("1234test");;
-//		}
-//		if(StringUtils.isBlank(bankCardVo.getBankNo())){
-//			bankCardVo.setBankNo("000");;
-//		}
-//		if(StringUtils.isBlank(bankCardVo.getBankMobile())){
-//			bankCardVo.setBankMobile("18616502181");;
-//		}
-//		if(StringUtils.isBlank(bankCardVo.getBankAcco())){
-//			bankCardVo.setBankAcco("6230201111200001");;
-//		}
-//		//
 		
 		try{
 			//幼教机构
@@ -312,6 +278,7 @@ public class CustController {
 			model.addAttribute("BankCardVo", bankCardVo);
 			
 		}catch (BizException e){
+			// TODO
 			LOG.error(e.getErrmsg(), e);
 			
 			if("用户证件号".equals(e.getOtherInfo())){
@@ -354,27 +321,28 @@ public class CustController {
 	 * @return
 	 */
 	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
-	public String addBankCard3(BankCardVo bankCardVo, Model model){
+	public String addBankCardChk(BankCardVo bankCardVo, Model model){
 		try{
-			Custinfo custinfo = custManager.getCustinfo(bankCardVo.getCustNo());		
+			// TODO 有点怪
+			Custinfo custinfo = custManager.getCustinfoByNo(bankCardVo.getCustNo());		
 			// Custst 是否已开户
 			if(Constant.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
 				return "bankcard/addBankCardSuccessPage";
 			}
 			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
-			openAccountAction.setReqSeq("3");
+			openAccountAction.setReqSeq("3"); // 第三步，验证用
 			openAccountAction.setBankno(bankCardVo.getBankNo());
 			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
 			openAccountAction.setBankacco(bankCardVo.getBankAcco());
-			bankCardVo.setBankIdtp("0");
+			bankCardVo.setBankIdtp("0"); // 身份证绑卡
 			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
 			openAccountAction.setBankidno(bankCardVo.getBankIdno());
 			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
 			openAccountAction.setMobileAutoCode(bankCardVo.getMsgcode());
 			openAccountAction.setOtherserial(bankCardVo.getOtherserial());
 			
-			// 3 银行手机验证 
+			// 3 银行手机验证，并带回Serialno、Protocolno的值 
 			custManager.openAccount3(openAccountAction);
 			
 			// 4 开户
@@ -383,12 +351,22 @@ public class CustController {
 			openAccountAction.setIdno(bankCardVo.getBankIdno());
 			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
 			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
-			openAccountAction.setMerchant(Merchant.HFT_FUND);
-			
+			openAccountAction.setMerchant(Merchant.HFT_FUND); // 海富通
 			custManager.openAccount4(openAccountAction);
 			
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
+			
+			List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
+			if(StringUtils.isBlank(bankCardVo.getBankNo())){
+				bankCardVo.setBankIdno(bankBaseList.get(0).getBankno());
+				model.addAttribute("curBank", bankBaseList.get(0));
+			}else{
+				BankBaseInfo bankBaseInfo = new BankBaseInfo();
+				bankBaseInfo.setBankno(bankCardVo.getBankNo());
+				model.addAttribute("curBank", bankBaseInfo);
+			}
+			model.addAttribute("bankList", bankBaseList);
 			
 			//验证码
 			LOG.error(e.getErrmsg(), e);
@@ -396,7 +374,7 @@ public class CustController {
 			if("银行开户户名".equals(e.getOtherInfo())){
 				model.addAttribute("errMsg_bankAcnm", e.getMessage());
 			}else
-			if("银行证件号码".equals(e.getOtherInfo())){
+			if("银行证件号码".equals(e.getOtherInfo())||"用户证件号".equals(e.getOtherInfo())){
 				model.addAttribute("errMsg_bankIdno", e.getMessage());
 			}else
 			if("银行卡号".equals(e.getOtherInfo())){
@@ -423,70 +401,32 @@ public class CustController {
 	}
 	
 	
-	/**
-	 * 找回登录密码Page
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="password/getLoginPwdPage" , method=RequestMethod.GET)
-	public String getLoginPwdPage(Model model){
-		
-		return "password/getLoginPwdChk";
-	}
-	
-	/**
-	 * 找回登录密码Check
-	 * @param custinfoVo
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "password/getLoginPwdChk")
-	public String getLoginPwdChk(CustinfoVo custinfoVo, Model model) {
-		
-		try{
-			//AjaxCustController.sendMsgCode
-			//msgType: 注册REGISTER、找回登录密码GETLOGINPWD
-			
-			// 校验验证码
-			boolean checkVerifyCode = VerifyCodeUtils.validate(custinfoVo.getVerifycode());
-			if(!checkVerifyCode){
-				throw new BizException("验证码无效。");
-			}
-
-			// 查询手机号是否注册
-			boolean isMobileRegister = custManager.isMobileRegister(custinfoVo.getMobileno());
-			if(!isMobileRegister){
-				throw new BizException("手机号未注册。");
-			}
-			
-			// 校验短信验证码
-			boolean checkMsgCode = MsgCodeUtils.validate(custinfoVo.getMsgcode());
-			if(!checkMsgCode){
-				throw new BizException("短信验证码无效。");
-			}
-			
-		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("errMsg", e.getMessage());
-			model.addAttribute("returnUrl", "password/getLoginPwdChk");
-			return "error/error";
-		}
-
-		return "password/getLoginPwdSet";
-	}
-	
-	/**
-	 * 找回登录密码Set
-	 * @param custinfoVo
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "password/getLoginPwdSet")
-	public String getLoginPwdSet(CustinfoVo custinfoVo, Model model) {
-		
-		try{
+//	/**
+//	 * 找回登录密码Page
+//	 * @param model
+//	 * @return
+//	 */
+//	@RequestMapping(value="password/getLoginPwdPage" , method=RequestMethod.GET)
+//	public String getLoginPwdPage(Model model){
+//		
+//		return "password/getLoginPwdChk";
+//	}
+//	
+//	/**
+//	 * 找回登录密码Check
+//	 * @param custinfoVo
+//	 * @param model
+//	 * @return
+//	 */
+//	@RequestMapping(value = "password/getLoginPwdChk")
+//	public String getLoginPwdChk(CustinfoVo custinfoVo, Model model) {
+//		
+//		try{
+//			//AjaxCustController.sendMsgCode
+//			//msgType: 注册REGISTER、找回登录密码GETLOGINPWD
+//			
 //			// 校验验证码
-//			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
+//			boolean checkVerifyCode = VerifyCodeUtils.validate(custinfoVo.getVerifycode());
 //			if(!checkVerifyCode){
 //				throw new BizException("验证码无效。");
 //			}
@@ -502,20 +442,58 @@ public class CustController {
 //			if(!checkMsgCode){
 //				throw new BizException("短信验证码无效。");
 //			}
-			
-			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
-			changePasswordAction.setMobile(custinfoVo.getMobileno());
-			changePasswordAction.setLoginPassword(custinfoVo.getPswpwd());
-			changePasswordAction.setLoginPassword2(custinfoVo.getPswpwd2());
-			custManager.changePassword(changePasswordAction);
-			
-		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("errMsg", e.getMessage());
-			model.addAttribute("returnUrl", "password/getLoginPwdSet");
-			return "error/error";
-		}
-
-		return "password/getLoginPwdSuccess";
-	}
+//			
+//		}catch (BizException e){
+//			LOG.error(e.getErrmsg(), e);
+//			model.addAttribute("errMsg", e.getMessage());
+//			model.addAttribute("returnUrl", "password/getLoginPwdChk");
+//			return "error/error";
+//		}
+//
+//		return "password/getLoginPwdSet";
+//	}
+//	
+//	/**
+//	 * 找回登录密码Set
+//	 * @param custinfoVo
+//	 * @param model
+//	 * @return
+//	 */
+//	@RequestMapping(value = "password/getLoginPwdSet")
+//	public String getLoginPwdSet(CustinfoVo custinfoVo, Model model) {
+//		
+//		try{
+////			// 校验验证码
+////			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
+////			if(!checkVerifyCode){
+////				throw new BizException("验证码无效。");
+////			}
+////
+////			// 查询手机号是否注册
+////			boolean isMobileRegister = custManager.isMobileRegister(custinfoVo.getMobileno());
+////			if(!isMobileRegister){
+////				throw new BizException("手机号未注册。");
+////			}
+////			
+////			// 校验短信验证码
+////			boolean checkMsgCode = MsgCodeUtils.validate(custinfoVo.getMsgcode());
+////			if(!checkMsgCode){
+////				throw new BizException("短信验证码无效。");
+////			}
+//			
+//			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
+//			changePasswordAction.setMobile(custinfoVo.getMobileno());
+//			changePasswordAction.setLoginPassword(custinfoVo.getPswpwd());
+//			changePasswordAction.setLoginPassword2(custinfoVo.getPswpwd2());
+//			custManager.changePassword(changePasswordAction);
+//			
+//		}catch (BizException e){
+//			LOG.error(e.getErrmsg(), e);
+//			model.addAttribute("errMsg", e.getMessage());
+//			model.addAttribute("returnUrl", "password/getLoginPwdSet");
+//			return "error/error";
+//		}
+//
+//		return "password/getLoginPwdSuccess";
+//	}
 }

@@ -16,6 +16,22 @@ public class UserHelper {
 	}
 	
 	/**
+	 * 保存当前客户信息
+	 * @return
+	 */
+	public static void saveCustinfoVo(CustinfoVo custinfoVo){
+		ServletHolder.getSession().setAttribute("S_CUSTINFO", custinfoVo);
+	}
+	
+	/**
+	 * 登出当前客户信息
+	 * @return
+	 */
+	public static void removeCustinfoVo(){
+		ServletHolder.getSession().removeAttribute("S_CUSTINFO");
+	}
+	
+	/**
 	 * 获取当前客户编号
 	 * @return 返回custno；若没有，则返回null
 	 */

@@ -21,18 +21,12 @@ public class VerifyCodeUtils {
 	 * @return 校验失败，直接提示业务类异常；否则，成功
 	 */
 	public static boolean validate(String veriCode) {
-
-		String value = (String) ServletHolder.getSession().getAttribute(
-				"VERIFYCODE");
-
+		String value = (String) ServletHolder.getSession().getAttribute("VERIFYCODE");
 		if (StringUtils.isBlank(veriCode) || StringUtils.isBlank(value)) {
-			throw new BizException(ThreadLocalUtil.getProccessId(),
-					"验证码为空或已失效！", "验证码");
+			throw new BizException(ThreadLocalUtil.getProccessId(), "验证码为空或已失效！", "验证码");
 		} else if (!veriCode.equalsIgnoreCase(value)) {
-			throw new BizException(ThreadLocalUtil.getProccessId(), "验证码不匹配！",
-					"验证码");
+			throw new BizException(ThreadLocalUtil.getProccessId(), "验证码不匹配！", "验证码");
 		}
-
 		ServletHolder.getSession().removeAttribute("VERIFYCODE");
 		return true;
 	}
