@@ -35,7 +35,7 @@
         </div>
         <div class="form-payInto">
             <form class="common-form" action="${ufbDomain}/trade/pay_result.htm" method="post">
-                ##${refreshTools.genInputHtml()}
+                #${refreshTools.genInputHtml()}
 				<input id="tradeacco" name="tradeacco" value="${curCard.tradeacco}" type="hidden"/>
 				<ul>
                     <li class="clearfix">
