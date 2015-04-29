@@ -3,8 +3,8 @@ package com.ufufund.ufb.web.util;
 import org.apache.commons.lang.StringUtils;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
-import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 
 /**
@@ -22,10 +22,12 @@ public class VerifyCodeUtils {
 	 */
 	public static boolean validate(String veriCode) {
 		String value = (String) ServletHolder.getSession().getAttribute("VERIFYCODE");
-		if (StringUtils.isBlank(veriCode) || StringUtils.isBlank(value)) {
-			throw new BizException(ThreadLocalUtil.getProccessId(), "验证码为空或已失效！", "验证码");
+		if (StringUtils.isBlank(veriCode)) {
+			throw new BizException(ThreadLocalUtil.getProccessId(), "请输入验证码！", BisConst.Register.VERIFYCODE);
+		} else if (StringUtils.isBlank(value)) {
+			throw new BizException(ThreadLocalUtil.getProccessId(), "您输入的验证码已失效！", BisConst.Register.VERIFYCODE);
 		} else if (!veriCode.equalsIgnoreCase(value)) {
-			throw new BizException(ThreadLocalUtil.getProccessId(), "验证码不匹配！", "验证码");
+			throw new BizException(ThreadLocalUtil.getProccessId(), "您输入的验证码不匹配！", BisConst.Register.VERIFYCODE);
 		}
 		ServletHolder.getSession().removeAttribute("VERIFYCODE");
 		return true;

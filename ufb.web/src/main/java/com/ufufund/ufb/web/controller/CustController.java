@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ufufund.ufb.biz.exception.BizException;
-import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -26,8 +26,6 @@ public class CustController {
 	
 	@Autowired
 	private CustManager custManager;
-	@Autowired
-	private BankBaseManager bankBaseManager;
 	
 	@RequestMapping(value="cust/register")
 	public String getPage(CustinfoVo custinfoVo, Model model){
@@ -83,27 +81,29 @@ public class CustController {
 			model.addAttribute("CustinfoVo", custinfoVo);
 			
 		}catch (BizException e){
-			// TODO
 			LOG.error(e.getErrmsg(), e);
 			
-			if("手机号".equals(e.getOtherInfo()) || "账号".equals(e.getOtherInfo())){
+			String ems = e.getOtherInfo();
+			if (BisConst.Register.MOBILE.equals(ems)
+				|| BisConst.Register.BANKMOBILE.equals(ems)) {
+				//
 				model.addAttribute("errMsg_mobileno", e.getMessage());
-			}else
-			if("验证码".equals(e.getOtherInfo())){
+			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
+				//
 				model.addAttribute("errMsg_verifycode", e.getMessage());
-			}else
-			if("密码".equals(e.getOtherInfo())){
+			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
+				//
 				model.addAttribute("errMsg_pswpwd", e.getMessage());
-			}else
-			if("确认密码".equals(e.getOtherInfo())){
+			} else if (BisConst.Register.LOGINPASSWORD2.equals(ems)) {
+				//
 				model.addAttribute("errMsg_pswpwd2", e.getMessage());
-			}else
-			if("机构名称".equals(e.getOtherInfo())){
+			} else if (BisConst.Register.ORGANIZATION.equals(ems)) {
+				//
 				model.addAttribute("errMsg_organization", e.getMessage());
-			}else
-			if("营业执照".equals(e.getOtherInfo())){
+			} else if (BisConst.Register.BUSINESS.equals(ems)) {
+				//
 				model.addAttribute("errMsg_business", e.getMessage());
-			}else{
+			} else {
 				model.addAttribute("errMsg", e.getMessage());
 			}
 			

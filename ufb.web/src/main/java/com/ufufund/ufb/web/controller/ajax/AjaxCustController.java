@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.exception.BizException;
-import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.exception.UserException;
