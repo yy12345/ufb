@@ -9,10 +9,10 @@ import com.ufufund.ufb.model.db.Tradeaccoinfo;
 public interface BankMapper extends BaseDao {
 
 	public void insterBankcardinfo(Bankcardinfo bankcardinfo);
-	
+
 	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo);
-	
+
 	public List<Bankcardinfo> getBankcardinfo(Bankcardinfo bankcardinfo);
-	
-	public String  getBankcardinfoSequence();
+
+	public String getBankcardinfoSequence();
 }

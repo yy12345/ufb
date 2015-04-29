@@ -47,6 +47,8 @@ $(function(){
 			<form id="form-addBankCardSuccess" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardSuccess.htm">
 				<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
 				<input id="reqSeq" name="reqSeq" type="hidden" value="$!{BankCardVo.reqSeq}">
+				<input id="invtp" name="invtp" type="hidden" value="$!{BankCardVo.invtp}">
+				<input id="level" name="level" type="hidden" value="$!{BankCardVo.level}">
             </form>
         </div>
     </div>

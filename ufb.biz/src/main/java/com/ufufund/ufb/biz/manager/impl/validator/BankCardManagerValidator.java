@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.common.utils.RegexUtil;
+import com.ufufund.ufb.common.utils.StringUtils;
+import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 
@@ -43,7 +45,7 @@ public class BankCardManagerValidator {
 		String processId = action.getProcessId();
 		
 		//基本信息验证（用户名、身份证、交易密码、开户机构）
-		if("U".equals(actionName)){
+		if("User_Base".equals(actionName)){
 			// CustNo
 			if (RegexUtil.isNull(action.getCustno())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, CUSTNO);
@@ -76,10 +78,21 @@ public class BankCardManagerValidator {
 			if (action.getMerchant()==null||RegexUtil.isNull(action.getMerchant().Value())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, MERCHANT);
 			}
+			
+			if("1".equals(action.getLevel())){
+				//幼教机构
+				if(RegexUtil.isNull(action.getOrganization())){
+					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, "开户机构");
+				}
+				//营业执照
+				if(RegexUtil.isNull(action.getBusiness())){
+					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, "营业执照");
+				}
+			}
 		}
 		
 		//银行基本信息验证
-		if("B".equals(actionName)){
+		if("Bank_Base".equals(actionName)){
 			if (RegexUtil.isNull(action.getBankno())) {
 				//银行编码
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BANKNO);

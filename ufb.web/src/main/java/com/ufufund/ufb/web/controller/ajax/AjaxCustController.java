@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.biz.manager.BankBaseManager;
+import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.exception.UserException;
-import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
@@ -28,6 +29,9 @@ public class AjaxCustController {
 	
 	@Autowired
 	private CustManager custManager;
+	
+	@Autowired
+	private BankCardManager bankCardManager;
 	
 	/**
 	 * 银行快捷鉴权
@@ -51,7 +55,7 @@ public class AjaxCustController {
 			openAccountAction.setBankmobile(bankCardVo.getBankMobile());//银行手机号
 			
 			//调用银行快捷鉴权
-			custManager.openAccount2(openAccountAction);
+			bankCardManager.openAccount2(openAccountAction);
 			
 			resultMap.put("errCode", "0000");
 			resultMap.put("errMsg", "银行卡鉴权成功");

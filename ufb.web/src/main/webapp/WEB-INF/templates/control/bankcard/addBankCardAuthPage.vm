@@ -155,12 +155,14 @@ $(function(){
                 </div>
                 <form id="form-addBankCardAuth" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardAuth.htm">
 				<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
-				<input id="organization" name="organization" type="hidden" value="$!{BankCardVo.organization}">
-				<input id="business" name="business" type="hidden" value="$!{BankCardVo.business}">
-				<input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
 				<input id="bankNo" name="bankNo" type="hidden" value="$!{BankCardVo.bankNo}">	
 				<input id="tradePwd" name="tradePwd" type="hidden" value="$!{BankCardVo.tradePwd}">
 				<input id="tradePwd2" name="tradePwd2" type="hidden" value="$!{BankCardVo.tradePwd2}">
+				<input id="organization" name="organization" type="hidden" value="$!{BankCardVo.organization}">
+				<input id="business" name="business" type="hidden" value="$!{BankCardVo.business}">
+				<input id="invtp" name="invtp" type="hidden" value="$!{BankCardVo.invtp}">
+				<input id="level" name="level" type="hidden" value="$!{BankCardVo.level}">
+				<input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
                     <div class="panel">
                         <ul>
 							#if($errMsg)

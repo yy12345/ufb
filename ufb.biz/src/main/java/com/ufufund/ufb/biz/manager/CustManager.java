@@ -2,7 +2,6 @@ package com.ufufund.ufb.biz.manager;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.cust.LoginAction;
-import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.service.CustInterface;
@@ -38,24 +37,13 @@ public interface CustManager extends CustInterface{
 	public boolean isMobileRegister(String mobile) throws BizException;
 	
 	/**
-	 *  
-	 * 开户绑卡 1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户
-	 * @param OpenAccountAction
-	 * @return 
-	 */
-	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction) throws BizException;
-	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException;
-	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException;
-	public void openAccount4(OpenAccountAction openAccountAction) throws BizException;
-
-	/**
 	 * 根据缓存获取custno
 	 * 获取客户信息 判断是否具有身份证
 	 * 没有 必须完善个人信息绑卡
 	 * @param custno
 	 * @return 
 	 */
-	public Custinfo getCustinfoByNo(String custno) throws BizException;
+	public Custinfo getCustinfo(String custno) throws BizException;
 	
 //	/**
 //	 * 修改密码

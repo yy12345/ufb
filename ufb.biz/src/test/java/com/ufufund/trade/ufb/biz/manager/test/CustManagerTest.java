@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
+import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
@@ -22,7 +23,10 @@ import com.ufufund.ufb.model.enums.Level;
 public class CustManagerTest {
 	
 	@Autowired
-	private CustManager areaManager;
+	private CustManager custManager;
+	
+	@Autowired
+	private BankCardManager bankCardManager;
 	
 	@Autowired
 	private CustinfoMapper custinfoMapper;
@@ -35,7 +39,7 @@ public class CustManagerTest {
 	//@Test
 	public void testrisMobileRegister(){
 		
-		areaManager.isMobileRegister("1111");
+		custManager.isMobileRegister("1111");
 	}
 
 	
@@ -49,7 +53,7 @@ public class CustManagerTest {
 		loginAction.setLoginCode("13611686341");
 		loginAction.setLoginPassword("123257");
 		loginAction.setLoginPassword2("123257");
-		areaManager.register(loginAction);
+		custManager.register(loginAction);
 	}
 	
 	
@@ -66,7 +70,7 @@ public class CustManagerTest {
 		loginAction.setLevel(Level.OPERATOR);
 		loginAction.setOrganization("Organization");
 		loginAction.setBusiness("business");
-		areaManager.register(loginAction);
+		custManager.register(loginAction);
 	}
 	
 	/*
@@ -106,17 +110,17 @@ public class CustManagerTest {
 		openAccountAction.setInvnm("测试");
 		openAccountAction.setTradepwd("1234567");
 		openAccountAction.setTradepwd2("1234567");
-		openAccountAction = areaManager.openAccount1(openAccountAction);
+		openAccountAction = bankCardManager.openAccount1(openAccountAction);
 		openAccountAction.setBankno("002");
 		openAccountAction.setBankacnm("尼玛");
 		openAccountAction.setBankidtp("0");
 		openAccountAction.setBankidno("123456789");
 		openAccountAction.setBankacco("1234567890");
 		openAccountAction.setBankmobile("13611686341");
-		openAccountAction = areaManager.openAccount2(openAccountAction);
+		openAccountAction = bankCardManager.openAccount2(openAccountAction);
 		openAccountAction.setMobileAutoCode("12345678");	
-		openAccountAction = areaManager.openAccount3(openAccountAction);
-		areaManager.openAccount4(openAccountAction);
+		openAccountAction = bankCardManager.openAccount3(openAccountAction);
+		bankCardManager.openAccount4(openAccountAction);
 		//areaManager.loginIn(loginAction);
 	}
 	

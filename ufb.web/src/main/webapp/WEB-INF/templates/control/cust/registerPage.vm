@@ -120,6 +120,7 @@ $(function(){
             <div class="panel panel-org slide-out">
                 <form method="post" action="${staticDomain}/cust/register_org.htm" id="register-org" class="common-form form-register">
                     <input id="level_1" type="hidden" name="level" value="${CustinfoVo.level}"/>
+					<input id="invtp" type="hidden" name="invtp" value="${CustinfoVo.invtp}"/>
 					<ul>
                         <li
                         #if($errMsg_mobileno)

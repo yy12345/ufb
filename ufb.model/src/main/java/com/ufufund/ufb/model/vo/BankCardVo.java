@@ -10,145 +10,43 @@ import java.io.Serializable;
  * @version 1.0
  */
 public class BankCardVo implements Serializable {
-	
+
 	private String reqSeq;
 
 	private static final long serialVersionUID = 2728670885588522587L;
 
-	/**
-	 * 银行卡ID
-	 */
-	private String bankSerialId;
-
-	/**
-	 * custNo
-	 */
+	private String bankSerialId; // 银行卡ID
 	private String custNo;
-
-	/**
-	 * 银行渠道
-	 */
 	private String bankNo;
-
-	/**
-	 * 银行账户
-	 */
-	private String bankAcco;
-
-	/**
-	 * 银行证件类型
-	 */
-	private String bankIdtp;
-
-	/**
-	 * 银行证件号
-	 */
-	private String bankIdno;
-
-	/**
-	 * 银行开户户名
-	 */
-	private String bankAcnm;
-
-	/**
-	 * 银行开户手机
-	 */
-	private String bankMobile;
-
-	/**
-	 * 交易密码
-	 */
-	private String TradePwd;
-
-	/**
-	 * 交易密码2
-	 */
-	private String TradePwd2;
-
-	/**
-	 * 银行卡概要名称（银行名+卡号后4位）
-	 */
-	private String sumaryCardName;
-
-	/**
-	 * 银行卡单笔充值限额
-	 */
-	private String perLimit;
-
-	/**
-	 * 银行卡日累计限额
-	 */
-	private String dayLimit;
-
-	/**
-	 * 银行卡安全级别：屏蔽充值、强制升级、非强制升级
-	 */
-	private String cardLevel;
-
-	/**
-	 * 单笔及每日限额话术
-	 */
-	private String limitDesc;
-
-	/**
-	 * 是否B2C
-	 */
-	private boolean b2c;
-
-	/**
-	 * 银行通道升级文本内容
-	 */
-	private String updateDesc;
-
-	/**
-	 * 银行通道升级链接
-	 */
-	private String updateLink;
-
-	/**
-	 * 系统验证码
-	 */
-	private String verifycode;
-
-	/**
-	 * 短信验证码
-	 */
-	private String msgcode;
-	
+	private String bankAcco; // 银行账户
+	private String bankIdtp; // 银行证件类型
+	private String bankIdno; // 银行证件号
+	private String bankAcnm; // 银行开户户名
+	private String bankMobile; // 银行开户手机
+	private String TradePwd; // 交易密码
+	private String TradePwd2; // 交易密码
+	private String sumaryCardName; // 银行卡概要名称（银行名+卡号后4位）
+	private String perLimit; // 银行卡单笔充值限额
+	private String dayLimit; // 银行卡日累计限额
+	private String cardLevel; // 银行卡安全级别：屏蔽充值、强制升级、非强制升级
+	private String limitDesc; // 单笔及每日限额话术
+	private boolean b2c; // 是否B2C
+	private String updateDesc; // 银行通道升级文本内容
+	private String updateLink; // 银行通道升级链接
+	private String verifycode; // 系统验证码
+	private String msgcode; // 短信验证码
 	private String otherserial;
 	private String organization;// 幼教机构名称
 	private String business; // 营业执照注册号
-	
+	private String invtp;
+	private String level;
+
 	public String getReqSeq() {
 		return reqSeq;
 	}
 
 	public void setReqSeq(String reqSeq) {
 		this.reqSeq = reqSeq;
-	}
-
-	public String getOtherserial() {
-		return otherserial;
-	}
-
-	public void setOtherserial(String otherserial) {
-		this.otherserial = otherserial;
-	}
-
-	public String getOrganization() {
-		return organization;
-	}
-
-	public void setOrganization(String organization) {
-		this.organization = organization;
-	}
-
-	public String getBusiness() {
-		return business;
-	}
-
-	public void setBusiness(String business) {
-		this.business = business;
 	}
 
 	public String getBankSerialId() {
@@ -309,6 +207,46 @@ public class BankCardVo implements Serializable {
 
 	public void setMsgcode(String msgcode) {
 		this.msgcode = msgcode;
+	}
+
+	public String getOtherserial() {
+		return otherserial;
+	}
+
+	public void setOtherserial(String otherserial) {
+		this.otherserial = otherserial;
+	}
+
+	public String getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+
+	public String getBusiness() {
+		return business;
+	}
+
+	public void setBusiness(String business) {
+		this.business = business;
+	}
+
+	public String getInvtp() {
+		return invtp;
+	}
+
+	public void setInvtp(String invtp) {
+		this.invtp = invtp;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 
 	@Override

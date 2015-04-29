@@ -10,11 +10,11 @@ import com.ufufund.ufb.dao.BankBaseMapper;
 import com.ufufund.ufb.model.db.BankBaseInfo;
 
 @Service
-public class BankBaseManagerImpl implements BankBaseManager {
+public class BankBaseManagerImpl extends ImplCommon implements BankBaseManager {
 
 	@Autowired
 	private BankBaseMapper bankBaseMapper;
-
+	
 	@Override
 	public List<BankBaseInfo> getBankBaseInfoList(String bankno) {
 

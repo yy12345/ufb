@@ -1,12 +1,17 @@
 package com.ufufund.ufb.biz.manager.impl.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
+import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.Level;
 
@@ -91,6 +96,36 @@ public class CustManagerValidator {
 			if (RegexUtil.isNull(action.getBusiness())) {
 				// 营业执照
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BUSINESS);
+			}
+		}
+	}
+	@Autowired
+	private CustManager custManager;
+	
+	/**
+	 *  用户注册、冻结、已开户验证
+	 * @param openAccountAction
+	 */
+	public void validator(OpenAccountAction action, String actionName) {
+		
+		// Custno验证
+		String custNo = action.getCustno();
+		if(null == custNo || "".equals(custNo)){
+			throw new BizException(action.getProcessId(), ErrorInfo.NO_IDCARDNO, "用户id");
+		}
+		// 用户是否注册验证 
+		Custinfo custinfo = custManager.getCustinfo(custNo);		
+		if(null == custinfo){
+			throw new BizException(action.getProcessId(), ErrorInfo.NO_IDCARDNO, "用户id");
+		}
+		// 用户是否冻结验证
+		if(Constant.CUSTST$P.equals(custinfo.getCustst())){
+			throw new BizException(action.getProcessId(), ErrorInfo.FREEZE_USER, "用户id");
+		}
+		// Custst 用户是否开户验证
+		if(!Constant.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
+			if (custManager.isIdCardNoRegister(action.getIdno())) {
+				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, "用户证件号");
 			}
 		}
 	}
