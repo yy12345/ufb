@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.TradeAccoinfoMapper">
+
+	<select id="getTradeAccoList" parameterType="String" resultType="BankCardWithTradeAcco">
+		select
+			b.SERIALID,
+			b.CUSTNO,
+			b.FUNDCORPNO,
+			b.BANKNO,
+			b.BANKACCO,
+			b.BANKACCODISPLAY,
+			b.BANKIDTP,
+			b.BANKIDNO,
+			b.BANKIDVALIDDT,
+			b.BANKACNM,
+			b.BANKMOBILE,
+			b.SUBBANKNO,
+			b.BANKLONGNAME,
+			b.ISSIGN,
+			b.SIGNNO,
+			b.BANKPROEXISTS,
+			b.PROTOCOL_NO,
+			b.STATE,
+			b.OPENDT,
+			b.CLOSEDT,
+			b.DISORDER,
+			b.UPDATETIMESTAMP,
+			
+			t.TRADEACCO,
+			t.FUNDCORPNO
+		from tradeaccoinfo t left join bankcardinfo b on t.bankserialid = b.serialid 
+		where t.tradeaccost = 'N' and t.custno = #{custno,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

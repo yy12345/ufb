@@ -36,8 +36,7 @@
         <div class="form-payInto">
             <form class="common-form" action="${ufbDomain}/trade/pay_result.htm" method="post">
                 ##${refreshTools.genInputHtml()}
-				<input id="bankno" name="bankno" value="${curCard.bankno}" type="hidden"/>
-				<input id="bankid" name="bankid" value="${curCard.serialid}" type="hidden"/>
+				<input id="tradeacco" name="tradeacco" value="${curCard.tradeacco}" type="hidden"/>
 				<ul>
                     <li class="clearfix">
                         <span class="form-title">银行选择</span>
@@ -52,8 +51,8 @@
                             <div class="input-options">
                                 <div class="card-list clearfix">
 									#foreach($card in $cardList)
-                                    <a class="card" href="javascript:;"
-										bankno="${card.bankno}" bankid="${card.serialid}">
+                                    <a class="card" href="javascript:;" 
+										tradeacco="${card.tradeacco}">
 										#set($tailStr=$card.bankaccodisplay)
 										#set($start=$tailStr.length() - 4)
 										#set($end=$tailStr.length())
@@ -94,8 +93,7 @@
 	$(function(){
 		// 页面加载时，初始化当前选中卡
 		$(".card").on("click", function(){
-			$("#bankno").val($(this).attr("bankno"));
-			$("#bankid").val($(this).attr("bankid"));
+			$("#tradeacco").val($(this).attr("tradeacco"));
 		});
 		
 		// 表单提交时，验证	

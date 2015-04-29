@@ -11,12 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ufufund.ufb.biz.manager.BankCardManager;
+import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
+import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.NumberUtils;
+import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.vo.ApplyVo;
 import com.ufufund.ufb.model.vo.RedeemVo;
@@ -33,7 +35,7 @@ public class TradeController {
 	private TradeManager tradeManager;
 	
 	@Autowired
-	private BankCardManager bankCardManager;
+	private TradeAccoManager tradeAccoManager;
 	
 	@Autowired
 	private WorkDayManager workDayManager;
@@ -44,18 +46,19 @@ public class TradeController {
 		
 		
 		try{
-			String custno = UserHelper.getCustno();
+//			String custno = UserHelper.getCustno();
+			String custno = "CU2015042720082200000014";
 			// 获取用户的银行卡列表
-//			List<Bankcardinfo> bankCardList = bankCardManager.getBankcardinfoList(custno);
-			List<Bankcardinfo> bankCardList = genBankcardinfoList();
+			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+//			List<BankCardWithTradeAcco> tradeAccoList = genBankcardinfoList();
 			
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
 			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
 			String profitArriveDay = DateUtil.getNextDay(nextWorkDay, 1);
 			
-			model.addAttribute("curCard", bankCardList.get(0));
-			model.addAttribute("cardList", bankCardList);
+			model.addAttribute("curCard", tradeAccoList.get(0));
+			model.addAttribute("cardList", tradeAccoList);
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
@@ -74,10 +77,12 @@ public class TradeController {
 		
 		try{
 //			String custno = UserHelper.getCustno();
-			String custno = "cu20150427001";
+			String custno = "CU2015042720082200000014";
+			
 			vo.setCustno(custno);
+			vo.setFundcode(Constant.FundCode.YFB);
+			vo.setFee(new BigDecimal("0.00"));
 			vo.setAppvol(vo.getAppamt());
-			vo.setTradeacco("tranAcco001");
 			
 			tradeManager.buyApply(vo);
 			
@@ -95,10 +100,11 @@ public class TradeController {
 	public String redeemIndex(RedeemVo vo, Model model){
 		
 		try{
-			String custno = UserHelper.getCustno();
+//			String custno = UserHelper.getCustno();
+			String custno = "CU2015042720082200000014";
 			// 获取用户的银行卡列表
-//			List<Bankcardinfo> bankCardList = bankCardManager.getBankcardinfoList(custno);
-			List<Bankcardinfo> bankCardList = genBankcardinfoList();
+			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+//			List<BankCardWithTradeAcco> tradeAccoList = genBankcardinfoList();
 			
 			// 获取用户总资产
 			// code...
@@ -110,8 +116,8 @@ public class TradeController {
 			
 			model.addAttribute("totalBalance", totalBalance);
 			model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(totalBalance));
-			model.addAttribute("curCard", bankCardList.get(0));
-			model.addAttribute("cardList", bankCardList);
+			model.addAttribute("curCard", tradeAccoList.get(0));
+			model.addAttribute("cardList", tradeAccoList);
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 		}catch(UserException ue){
@@ -129,10 +135,12 @@ public class TradeController {
 		
 		try{
 //			String custno = UserHelper.getCustno();
-			String custno = "cu20150427001";
+			String custno = "CU2015042720082200000014";
+			
 			vo.setCustno(custno);
+			vo.setFundcode(Constant.FundCode.YFB);
+			vo.setFee(new BigDecimal("0.00"));
 			vo.setAppvol(vo.getAppamt());
-			vo.setTradeacco("tranAcco002");
 			
 			tradeManager.redeem(vo);
 			
@@ -146,16 +154,20 @@ public class TradeController {
 		return "trade/cash_result";
 	}
 	
-	private List<Bankcardinfo> genBankcardinfoList(){
-		List<Bankcardinfo> list = new ArrayList<Bankcardinfo>();
-		Bankcardinfo b1 = new Bankcardinfo();
+	private List<BankCardWithTradeAcco> genBankcardinfoList(){
+		List<BankCardWithTradeAcco> list = new ArrayList<BankCardWithTradeAcco>();
+		BankCardWithTradeAcco b1 = new BankCardWithTradeAcco();
 		b1.setSerialid("s_001");
-		b1.setBankno("01");
+		b1.setBankno("002");
 		b1.setBankaccodisplay("6226095920226081");
-		Bankcardinfo b2 = new Bankcardinfo();
+		b1.setTradeacco("TradeAcco001");
+		b1.setFundcorpno("01");
+		BankCardWithTradeAcco b2 = new BankCardWithTradeAcco();
 		b2.setSerialid("s_002");
-		b2.setBankno("02");
+		b2.setBankno("004");
 		b2.setBankaccodisplay("6226095920226071");
+		b2.setTradeacco("TradeAcco002");
+		b2.setFundcorpno("01");
 		list.add(b1);
 		list.add(b2);
 		return list;
