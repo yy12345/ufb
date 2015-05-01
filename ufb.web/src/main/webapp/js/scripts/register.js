@@ -49,8 +49,12 @@ var showTips = function (ele, text) {
     var _wrap = ele.parents("li");
     if(!text) {
         showOkInfo(_wrap);
+        // ADD BY GH
+        return true;
     }else {
         showErrorInfo(_wrap, text);
+        // ADD BY GH
+        return false;
     }
 }
 

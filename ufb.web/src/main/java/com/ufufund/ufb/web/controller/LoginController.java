@@ -22,14 +22,14 @@ import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
 
 @Controller
-public class CustController {
-	private static final Logger LOG = LoggerFactory.getLogger(CustController.class);
+public class LoginController {
+	private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
 	private CustManager custManager;
 	
 	@RequestMapping(value="cust/register")
-	public String getRegistPage(CustinfoVo custinfoVo, Model model){
+	public String getPage(CustinfoVo custinfoVo, Model model){
 		if(null == custinfoVo.getInvtp()){
 			//个人注册开户
 			custinfoVo.setInvtp("0");
@@ -39,19 +39,6 @@ public class CustController {
 		model.addAttribute("CustinfoVo", custinfoVo);
 		return "cust/registerPage";
 	}
-	
-	@RequestMapping(value="login/index")
-	public String getLoginPage(CustinfoVo custinfoVo, Model model){
-		if(null == custinfoVo.getInvtp()){
-			//个人注册开户
-			custinfoVo.setInvtp("0");
-			//经办人身份
-			custinfoVo.setLevel("1");
-		}
-		model.addAttribute("CustinfoVo", custinfoVo);
-		return "cust/registerPage";
-	}
-	
 	
 	/**
 	 * 注册用户

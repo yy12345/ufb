@@ -153,42 +153,6 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		return custinfo;
 	}
 
-	
-	
-
-	
-	
-//	/**
-//	 *  用户注册、冻结、已开户验证
-//	 * @param openAccountAction
-//	 */
-//	private void validatorOpenAccount(OpenAccountAction openAccountAction) {
-//		// Custno 验证
-//		if(openAccountAction.getCustno()==null||"".equals(openAccountAction.getCustno())){
-//			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.NO_IDCARDNO, "用户id");
-//		}
-//		// TODO 有点怪
-//		// CustNo 用户是否注册验证 
-//		Custinfo custinfo = this.getCustinfoByNo(openAccountAction.getCustno());		
-//		if(custinfo==null){
-//			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.NO_IDCARDNO, "用户id");
-//		}
-//		// Custst 用户是否冻结验证
-//		if(Constant.CUSTST$P.equals(custinfo.getCustst())){
-//			throw new BizException(openAccountAction.getProcessId(), ErrorInfo.FREEZE_USER, "用户id");
-//		}
-//		
-//		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
-//		// custManagerValidator.validatorOpenAccount1(openAccountAction);
-//		
-//		// Custst 用户是否开户验证
-//		if(!Constant.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
-//			if (this.isIdCardNoRegister(openAccountAction.getIdno())) {
-//				throw new BizException(openAccountAction.getProcessId(), ErrorInfo.ALREADY_REGISTER, "用户证件号");
-//			}
-//		}
-//	}
-
 	/**
 	 * 根据缓存获取custno获取客户信息 
 	 * 
@@ -244,6 +208,4 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 //		custinfoMapper.updateCustinfo(custinfo);
 //		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
 //	}
-	
-
 }
