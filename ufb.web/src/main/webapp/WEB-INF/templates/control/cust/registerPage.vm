@@ -32,7 +32,6 @@ $(function(){
 	//注册按钮
 	$("#btn-org").on("click",function(){
 	
-		/**
 		if(!check_mobile($("#mobileno"))){
 			return false;
 		}
@@ -54,7 +53,6 @@ $(function(){
 		if(!check_business($("#business"))){
 			return false;
 		}
-		**/
 		var errLen = $("ul li.error").length;
 		if(errLen>0){
 			$("ul li.error:eq(0) input[type=text]").focus();

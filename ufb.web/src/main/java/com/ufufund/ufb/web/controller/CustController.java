@@ -63,21 +63,21 @@ public class CustController {
 	public String registerOrg(CustinfoVo custinfoVo, Model model) {
 		
 		//FOR TEST
-		if(StringUtils.isBlank(custinfoVo.getMobileno())){
-			custinfoVo.setMobileno("18616502181");
-		}
-		if(StringUtils.isBlank(custinfoVo.getVerifycode())){
-			custinfoVo.setVerifycode("1234");;
-		}
-		if(StringUtils.isBlank(custinfoVo.getMsgcode())){
-			custinfoVo.setMsgcode("123456");;
-		}
-		if(StringUtils.isBlank(custinfoVo.getPswpwd())){
-			custinfoVo.setPswpwd("123qwe");;
-		}
-		if(StringUtils.isBlank(custinfoVo.getPswpwd2())){
-			custinfoVo.setPswpwd2("123qwe");;
-		}
+//		if(StringUtils.isBlank(custinfoVo.getMobileno())){
+//			custinfoVo.setMobileno("18616502181");
+//		}
+//		if(StringUtils.isBlank(custinfoVo.getVerifycode())){
+//			custinfoVo.setVerifycode("1234");;
+//		}
+//		if(StringUtils.isBlank(custinfoVo.getMsgcode())){
+//			custinfoVo.setMsgcode("123456");;
+//		}
+//		if(StringUtils.isBlank(custinfoVo.getPswpwd())){
+//			custinfoVo.setPswpwd("123qwe");;
+//		}
+//		if(StringUtils.isBlank(custinfoVo.getPswpwd2())){
+//			custinfoVo.setPswpwd2("123qwe");;
+//		}
 		//
 				
 		try{
