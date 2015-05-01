@@ -42,14 +42,14 @@ public class CustController {
 	
 	@RequestMapping(value="login/index")
 	public String getLoginPage(CustinfoVo custinfoVo, Model model){
-		if(null == custinfoVo.getInvtp()){
-			//个人注册开户
-			custinfoVo.setInvtp("0");
-			//经办人身份
-			custinfoVo.setLevel("1");
-		}
+//		if(null == custinfoVo.getInvtp()){
+//			//个人注册开户
+//			custinfoVo.setInvtp("0");
+//			//经办人身份
+//			custinfoVo.setLevel("1");
+//		}
 		model.addAttribute("CustinfoVo", custinfoVo);
-		return "cust/registerPage";
+		return "login/indexPage";
 	}
 	
 	
@@ -154,54 +154,62 @@ public class CustController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "cust/login")
+	@RequestMapping(value = "login/login")
 	public String loginIn(CustinfoVo custinfoVo, Model model) {
 		
 		try{
 			LoginAction loginAction = new LoginAction();
+			// 普通登录
+			loginAction.setLoginCode(custinfoVo.getMobileno());
+			loginAction.setLoginPassword(custinfoVo.getPswpwd());
 			
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			if(null != s_custinfo){
-				// Session登录
-				// 安全起见，不允许Session登录
-				loginAction.setLoginCode(s_custinfo.getMobileno());
-				loginAction.setLoginPassword(s_custinfo.getPswpwd());
-			}else{
-				// 普通登录
-				loginAction.setLoginCode(custinfoVo.getMobileno());
-				loginAction.setLoginPassword(custinfoVo.getPswpwd());
-				
-				// 校验验证码
-				VerifyCodeUtils.validate(custinfoVo.getVerifycode());
-			}
+			// 校验验证码 
+			// TODO 测试好加上
+			// VerifyCodeUtils.validate(custinfoVo.getVerifycode());
 			
 			// 登录
 			Custinfo custinfo = custManager.loginIn(loginAction);
-			s_custinfo = new CustinfoVo();
-			s_custinfo.setCustno(custinfo.getCustno());;                      
-			s_custinfo.setMobileno(custinfo.getMobileno());                    
-			s_custinfo.setInvtp(custinfo.getInvtp()); 
-			s_custinfo.setInvnm(custinfo.getInvnm());        
-			s_custinfo.setIdtp(custinfo.getIdtp());     
-			s_custinfo.setIdno(custinfo.getIdno());             
-			s_custinfo.setPswpwd(custinfo.getPasswd());                      
-			s_custinfo.setPswpwd2(custinfo.getPasswd());                     
-			s_custinfo.setTradepwd(custinfo.getTradepwd());                    
-			s_custinfo.setTradepwd2(custinfo.getTradepwd());
-			s_custinfo.setOrganization(custinfo.getOrganization()); 
-			s_custinfo.setBusiness(custinfo.getBusiness()); 
-			s_custinfo.setCustst(custinfo.getCustst());
-			s_custinfo.setLevel(custinfo.getLevel());
-			s_custinfo.setOpenaccount(custinfo.getOpenaccount());
+			custinfoVo = new CustinfoVo();
+			custinfoVo.setCustno(custinfo.getCustno());;                      
+			custinfoVo.setMobileno(custinfo.getMobileno());                    
+			custinfoVo.setInvtp(custinfo.getInvtp()); 
+			custinfoVo.setInvnm(custinfo.getInvnm());        
+			custinfoVo.setIdtp(custinfo.getIdtp());     
+			custinfoVo.setIdno(custinfo.getIdno());             
+			custinfoVo.setPswpwd(custinfo.getPasswd()); // 注意，页面上不能放密码信息                  
+			custinfoVo.setPswpwd2(custinfo.getPasswd()); // 注意，页面上不能放密码信息                         
+			custinfoVo.setTradepwd(custinfo.getTradepwd()); // 注意，页面上不能放密码信息                             
+			custinfoVo.setTradepwd2(custinfo.getTradepwd()); // 注意，页面上不能放密码信息         
+			custinfoVo.setOrganization(custinfo.getOrganization()); 
+			custinfoVo.setBusiness(custinfo.getBusiness()); 
+			custinfoVo.setCustst(custinfo.getCustst());
+			custinfoVo.setLevel(custinfo.getLevel());
+			custinfoVo.setOpenaccount(custinfo.getOpenaccount());
 			// 登录成功，保存用户至session
-			UserHelper.saveCustinfoVo(s_custinfo);
+			UserHelper.saveCustinfoVo(custinfoVo);
 			
-			model.addAttribute("CustinfoVo", s_custinfo);
+			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
 			// TODO 调到登录页面
 			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("errMsg", e.getMessage());
-			return "error/error";
+			
+			String ems = e.getOtherInfo();
+			if (BisConst.Register.MOBILE.equals(ems)
+				|| BisConst.Register.LOGINCODE.equals(ems)) {
+				//
+				model.addAttribute("errMsg_mobileno", e.getMessage());
+			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
+				//
+				model.addAttribute("errMsg_verifycode", e.getMessage());
+			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
+				//
+				model.addAttribute("errMsg_pswpwd", e.getMessage());
+			} else {
+				model.addAttribute("errMsg", e.getMessage());
+			}
+					
+			model.addAttribute("CustinfoVo", custinfoVo);
+			return "login/indexPage";
 		}
 		return "cust/indexPage";
 	}
@@ -324,4 +332,72 @@ public class CustController {
 //
 //		return "password/getLoginPwdSuccess";
 //	}
+	
+	/**
+	 * 注册后直接登录
+	 * @param custinfoVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "cust/login")
+	public String custLogin(CustinfoVo custinfoVo, Model model) {
+		
+		try{
+			LoginAction loginAction = new LoginAction();
+			
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				 // Session登录
+				 loginAction.setLoginCode(s_custinfo.getMobileno());
+				 loginAction.setLoginPassword(s_custinfo.getPswpwd());
+			}else{
+				return "login/indexPage";
+			}
+			
+			// 登录
+			Custinfo custinfo = custManager.loginIn(loginAction);
+			custinfoVo = new CustinfoVo();
+			custinfoVo.setCustno(custinfo.getCustno());;                      
+			custinfoVo.setMobileno(custinfo.getMobileno());                    
+			custinfoVo.setInvtp(custinfo.getInvtp()); 
+			custinfoVo.setInvnm(custinfo.getInvnm());        
+			custinfoVo.setIdtp(custinfo.getIdtp());     
+			custinfoVo.setIdno(custinfo.getIdno());             
+			custinfoVo.setPswpwd(custinfo.getPasswd()); // 注意，页面上不能放密码信息                               
+			custinfoVo.setPswpwd2(custinfo.getPasswd()); // 注意，页面上不能放密码信息                              
+			custinfoVo.setTradepwd(custinfo.getTradepwd()); // 注意，页面上不能放密码信息                             
+			custinfoVo.setTradepwd2(custinfo.getTradepwd()); // 注意，页面上不能放密码信息         
+			custinfoVo.setOrganization(custinfo.getOrganization()); 
+			custinfoVo.setBusiness(custinfo.getBusiness()); 
+			custinfoVo.setCustst(custinfo.getCustst());
+			custinfoVo.setLevel(custinfo.getLevel());
+			custinfoVo.setOpenaccount(custinfo.getOpenaccount());
+			// 登录成功，保存用户至session
+			UserHelper.saveCustinfoVo(custinfoVo);
+			
+			model.addAttribute("CustinfoVo", custinfoVo);
+		}catch (BizException e){
+			// TODO 调到登录页面
+			LOG.error(e.getErrmsg(), e);
+			
+			String ems = e.getOtherInfo();
+			if (BisConst.Register.MOBILE.equals(ems)
+				|| BisConst.Register.LOGINCODE.equals(ems)) {
+				//
+				model.addAttribute("errMsg_mobileno", e.getMessage());
+			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
+				//
+				model.addAttribute("errMsg_verifycode", e.getMessage());
+			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
+				//
+				model.addAttribute("errMsg_pswpwd", e.getMessage());
+			} else {
+				model.addAttribute("errMsg", e.getMessage());
+			}
+					
+			model.addAttribute("CustinfoVo", custinfoVo);
+			return "login/indexPage";
+		}
+		return "cust/indexPage";
+	}
 }

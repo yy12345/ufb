@@ -11,7 +11,7 @@ public interface BisConst {
 		
 		public static final String CUSTNO = "用户编号";
 		public static final String LOGINCODE = "登录账号";
-		public static final String LOGINPASSWORD = "密码";
+		public static final String LOGINPASSWORD = "登录密码";
 		public static final String LOGINPASSWORD2 = "确认密码";
 		public static final String MOBILE = "手机号";
 		public static final String VERIFYCODE = "验证码";

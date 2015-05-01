@@ -8,6 +8,7 @@ import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.CustManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
+import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.CustinfoMapper;
@@ -126,15 +127,15 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			// 身份证登录
 			custinfo.setIdno(loginAction.getLoginCode());
 		} else {
-			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE);
+			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE, BisConst.Register.LOGINCODE);
 		}
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if (null == custinfo || null == custinfo.getCustno() || "".equals(custinfo.getCustno())) {
-			throw new BizException(processId, ErrorInfo.NO_IDCARDNO);
+			throw new BizException(processId, ErrorInfo.NO_IDCARDNO, BisConst.Register.LOGINCODE);
 		}
 		if (Constant.CUSTST$P.equals(custinfo.getCustst())) {
 			//冻结状态
-			throw new BizException(processId, ErrorInfo.FREEZE_USER);
+			throw new BizException(processId, ErrorInfo.FREEZE_USER, BisConst.Register.LOGINCODE);
 		}
 		custinfo.setLastlogintime("systime");// 最后登录时间
 		
@@ -145,7 +146,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 				custinfo.setCustst(Constant.CUSTST$P);
 			}
 			custinfoMapper.updateCustinfo(custinfo);
-			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD);
+			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD, BisConst.Register.LOGINPASSWORD);
 		}
 		
 		// 登录
