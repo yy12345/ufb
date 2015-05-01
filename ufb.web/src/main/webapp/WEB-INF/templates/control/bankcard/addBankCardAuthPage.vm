@@ -35,6 +35,27 @@ $(function(){
 	// 验证码
 	$("#btn-addBankCardAuth").on("click",function(){
 	
+		/**
+		if(!check_organization($("#organization"))){
+			return false;
+		}
+		if(!check_business($("#business"))){
+			return false;
+		}
+		if(!check_bankAcnm($("#bankAcnm"))){
+			return false;
+		}
+		if(!check_id($("#bankIdno"))){
+			return false;
+		}
+		if(!check_pwd1($("#tradePwd"))){
+			return false;
+		}
+		if(!check_pwd2($("#tradePwd2"))){
+			return false;
+		}
+		**/
+	
 		var errLen = $("ul li.error").not("#errMsg_msgcode").length;
 		if(errLen>0){
 			$("ul li.error:eq(0) input[type=text]").focus();

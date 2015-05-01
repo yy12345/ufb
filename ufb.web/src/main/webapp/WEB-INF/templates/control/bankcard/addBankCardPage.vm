@@ -9,6 +9,24 @@ $(function(){
 	$("#btn-addBankCardInit").on("click",function(){
 		//check #register-org #mobileno
 		
+		if(!check_organization($("#organization"))){
+			return false;
+		}
+		if(!check_business($("#business"))){
+			return false;
+		}
+		if(!check_bankAcnm($("#bankAcnm"))){
+			return false;
+		}
+		if(!check_id($("#bankIdno"))){
+			return false;
+		}
+		if(!check_pwd1($("#tradePwd"))){
+			return false;
+		}
+		if(!check_pwd2($("#tradePwd2"))){
+			return false;
+		}
 		var errLen = $("ul li.error").length;
 		if(errLen>0){
 			$("ul li.error:eq(0) input[type=text]").focus();
