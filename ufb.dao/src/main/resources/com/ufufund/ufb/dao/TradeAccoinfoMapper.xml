@@ -8,7 +8,6 @@
 		select
 			b.SERIALID,
 			b.CUSTNO,
-			b.FUNDCORPNO,
 			b.BANKNO,
 			b.BANKACCO,
 			b.BANKACCODISPLAY,

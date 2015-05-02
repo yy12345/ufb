@@ -28,9 +28,10 @@
         </div>
         <div class="form-cash">
             <form class="common-form" action="${ufbDomain}/trade/cash_result.htm" method="post">
-				#${refreshTools.genInputHtml()}
+				${refreshTools.genInputHtml()}
 				<input id="tradeacco" name="tradeacco" value="${curCard.tradeacco}" type="hidden"/>
-                <ul>
+                <input id="appamt" name="appamt" value="" type="hidden"/>
+				<ul>
                     <li>
                         <span class="form-title">总资产</span>
                         <div class="mark">${totalBalanceDisplay}元</div>
@@ -70,7 +71,7 @@
                     </li>
                     <li>
                         <span class="form-title">取现金额</span>
-                        <input id="appamt" name="appamt" class="input-text" type="text" value="">元
+                        <input id="appamt_display" class="input-text" type="text" value="">元
                         <span class="tips-normal"></span>
                         <span id="appamtTips" class="tips-check"><i class="icon"></i>验证提示</span>
                     </li>
@@ -90,12 +91,28 @@
 </div>
 
 <script src="${staticDomain}/js/scripts/load.js"></script>
+<script src="${staticDomain}/js/ufuCommon.js"></script>
 <script type="text/javascript">
 	$(function(){
-		// 页面加载时，初始化当前选中卡
+		// 点击银行卡时
 		$(".card").on("click", function(){
 			$("#tradeacco").val($(this).attr("tradeacco"));
 			$("#cardBalance").html($(this).attr("cardBalance"));
+		});
+		
+		// 金额表单控制
+		$("#appamt_display").on("blur", function(){
+			var appamt_1 = formatCurrency1($("#appamt_display").val());
+			var appamt_2 = formatCurrency2($("#appamt_display").val());
+			if(appamt_1 == '0.00' || appamt_2 == '0.00'){
+				$("#appamt").val('');
+				$("#appamt_display").val('');
+				$("#appamtTips").html('请输入正确格式的金额，比如1000.00！');
+				$("#appamtTips").show();
+			}else{
+				$("#appamt").val(appamt_1);
+				$("#appamt_display").val(appamt_2);
+			}
 		});
 		
 		// 表单提交时，验证	
