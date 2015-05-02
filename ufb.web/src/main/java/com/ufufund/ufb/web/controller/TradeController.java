@@ -50,7 +50,7 @@ public class TradeController {
 		
 		try{
 			String custno = UserHelper.getCustno();
-			// 获取用户的银行卡列表
+			// 获取交易账户列表
 			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
 			
 			// 获取工作日信息等
@@ -82,7 +82,6 @@ public class TradeController {
 			vo.setCustno(custno);
 			vo.setFundcode(Constant.FundCode.YFB);
 			vo.setFee(new BigDecimal("0.00"));
-			vo.setAppvol(vo.getAppamt());
 			
 			tradeManager.buyApply(vo);
 			
@@ -101,9 +100,8 @@ public class TradeController {
 		
 		try{
 			String custno = UserHelper.getCustno();
-			// 获取用户的银行卡列表
+			// 获取交易账户列表
 			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
-			
 			// 获取用户总资产
 			Assets assets = queryManager.queryAssets(tradeAccoList);
 			
@@ -113,6 +111,8 @@ public class TradeController {
 			
 			model.addAttribute("totalBalance", assets.getAvailable());
 			model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
+			model.addAttribute("curAvailableDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAccoList().get(0).getAvailable()));
+			
 			model.addAttribute("curCard", assets.getAccoList().get(0));
 			model.addAttribute("cardList", assets.getAccoList());
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
@@ -136,7 +136,6 @@ public class TradeController {
 			vo.setCustno(custno);
 			vo.setFundcode(Constant.FundCode.YFB);
 			vo.setFee(new BigDecimal("0.00"));
-			vo.setAppvol(vo.getAppamt());
 			
 			tradeManager.redeem(vo);
 			

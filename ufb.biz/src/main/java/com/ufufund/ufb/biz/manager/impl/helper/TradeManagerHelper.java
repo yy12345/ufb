@@ -161,7 +161,7 @@ public class TradeManagerHelper {
 		tradeRequest.setApkind(Apkind.REDEEM.getValue());
 		tradeRequest.setFundcode(vo.getFundcode());
 		tradeRequest.setAppamt(vo.getAppamt());
-		tradeRequest.setAppvol(vo.getAppamt());
+		tradeRequest.setAppvol(vo.getAppvol());
 		tradeRequest.setShareclass("0");
 		tradeRequest.setDividenttype("0");
 		tradeRequest.setFee(vo.getFee());

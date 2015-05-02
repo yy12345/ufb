@@ -30,7 +30,7 @@
             <form class="common-form" action="${ufbDomain}/trade/cash_result.htm" method="post">
 				${refreshTools.genInputHtml()}
 				<input id="tradeacco" name="tradeacco" value="${curCard.tradeacco}" type="hidden"/>
-                <input id="appamt" name="appamt" value="" type="hidden"/>
+                <input id="appamt" name="appvol" value="" type="hidden"/>
 				<ul>
                     <li>
                         <span class="form-title">总资产</span>
@@ -67,7 +67,7 @@
                     </li>
                     <li>
                         <span class="form-title">可用金额</span>
-                        <div class="mark"><i id="cardBalance" >${curCard.available}</i>元</div>
+                        <div class="mark"><font id="cardBalance" >${curAvailableDisplay}</font>元</div>
                     </li>
                     <li>
                         <span class="form-title">取现金额</span>
@@ -97,7 +97,7 @@
 		// 点击银行卡时
 		$(".card").on("click", function(){
 			$("#tradeacco").val($(this).attr("tradeacco"));
-			$("#cardBalance").html($(this).attr("balanceAmt"));
+			$("#cardBalance").html(formatCurrency2($(this).attr("balanceAmt")));
 		});
 		
 		// 金额表单控制
