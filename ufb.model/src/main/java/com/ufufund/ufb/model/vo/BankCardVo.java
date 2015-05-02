@@ -40,6 +40,7 @@ public class BankCardVo implements Serializable {
 	private String business; // 营业执照注册号
 	private String invtp;
 	private String level;
+	private String openaccount;
 
 	public String getReqSeq() {
 		return reqSeq;
@@ -247,6 +248,14 @@ public class BankCardVo implements Serializable {
 
 	public void setLevel(String level) {
 		this.level = level;
+	}
+
+	public String getOpenaccount() {
+		return openaccount;
+	}
+
+	public void setOpenaccount(String openaccount) {
+		this.openaccount = openaccount;
 	}
 
 	@Override

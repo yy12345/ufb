@@ -21,7 +21,7 @@ $(function(){
         <div class="inner clearfix rel">
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
             <div class="nav"><a 
-				href="javascript:;">登录</a>|<a 
+				href="${staticDomain}/login/index.htm">登录</a>|<a
 				href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
 				href="javascript:;">我的幼富通</a>|<a class="last" 
 				href="helpNotice.html">帮助</a></div>

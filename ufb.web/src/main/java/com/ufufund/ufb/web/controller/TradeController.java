@@ -44,10 +44,8 @@ public class TradeController {
 	@RequestMapping(value="trade/pay_index")
 	public String buyIndex(ApplyVo vo, Model model){
 		
-		
 		try{
-//			String custno = UserHelper.getCustno();
-			String custno = "CU2015042720082200000014";
+			String custno = UserHelper.getCustno();
 			// 获取用户的银行卡列表
 			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
 //			List<BankCardWithTradeAcco> tradeAccoList = genBankcardinfoList();
@@ -76,8 +74,7 @@ public class TradeController {
 	public String buyApply(ApplyVo vo, Model model){
 		
 		try{
-//			String custno = UserHelper.getCustno();
-			String custno = "CU2015042720082200000014";
+			String custno = UserHelper.getCustno();
 			
 			vo.setCustno(custno);
 			vo.setFundcode(Constant.FundCode.YFB);
@@ -100,8 +97,7 @@ public class TradeController {
 	public String redeemIndex(RedeemVo vo, Model model){
 		
 		try{
-//			String custno = UserHelper.getCustno();
-			String custno = "CU2015042720082200000014";
+			String custno = UserHelper.getCustno();
 			// 获取用户的银行卡列表
 			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
 //			List<BankCardWithTradeAcco> tradeAccoList = genBankcardinfoList();
@@ -134,8 +130,7 @@ public class TradeController {
 	public String redeemApply(RedeemVo vo, Model model){
 		
 		try{
-//			String custno = UserHelper.getCustno();
-			String custno = "CU2015042720082200000014";
+			String custno = UserHelper.getCustno();
 			
 			vo.setCustno(custno);
 			vo.setFundcode(Constant.FundCode.YFB);
