@@ -207,8 +207,8 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//helper.toFdacfinalresult(custinfo);
 		fdacfinalresult.setCustno(custinfo.getCustno());
 		Today today = workDayManager.getSysDayInfo();
-		fdacfinalresult.setBankserialid(bankcardinfodef.getSerialid());
-		fdacfinalresult.setTradeaccoid(openAccountAction.getTransactionAccountID());
+		fdacfinalresult.setToBankserialid(bankcardinfodef.getSerialid());
+		fdacfinalresult.setToTradeaccoid(openAccountAction.getTransactionAccountID());
 		fdacfinalresult.setWorkdate(today.getWorkday());
 		fdacfinalresult.setApdt(today.getDate());
 		fdacfinalresult.setAptm(today.getTime());
