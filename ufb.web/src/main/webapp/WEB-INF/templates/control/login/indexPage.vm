@@ -21,6 +21,15 @@ $(function(){
     });
 	
 	$("#btn-login").on("click",function(){
+		if(!check_mobile($("#mobileno"))){
+			return false;
+		}
+		//if(!check_code($("#verifycode"))){
+		//	return false;
+		//}
+		if(!check_pwd1($("#pswpwd"))){
+			return false;
+		}
 		$("#form-login").submit();
 	});
 });

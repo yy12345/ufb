@@ -51,8 +51,15 @@ public class BankCardController {
 				bankCardVo.setBankMobile(s_custinfo.getMobileno());
 				bankCardVo.setInvtp(s_custinfo.getInvtp());
 				bankCardVo.setLevel(s_custinfo.getLevel());
+				bankCardVo.setOpenaccount(s_custinfo.getOpenaccount());
 				bankCardVo.setOrganization(s_custinfo.getOrganization());
 				bankCardVo.setBusiness(s_custinfo.getBusiness());
+				bankCardVo.setBankAcnm(s_custinfo.getInvnm());
+				bankCardVo.setBankIdno(s_custinfo.getIdno());
+				if("Y".equals(s_custinfo.getOpenaccount())){
+					bankCardVo.setTradePwd("YYY***");
+					bankCardVo.setTradePwd2("YYY***");
+				}
 			}
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){

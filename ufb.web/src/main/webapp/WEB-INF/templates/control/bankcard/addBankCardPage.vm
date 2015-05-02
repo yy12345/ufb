@@ -6,9 +6,44 @@
 -->
 <script>
 $(function(){
+	//页面初始化
+	$("form input[type=text],input[type=password]").each(function () {
+        var _this = $(this);
+		if(_this.val()!="") {
+            _this.siblings(".tips-normal").hide();
+        }
+    });
+	if($("#openaccount").val()=="Y"){
+		$("#organization").attr("readonly","readonly");
+		$("#business").attr("readonly","readonly");
+		$("#bankAcnm").attr("readonly","readonly");
+		$("#bankIdno").attr("readonly","readonly");
+		$("#tradePwd").attr("readonly","readonly");
+		$("#tradePwd2").attr("readonly","readonly");
+		
+		$("#organization").css("background-color","#ddd");
+		$("#business").css("background-color","#ddd");
+		$("#bankAcnm").css("background-color","#ddd");
+		$("#bankIdno").css("background-color","#ddd");
+		$("#tradePwd").css("background-color","#ddd");
+		$("#tradePwd2").css("background-color","#ddd");
+		
+		$("#organization").unbind("blur");
+		$("#business").unbind("blur");
+		$("#bankAcnm").unbind("blur");
+		$("#bankIdno").unbind("blur");
+		$("#tradePwd").unbind("blur");
+		$("#tradePwd2").unbind("blur");
+
+	}
+	
 	$("#btn-addBankCardInit").on("click",function(){
 		//check #register-org #mobileno
-		
+		if($("#openaccount").val()=="Y"){
+			$("#form-addBankCard").attr("action", "../bankcard/addBankCardInit.htm");
+			$("#form-addBankCard").submit();
+			return false;
+		}
 		if(!check_organization($("#organization"))){
 			return false;
 		}
@@ -36,19 +71,6 @@ $(function(){
 			$("#form-addBankCard").submit();
 		}
 	});
-	
-	$("form input[type=text]").each(function () {
-        var _this = $(this);
-		if(_this.val()!="") {
-            _this.siblings(".tips-normal").hide();
-        }
-    });
-	$("form input[type=password]").each(function () {
-        var _this = $(this);
-		if(_this.val()!="") {
-            _this.siblings(".tips-normal").hide();
-        }
-    });
 	
 	$("#btn-logout").on("click",function(){
 		$("#form-addBankCard").attr("action", "../cust/logout.htm");
@@ -90,6 +112,7 @@ $(function(){
 					<input id="bankMobile" name="bankMobile" type="hidden" value="$!{BankCardVo.bankMobile}">
                     <input id="invtp" name="invtp" type="hidden" value="$!{BankCardVo.invtp}">
 					<input id="level" name="level" type="hidden" value="$!{BankCardVo.level}">
+					<input id="openaccount" name="openaccount" type="hidden" value="$!{BankCardVo.openaccount}">
 					<div class="panel">
                         <ul>
 							#if($errMsg)

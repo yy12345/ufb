@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.constant.BisConst;
-import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -30,6 +29,7 @@ public class CustController {
 	
 	@RequestMapping(value="cust/register")
 	public String getRegistPage(CustinfoVo custinfoVo, Model model){
+		UserHelper.removeCustinfoVo();
 		if(null == custinfoVo.getInvtp()){
 			//个人注册开户
 			custinfoVo.setInvtp("0");
@@ -42,12 +42,7 @@ public class CustController {
 	
 	@RequestMapping(value="login/index")
 	public String getLoginPage(CustinfoVo custinfoVo, Model model){
-//		if(null == custinfoVo.getInvtp()){
-//			//个人注册开户
-//			custinfoVo.setInvtp("0");
-//			//经办人身份
-//			custinfoVo.setLevel("1");
-//		}
+		UserHelper.removeCustinfoVo();
 		model.addAttribute("CustinfoVo", custinfoVo);
 		return "login/indexPage";
 	}
