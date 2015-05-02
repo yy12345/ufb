@@ -178,8 +178,10 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		bankcardinfoqey.setCustno(custinfo.getCustno());
 		List<Bankcardinfo> bankList = bankCardMapper.getBankcardinfo(bankcardinfoqey);
 		for(Bankcardinfo bankcardinfo : bankList){
-			if(bankcardinfo.getBankno()!=null && bankcardinfo.getBankno().equals(openAccountAction.getBankno())){
-				bankcardinfodef = bankcardinfo;
+			if(bankcardinfo.getBankno()!=null && 
+			   bankcardinfo.getBankno().equals(openAccountAction.getBankno())&&
+			   bankcardinfo.getBankacco().equals(openAccountAction.getBankacco())){
+			   bankcardinfodef = bankcardinfo;
 				break;
 			}
 		}
@@ -214,6 +216,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		fdacfinalresult.setAptm(today.getTime());
 		fdacfinalresult.setSerialno(openAccountAction.getSerialno());
 		fdacfinalresult.setApkind(Apkind.OPEN_ACCOUNT.getValue());
+		fdacfinalresult.setFundcorpno(Constant.HftSysConfig.MerchantId);
 		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		
 		Changerecordinfo changerecordinfo3 = bankCardManagerHelper.toTradeaccoinfo(tradeaccoinfo);

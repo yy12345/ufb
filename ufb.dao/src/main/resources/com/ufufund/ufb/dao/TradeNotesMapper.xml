@@ -42,7 +42,13 @@
 		    
 		    TO_TRADEACCOID,
 		    TO_BANKSERIALID,
-		    TO_FUNDCODE
+		    TO_FUNDCODE,
+		    APPAMT,
+  			APPVOL,
+  			
+  			ACKAMT,
+  			ACKVOL,
+  			FUNDCORPNO
 		    )
 		values (
 			#{serialno,jdbcType=VARCHAR},
@@ -59,7 +65,13 @@
 			
 			#{toTradeaccoid,jdbcType=VARCHAR},
 			#{toBankserialid,jdbcType=VARCHAR},
-			#{tofundCode,jdbcType=VARCHAR}
+			#{tofundCode,jdbcType=VARCHAR},
+			#{appamt,jdbcType=VARCHAR},
+			#{appvol,jdbcType=VARCHAR},
+			
+			#{ackamt,jdbcType=VARCHAR},
+			#{ackvol,jdbcType=VARCHAR},
+			#{fundcorpno,jdbcType=VARCHAR}
 			)
 	 ]]>
   	</insert>

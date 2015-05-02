@@ -6,7 +6,8 @@ import com.ufufund.ufb.model.db.TradeRequest;
 
 public class RedeemVo extends TradeRequest implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	// 银行卡id
+		private String bankid;
 	// 交易密码
 	private String tradePwd;
 
@@ -22,6 +23,14 @@ public class RedeemVo extends TradeRequest implements Serializable{
 	public String toString() {
 		return "RedeemVo [tradePwd=" + tradePwd + ", toString()="
 				+ super.toString() + "]";
+	}
+
+	public String getBankid() {
+		return bankid;
+	}
+
+	public void setBankid(String bankid) {
+		this.bankid = bankid;
 	}
 	
 	
