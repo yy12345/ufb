@@ -123,9 +123,11 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		if (RegexUtil.isMobile(loginAction.getLoginCode())) {
 			// 手机登录
 			custinfo.setMobileno(loginAction.getLoginCode());
+			custinfo.setCustst(null);
 		} else if (RegexUtil.isIdCardNo(loginAction.getLoginCode())) {
 			// 身份证登录
 			custinfo.setIdno(loginAction.getLoginCode());
+			custinfo.setCustst(null);
 		} else {
 			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE, BisConst.Register.LOGINCODE);
 		}

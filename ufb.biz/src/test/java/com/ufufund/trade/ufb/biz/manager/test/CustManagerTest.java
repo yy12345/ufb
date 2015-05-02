@@ -93,7 +93,7 @@ public class CustManagerTest {
 		LoginAction loginAction  = new LoginAction();
 		loginAction.setLoginCode("13611686341");
 		loginAction.setLoginPassword("123257");
-		//areaManager.loginIn(loginAction);
+		custManager.loginIn(loginAction);
 	}
 	
 	
@@ -101,7 +101,7 @@ public class CustManagerTest {
 	/*
 	 *开户测试
 	 */
-	@Test
+	//@Test
 	public void testOpenAccountAction() {
 		
 		OpenAccountAction openAccountAction = new OpenAccountAction();
