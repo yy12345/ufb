@@ -35,11 +35,6 @@ public class QueryManagerImpl implements QueryManager{
 	private TradeRequestMapper tradeRequestMapper;
 	
 	@Override
-	public TradeRequest queryTradeRequest(String serialno) {
-		return tradeRequestMapper.getBySerialno(serialno);
-	}
-
-	@Override
 	public TradeAccoVo queryAssets(String tradeAcco){
 		TradeAccoVo result = new TradeAccoVo();
 		
@@ -95,5 +90,15 @@ public class QueryManagerImpl implements QueryManager{
 		result.setAccoList(accoList);
 		
 		return result;
+	}
+	
+	@Override
+	public TradeRequest queryTradeRequest(String serialno) {
+		return tradeRequestMapper.getBySerialno(serialno);
+	}
+	
+	@Override
+	public List<TradeRequest> qryRecentTradeList(String custno, int n){
+		return tradeRequestMapper.qryRecentTradeList(custno, n);
 	}
 }

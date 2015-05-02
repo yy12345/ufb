@@ -100,4 +100,11 @@
 		where serialno = #{serialno,jdbcType=VARCHAR}
 	</update>
 	
+	<select id="qryRecentTradeList" resultType="TradeRequest">
+		select <include refid="Base_Columns" /> from traderequest
+		where (state = 'Y' or state = 'F') 
+		and custno = #{custno,jdbcType=VARCHAR} 
+		order by updatetime desc limit #{n,jdbcType=INTEGER} 
+	</select>
+	
 </mapper>

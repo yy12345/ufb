@@ -13,13 +13,6 @@ import com.ufufund.ufb.model.vo.TradeAccoVo;
 public interface QueryManager {
 
 	/**
-	 * 查询交易流水表
-	 * @param serialno 流水号
-	 * @return
-	 */
-	public TradeRequest queryTradeRequest(String serialno);
-	
-	/**
 	 * 查询交易账号资产明细
 	 * @param tradeAccos 交易账号
 	 * @return
@@ -32,4 +25,19 @@ public interface QueryManager {
 	 * @return
 	 */
 	public Assets queryAssets(List<BankCardWithTradeAcco> tradeAccoList);
+	
+	/**
+	 * 查询交易流水
+	 * @param serialno 流水号
+	 * @return
+	 */
+	public TradeRequest queryTradeRequest(String serialno);
+	
+	/**
+	 * 查询最近交易明细
+	 * @param custno
+	 * @param n 获取条数
+	 * @return
+	 */
+	public List<TradeRequest> qryRecentTradeList(String custno, int n);
 }
