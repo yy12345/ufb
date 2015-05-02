@@ -1,5 +1,7 @@
 package com.ufufund.ufb.web.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.biz.manager.QueryManager;
+import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.common.constant.BisConst;
+import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
+import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.Level;
+import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.util.UserHelper;
 import com.ufufund.ufb.web.util.VerifyCodeUtils;
@@ -328,6 +335,12 @@ public class CustController {
 //		return "password/getLoginPwdSuccess";
 //	}
 	
+	@Autowired
+	private QueryManager queryManager;
+
+	@Autowired
+	private TradeAccoManager tradeAccoManager;
+	
 	/**
 	 * 注册后直接登录
 	 * @param custinfoVo
@@ -338,38 +351,39 @@ public class CustController {
 	public String custLogin(CustinfoVo custinfoVo, Model model) {
 		
 		try{
-			LoginAction loginAction = new LoginAction();
-			
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
-				 // Session登录
-				 loginAction.setLoginCode(s_custinfo.getMobileno());
-				 loginAction.setLoginPassword(s_custinfo.getPswpwd());
+				// Session登录
+				custinfoVo.setCustno(s_custinfo.getCustno());;                      
+				custinfoVo.setMobileno(s_custinfo.getMobileno());                    
+				custinfoVo.setInvtp(s_custinfo.getInvtp()); 
+				custinfoVo.setInvnm(s_custinfo.getInvnm());        
+				custinfoVo.setIdtp(s_custinfo.getIdtp());     
+				custinfoVo.setIdno(s_custinfo.getIdno());             
+				custinfoVo.setOrganization(s_custinfo.getOrganization()); 
+				custinfoVo.setBusiness(s_custinfo.getBusiness()); 
+				custinfoVo.setCustst(s_custinfo.getCustst());
+				custinfoVo.setLevel(s_custinfo.getLevel());
+				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
+				
+				
+				List<BankCardWithTradeAcco> tradeAccoList 
+					= tradeAccoManager.getTradeAccoList(s_custinfo.getCustno());
+				Assets assets = queryManager.queryAssets(tradeAccoList);
+				
+				model.addAttribute("totalBalance", assets.getTotal()); // 总资产
+				model.addAttribute("availableBalance", assets.getAvailable()); //可用资产
+				model.addAttribute("frozenBalance", assets.getFrozen()); // 冻结资产
+				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));
+				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
+				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));
+				
+				model.addAttribute("curCard", assets.getAccoList().get(0));
+				model.addAttribute("cardList", assets.getAccoList());
+				
 			}else{
 				return "login/indexPage";
 			}
-			
-			// 登录
-			Custinfo custinfo = custManager.loginIn(loginAction);
-			custinfoVo = new CustinfoVo();
-			custinfoVo.setCustno(custinfo.getCustno());;                      
-			custinfoVo.setMobileno(custinfo.getMobileno());                    
-			custinfoVo.setInvtp(custinfo.getInvtp()); 
-			custinfoVo.setInvnm(custinfo.getInvnm());        
-			custinfoVo.setIdtp(custinfo.getIdtp());     
-			custinfoVo.setIdno(custinfo.getIdno());             
-			custinfoVo.setPswpwd(custinfo.getPasswd()); // 注意，页面上不能放密码信息                               
-			custinfoVo.setPswpwd2(custinfo.getPasswd()); // 注意，页面上不能放密码信息                              
-			custinfoVo.setTradepwd(custinfo.getTradepwd()); // 注意，页面上不能放密码信息                             
-			custinfoVo.setTradepwd2(custinfo.getTradepwd()); // 注意，页面上不能放密码信息         
-			custinfoVo.setOrganization(custinfo.getOrganization()); 
-			custinfoVo.setBusiness(custinfo.getBusiness()); 
-			custinfoVo.setCustst(custinfo.getCustst());
-			custinfoVo.setLevel(custinfo.getLevel());
-			custinfoVo.setOpenaccount(custinfo.getOpenaccount());
-			// 登录成功，保存用户至session
-			UserHelper.saveCustinfoVo(custinfoVo);
-			
 			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
 			// TODO 调到登录页面
