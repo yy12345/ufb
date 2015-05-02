@@ -10,6 +10,7 @@ import com.ufufund.ufb.biz.manager.impl.helper.CustManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
@@ -142,7 +143,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		custinfo.setLastlogintime("systime");// 最后登录时间
 		
 		//5次密码输错，冻结用户
-		if (!loginAction.getLoginPassword().equals(custinfo.getPasswd())) {
+		if (!EncryptUtil.md5(loginAction.getLoginPassword()).equals(custinfo.getPasswd())) {
 			custinfo.setPasswderr(custinfo.getPasswderr() + 1);
 			if (custinfo.getPasswderr() == 5) {
 				custinfo.setCustst(Constant.CUSTST$P);

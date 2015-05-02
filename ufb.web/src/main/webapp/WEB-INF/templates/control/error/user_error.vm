@@ -2,6 +2,7 @@
     <h1>$!{errorMsg}</h1>
     <p>您的申请提交失败，请重新操作，如始终无法提交申请可联系幼富通客服热线！</p>
     #if(${returnUrl})
-    <input onclick="window.location.href='${ufbDomain}/${returnUrl}'" type="button" value="再试一次">
+    <input onclick="window.location.href='${ufbDomain}/${returnUrl}'" 
+		type="button" value="再试一次">
     #end
 </div>

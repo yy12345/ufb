@@ -120,15 +120,15 @@
 				$("#appamtTips").html(appamtMsg);
 				$("#appamtTips").show();
 				return false;
-			//}else if($("#tradePwd").val() == ""){
-			//	var tradePwdMsg = '<i class="icon"></i>请输入交易密码！';
-			//	$("#tradePwdTips").html(tradePwdMsg);
-			//	$("#tradePwdTips").show();
-			//	return false;
-			//}
-			} else if(!check_pwd1($("#tradePwd"))){
-    			return false;
-    		}
+			}else if($("#tradePwd").val() == ""){
+				var tradePwdMsg = '<i class="icon"></i>请输入交易密码！';
+				$("#tradePwdTips").html(tradePwdMsg);
+				$("#tradePwdTips").show();
+				return false;
+			}
+			//} else if(!check_pwd1($("#tradePwd"))){
+    		//	return false;
+    		//}
 			
 			return true;
 		});

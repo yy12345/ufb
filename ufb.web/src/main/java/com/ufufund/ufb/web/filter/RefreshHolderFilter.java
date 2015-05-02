@@ -24,6 +24,7 @@ public class RefreshHolderFilter implements Filter{
 		String value = req.getParameter(RefreshHolder.INPUT_NAME);
 		if(value != null && RefreshHolder.isRefresh(value)){
 			req.getRequestDispatcher("/expire.html").forward(request, response);
+			return;
 		}
 		filterChain.doFilter(request, response);
 	}
