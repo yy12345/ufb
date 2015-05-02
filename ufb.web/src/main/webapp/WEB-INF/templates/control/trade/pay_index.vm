@@ -42,7 +42,7 @@
                         <span class="form-title">银行选择</span>
                         <div class="input-select">
                             <div class="card card-current">
-								#set($tailStr=$curCard.bankaccodisplay)
+								#set($tailStr=$curCard.bankacco)
 								#set($start=$tailStr.length() - 4)
 								#set($end=$tailStr.length())
                                 <img src="${staticDomain}/images/bank_${curCard.bankno}.png">
@@ -53,7 +53,7 @@
 									#foreach($card in $cardList)
                                     <a class="card" href="javascript:;" 
 										tradeacco="${card.tradeacco}">
-										#set($tailStr=$card.bankaccodisplay)
+										#set($tailStr=$card.bankacco)
 										#set($start=$tailStr.length() - 4)
 										#set($end=$tailStr.length())
 										<img src="${staticDomain}/images/bank_${card.bankno}.png">

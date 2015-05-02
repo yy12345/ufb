@@ -89,7 +89,7 @@
 	<!-- 1.拦截器按照先后顺序进行拦截，2.拦截全部请求时使用"/**"， 3.拦截只针对controller -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/no/*" />
+			<mvc:mapping path="/trade/*.htm" />
 			<mvc:exclude-mapping path="/account/*.htm" />
 			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
