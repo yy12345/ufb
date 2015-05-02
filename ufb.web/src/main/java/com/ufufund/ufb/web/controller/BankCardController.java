@@ -23,6 +23,7 @@ import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.Merchant;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.UserHelper;
 
 @Controller
@@ -61,6 +62,7 @@ public class BankCardController {
 					bankCardVo.setTradePwd2("YYY***");
 				}
 			}
+			UserHelper.setAddBankCardStatus("N");
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
 			// TODO 
@@ -146,11 +148,10 @@ public class BankCardController {
 	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
 	public String addBankCardChk(BankCardVo bankCardVo, Model model){
 		try{
-			// 防止开户后重复刷新
-			Custinfo custinfo = custManager.getCustinfo(bankCardVo.getCustNo());
-			if(Constant.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
-				// 已开户
-				return "bankcard/addBankCardSuccessPage";
+			if("Y".equals(UserHelper.getAddBankCardStatus())){
+				// 此开户流程已结束
+				ServletHolder.forward("/cust/login.htm");
+				return "cust/indexPage";
 			}
 			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
@@ -176,6 +177,8 @@ public class BankCardController {
 			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
 			openAccountAction.setMerchant(Merchant.HFT_FUND); // 海富通
 			bankCardManager.openAccount4(openAccountAction);
+			
+			UserHelper.setAddBankCardStatus("Y");
 			
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){

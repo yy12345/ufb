@@ -24,6 +24,22 @@ public class UserHelper {
 	}
 	
 	/**
+	 * 保存当前客户信息
+	 * @return
+	 */
+	public static void setAddBankCardStatus(String status){
+		ServletHolder.getSession().setAttribute("S_ADDBANKCARDSTATUS", status);
+	}
+	
+	/**
+	 * 保存当前客户信息
+	 * @return
+	 */
+	public static String getAddBankCardStatus(){
+		return (String)ServletHolder.getSession().getAttribute("S_ADDBANKCARDSTATUS");
+	}
+	
+	/**
 	 * 登出当前客户信息
 	 * @return
 	 */

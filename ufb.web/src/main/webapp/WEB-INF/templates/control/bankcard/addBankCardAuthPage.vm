@@ -25,6 +25,17 @@ $(function(){
 		$("#btn-addBankCardChk").attr("disabled","disabled");
 	#end
 
+	if($("#openaccount").val()=="Y"){
+		$("#bankAcnm").attr("readonly","readonly");
+		$("#bankIdno").attr("readonly","readonly");
+		
+		$("#bankAcnm").css("background-color","#ddd");
+		$("#bankIdno").css("background-color","#ddd");
+		
+		$("#bankAcnm").unbind("blur");
+		$("#bankIdno").unbind("blur");
+	}
+
 	// 上一页
 	$("#btn-addBankCard").on("click",function(){
 		//check #register-org #mobileno
@@ -62,7 +73,7 @@ $(function(){
 			$("ul li.error:eq(0) input[type=password]").focus();
 			return false;
 		}else{
-			
+			// 
 		}
 		
 		$(".panel ul li").removeClass("error").removeClass("ok");
@@ -183,6 +194,7 @@ $(function(){
 				<input id="business" name="business" type="hidden" value="$!{BankCardVo.business}">
 				<input id="invtp" name="invtp" type="hidden" value="$!{BankCardVo.invtp}">
 				<input id="level" name="level" type="hidden" value="$!{BankCardVo.level}">
+				<input id="openaccount" name="openaccount" type="hidden" value="$!{BankCardVo.openaccount}">
 				<input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
                     <div class="panel">
                         <ul>

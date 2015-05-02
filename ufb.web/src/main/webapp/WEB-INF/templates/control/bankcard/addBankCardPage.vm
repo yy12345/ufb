@@ -34,7 +34,6 @@ $(function(){
 		$("#bankIdno").unbind("blur");
 		$("#tradePwd").unbind("blur");
 		$("#tradePwd2").unbind("blur");
-
 	}
 	
 	$("#btn-addBankCardInit").on("click",function(){
