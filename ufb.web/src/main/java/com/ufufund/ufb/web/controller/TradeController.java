@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
@@ -19,8 +20,8 @@ import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
-import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.vo.ApplyVo;
+import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.RedeemVo;
 import com.ufufund.ufb.model.vo.Today;
 import com.ufufund.ufb.web.util.UserHelper;
@@ -38,6 +39,9 @@ public class TradeController {
 	private TradeAccoManager tradeAccoManager;
 	
 	@Autowired
+	private QueryManager queryManager;
+	
+	@Autowired
 	private WorkDayManager workDayManager;
 	
 	
@@ -48,7 +52,6 @@ public class TradeController {
 			String custno = UserHelper.getCustno();
 			// 获取用户的银行卡列表
 			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
-//			List<BankCardWithTradeAcco> tradeAccoList = genBankcardinfoList();
 			
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
@@ -100,20 +103,18 @@ public class TradeController {
 			String custno = UserHelper.getCustno();
 			// 获取用户的银行卡列表
 			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
-//			List<BankCardWithTradeAcco> tradeAccoList = genBankcardinfoList();
 			
 			// 获取用户总资产
-			// code...
-			BigDecimal totalBalance = new BigDecimal("50000.00");
+			Assets assets = queryManager.queryAssets(tradeAccoList);
 			
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
 			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
 			
-			model.addAttribute("totalBalance", totalBalance);
-			model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(totalBalance));
-			model.addAttribute("curCard", tradeAccoList.get(0));
-			model.addAttribute("cardList", tradeAccoList);
+			model.addAttribute("totalBalance", assets.getAvailable());
+			model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
+			model.addAttribute("curCard", assets.getAccoList().get(0));
+			model.addAttribute("cardList", assets.getAccoList());
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 		}catch(UserException ue){

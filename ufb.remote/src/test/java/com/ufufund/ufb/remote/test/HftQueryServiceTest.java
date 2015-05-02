@@ -30,7 +30,7 @@ public class HftQueryServiceTest {
 	 * @param request
 	 * @return
 	 */
-//	@Test
+	@Test
 	public void transQuery() {
 		TransQueryRequest request = new TransQueryRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
@@ -53,7 +53,7 @@ public class HftQueryServiceTest {
 	 * @param request
 	 * @return
 	 */
-	@Test
+//	@Test
 	public void balanceQuery() {
 		BalanceQueryRequest request = new BalanceQueryRequest();
 		

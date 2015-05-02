@@ -51,7 +51,7 @@
                                 <div class="card-list clearfix">
 									#foreach($card in $cardList)
                                     <a class="card" href="javascript:;"
-										tradeacco="${card.tradeacco}" cardBalance="1000.00元">
+										tradeacco="${card.tradeacco}" balanceAmt="${card.available}">
 										#set($tailStr=$card.bankacco)
 										#set($start=$tailStr.length() - 4)
 										#set($end=$tailStr.length())
@@ -67,7 +67,7 @@
                     </li>
                     <li>
                         <span class="form-title">可用金额</span>
-                        <div id="cardBalance" class="mark">3000.00元</div>
+                        <div class="mark"><i id="cardBalance" >${curCard.available}</i>元</div>
                     </li>
                     <li>
                         <span class="form-title">取现金额</span>
@@ -97,7 +97,7 @@
 		// 点击银行卡时
 		$(".card").on("click", function(){
 			$("#tradeacco").val($(this).attr("tradeacco"));
-			$("#cardBalance").html($(this).attr("cardBalance"));
+			$("#cardBalance").html($(this).attr("balanceAmt"));
 		});
 		
 		// 金额表单控制
