@@ -5,7 +5,7 @@
 			<a 
 				href="javascript:;">登录</a>|<a 
 				href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
-				href="javascript:;">我的幼富通</a>|<a class="last" 
+				href="${staticDomain}/cust/login.htm">我的幼富通</a>|<a class="last" 
 				href="javascript:;">帮助</a></div>
     </div>
 </div>
