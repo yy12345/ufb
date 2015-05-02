@@ -30,25 +30,36 @@
 	 	insert into fdacfinalresult (
 	 		SERIALNO,
 		    CUSTNO,
-		    TRADEACCOID,
-			BANKSERIALID,
-			APKIND,
-			
+			APKIND,		
 		    WORKDATE,
 		    APDT,
+		    
 		    APTM,
-		    STATUS)
+		    STATUS,
+		    FROM_TRADEACCOID,
+		    FROM_BANKSERIALID,
+		    FROM_FUNDCODE,
+		    
+		    TO_TRADEACCOID,
+		    TO_BANKSERIALID,
+		    TO_FUNDCODE
+		    )
 		values (
 			#{serialno,jdbcType=VARCHAR},
-			#{custno,jdbcType=VARCHAR},
-			#{tradeaccoid,jdbcType=VARCHAR},
-			#{bankserialid,jdbcType=VARCHAR},
+			#{custno,jdbcType=VARCHAR},		
 			#{apkind,jdbcType=VARCHAR},
-			
 			#{workdate,jdbcType=VARCHAR},
 			#{apdt,jdbcType=VARCHAR},
+			
 			#{aptm,jdbcType=VARCHAR},
-			#{status,jdbcType=VARCHAR}
+			#{status,jdbcType=VARCHAR},
+			#{fromTradeaccoid,jdbcType=VARCHAR},
+			#{fromBankserialid,jdbcType=VARCHAR},
+			#{fromFundCode,jdbcType=VARCHAR},
+			
+			#{toTradeaccoid,jdbcType=VARCHAR},
+			#{toBankserialid,jdbcType=VARCHAR},
+			#{tofundCode,jdbcType=VARCHAR}
 			)
 	 ]]>
   	</insert>
