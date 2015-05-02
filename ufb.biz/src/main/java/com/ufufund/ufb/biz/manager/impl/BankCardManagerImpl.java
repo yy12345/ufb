@@ -13,6 +13,7 @@ import com.ufufund.ufb.biz.manager.impl.helper.CustManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.BankCardManagerValidator;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.biz.util.HftResponseUtil;
+import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.dao.BankBaseMapper;
 import com.ufufund.ufb.dao.BankMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
@@ -157,9 +158,21 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		
 		// *** 开户成功，更新custinfo表的交易帐号、投资人姓名、证件类型、证件号、开户状态、交易密码
 		openAccountAction.setTransactionAccountID(response.getTransactionAccountID());
-		Custinfo custinfo = custManagerHelper.toOpenAccountAction(openAccountAction);
-		custinfoMapper.updateCustinfo(custinfo);
-		
+		Custinfo custinfo = new Custinfo();
+		custinfo.setCustno(openAccountAction.getCustno());
+		custinfo = custinfoMapper.getCustinfo(custinfo);
+		if(!Constant.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
+		    custinfo = custManagerHelper.toOpenAccountAction(openAccountAction);
+			custinfoMapper.updateCustinfo(custinfo);
+			Changerecordinfo changerecordinfo2 = new Changerecordinfo();
+			changerecordinfo2.setCustno(custinfo.getCustno());
+			changerecordinfo2.setRecordafter(custinfo.toString());
+			changerecordinfo2.setTablename(TableName.CUSTINFO.value());
+			changerecordinfo2.setApkind(Apkind.OPEN_ACCOUNT.getValue());
+			changerecordinfo2.setRefserialno(openAccountAction.getSerialno());
+			// **** 变更表
+			tradeNotesMapper.insterChangerecordinfo(changerecordinfo2);	
+		}
 		Bankcardinfo bankcardinfodef = null;
 		Bankcardinfo bankcardinfoqey = new Bankcardinfo();
 		bankcardinfoqey.setCustno(custinfo.getCustno());
@@ -202,15 +215,6 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		fdacfinalresult.setSerialno(openAccountAction.getSerialno());
 		fdacfinalresult.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
-		
-		Changerecordinfo changerecordinfo2 = new Changerecordinfo();
-		changerecordinfo2.setCustno(custinfo.getCustno());
-		changerecordinfo2.setRecordafter(custinfo.toString());
-		changerecordinfo2.setTablename(TableName.CUSTINFO.value());
-		changerecordinfo2.setApkind(Apkind.OPEN_ACCOUNT.getValue());
-		changerecordinfo2.setRefserialno(openAccountAction.getSerialno());
-		// **** 变更表
-		tradeNotesMapper.insterChangerecordinfo(changerecordinfo2);	
 		
 		Changerecordinfo changerecordinfo3 = bankCardManagerHelper.toTradeaccoinfo(tradeaccoinfo);
 		changerecordinfo3.setApkind(Apkind.OPEN_ACCOUNT.getValue());
