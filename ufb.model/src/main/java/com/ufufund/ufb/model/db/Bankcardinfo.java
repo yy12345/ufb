@@ -7,7 +7,7 @@ import com.ufufund.ufb.model.action.PrintableModel;
 public class Bankcardinfo extends PrintableModel  implements Serializable {
 	private String serialid;// ;//int(11) not null comment '银行卡id',
 	private String custno;// char(10) not null default '0' comment '直销平台用户id',
-	private String fundcorpno;// char(2) default '' comment '基金公司标识',
+	//private String fundcorpno;// char(2) default '' comment '基金公司标识',
 	private String bankno;// char(3) not null comment '银行编码',
 	private String bankacco;// varchar(28) not null comment '银行卡号',
 	private String bankaccodisplay;// varchar(28) not null comment '银行提示账号',
@@ -42,12 +42,12 @@ public class Bankcardinfo extends PrintableModel  implements Serializable {
 	public void setCustno(String custno) {
 		this.custno = custno;
 	}
-	public String getFundcorpno() {
-		return fundcorpno;
-	}
-	public void setFundcorpno(String fundcorpno) {
-		this.fundcorpno = fundcorpno;
-	}
+//	public String getFundcorpno() {
+//		return fundcorpno;
+//	}
+//	public void setFundcorpno(String fundcorpno) {
+//		this.fundcorpno = fundcorpno;
+//	}
 	public String getBankno() {
 		return bankno;
 	}

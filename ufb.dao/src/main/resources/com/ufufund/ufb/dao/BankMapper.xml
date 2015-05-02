@@ -87,7 +87,7 @@
 		SELECT
 		bankcardinfo.SERIALID,
 		bankcardinfo.CUSTNO,
-		bankcardinfo.FUNDCORPNO,
+		
 		bankcardinfo.BANKNO,
 		bankcardinfo.BANKACCO,
 		bankcardinfo.BANKACCODISPLAY,
