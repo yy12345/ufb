@@ -26,12 +26,12 @@ $(function(){
         <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
         <div class="nav"><a id="btn-logout"
 			href="javascript:;">登出</a>|<a
-			href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
 			href="javascript:;">我的幼富通</a>|<a class="last" 
 			href="javascript:;">帮助</a></div>
     </div>
 </div>
 <form id="form-index" method="post" action="${staticDomain}/cust/index.htm">
+<input id="openaccount" type="hidden" name="openaccount" value="${CustinfoVo.openaccount}"/>
 <div class="body">
     <div class="inner clearfix">
         <div class="title clearfix">
@@ -60,8 +60,16 @@ $(function(){
                             </tbody>
                         </table>
                         <div class="base-btn fr">
-                            <div class="clearfix"><a class="fl btn off" href="javascript:;">充值</a><span class="tips fl">自动充值</span></div>
-                            <div class="clearfix"><a class="fl btn off" href="javascript:;">取现</a><span class="tips fl">自动取现</span></div>
+                            <div class="clearfix"><a class="fl btn 
+							 #if($CustinfoVo.openaccount!="Y")
+							 off
+							 #end
+							" href="${staticDomain}/trade/pay_index.htm">充值</a><span class="tips fl">自动充值</span></div>
+                            <div class="clearfix"><a class="fl btn 
+							 #if($CustinfoVo.openaccount!="Y")
+							 off
+							 #end
+							" href="${staticDomain}/trade/cash_index.htm">取现</a><span class="tips fl">自动取现</span></div>
                         </div>
                     </div>
                     <div class="item-detail clearfix">
