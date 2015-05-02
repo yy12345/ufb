@@ -25,8 +25,8 @@ $(function(){
     <div class="inner clearfix rel">
         <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
         <div class="nav"><a id="btn-logout"
-			href="javascript:;">登出</a>|<a
-			href="javascript:;">我的幼富通</a>|<a class="last" 
+			href="${staticDomain}/cust/logout.htm">登出</a>|<a
+			href="${staticDomain}/cust/login.htm">我的幼富通</a>|<a class="last" 
 			href="javascript:;">帮助</a></div>
     </div>
 </div>
@@ -188,11 +188,11 @@ $(function(){
                 <ul class="account-list">
                     <li class="account-item">
                         <div class="name">资产总金额（元）</div>
-                        <div class="value"></div>
+                        <div class="value">$!{totalBalanceDisplay}</div>
                     </li>
                     <li class="account-item">
                         <div class="name">累计总收益（元）</div>
-                        <div class="value"></div>
+                        <div class="value">$!{availableBalanceDisplay}</div>
                     </li>
                 </ul>
                 <div class="account-btn">

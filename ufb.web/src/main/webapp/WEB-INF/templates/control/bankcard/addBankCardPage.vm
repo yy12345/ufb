@@ -84,8 +84,7 @@ $(function(){
         <div class="inner clearfix rel">
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
             <div class="nav"><a id="btn-logout"
-				href="javascript:;">登出</a>|<a 
-				href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
+				href="${staticDomain}/cust/logout.htm">登出</a>|<a 
 				href="${staticDomain}/cust/login.htm">我的幼富通</a>|<a class="last" 
 				href="javascript:;">帮助</a></div>
         </div>
