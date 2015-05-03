@@ -366,20 +366,26 @@ public class CustController {
 				custinfoVo.setLevel(s_custinfo.getLevel());
 				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 				
-				
-				List<BankCardWithTradeAcco> tradeAccoList 
+				if("Y".equals(s_custinfo.getOpenaccount())){
+					List<BankCardWithTradeAcco> tradeAccoList 
 					= tradeAccoManager.getTradeAccoList(s_custinfo.getCustno());
-				Assets assets = queryManager.queryAssets(tradeAccoList);
+					Assets assets = queryManager.queryAssets(tradeAccoList);
+					model.addAttribute("totalBalance", assets.getTotal()); // 总资产
+					model.addAttribute("availableBalance", assets.getAvailable()); //可用资产
+					model.addAttribute("frozenBalance", assets.getFrozen()); // 冻结资产
+					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));
+					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
+					model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));
 				
-				model.addAttribute("totalBalance", assets.getTotal()); // 总资产
-				model.addAttribute("availableBalance", assets.getAvailable()); //可用资产
-				model.addAttribute("frozenBalance", assets.getFrozen()); // 冻结资产
-				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));
-				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
-				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));
-				
-				model.addAttribute("curCard", assets.getAccoList().get(0));
-				model.addAttribute("cardList", assets.getAccoList());
+					model.addAttribute("curCard", assets.getAccoList().get(0));
+					model.addAttribute("cardList", assets.getAccoList());
+				} else {
+					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+					model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+					model.addAttribute("curCard", null);
+					model.addAttribute("cardList", null);
+				}
 				
 			}else{
 				return "login/indexPage";
