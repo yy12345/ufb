@@ -5,7 +5,9 @@ import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.Level;
 
 public class RegisterAction extends CommonAction {
-
+	
+	
+	private String custNo;
 	private String loginCode;
 	private String loginPassword;
 	private String loginPassword2;// 确认密码
@@ -13,6 +15,14 @@ public class RegisterAction extends CommonAction {
 	private Level level = Level.PERSONAL;// 级别
 	private String organization;// 机构名称
 	private String business;// 营业执照
+	
+	public String getCustNo() {
+		return custNo;
+	}
+
+	public void setCustNo(String custNo) {
+		this.custNo = custNo;
+	}
 
 	public String getLoginCode() {
 		return loginCode;

@@ -180,6 +180,10 @@ public class BankCardController {
 			
 			UserHelper.setAddBankCardStatus("Y");
 			
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			s_custinfo.setOpenaccount("Y");
+			UserHelper.saveCustinfoVo(s_custinfo);
+			
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
 			

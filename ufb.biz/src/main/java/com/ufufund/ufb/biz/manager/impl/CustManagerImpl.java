@@ -80,6 +80,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		// 插入客户信息表
 		Custinfo custinfo = custManagerHelper.toCustinfo(registerAction);
 		custinfo.setCustno(custinfoMapper.getCustinfoSequence());
+		registerAction.setCustNo(custinfo.getCustno());
 		custinfoMapper.insertCustinfo(custinfo);
 		this.insterSerialno(custinfo, Apkind.REGISTER.getValue());
 	}

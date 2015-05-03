@@ -112,6 +112,8 @@ public class CustController {
 			registerAction.setBusiness(custinfoVo.getBusiness());
 			// 注册
 			custManager.register(registerAction);
+			// TODO 保存custno [比较怪，应付一下]
+			custinfoVo.setCustno(registerAction.getCustNo());
 			// 注册成功，保存用户至session
 			UserHelper.saveCustinfoVo(custinfoVo);
 			
