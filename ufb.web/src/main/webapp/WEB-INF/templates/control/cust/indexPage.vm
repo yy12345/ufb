@@ -12,6 +12,12 @@ $(function(){
 		$("#form-index").submit();
 	});
 	
+	$("#btn-setting").on("click",function(){
+		//check #register-org #mobileno
+		$("#form-index").attr("action", "../setting/settingAccount.htm");
+		$("#form-index").submit();
+	});
+	
 	$("#btn-logout").on("click",function(){
 		$("#form-index").attr("action", "../cust/logout.htm");
 		$("#form-index").submit();
@@ -161,7 +167,7 @@ $(function(){
         <div class="side fr">
             <div class="info-account">
                 <div class="account-header">
-                    <a href="javascript:;" class="header-avatar"><img src="${staticDomain}/images/avatar.png" width="100%"></a>
+                    <a href="${staticDomain}/setting/settingAccount.htm" class="header-avatar"><img src="${staticDomain}/images/avatar.png" width="100%"></a>
                     <div class="header-name">
 					#if ($CustinfoVo.invnm)
                 	    $!{CustinfoVo.invnm}
@@ -169,7 +175,7 @@ $(function(){
                 	    $!{CustinfoVo.mobileno}
                 	#end
 					</div>
-                    <a href="javascript:;" class="header-setting"></a>
+                    <a href="${staticDomain}/setting/settingAccount.htm" class="header-setting"></a>
                 </div>
                 <ul class="account-list">
                     <li class="account-item">
