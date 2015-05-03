@@ -27,6 +27,7 @@ public class BankCardWithTradeAcco extends PrintableModel  implements Serializab
 	private String opendt;
 	private String closedt;
 	private String disorder;
+	private String mainflag;
 	private String updatetimestamp;
 	
 	/** tradeacco基本属性 **/
@@ -164,6 +165,11 @@ public class BankCardWithTradeAcco extends PrintableModel  implements Serializab
 	public void setFundcorpno(String fundcorpno) {
 		this.fundcorpno = fundcorpno;
 	}
-	
+	public String getMainflag() {
+		return mainflag;
+	}
+	public void setMainflag(String mainflag) {
+		this.mainflag = mainflag;
+	}
 							
 }

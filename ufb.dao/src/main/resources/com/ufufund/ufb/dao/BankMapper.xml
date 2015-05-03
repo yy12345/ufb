@@ -137,6 +137,7 @@
 			b.OPENDT,
 			b.CLOSEDT,
 			b.DISORDER,
+			b.MAINFLAG,
 			b.UPDATETIMESTAMP,
 			t.TRADEACCO,
 			t.FUNDCORPNO
@@ -147,6 +148,17 @@
 			and t.tradeaccost = 'N' 
 			and b.serialid  = t.bankserialid
 	</select>
+	
+	<update id="setBankCardMainFlag" parameterType="String">
+		UPDATE bankcardinfo T1
+			SET 
+			T1.MAINFLAG = #{mainflag,jdbcType=VARCHAR}
+	     WHERE 
+	     	T1.CUSTNO = #{custno,jdbcType=VARCHAR}
+	     	<if test="bankacco != null and bankacco !=''" >
+	     	and T1.BANKACCO = #{bankacco,jdbcType=VARCHAR}
+	     	</if>
+	</update>
 
 	<select id="getBankcardinfoSequence" parameterType="java.lang.String"
 		resultType="java.lang.String">

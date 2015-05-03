@@ -75,6 +75,11 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		return userCardList;
 	}
 	
+	@Override
+	public void setBankCardMainFlag(String custno, String bankacco, String mainflag){
+		bankCardMapper.setBankCardMainFlag(custno, bankacco, mainflag);
+	}
+	
 	/**
 	 *  1 验证身份
 	 *  1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户

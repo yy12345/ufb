@@ -14,6 +14,7 @@ import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.UserHelper;
 
 
@@ -23,6 +24,9 @@ public class SettingController {
 	
 	@Autowired
 	private CustManager custManager;
+	
+	@Autowired
+	private BankCardManager bankCardManager;
 	
 	@RequestMapping(value="setting/settingAccount")
 	public String getSettingAccount(CustinfoVo custinfoVo, Model model){
@@ -49,10 +53,6 @@ public class SettingController {
 		model.addAttribute("CustinfoVo", custinfoVo);
 		return "setting/settingAccount";
 	}
-	
-
-	@Autowired
-	private BankCardManager bankCardManager;
 	
 	@RequestMapping(value="setting/settingCard")
 	public String getSettingCard(CustinfoVo custinfoVo, Model model){
@@ -98,5 +98,28 @@ public class SettingController {
 		model.addAttribute("CustinfoVo", custinfoVo);
 		return "setting/settingCard";
 	}
+	
+
+	@RequestMapping(value="setting/settingMainCard")
+	public String getSettingMainCard(String bankacco, Model model){
+		try{
+			
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			bankCardManager.setBankCardMainFlag(
+					s_custinfo.getCustno(), 
+					null, 
+					"N");
+			bankCardManager.setBankCardMainFlag(
+					s_custinfo.getCustno(), 
+					ServletHolder.getRequest().getParameter("bankacco"), 
+					"Y");
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			return "setting/settingCard";
+		}
+		ServletHolder.forward("/setting/settingCard.htm");
+		return "setting/settingCard";
+	}
+	
 	
 }
