@@ -19,6 +19,7 @@ import com.ufufund.ufb.dao.BankMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
+import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -66,6 +67,12 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		bankcardinfo.setCustno(custno);
 		
 		return bankCardMapper.getBankcardinfo(bankcardinfo);
+	}
+	
+	@Override
+	public List<BankCardWithTradeAcco> getBankCardWithTradeAccoList(String custno, String state) {
+		List<BankCardWithTradeAcco> userCardList = bankCardMapper.getBankCardWithTradeAccoList(custno, state);
+		return userCardList;
 	}
 	
 	/**

@@ -12,12 +12,6 @@ $(function(){
 		$("#form-index").submit();
 	});
 	
-	$("#btn-setting").on("click",function(){
-		//check #register-org #mobileno
-		$("#form-index").attr("action", "../setting/settingAccount.htm");
-		$("#form-index").submit();
-	});
-	
 	$("#btn-logout").on("click",function(){
 		$("#form-index").attr("action", "../cust/logout.htm");
 		$("#form-index").submit();
@@ -66,16 +60,21 @@ $(function(){
                             </tbody>
                         </table>
                         <div class="base-btn fr">
-                            <div class="clearfix"><a class="fl btn 
-							 #if($CustinfoVo.openaccount!="Y")
-							 off
-							 #end
-							" href="${staticDomain}/trade/pay_index.htm">充值</a><span class="tips fl">自动充值</span></div>
-                            <div class="clearfix"><a class="fl btn 
-							 #if($CustinfoVo.openaccount!="Y")
-							 off
-							 #end
-							" href="${staticDomain}/trade/cash_index.htm">取现</a><span class="tips fl">自动取现</span></div>
+							#if($CustinfoVo.openaccount!="Y")
+                            <div class="clearfix">
+								<a class="fl btn off" href="#">充值</a><span class="tips fl">自动充值</span>
+							</div>
+                            <div class="clearfix">
+								<a class="fl btn off" href="#">取现</a><span class="tips fl">自动取现</span>
+							</div>
+							#else
+                            <div class="clearfix">
+								<a class="fl btn" href="${staticDomain}/trade/pay_index.htm">充值</a><span class="tips fl">自动充值</span>
+							</div>
+                            <div class="clearfix">
+								<a class="fl btn" href="${staticDomain}/trade/cash_index.htm">取现</a><span class="tips fl">自动取现</span>
+							</div>
+							#end
                         </div>
                     </div>
                     <div class="item-detail clearfix">

@@ -114,6 +114,39 @@
 		</if>
 		bankcardinfo.STATE &lt;&gt; 'N'
 	</select>
+	
+	<select id="getBankCardWithTradeAccoList" parameterType="String" resultType="BankCardWithTradeAcco">
+		select
+			b.SERIALID,
+			b.CUSTNO,
+			b.BANKNO,
+			b.BANKACCO,
+			b.BANKACCODISPLAY,
+			b.BANKIDTP,
+			b.BANKIDNO,
+			b.BANKIDVALIDDT,
+			b.BANKACNM,
+			b.BANKMOBILE,
+			b.SUBBANKNO,
+			b.BANKLONGNAME,
+			b.ISSIGN,
+			b.SIGNNO,
+			b.BANKPROEXISTS,
+			b.PROTOCOL_NO,
+			b.STATE,
+			b.OPENDT,
+			b.CLOSEDT,
+			b.DISORDER,
+			b.UPDATETIMESTAMP,
+			t.TRADEACCO,
+			t.FUNDCORPNO
+		from tradeaccoinfo t, bankcardinfo b
+		where 
+			b.custno = #{custno,jdbcType=VARCHAR}
+			and b.state = #{state,jdbcType=VARCHAR}
+			and t.tradeaccost = 'N' 
+			and b.serialid  = t.bankserialid
+	</select>
 
 	<select id="getBankcardinfoSequence" parameterType="java.lang.String"
 		resultType="java.lang.String">

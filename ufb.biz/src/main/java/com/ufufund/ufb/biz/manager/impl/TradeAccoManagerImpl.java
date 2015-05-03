@@ -20,9 +20,9 @@ public class TradeAccoManagerImpl implements TradeAccoManager{
 	public List<BankCardWithTradeAcco> getTradeAccoList(String custno) {
 		
 		List<BankCardWithTradeAcco> userCardList = tradeAccoinfoMapper.getTradeAccoList(custno);
-		if(userCardList == null || userCardList.size() <= 0){
-			throw new UserException("您还未开户，请先开通交易账户！");
-		}
+//		if(userCardList == null || userCardList.size() <= 0){
+//			throw new UserException("您还未开户，请先开通交易账户！");
+//		}
 		return userCardList;
 	}
 

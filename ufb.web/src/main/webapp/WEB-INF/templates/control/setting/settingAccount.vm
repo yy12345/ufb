@@ -6,22 +6,6 @@
 -->
 <script>
 $(function(){
-	$("#btn-openAccount").on("click",function(){
-		//check #register-org #mobileno
-		$("#form-index").attr("action", "../bankcard/addBankCard.htm");
-		$("#form-index").submit();
-	});
-	
-	$("#btn-setting").on("click",function(){
-		//check #register-org #mobileno
-		$("#form-index").attr("action", "../setting/settingAccount.htm");
-		$("#form-index").submit();
-	});
-	
-	$("#btn-logout").on("click",function(){
-		$("#form-index").attr("action", "../cust/logout.htm");
-		$("#form-index").submit();
-	});
 });
 </script>
 </head>
@@ -43,20 +27,20 @@ $(function(){
         </div>
         <div class="side side-nav fl">
             <ul>
-                <li><a class="current" href="settingAccount.html">账户信息</a></li>
+                <li><a class="current" href="${staticDomain}/setting/settingAccount.htm">账户信息</a></li>
                 <li><a href="settingPassword.html">密码设置</a></li>
-                <li><a href="settingCard.html">银行卡管理</a></li>
+                <li><a href="${staticDomain}/setting/settingCard.htm">银行卡管理</a></li>
                 <li><a href="settingAutoFund.html">自动理财设置</a></li>
             </ul>
         </div>
         <div class="main fr">
             <div class="setting-content">
                 <ul>
-                    <li>幼教机构：${CustinfoVo.organization}</li>
-                    <li>营业执照注册号：${CustinfoVo.business}</li>
-                    <li>经办人：${CustinfoVo.invnm}</li>
-                    <li>身份证号：${CustinfoVo.idno}</li>
-                    <li>手机号：${CustinfoVo.mobileno}</li>
+                    <li>幼教机构：$!{CustinfoVo.organization}</li>
+                    <li>营业执照注册号：$!{CustinfoVo.business}</li>
+                    <li>经办人：$!{CustinfoVo.invnm}</li>
+                    <li>身份证号：$!{CustinfoVo.idno}</li>
+                    <li>手机号：$!{CustinfoVo.mobileno}</li>
                 </ul>
             </div>
         </div>

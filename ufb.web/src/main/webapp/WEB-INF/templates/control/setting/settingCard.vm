@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+<title>幼富通 - 账户管理 - 银行卡管理</title>
+-->
+<script>
+$(function(){
+});
+</script>
+</head>
+<body>
+<div class="container setting">
+<div class="header">
+	<div class="inner clearfix rel">
+        <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+        <div class="nav"><a id="btn-logout"
+			href="${staticDomain}/cust/logout.htm">登出</a>|<a
+			href="${staticDomain}/cust/login.htm">我的幼富通</a>|<a class="last" 
+			href="javascript:;">帮助</a></div>
+    </div>
+</div>
+<div class="body">
+
+    <div class="inner clearfix">
+        <div class="title">
+            <h2 class="title-main">帮助中心</h2>
+        </div>
+        <div class="side side-nav fl">
+            <ul>
+				<li><a href="${staticDomain}/setting/settingAccount.htm">账户信息</a></li>
+                <li><a href="settingPassword.html">密码设置</a></li>
+                <li><a class="current" href="${staticDomain}/setting/settingCard.htm">银行卡管理</a></li>
+                <li><a href="settingAutoFund.html">自动理财设置</a></li>
+            </ul>
+        </div>
+        <div class="main fr">
+            <div class="setting-content content-card">
+                <div>银行卡信息：
+					#if($!{cardList})
+					<span class="mark">您还没有绑定的银行卡噢</span></div>
+					#end
+                <ul class="card-list clearfix">
+					#foreach($card in $cardList_Y)
+					#set($tailStr=$card.bankacco)
+					#set($start=$tailStr.length() - 4)
+					#set($end=$tailStr.length())
+					<li class="card"><i class="icon"></i>
+                        <div class="card-info">
+							<img src="${staticDomain}/images/bank_${card.bankno}.png">
+							<span>尾号：$tailStr.substring($start,$end)</span>
+						</div>
+                        <div class="card-setting">
+							<a tradeacco="${card.tradeacco}" class="set-main" href="#">设为主卡</a>
+							<a tradeacco="${card.tradeacco}" class="set-unbind" href="#">解绑</a></div>
+                    </li>
+					#end
+                    <li class="card card-add"><a href="${staticDomain}/bankcard/addBankCard.htm">添加银行卡</a></li>
+                </ul>
+                <div>已解绑银行卡：</div>
+                <ul class="card-list clearfix">
+                    #foreach($card in $cardList_N)
+					#set($tailStr=$card.bankacco)
+					#set($start=$tailStr.length() - 4)
+					#set($end=$tailStr.length())
+					<li class="card"><i class="icon"></i>
+                        <div class="card-info">
+							<img src="${staticDomain}/images/bank_${card.bankno}.png">
+							<span>尾号：$tailStr.substring($start,$end)</span>
+						</div>
+                        <div class="card-setting">
+							<a tradeacco="${card.tradeacco}" class="set-main" href="#">设为主卡</a>
+							<a tradeacco="${card.tradeacco}" class="set-unbind" href="#">解绑</a></div>
+                    </li>
+					#end
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="inner clearfix">
+        <div class="info fl">
+            <p>微信服务号：UFUfund</p>
+            <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
+            <p>海富通产品：400-8840-099</p>
+        </div>
+        <div class="copyright fr">
+            <p>上海泛投信息科技有限公司版权所有 ©2015</p>
+            <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
+        </div>
+    </div>
+</div>
+</div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+</body>
+</html>
