@@ -19,6 +19,7 @@ import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.Level;
 import com.ufufund.ufb.model.vo.Assets;
@@ -381,6 +382,14 @@ public class CustController {
 				
 					model.addAttribute("curCard", assets.getAccoList().get(0));
 					model.addAttribute("cardList", assets.getAccoList());
+					
+					// 充值
+					List<TradeRequest> list022 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), "022", 5);
+					// 取现
+					List<TradeRequest> list023 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), "023", 5);
+					
+					model.addAttribute("list022", list022);
+					model.addAttribute("list023", list023);
 				} else {
 					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));

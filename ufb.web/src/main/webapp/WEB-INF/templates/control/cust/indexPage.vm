@@ -93,50 +93,36 @@ $(function(){
                             <div class="panels list-panels">
                                 <div class="panel slide-in">
                                     <table width="100%">
-                                        <tr>
-                                            <td class="tl" width="30%">招商银行</td>
-                                            <td class="tc" width="30%">+1000</td>
-                                            <td class="tr">2015-02-10</td>
+										#foreach($tradeRequest in $list022)
+										<tr>
+                                            <td class="tl" width="30%">${tradeRequest.banknm}</td>
+                                            <td class="tc" width="30%">${tradeRequest.appamt}
+											#if(${tradeRequest.state}=="I")
+												处理中
+											#else	
+												成功
+											#end
+											</td>
+                                            <td class="tr">${tradeRequest.workday}</td>
                                         </tr>
-                                        <tr>
-                                            <td class="tl">招商银行</td>
-                                            <td class="tc">+1000</td>
-                                            <td class="tr">2015-02-10</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tl">招商银行</td>
-                                            <td class="tc">+1000</td>
-                                            <td class="tr">2015-02-10</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tl">招商银行</td>
-                                            <td class="tc">+1000</td>
-                                            <td class="tr">2015-02-10</td>
-                                        </tr>
+    									#end
                                     </table>
                                 </div>
                                 <div class="panel slide-out">
                                     <table width="100%">
-                                        <tr>
-                                            <td class="tl" width="30%">招商银行</td>
-                                            <td class="tc" width="30%">-1000</td>
-                                            <td class="tr">2015-02-10</td>
+                                        #foreach($tradeRequest in $list023)
+										<tr>
+                                            <td class="tl" width="30%">${tradeRequest.banknm}</td>
+                                            <td class="tc" width="30%">${tradeRequest.appvol}
+											#if(${tradeRequest.state}=="I")
+												处理中
+											#else	
+												成功
+											#end
+											</td>
+                                            <td class="tr">${tradeRequest.workday}</td>
                                         </tr>
-                                        <tr>
-                                            <td class="tl">招商银行</td>
-                                            <td class="tc">-1000</td>
-                                            <td class="tr">2015-02-10</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tl">招商银行</td>
-                                            <td class="tc">-1000</td>
-                                            <td class="tr">2015-02-10</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tl">招商银行</td>
-                                            <td class="tc">-1000</td>
-                                            <td class="tr">2015-02-10</td>
-                                        </tr>
+    									#end
                                     </table>
                                 </div>
                             </div>
@@ -225,5 +211,6 @@ $(function(){
     </div>
 </div>
 </div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
 </body>
 </html>

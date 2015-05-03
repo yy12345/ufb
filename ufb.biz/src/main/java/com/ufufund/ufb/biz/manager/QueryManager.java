@@ -39,5 +39,5 @@ public interface QueryManager {
 	 * @param n 获取条数
 	 * @return
 	 */
-	public List<TradeRequest> qryRecentTradeList(String custno, int n);
+	public List<TradeRequest> qryRecentTradeList(String custno, String apkind, int n);
 }

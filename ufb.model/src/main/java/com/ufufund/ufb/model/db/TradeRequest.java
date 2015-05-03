@@ -30,7 +30,14 @@ public class TradeRequest implements Serializable{
 	private BigDecimal fee  ;                
 	private String referno ;             
 	private String updatetime;
+	private String banknm;
 	
+	public String getBanknm() {
+		return banknm;
+	}
+	public void setBanknm(String banknm) {
+		this.banknm = banknm;
+	}
 	public String getSerialno() {
 		return serialno;
 	}

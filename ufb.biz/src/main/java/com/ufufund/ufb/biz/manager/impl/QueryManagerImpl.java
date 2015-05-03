@@ -98,7 +98,7 @@ public class QueryManagerImpl implements QueryManager{
 	}
 	
 	@Override
-	public List<TradeRequest> qryRecentTradeList(String custno, int n){
-		return tradeRequestMapper.qryRecentTradeList(custno, n);
+	public List<TradeRequest> qryRecentTradeList(String custno, String apkind, int n){
+		return tradeRequestMapper.qryRecentTradeList(custno,apkind, n);
 	}
 }
