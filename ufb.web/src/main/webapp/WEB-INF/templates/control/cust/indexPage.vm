@@ -96,16 +96,16 @@ $(function(){
 										#foreach($tradeRequest in $list022)
 										<tr>
                                             <td class="tl" width="30%">${tradeRequest.banknm}</td>
-                                            <td class="tc" width="30%">${tradeRequest.appamt}
+                                            <td class="tl" width="">${tradeRequest.appamt}
 											#if(${tradeRequest.state}=="I")
 												处理中
 											#else	
 												成功
 											#end
 											</td>
-                                            <td class="tr">${tradeRequest.workday}</td>
+                                            <td class="tr">${tradeRequest.appdate}</td>
                                         </tr>
-    									#end
+										#end
                                     </table>
                                 </div>
                                 <div class="panel slide-out">
@@ -113,14 +113,14 @@ $(function(){
                                         #foreach($tradeRequest in $list023)
 										<tr>
                                             <td class="tl" width="30%">${tradeRequest.banknm}</td>
-                                            <td class="tc" width="30%">${tradeRequest.appvol}
+                                            <td class="tl" width="">-${tradeRequest.appvol}
 											#if(${tradeRequest.state}=="I")
 												处理中
 											#else	
 												成功
 											#end
 											</td>
-                                            <td class="tr">${tradeRequest.workday}</td>
+                                            <td class="tr">${tradeRequest.appdate}</td>
                                         </tr>
     									#end
                                     </table>

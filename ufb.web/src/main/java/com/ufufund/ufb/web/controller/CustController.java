@@ -193,6 +193,35 @@ public class CustController {
 			// 登录成功，保存用户至session
 			UserHelper.saveCustinfoVo(custinfoVo);
 			
+			if("Y".equals(custinfoVo.getOpenaccount())){
+				List<BankCardWithTradeAcco> tradeAccoList 
+				= tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
+				Assets assets = queryManager.queryAssets(tradeAccoList);
+				model.addAttribute("totalBalance", assets.getTotal()); // 总资产
+				model.addAttribute("availableBalance", assets.getAvailable()); //可用资产
+				model.addAttribute("frozenBalance", assets.getFrozen()); // 冻结资产
+				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));
+				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
+				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));
+			
+				model.addAttribute("curCard", assets.getAccoList().get(0));
+				model.addAttribute("cardList", assets.getAccoList());
+				
+				// 充值
+				List<TradeRequest> list022 = queryManager.qryRecentTradeList(custinfoVo.getCustno(), "022", 4);
+				// 取现
+				List<TradeRequest> list023 = queryManager.qryRecentTradeList(custinfoVo.getCustno(), "023", 4);
+				
+				model.addAttribute("list022", list022);
+				model.addAttribute("list023", list023);
+			} else {
+				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("curCard", null);
+				model.addAttribute("cardList", null);
+			}
+			
 			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
 			// TODO 调到登录页面
@@ -384,9 +413,9 @@ public class CustController {
 					model.addAttribute("cardList", assets.getAccoList());
 					
 					// 充值
-					List<TradeRequest> list022 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), "022", 5);
+					List<TradeRequest> list022 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), "022", 4);
 					// 取现
-					List<TradeRequest> list023 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), "023", 5);
+					List<TradeRequest> list023 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), "023", 4);
 					
 					model.addAttribute("list022", list022);
 					model.addAttribute("list023", list023);
