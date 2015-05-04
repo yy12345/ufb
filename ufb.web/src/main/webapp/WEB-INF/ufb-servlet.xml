@@ -91,7 +91,11 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/trade/*.htm" />
 			<mvc:exclude-mapping path="/account/*.htm" />
-			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.LoginInterceptor"/>
+			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.LoginInterceptor">
+				<property name="loginUrl">
+					<value>http://localhost:8080/ufb/login/login.htm</value>
+				</property>
+			</bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
 </beans>

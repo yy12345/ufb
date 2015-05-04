@@ -16,6 +16,8 @@ import com.ufufund.ufb.web.util.UserHelper;
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 	
+	private String loginUrl;
+	
 	
 	/**
 	 * 预处理用户是否已登录
@@ -26,10 +28,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		
 		CustinfoVo custinfoVo = UserHelper.getCustinfoVo();
 		if(custinfoVo == null || StringUtils.isBlank(custinfoVo.getCustno())){
-			response.sendRedirect("/ufb/account/unlogin.htm");
+			response.sendRedirect(loginUrl);
 			return false;
 		}
 		
 		return true;
+	}
+	
+	public void setLoginUrl(String loginUrl) {
+		this.loginUrl = loginUrl;
 	}
 }
