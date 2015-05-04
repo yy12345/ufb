@@ -24,7 +24,7 @@ public class UserHelper {
 	}
 	
 	/**
-	 * 保存当前客户信息
+	 * 保存当前绑卡状态
 	 * @return
 	 */
 	public static void setAddBankCardStatus(String status){
@@ -32,7 +32,7 @@ public class UserHelper {
 	}
 	
 	/**
-	 * 保存当前客户信息
+	 * 获取当前绑卡状态
 	 * @return
 	 */
 	public static String getAddBankCardStatus(){
@@ -58,6 +58,22 @@ public class UserHelper {
 			return s_custinfo.getCustno();
 		}
 		return null;
+	}
+	
+	/**
+	 * 保存当前绑卡状态
+	 * @return
+	 */
+	public static void setSessionAttr(String name, String value){
+		ServletHolder.getSession().setAttribute(name, value);
+	}
+	
+	/**
+	 * 获取当前绑卡状态
+	 * @return
+	 */
+	public static String getSessionAttr(String name){
+		return (String)ServletHolder.getSession().getAttribute(name);
 	}
 	
 }

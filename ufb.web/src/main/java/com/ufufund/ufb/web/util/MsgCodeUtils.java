@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.web.filter.ServletHolder;
@@ -39,6 +40,7 @@ public class MsgCodeUtils {
 	 * @param template
 	 *            短信模版
 	 */
+	
 	public static void sendMsg(String template) {
 
 		long now = System.currentTimeMillis();
@@ -50,8 +52,13 @@ public class MsgCodeUtils {
 			List<Long> timeList = userMsgCode.getTimeList();
 			/** 判断与上次发送的时间间隔 **/
 			long last = timeList.get(timeList.size() - 1).longValue();
+			
 			if (now - last <= SECONDS * 1000) {
-				throw new BizException(SECONDS + "秒之内只能发送一次，请稍后再试！");
+				long t = SECONDS - ((now-last)/1000);
+				throw new BizException(
+						null, 
+						SECONDS + "秒之内只能发送一次，请稍后[" + t + "秒]再试！",
+						BisConst.Register.MOBILE);
 			}
 			/** 判断时间段内，发送次数 **/
 			for (int i = 0; i < timeList.size();) {
@@ -62,8 +69,10 @@ public class MsgCodeUtils {
 				}
 			}
 			if (timeList.size() >= MAX_COUNT) {
-				throw new BizException(MINUTES + "分钟之内只能发送" + MAX_COUNT
-						+ "次，请稍后再试！");
+				throw new BizException(
+						null,
+						MINUTES + "分钟之内只能发送" + MAX_COUNT + "次，请稍后再试！",
+						BisConst.Register.MOBILE);
 			}
 		} else {
 			// session中不存在

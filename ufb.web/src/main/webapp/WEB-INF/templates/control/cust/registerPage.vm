@@ -16,13 +16,7 @@ $(function(){
 	}
 	
 	//页面初始化 
-	$("form input[type=text]").each(function () {
-        var _this = $(this);
-		if(_this.val()!="") {
-            _this.siblings(".tips-normal").hide();
-        }
-    });
-	$("form input[type=password]").each(function () {
+	$("form input[type=text],input[type=password]").each(function () {
         var _this = $(this);
 		if(_this.val()!="") {
             _this.siblings(".tips-normal").hide();
@@ -31,24 +25,6 @@ $(function(){
 	
 	// btn-getMsgCode
 	$("#btn-getMsgCode").on("click",function(){
-	
-		var count = 3;
-		var countdown = setTimeout(countDown, 1000);
-		// 120秒倒计时
-		function countDown() {
-			$("#btn-getMsgCode").prop("disabled", true); 
-			$("#btn-getMsgCode").val("等待" + count + "秒!"); 
-			if (count == 0) { 
-				$("#btn-getMsgCode").val("重新发送"); 
-				$("#btn-getMsgCode").removeAttr("disabled"); 
-				clearTimeout(countdown); 
-			}else{
-				count--; 
-				setTimeout(countDown, 1000);
-			}
-		}
-		return false;
-	
 		if(!check_mobile($("#mobileno"))){
 			return false;
 		}
@@ -56,51 +32,54 @@ $(function(){
 			return false;
 		}
 	
-		//var errLen = $("ul li.error").not("#errMsg_msgcode").length;
-		//if(errLen>0){
-		//	$("ul li.error:eq(0) input[type=text]").focus();
-		//	$("ul li.error:eq(0) input[type=password]").focus();
-		//	return false;
-		//}else{
-		//	// 
-		//}
-		
-		//$(".panel ul li").removeClass("error").removeClass("ok");
-		
-		// 获取手机验证码按钮无效并倒计时 
-		//$(this).attr("disabled","disabled");
-		//$(this).addClass("off");
-					
         $.ajax({
      		type: "GET",
     		url: "../ajaxcust/getMsgCode.htm",
     		data: {
-				mobileno: $("#mobileno").val()
+				mobileno: $("#mobileno").val(),
+				verifycode: $("#verifycode").val()
     		},
     		dataType: "json",
     		success: function(b) {
                 if (b.errCode == "0000") {
-					// 提交按钮有效 
-					//$("#btn-addBankCardChk").removeAttr("disabled");
-					//$("#btn-addBankCardChk").removeClass("off");
 					alert("手机验证码已发送");
+					// 倒计时
+					var count = 60;
+            		var countdown = setTimeout(countDown, 1000);
+            		$("#btn-getMsgCode").addClass("off");
+            		$("#btn-getMsgCode").attr("disabled","disabled");
+            		
+            		function countDown() {
+            			$("#btn-getMsgCode").prop("disabled", true); 
+            			$("#btn-getMsgCode").val("等待" + count + "秒!"); 
+            			if (count == 0) { 
+            				$("#btn-getMsgCode").val("重新发送"); 
+            				$("#btn-getMsgCode").removeClass("off");
+            				$("#btn-getMsgCode").removeAttr("disabled"); 
+            				clearTimeout(countdown); 
+            			}else{
+            				count--; 
+            				setTimeout(countDown, 1000);
+            			}
+            		}
+					//
                 } else {
-					// 获取验证码按钮有效并取消倒计时 
-            		// $("#btn-addBankCardAuth").removeAttr("disabled");
-            		// $("#btn-addBankCardAuth").removeClass("off");
-				
                   	var errCode = b.errCode;
 					var errMsg = b.errMsg;
 					// alert(errCode + ": " + errMsg);
-					if(errCode!="0000"){
-						if("手机号已注册"==errMsg){
-							$("#errMsg_mobileno").addClass("error");
-							$("#errMsg_mobileno > .tips-check").html("<i class=icon></i>" + errMsg);
-						}
+					if("errMsg_mobileno"==errCode){
+						$("#errMsg_mobileno").addClass("error");
+						$("#errMsg_mobileno > .tips-check").html("<i class=icon></i>" + errMsg);
+					}else 
+					if("errMsg_verifycode"==errCode){
+						$("#errMsg_verifycode").addClass("error");
+						$("#errMsg_verifycode > .tips-check").html("<i class=icon></i>" + errMsg);
 					}else{
-						$("#errMsg_msgcode").addClass("error");
-						$("#errMsg_msgcode > .tips-check").html("<i class=icon></i>" + errMsg);
+						alert(errMsg);
 					}
+					
+					var src = $("#btn-verifycode").attr("src");
+					$("#btn-verifycode").attr("src",src +'?time='+(new Date()));
                 }
         	}
         });
@@ -230,7 +209,7 @@ $(function(){
                             <span class="tips-normal">请输入手机号</span>
                             <span class="tips-check"><i class="icon"></i>$!{errMsg_mobileno}</span>
                         </li>
-                        <li
+                        <li id="errMsg_verifycode"
                         #if($errMsg_verifycode)
                         class="error"
                         #end
@@ -239,7 +218,7 @@ $(function(){
                             <input id="verifycode" name="verifycode" class="ipt-code input-code" type="text" value="$!{CustinfoVo.verifycode}">
                             <span class="tips-normal">请输入验证码</span>
 							<span class="form-verifyCode">
-								<img src="${staticDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())"/>
+								<img id="btn-verifycode" src="${staticDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())"/>
 							</span>
                             <span class="tips-check"><i class="icon"></i>$!{errMsg_verifycode}</span>
                         </li>

@@ -65,24 +65,6 @@ public class CustController {
 	@RequestMapping(value = "cust/register_org")
 	public String registerOrg(CustinfoVo custinfoVo, Model model) {
 		
-		//FOR TEST
-//		if(StringUtils.isBlank(custinfoVo.getMobileno())){
-//			custinfoVo.setMobileno("18616502181");
-//		}
-//		if(StringUtils.isBlank(custinfoVo.getVerifycode())){
-//			custinfoVo.setVerifycode("1234");;
-//		}
-//		if(StringUtils.isBlank(custinfoVo.getMsgcode())){
-//			custinfoVo.setMsgcode("123456");;
-//		}
-//		if(StringUtils.isBlank(custinfoVo.getPswpwd())){
-//			custinfoVo.setPswpwd("123qwe");;
-//		}
-//		if(StringUtils.isBlank(custinfoVo.getPswpwd2())){
-//			custinfoVo.setPswpwd2("123qwe");;
-//		}
-		//
-				
 		try{
 			custinfoVo.setInvtp(Invtp.PERSONAL.getValue()); // 个人
 			custinfoVo.setLevel(Level.OPERATOR.getValue()); // 经办人
@@ -98,7 +80,7 @@ public class CustController {
 			}
 			
 			// 校验验证码
-			VerifyCodeUtils.validate(custinfoVo.getVerifycode());
+			// VerifyCodeUtils.validate(custinfoVo.getVerifycode());
 			// 校验短信验证码
 			// MsgCodeUtils.validate(custinfo.getMsgcode());
 			

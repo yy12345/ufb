@@ -1,6 +1,5 @@
 package com.ufufund.trade.ufb.biz.manager.test;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,9 +16,9 @@ import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.enums.Level;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/spring-ufb-biz.xml" })
-@TransactionConfiguration(defaultRollback = false)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = { "classpath:spring/spring-ufb-biz.xml" })
+//@TransactionConfiguration(defaultRollback = false)
 public class CustManagerTest {
 	
 	@Autowired

@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.vo.BankCardVo;
+import com.ufufund.ufb.web.util.MsgCodeUtils;
+import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
 @Controller
 public class AjaxCustController {
@@ -86,29 +89,41 @@ public class AjaxCustController {
 	 */
 	@RequestMapping(value = "ajaxcust/getMsgCode", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String,String> sendMsgCode(String mobileno){
+	public Map<String,String> sendMsgCode(String mobileno, String verifycode){
 		//msgType: 注册REGISTER、找回登录密码GETLOGINPWD
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try {
+			// 校验验证码
+			VerifyCodeUtils.validate(verifycode);
 			
 			// 查询手机号是否注册
 			boolean isMobileRegister = custManager.isMobileRegister(mobileno);
 			if(isMobileRegister){
-				resultMap.put("errCode", "9999");
-				resultMap.put("errMsg", "手机号已注册");
+				resultMap.put("errCode", "errMsg_mobileno");
+				resultMap.put("errMsg", "手机号已注册!");
 			}else{
 				// 获取短信验证码
-				// String msg = "";
+				String msg = "";
 				// 发送短信
-				// MsgCodeUtils.sendMsg(msg);
+				MsgCodeUtils.sendMsg(msg);
 				
 				resultMap.put("errCode", "0000");
 				resultMap.put("errMsg", "短信已发送");
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			resultMap.put("errCode", "9999");
-			resultMap.put("errMsg", e.getMessage());
+			String ems = e.getOtherInfo();
+			if (BisConst.Register.MOBILE.equals(ems)) {
+				resultMap.put("errCode", "errMsg_mobileno");
+				resultMap.put("errMsg", e.getMessage());
+			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
+				resultMap.put("errCode", "errMsg_verifycode");
+				resultMap.put("errMsg", e.getMessage());
+			}else{
+				resultMap.put("errCode", "9999");
+				resultMap.put("errMsg", e.getMessage());
+			}
+			
 		}catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 			resultMap.put("errCode", "9999");

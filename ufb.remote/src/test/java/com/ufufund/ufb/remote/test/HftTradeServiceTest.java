@@ -2,11 +2,9 @@ package com.ufufund.ufb.remote.test;
 
 import java.math.BigDecimal;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -31,12 +29,12 @@ import com.ufufund.ufb.model.remote.hft.UnFrozenRequest;
 import com.ufufund.ufb.model.remote.hft.UnFrozenResponse;
 import com.ufufund.ufb.remote.HftTradeService;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:spring/spring-ufb-remote.xml"})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations={"classpath:spring/spring-ufb-remote.xml"})
 public class HftTradeServiceTest {
 	private static Logger LOG = LoggerFactory.getLogger(HftTradeServiceTest.class);
 	
-	@Autowired
+//	@Autowired
 	private HftTradeService hftTradeService;
 	
 	/**
