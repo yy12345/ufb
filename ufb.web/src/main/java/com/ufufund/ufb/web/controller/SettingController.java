@@ -103,8 +103,10 @@ public class SettingController {
 	@RequestMapping(value="setting/settingMainCard")
 	public String getSettingMainCard(String bankacco, Model model){
 		try{
-			
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			
+			// 短信验证
+			
 			bankCardManager.setBankCardMainFlag(
 					s_custinfo.getCustno(), 
 					null, 

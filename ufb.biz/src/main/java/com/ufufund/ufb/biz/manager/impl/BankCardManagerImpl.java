@@ -13,6 +13,7 @@ import com.ufufund.ufb.biz.manager.impl.helper.CustManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.BankCardManagerValidator;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.biz.util.HftResponseUtil;
+import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.dao.BankBaseMapper;
 import com.ufufund.ufb.dao.BankMapper;
@@ -26,6 +27,7 @@ import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
 import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
 import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
@@ -77,6 +79,9 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	
 	@Override
 	public void setBankCardMainFlag(String custno, String bankacco, String mainflag){
+		if(null == custno || "".equals(custno)){
+			throw new BizException(this.getProcessId(custno), ErrorInfo.NO_IDCARDNO, BisConst.Register.CUSTNO);
+		}
 		bankCardMapper.setBankCardMainFlag(custno, bankacco, mainflag);
 	}
 	
