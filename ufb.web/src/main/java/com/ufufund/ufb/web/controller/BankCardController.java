@@ -15,11 +15,9 @@ import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.constant.BisConst;
-import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankBaseInfo;
-import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.Merchant;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
@@ -55,8 +53,13 @@ public class BankCardController {
 				bankCardVo.setOpenaccount(s_custinfo.getOpenaccount());
 				bankCardVo.setOrganization(s_custinfo.getOrganization());
 				bankCardVo.setBusiness(s_custinfo.getBusiness());
-				bankCardVo.setBankAcnm(s_custinfo.getInvnm());
-				bankCardVo.setBankIdno(s_custinfo.getIdno());
+				if(null == bankCardVo.getBankAcnm() || bankCardVo.getBankAcnm().trim().length() == 0){
+					bankCardVo.setBankAcnm(s_custinfo.getInvnm());
+				}
+				if(null == bankCardVo.getBankIdno() || bankCardVo.getBankIdno().trim().length() == 0){
+					bankCardVo.setBankIdno(s_custinfo.getIdno());
+				}
+				
 				if("Y".equals(s_custinfo.getOpenaccount())){
 					bankCardVo.setTradePwd("YYY***");
 					bankCardVo.setTradePwd2("YYY***");
@@ -181,7 +184,10 @@ public class BankCardController {
 			UserHelper.setAddBankCardStatus("Y");
 			
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			s_custinfo.setInvnm(bankCardVo.getBankAcnm());
+			s_custinfo.setIdno(bankCardVo.getBankIdno());
 			s_custinfo.setOpenaccount("Y");
+			
 			UserHelper.saveCustinfoVo(s_custinfo);
 			
 			model.addAttribute("BankCardVo", bankCardVo);

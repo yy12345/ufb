@@ -45,6 +45,9 @@ public class SettingController {
 				custinfoVo.setCustst(s_custinfo.getCustst());
 				custinfoVo.setLevel(s_custinfo.getLevel());
 				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
+			} else{
+				ServletHolder.forward("/login/index.htm");
+				return "login/index";
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -54,42 +57,75 @@ public class SettingController {
 		return "setting/settingAccount";
 	}
 	
+	@RequestMapping(value="setting/settingPassword")
+	public String getSettingPassword(CustinfoVo custinfoVo, Model model){
+		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				// Session登录
+				custinfoVo.setCustno(s_custinfo.getCustno());;                      
+				custinfoVo.setMobileno(s_custinfo.getMobileno());                    
+				custinfoVo.setInvtp(s_custinfo.getInvtp()); 
+				custinfoVo.setInvnm(s_custinfo.getInvnm());        
+				custinfoVo.setIdtp(s_custinfo.getIdtp());     
+				custinfoVo.setIdno(s_custinfo.getIdno());             
+				custinfoVo.setOrganization(s_custinfo.getOrganization()); 
+				custinfoVo.setBusiness(s_custinfo.getBusiness()); 
+				custinfoVo.setCustst(s_custinfo.getCustst());
+				custinfoVo.setLevel(s_custinfo.getLevel());
+				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
+			} else{
+				ServletHolder.forward("/login/index.htm");
+				return "login/index";
+			}
+				
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			return "setting/settingPassword";
+		}
+		model.addAttribute("CustinfoVo", custinfoVo);
+		return "setting/settingPassword";
+	}
+	
 	@RequestMapping(value="setting/settingCard")
 	public String getSettingCard(CustinfoVo custinfoVo, Model model){
 		try{
-		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-		if(null != s_custinfo){
-			// Session登录
-			custinfoVo.setCustno(s_custinfo.getCustno());;                      
-			custinfoVo.setMobileno(s_custinfo.getMobileno());                    
-			custinfoVo.setInvtp(s_custinfo.getInvtp()); 
-			custinfoVo.setInvnm(s_custinfo.getInvnm());        
-			custinfoVo.setIdtp(s_custinfo.getIdtp());     
-			custinfoVo.setIdno(s_custinfo.getIdno());             
-			custinfoVo.setOrganization(s_custinfo.getOrganization()); 
-			custinfoVo.setBusiness(s_custinfo.getBusiness()); 
-			custinfoVo.setCustst(s_custinfo.getCustst());
-			custinfoVo.setLevel(s_custinfo.getLevel());
-			custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
-			
-			// 获取交易账户列表
-			List<BankCardWithTradeAcco> tradeAccoList_Y = 
-					bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "Y");
-			if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
-				model.addAttribute("cardList_Y", tradeAccoList_Y);
-			} else {
-				model.addAttribute("cardList_Y", null);
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				// Session登录
+				custinfoVo.setCustno(s_custinfo.getCustno());;                      
+				custinfoVo.setMobileno(s_custinfo.getMobileno());                    
+				custinfoVo.setInvtp(s_custinfo.getInvtp()); 
+				custinfoVo.setInvnm(s_custinfo.getInvnm());        
+				custinfoVo.setIdtp(s_custinfo.getIdtp());     
+				custinfoVo.setIdno(s_custinfo.getIdno());             
+				custinfoVo.setOrganization(s_custinfo.getOrganization()); 
+				custinfoVo.setBusiness(s_custinfo.getBusiness()); 
+				custinfoVo.setCustst(s_custinfo.getCustst());
+				custinfoVo.setLevel(s_custinfo.getLevel());
+				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
+				
+				// 获取交易账户列表
+				List<BankCardWithTradeAcco> tradeAccoList_Y = 
+						bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "Y");
+				if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
+					model.addAttribute("cardList_Y", tradeAccoList_Y);
+				} else {
+					model.addAttribute("cardList_Y", null);
+				}
+				
+				// 获取交易账户列表
+				List<BankCardWithTradeAcco> tradeAccoList_N = 
+						bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "N");
+				if(null != tradeAccoList_N && tradeAccoList_Y.size() > 0){
+					model.addAttribute("cardList_N", tradeAccoList_N);
+				} else {
+					model.addAttribute("cardList_N", null);
+				}
+			} else{
+				ServletHolder.forward("/login/index.htm");
+				return "login/index";
 			}
-			
-			// 获取交易账户列表
-			List<BankCardWithTradeAcco> tradeAccoList_N = 
-					bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "N");
-			if(null != tradeAccoList_N && tradeAccoList_Y.size() > 0){
-				model.addAttribute("cardList_N", tradeAccoList_N);
-			} else {
-				model.addAttribute("cardList_N", null);
-			}
-		}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingCard";
@@ -104,17 +140,20 @@ public class SettingController {
 	public String getSettingMainCard(String bankacco, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			
-			// 短信验证
-			
-			bankCardManager.setBankCardMainFlag(
-					s_custinfo.getCustno(), 
-					null, 
-					"N");
-			bankCardManager.setBankCardMainFlag(
-					s_custinfo.getCustno(), 
-					ServletHolder.getRequest().getParameter("bankacco"), 
-					"Y");
+			if(null != s_custinfo){
+				// 短信验证
+				bankCardManager.setBankCardMainFlag(
+						s_custinfo.getCustno(), 
+						null, 
+						"N");
+				bankCardManager.setBankCardMainFlag(
+						s_custinfo.getCustno(), 
+						ServletHolder.getRequest().getParameter("bankacco"), 
+						"Y");
+			} else{
+				ServletHolder.forward("/login/index.htm");
+				return "login/index";
+			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingCard";

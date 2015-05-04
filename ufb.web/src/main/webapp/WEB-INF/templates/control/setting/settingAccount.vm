@@ -28,7 +28,7 @@ $(function(){
         <div class="side side-nav fl">
             <ul>
                 <li><a class="current" href="${staticDomain}/setting/settingAccount.htm">账户信息</a></li>
-                <li><a href="settingPassword.html">密码设置</a></li>
+                <li><a href="${staticDomain}/setting/settingPassword.htm">密码设置</a></li>
                 <li><a href="${staticDomain}/setting/settingCard.htm">银行卡管理</a></li>
                 <li><a href="settingAutoFund.html">自动理财设置</a></li>
             </ul>

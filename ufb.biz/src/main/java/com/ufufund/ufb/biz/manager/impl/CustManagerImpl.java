@@ -51,7 +51,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		String processId = this.getProcessId(mobile);
 		boolean res = false;
 		if (!RegexUtil.isMobile(mobile)) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, MOBILE);
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.MOBILE);
 		}
 		Custinfo custinfo = new Custinfo();
 		custinfo.setMobileno(mobile);

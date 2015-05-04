@@ -29,6 +29,83 @@ $(function(){
         }
     });
 	
+	// btn-getMsgCode
+	$("#btn-getMsgCode").on("click",function(){
+	
+		var count = 3;
+		var countdown = setTimeout(countDown, 1000);
+		// 120秒倒计时
+		function countDown() {
+			$("#btn-getMsgCode").prop("disabled", true); 
+			$("#btn-getMsgCode").val("等待" + count + "秒!"); 
+			if (count == 0) { 
+				$("#btn-getMsgCode").val("重新发送"); 
+				$("#btn-getMsgCode").removeAttr("disabled"); 
+				clearTimeout(countdown); 
+			}else{
+				count--; 
+				setTimeout(countDown, 1000);
+			}
+		}
+		return false;
+	
+		if(!check_mobile($("#mobileno"))){
+			return false;
+		}
+		if(!check_code($("#verifycode"))){
+			return false;
+		}
+	
+		//var errLen = $("ul li.error").not("#errMsg_msgcode").length;
+		//if(errLen>0){
+		//	$("ul li.error:eq(0) input[type=text]").focus();
+		//	$("ul li.error:eq(0) input[type=password]").focus();
+		//	return false;
+		//}else{
+		//	// 
+		//}
+		
+		//$(".panel ul li").removeClass("error").removeClass("ok");
+		
+		// 获取手机验证码按钮无效并倒计时 
+		//$(this).attr("disabled","disabled");
+		//$(this).addClass("off");
+					
+        $.ajax({
+     		type: "GET",
+    		url: "../ajaxcust/getMsgCode.htm",
+    		data: {
+				mobileno: $("#mobileno").val()
+    		},
+    		dataType: "json",
+    		success: function(b) {
+                if (b.errCode == "0000") {
+					// 提交按钮有效 
+					//$("#btn-addBankCardChk").removeAttr("disabled");
+					//$("#btn-addBankCardChk").removeClass("off");
+					alert("手机验证码已发送");
+                } else {
+					// 获取验证码按钮有效并取消倒计时 
+            		// $("#btn-addBankCardAuth").removeAttr("disabled");
+            		// $("#btn-addBankCardAuth").removeClass("off");
+				
+                  	var errCode = b.errCode;
+					var errMsg = b.errMsg;
+					// alert(errCode + ": " + errMsg);
+					if(errCode!="0000"){
+						if("手机号已注册"==errMsg){
+							$("#errMsg_mobileno").addClass("error");
+							$("#errMsg_mobileno > .tips-check").html("<i class=icon></i>" + errMsg);
+						}
+					}else{
+						$("#errMsg_msgcode").addClass("error");
+						$("#errMsg_msgcode > .tips-check").html("<i class=icon></i>" + errMsg);
+					}
+                }
+        	}
+        });
+	});
+	
 	//注册按钮
 	$("#btn-org").on("click",function(){
 	
@@ -72,8 +149,7 @@ $(function(){
         <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
         <div class="nav"><a
 			href="${staticDomain}/login/index.htm">登录</a>|<a 
-			href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
-			href="javascript:;">我的幼富通</a>|<a class="last" 
+			href="${staticDomain}/cust/register.htm">注册</a>|<a class="last" 
 			href="javascript:;">帮助</a></div>
     </div>
 </div>
@@ -144,7 +220,7 @@ $(function(){
 					<input id="level_1" type="hidden" name="level" value="${CustinfoVo.level}"/>
 					<input id="invtp" type="hidden" name="invtp" value="${CustinfoVo.invtp}"/>
 					<ul>
-                        <li
+                        <li id="errMsg_mobileno"
                         #if($errMsg_mobileno)
                         class="error"
                         #end
@@ -170,7 +246,7 @@ $(function(){
                         <li>
                             <span class="form-title">手机验证码</span>
                             <input id="msgcode" name="msgcode" class="ipt-phoneCode input-code" type="text" value="$!{CustinfoVo.msgcode}">
-                            <input class="input-button" type="button" value="获取验证码">
+                            <input id="btn-getMsgCode" class="input-button" type="button" value="获取验证码">
                             <span class="tips-normal">6位验证码</span>
                             <span class="tips-check"><i class="icon"></i>验证提示</span>
                         </li>
