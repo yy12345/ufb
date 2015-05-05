@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.FundBalanceMapper">
+
+	<sql id="Base_Columns">
+		CUSTNO       ,
+		FUNDCORPNO   ,
+		TRADEACCO    ,
+		FUNDCODE     ,
+		SHARECLASS   ,
+		TOTALFUNDVOL ,
+		AVAILABLEVOL ,
+		TOTALFROZENVOL,
+		UNDISTRIBUTEMONETARYINCOME,
+		FUNDDAYINCOME,
+		TOTALINCOME  ,
+		DEFDIVIDENDMETHOD,
+		LASTDATE  	 ,
+		UPDATETIME   
+	</sql>
+	
+    <select id="getFundBalance" parameterType="FundBalance" resultType="FundBalance">
+		select <include refid="Base_Columns" /> from fundbalance
+		where
+		    TRADEACCO = #{tradeacco,jdbcType=VARCHAR}  	
+			<if test="custno != null">
+            and CUSTNO &gt;= #{custno,jdbcType=VARCHAR}
+        	</if>
+			and FUNDCODE = #{fundcode,jdbcType=VARCHAR} 
+    </select>
+	
+</mapper>

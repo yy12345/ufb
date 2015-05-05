@@ -23,6 +23,22 @@
 		where serialno = #{serialno,jdbcType=VARCHAR} 
 	</select>
 	
+    <select id="getTradeQutyChg" parameterType="TradeQutyChg" resultType="java.math.BigDecimal">
+		select 
+		    sum(CHANGEQUTY)
+		from 
+		    TRADEQUTYCHG
+		where 
+		    TRADEACCO = #{tradeacco,jdbcType=VARCHAR}  	
+		and FUNDCODE = #{fundcode,jdbcType=VARCHAR} 
+		<if test="workdate != null">
+            and WORKDATE &gt;= #{workdate,jdbcType=VARCHAR}
+        </if>
+        <if test="apkind != null">
+            and APKIND &gt;= #{apkind,jdbcType=VARCHAR}
+        </if>
+    </select>
+    
 	<!-- 
 	<select id="getByOldSerialno" parameterType="String" resultType="TradeQutyChg">
 		select <include refid="Base_Columns" /> from traderequest

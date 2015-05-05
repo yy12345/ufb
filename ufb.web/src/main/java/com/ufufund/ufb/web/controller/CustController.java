@@ -25,7 +25,6 @@ import com.ufufund.ufb.model.enums.Level;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.util.UserHelper;
-import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
 
 @Controller
