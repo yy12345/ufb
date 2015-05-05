@@ -35,7 +35,7 @@
             and WORKDATE &gt;= #{workdate,jdbcType=VARCHAR}
         </if>
         <if test="apkind != null">
-            and APKIND &gt;= #{apkind,jdbcType=VARCHAR}
+            and APKIND = #{apkind,jdbcType=VARCHAR}
         </if>
     </select>
     

@@ -182,13 +182,19 @@ $(function(){
                         <div class="value">$!{totalBalanceDisplay}</div>
                     </li>
                     <li class="account-item">
-                        <div class="name">累计总收益（元）</div>
+                        <div class="name">可用金额（元）</div>
                         <div class="value">$!{availableBalanceDisplay}</div>
                     </li>
+					 <li class="account-item">
+                        <div class="name">冻结金额（元）</div>
+                        <div class="value">$!{frozenBalanceDisplay}</div>
+                    </li>
                 </ul>
+				#if($CustinfoVo.openaccount!="Y")
                 <div class="account-btn">
                     <a id="btn-openAccount" class="btn" href="#">开办理财账户</a>
                 </div>
+				#end
             </div>
             <div class="info-yield">
                 <div class="yield-title">幼富宝</div>

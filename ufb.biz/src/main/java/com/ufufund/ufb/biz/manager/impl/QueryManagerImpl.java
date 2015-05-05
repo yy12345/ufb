@@ -82,25 +82,29 @@ public class QueryManagerImpl implements QueryManager{
 		}
 		// 昨日份额
 		FundBalance fundBalance = new FundBalance();
-		tradeQutyChg.setTradeacco(tradeAcco);
-		tradeQutyChg.setFundcode("001001");
-		tradeQutyChg.setWorkdate(null);
+		fundBalance.setTradeacco(tradeAcco);
+		fundBalance.setFundcode("001001");
+		fundBalance.setCustno(null);
 		fundBalance = fundBalanceMapper.getFundBalance(fundBalance);
-		BigDecimal total = fundBalance.getTotalfundvol(); // 总份额
-		BigDecimal available = fundBalance.getAvailablevol(); // 用户当前可用份额
-		BigDecimal frozen = fundBalance.getTotalfrozenvol(); //冻结份额
-		if(null == total){
-			total = new BigDecimal(0);
+		BigDecimal total = new BigDecimal(0.00); // 总份额
+		BigDecimal available = new BigDecimal(0.00); // 用户当前可用份额
+		BigDecimal frozen = new BigDecimal(0.00); //冻结份额
+		if(null != fundBalance){
+			total = fundBalance.getTotalfundvol(); // 总份额
+			available = fundBalance.getAvailablevol(); // 用户当前可用份额
+			frozen = fundBalance.getTotalfrozenvol(); //冻结份额
+			if(null == total){
+				total = new BigDecimal(0);
+			}
+			if(null == available){
+				available = new BigDecimal(0);
+			}
+			if(null == frozen){
+				frozen = new BigDecimal(0);
+			}
 		}
-		if(null == available){
-			available = new BigDecimal(0);
-		}
-		if(null == frozen){
-			frozen = new BigDecimal(0);
-		}
-		
 		result.setTotal(total.add(asset_all));
-		result.setAvailable(available.subtract(asset_024));
+		result.setAvailable(available.add(asset_024));
 		result.setFrozen(frozen.add(asset_022));
 		
 //		/** 走接口查询 **/

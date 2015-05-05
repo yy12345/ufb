@@ -191,7 +191,7 @@ public class CustController {
 				// 充值
 				List<TradeRequest> list022 = queryManager.qryRecentTradeList(custinfoVo.getCustno(), "022", 4);
 				// 取现
-				List<TradeRequest> list023 = queryManager.qryRecentTradeList(custinfoVo.getCustno(), "023", 4);
+				List<TradeRequest> list023 = queryManager.qryRecentTradeList(custinfoVo.getCustno(), "024", 4);
 				
 				model.addAttribute("list022", list022);
 				model.addAttribute("list023", list023);
@@ -396,7 +396,7 @@ public class CustController {
 					// 充值
 					List<TradeRequest> list022 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), "022", 4);
 					// 取现
-					List<TradeRequest> list023 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), "023", 4);
+					List<TradeRequest> list023 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), "024", 4);
 					
 					model.addAttribute("list022", list022);
 					model.addAttribute("list023", list023);
