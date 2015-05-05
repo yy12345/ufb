@@ -1,8 +1,11 @@
 package com.ufufund.ufb.biz.manager.impl.helper;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.TradeStatus;
@@ -109,6 +112,26 @@ public class TradeManagerHelper {
 	}
 	
 	/**
+	 * 生成TradeQutyChg对象 - for 申购
+	 * @param vo
+	 * @return
+	 */
+	public TradeQutyChg toTradeQutyChg4BuyApply(ApplyVo vo){
+		TradeQutyChg tradeQutyChg = new TradeQutyChg();
+		tradeQutyChg.setSerialno(vo.getSerialno());
+		tradeQutyChg.setCustno(vo.getCustno());
+		tradeQutyChg.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+		tradeQutyChg.setTradeacco(vo.getTradeacco());
+		tradeQutyChg.setApkind(Apkind.BUYAPPLY.getValue());
+		tradeQutyChg.setAppdate(vo.getAppdate());
+		tradeQutyChg.setWorkdate(vo.getWorkday());
+		tradeQutyChg.setFundcode(vo.getFundcode());
+		tradeQutyChg.setChangequty(vo.getAppamt());
+		tradeQutyChg.setOldserialno(vo.getSerialno());
+		return tradeQutyChg;
+	}
+	
+	/**
 	 * 生成BuyApplyRequest请求对象
 	 * @param vo
 	 * @return
@@ -170,6 +193,26 @@ public class TradeManagerHelper {
 	}
 	
 	/**
+	 * 生成TradeQutyChg对象 - for 普通赎回
+	 * @param vo
+	 * @return
+	 */
+	public TradeQutyChg toTradeQutyChg4Redeem(RedeemVo vo){
+		TradeQutyChg tradeQutyChg = new TradeQutyChg();
+		tradeQutyChg.setSerialno(vo.getSerialno());
+		tradeQutyChg.setCustno(vo.getCustno());
+		tradeQutyChg.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+		tradeQutyChg.setTradeacco(vo.getTradeacco());
+		tradeQutyChg.setApkind(Apkind.REDEEM.getValue());
+		tradeQutyChg.setAppdate(vo.getAppdate());
+		tradeQutyChg.setWorkdate(vo.getWorkday());
+		tradeQutyChg.setFundcode(vo.getFundcode());
+		tradeQutyChg.setChangequty(new BigDecimal(0.00).subtract(vo.getAppvol()));
+		tradeQutyChg.setOldserialno(vo.getSerialno());
+		return tradeQutyChg;
+	}
+	
+	/**
 	 * 生成RedeemRequest请求对象
 	 * @param vo
 	 * @return
@@ -227,6 +270,31 @@ public class TradeManagerHelper {
 		tradeRequest.setFee(vo.getFee());
 		tradeRequest.setReferno("");
 		return tradeRequest;
+	}
+	
+	/**
+	 * 生成TradeQutyChg对象 - for 快速赎回
+	 * @param vo
+	 * @return
+	 */
+	public TradeQutyChg toTradeQutyChg4RealRedeem(RedeemVo vo){
+		TradeQutyChg tradeQutyChg = new TradeQutyChg();
+		tradeQutyChg.setSerialno(vo.getSerialno());
+		tradeQutyChg.setCustno(vo.getCustno());
+		tradeQutyChg.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+		tradeQutyChg.setTradeacco(vo.getTradeacco());
+		tradeQutyChg.setApkind(Apkind.REALREDEEM.getValue());
+		tradeQutyChg.setAppdate(vo.getAppdate());
+		tradeQutyChg.setWorkdate(vo.getWorkday());
+		tradeQutyChg.setFundcode(vo.getFundcode());
+		tradeQutyChg.setChangequty(new BigDecimal(0.00).subtract(vo.getAppvol()));
+		tradeQutyChg.setOldserialno(vo.getSerialno());
+		return tradeQutyChg;
+	}
+	
+	
+	public static void main(String[] args) {
+		System.out.println(new BigDecimal(0.00).subtract(new BigDecimal(555.22)).doubleValue());
 	}
 	
 	/**

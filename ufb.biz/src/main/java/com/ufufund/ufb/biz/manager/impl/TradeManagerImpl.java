@@ -18,8 +18,10 @@ import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.dao.TradeNotesMapper;
+import com.ufufund.ufb.dao.TradeQutyChgMapper;
 import com.ufufund.ufb.dao.TradeRequestMapper;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
+import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.remote.hft.BuyApplyRequest;
@@ -47,6 +49,9 @@ public class TradeManagerImpl implements TradeManager{
 	
 	@Autowired
 	private TradeRequestMapper tradeRequestMapper;
+	
+	@Autowired
+	private TradeQutyChgMapper tradeQutyChgMapper;
 	
 	@Autowired
 	private WorkDayManager workDayManager;
@@ -173,6 +178,16 @@ public class TradeManagerImpl implements TradeManager{
 						+", <Failed>申购回写：serialno="+tradeRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
+			
+			// 货基直接记份额，暂时算成功
+			TradeQutyChg tradeQutyChg = helper.toTradeQutyChg4BuyApply(vo);
+			n = tradeQutyChgMapper.add(tradeQutyChg);
+			if(n < 1){
+				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+						+", <Failed>申购回写份额：serialno="+tradeRequest.getSerialno());
+				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
+			}
+			
 		}else{
 			// 执行失败，处理返回异常码
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
@@ -222,6 +237,14 @@ public class TradeManagerImpl implements TradeManager{
 			if(n < 1){
 				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
 						+", <Failed>普通赎回回写：serialno="+tradeRequest.getSerialno());
+				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
+			}
+			// 货基直接记份额，暂时算成功
+			TradeQutyChg tradeQutyChg = helper.toTradeQutyChg4Redeem(vo);
+			n = tradeQutyChgMapper.add(tradeQutyChg);
+			if(n < 1){
+				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+						+", <Failed>普通赎回回写份额：serialno="+tradeRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
 		}else {
@@ -296,6 +319,14 @@ public class TradeManagerImpl implements TradeManager{
 			if(n < 1){
 				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
 						+", <Failed>快速赎回回写：serialno="+tradeRequest.getSerialno());
+				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
+			}
+			// 货基直接记份额，暂时算成功
+			TradeQutyChg tradeQutyChg = helper.toTradeQutyChg4RealRedeem(vo);
+			n = tradeQutyChgMapper.add(tradeQutyChg);
+			if(n < 1){
+				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+						+", <Failed>快速赎回回写份额：serialno="+tradeRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
 		}else {

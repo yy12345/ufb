@@ -14,6 +14,7 @@ import com.ufufund.ufb.biz.util.HftResponseUtil;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
+import com.ufufund.ufb.dao.TradeQutyChgMapper;
 import com.ufufund.ufb.dao.TradeRequestMapper;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.TradeRequest;
@@ -33,6 +34,9 @@ public class QueryManagerImpl implements QueryManager{
 
 	@Autowired
 	private TradeRequestMapper tradeRequestMapper;
+	
+	@Autowired
+	private TradeQutyChgMapper tradeQutyChgMapper;
 	
 	@Override
 	public TradeAccoVo queryAssets(String tradeAcco){

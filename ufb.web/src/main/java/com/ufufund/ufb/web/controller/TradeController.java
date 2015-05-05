@@ -137,7 +137,7 @@ public class TradeController {
 			vo.setFundcode(Constant.FundCode.YFB);
 			vo.setFee(new BigDecimal("0.00"));
 			
-			tradeManager.redeem(vo);
+			tradeManager.realRedeem(vo);
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
@@ -149,22 +149,22 @@ public class TradeController {
 		return "trade/cash_result";
 	}
 	
-	private List<BankCardWithTradeAcco> genBankcardinfoList(){
-		List<BankCardWithTradeAcco> list = new ArrayList<BankCardWithTradeAcco>();
-		BankCardWithTradeAcco b1 = new BankCardWithTradeAcco();
-		b1.setSerialid("s_001");
-		b1.setBankno("002");
-		b1.setBankaccodisplay("6226095920226081");
-		b1.setTradeacco("TradeAcco001");
-		b1.setFundcorpno("01");
-		BankCardWithTradeAcco b2 = new BankCardWithTradeAcco();
-		b2.setSerialid("s_002");
-		b2.setBankno("004");
-		b2.setBankaccodisplay("6226095920226071");
-		b2.setTradeacco("TradeAcco002");
-		b2.setFundcorpno("01");
-		list.add(b1);
-		list.add(b2);
-		return list;
-	}
+//	private List<BankCardWithTradeAcco> genBankcardinfoList(){
+//		List<BankCardWithTradeAcco> list = new ArrayList<BankCardWithTradeAcco>();
+//		BankCardWithTradeAcco b1 = new BankCardWithTradeAcco();
+//		b1.setSerialid("s_001");
+//		b1.setBankno("002");
+//		b1.setBankaccodisplay("6226095920226081");
+//		b1.setTradeacco("TradeAcco001");
+//		b1.setFundcorpno("01");
+//		BankCardWithTradeAcco b2 = new BankCardWithTradeAcco();
+//		b2.setSerialid("s_002");
+//		b2.setBankno("004");
+//		b2.setBankaccodisplay("6226095920226071");
+//		b2.setTradeacco("TradeAcco002");
+//		b2.setFundcorpno("01");
+//		list.add(b1);
+//		list.add(b2);
+//		return list;
+//	}
 }

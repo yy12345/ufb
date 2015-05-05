@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.TradeQutyChgMapper">
+
+	<sql id="Base_Columns">
+		SERIALNO     ,
+		CUSTNO       ,
+		FUNDCORPNO   ,
+		TRADEACCO    ,
+		APKIND       ,
+		APPDATE    	 ,
+		WORKDATE     ,
+		FUNDCODE     ,
+		CHANGEQUTY   ,
+		OLDSERIALNO  ,
+		UPDATETIME   
+	</sql>
+	
+	<select id="getBySerialno" parameterType="String" resultType="TradeQutyChg">
+		select <include refid="Base_Columns" /> from traderequest
+		where serialno = #{serialno,jdbcType=VARCHAR} 
+	</select>
+	
+	<!-- 
+	<select id="getByOldSerialno" parameterType="String" resultType="TradeQutyChg">
+		select <include refid="Base_Columns" /> from traderequest
+		where oldserialno = #{oldserialno,jdbcType=VARCHAR} 
+	</select>
+	 -->
+	
+	<insert id="add" parameterType="TradeQutyChg">
+  	 	insert into tradequtychg values(
+  	 		#{serialno,jdbctype=varchar},        
+			#{custno,jdbctype=varchar},        
+			#{fundcorpno,jdbctype=varchar},        
+			#{tradeacco,jdbctype=varchar},        
+			#{apkind,jdbctype=varchar},        
+			#{appdate,jdbctype=varchar},        
+			#{workdate,jdbctype=varchar},        
+			#{fundcode ,jdbctype=varchar},        
+			#{changequty,jdbctype=varchar},        
+			#{oldserialno,jdbctype=varchar},        
+			now())
+  	</insert>
+	
+	<!-- 
+	<select id="qryRecentTradeList" resultType="TradeRequest">
+		select t4.banknm,t1.* from traderequest t1,tradeaccoinfo t2, bankcardinfo t3,bankbase t4
+		where 
+		(t1.state = 'Y' or t1.state = 'F' or t1.state = 'I') 
+		and t1.custno = #{custno,jdbcType=VARCHAR} 
+		and t1.apkind = #{apkind,jdbcType=VARCHAR} 
+		and t1.tradeacco = t2.tradeacco
+        and t2.bankSERIALID = t3.SERIALID        
+        and t3.bankno = t4.bankno
+		order by t1.updatetime desc limit #{n,jdbcType=INTEGER} 
+	</select>
+	 -->
+	
+</mapper>
