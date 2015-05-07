@@ -53,9 +53,9 @@ $(function(){
                             </thead>
                             <tbody>
                             <tr>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
+                                <td>0.00&nbsp;</td>
+                                <td>$!{totalBalanceDisplay}&nbsp;</td>
+                                <td>0.00&nbsp;</td>
                             </tr>
                             </tbody>
                         </table>

@@ -5,6 +5,9 @@
  * @type String
  */
 function formatCurrency1(num) {
+	if (typeof(num) == "undefined"){
+		return "0.00";
+	}
     num = num.toString().replace(/\$|\,/g,'');
     if(isNaN(num))
     num = "0";
@@ -27,6 +30,9 @@ function formatCurrency1(num) {
  * @type String
  */
 function formatCurrency2(num) {
+	if (typeof(num) == "undefined"){
+		return "0.00";
+	}
     num = num.toString().replace(/\$|\,/g,'');
     if(isNaN(num))
     num = "0";

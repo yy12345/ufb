@@ -29,33 +29,34 @@
         <div class="form-cash">
             <form class="common-form" action="${ufbDomain}/trade/cash_result.htm" method="post">
 				${refreshTools.genInputHtml()}
-				<input id="tradeacco" name="tradeacco" value="${curCard.tradeacco}" type="hidden"/>
-                <input id="appamt" name="appvol" value="" type="hidden"/>
+				<input id="tradeacco" name="tradeacco" value="${card.tradeacco}" type="hidden"/>
+				<input id="cardAvailable" name="cardAvailable" value="${card.available}" type="hidden"/>
+				
 				<ul>
                     <li>
                         <span class="form-title">总资产</span>
-                        <div class="mark">${totalBalanceDisplay}元</div>
-                        <i id="totalBalance" style="display:none">${totalBalance}</i>
+                        <div class="mark">${totalDisplay}元</div>
+                        <i id="total" style="display:none">${total}</i>
                     </li>
                     <li class="clearfix">
                         <span class="form-title">银行选择</span>
                         <div class="input-select">
                             <div class="card card-current">
-								#set($tailStr=$curCard.bankacco)
+								#set($tailStr=$card.bankacco)
 								#set($start=$tailStr.length() - 4)
 								#set($end=$tailStr.length())
-                                <img src="${staticDomain}/images/bank_${curCard.bankno}.png">
+                                <img src="${staticDomain}/images/bank_${card.bankno}.png">
                                 <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
                             </div>
                             <div class="input-options">
                                 <div class="card-list clearfix">
-									#foreach($card in $cardList)
+									#foreach($c in $cardList)
                                     <a class="card" href="javascript:;"
-										tradeacco="${card.tradeacco}" balanceAmt="${card.available}">
-										#set($tailStr=$card.bankacco)
+										cardTradeacco="${c.tradeacco}" cardAvailable="${c.available}">
+										#set($tailStr=$c.bankacco)
 										#set($start=$tailStr.length() - 4)
 										#set($end=$tailStr.length())
-										<img src="${staticDomain}/images/bank_${card.bankno}.png">
+										<img src="${staticDomain}/images/bank_${c.bankno}.png">
                                         <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
                                     </a>
 									#end
@@ -67,13 +68,18 @@
                     </li>
                     <li>
                         <span class="form-title">可用金额</span>
-                        <div class="mark"><font id="cardBalance" >${curAvailableDisplay}</font>元</div>
+                        <div class="mark">
+							全卡：<font id="availableDisplay" >${availableDisplay}</font>元
+						</div>
+                        <div class="mark">
+							单卡：<font id="cardAvailableDisplay" >${cardAvailableDisplay}</font>元
+						</div>
                     </li>
                     <li>
                         <span class="form-title">取现金额</span>
-                        <input id="appamt_display" class="input-text" type="text" value="">元
+                        <input id="appvol" name="appvol" class="input-text" type="text" value="">元
                         <span class="tips-normal"></span>
-                        <span id="appamtTips" class="tips-check"><i class="icon"></i>验证提示</span>
+                        <span id="appvolTips" class="tips-check"><i class="icon"></i>验证提示</span>
                     </li>
                     <li>
                         <span class="form-title">交易密码</span>
@@ -91,41 +97,49 @@
 </div>
 
 <script src="${staticDomain}/js/scripts/load.js"></script>
+<script type='text/javascript' src='${staticDomain}/js/libs/jquery.min.js'></script>
 <script src="${staticDomain}/js/ufuCommon.js"></script>
+
 <script type="text/javascript">
 	$(function(){
 		// 点击银行卡时
 		$(".card").on("click", function(){
-			$("#tradeacco").val($(this).attr("tradeacco"));
-			$("#cardBalance").html(formatCurrency2($(this).attr("balanceAmt")));
+			$("#tradeacco").val($(this).attr("cardTradeacco"));
+			$("#cardAvailable").val($(this).attr("cardAvailable"));
+			$("#cardAvailableDisplay").html(formatCurrency2($(this).attr("cardAvailable")));
 		});
 		
 		// 金额表单控制
-		$("#appamt_display").on("blur", function(){
-			var appamt_1 = formatCurrency1($("#appamt_display").val());
-			var appamt_2 = formatCurrency2($("#appamt_display").val());
-			if(appamt_1 == '0.00' || appamt_2 == '0.00'){
-				$("#appamt").val('');
-				$("#appamt_display").val('');
-				$("#appamtTips").html('请输入正确格式的金额，比如1000.00！');
-				$("#appamtTips").show();
+		$("#appvol_display").on("blur", function(){
+			var appvol_1 = formatCurrency1($("#appvol_display").val());
+			var appvol_2 = formatCurrency2($("#appvol_display").val());
+			if(appvol_1 == '0.00' || appvol_2 == '0.00'){
+				$("#appvol").val('');
+				$("#appvol_display").val('');
+				$("#appvolTips").html('请输入正确格式的金额，比如1000.00！');
+				$("#appvolTips").show();
 			}else{
-				$("#appamt").val(appamt_1);
-				$("#appamt_display").val(appamt_2);
+				$("#appvol").val(appvol_1);
+				$("#appvol_display").val(appvol_2);
 			}
 		});
 		
 		// 表单提交时，验证	
 		$("#submit").on("click", function(){
-			if($("#appamt").val() == ""){
-				var appamtMsg = '<i class="icon"></i>请输入金额！';
-				$("#appamtTips").html(appamtMsg);
-				$("#appamtTips").show();
+			if($("#appvol").val() == ""){
+				var appvolMsg = '<i class="icon"></i>请输入金额！';
+				$("#appvolTips").html(appvolMsg);
+				$("#appvolTips").show();
 				return false;
 			}else if($("#tradePwd").val() == ""){
 				var tradePwdMsg = '<i class=\"icon\"></i>请输入交易密码！';
 				$("#tradePwdTips").html(tradePwdMsg);
 				$("#tradePwdTips").show();
+				return false;
+			}else if($("#appvol").val() > $("#cardAvailable").val()){
+				var appvolMsg = '<i class=\"icon\"></i>取现金额大于本卡可取金额！';
+				$("#appvolTips").html(appvolMsg);
+				$("#appvolTips").show();
 				return false;
 			}
 			return true;

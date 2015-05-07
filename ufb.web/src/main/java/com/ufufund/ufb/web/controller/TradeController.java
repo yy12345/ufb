@@ -103,16 +103,24 @@ public class TradeController {
 			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
 			// 获取用户总资产
 			Assets assets = queryManager.queryAssets(tradeAccoList);
-			
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
 			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
 			
-			model.addAttribute("totalBalance", assets.getAvailable());
-			model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
-			model.addAttribute("curAvailableDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAccoList().get(0).getAvailable()));
 			
-			model.addAttribute("curCard", assets.getAccoList().get(0));
+			model.addAttribute("total", assets.getTotal()); // 总资产
+			model.addAttribute("available", assets.getAvailable()); //可用资产
+			model.addAttribute("frozen", assets.getFrozen()); // 冻结资产
+			model.addAttribute("totalDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));
+			model.addAttribute("availableDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
+			model.addAttribute("frozenDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));
+
+//			model.addAttribute("totalBalance", assets.getAvailable());
+//			model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
+			model.addAttribute("cardAvailable", assets.getAccoList().get(0).getAvailable());
+			model.addAttribute("cardAvailableDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAccoList().get(0).getAvailable()));
+			
+			model.addAttribute("card", assets.getAccoList().get(0));
 			model.addAttribute("cardList", assets.getAccoList());
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
