@@ -150,17 +150,17 @@ var check_pwd1 = function (ipt) {//验证密码
     return showTips(ipt, 0);
 }
  
- var check_mobile = function (ipt) {//验证手机号
-	    var value = ipt.val();
-	    if (isNull(value)) {
-	        return showTips(ipt, "手机号不能为空");
-	    }
-	    var regex = /^1\d{10}$/;
-	    if (!regex.test(value)) {
-	        return showTips(ipt, "格式错误，请输入正确的手机号码");
-	    }
-	    return showTips(ipt, 0);
-	}
+var check_mobile = function (ipt) {//验证手机号
+    var value = ipt.val();
+    if (isNull(value)) {
+        return showTips(ipt, "手机号不能为空");
+    }
+    var regex = /^1\d{10}$/;
+    if (!regex.test(value)) {
+        return showTips(ipt, "格式错误，请输入正确的手机号码");
+    }
+    return showTips(ipt, 0);
+}
  
 var check_organization = function (ipt) {//幼教机构名称
 	var value = ipt.val();
@@ -197,6 +197,14 @@ var check_bankCard = function (ipt) {//验证银行卡
         return showTips(ipt, "银行卡格式错误");
     }
     return showTips(ipt, 0)
+}
+
+var check_cash = function (ipt) {
+    var value = ipt.val();
+    if (isNull(value)) {
+        return showTips(ipt, "金额不能为空");
+    }
+    return showTips(ipt, 0);
 }
 /* bind mod */
 
@@ -238,4 +246,8 @@ $(".ipt-bankCard").on("blur", function() {
 
 $(".ipt-bankAcnm").on("blur", function() {
     check_bankAcnm($(this));
+});
+
+$(".ipt-cash").on("blur", function() {
+    check_cash($(this));
 });

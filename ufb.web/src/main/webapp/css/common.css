@@ -88,6 +88,9 @@
 .tr {
 	text-align: right;
 }
+html, body {
+	min-width: 960px;
+}
 body {
 	background-color: #edeaea;
 	color: #808080;
@@ -100,7 +103,7 @@ a {
 	font-family: "microsoft yahei";
 	line-height: 1.5;
 	background-color: #f3f3f1;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 .inner {
 	width: 960px;
@@ -304,7 +307,7 @@ a.btn {
 	*display: inline;
 	*zoom: 1;
 	vertical-align: middle;
-}	
+}
 .common-form li input {
 	height: 34px;
 	margin: 0 20px 0 0;
@@ -388,6 +391,7 @@ a.btn {
 	color: #cb3849;
 	font-size: 12px;
 	text-decoration: underline;
+	margin-right: 20px;
 }/*
 .login-form .link-register {
 	color: #cb3849;
@@ -722,6 +726,16 @@ a.btn {
 	z-index: 1000;
 	background-color: #97c7df;
 }*/
+.index .kv {
+	position: relative;
+	height: 400px;
+}
+#index_kv {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+}
 .index .side {
 	margin-top: 45px;
 	background-color: #fff;
@@ -755,6 +769,9 @@ a.btn {
 }
 .index .bottom {
 	background-color: #2f8fbf;
+}
+.index .bottom .inner {
+	overflow: hidden;
 }
 .index .bottom .list {
 	width: 1050px;

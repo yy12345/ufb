@@ -77,7 +77,7 @@
                     </li>
                     <li>
                         <span class="form-title">取现金额</span>
-                        <input id="appvol" name="appvol" class="input-text" type="text" value="">元
+                        <input id="appvol" name="appvol" class="ipt-cash input-text" type="text" value="">元
                         <span class="tips-normal"></span>
                         <span id="appvolTips" class="tips-check"><i class="icon"></i>验证提示</span>
                     </li>
@@ -102,6 +102,24 @@
 
 <script type="text/javascript">
 	$(function(){
+	
+		// 覆盖register.js验证
+		var check_pwd1 = function (ipt) {
+			var value = ipt.val();
+            if (value == "") {
+            	showTips(ipt, "密码不能为空");
+				return false;
+            }
+            var regex1 = /\s+/;
+            if (regex1.test(value)) {
+                showTips(ipt, "密码中不允许有空格");
+				return false;
+            }
+			
+			showTips(ipt, 0);
+			return true;
+		}
+		
 		// 点击银行卡时
 		$(".card").on("click", function(){
 			$("#tradeacco").val($(this).attr("cardTradeacco"));
@@ -120,31 +138,39 @@
 				$("#appvolTips").show();
 			}else{
 				$("#appvol").val(appvol_1);
-				$("#appvol_display").val(appvol_2);
+				$("#appvolDisplay").val(appvol_2);
 			}
 		});
 		
-		// 表单提交时，验证	
-		$("#submit").on("click", function(){
-			if($("#appvol").val() == ""){
-				var appvolMsg = '<i class="icon"></i>请输入金额！';
-				$("#appvolTips").html(appvolMsg);
-				$("#appvolTips").show();
-				return false;
-			}else if($("#tradePwd").val() == ""){
-				var tradePwdMsg = '<i class=\"icon\"></i>请输入交易密码！';
-				$("#tradePwdTips").html(tradePwdMsg);
-				$("#tradePwdTips").show();
-				return false;
-			}else if($("#appvol").val() > $("#cardAvailable").val()){
-				var appvolMsg = '<i class=\"icon\"></i>取现金额大于本卡可取金额！';
-				$("#appvolTips").html(appvolMsg);
-				$("#appvolTips").show();
+		// 增加安全中心验证
+		$(".ipt-cash").on("blur", function() {
+            if($("#appvol").val() - $("#cardAvailable").val() > 0){
+				showTips($(this), "取现金额大于本卡可取金额！");
 				return false;
 			}
-			return true;
+        });
+		
+		$("#tradePwd").on("blur", function() {
+			check_pwd1($("#tradePwd"));
+        });
+		
+		// 表单提交时，验证	
+		$("#submit").on("click", function(){
+		
+			if(!check_cash($("#appvol"))){
+				return false;
+			}
+			if(!check_pwd1($("#tradePwd"))){
+				return false;
+			}
+			if($("#appvol").val() - $("#cardAvailable").val() > 0){
+				showTips($("#appvol"), "取现金额大于本卡可取金额！");
+				return false;
+			}
 		});
 	});
 </script>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+<script src="${staticDomain}/js/scripts/register.js"></script>
 </body>
 </html>
