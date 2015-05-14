@@ -145,8 +145,9 @@ public class CustController {
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
-				// Session登出
-				UserHelper.removeCustinfoVo();
+				model.addAttribute("CustinfoVo", s_custinfo);
+			}else{
+				model.addAttribute("CustinfoVo", null);
 			}
 		}catch (BizException e){
 			// TODO 调到登录页面

@@ -25,17 +25,12 @@ $(function(){
     <div class="inner clearfix rel">
         <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
 		<div class="nav"><a 
-			href="index.html">首页</a>|<a class="current" 
-			href="centerClose.html">资产总览</a>|<a 
-			href="settingAccount.html">账户管理</a>|<a 
+			href="${staticDomain}/home/index.htm">首页</a>|<a class="current" 
+			href="${staticDomain}/session/login.htm">资产总览</a>|<a 
+			href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
 			href="helpNotice.html">帮助中心</a><span class="member" 
 			href="javascript:;"><i class="trans icon"></i>1500047781<a 
-			href="javascript:;" class="trans out">安全退出</a></span></div>
-			
-        <div class="nav"><a id="btn-logout"
-			href="${staticDomain}/cust/logout.htm">登出</a>|<a
-			href="${staticDomain}/session/login.htm">我的幼富通</a>|<a class="last" 
-			href="javascript:;">帮助</a></div>
+			href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span></div>
     </div>
 </div>
 <form id="form-index" method="post" action="${staticDomain}/cust/index.htm">

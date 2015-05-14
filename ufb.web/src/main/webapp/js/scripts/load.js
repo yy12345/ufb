@@ -124,6 +124,5 @@ $(function () {
     $("body").on("click", ".trigger-loginBox", function () {
        alertBox(".box-login");
     });
-    alertBox(".box-login");
     // errorBox("系统错误","报错内容<br>报错内容<br>报错内容<br>");
 });
