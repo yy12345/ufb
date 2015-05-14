@@ -135,12 +135,35 @@ public class CustController {
 	}
 	
 	/**
+	 * 首页、广告页
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "home/index")
+	public String index(Model model) {
+		
+		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				// Session登出
+				UserHelper.removeCustinfoVo();
+			}
+		}catch (BizException e){
+			// TODO 调到登录页面
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			return "error/error";
+		}
+		return "home/indexPage";
+	}
+	
+	/**
 	 * 登录
 	 * @param custinfoVo
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "login/login")
+	@RequestMapping(value = "cust/login")
 	public String loginIn(CustinfoVo custinfoVo, Model model) {
 		
 		try{
@@ -224,7 +247,8 @@ public class CustController {
 			}
 					
 			model.addAttribute("CustinfoVo", custinfoVo);
-			return "login/indexPage";
+			//return "login/indexPage";
+			return "home/indexPage";
 		}
 		return "cust/indexPage";
 	}
@@ -360,7 +384,7 @@ public class CustController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "cust/login")
+	@RequestMapping(value = "session/login")
 	public String custLogin(CustinfoVo custinfoVo, Model model) {
 		
 		try{
@@ -409,7 +433,7 @@ public class CustController {
 				}
 				
 			}else{
-				return "login/indexPage";
+				return "home/indexPage";
 			}
 			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
@@ -432,7 +456,7 @@ public class CustController {
 			}
 					
 			model.addAttribute("CustinfoVo", custinfoVo);
-			return "login/indexPage";
+			return "home/indexPage";
 		}
 		return "cust/indexPage";
 	}

@@ -4,3 +4,4 @@
 	   <a href="${ufbDomain}/query/trade_detail.htm">立即查询</a>
 	</p>
 </div>
+<script src="${staticDomain}/js/scripts/load.js"></script>

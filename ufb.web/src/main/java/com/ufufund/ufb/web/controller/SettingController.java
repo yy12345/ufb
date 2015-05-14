@@ -46,7 +46,7 @@ public class SettingController {
 				custinfoVo.setLevel(s_custinfo.getLevel());
 				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 			} else{
-				ServletHolder.forward("/login/index.htm");
+				ServletHolder.forward("/home/index.htm");
 				return "login/index";
 			}
 		}catch (BizException e){
@@ -75,7 +75,7 @@ public class SettingController {
 				custinfoVo.setLevel(s_custinfo.getLevel());
 				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 			} else{
-				ServletHolder.forward("/login/index.htm");
+				ServletHolder.forward("/home/index.htm");
 				return "login/index";
 			}
 				
@@ -123,7 +123,7 @@ public class SettingController {
 					model.addAttribute("cardList_N", null);
 				}
 			} else{
-				ServletHolder.forward("/login/index.htm");
+				ServletHolder.forward("/home/index.htm");
 				return "login/index";
 			}
 		}catch (BizException e){
@@ -151,7 +151,7 @@ public class SettingController {
 						ServletHolder.getRequest().getParameter("bankacco"), 
 						"Y");
 			} else{
-				ServletHolder.forward("/login/index.htm");
+				ServletHolder.forward("/home/index.htm");
 				return "login/index";
 			}
 		}catch (BizException e){

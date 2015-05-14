@@ -1,28 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--
-<title>幼富通 - 资产总览</title>
--->
+
+<title>幼富通 - 首页</title>
 <script type='text/javascript' src='${staticDomain}/js/libs/camera.min.js'></script>
-<script>
-$(function(){
-	$("#btn-openAccount").on("click",function(){
-		//check #register-org #mobileno
-		$("#form-index").attr("action", "../bankcard/addBankCard.htm");
-		$("#form-index").submit();
-	});
-});
-</script>
 </head>
 <body>
+	
+<div class="alert-box box-login">
+    <div class="login">
+        <div class="login-tabs tabs clearfix">
+            <a class="tab tab-family fl on" href="javascript:;">家庭登录</a>
+            <a class="tab tab-org fl" href="javascript:;">幼教机构登录</a>
+        </div>
+        <div class="login-panels">
+            <div class="panel">
+				<form id="form-login" class="common-form login-form" method="post" action="${staticDomain}/cust/login.htm">
+                    <ul>
+                        <li class="clearfix">
+							<label class="fl">登录账号</label>
+							<a class="fr" href="${staticDomain}/cust/register.htm">免费注册</a>
+						</li>
+                        <li
+                        #if($errMsg_mobileno)
+                        class="error"
+                        #end
+                        >
+							<input type="text" id="ipt-loginUsername" name="mobileno" value="$!{CustinfoVo.mobileno}" class="ipt-loginUsername input-text">
+							<span class="tips-check"><i class="icon"></i>$!{errMsg_mobileno}</span>
+						</li>
+                        <li class="clearfix">
+							<label class="fl">登录密码</label>
+							<a class="fr" href="findPasswordStep1.html">忘记密码</a>
+						</li>
+                        <li 
+                        #if($errMsg_pswpwd)
+                        class="error"
+                        #end
+                        >
+							<input type="password" id="ipt-loginPassword" name="pswpwd" value="$!{CustinfoVo.pswpwd}" class="ipt-loginPassword input-text">
+							<span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd}</span>
+						</li>
+                        <li class="clearfix">
+							<label class="fl">验证码</label>
+						</li>
+                        <li>
+							<input type="text" class="ipt-code input-code" value="0000">
+								<span class="tips-check"><i class="icon"></i>验证提示</span>
+						</li>
+                        <li>
+							<input onclick="login()" id="btn-login" type="button" class="input-button" value="立即登录">
+						</li>
+                    </ul>
+                </form>
+            </div>
+            <div class="panel"></div>
+        </div>
+    </div>
+</div>
 <div class="index container" id="index">
     <div class="header">
         <div class="inner clearfix rel">
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
-            <div class="nav"><a 
-				href="${staticDomain}/login/index.htm">登录</a>|<a
-				href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
+			<div class="nav"><a class="trigger-loginBox" 
+				##href="${staticDomain}/login/index.htm">登录</a>|<a
+				href="#">登录</a>|<a
+				href="${staticDomain}/cust/register.htm">注册</a>|<a
 				href="javascript:;">我的幼富通</a>|<a class="last" 
 				href="helpNotice.html">帮助</a></div>
         </div>
@@ -142,5 +185,28 @@ $(function(){
 <script type='text/javascript' src='${staticDomain}/js/libs/camera.min.js'></script>
 <script src="${staticDomain}/js/scripts/load.js"></script>
 <script src="${staticDomain}/js/scripts/register.js"></script>
+<script>
+	var login = function () {
+		if(!check_null($("#ipt-loginUsername"), "登录名不能为空")){
+			return false;
+		}
+		if(!check_null($("#ipt-loginPassword"), "登录密码不能为空")){
+			return false;
+		}
+		$("#form-login").submit();
+		
+		
+		//if(!check_mobile($("#mobileno"))){
+		//	return false;
+		//}
+		//if(!check_code($("#verifycode"))){
+		//	return false;
+		//}
+		//if(!check_pwd1($("#pswpwd"))){
+		//	return false;
+		//}
+		// $("#form-login").submit();
+	};
+</script>
 </body>
 </html>
