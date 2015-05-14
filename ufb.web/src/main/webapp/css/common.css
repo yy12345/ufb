@@ -94,16 +94,16 @@ html, body {
 body {
 	background-color: #edeaea;
 	color: #808080;
+	font-family: "microsoft yahei";
 }
 a {
 	color: #808080;
 }
 .container {
 	font-size: 12px;
-	font-family: "microsoft yahei";
 	line-height: 1.5;
 	background-color: #f3f3f1;
-	/*overflow: hidden;*/
+	overflow: hidden;
 }
 .inner {
 	width: 960px;
@@ -159,13 +159,50 @@ a.btn {
 	color: #666666;
 }
 .header .nav a:hover,
-.header .nav a.member {
+.header .nav a.current {
 	color: #cb3849;
 }
 .header .nav a.last {
 	padding-right: 0;
 }
-
+.header .nav .member {
+	padding: 0 20px;
+	color: #666666;
+	position: relative;
+	background: url("../images/icon.png") no-repeat 0 -311px;
+	cursor: pointer;
+}
+.header .nav .member .icon {
+	position: absolute;
+	width: 12px;
+	height: 17px;
+	right: 0;
+	background: url("../images/icon.png") no-repeat 0 -289px;
+}
+.header .nav .member .out {
+	position: absolute;
+	top: 20px;
+	right: 0;
+	width: 100%;
+	text-align: center;
+	display: none;
+	padding: 0;
+	background-color: #ffffff;
+	-webkit-box-shadow:  1px 1px 3px 0 #666666;
+	-moz-box-shadow:  1px 1px 3px 0 #666666;
+	box-shadow:  1px 1px 3px 0 #666666;
+}
+.header .nav .member.on .out {
+	display: block;
+}
+.header .nav .member.on .icon {
+	-webkit-transform: rotate(-180deg);
+	-moz-transform: rotate(-180deg);
+	transform: rotate(-180deg);
+}
+.header .nav .member:hover .out {
+	color: #666666;
+}
 /* common - body */
 .body {
 }
@@ -265,21 +302,91 @@ a.btn {
 	padding: 0;
 	background: none;
 }
-/* common - login */
-.login {
-	width: 230px;
-	height: 300px;
+/* common - box */
+.alert-con {
+	background-color: rgba(0,0,0,0.8);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	z-index: 100;
+}
+.alert-close {
+	position: absolute;
+	top: 75px;
+	right: 80px;
+	width: 51px;
+	height: 51px;
+	background: url("../images/icon-close.png") no-repeat 0 0;
+	cursor: pointer;
+}
+.alert-box {
+	display: none;
+}
+.img-openGuide {
+	position: absolute;
+	top: 170px;
+	left: 50%;
+	margin-left: -300px;
+}
+.error-box {
+	width: 380px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -190px;
 	background-color: #ffffff;
+	display: none;
+	z-index: 1000;
+	-webkit-box-shadow: 1px 1px 2px 0 #999999;
+	-moz-box-shadow: 1px 1px 2px 0 #999999;
+	box-shadow: 1px 1px 2px 0 #999999;
+}
+.error-box .error-title {
+	line-height: 40px;
+	font-size: 14px;
+	padding: 0 20px;
+	position: relative;
+	color: #ffffff;
+	background-color: #c30d23;
+}
+.error-box .error-close {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 0;
+	right: 0px;
+	background: url("../images/icon-close2.png") no-repeat center center;
+	cursor: pointer;
+}
+.error-box .error-content {
+	padding: 20px;
+	font-size: 14px;
+	color: #595757;
+}
+/* common - login */
+.box-login {
+}
+.login {
+	width: 410px;
+	background-color: #ffffff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -205px;
+	margin-top: -200px;
 }
 .login-tabs .tab {
-	width: 115px;
+	width: 205px;
 	height: 40px;
 	text-align: center;
 	line-height: 40px;
-	color: #ffffff;
+	color: #666666;
 	font-size: 14px;
 }
 .login-tabs .tab.on {
+	color: #ffffff;
 	background-color: #CB3849;
 }
 /* common - form */
@@ -392,44 +499,56 @@ a.btn {
 	font-size: 12px;
 	text-decoration: underline;
 	margin-right: 20px;
-}/*
-.login-form .link-register {
-	color: #cb3849;
-	line-height: 30px;
-}
-.login-form span {
-	color: #ffffff;
-}
-.login-form .link-find {
-	color: #ffffff;
 }
 .login-form ul {
-	padding: 0 20px;
+	width: 330px;
+	padding: 20px 40px;
 }
 .login-form li {
+	padding: 5px 0;
+	line-height: 1.5;
+	position: relative;
 }
 .login-form li input.input-text {
-	width: 130px;
+	width: 270px;
 	height: 40px;
-	border: 0;
 	padding:0 10px 0 50px;
-	margin-bottom: 10px;
+	border: 1px solid #e1e2e2;
 }
 .login-form li input.input-code {
-	width: 110px;
+	width: 218px;
 	height: 40px;
-	border: 0;
-	padding: 0;
-	margin-bottom: 10px;
+	padding: 0 10px;
+	border: 1px solid #e1e2e2;
 }
 .login-form li input.input-button {
-	width: 190px;
+	width: 330px;
 	height: 40px;
 	border: 0;
 	padding: 0;
 	background-color: #cb3849;
 	color: #ffffff;
-}*/
+}
+.login-form .ipt-username {
+	background: url("../images/icon-username.png") no-repeat left top;
+}
+.login-form .ipt-password {
+	background: url("../images/icon-password.png") no-repeat left top;
+}
+.login-form label {
+	color: #666666;
+	font-size: 12px;
+}
+.login-form a {
+	color: #cb3849;
+	font-size: 12px;
+}
+.login-form li .tips-check {
+	position: absolute;
+	top: -32px;
+	left: 60px;
+}
+
 .input-select {
 	width: 240px;
 	height: 34px;
@@ -716,16 +835,6 @@ a.btn {
 
 /* index */
 
-/*.index .kv .inner {
-	position: relative;
-}
-.index .login {
-	position: absolute;
-	top: 50px;
-	right: 0px;
-	z-index: 1000;
-	background-color: #97c7df;
-}*/
 .index .kv {
 	position: relative;
 	height: 400px;
@@ -947,11 +1056,15 @@ a.btn {
 .center .side .info-account .account-btn {
 	border-top: 1px solid #CBCBCB;
 	padding-top: 10px;
+	position: relative;
 }
 .center .side .info-account .account-btn .btn {
 	width: 210px;
 	display: block;
-	margin:0 auto;
+	position: absolute;
+	z-index: 100;
+	left: 50%;
+	margin-left: -105px;
 }
 .center .body .title-side {
 	width: 225px;

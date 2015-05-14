@@ -30,6 +30,7 @@ public class TradeController {
 	private static final Logger LOG = LoggerFactory.getLogger(TradeController.class);
 	
 	private static final String PAGE_PAY_INDEX = "trade/pay_index.htm";
+	private static final String PAGE_CASH_INDEX = "trade/cash_index.htm";
 
 	@Autowired
 	private TradeManager tradeManager;
@@ -62,6 +63,8 @@ public class TradeController {
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			
+			model.addAttribute("CustinfoVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
 			model.addAttribute("errorMsg", ue.getMessage());
@@ -84,6 +87,7 @@ public class TradeController {
 			
 			tradeManager.buyApply(vo);
 			
+			model.addAttribute("CustinfoVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
 			model.addAttribute("errorMsg", ue.getMessage());
@@ -124,10 +128,12 @@ public class TradeController {
 			model.addAttribute("cardList", assets.getAccoList());
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			
+			model.addAttribute("CustinfoVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
 			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", PAGE_PAY_INDEX);
+			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
 			return "error/user_error";
 		}
 		
@@ -149,10 +155,11 @@ public class TradeController {
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
 			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", PAGE_PAY_INDEX);
+			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
 			return "error/user_error";
 		}
 		
+		model.addAttribute("CustinfoVo", UserHelper.getCustinfoVo());
 		return "trade/cash_result";
 	}
 	

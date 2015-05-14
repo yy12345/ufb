@@ -1,10 +1,45 @@
+
+/* function - alert */
+var alertBox = function (el) {//遮罩层
+    var $this = $(el);
+    if($this.length ==0) {
+        return false;
+    }
+    $("body").prepend("<div class='alert-con'><a class='alert-close'></a>"+$this.html()+"</div>");
+};
+$("body").on("click", ".alert-close", function () {
+    var $this = $(this);
+    var $con = $this.parents(".alert-con");
+    $con.remove();
+});
+var errorBox = function (errorTitle, errorText) {//错误框
+    var errorBox=$("<div class='error-box'>" +
+        "<div class='error-title'>"+errorTitle+"<a class='error-close'></a></div>" +
+        "<div class='error-content'>"+errorText+"</div>" +
+        "</div>");
+    $("body").prepend(errorBox);
+    var errorBoxHeight = errorBox.outerHeight();
+    if(errorBoxHeight>0) {
+        errorBox.css("marginTop",0-errorBoxHeight/2+"px").show();
+    }else {
+        errorBox.remove();
+    }
+};
+$("body").on("click", ".error-close", function () {
+    var $this = $(this);
+    var $con = $this.parents(".error-box");
+    $con.remove();
+});
 $(function () {
     $(".shadow-normal").on("mouseenter", function () {
         $(this).addClass("shadow-hover");
     }).on("mouseleave", function () {
         $(this).removeClass("shadow-hover");
 
-    })
+    });
+    $(".nav").on("click",".member",function () {
+        $(this).toggleClass("on");
+    });
     $('#index_kv').length>0 && $('#index_kv').camera({
         height:"400px",
         loader:"none",
@@ -84,4 +119,11 @@ $(function () {
     }).on("mouseleave", ".card", function () {
         $(this).removeClass("card-hover");
     });
+
+    /* trigger - loginBox */
+    $("body").on("click", ".trigger-loginBox", function () {
+       alertBox(".box-login");
+    });
+
+    // errorBox("系统错误","报错内容<br>报错内容<br>报错内容<br>");
 });

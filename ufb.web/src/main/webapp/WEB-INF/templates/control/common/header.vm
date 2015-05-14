@@ -3,9 +3,15 @@
         <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
         <div class="nav">
 			<a 
-				href="javascript:;">登录</a>|<a 
-				href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
-				href="${staticDomain}/cust/login.htm">我的幼富通</a>|<a class="last" 
-				href="javascript:;">帮助</a></div>
+				href="index.html">首页</a>|<a class="current" 
+				href="${staticDomain}/cust/login.htm">资产总览</a>|<a 
+				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
+				href="helpNotice.html">帮助中心</a><span class="member" 
+				href="javascript:;"><i class="trans icon"></i>#if ($CustinfoVo.invnm)
+                	    $!{CustinfoVo.invnm}
+                	#else
+                	    $!{CustinfoVo.mobileno}
+                	#end<a 
+				href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span></div>
     </div>
 </div>

@@ -226,7 +226,7 @@ input[type="checkbox"] {
 select,
 input,
 textarea {
-	font: 99% sans-serif;
+	font: 99% "microsoft yahei",sans-serif;
 }
 
 table {

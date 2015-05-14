@@ -30,7 +30,7 @@ $(function(){
 		if(!check_pwd1($("#pswpwd"))){
 			return false;
 		}
-		$("#form-login").submit();
+		// $("#form-login").submit();
 	});
 });
 </script>
@@ -79,7 +79,7 @@ $(function(){
                 <span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd}</span>
             </li>
 			<li>
-				<input id="btn-login" class="ipt-submit input-button ok" type="button" value="登&nbsp;录">
+				<input id="btn-login" class="ipt-submit input-button ok" type="submit" value="登&nbsp;录">
             </li>
         </ul>
 		</form>

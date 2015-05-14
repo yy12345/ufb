@@ -59,6 +59,14 @@ var showTips = function (ele, text) {
 }
 
 /* check mod */
+var check_null = function (ipt, text) {
+    var value = ipt.val();
+    if (isNull(value)) {
+        return showTips(ipt, text);
+    }
+    return showTips(ipt, 0);
+}
+
 var check_mobile = function (ipt) {//验证手机号
     var value = ipt.val();
     if (isNull(value)) {
@@ -204,50 +212,62 @@ var check_cash = function (ipt) {
     if (isNull(value)) {
         return showTips(ipt, "金额不能为空");
     }
+    
+    var regex = /^([1-9]{1}[0-9]{0,10}(\.[0-9]{1,2})?|0\.[1-9][0-9]?|0\.0[1-9])$/;
+    if (!regex.test($.trim(value))) {
+        return showTips(ipt, "请填写正确的金额，例如：10000元");
+    }
     return showTips(ipt, 0);
 }
 /* bind mod */
 
-$(".ipt-phoneNum").bind("blur", function() {
+$("body").bind("blur", ".ipt-phoneNum", function() {
     check_mobile($(this));
 });
 
-$(".ipt-code").bind("blur", function() {
+$("body").on("blur", ".ipt-code", function() {
     check_code($(this));
 });
 
-$(".ipt-phoneCode").bind("blur", function() {
+$("body").bind("blur", ".ipt-phoneCode", function() {
     check_phoneCode($(this));
 });
 
-$(".ipt-idCard").bind("blur", function() {
+$("body").bind("blur", ".ipt-idCard", function() {
     check_id($(this));
 });
 
-$(".ipt-password1").on("blur", function() {
+$("body").on("blur", ".ipt-password1",  function() {
     check_pwd1($(this));
 });
 
-$(".ipt-password2").on("blur", function() {
+$("body").on("blur", ".ipt-password2",  function() {
     check_pwd2($(this));
 });
 
-$(".ipt-organization").on("blur", function() {
+$("body").on("blur", ".ipt-organization",  function() {
 	check_organization($(this));
 });
 
-$(".ipt-business").on("blur", function() {
+$("body").on("blur", ".ipt-business",  function() {
 	check_business($(this));
 });
 
-$(".ipt-bankCard").on("blur", function() {
+$("body").on("blur", ".ipt-bankCard",  function() {
     check_bankCard($(this));
 });
 
-$(".ipt-bankAcnm").on("blur", function() {
-    check_bankAcnm($(this));
+$("body").on("blur", ".ipt-cash",  function() {
+    check_cash($(this));
 });
 
-$(".ipt-cash").on("blur", function() {
-    check_cash($(this));
+$("body").on("blur", ".ipt-bankAcnm",  function() {
+	check_bankAcnm($(this));
+});
+
+$("body").on("blur", ".ipt-loginUsername", function () {
+    check_null($(this), "登录名不能为空");
+});
+$("body").on("blur", ".ipt-loginPassword", function () {
+    check_null($(this), "登录密码不能为空");
 });

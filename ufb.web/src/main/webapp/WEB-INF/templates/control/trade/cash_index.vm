@@ -95,11 +95,9 @@
         </div>
     </div>
 </div>
-
 <script src="${staticDomain}/js/scripts/load.js"></script>
-<script type='text/javascript' src='${staticDomain}/js/libs/jquery.min.js'></script>
+<script src="${staticDomain}/js/scripts/register.js"></script>
 <script src="${staticDomain}/js/ufuCommon.js"></script>
-
 <script type="text/javascript">
 	$(function(){
 	
@@ -120,28 +118,6 @@
 			return true;
 		}
 		
-		// 点击银行卡时
-		$(".card").on("click", function(){
-			$("#tradeacco").val($(this).attr("cardTradeacco"));
-			$("#cardAvailable").val($(this).attr("cardAvailable"));
-			$("#cardAvailableDisplay").html(formatCurrency2($(this).attr("cardAvailable")));
-		});
-		
-		// 金额表单控制
-		$("#appvol_display").on("blur", function(){
-			var appvol_1 = formatCurrency1($("#appvol_display").val());
-			var appvol_2 = formatCurrency2($("#appvol_display").val());
-			if(appvol_1 == '0.00' || appvol_2 == '0.00'){
-				$("#appvol").val('');
-				$("#appvol_display").val('');
-				$("#appvolTips").html('请输入正确格式的金额，比如1000.00！');
-				$("#appvolTips").show();
-			}else{
-				$("#appvol").val(appvol_1);
-				$("#appvolDisplay").val(appvol_2);
-			}
-		});
-		
 		// 增加安全中心验证
 		$(".ipt-cash").on("blur", function() {
             if($("#appvol").val() - $("#cardAvailable").val() > 0){
@@ -153,6 +129,26 @@
 		$("#tradePwd").on("blur", function() {
 			check_pwd1($("#tradePwd"));
         });
+		
+		// 金额表单控制
+		$("#appvol").on("blur", function(){
+			var appvol = formatCurrency1($("#appvol").val());
+			if(appvol == '0.00'){
+				$("#appvol").val('');
+				showTips($(this), "请输入正确格式的金额，比如1000.00！");
+				//$("#appvolTips").html('请输入正确格式的金额，比如1000.00！');
+				//$("#appvolTips").show();
+			}else{
+				$("#appvol").val(appvol);
+			}
+		});
+		
+		// 点击银行卡
+		$(".card").on("click", function(){
+			$("#tradeacco").val($(this).attr("cardTradeacco"));
+			$("#cardAvailable").val($(this).attr("cardAvailable"));
+			$("#cardAvailableDisplay").html(formatCurrency2($(this).attr("cardAvailable")));
+		});
 		
 		// 表单提交时，验证	
 		$("#submit").on("click", function(){
@@ -170,7 +166,5 @@
 		});
 	});
 </script>
-<script src="${staticDomain}/js/scripts/load.js"></script>
-<script src="${staticDomain}/js/scripts/register.js"></script>
 </body>
 </html>

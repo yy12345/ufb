@@ -139,6 +139,8 @@ $(function(){
         </div>
     </div>
 </div>
+<script type='text/javascript' src='${staticDomain}/js/libs/camera.min.js'></script>
 <script src="${staticDomain}/js/scripts/load.js"></script>
+<script src="${staticDomain}/js/scripts/register.js"></script>
 </body>
 </html>
