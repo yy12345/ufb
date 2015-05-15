@@ -14,6 +14,7 @@ import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
+import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Changerecordinfo;
@@ -199,18 +200,41 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		tradeNotesMapper.insterChangerecordinfo(changerecordinfo);
 	}
 
-//	@Override
-//	public void changePassword(ChangePasswordAction changePasswordAction) throws BizException {
-//		String processId = this.getProcessId(changePasswordAction);
-//		custManagerValidator.validator(changePasswordAction);
-//		Custinfo custinfo = new Custinfo();
-//		custinfo.setMobileno(changePasswordAction.getMobile());
-//		custinfo = custinfoMapper.getCustinfo(custinfo);
-//		if (custinfo == null || custinfo.getCustno() == null ) {
-//			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE);
-//		}
-//		custinfo.setPasswd(changePasswordAction.getLoginPassword());
-//		custinfoMapper.updateCustinfo(custinfo);
-//		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
-//	}
+	@Override
+	public void changePassword(ChangePasswordAction changePasswordAction) throws BizException {
+		String processId = this.getProcessId(changePasswordAction);
+		String actionType = changePasswordAction.getActionType();
+		/** 校验数据有效性 **/
+		custManagerValidator.validator(changePasswordAction);
+		
+		/** 验证原始密码 **/
+		Custinfo custinfo = new Custinfo();
+		custinfo.setCustno(changePasswordAction.getCustno());
+		if("TRADE".equals(actionType)){
+			// 交易密码
+			custinfo.setTradepwd(EncryptUtil.md5(changePasswordAction.getPassword0()));
+		}else{
+			// 登入密码
+			custinfo.setPasswd(EncryptUtil.md5(changePasswordAction.getPassword0()));
+		}
+		custinfo = custinfoMapper.getCustinfo(custinfo);
+		if (custinfo == null || custinfo.getCustno() == null ) {
+			if("TRADE".equals(actionType)){
+				throw new BizException(processId, ErrorInfo.WRONG_TRADE_PASSWORD, BisConst.Register.TRADEPWD0);
+			}else{
+				throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD, BisConst.Register.LOGINPASSWORD0);
+			}
+		}
+		
+		/** 修改密码 **/
+		if("TRADE".equals(actionType)){
+			// 交易密码
+			custinfo.setTradepwd(EncryptUtil.md5(changePasswordAction.getPassword1()));
+		}else{
+			// 登入密码
+			custinfo.setPasswd(EncryptUtil.md5(changePasswordAction.getPassword1()));
+		}
+		custinfoMapper.updateCustinfo(custinfo);
+		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
+	}
 }

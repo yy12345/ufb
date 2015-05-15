@@ -86,7 +86,7 @@ public class CustManagerValidator {
 	 *  用户注册、冻结、已开户验证
 	 * @param openAccountAction
 	 */
-	public void validator(OpenAccountAction action, String actionName) {
+	public void validator(OpenAccountAction action, String actionName) throws BizException {
 		
 		// Custno验证
 		String custNo = action.getCustno();
@@ -110,25 +110,51 @@ public class CustManagerValidator {
 		}
 	}
 	
+	/**
+	 * 修改密码
+	 * @param action
+	 * @throws BizException
+	 */
 	public void validator(ChangePasswordAction action) throws BizException {
 		String processId = action.getProcessId();
-		if (RegexUtil.isNull(action.getMobile())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.MOBILE);
+		if("TRADE".equals(action.getActionType())){
+			if (RegexUtil.isNull(action.getPassword0())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD0);
+			}
+			if (RegexUtil.isNull(action.getPassword1())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD);
+			}
+			if (RegexUtil.isNull(action.getPassword2())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD2);
+			}
+			if (!action.getPassword1().equals(action.getPassword2())) {
+				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD);
+			}
+			if (!RegexUtil.isPwd(action.getPassword1())) {
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.TRADEPWD);
+			}
+		}else{
+			if (RegexUtil.isNull(action.getPassword0())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD0);
+			}
+			if (RegexUtil.isNull(action.getPassword1())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD);
+			}
+			if (RegexUtil.isNull(action.getPassword2())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD2);
+			}
+			if (!action.getPassword1().equals(action.getPassword2())) {
+				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.LOGINPASSWORD);
+			}
+			if (!RegexUtil.isPwd(action.getPassword1())) {
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.LOGINPASSWORD);
+			}
 		}
-		if (RegexUtil.isNull(action.getLoginPassword())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD);
-		}
-		if (RegexUtil.isNull(action.getLoginPassword2())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD2);
-		}
-		if (!action.getLoginPassword().equals(action.getLoginPassword2())) {
-			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.LOGINPASSWORD);
-		}
-		if (!RegexUtil.isPwd(action.getLoginPassword())) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.LOGINPASSWORD);
-		}
-		if (!RegexUtil.isMobile(action.getMobile())) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.MOBILE);
-		}
+		//if (RegexUtil.isNull(action.getMobile())) {
+		//	throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.MOBILE);
+		//}
+		//if (!RegexUtil.isMobile(action.getMobile())) {
+		//	throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.MOBILE);
+		//}
 	}
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.common.constant.BisConst;
+import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
@@ -29,7 +31,7 @@ public class SettingController {
 	private BankCardManager bankCardManager;
 	
 	@RequestMapping(value="setting/settingAccount")
-	public String getSettingAccount(CustinfoVo custinfoVo, Model model){
+	public String setAccount(CustinfoVo custinfoVo, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
@@ -58,8 +60,10 @@ public class SettingController {
 	}
 	
 	@RequestMapping(value="setting/settingPassword")
-	public String getSettingPassword(CustinfoVo custinfoVo, Model model){
+	public String setPassword(CustinfoVo custinfoVo, Model model){
 		try{
+			model.addAttribute("TAB", "1");
+			
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
 				// Session登录
@@ -78,7 +82,6 @@ public class SettingController {
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
 			}
-				
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingPassword";
@@ -87,8 +90,51 @@ public class SettingController {
 		return "setting/settingPassword";
 	}
 	
+	@RequestMapping(value="setting/settingTradePwd")
+	public String setTradePwd(String password0, String password1, String password2, Model model){
+		try{
+			model.addAttribute("TAB", "1");
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				ChangePasswordAction changePasswordAction = new ChangePasswordAction();
+				changePasswordAction.setActionType("TRADE");
+				changePasswordAction.setCustno(s_custinfo.getCustno());
+				changePasswordAction.setPassword0(password0);
+				changePasswordAction.setPassword1(password1);
+				changePasswordAction.setPassword2(password2);
+				/** 修改交易密码 **/
+				custManager.changePassword(changePasswordAction);
+			} else{
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
+			}
+			model.addAttribute("CustinfoVo", s_custinfo);
+			model.addAttribute("TAB", "1S");
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			String ems = e.getOtherInfo();
+			if(BisConst.Register.TRADEPWD0.equals(ems)){
+				model.addAttribute("errMsg_password0", e.getMessage());
+			}else
+			if(BisConst.Register.TRADEPWD.equals(ems)){
+				model.addAttribute("errMsg_password1", e.getMessage());
+			}else
+			if(BisConst.Register.TRADEPWD2.equals(ems)){
+				model.addAttribute("errMsg_password2", e.getMessage());
+			}else{
+				model.addAttribute("errMsg", e.getMessage());
+			}
+			model.addAttribute("password0", password0);
+			model.addAttribute("password1", password1);
+			model.addAttribute("password2", password2);
+			
+			return "setting/settingPassword";
+		}
+		return "setting/settingPassword";
+	}
+	
 	@RequestMapping(value="setting/settingCard")
-	public String getSettingCard(CustinfoVo custinfoVo, Model model){
+	public String setCard(CustinfoVo custinfoVo, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
@@ -137,7 +183,7 @@ public class SettingController {
 	
 
 	@RequestMapping(value="setting/settingMainCard")
-	public String getSettingMainCard(String bankacco, Model model){
+	public String setMainCard(String bankacco, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){

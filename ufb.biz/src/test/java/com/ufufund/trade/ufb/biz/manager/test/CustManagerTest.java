@@ -79,8 +79,8 @@ public class CustManagerTest {
 	public void testupdateCustinfo() {
 		ChangePasswordAction custinfo =new ChangePasswordAction();
 		custinfo.setMobile("13611686341");
-		custinfo.setLoginPassword("123256789");
-		custinfo.setLoginPassword2("123256789");
+		//custinfo.setLoginPassword("123256789");
+		//custinfo.setLoginPassword2("123256789");
 		//areaManager.changePassword(custinfo);
 	}
 	

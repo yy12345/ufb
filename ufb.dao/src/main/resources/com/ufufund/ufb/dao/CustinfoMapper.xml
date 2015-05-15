@@ -41,6 +41,9 @@
 		<if test="passwd != null and passwd !=''" >
   		 T1.PASSWD = #{passwd,jdbcType=VARCHAR} AND
   		</if>
+  		<if test="tradepwd != null and tradepwd !=''" >
+  		 T1.TRADEPWD = #{tradepwd,jdbcType=VARCHAR} AND
+  		</if>
   		<if test="custst != null and custst !=''" >
   		 T1.CUSTST = #{custst,jdbcType=VARCHAR} AND
   		</if>

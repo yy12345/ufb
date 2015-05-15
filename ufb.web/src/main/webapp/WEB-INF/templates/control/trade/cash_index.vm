@@ -69,10 +69,7 @@
                     <li>
                         <span class="form-title">可用金额</span>
                         <div class="mark">
-							全卡：<font id="availableDisplay" >${availableDisplay}</font>元
-						</div>
-                        <div class="mark">
-							单卡：<font id="cardAvailableDisplay" >${cardAvailableDisplay}</font>元
+							<font id="cardAvailableDisplay" >${cardAvailableDisplay}</font>元
 						</div>
                     </li>
                     <li>

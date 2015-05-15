@@ -1,6 +1,7 @@
 package com.ufufund.ufb.biz.manager;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -45,12 +46,12 @@ public interface CustManager extends CustInterface{
 	 */
 	public Custinfo getCustinfo(String custno) throws BizException;
 	
-//	/**
-//	 * 修改密码
-//	 * @param ChangePasswordAction changePasswordAction
-//	 * @return 
-//	 */
-//	public void changePassword(ChangePasswordAction changePasswordAction) throws BizException;
+	/**
+	 * 修改密码
+	 * @param ChangePasswordAction changePasswordAction
+	 * @return 
+	 */
+	public void changePassword(ChangePasswordAction changePasswordAction) throws BizException;
 //	/**
 //	 * 没有身份证信息的绑卡
 //	 * @param custno

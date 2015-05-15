@@ -237,6 +237,10 @@ $("body").bind("blur", ".ipt-idCard", function() {
     check_id($(this));
 });
 
+$("body").on("blur", ".ipt-password0",  function() {
+	check_null($(this), "密码不能为空");
+});
+
 $("body").on("blur", ".ipt-password1",  function() {
     check_pwd1($(this));
 });
