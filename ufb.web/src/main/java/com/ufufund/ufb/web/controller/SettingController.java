@@ -47,7 +47,7 @@ public class SettingController {
 				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 			} else{
 				ServletHolder.forward("/home/index.htm");
-				return "login/index";
+				return "home/index";
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -76,7 +76,7 @@ public class SettingController {
 				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 			} else{
 				ServletHolder.forward("/home/index.htm");
-				return "login/index";
+				return "home/index";
 			}
 				
 		}catch (BizException e){
@@ -124,7 +124,7 @@ public class SettingController {
 				}
 			} else{
 				ServletHolder.forward("/home/index.htm");
-				return "login/index";
+				return "home/index";
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -152,7 +152,7 @@ public class SettingController {
 						"Y");
 			} else{
 				ServletHolder.forward("/home/index.htm");
-				return "login/index";
+				return "home/index";
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);

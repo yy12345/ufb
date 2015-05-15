@@ -29,7 +29,11 @@ $(function(){
 			href="${staticDomain}/session/login.htm">资产总览</a>|<a 
 			href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
 			href="helpNotice.html">帮助中心</a><span class="member" 
-			href="javascript:;"><i class="trans icon"></i>1500047781<a 
+			href="javascript:;"><i class="trans icon"></i>#if ($CustinfoVo.invnm)
+                	    $!{CustinfoVo.invnm}
+                	#else
+                	    $!{CustinfoVo.mobileno}
+                	#end<a 
 			href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span></div>
     </div>
 </div>
@@ -188,10 +192,12 @@ $(function(){
                         <div class="name">可用金额（元）</div>
                         <div class="value">$!{availableBalanceDisplay}</div>
                     </li>
-					 <li class="account-item">
+					#if($CustinfoVo.openaccount=="Y")
+					<li class="account-item">
                         <div class="name">冻结金额（元）</div>
                         <div class="value">$!{frozenBalanceDisplay}</div>
                     </li>
+					#end
                 </ul>
 				#if($CustinfoVo.openaccount!="Y")
                 <div class="account-btn">
@@ -219,7 +225,7 @@ $(function(){
             <p>海富通产品：400-8840-099</p>
         </div>
         <div class="copyright fr">
-            <p>上海泛投信息科技有限公司版权所有 ©2015</p>
+            <p>幼富通版权所有 ©2015</p>
             <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
         </div>
     </div>
@@ -229,7 +235,9 @@ $(function(){
 <script src="${staticDomain}/js/scripts/load.js"></script>
 <script>
     $(function () {
+		#if($CustinfoVo.openaccount!="Y")
         alertBox(".box-openGuide");
+		#end
     });
 </script>
 </body>

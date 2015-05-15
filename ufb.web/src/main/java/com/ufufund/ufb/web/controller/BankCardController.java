@@ -67,6 +67,7 @@ public class BankCardController {
 			}
 			UserHelper.setAddBankCardStatus("N");
 			model.addAttribute("BankCardVo", bankCardVo);
+			model.addAttribute("CustinfoVo", s_custinfo);
 		}catch (BizException e){
 			// TODO 
 			LOG.error(e.getErrmsg(), e);
@@ -85,6 +86,8 @@ public class BankCardController {
 	public String addBankCardInit(BankCardVo bankCardVo, Model model){
 		
 		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setOrganization(bankCardVo.getOrganization());
 			openAccountAction.setInvtp(bankCardVo.getInvtp());
@@ -110,6 +113,7 @@ public class BankCardController {
 			}
 			model.addAttribute("bankList", bankBaseList);
 			model.addAttribute("BankCardVo", bankCardVo);
+			model.addAttribute("CustinfoVo", s_custinfo);
 			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -191,6 +195,7 @@ public class BankCardController {
 			UserHelper.saveCustinfoVo(s_custinfo);
 			
 			model.addAttribute("BankCardVo", bankCardVo);
+			model.addAttribute("CustinfoVo", s_custinfo);
 		}catch (BizException e){
 			
 			// 获取银行列表

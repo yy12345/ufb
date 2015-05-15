@@ -126,9 +126,10 @@ $(function(){
 <div class="header">
     <div class="inner clearfix rel">
         <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
-        <div class="nav"><a
+        <div class="nav"><a 
 			href="${staticDomain}/home/index.htm">登录</a>|<a 
-			href="${staticDomain}/cust/register.htm">注册</a>|<a class="last" 
+			href="${staticDomain}/cust/register.htm">注册</a>|<a 
+			href="javascript:;">我的幼富通</a>|<a class="last" 
 			href="javascript:;">帮助</a></div>
     </div>
 </div>
@@ -314,7 +315,7 @@ $(function(){
                 <p>海富通产品：400-8840-099</p>
             </div>
             <div class="copyright">
-                <p>上海泛投信息科技有限公司版权所有 ©2015</p>
+                <p>幼富通版权所有 ©2015</p>
                 <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
             </div>
         </div>

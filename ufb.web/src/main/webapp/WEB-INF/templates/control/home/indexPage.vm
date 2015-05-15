@@ -64,13 +64,25 @@
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
 			<div class="nav">
 				#if ($CustinfoVo)
-				<a href="${staticDomain}/session/login.htm">登录s</a>|<a
+				<a href="${staticDomain}/cust/register.htm">注册</a>|<a
+				href="${staticDomain}/session/login.htm">资产总览</a>|<a
+				href="helpNotice.html">帮助中心</a><span class="member" 
+    			href="javascript:;"><i class="trans icon"></i>
+					#if ($CustinfoVo.invnm)
+						$!{CustinfoVo.invnm}
+                    #else
+                        $!{CustinfoVo.mobileno}
+					#end
+				<a href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span>
 				#else
-				<a class="trigger-loginBox" href="#">登录</a>|<a
+				<a class="trigger-loginBox" href="javascript:;">登录</a>|<a
+				href="${staticDomain}/cust/register.htm">注册</a>|<a 
+				href="javascript:;" class="trigger-loginBox" >资产总览</a>|<a class="last" 
+				href="helpNotice.html">帮助中心</a>
 				#end
-				href="${staticDomain}/cust/register.htm">注册</a>|<a
-				href="javascript:;">我的幼富通</a>|<a class="last" 
-				href="helpNotice.html">帮助</a></div>
+			</div>
+			
+			
         </div>
     </div>
     <div class="body">
@@ -178,7 +190,7 @@
                     <p>海富通产品：400-8840-099</p>
                 </div>
                 <div class="copyright">
-                    <p>上海泛投信息科技有限公司版权所有 ©2015</p>
+                    <p>幼富通版权所有 ©2015</p>
                     <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
                 </div>
             </div>

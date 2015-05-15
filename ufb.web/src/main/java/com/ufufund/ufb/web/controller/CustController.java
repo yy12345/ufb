@@ -47,12 +47,12 @@ public class CustController {
 		return "cust/registerPage";
 	}
 	
-	@RequestMapping(value="login/index")
-	public String getLoginPage(CustinfoVo custinfoVo, Model model){
-		UserHelper.removeCustinfoVo();
-		model.addAttribute("CustinfoVo", custinfoVo);
-		return "login/indexPage";
-	}
+//	@RequestMapping(value="login/index")
+//	public String getLoginPage(CustinfoVo custinfoVo, Model model){
+//		UserHelper.removeCustinfoVo();
+//		model.addAttribute("CustinfoVo", custinfoVo);
+//		return "login/indexPage";
+//	}
 	
 	
 	/**

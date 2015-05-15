@@ -6,14 +6,14 @@
 -->
 <script>
 $(function(){
-	$("#btn-login").on("click",function(){
-		$("#form-login").submit();
-	});
+	//$("#btn-login").on("click",function(){
+	//	$("#form-login").submit();
+	//});
 	
-	$("#btn-logout").on("click",function(){
-		$("#form-login").attr("action", "../cust/logout.htm");
-		$("#form-login").submit();
-	});
+	//$("#btn-logout").on("click",function(){
+	//	$("#form-login").attr("action", "../cust/logout.htm");
+	//	$("#form-login").submit();
+	//});
 });
 </script>
 </head>
@@ -22,11 +22,17 @@ $(function(){
 <div class="header">
     <div class="inner clearfix rel">
         <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
-        <div class="nav"><a id="btn-logout"
-			href="${staticDomain}/login/logout.htm">登出</a>|<a 
-			href="${staticDomain}/cust/register.htm">注册</a>|<a class="member" 
-			href="${staticDomain}/session/login.htm">我的幼富通</a>|<a class="last" 
-			href="javascript:;">帮助</a></div>
+		<div class="nav"><a 
+			href="${staticDomain}/home/index.htm">首页</a>|<a class="current" 
+			href="${staticDomain}/session/login.htm">资产总览</a>|<a 
+			href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
+			href="helpNotice.html">帮助中心</a><span class="member" 
+			href="javascript:;"><i class="trans icon"></i>#if ($CustinfoVo.invnm)
+                	    $!{CustinfoVo.invnm}
+                	#else
+                	    $!{CustinfoVo.mobileno}
+                	#end<a 
+			href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span></div>
     </div>
 </div>
 <div class="body">
@@ -34,7 +40,7 @@ $(function(){
 		<form id="form-login" method="post" action="${staticDomain}/session/login.htm">
         <div class="form-done">
             <div class="title">注册成功</div>
-            <a id="btn-login" class="btn" href="javascript:;">进入幼富通</a>
+            <a id="btn-login" class="btn" href="${staticDomain}/session/login.htm">进入幼富通</a>
         </div>
 		</form>
     </div>
@@ -66,7 +72,7 @@ $(function(){
                 <p>海富通产品：400-8840-099</p>
             </div>
             <div class="copyright">
-                <p>上海泛投信息科技有限公司版权所有 ©2015</p>
+                <p>幼富通版权所有 ©2015</p>
                 <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
             </div>
         </div>
