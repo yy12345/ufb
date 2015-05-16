@@ -71,7 +71,10 @@
 					#if ($CustinfoVo.invnm)
 						$!{CustinfoVo.invnm}
                     #else
-                        $!{CustinfoVo.mobileno}
+						#set($tailStr=$CustinfoVo.mobileno)
+						#set($start=$tailStr.substring(0,3))
+						#set($end=$tailStr.substring(7,11))
+						$start****$end
 					#end
 				<a href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span>
 				#else
@@ -81,8 +84,6 @@
 				href="helpNotice.html">帮助中心</a>
 				#end
 			</div>
-			
-			
         </div>
     </div>
     <div class="body">

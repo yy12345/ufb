@@ -14,7 +14,8 @@ public class TradeQutyChg implements Serializable {
 	private String appdate;
 	private String workdate;
 	private String fundcode;
-	private BigDecimal changequty;
+	private BigDecimal available;
+	private BigDecimal frozen;
 	private String oldserialno;
 	private String updatetime;
 
@@ -82,12 +83,20 @@ public class TradeQutyChg implements Serializable {
 		this.fundcode = fundcode;
 	}
 
-	public BigDecimal getChangequty() {
-		return changequty;
+	public BigDecimal getAvailable() {
+		return available;
 	}
 
-	public void setChangequty(BigDecimal changequty) {
-		this.changequty = changequty;
+	public void setAvailable(BigDecimal available) {
+		this.available = available;
+	}
+
+	public BigDecimal getFrozen() {
+		return frozen;
+	}
+
+	public void setFrozen(BigDecimal frozen) {
+		this.frozen = frozen;
 	}
 
 	public String getOldserialno() {
@@ -111,9 +120,9 @@ public class TradeQutyChg implements Serializable {
 		return "TradeQutyChg [serialno=" + serialno + ", custno=" + custno
 				+ ", fundcorpno=" + fundcorpno + ", tradeacco=" + tradeacco
 				+ ", apkind=" + apkind + ", appdate=" + appdate + ", workdate="
-				+ workdate + ", fundcode=" + fundcode + ", changequty="
-				+ changequty + ", oldserialno=" + oldserialno + ", updatetime="
-				+ updatetime + "]";
+				+ workdate + ", fundcode=" + fundcode + ", available="
+				+ available + ", frozen=" + frozen + ", oldserialno="
+				+ oldserialno + ", updatetime=" + updatetime + "]";
 	}
 
 }

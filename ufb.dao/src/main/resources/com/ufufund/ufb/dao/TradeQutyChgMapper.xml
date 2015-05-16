@@ -13,7 +13,8 @@
 		APPDATE    	 ,
 		WORKDATE     ,
 		FUNDCODE     ,
-		CHANGEQUTY   ,
+		AVAILABLE    ,
+		FROZEN   	 ,
 		OLDSERIALNO  ,
 		UPDATETIME   
 	</sql>
@@ -25,7 +26,7 @@
 	
     <select id="getTradeQutyChg" parameterType="TradeQutyChg" resultType="java.math.BigDecimal">
 		select 
-		    sum(CHANGEQUTY)
+		    sum(AVAILABLE)
 		from 
 		    TRADEQUTYCHG
 		where 
@@ -56,7 +57,8 @@
 			#{appdate,jdbctype=varchar},        
 			#{workdate,jdbctype=varchar},        
 			#{fundcode ,jdbctype=varchar},        
-			#{changequty,jdbctype=varchar},        
+			#{available,jdbctype=varchar},  
+			#{frozen,jdbctype=varchar},        
 			#{oldserialno,jdbctype=varchar},        
 			now())
   	</insert>

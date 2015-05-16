@@ -90,10 +90,53 @@ public class SettingController {
 		return "setting/settingPassword";
 	}
 	
+	@RequestMapping(value="setting/settingLoginPwd")
+	public String setLoginPwd(String password0, String password1, String password2, Model model){
+		try{
+			model.addAttribute("TAB", "1");
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				ChangePasswordAction changePasswordAction = new ChangePasswordAction();
+				changePasswordAction.setActionType("LOGIN");
+				changePasswordAction.setCustno(s_custinfo.getCustno());
+				changePasswordAction.setPassword0(password0);
+				changePasswordAction.setPassword1(password1);
+				changePasswordAction.setPassword2(password2);
+				/** 修改登录密码 **/
+				custManager.changePassword(changePasswordAction);
+			} else{
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
+			}
+			model.addAttribute("CustinfoVo", s_custinfo);
+			model.addAttribute("TAB", "1S");
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			String ems = e.getOtherInfo();
+			if(BisConst.Register.LOGINPASSWORD0.equals(ems)){
+				model.addAttribute("errMsg_login_password0", e.getMessage());
+			}else
+			if(BisConst.Register.LOGINPASSWORD.equals(ems)){
+				model.addAttribute("errMsg_login_password1", e.getMessage());
+			}else
+			if(BisConst.Register.LOGINPASSWORD2.equals(ems)){
+				model.addAttribute("errMsg_login_password2", e.getMessage());
+			}else{
+				model.addAttribute("errMsg", e.getMessage());
+			}
+			model.addAttribute("login_password0", password0);
+			model.addAttribute("login_password1", password1);
+			model.addAttribute("login_password2", password2);
+			
+			return "setting/settingPassword";
+		}
+		return "setting/settingPassword";
+	}
+	
 	@RequestMapping(value="setting/settingTradePwd")
 	public String setTradePwd(String password0, String password1, String password2, Model model){
 		try{
-			model.addAttribute("TAB", "1");
+			model.addAttribute("TAB", "2");
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
 				ChangePasswordAction changePasswordAction = new ChangePasswordAction();
@@ -109,24 +152,24 @@ public class SettingController {
 				return "home/index";
 			}
 			model.addAttribute("CustinfoVo", s_custinfo);
-			model.addAttribute("TAB", "1S");
+			model.addAttribute("TAB", "2S");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			String ems = e.getOtherInfo();
 			if(BisConst.Register.TRADEPWD0.equals(ems)){
-				model.addAttribute("errMsg_password0", e.getMessage());
+				model.addAttribute("errMsg_trade_password0", e.getMessage());
 			}else
 			if(BisConst.Register.TRADEPWD.equals(ems)){
-				model.addAttribute("errMsg_password1", e.getMessage());
+				model.addAttribute("errMsg_trade_password1", e.getMessage());
 			}else
 			if(BisConst.Register.TRADEPWD2.equals(ems)){
-				model.addAttribute("errMsg_password2", e.getMessage());
+				model.addAttribute("errMsg_trade_password2", e.getMessage());
 			}else{
 				model.addAttribute("errMsg", e.getMessage());
 			}
-			model.addAttribute("password0", password0);
-			model.addAttribute("password1", password1);
-			model.addAttribute("password2", password2);
+			model.addAttribute("trade_password0", password0);
+			model.addAttribute("trade_password1", password1);
+			model.addAttribute("trade_password2", password2);
 			
 			return "setting/settingPassword";
 		}

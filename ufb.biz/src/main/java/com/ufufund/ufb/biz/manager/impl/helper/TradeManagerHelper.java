@@ -126,7 +126,8 @@ public class TradeManagerHelper {
 		tradeQutyChg.setAppdate(vo.getAppdate());
 		tradeQutyChg.setWorkdate(vo.getWorkday());
 		tradeQutyChg.setFundcode(vo.getFundcode());
-		tradeQutyChg.setChangequty(vo.getAppamt());
+		tradeQutyChg.setAvailable(vo.getAppamt());
+		tradeQutyChg.setFrozen(BigDecimal.ZERO);
 		tradeQutyChg.setOldserialno(vo.getSerialno());
 		return tradeQutyChg;
 	}
@@ -207,7 +208,8 @@ public class TradeManagerHelper {
 		tradeQutyChg.setAppdate(vo.getAppdate());
 		tradeQutyChg.setWorkdate(vo.getWorkday());
 		tradeQutyChg.setFundcode(vo.getFundcode());
-		tradeQutyChg.setChangequty(new BigDecimal(0.00).subtract(vo.getAppvol()));
+		tradeQutyChg.setAvailable(BigDecimal.ZERO);
+		tradeQutyChg.setFrozen(vo.getAppvol());
 		tradeQutyChg.setOldserialno(vo.getSerialno());
 		return tradeQutyChg;
 	}
@@ -287,7 +289,8 @@ public class TradeManagerHelper {
 		tradeQutyChg.setAppdate(vo.getAppdate());
 		tradeQutyChg.setWorkdate(vo.getWorkday());
 		tradeQutyChg.setFundcode(vo.getFundcode());
-		tradeQutyChg.setChangequty(new BigDecimal(0.00).subtract(vo.getAppvol()));
+		tradeQutyChg.setAvailable(vo.getAppvol());
+		tradeQutyChg.setFrozen(BigDecimal.ZERO);
 		tradeQutyChg.setOldserialno(vo.getSerialno());
 		return tradeQutyChg;
 	}
