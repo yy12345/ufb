@@ -113,9 +113,21 @@ $(function(){
                                             <td class="tl" width="30%">${tradeRequest.banknm}</td>
                                             <td class="tl" width="">${tradeRequest.appamt}
 											#if(${tradeRequest.state}=="I")
-												处理中
+												#if(${tradeRequest.apkind}=="022")
+													充值
+												#elseif(${tradeRequest.apkind}=="023")
+													取现
+												#elseif(${tradeRequest.apkind}=="024")
+													快取
+												#end处理中
 											#else	
-												成功
+												#if(${tradeRequest.apkind}=="022")
+													充值
+												#elseif(${tradeRequest.apkind}=="023")
+													取现
+												#elseif(${tradeRequest.apkind}=="024")
+													快取
+												#end成功
 											#end
 											</td>
                                             <td class="tr">${tradeRequest.appdate}</td>
@@ -130,9 +142,21 @@ $(function(){
                                             <td class="tl" width="30%">${tradeRequest.banknm}</td>
                                             <td class="tl" width="">-${tradeRequest.appvol}
 											#if(${tradeRequest.state}=="I")
-												处理中
+												#if(${tradeRequest.apkind}=="022")
+													充值
+												#elseif(${tradeRequest.apkind}=="023")
+													取现
+												#elseif(${tradeRequest.apkind}=="024")
+													快取
+												#end处理中
 											#else	
-												成功
+												#if(${tradeRequest.apkind}=="022")
+													充值
+												#elseif(${tradeRequest.apkind}=="023")
+													取现
+												#elseif(${tradeRequest.apkind}=="024")
+													快取
+												#end成功
 											#end
 											</td>
                                             <td class="tr">${tradeRequest.appdate}</td>

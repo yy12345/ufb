@@ -105,7 +105,10 @@
 		where 
 		(t1.state = 'Y' or t1.state = 'F' or t1.state = 'I') 
 		and t1.custno = #{custno,jdbcType=VARCHAR} 
-		and t1.apkind = #{apkind,jdbcType=VARCHAR} 
+		and t1.apkind in 
+		<foreach item="item" index="index" collection="apkinds" open="(" separator="," close=")">
+ 		   #{item, jdbcType=VARCHAR}
+ 		 </foreach>
 		and t1.tradeacco = t2.tradeacco
         and t2.bankSERIALID = t3.SERIALID        
         and t3.bankno = t4.bankno

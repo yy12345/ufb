@@ -24,9 +24,9 @@
 		where serialno = #{serialno,jdbcType=VARCHAR} 
 	</select>
 	
-    <select id="getTradeQutyChg" parameterType="TradeQutyChg" resultType="java.math.BigDecimal">
+    <select id="getTradeQutyChg" parameterType="TradeQutyChg" resultType="TradeQutyChg">
 		select 
-		    sum(AVAILABLE)
+		    sum(AVAILABLE) as AVAILABLE, sum(FROZEN) as FROZEN
 		from 
 		    TRADEQUTYCHG
 		where 

@@ -150,7 +150,7 @@ public class TradeController {
 			vo.setFundcode(Constant.FundCode.YFB);
 			vo.setFee(new BigDecimal("0.00"));
 			
-			tradeManager.realRedeem(vo);
+			tradeManager.redeem(vo);
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());

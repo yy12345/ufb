@@ -10,7 +10,7 @@ public interface TradeQutyChgMapper {
 
 	public int add(TradeQutyChg tradeQutyChg);
 	
-	public BigDecimal getTradeQutyChg(TradeQutyChg tradeQutyChg);
+	public TradeQutyChg getTradeQutyChg(TradeQutyChg tradeQutyChg);
 
 	// public int update(TradeQutyChg tradeQutyChg);
 

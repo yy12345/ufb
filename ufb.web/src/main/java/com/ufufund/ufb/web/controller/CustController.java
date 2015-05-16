@@ -1,5 +1,6 @@
 package com.ufufund.ufb.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -213,9 +214,15 @@ public class CustController {
 				model.addAttribute("cardList", assets.getAccoList());
 				
 				// 充值
-				List<TradeRequest> list022 = queryManager.qryRecentTradeList(custinfoVo.getCustno(), "022", 4);
+				List<String> apkinds = new ArrayList<String>();
+				apkinds.add("022");
+				List<TradeRequest> list022 = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
 				// 取现
-				List<TradeRequest> list023 = queryManager.qryRecentTradeList(custinfoVo.getCustno(), "024", 4);
+				apkinds = new ArrayList<String>();
+				apkinds.add("023");
+				apkinds.add("024");
+				List<TradeRequest> list023 = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
+				
 				
 				model.addAttribute("list022", list022);
 				model.addAttribute("list023", list023);
@@ -419,9 +426,14 @@ public class CustController {
 					model.addAttribute("cardList", assets.getAccoList());
 					
 					// 充值
-					List<TradeRequest> list022 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), "022", 4);
+					List<String> apkinds = new ArrayList<String>();
+					apkinds.add("022");
+					List<TradeRequest> list022 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), apkinds, 4);
 					// 取现
-					List<TradeRequest> list023 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), "024", 4);
+					apkinds = new ArrayList<String>();
+					apkinds.add("023");
+					apkinds.add("024");
+					List<TradeRequest> list023 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), apkinds, 4);
 					
 					model.addAttribute("list022", list022);
 					model.addAttribute("list023", list023);

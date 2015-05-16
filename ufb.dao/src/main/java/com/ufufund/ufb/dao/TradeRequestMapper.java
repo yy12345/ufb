@@ -14,5 +14,5 @@ public interface TradeRequestMapper {
 	
 	public int update(TradeRequest tradeRequest);
 	
-	public List<TradeRequest> qryRecentTradeList(@Param("custno")String custno, @Param("apkind")String apkind, @Param("n")int n);
+	public List<TradeRequest> qryRecentTradeList(@Param("custno")String custno, @Param("apkinds") List<String> apkinds, @Param("n")int n);
 }

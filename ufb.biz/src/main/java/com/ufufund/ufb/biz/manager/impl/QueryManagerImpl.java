@@ -11,10 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.manager.QueryManager;
-import com.ufufund.ufb.biz.util.HftResponseUtil;
-import com.ufufund.ufb.common.constant.Constant;
-import com.ufufund.ufb.common.utils.SequenceUtil;
-import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.dao.FundBalanceMapper;
 import com.ufufund.ufb.dao.TradeQutyChgMapper;
 import com.ufufund.ufb.dao.TradeRequestMapper;
@@ -22,9 +18,6 @@ import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.FundBalance;
 import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryAsset;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryRequest;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryResponse;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.TradeAccoVo;
 import com.ufufund.ufb.remote.HftQueryService;
@@ -51,14 +44,25 @@ public class QueryManagerImpl implements QueryManager{
 		
 		/** 本地查询 **/
 		TradeQutyChg tradeQutyChg = new TradeQutyChg();
-		// 当日份额变动充值(所有)
+//		// 当日份额变动充值(所有)
+//		tradeQutyChg.setTradeacco(tradeAcco);
+//		tradeQutyChg.setFundcode("001001");
+//		tradeQutyChg.setApkind(null);
+//		tradeQutyChg.setWorkdate(null);
+//		BigDecimal asset_all = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
+//		if(null == asset_all){
+//			asset_all = new BigDecimal(0); 
+//		}
+		// 当日份额变动充值(取现)
 		tradeQutyChg.setTradeacco(tradeAcco);
 		tradeQutyChg.setFundcode("001001");
-		tradeQutyChg.setApkind(null);
+		tradeQutyChg.setApkind("023");
 		tradeQutyChg.setWorkdate(null);
-		BigDecimal asset_all = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
-		if(null == asset_all){
-			asset_all = new BigDecimal(0); 
+		// 当日份额变动 023 取现
+		TradeQutyChg quty = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
+		BigDecimal asset_023 = new BigDecimal(0);
+		if(null != quty){
+			asset_023 = quty.getFrozen();
 		}
 		// 当日份额变动充值(快速取现)
 		tradeQutyChg.setTradeacco(tradeAcco);
@@ -66,9 +70,10 @@ public class QueryManagerImpl implements QueryManager{
 		tradeQutyChg.setApkind("024");
 		tradeQutyChg.setWorkdate(null);
 		// 当日份额变动 024 快速取现
-		BigDecimal asset_024 = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
-		if(null == asset_024){
-			asset_024 = new BigDecimal(0); 
+		quty = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
+		BigDecimal asset_024 = new BigDecimal(0);
+		if(null != quty){
+			asset_024 = quty.getAvailable();
 		}
 		// 当日份额变动充值(充值)
 		tradeQutyChg.setTradeacco(tradeAcco);
@@ -76,9 +81,10 @@ public class QueryManagerImpl implements QueryManager{
 		tradeQutyChg.setApkind("022");
 		tradeQutyChg.setWorkdate(null);
 		// 当日份额变动 022 快速取现
-		BigDecimal asset_022 = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
-		if(null == asset_022){
-			asset_022 = new BigDecimal(0); 
+		quty = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
+		BigDecimal asset_022 = new BigDecimal(0);
+		if(null != quty){
+			asset_022 = quty.getAvailable();
 		}
 		// 昨日份额
 		FundBalance fundBalance = new FundBalance();
@@ -103,9 +109,12 @@ public class QueryManagerImpl implements QueryManager{
 				frozen = new BigDecimal(0);
 			}
 		}
-		result.setTotal(total.add(asset_all));
-		result.setAvailable(available.add(asset_024));
-		result.setFrozen(frozen.add(asset_022));
+		//总资产 = 历史  + 充值 + 快取
+		result.setTotal(total.add(asset_022).add(asset_024));  
+		//可取资产 = 历史 + 取现 + 快取
+		result.setAvailable(available.subtract(asset_023).add(asset_024)); 
+		//冻结资产 = 历史 + 取现
+		result.setFrozen(frozen.add(asset_023));
 		
 //		/** 走接口查询 **/
 //		BalanceQueryRequest request = new BalanceQueryRequest();
@@ -168,7 +177,7 @@ public class QueryManagerImpl implements QueryManager{
 	}
 	
 	@Override
-	public List<TradeRequest> qryRecentTradeList(String custno, String apkind, int n){
+	public List<TradeRequest> qryRecentTradeList(String custno, List<String> apkind, int n){
 		return tradeRequestMapper.qryRecentTradeList(custno,apkind, n);
 	}
 }

@@ -289,7 +289,7 @@ public class TradeManagerHelper {
 		tradeQutyChg.setAppdate(vo.getAppdate());
 		tradeQutyChg.setWorkdate(vo.getWorkday());
 		tradeQutyChg.setFundcode(vo.getFundcode());
-		tradeQutyChg.setAvailable(vo.getAppvol());
+		tradeQutyChg.setAvailable(BigDecimal.ZERO.subtract(vo.getAppvol()));
 		tradeQutyChg.setFrozen(BigDecimal.ZERO);
 		tradeQutyChg.setOldserialno(vo.getSerialno());
 		return tradeQutyChg;
