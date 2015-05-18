@@ -66,22 +66,23 @@
 				#if ($CustinfoVo)
 				<a href="${staticDomain}/cust/register.htm">注册</a>|<a
 				href="${staticDomain}/session/login.htm">资产总览</a>|<a
-				href="helpNotice.html">帮助中心</a><span class="member" 
+				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
     			href="javascript:;"><i class="trans icon"></i>
 					#if ($CustinfoVo.invnm)
 						$!{CustinfoVo.invnm}
-                    #else
+                    #elseif ($CustinfoVo.mobileno)
 						#set($tailStr=$CustinfoVo.mobileno)
 						#set($start=$tailStr.substring(0,3))
 						#set($end=$tailStr.substring(7,11))
 						$start****$end
+					#else
 					#end
 				<a href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span>
 				#else
 				<a class="trigger-loginBox" href="javascript:;">登录</a>|<a
 				href="${staticDomain}/cust/register.htm">注册</a>|<a 
 				href="javascript:;" class="trigger-loginBox" >资产总览</a>|<a class="last" 
-				href="helpNotice.html">帮助中心</a>
+				href="${staticDomain}/help/helpNotice.htm">帮助中心</a>
 				#end
 			</div>
         </div>

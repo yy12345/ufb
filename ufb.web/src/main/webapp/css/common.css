@@ -191,6 +191,7 @@ a.btn {
 	-webkit-box-shadow:  1px 1px 3px 0 #666666;
 	-moz-box-shadow:  1px 1px 3px 0 #666666;
 	box-shadow:  1px 1px 3px 0 #666666;
+	z-index: 100;
 }
 .header .nav .member.on .out {
 	display: block;
@@ -548,7 +549,9 @@ a.btn {
 	top: -32px;
 	left: 60px;
 }
-
+.common-form li.ok .tips-check {
+	display: none;
+}
 .input-select {
 	width: 240px;
 	height: 34px;

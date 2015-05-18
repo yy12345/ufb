@@ -37,6 +37,7 @@ public class CustController {
 	
 	@RequestMapping(value="cust/register")
 	public String getRegistPage(CustinfoVo custinfoVo, Model model){
+		LOG.info("清除Session=============custno = " + UserHelper.getCustno());
 		UserHelper.removeCustinfoVo();
 		if(null == custinfoVo.getInvtp()){
 			//个人注册开户

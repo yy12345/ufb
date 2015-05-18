@@ -18,6 +18,7 @@ public interface BisConst {
 		public static final String LOGINPASSWORD2 = "确认密码";
 		public static final String MOBILE = "手机号";
 		public static final String VERIFYCODE = "验证码";
+		public static final String MSGCODE = "手机验证码";
 
 		public static final String BANKNO = "银行编码";
 		public static final String BANKACCO = "银行卡号";

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.TradeManager;
@@ -150,7 +151,15 @@ public class TradeController {
 			vo.setFundcode(Constant.FundCode.YFB);
 			vo.setFee(new BigDecimal("0.00"));
 			
-			tradeManager.redeem(vo);
+			if("023".equals(vo.getApkind())){
+				tradeManager.redeem(vo);
+			}else if("024".equals(vo.getApkind())){
+				tradeManager.realRedeem(vo);
+			}else{
+				throw new BizException("异常交易！");
+			}
+			
+			model.addAttribute("APKIND", vo.getApkind());
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());

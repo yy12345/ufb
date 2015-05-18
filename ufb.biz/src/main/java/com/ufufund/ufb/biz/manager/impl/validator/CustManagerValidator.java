@@ -133,7 +133,7 @@ public class CustManagerValidator {
 			if (!RegexUtil.isPwd(action.getPassword1())) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.TRADEPWD);
 			}
-		}else{
+		}else if("LOGIN".equals(action.getActionType())){
 			if (RegexUtil.isNull(action.getPassword0())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD0);
 			}
@@ -148,6 +148,19 @@ public class CustManagerValidator {
 			}
 			if (!RegexUtil.isPwd(action.getPassword1())) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.LOGINPASSWORD);
+			}
+		}else{
+			if (RegexUtil.isNull(action.getPassword1())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD);
+			}
+			if (RegexUtil.isNull(action.getPassword2())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD2);
+			}
+			if (!action.getPassword1().equals(action.getPassword2())) {
+				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD);
+			}
+			if (!RegexUtil.isPwd(action.getPassword1())) {
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.TRADEPWD);
 			}
 		}
 		//if (RegexUtil.isNull(action.getMobile())) {

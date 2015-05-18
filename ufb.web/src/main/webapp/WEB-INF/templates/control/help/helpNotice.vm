@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 帮助中心 - 机构理财须知</title>
+</head>
+<body>
+<div class="container help">
+    <div class="header">
+        <div class="inner clearfix rel">
+            <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+            <div class="nav">
+				#if ($CustinfoVo)
+				<a href="${staticDomain}/home/index.htm">首页</a>|<a
+				href="${staticDomain}/session/login.htm">资产总览</a>|<a
+				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
+				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
+    			href="javascript:;"><i class="trans icon"></i>
+					#if ($CustinfoVo.invnm)
+						$!{CustinfoVo.invnm}
+                    #elseif ($CustinfoVo.mobileno)
+						#set($tailStr=$CustinfoVo.mobileno)
+						#set($start=$tailStr.substring(0,3))
+						#set($end=$tailStr.substring(7,11))
+						$start****$end
+					#else
+					#end
+				<a href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span>
+				#else
+				<a href="${staticDomain}/home/index.htm">登录</a>|<a
+				href="${staticDomain}/cust/register.htm">注册</a>|<a 
+				href="${staticDomain}/home/index.htm">资产总览</a>|<a class="last" 
+				href="${staticDomain}/help/helpNotice.htm">帮助中心</a>
+				#end
+			</div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="inner clearfix">
+            <div class="title">
+                <h2 class="title-main">帮助中心</h2>
+            </div>
+            <div class="side side-nav fl">
+                <ul>
+                    <li><a class="current" href="${staticDomain}/help/helpNotice.htm">机构理财须知</a></li>
+                    <li><a href="${staticDomain}/help/helpQA.htm">常见问题</a></li>
+                    <li><a href="${staticDomain}/help/helpAbout.htm">关于幼富通</a></li>
+                    <li><a href="${staticDomain}/help/helpContact.htm">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="main fr">
+                <div class="help-content">
+                    <ul>
+                        <li><a name="n1"></a>
+                            <h3>幼教机构如何注册幼富通？</h3>
+                            <div>幼教机构如何注册幼富通幼教机构，如何注册幼富通幼教机构如何注册幼富通幼教机构如何注册、幼富通幼教机构如何注册幼富通幼教机构如何注册，幼富通幼教机构如何注册幼富通幼教机构如何注册幼富通，幼教机构如何注册幼富。</div>
+                        </li>
+                        <li><a name="n2"></a>
+                            <h3>如何购买幼富通的机构理财产品？</h3>
+                            <div>幼教机构如何注册幼富通幼教机构，如何注册幼富通幼教机构如何注册幼富通幼教机构如何注册、幼富通幼教机构如何注册幼富通幼教机构如何注册，幼富通幼教机构如何注册幼富通幼教机构如何注册幼富通，幼教机构如何注册幼富。</div>
+                        </li>
+                        <li><a name="n3"></a>
+                            <h3>机构理财的交易安全有什么保障？</h3>
+                            <div>幼教机构如何注册幼富通幼教机构，如何注册幼富通幼教机构如何注册幼富通幼教机构如何注册、幼富通幼教机构如何注册幼富通幼教机构如何注册，幼富通幼教机构如何注册幼富通幼教机构如何注册幼富通，幼教机构如何注册幼富。</div>
+                        </li>
+                        <li class="last"><a name="n4"></a>
+                            <h3>如何联系我们？</h3>
+                            <div>幼教机构如何注册幼富通幼教机构，如何注册幼富通幼教机构如何注册幼富通幼教机构如何注册、幼富通幼教机构如何注册幼富通幼教机构如何注册，幼富通幼教机构如何注册幼富通幼教机构如何注册幼富通，幼教机构如何注册幼富。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="inner clearfix">
+            <div class="info fl">
+                <p>微信服务号：UFUfund</p>
+                <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
+                <p>海富通产品：400-8840-099</p>
+            </div>
+            <div class="copyright fr">
+                <p>幼富通版权所有 ©2015</p>
+                <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+</body>
+</html>

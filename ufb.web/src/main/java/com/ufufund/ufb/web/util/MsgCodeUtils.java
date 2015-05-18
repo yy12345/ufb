@@ -45,11 +45,11 @@ public class MsgCodeUtils {
 
 		long now = System.currentTimeMillis();
 
-		UserMsgCode userMsgCode = (UserMsgCode) ServletHolder.getSession()
-				.getAttribute("userMsgCode");
-		if (userMsgCode != null) {
+		MsgCode msgCode = (MsgCode) ServletHolder.getSession()
+				.getAttribute("MSGCODE");
+		if (msgCode != null) {
 			// session中已存在
-			List<Long> timeList = userMsgCode.getTimeList();
+			List<Long> timeList = msgCode.getTimeList();
 			/** 判断与上次发送的时间间隔 **/
 			long last = timeList.get(timeList.size() - 1).longValue();
 			
@@ -76,7 +76,7 @@ public class MsgCodeUtils {
 			}
 		} else {
 			// session中不存在
-			userMsgCode = new UserMsgCode();
+			msgCode = new MsgCode();
 		}
 
 		// 设置或者重新设置短信码
@@ -84,12 +84,12 @@ public class MsgCodeUtils {
 		if (n < 100000) {
 			n += 100000;
 		}
-		userMsgCode.setMsgCode(String.valueOf(n));
-		userMsgCode.getTimeList().add(now);
-		ServletHolder.getSession().setAttribute("userMsgCode", userMsgCode);
+		msgCode.setMsgCode(String.valueOf(n));
+		msgCode.getTimeList().add(now);
+		ServletHolder.getSession().setAttribute("MSGCODE", msgCode);
 
-		LOG.debug("MsgCode=" + userMsgCode.getMsgCode() + ", timeList="
-				+ userMsgCode.getTimeList());
+		LOG.debug("MsgCode=" + msgCode.getMsgCode() + ", timeList="
+				+ msgCode.getTimeList());
 
 		// 调用短信接口，发送短信
 		// code after the message interface was provided.
@@ -103,33 +103,42 @@ public class MsgCodeUtils {
 	 * @param msgCode
 	 * @return 校验失败，直接提示业务类异常；否则，成功
 	 */
-	public static boolean validate(String msgCode) {
+	public static boolean validate(String p) {
 
-		UserMsgCode userMsgCode = (UserMsgCode) ServletHolder.getSession()
-				.getAttribute("userMsgCode");
-		if (null == msgCode || StringUtils.isBlank(msgCode)) {
+		MsgCode msgCode = (MsgCode) ServletHolder.getSession().getAttribute("MSGCODE");
+		if (null == p || StringUtils.isBlank(p)) {
 			throw new BizException(ThreadLocalUtil.getProccessId(),
 					ErrorInfo.NECESSARY_EMPTY, "手机验证码");
-		} else if (userMsgCode == null || StringUtils.isBlank(userMsgCode.getMsgCode())) {
+		} else if (msgCode == null || StringUtils.isBlank(msgCode.getMsgCode())) {
 			throw new BizException(ThreadLocalUtil.getProccessId(),
 					"您的手机验证码已失效，请重新发送！", "手机验证码");
-		} else if (!userMsgCode.getMsgCode().equals(msgCode)) {
+		} else if (!msgCode.getMsgCode().equals(p)) {
 			throw new BizException(ThreadLocalUtil.getProccessId(),
 					"您输入的手机验证码不匹配，请重新发送！", "手机验证码");
 		} else {
 			long now = System.currentTimeMillis();
 			if (now
-					- userMsgCode.getTimeList().get(
-							userMsgCode.getTimeList().size() - 1) > ACTIVE_TIME * 60 * 1000) {
+					- msgCode.getTimeList().get(
+							msgCode.getTimeList().size() - 1) > ACTIVE_TIME * 60 * 1000) {
 				throw new BizException(ThreadLocalUtil.getProccessId(),
 						"您的手机验证码已失效，请重新发送！", "手机验证码");
 			}
 		}
-		ServletHolder.getSession().removeAttribute("userMsgCode");
+		ServletHolder.getSession().removeAttribute("MSGCODE");
 		return true;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static String getMsgCode(){
+		MsgCode msgCode = (MsgCode) ServletHolder.getSession().getAttribute("MSGCODE");
+		return msgCode.getMsgCode();
+	}
+	
 
-	private static class UserMsgCode {
+	private static class MsgCode {
 		// 短信码
 		private String msgCode;
 		// 发送时间列表

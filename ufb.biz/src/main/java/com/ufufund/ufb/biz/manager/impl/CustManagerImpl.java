@@ -213,9 +213,11 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		if("TRADE".equals(actionType)){
 			// 交易密码
 			custinfo.setTradepwd(EncryptUtil.md5(changePasswordAction.getPassword0()));
-		}else{
+		}else if("LOGIN".equals(actionType)){
 			// 登入密码
 			custinfo.setPasswd(EncryptUtil.md5(changePasswordAction.getPassword0()));
+		}else{
+			// 找回交易密码
 		}
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if (custinfo == null || custinfo.getCustno() == null ) {
@@ -230,9 +232,12 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		if("TRADE".equals(actionType)){
 			// 交易密码
 			custinfo.setTradepwd(EncryptUtil.md5(changePasswordAction.getPassword1()));
-		}else{
+		}else if("LOGIN".equals(actionType)){
 			// 登入密码
 			custinfo.setPasswd(EncryptUtil.md5(changePasswordAction.getPassword1()));
+		}else{
+			// 找回交易密码
+			custinfo.setTradepwd(EncryptUtil.md5(changePasswordAction.getPassword1()));
 		}
 		custinfoMapper.updateCustinfo(custinfo);
 		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
