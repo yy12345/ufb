@@ -99,11 +99,11 @@ public class CustManagerValidator {
 			throw new BizException(action.getProcessId(), ErrorInfo.NO_IDCARDNO, BisConst.Register.CUSTNO);
 		}
 		// 用户是否冻结验证
-		if(Constant.CUSTST$P.equals(custinfo.getCustst())){
+		if(Constant.Custinfo.CUSTST$P.equals(custinfo.getCustst())){
 			throw new BizException(action.getProcessId(), ErrorInfo.FREEZE_USER, BisConst.Register.CUSTNO);
 		}
 		// Custst 用户是否开户验证
-		if(!Constant.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
+		if(!Constant.Custinfo.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
 			if (custManager.isIdCardNoRegister(action.getIdno())) {
 				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
 			}

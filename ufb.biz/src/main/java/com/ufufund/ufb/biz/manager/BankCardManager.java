@@ -2,8 +2,6 @@ package com.ufufund.ufb.biz.manager;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;

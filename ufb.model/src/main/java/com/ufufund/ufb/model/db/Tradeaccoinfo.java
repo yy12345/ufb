@@ -6,7 +6,11 @@ import com.ufufund.ufb.model.action.PrintableModel;
 
 public class Tradeaccoinfo extends PrintableModel  implements Serializable {
 	 
-	 private int accoid;// varchar(24) not null comment '交易账号编号(本地生成的)',
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int accoid;// varchar(24) not null comment '交易账号编号(本地生成的)',
 	 private String custno;// char(10) not null comment '客户编号',
 	 private String fundcorpno;// char(2) not null default '' comment '交易账号类型：归属基金公司',
 	 private String bankserialid;// varchar(24) not null comment '银行账号serialid(银行账号表pk)',

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.ufufund.ufb.common.dao.BaseDao;
 import com.ufufund.ufb.model.db.Autotrade;
-import com.ufufund.ufb.model.db.Custinfo;
 
 
 public interface AutotradeMapper extends BaseDao {

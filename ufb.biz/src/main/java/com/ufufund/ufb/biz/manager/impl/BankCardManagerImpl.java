@@ -178,7 +178,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(openAccountAction.getCustno());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
-		if(!Constant.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
+		if(!Constant.Custinfo.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
 		    custinfo = custManagerHelper.toOpenAccountAction(openAccountAction);
 			custinfoMapper.updateCustinfo(custinfo);
 			Changerecordinfo changerecordinfo2 = new Changerecordinfo();

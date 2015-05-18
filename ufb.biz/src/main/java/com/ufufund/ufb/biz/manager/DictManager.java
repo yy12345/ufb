@@ -59,7 +59,7 @@ public class DictManager {
 		}
 		Cache s = new Cache();
 		s.setValue(parameterMap);
-		CacheManager.putCache(Constant.CACHE$DICTIONARY, s);
+		CacheManager.putCache(Constant.Cache.CACHE$DICTIONARY, s);
 	}
 
 	// 所有销售机构 写入缓存
@@ -70,7 +70,7 @@ public class DictManager {
 
 	private static HashMap<String, Dictionary> dictionaryByType(String type) {
 		HashMap<String, Dictionary> map = new HashMap<String, Dictionary>();
-		Cache cache = CacheManager.getCacheInfo(Constant.CACHE$DICTIONARY);
+		Cache cache = CacheManager.getCacheInfo(Constant.Cache.CACHE$DICTIONARY);
 		if (cache != null) {
 			@SuppressWarnings("unchecked")
 			HashMap<String, HashMap<String, Dictionary>> parameterMap = (HashMap<String, HashMap<String, Dictionary>>) cache.getValue();

@@ -10,6 +10,7 @@ import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.AutotradeManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.AutoTradeManagerValidator;
+import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.AutotradeMapper;
 import com.ufufund.ufb.dao.BankMapper;
@@ -47,7 +48,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 			action.setAutoname(seq);
 		}
 		Autotrade autotrade = AutotradeManagerHelper.toAutotrade(action);
-		autotrade.setState("N");
+		autotrade.setState(Constant.Autotrade.STATE$N);
 		/*
 		 * 根据业务获取冗余字段
 		 */
@@ -62,7 +63,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	@Override
 	public String getNextdate(String cycle, String dat) throws BizException {
 		// TODO Auto-generated method stub
-		return null;
+		return "20150921";
 	}
 	
 	@Override
@@ -87,7 +88,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		/*
 		 * 判断状态
 		 */
-		if(!"N".equals(dbautotrade.getState())){
+		if(!Constant.Autotrade.STATE$N.equals(dbautotrade.getState())){
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR); //-----------------------
 		}
 		
@@ -105,7 +106,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 			action.setAutoname(action.getAutoid());
 		}
 		Autotrade autotrade = AutotradeManagerHelper.toAutotrade(action);
-		autotrade.setState("N");
+		autotrade.setState(Constant.Autotrade.STATE$N);
 		/*
 		 * 根据业务获取冗余字段
 		 */
@@ -152,12 +153,12 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		}
 		//state  P-暂停 ,C 终止 删除 ,N 恢复
 		dbautotrade = list.get(0);
-		if("N".equals(action.getState())){
-			if(!"P".equals(action.getState())){
+		if(Constant.Autotrade.STATE$N.equals(action.getState())){
+			if(!Constant.Autotrade.STATE$P.equals(action.getState())){
 				throw new BizException(processId, ErrorInfo.SYSTEM_ERROR); //-----------------------
 			}
-		}else if("P".equals(action.getState())){
-			if(!"N".equals(action.getState())){
+		}else if(Constant.Autotrade.STATE$P.equals(action.getState())){
+			if(!Constant.Autotrade.STATE$N.equals(action.getState())){
 				throw new BizException(processId, ErrorInfo.SYSTEM_ERROR); //-----------------------
 			}
 		}

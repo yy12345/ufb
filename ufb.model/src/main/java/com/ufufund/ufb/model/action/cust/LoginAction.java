@@ -1,8 +1,6 @@
 package com.ufufund.ufb.model.action.cust;
 
 import com.ufufund.ufb.model.action.CommonAction;
-import com.ufufund.ufb.model.enums.Invtp;
-import com.ufufund.ufb.model.enums.Level;
 
 public class LoginAction  extends CommonAction {
 	

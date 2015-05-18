@@ -5,6 +5,10 @@ import java.io.Serializable;
 import com.ufufund.ufb.model.action.PrintableModel;
 
 public class Bankcardinfo extends PrintableModel  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String serialid;// ;//int(11) not null comment '银行卡id',
 	private String custno;// char(10) not null default '0' comment '直销平台用户id',
 	//private String fundcorpno;// char(2) default '' comment '基金公司标识',

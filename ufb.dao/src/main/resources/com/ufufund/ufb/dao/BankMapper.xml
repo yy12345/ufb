@@ -166,5 +166,35 @@
 		select getSequence('BANKCARDINFO_SEQ')
 	]]>
 	</select>
+	
+	
+	<select id="getTradeaccoinfo" parameterType="com.ufufund.ufb.model.db.Tradeaccoinfo" resultType="com.ufufund.ufb.model.db.Tradeaccoinfo">
+					SELECT
+		tradeaccoinfo.TRADEACCOID,
+		tradeaccoinfo.CUSTNO,
+		tradeaccoinfo.FUNDCORPNO,
+		tradeaccoinfo.BANKSERIALID,
+		tradeaccoinfo.TRADEACCO,
+		tradeaccoinfo.TRADEACCOST,
+		tradeaccoinfo.OPENDT,
+		tradeaccoinfo.CLOSEDT,
+		tradeaccoinfo.UPDATETIME
+		FROM
+		tradeaccoinfo
+		WHERE 
+		<if test="accoid != null and accoid !=''" >
+		tradeaccoinfo.TRADEACCOID = #{accoid,jdbcType=INTEGER} AND
+		</if>
+  		<if test="custno != null and custno !=''" >
+  		 tradeaccoinfo.CUSTNO = #{custno,jdbcType=VARCHAR} AND
+  		</if>
+  		<if test="fundcorpno != null and fundcorpno !=''" >
+  		tradeaccoinfo.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR} AND
+  		</if>
+  		<if test="bankserialid != null and bankserialid !=''" >
+  		 tradeaccoinfo.BANKSERIALID = #{bankserialid,jdbcType=VARCHAR} AND
+  		</if>
+	     autotrade.STATE &lt;&gt; 'C'
+  	</select>
 
 </mapper>

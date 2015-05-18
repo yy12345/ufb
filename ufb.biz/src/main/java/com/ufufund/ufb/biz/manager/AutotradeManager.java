@@ -43,7 +43,7 @@ public interface AutotradeManager { //extends CustInterface{
 	
 	/**
 	 * 暂停 ，终止，恢复 智能交易 
-	 * @param state  P-暂停 ,C 终止 删除 ,N 恢复
+	 * @param state  P-暂停 ,C 终止  ,N 恢复  
 	 * @return 
 	 */
 	public void changestatus(ChangeAutoStateAction action) throws BizException;

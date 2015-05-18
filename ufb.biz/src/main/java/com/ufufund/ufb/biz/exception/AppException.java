@@ -80,7 +80,7 @@ public class AppException extends RuntimeException{
 	}
 
 	private void initErrmsg() {
-		HashMap<String,Dictionary>  map = DictManager.getDictionaryByType(Constant.DICTIONARY$ERROR);
+		HashMap<String,Dictionary>  map = DictManager.getDictionaryByType(Constant.Dictionary.DICTIONARY$ERROR);
 		Dictionary dictionary = map.get(errorInfovalue);
 		if(dictionary!=null){
 			errmsg = otherInfo + dictionary.getPmnm();

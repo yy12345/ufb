@@ -138,7 +138,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		if (null == custinfo || null == custinfo.getCustno() || "".equals(custinfo.getCustno())) {
 			throw new BizException(processId, ErrorInfo.NO_IDCARDNO, BisConst.Register.LOGINCODE);
 		}
-		if (Constant.CUSTST$P.equals(custinfo.getCustst())) {
+		if (Constant.Custinfo.CUSTST$P.equals(custinfo.getCustst())) {
 			//冻结状态
 			throw new BizException(processId, ErrorInfo.FREEZE_USER, BisConst.Register.LOGINCODE);
 		}
@@ -148,7 +148,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		if (!EncryptUtil.md5(loginAction.getLoginPassword()).equals(custinfo.getPasswd())) {
 			custinfo.setPasswderr(custinfo.getPasswderr() + 1);
 			if (custinfo.getPasswderr() == 5) {
-				custinfo.setCustst(Constant.CUSTST$P);
+				custinfo.setCustst(Constant.Custinfo.CUSTST$P);
 			}
 			custinfoMapper.updateCustinfo(custinfo);
 			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD, BisConst.Register.LOGINPASSWORD);
