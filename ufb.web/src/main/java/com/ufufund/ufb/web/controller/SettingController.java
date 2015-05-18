@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
+import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.model.vo.TradeAccoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.UserHelper;
@@ -35,6 +38,9 @@ public class SettingController {
 	
 	@Autowired
 	private BankCardManager bankCardManager;
+	
+	@Autowired
+	private QueryManager queryManager;
 	
 	@RequestMapping(value="setting/settingAccount")
 	public String setAccount(CustinfoVo custinfoVo, Model model){
@@ -308,7 +314,12 @@ public class SettingController {
 				List<BankCardWithTradeAcco> tradeAccoList_Y = 
 						bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "Y");
 				if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
-					model.addAttribute("cardList_Y", tradeAccoList_Y);
+					
+					// 获取用户总资产
+					Assets assets = queryManager.queryAssets(tradeAccoList_Y);
+					List<TradeAccoVo> list_y =  assets.getAccoList();
+					
+					model.addAttribute("cardList_Y", list_y);
 				} else {
 					model.addAttribute("cardList_Y", null);
 				}
@@ -361,5 +372,48 @@ public class SettingController {
 		return "setting/settingCard";
 	}
 	
+	@RequestMapping(value="setting/settingUnbindCard")
+	public String setUnbindCard(String bankacco, Model model){
+		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				// 短信验证
+				bankCardManager.unbindBankCard(
+						s_custinfo.getCustno(), 
+						ServletHolder.getRequest().getParameter("bankacco"), 
+						"N");
+			} else{
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
+			}
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			return "setting/settingCard";
+		}
+		ServletHolder.forward("/setting/settingCard.htm");
+		return "setting/settingCard";
+	}
+	
+	@RequestMapping(value="setting/settingActiveCard")
+	public String setActiveCard(String bankacco, Model model){
+		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				// 短信验证
+				bankCardManager.unbindBankCard(
+						s_custinfo.getCustno(), 
+						ServletHolder.getRequest().getParameter("bankacco"), 
+						"Y");
+			} else{
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
+			}
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			return "setting/settingCard";
+		}
+		ServletHolder.forward("/setting/settingCard.htm");
+		return "setting/settingCard";
+	}
 	
 }

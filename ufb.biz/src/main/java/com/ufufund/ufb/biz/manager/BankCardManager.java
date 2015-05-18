@@ -26,6 +26,8 @@ public interface BankCardManager {
 	public List<BankCardWithTradeAcco> getBankCardWithTradeAccoList(String custno, String state); 
 	
 	public void setBankCardMainFlag(String custno, String bankacco, String mainflag);
+	
+	public void unbindBankCard(String custno, String bankacco, String state);
 	/**
 	 *  
 	 * 开户绑卡 1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户

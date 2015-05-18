@@ -1,6 +1,7 @@
 package com.ufufund.ufb.model.db;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import com.ufufund.ufb.model.action.PrintableModel;
 
@@ -33,6 +34,37 @@ public class BankCardWithTradeAcco extends PrintableModel  implements Serializab
 	/** tradeacco基本属性 **/
 	private String tradeacco;
 	private String fundcorpno;
+	
+	/** 资金 **/
+	private BigDecimal total = new BigDecimal("0.00");
+	private BigDecimal available = new BigDecimal("0.00");
+	private BigDecimal realavailable = new BigDecimal("0.00");
+	private BigDecimal frozen = new BigDecimal("0.00");
+	
+	public BigDecimal getTotal() {
+		return total;
+	}
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+	public BigDecimal getAvailable() {
+		return available;
+	}
+	public void setAvailable(BigDecimal available) {
+		this.available = available;
+	}
+	public BigDecimal getRealavailable() {
+		return realavailable;
+	}
+	public void setRealavailable(BigDecimal realavailable) {
+		this.realavailable = realavailable;
+	}
+	public BigDecimal getFrozen() {
+		return frozen;
+	}
+	public void setFrozen(BigDecimal frozen) {
+		this.frozen = frozen;
+	}
 	public String getSerialid() {
 		return serialid;
 	}

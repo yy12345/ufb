@@ -147,6 +147,7 @@
 			and b.state = #{state,jdbcType=VARCHAR}
 			and t.tradeaccost = 'N' 
 			and b.serialid  = t.bankserialid
+		order by b.MAINFLAG DESC
 	</select>
 	
 	<update id="setBankCardMainFlag" parameterType="String">
@@ -158,6 +159,15 @@
 	     	<if test="bankacco != null and bankacco !=''" >
 	     	and T1.BANKACCO = #{bankacco,jdbcType=VARCHAR}
 	     	</if>
+	</update>
+	
+	<update id="unbindBankCard" parameterType="String">
+		UPDATE bankcardinfo T1
+			SET 
+			T1.STATE = #{state,jdbcType=VARCHAR}
+	     WHERE 
+	     	T1.CUSTNO = #{custno,jdbcType=VARCHAR}
+	     	and T1.BANKACCO = #{bankacco,jdbcType=VARCHAR}
 	</update>
 
 	<select id="getBankcardinfoSequence" parameterType="java.lang.String"

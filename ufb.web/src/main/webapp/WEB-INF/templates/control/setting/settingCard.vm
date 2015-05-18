@@ -12,6 +12,28 @@ $(function(){
 		$("#form-settingCard").attr("action", "../setting/settingMainCard.htm");
 		$("#form-settingCard").submit();
 	});
+	
+	$(".set-unbind").on("click", function(){
+		if($(this).attr("total")>0 ||
+		   $(this).attr("available")>0 ||
+		   $(this).attr("realavailable")>0 ||
+		   $(this).attr("frozen")>0 ){
+		   	alert("对不起，您的银行卡有资金交易，暂时不能解绑！");
+			return false;
+		}else{
+			alert("您确定要解绑你的银行卡吗？");
+			$("#bankacco").val($(this).attr("bankacco"));
+			$("#form-settingCard").attr("action", "../setting/settingUnbindCard.htm");
+			$("#form-settingCard").submit();
+		}
+	});
+	
+	$(".set-active").on("click", function(){
+		$("#bankacco").val($(this).attr("bankacco"));
+		$("#form-settingCard").attr("action", "../setting/settingActiveCard.htm");
+		$("#form-settingCard").submit();
+	});
+	
 });
 </script>
 </head>
@@ -79,9 +101,12 @@ $(function(){
     							<a bankacco="${card.bankacco}" class="set-main" 
     								href="#">设为主卡</a>
     							#end
-    							<!--
-    							<a bankacco="${card.bankacco}" class="set-unbind" href="#">解绑</a>
-    							-->
+    							<a bankacco="${card.bankacco}" class="set-unbind" href="#"
+									total="${card.total}"
+									available="${card.available}"
+									realavailable="${card.realavailable}"
+									frozen="${card.frozen}"
+									>解绑</a>
     						</div>
                         </li>
     					#end
@@ -99,7 +124,7 @@ $(function(){
     							<span>尾号：$tailStr.substring($start,$end)</span>
     						</div>
                             <div class="card-setting">
-    							<a tradeacco="${card.tradeacco}" class="set-unbind" href="#">激活</a>
+    							<a bankacco="${card.bankacco}" class="set-active" href="#">激活</a>
     						</div>
                         </li>
     					#end

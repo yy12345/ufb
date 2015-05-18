@@ -85,6 +85,14 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		bankCardMapper.setBankCardMainFlag(custno, bankacco, mainflag);
 	}
 	
+	@Override
+	public void unbindBankCard(String custno, String bankacco, String state){
+		if(null == custno || "".equals(custno)){
+			throw new BizException(this.getProcessId(custno), ErrorInfo.NO_IDCARDNO, BisConst.Register.CUSTNO);
+		}
+		bankCardMapper.unbindBankCard(custno, bankacco, state);
+	}
+	
 	/**
 	 *  1 验证身份
 	 *  1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户

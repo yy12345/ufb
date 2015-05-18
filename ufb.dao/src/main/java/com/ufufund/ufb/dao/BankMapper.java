@@ -21,6 +21,8 @@ public interface BankMapper extends BaseDao {
 
 	public void setBankCardMainFlag(@Param("custno")String custno, @Param("bankacco")String bankacco, @Param("mainflag")String mainflag);
 	
+	public void unbindBankCard(@Param("custno")String custno, @Param("bankacco")String bankacco, @Param("state")String state);
+	
 	public String getBankcardinfoSequence();
 	
 	public Tradeaccoinfo getTradeaccoinfo(Tradeaccoinfo tradeaccoinfo);

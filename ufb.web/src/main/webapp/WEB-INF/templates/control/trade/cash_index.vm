@@ -105,13 +105,13 @@
                     </li>
                     <li>
                         <span class="form-title">取现金额</span>
-                        <input id="appvol" name="appvol" class="ipt-cash input-text" type="text" value="">元
+                        <input id="appvol" name="appvol" class="ipt-cash input-text" maxlength="11" type="text" value="">元
                         <span class="tips-normal"></span>
                         <span id="appvolTips" class="tips-check"><i class="icon"></i>验证提示</span>
                     </li>
                     <li>
                         <span class="form-title">交易密码</span>
-                        <input id="tradePwd" name="tradePwd" class="input-text" type="password" value=""><a class="find" href="javascript:;">忘记密码?</a>
+                        <input id="tradePwd" name="tradePwd" class="input-text" maxlength="20" type="password" value=""><a class="find" href="${staticDomain}/setting/settingPassword.htm">忘记密码?</a>
                         <span class="tips-normal"></span>
                         <span id="tradePwdTips" class="tips-check"><i class="icon"></i>验证提示</span>
                     </li>

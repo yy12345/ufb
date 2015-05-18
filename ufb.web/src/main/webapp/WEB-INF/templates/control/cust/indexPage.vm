@@ -29,19 +29,20 @@ $(function(){
 			href="${staticDomain}/session/login.htm">资产总览</a>|<a 
 			href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
 			href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
-			href="javascript:;"><i class="trans icon"></i>#if ($CustinfoVo.invnm)
-                	    $!{CustinfoVo.invnm}
-                	#else
-						#set($tailStr=$CustinfoVo.mobileno)
-						#set($start=$tailStr.substring(0,3))
-						#set($end=$tailStr.substring(7,11))
-						$start****$end
-                	#end<a 
+			href="javascript:;"><i class="trans icon"></i>
+				#if ($SessionVo.invnm)
+            	    $!{SessionVo.invnm}
+            	#else
+					#set($tailStr=$SessionVo.mobileno)
+					#set($start=$tailStr.substring(0,3))
+					#set($end=$tailStr.substring(7,11))
+					$start****$end
+            	#end<a 
 			href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span></div>
     </div>
 </div>
 <form id="form-index" method="post" action="${staticDomain}/cust/index.htm">
-<input id="openaccount" type="hidden" name="openaccount" value="${CustinfoVo.openaccount}"/>
+<input id="openaccount" type="hidden" name="openaccount" value="${SessionVo.openaccount}"/>
 <div class="body">
     <div class="inner clearfix">
         <div class="title clearfix">
@@ -70,7 +71,7 @@ $(function(){
                             </tbody>
                         </table>
                         <div class="base-btn fr">
-							#if($CustinfoVo.openaccount!="Y")
+							#if($SessionVo.openaccount!="Y")
                             <div class="clearfix">
 								<a class="fl btn off" href="#">充值</a><span class="tips fl">自动充值</span>
 							</div>
@@ -100,7 +101,7 @@ $(function(){
                         </div>
                         <div class="detail-list fr">
                             <div class="list-title">资金明细</div>
-							#if ($CustinfoVo.openaccount == "Y")
+							#if ($SessionVo.openaccount == "Y")
                             <div class="tabs list-tabs clearfix">
                                 <a class="tab on" href="javascript:;">充值</a>
                                 <a class="tab" href="javascript:;">取现</a>
@@ -202,10 +203,10 @@ $(function(){
                 <div class="account-header">
                     <a href="${staticDomain}/setting/settingAccount.htm" class="header-avatar"><img src="${staticDomain}/images/avatar.png" width="100%"></a>
                     <div class="header-name">
-					#if ($CustinfoVo.invnm)
-                	    $!{CustinfoVo.invnm}
+					#if ($SessionVo.invnm)
+                	    $!{SessionVo.invnm}
                 	#else
-                	    #set($tailStr=$CustinfoVo.mobileno)
+                	    #set($tailStr=$SessionVo.mobileno)
 						#set($start=$tailStr.substring(0,3))
 						#set($end=$tailStr.substring(7,11))
 						$start****$end
@@ -222,14 +223,14 @@ $(function(){
                         <div class="name">可用金额（元）</div>
                         <div class="value">$!{availableBalanceDisplay}</div>
                     </li>
-					#if($CustinfoVo.openaccount=="Y")
+					#if($SessionVo.openaccount=="Y")
 					<li class="account-item">
                         <div class="name">冻结金额（元）</div>
                         <div class="value">$!{frozenBalanceDisplay}</div>
                     </li>
 					#end
                 </ul>
-				#if($CustinfoVo.openaccount!="Y")
+				#if($SessionVo.openaccount!="Y")
                 <div class="account-btn">
                     <a id="btn-openAccount" class="btn" href="#">开办理财账户</a>
                 </div>
@@ -265,7 +266,7 @@ $(function(){
 <script src="${staticDomain}/js/scripts/load.js"></script>
 <script>
     $(function () {
-		#if($CustinfoVo.openaccount!="Y")
+		#if($SessionVo.openaccount!="Y")
         alertBox(".box-openGuide");
 		#end
     });
