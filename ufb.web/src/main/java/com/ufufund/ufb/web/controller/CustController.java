@@ -150,9 +150,9 @@ public class CustController {
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
-				model.addAttribute("CustinfoVo", s_custinfo);
+				model.addAttribute("SessionVo", s_custinfo);
 			}else{
-				model.addAttribute("CustinfoVo", null);
+				model.addAttribute("SessionVo", null);
 			}
 		}catch (BizException e){
 			// TODO 调到登录页面

@@ -167,10 +167,19 @@ public class QueryManagerImpl implements QueryManager{
 		List<TradeAccoVo> accoList = new ArrayList<TradeAccoVo>();
 		for(BankCardWithTradeAcco acco : tradeAccoList){
 			TradeAccoVo tradeAccoVo = queryAssets(acco.getTradeacco());
+			
+			//BeanUtils.copyProperties(acco, tradeAccoVo);
+			//accoList.add(tradeAccoVo);
+			acco.setAvailable(tradeAccoVo.getAvailable());
+			acco.setRealavailable(tradeAccoVo.getRealavailable());
+			acco.setTotal(tradeAccoVo.getTotal());
+			acco.setFrozen(tradeAccoVo.getFrozen());
 			BeanUtils.copyProperties(acco, tradeAccoVo);
 			accoList.add(tradeAccoVo);
+			//
 			result.setTotal(result.getTotal().add(tradeAccoVo.getTotal()));
 			result.setAvailable(result.getAvailable().add(tradeAccoVo.getAvailable()));
+			result.setRealavailable(result.getRealavailable().add(tradeAccoVo.getRealavailable()));
 			result.setFrozen(result.getFrozen().add(tradeAccoVo.getFrozen()));
 		}
 		result.setAccoList(accoList);

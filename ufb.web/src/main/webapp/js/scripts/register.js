@@ -202,10 +202,11 @@ var check_bankCard = function (ipt) {//验证银行卡
     if (isNull(value)) {
         return showTips(ipt, "银行卡不能为空");
     }
-    var regex = /^\d{12,19}$/;
+    var regex = /^\d{5,21}\d*$/;
     if (!regex.test($.trim(value))) {
         return showTips(ipt, "银行卡格式错误");
     }
+    
     return showTips(ipt, 0)
 }
 

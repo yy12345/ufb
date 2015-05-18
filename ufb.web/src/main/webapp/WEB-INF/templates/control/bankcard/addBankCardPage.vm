@@ -130,7 +130,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">幼教机构</span>
-								<input id="organization" name="organization" class="ipt-organization input-text" type="text" value="$!{BankCardVo.organization}">
+								<input id="organization" name="organization" class="ipt-organization input-text" maxlength="28" type="text" value="$!{BankCardVo.organization}">
                                 <span class="tips-normal">请按照营业执照填写</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_organization}</span>
                             </li>
@@ -140,7 +140,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">营业执照</span>
-								<input id="business" name="business" class="ipt-business input-text" type="text" value="$!{BankCardVo.business}">
+								<input id="business" name="business" class="ipt-business input-text" maxlength="28" type="text" value="$!{BankCardVo.business}">
                                 <span class="tips-normal">请按照营业执照填写</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_business}</span>
                             </li>
@@ -150,7 +150,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">经办人姓名</span>
-                                <input id="bankAcnm" name="bankAcnm" class="ipt-bankAcnm input-text" type="text" value="$!{BankCardVo.bankAcnm}">
+                                <input id="bankAcnm" name="bankAcnm" class="ipt-bankAcnm input-text" maxlength="28" type="text" value="$!{BankCardVo.bankAcnm}">
                                 <span class="tips-normal">请填写真实姓名</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcnm}</span>
                             </li>
@@ -160,7 +160,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">身份证号</span>
-                                <input id="bankIdno" name="bankIdno" class="ipt-idCard input-text" type="text" value="$!{BankCardVo.bankIdno}">
+                                <input id="bankIdno" name="bankIdno" class="ipt-idCard input-text" maxlength="18" type="text" value="$!{BankCardVo.bankIdno}">
                                 <span class="tips-normal">请填写身份证号</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankIdno}</span>
                             </li>
@@ -170,7 +170,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">交易密码</span>
-                                <input id="tradePwd" name="tradePwd" class="ipt-password1 input-text" type="password" value="$!{BankCardVo.tradePwd}">
+                                <input id="tradePwd" name="tradePwd" class="ipt-password1 input-text" maxlength="20" type="password" value="$!{BankCardVo.tradePwd}">
                                 <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_tradePwd}</span>
                             </li>
@@ -180,7 +180,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">交易密码确认</span>
-                                <input id="tradePwd2" name="tradePwd2" class="ipt-password2 input-text" type="password" value="$!{BankCardVo.tradePwd2}">
+                                <input id="tradePwd2" name="tradePwd2" class="ipt-password2 input-text" maxlength="20" type="password" value="$!{BankCardVo.tradePwd2}">
                                 <span class="tips-normal">请再次输入密码</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_tradePwd2}</span>
                             </li>
