@@ -15,7 +15,7 @@
         </div>
         <div class="login-panels">
             <div class="panel">
-				<form id="form-login" class="common-form login-form" method="post" action="${staticDomain}/cust/login.htm">
+				<form id="form-login" class="common-form login-form" method="post" action="${staticDomain}/home/index.htm">
                     <ul>
                         <li class="clearfix">
 							<label class="fl">登录账号</label>
@@ -63,16 +63,16 @@
         <div class="inner clearfix rel">
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
 			<div class="nav">
-				#if ($CustinfoVo)
+				#if ($SessionVo)
 				<a href="${staticDomain}/cust/register.htm">注册</a>|<a
 				href="${staticDomain}/session/login.htm">资产总览</a>|<a
 				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
 				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
     			href="javascript:;"><i class="trans icon"></i>
-					#if ($CustinfoVo.invnm)
-						$!{CustinfoVo.invnm}
-                    #elseif ($CustinfoVo.mobileno)
-						#set($tailStr=$CustinfoVo.mobileno)
+					#if ($SessionVo.invnm)
+						$!{SessionVo.invnm}
+                    #elseif ($SessionVo.mobileno)
+						#set($tailStr=$SessionVo.mobileno)
 						#set($start=$tailStr.substring(0,3))
 						#set($end=$tailStr.substring(7,11))
 						$start****$end
@@ -211,6 +211,7 @@
 		if(!check_null($("#ipt-loginPassword"), "登录密码不能为空")){
 			return false;
 		}
+		$("#form-login").attr("action", "../cust/login.htm");
 		$("#form-login").submit();
 		
 		
@@ -228,7 +229,7 @@
 	
 	$(function(){
 	
-		#if ($CustinfoVo)
+		#if ($SessionVo)
 		
 		#else
 			alertBox(".box-login");

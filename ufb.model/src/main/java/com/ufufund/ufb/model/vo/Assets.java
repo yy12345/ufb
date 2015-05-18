@@ -11,6 +11,7 @@ public class Assets extends PrintableModel  implements Serializable{
 	
 	private BigDecimal total = new BigDecimal("0.00");
 	private BigDecimal available = new BigDecimal("0.00");
+	private BigDecimal realavailable = new BigDecimal("0.00");
 	private BigDecimal frozen = new BigDecimal("0.00");
 	
 	/**
@@ -29,6 +30,13 @@ public class Assets extends PrintableModel  implements Serializable{
 	}
 	public void setAvailable(BigDecimal available) {
 		this.available = available;
+	}
+	
+	public BigDecimal getRealavailable() {
+		return realavailable;
+	}
+	public void setRealavailable(BigDecimal realavailable) {
+		this.realavailable = realavailable;
 	}
 	public BigDecimal getFrozen() {
 		return frozen;

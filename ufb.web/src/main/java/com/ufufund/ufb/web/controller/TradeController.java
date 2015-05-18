@@ -122,8 +122,13 @@ public class TradeController {
 
 //			model.addAttribute("totalBalance", assets.getAvailable());
 //			model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
-			model.addAttribute("cardAvailable", assets.getAccoList().get(0).getAvailable());
-			model.addAttribute("cardAvailableDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAccoList().get(0).getAvailable()));
+			BigDecimal cardAvailable = assets.getAccoList().get(0).getAvailable();
+			BigDecimal cardRealAvailable = assets.getAccoList().get(0).getRealavailable();
+//			BigDecimal cardFrozen = assets.getAccoList().get(0).getFrozen();
+			model.addAttribute("cardAvailable", cardAvailable);
+			model.addAttribute("cardAvailableDisplay", NumberUtils.DF_CASH_CONMMA.format(cardAvailable));
+			model.addAttribute("cardRealAvailable", cardRealAvailable);
+			model.addAttribute("cardRealAvailableDisplay", NumberUtils.DF_CASH_CONMMA.format(cardRealAvailable));
 			
 			model.addAttribute("card", assets.getAccoList().get(0));
 			model.addAttribute("cardList", assets.getAccoList());

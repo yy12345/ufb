@@ -94,6 +94,7 @@ public class QueryManagerImpl implements QueryManager{
 		fundBalance = fundBalanceMapper.getFundBalance(fundBalance);
 		BigDecimal total = new BigDecimal(0.00); // 总份额
 		BigDecimal available = new BigDecimal(0.00); // 用户当前可用份额
+		BigDecimal realavailable = new BigDecimal(0.00); //快取份额
 		BigDecimal frozen = new BigDecimal(0.00); //冻结份额
 		if(null != fundBalance){
 			total = fundBalance.getTotalfundvol(); // 总份额
@@ -111,8 +112,14 @@ public class QueryManagerImpl implements QueryManager{
 		}
 		//总资产 = 历史  + 充值 + 快取
 		result.setTotal(total.add(asset_022).add(asset_024));  
-		//可取资产 = 历史 + 取现 + 快取
-		result.setAvailable(available.subtract(asset_023).add(asset_024)); 
+		//可取资产 = 历史  + 充值 + 取现 + 快取
+		result.setAvailable(available.add(asset_022).subtract(asset_023).add(asset_024)); 
+		//快速可取资产 = 历史 + 取现 + 快取
+		realavailable = available.subtract(asset_023).add(asset_024);
+		if(realavailable.compareTo(BigDecimal.ZERO) < 0){
+			realavailable = new BigDecimal(0);
+		}
+		result.setRealavailable(realavailable);
 		//冻结资产 = 历史 + 取现
 		result.setFrozen(frozen.add(asset_023));
 		

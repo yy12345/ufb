@@ -238,7 +238,7 @@ public class CustController {
 				model.addAttribute("cardList", null);
 			}
 			
-			model.addAttribute("CustinfoVo", custinfoVo);
+			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
 			// TODO 调到登录页面
 			LOG.error(e.getErrmsg(), e);
@@ -259,7 +259,6 @@ public class CustController {
 			}
 					
 			model.addAttribute("CustinfoVo", custinfoVo);
-			//return "login/indexPage";
 			return "home/indexPage";
 		}
 		return "cust/indexPage";
@@ -452,7 +451,7 @@ public class CustController {
 			}else{
 				return "home/indexPage";
 			}
-			model.addAttribute("CustinfoVo", custinfoVo);
+			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
 			// TODO 调到登录页面
 			LOG.error(e.getErrmsg(), e);

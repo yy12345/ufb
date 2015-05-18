@@ -163,7 +163,9 @@ var check_mobile = function (ipt) {//验证手机号
     if (isNull(value)) {
         return showTips(ipt, "手机号不能为空");
     }
-    var regex = /^1\d{10}$/;
+    
+    /* 手机号码验证*/
+    var regex = /^0?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$/;
     if (!regex.test(value)) {
         return showTips(ipt, "格式错误，请输入正确的手机号码");
     }
@@ -221,7 +223,7 @@ var check_cash = function (ipt) {
 }
 /* bind mod */
 
-$("body").bind("blur", ".ipt-phoneNum", function() {
+$("body").on("blur", ".ipt-phoneNum", function() {
     check_mobile($(this));
 });
 
@@ -229,11 +231,11 @@ $("body").on("blur", ".ipt-code", function() {
     check_code($(this));
 });
 
-$("body").bind("blur", ".ipt-phoneCode", function() {
+$("body").on("blur", ".ipt-phoneCode", function() {
     check_phoneCode($(this));
 });
 
-$("body").bind("blur", ".ipt-idCard", function() {
+$("body").on("blur", ".ipt-idCard", function() {
     check_id($(this));
 });
 
