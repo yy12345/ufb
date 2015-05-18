@@ -28,7 +28,7 @@ $(function(){
 			href="${staticDomain}/home/index.htm">首页</a>|<a class="current" 
 			href="${staticDomain}/session/login.htm">资产总览</a>|<a 
 			href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
-			href="helpNotice.html">帮助中心</a><span class="member" 
+			href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
 			href="javascript:;"><i class="trans icon"></i>#if ($CustinfoVo.invnm)
                 	    $!{CustinfoVo.invnm}
                 	#else

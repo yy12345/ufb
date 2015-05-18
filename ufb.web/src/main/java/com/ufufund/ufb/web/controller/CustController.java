@@ -25,6 +25,7 @@ import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.Level;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.UserHelper;
 
 
@@ -83,7 +84,7 @@ public class CustController {
 			// 校验验证码
 			// VerifyCodeUtils.validate(custinfoVo.getVerifycode());
 			// 校验短信验证码
-			// MsgCodeUtils.validate(custinfo.getMsgcode());
+			MsgCodeUtils.validate(custinfoVo.getMsgcode());
 			
 			// 注册对象封装 
 			RegisterAction registerAction = new RegisterAction();
@@ -114,6 +115,8 @@ public class CustController {
 			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
 				//
 				model.addAttribute("errMsg_verifycode", e.getMessage());
+			} else if(BisConst.Register.MSGCODE.equals(ems)){
+				model.addAttribute("errMsg_msgcode", e.getMessage());
 			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
 				//
 				model.addAttribute("errMsg_pswpwd", e.getMessage());

@@ -190,7 +190,6 @@ public class SettingController {
 	@RequestMapping(value = "setting/getMsgCode", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,String> sendMsgCode(String verifycode){
-		//msgType: 注册REGISTER、找回登录密码GETLOGINPWD
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try {
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
