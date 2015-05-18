@@ -26,8 +26,12 @@ public enum Apkind {
 	
 	/** 查询类  **/
 	TRANSRESULTQUERY("041"),   // 交易结果查询
-	STATICSHAREQUERY("042");   // 份额查询
+	STATICSHAREQUERY("042"),   // 份额查询
 	
+	AUTORECHARGE("042"),  //自动充值
+	AUTOWITHDRAWAL("042") //自动取现
+	//AUTOAPPLY("042") 
+	;
 	private String value;
 
 	private Apkind(String value) {

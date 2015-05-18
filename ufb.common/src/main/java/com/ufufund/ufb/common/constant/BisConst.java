@@ -40,4 +40,27 @@ public interface BisConst {
 		public static final String BUSINESS = "营业执照";
 	}
 	
+	
+	public static interface AutoTrade{
+		
+		public static final String AUTOID = "用户编号";
+		public static final String CUSTNO = "用户编号";
+		public static final String APKIND = "用户编号";
+		public static final String TYPE = "用户编号";
+		public static final String CYCLE = "用户编号";
+		public static final String DAT = "用户编号";
+		public static final String FROMBANKSERIALID = "用户编号";
+		public static final String TOFUNDCODE = "用户编号";
+		public static final String TOFUNDCORPNO = "用户编号";
+		public static final String TOCHARGETYPE = "用户编号";
+		
+		public static final String TOBANKSERIALID = "用户编号";
+		public static final String FROMFUNDCODE = "用户编号";
+		public static final String FROMFUNDCORPNO = "用户编号";
+		public static final String FROMCHARGETYPE = "用户编号";
+		
+		public static final String AUTOAMT = "用户编号";
+		public static final String AUTOVOL = "用户编号";
+		public static final String STATE = "用户编号";
+	}
 }

@@ -4,6 +4,7 @@ package com.ufufund.ufb.common.utils;
 
 
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Map;
 //import java.util.regex.Matcher;
@@ -143,6 +144,24 @@ public class RegexUtil {
     }
     
     
+    
+    /**
+     * 金额 份额校验 
+     * 
+     * @param text
+     * @return
+     * @author jiqinlin
+     */
+    public final static boolean isAmt(BigDecimal text){
+        return isAmt(text.toString());
+    }
+    
+    public final static boolean isAmt(String text){
+        return match(text, "^[+]?(([1-9]\\d*[.]?)|(0.))(\\d{0,2})?$");
+    }
+    
+    
+  
 //    
 //    /**
 //     * 匹配URL地址
@@ -260,9 +279,13 @@ public class RegexUtil {
 	     * @return
 	     * @author jiqinlin
 	     */
-	    public final static boolean isDigits(String str) {
-	        return match(str, "^[0-9]*$");
-	    }
+//	    public final static boolean isDigits(String str) {
+//	        return match(str, "^[0-9]*$");
+//	    }
+    
+    
+    
+    
 //    
 //    /**
 //     * 匹配正浮点数
