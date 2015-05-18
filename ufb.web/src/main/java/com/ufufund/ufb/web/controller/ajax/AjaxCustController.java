@@ -90,7 +90,6 @@ public class AjaxCustController {
 	@RequestMapping(value = "ajaxcust/getMsgCode", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,String> sendMsgCode(String mobileno, String verifycode){
-		//msgType: 注册REGISTER、找回登录密码GETLOGINPWD
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try {
 			// 校验验证码
@@ -109,6 +108,8 @@ public class AjaxCustController {
 				
 				resultMap.put("errCode", "0000");
 				resultMap.put("errMsg", "短信已发送");
+				//TODO 测试用
+				resultMap.put("TODO", MsgCodeUtils.getMsgCode());
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);

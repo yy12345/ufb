@@ -66,6 +66,7 @@
 				#if ($CustinfoVo)
 				<a href="${staticDomain}/cust/register.htm">注册</a>|<a
 				href="${staticDomain}/session/login.htm">资产总览</a>|<a
+				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
 				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
     			href="javascript:;"><i class="trans icon"></i>
 					#if ($CustinfoVo.invnm)

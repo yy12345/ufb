@@ -48,7 +48,10 @@ $(function(){
             		var countdown = setTimeout(countDown, 1000);
             		$("#btn-getMsgCode").addClass("off");
             		$("#btn-getMsgCode").attr("disabled","disabled");
-            		
+            		// TODO
+					$("#msgcode").val(b.TODO);
+            		$("#msgcode").siblings(".tips-normal").hide();
+					//
             		function countDown() {
             			$("#btn-getMsgCode").prop("disabled", true); 
             			$("#btn-getMsgCode").val("等待" + count + "秒!"); 
@@ -66,18 +69,17 @@ $(function(){
                 } else {
                   	var errCode = b.errCode;
 					var errMsg = b.errMsg;
-					// alert(errCode + ": " + errMsg);
+					//alert(errCode + ": " + errMsg);
 					if("errMsg_mobileno"==errCode){
-						$("#errMsg_mobileno").addClass("error");
+						$("#errMsg_mobileno").removeClass("ok").addClass("error");
 						$("#errMsg_mobileno > .tips-check").html("<i class=icon></i>" + errMsg);
 					}else 
 					if("errMsg_verifycode"==errCode){
-						$("#errMsg_verifycode").addClass("error");
+						$("#errMsg_verifycode").removeClass("ok").addClass("error");
 						$("#errMsg_verifycode > .tips-check").html("<i class=icon></i>" + errMsg);
 					}else{
 						alert(errMsg);
 					}
-					
 					var src = $("#btn-verifycode").attr("src");
 					$("#btn-verifycode").attr("src",src +'?time='+(new Date()));
                 }
@@ -223,12 +225,16 @@ $(function(){
 							</span>
                             <span class="tips-check"><i class="icon"></i>$!{errMsg_verifycode}</span>
                         </li>
-                        <li>
+                        <li id="errMsg_msgcode"
+                        #if($errMsg_msgcode)
+                        class="error"
+                        #end
+                        >
                             <span class="form-title">手机验证码</span>
                             <input id="msgcode" name="msgcode" class="ipt-phoneCode input-code" type="text" value="$!{CustinfoVo.msgcode}">
                             <input id="btn-getMsgCode" class="input-button" type="button" value="获取验证码">
                             <span class="tips-normal">6位验证码</span>
-                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>
                         </li>
                         <li
                         #if($errMsg_pswpwd)
