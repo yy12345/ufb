@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.AutotradeMapper">
+    
+   <select id="getAutotradeSequence" parameterType="java.lang.String" resultType="java.lang.String">
+	<![CDATA[
+		select getSequence('AUTOTRADE_SEQ')
+	]]>
+   </select>
+	
+	
+	<insert id="insertAutotrade" parameterType="com.ufufund.ufb.model.db.Autotrade">
+  	 <![CDATA[
+	 		INSERT INTO AUTOTRADE (
+				AUTOID,
+				AUTONAME,
+				CUSTNO,
+				STATE,
+				APKIND,
+				
+				TYPE,
+				CYCLE,
+				DAT,
+				FROM_BANKSERIALID,
+				FROM_ACCOID,
+				
+				FROM_TRADEACCO,
+				FROM_FUNDCODE,
+				FROM_FUNDCORPNO,
+				FROM_CHARGETYPE,
+				TO_BANKSERIALID,
+				
+				TO_ACCOID,
+				TO_TRADEACCO,
+				TO_FUNDCODE,
+				TO_FUNDCORPNO,
+				TO_CHARGETYPE,
+				
+				AUTOAMT,
+				AUTOVOL,
+				LASTDATE,
+				NEXTDATE,
+				SUMMARY,
+				
+				CREATETIME,
+				UPDATETIME
+		  )
+		VALUES (
+			#{autoid,jdbcType=VARCHAR},
+			#{autoname,jdbcType=VARCHAR},
+			#{custno,jdbcType=VARCHAR},
+			#{state,jdbcType=VARCHAR},
+			#{apkind,jdbcType=VARCHAR},
+			
+			#{type,jdbcType=VARCHAR},
+			#{cycle,jdbcType=VARCHAR},
+			#{dat,jdbcType=VARCHAR},
+			#{frombankserialid,jdbcType=VARCHAR},
+			#{fromaccoid,jdbcType=INTEGER},
+			
+			#{fromtradeacco,jdbcType=VARCHAR},
+			#{fromfundcode,jdbcType=VARCHAR},
+			#{fromfundcorpno,jdbcType=VARCHAR},
+			#{fromchargetype,jdbcType=VARCHAR},
+			#{tobankserialid,jdbcType=VARCHAR},
+			
+			#{toaccoid,jdbcType=INTEGER},
+			#{totradeacco,jdbcType=VARCHAR},
+			#{tofundcode,jdbcType=VARCHAR},
+			#{tofundcorpno,jdbcType=VARCHAR},
+			#{tochargetype,jdbcType=VARCHAR},
+			
+			#{autoamt,jdbcType=DECIMAL},
+			#{autovol,jdbcType=DECIMAL},
+			#{lastdate,jdbcType=VARCHAR},
+			#{nextdate,jdbcType=VARCHAR},
+			#{summary,jdbcType=VARCHAR},
+			
+
+		
+			sysdate(),
+			sysdate()
+			)
+	 ]]>
+  	</insert>
+  	
+  	
+  	<update id="updateAutotrade" parameterType="com.ufufund.ufb.model.db.Autotrade">
+		UPDATE AUTOTRADE T1
+	       SET T1.UPDATETIME = sysdate()
+	       	
+	       	<if test="autoname != null">
+	       	  ,T1.AUTONAME = #{autoname,jdbcType=VARCHAR}
+	       	</if>
+			<if test="state != null">
+	       	  ,T1.STATE = #{state,jdbcType=VARCHAR}
+	       	</if>
+	        <if test="apkind != null">
+	       	  ,T1.APKIND = #{apkind,jdbcType=VARCHAR}
+	       	</if>
+	       	
+			<if test="type != null">
+	       	  ,T1.TYPE = #{type,jdbcType=VARCHAR}
+	       	</if>
+	        <if test="cycle != null">
+	       	  ,T1.CYCLE = #{cycle,jdbcType=VARCHAR}
+	       	</if>
+			<if test="dat != null">
+	       	  ,T1.DAT = #{dat,jdbcType=VARCHAR}
+	       	</if>
+			<if test="frombankserialid != null">
+	       	  ,T1.FROM_BANKSERIALID = #{frombankserialid,jdbcType=VARCHAR}
+	       	</if>
+			<if test="fromaccoid != null">
+	       	  ,T1.FROM_ACCOID = #{fromaccoid,jdbcType=INTEGER}
+	       	</if>
+	       	
+	      
+
+			<if test="fromtradeacco != null">
+	       	  ,T1.FROM_TRADEACCO = #{fromtradeacco,jdbcType=VARCHAR}
+	       	</if>
+	        <if test="fromfundcode != null">
+	       	  ,T1.FROM_FUNDCODE = #{fromfundcode,jdbcType=VARCHAR}
+	       	</if>
+			<if test="fromfundcorpno != null">
+	       	  ,T1.FROM_FUNDCORPNO = #{fromfundcorpno,jdbcType=VARCHAR}
+	       	</if>
+			<if test="fromchargetype != null">
+	       	  ,T1.FROM_CHARGETYPE = #{fromchargetype,jdbcType=VARCHAR}
+	       	</if>
+			<if test="tobankserialid != null">
+	       	  ,T1.TO_BANKSERIALID = #{tobankserialid,jdbcType=VARCHAR}
+	       	</if>
+	       	
+	       	
+	        <if test="toaccoid != null">
+	       	  ,T1.TO_ACCOID = #{toaccoid,jdbcType=INTEGER}
+	       	</if>
+	        <if test="totradeacco != null">
+	       	  ,T1.TO_TRADEACCO = #{totradeacco,jdbcType=VARCHAR}
+	       	</if>
+			<if test="tofundcode != null">
+	       	  ,T1.TO_FUNDCODE = #{tofundcode,jdbcType=VARCHAR}
+	       	</if>
+			<if test="tofundcorpno != null">
+	       	  ,T1.TO_FUNDCORPNO = #{tofundcorpno,jdbcType=VARCHAR}
+	       	</if>
+			<if test="tochargetype != null">
+	       	  ,T1.TO_CHARGETYPE = #{tochargetype,jdbcType=VARCHAR}
+	       	</if>
+	       	
+	       	<if test="autoamt != null">
+	       	  ,T1.AUTOAMT = #{autoamt,jdbcType=DECIMAL}
+	       	</if>
+	        <if test="autovol != null">
+	       	  ,T1.AUTOVOL = #{autovol,jdbcType=DECIMAL}
+	       	</if>
+			<if test="LASTDATE != null">
+	       	  ,T1.LASTDATE = #{LASTDATE,jdbcType=VARCHAR}
+	       	</if>
+			<if test="NEXTDATE != null">
+	       	  ,T1.NEXTDATE = #{NEXTDATE,jdbcType=VARCHAR}
+	       	</if>
+			<if test="SUMMARY != null">
+	       	  ,T1.SUMMARY = #{SUMMARY,jdbcType=VARCHAR}
+	       	</if>	       	       	
+	  	       	
+	     WHERE T1.AUTOID = #{autoid,jdbcType=VARCHAR}
+	</update>
+   
+   
+   <select id="getAutotrade" parameterType="com.ufufund.ufb.model.db.Autotrade" resultType="com.ufufund.ufb.model.db.Autotrade">
+			  		SELECT
+			autotrade.AUTOID,
+			autotrade.AUTONAME,
+			autotrade.CUSTNO,
+			autotrade.STATE,
+			autotrade.APKIND,
+			autotrade.TYPE,
+			autotrade.CYCLE,
+			autotrade.DAT,
+			autotrade.FROM_BANKSERIALID,
+			autotrade.FROM_ACCOID,
+			autotrade.FROM_TRADEACCO,
+			autotrade.FROM_FUNDCODE,
+			autotrade.FROM_FUNDCORPNO,
+			autotrade.FROM_CHARGETYPE,
+			autotrade.TO_BANKSERIALID,
+			autotrade.TO_ACCOID,
+			autotrade.TO_TRADEACCO,
+			autotrade.TO_FUNDCODE,
+			autotrade.TO_FUNDCORPNO,
+			autotrade.TO_CHARGETYPE,
+			autotrade.AUTOAMT,
+			autotrade.AUTOVOL,
+			autotrade.LASTDATE,
+			autotrade.NEXTDATE,
+			autotrade.SUMMARY,
+			autotrade.CREATETIME,
+			autotrade.UPDATETIME
+			FROM
+			autotrade
+		WHERE 
+		<if test="autoid != null and autoid !=''" >
+		autotrade.AUTOID = #{autoid,jdbcType=VARCHAR} AND
+		</if>
+  		<if test="custno != null and custno !=''" >
+  		 autotrade.CUSTNO = #{custno,jdbcType=VARCHAR} AND
+  		</if>
+	     autotrade.STATE &lt;&gt; 'C'
+  	</select>
+   
+</mapper>
+
