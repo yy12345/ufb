@@ -315,7 +315,9 @@ $(function(){
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>
                             </li>
                             <li>
+								#if($CustinfoVo.openaccount!="Y")
 								<input id="btn-addBankCard" class="input-button" type="button" value="上一步">
+								#end
                                 <input id="btn-addBankCardChk" class="input-button 
 									 #if($errMsg_msgcode)
 										ok

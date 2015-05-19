@@ -29,7 +29,16 @@ public class OpenAccountAction extends CommonAction {
 	private String business; // 营业执照注册号
 	private String invtp;
 	private String level;
+	private String openaccount; //是否已开户 
 	
+	public String getOpenaccount() {
+		return openaccount;
+	}
+
+	public void setOpenaccount(String openaccount) {
+		this.openaccount = openaccount;
+	}
+
 	public String getReqSeq() {
 		return reqSeq;
 	}

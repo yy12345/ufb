@@ -51,7 +51,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	public boolean isMobileRegister(String mobile) throws BizException {
 		String processId = this.getProcessId(mobile);
 		boolean res = false;
-		if (!RegexUtil.isNull(mobile)) {
+		if (RegexUtil.isNull(mobile)) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.MOBILE);
 		}
 		if (!RegexUtil.isMobile(mobile)) {
@@ -135,6 +135,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			custinfo.setIdno(loginAction.getLoginCode());
 			custinfo.setCustst(null);
 		} else {
+			//登录账号 + 无效的登录账号 
 			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE, BisConst.Register.LOGINCODE);
 		}
 		custinfo = custinfoMapper.getCustinfo(custinfo);

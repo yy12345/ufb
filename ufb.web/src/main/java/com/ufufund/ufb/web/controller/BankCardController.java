@@ -46,6 +46,14 @@ public class BankCardController {
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
+				if("Y".equals(s_custinfo.getOpenaccount())){
+					//bankCardVo.setTradePwd("YYY***");
+					//bankCardVo.setTradePwd2("YYY***");
+					//直接跳转
+					UserHelper.setAddBankCardStatus("N");
+					ServletHolder.forward("/bankcard/addBankCardInit.htm");
+					return "bankcard/addBankCardAuthPage";
+				}
 				bankCardVo.setCustNo(s_custinfo.getCustno());
 				bankCardVo.setBankMobile(s_custinfo.getMobileno());
 				bankCardVo.setInvtp(s_custinfo.getInvtp());
@@ -60,10 +68,6 @@ public class BankCardController {
 					bankCardVo.setBankIdno(s_custinfo.getIdno());
 				}
 				
-				if("Y".equals(s_custinfo.getOpenaccount())){
-					bankCardVo.setTradePwd("YYY***");
-					bankCardVo.setTradePwd2("YYY***");
-				}
 			}
 			UserHelper.setAddBankCardStatus("N");
 			model.addAttribute("BankCardVo", bankCardVo);
@@ -82,13 +86,32 @@ public class BankCardController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="bankcard/addBankCardInit" , method=RequestMethod.POST)
+	@RequestMapping(value="bankcard/addBankCardInit")
 	public String addBankCardInit(BankCardVo bankCardVo, Model model){
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		
 		try{
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			
+			String openaccount = null;
+			if(null != s_custinfo){
+				openaccount = s_custinfo.getOpenaccount();
+			}
 			OpenAccountAction openAccountAction = new OpenAccountAction();
+			if("Y".equals(openaccount)){
+				bankCardVo.setOpenaccount(openaccount);
+				bankCardVo.setOrganization(s_custinfo.getOrganization());
+				bankCardVo.setInvtp(s_custinfo.getInvtp());
+				bankCardVo.setLevel(s_custinfo.getLevel());
+				bankCardVo.setBusiness(s_custinfo.getBusiness());
+				bankCardVo.setCustNo(s_custinfo.getCustno());
+				bankCardVo.setBankAcnm(s_custinfo.getInvnm());
+				bankCardVo.setBankIdtp(s_custinfo.getIdtp());
+				bankCardVo.setBankIdno(s_custinfo.getIdno());
+				bankCardVo.setTradePwd(s_custinfo.getTradepwd());
+				bankCardVo.setTradePwd2(s_custinfo.getTradepwd2());
+			}else{
+			}
+			
+			openAccountAction.setOpenaccount(openaccount);
 			openAccountAction.setOrganization(bankCardVo.getOrganization());
 			openAccountAction.setInvtp(bankCardVo.getInvtp());
 			openAccountAction.setLevel(bankCardVo.getLevel());

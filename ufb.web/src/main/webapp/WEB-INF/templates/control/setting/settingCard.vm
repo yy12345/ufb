@@ -15,14 +15,15 @@ $(function(){
 	
 	$(".set-unbind").on("click", function(){
 		if($(this).attr("total")>0 ||
-		   $(this).attr("available")>0 ||
-		   $(this).attr("realavailable")>0 ||
-		   $(this).attr("frozen")>0 ){
+		   	$(this).attr("available")>0 ||
+		   	$(this).attr("realavailable")>0 ||
+		   	$(this).attr("frozen")>0 ){
 		   	alert("对不起，您的银行卡有资金交易，暂时不能解绑！");
 			return false;
 		}else{
 			alert("您确定要解绑你的银行卡吗？");
 			$("#bankacco").val($(this).attr("bankacco"));
+			$("#tradeacco").val($(this).attr("tradeacco"));
 			$("#form-settingCard").attr("action", "../setting/settingUnbindCard.htm");
 			$("#form-settingCard").submit();
 		}
@@ -62,8 +63,9 @@ $(function(){
     </div>
     <div class="body">
     	<form id="form-settingCard" action="${ufbDomain}/setting/settingCard.htm" method="post">
-    	${refreshTools.genInputHtml()}
+    	##${refreshTools.genInputHtml()}
     	<input id="bankacco" name="bankacco" value="${bankacco}" type="hidden"/>
+		<input id="tradeacco" name="tradeacco" value="${tradeacco}" type="hidden"/>
         <div class="inner clearfix">
             <div class="title">
                 <h2 class="title-main">帮助中心</h2>
@@ -78,7 +80,7 @@ $(function(){
             </div>
             <div class="main fr">
                 <div class="setting-content content-card">
-                    <div>银行卡信息：
+                    <div>银行卡信息：$!{errMsg}
     					#if($!{cardList})
     					<span class="mark">您还没有绑定的银行卡噢</span></div>
     					#end
@@ -102,6 +104,7 @@ $(function(){
     								href="#">设为主卡</a>
     							#end
     							<a bankacco="${card.bankacco}" class="set-unbind" href="#"
+									tradeacco="${card.tradeacco}"
 									total="${card.total}"
 									available="${card.available}"
 									realavailable="${card.realavailable}"

@@ -40,22 +40,25 @@ public class BankCardManagerValidator {
 			if (!RegexUtil.isIdCardNo(action.getIdno())) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDCARDNO);
 			}
-			// 交易密码
-			if (RegexUtil.isNull(action.getTradepwd())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD);
+			if(!"Y".equals(action.getOpenaccount())){
+				// 交易密码
+				if (RegexUtil.isNull(action.getTradepwd())) {
+					throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD);
+				}
+				// 交易密码
+				if (!RegexUtil.isPwd(action.getTradepwd())) {
+					throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.TRADEPWD);
+				}
+				// 交易确认密码
+				if (RegexUtil.isNull(action.getTradepwd2())) {
+					throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD2);
+				}
+				// 交易确认密码
+				if (!action.getTradepwd().equals(action.getTradepwd2())) {
+					throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD2);
+				}
 			}
-			// 交易密码
-			if (!RegexUtil.isPwd(action.getTradepwd())) {
-				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.TRADEPWD);
-			}
-			// 交易确认密码
-			if (RegexUtil.isNull(action.getTradepwd2())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD2);
-			}
-			// 交易确认密码
-			if (!action.getTradepwd().equals(action.getTradepwd2())) {
-				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD2);
-			}
+			
 //			if (action.getMerchant()==null||RegexUtil.isNull(action.getMerchant().Value())) {
 //				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, MERCHANT);
 //			}

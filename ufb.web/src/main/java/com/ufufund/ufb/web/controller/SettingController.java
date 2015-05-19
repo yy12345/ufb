@@ -1,5 +1,6 @@
 package com.ufufund.ufb.web.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.common.constant.BisConst;
+import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.vo.Assets;
@@ -373,11 +375,24 @@ public class SettingController {
 	}
 	
 	@RequestMapping(value="setting/settingUnbindCard")
-	public String setUnbindCard(String bankacco, Model model){
+	public String setUnbindCard(String bankacco, String tradeacco, Model model){
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
 				// 短信验证
+				TradeAccoVo tradeAccoVo = queryManager.queryAssets(tradeacco);
+				BigDecimal total = tradeAccoVo.getTotal();
+				BigDecimal available = tradeAccoVo.getAvailable();
+				BigDecimal realavailable = tradeAccoVo.getRealavailable();
+				BigDecimal frozen = tradeAccoVo.getFrozen();
+				
+				if (total.compareTo(BigDecimal.ZERO) > 0
+						|| available.compareTo(BigDecimal.ZERO) > 0
+						|| realavailable.compareTo(BigDecimal.ZERO) > 0
+						|| frozen.compareTo(BigDecimal.ZERO) > 0) {
+					
+					throw new UserException("对不起，您的银行卡有资金交易，暂时不能解绑！");
+				}
 				bankCardManager.unbindBankCard(
 						s_custinfo.getCustno(), 
 						ServletHolder.getRequest().getParameter("bankacco"), 
@@ -388,7 +403,15 @@ public class SettingController {
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			model.addAttribute("CustinfoVo", s_custinfo);
 			return "setting/settingCard";
+		}catch(UserException ue){
+			LOG.warn(ue.getCodeMsg());
+			model.addAttribute("errorMsg", ue.getMessage());
+			model.addAttribute("CustinfoVo", s_custinfo);
+			model.addAttribute("returnUrl", "setting/settingCard.htm");
+			return "error/user_error";
 		}
 		ServletHolder.forward("/setting/settingCard.htm");
 		return "setting/settingCard";
