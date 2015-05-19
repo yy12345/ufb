@@ -75,7 +75,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		custManagerValidator.validator(registerAction);
 		// 查询手机号是否注册
 		if(this.isMobileRegister(registerAction.getLoginCode())){
-			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, MOBILE);
+			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, BisConst.Register.MOBILE);
 		}
 		
 		// 插入客户信息表
@@ -97,7 +97,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		String processId = this.getProcessId(idCardNo);
 		boolean res = false;
 		if (!RegexUtil.isIdCardNo(idCardNo)) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,IDCARDNO);
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.IDCARDNO);
 		}
 		Custinfo custinfo = new Custinfo();
 		custinfo.setIdno(idCardNo);
