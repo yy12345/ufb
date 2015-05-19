@@ -215,7 +215,7 @@ public class SettingController {
 					// 获取手机验证码
 					String template = "";
 					// 发送短信
-					MsgCodeUtils.sendMsg(template);
+					MsgCodeUtils.sendMsg(template, s_custinfo.getMobileno());
 					resultMap.put("errCode", "0000");
 					resultMap.put("errMsg", "短信已发送");
 					//TODO 测试用
@@ -256,7 +256,7 @@ public class SettingController {
 			if(null != s_custinfo){
 
 				// 校验手机验证码
-				MsgCodeUtils.validate(msgcode);
+				MsgCodeUtils.validate(msgcode, s_custinfo.getMobileno());
 				
 				ChangePasswordAction changePasswordAction = new ChangePasswordAction();
 				changePasswordAction.setActionType("TRADEBACK");

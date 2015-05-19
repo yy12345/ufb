@@ -177,6 +177,8 @@ public class BankCardController {
 	 */
 	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
 	public String addBankCardChk(BankCardVo bankCardVo, Model model){
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+		
 		try{
 			if("Y".equals(UserHelper.getAddBankCardStatus())){
 				// 此开户流程已结束
@@ -185,6 +187,7 @@ public class BankCardController {
 			}
 			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setOpenaccount(s_custinfo.getOpenaccount());
 			openAccountAction.setReqSeq("3"); // 第三步，需要验证手机验证码
 			openAccountAction.setBankno(bankCardVo.getBankNo());
 			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
@@ -205,12 +208,11 @@ public class BankCardController {
 			openAccountAction.setIdno(bankCardVo.getBankIdno());
 			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
 			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
+			openAccountAction.setFundcorpno(Merchant.HFT_FUND.Value());// 海富通
 			openAccountAction.setMerchant(Merchant.HFT_FUND); // 海富通
 			bankCardManager.openAccount4(openAccountAction);
 			
 			UserHelper.setAddBankCardStatus("Y");
-			
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			s_custinfo.setInvnm(bankCardVo.getBankAcnm());
 			s_custinfo.setIdno(bankCardVo.getBankIdno());
 			s_custinfo.setOpenaccount("Y");

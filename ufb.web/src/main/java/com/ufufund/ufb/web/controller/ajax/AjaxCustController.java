@@ -123,7 +123,7 @@ public class AjaxCustController {
 				// 获取手机验证码
 				String msg = "";
 				// 发送短信
-				MsgCodeUtils.sendMsg(msg);
+				MsgCodeUtils.sendMsg(msg, mobileno);
 				
 				resultMap.put("errCode", "0000");
 				resultMap.put("errMsg", "短信已发送");

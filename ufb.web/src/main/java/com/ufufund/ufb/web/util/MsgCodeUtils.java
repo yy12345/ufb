@@ -41,7 +41,7 @@ public class MsgCodeUtils {
 	 *            短信模版
 	 */
 	
-	public static void sendMsg(String template) {
+	public static void sendMsg(String template, String mobileNo) {
 
 		long now = System.currentTimeMillis();
 
@@ -84,6 +84,8 @@ public class MsgCodeUtils {
 		if (n < 100000) {
 			n += 100000;
 		}
+		
+		msgCode.setMobileNo(mobileNo);
 		msgCode.setMsgCode(String.valueOf(n));
 		msgCode.getTimeList().add(now);
 		ServletHolder.getSession().setAttribute("MSGCODE", msgCode);
@@ -103,16 +105,16 @@ public class MsgCodeUtils {
 	 * @param msgCode
 	 * @return 校验失败，直接提示业务类异常；否则，成功
 	 */
-	public static boolean validate(String p) {
+	public static boolean validate(String compare, String mobileNo) {
 
 		MsgCode msgCode = (MsgCode) ServletHolder.getSession().getAttribute("MSGCODE");
-		if (null == p || StringUtils.isBlank(p)) {
+		if (null == compare || StringUtils.isBlank(compare)) {
 			throw new BizException(ThreadLocalUtil.getProccessId(),
 					ErrorInfo.NECESSARY_EMPTY, "手机验证码");
-		} else if (msgCode == null || StringUtils.isBlank(msgCode.getMsgCode())) {
+		} else if (null == msgCode || StringUtils.isBlank(msgCode.getMsgCode())) {
 			throw new BizException(ThreadLocalUtil.getProccessId(),
 					"您的手机验证码已失效，请重新发送！", "手机验证码");
-		} else if (!msgCode.getMsgCode().equals(p)) {
+		} else if (!msgCode.getMsgCode().equals(compare) || !msgCode.getMobileNo().equals(mobileNo) ) {
 			throw new BizException(ThreadLocalUtil.getProccessId(),
 					"您输入的手机验证码不匹配，请重新发送！", "手机验证码");
 		} else {
@@ -139,10 +141,19 @@ public class MsgCodeUtils {
 	
 
 	private static class MsgCode {
+		private String mobileNo;
 		// 短信码
 		private String msgCode;
 		// 发送时间列表
 		private List<Long> timeList = new ArrayList<Long>();
+		
+		public String getMobileNo() {
+			return mobileNo;
+		}
+
+		public void setMobileNo(String mobileNo) {
+			this.mobileNo = mobileNo;
+		}
 
 		public String getMsgCode() {
 			return msgCode;

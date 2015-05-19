@@ -40,7 +40,9 @@ public class BankCardManagerValidator {
 			if (!RegexUtil.isIdCardNo(action.getIdno())) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDCARDNO);
 			}
+			
 			if(!"Y".equals(action.getOpenaccount())){
+				// 已经绑卡用户不需要再次设置交易密码
 				// 交易密码
 				if (RegexUtil.isNull(action.getTradepwd())) {
 					throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD);
