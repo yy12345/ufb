@@ -214,6 +214,9 @@ public class BankCardController {
 			
 			if(BisConst.Register.BANKACNM.equals(ems)){
 				model.addAttribute("errMsg_bankAcnm", e.getMessage());
+			}else 
+			if(BisConst.Register.BANKNO.equals(ems)){
+				model.addAttribute("errMsg_bankNo", e.getMessage());
 			}else
 			if(BisConst.Register.BANKIDNO.equals(ems) 
 				|| BisConst.Register.IDNO.equals(ems) 

@@ -26,7 +26,7 @@ public interface BisConst {
 		public static final String BANKIDNO = "银行证件号码";
 		public static final String BANKACNM = "银行开户姓名";
 		public static final String BANKMOBILE = "银行开户手机号";	
-		public static final String BANKMOBILEMSGCODE = "短信验证码";
+		public static final String BANKMOBILEMSGCODE = "手机验证码";
 		
 		public static final String INVNM = "用户姓名";
 		public static final String IDNO = "证件号码";

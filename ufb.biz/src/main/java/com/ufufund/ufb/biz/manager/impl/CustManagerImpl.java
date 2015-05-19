@@ -51,11 +51,14 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	public boolean isMobileRegister(String mobile) throws BizException {
 		String processId = this.getProcessId(mobile);
 		boolean res = false;
+		if (!RegexUtil.isNull(mobile)) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.MOBILE);
+		}
 		if (!RegexUtil.isMobile(mobile)) {
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.MOBILE);
 		}
 		Custinfo custinfo = new Custinfo();
-		custinfo.setMobileno(mobile);
+		custinfo.setMobileno(mobile.trim());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if (custinfo != null && custinfo.getCustno() != null && !"".equals(custinfo.getCustno())) {
 			res = true;

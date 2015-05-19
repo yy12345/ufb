@@ -46,27 +46,13 @@ $(function(){
 	// 验证码
 	$("#btn-addBankCardAuth").on("click",function(){
 	
-		/**
-		if(!check_organization($("#organization"))){
-			return false;
-		}
-		if(!check_business($("#business"))){
-			return false;
-		}
 		if(!check_bankAcnm($("#bankAcnm"))){
 			return false;
 		}
 		if(!check_id($("#bankIdno"))){
 			return false;
 		}
-		if(!check_pwd1($("#tradePwd"))){
-			return false;
-		}
-		if(!check_pwd2($("#tradePwd2"))){
-			return false;
-		}
-		**/
-	
+		
 		var errLen = $("ul li.error").not("#errMsg_msgcode").length;
 		if(errLen>0){
 			$("ul li.error:eq(0) input[type=text]").focus();
@@ -75,6 +61,13 @@ $(function(){
 		}else{
 			// 
 		}
+		
+		$("#bankAcco").attr("readonly","readonly");
+		$("#bankMobile").attr("readonly","readonly");
+		$("#bankAcco").css("background-color","#ddd");
+		$("#bankMobile").css("background-color","#ddd");
+		$("#bankAcco").unbind("blur");
+		$("#bankMobile").unbind("blur");
 		
 		$(".panel ul li").removeClass("error").removeClass("ok");
 		
@@ -100,29 +93,35 @@ $(function(){
 					$("#btn-addBankCardChk").removeAttr("disabled");
 					$("#btn-addBankCardChk").removeClass("off");
 					alert("手机验证码已发送");
+					
                 } else {
 					// 获取验证码按钮有效并取消倒计时 
             		$("#btn-addBankCardAuth").removeAttr("disabled");
             		$("#btn-addBankCardAuth").removeClass("off");
+					
+					$("#bankAcco").removeAttr("readonly");
+            		$("#bankMobile").removeAttr("readonly");
+            		$("#bankAcco").css("background-color","#fff");
+            		$("#bankMobile").css("background-color","#fff");
+            		$("#bankAcco").bind("blur");
+            		$("#bankMobile").bind("blur");
 				
                   	var errCode = b.errCode;
 					var errMsg = b.errMsg;
 					//alert(errCode + ": " + errMsg);
-					if(errCode=="银行开户户名"){
+					if(errCode=="errMsg_bankAcnm"){
 						//经办人姓名
 						$("#errMsg_bankAcnm").addClass("error");
 						$("#errMsg_bankAcnm > .tips-check").html("<i class=icon></i>" + errMsg);
-					}else
-					if(errCode=="银行证件号码"){
+					}else if(errCode=="errMsg_bankIdno"){
 						//身份证号
 						$("#errMsg_bankIdno").addClass("error");
 						$("#errMsg_bankIdno > .tips-check").html("<i class=icon></i>" + errMsg);
-					}else
-					if(errCode=="银行卡号"){
+					}else if(errCode=="errMsg_bankAcco"){
+						//银行卡号 
 						$("#errMsg_bankAcco").addClass("error");
 						$("#errMsg_bankAcco > .tips-check").html("<i class=icon></i>" + errMsg);
-					}else
-					if(errCode=="银行开户手机号"){
+					}else if(errCode=="errMsg_bankMobile"){
 						//银行预留手机号
 						$("#errMsg_bankMobile").addClass("error");
 						$("#errMsg_bankMobile > .tips-check").html("<i class=icon></i>" + errMsg);
@@ -138,6 +137,22 @@ $(function(){
 	});
 	
 	$("#btn-addBankCardChk").on("click",function(){
+		if(!check_bankAcnm($("#bankAcnm"))){
+			return false;
+		}
+		if(!check_id($("#bankIdno"))){
+			return false;
+		}
+		if(!check_bankCard($("#bankAcco"))){
+			return false;
+		}
+		if(!check_mobile($("#bankMobile"))){
+			return false;
+		}
+		if(!check_phoneCode($("#msgcode"))){
+			return false;
+		}
+		
 		//check #register-org #mobileno
 		var errLen = $("ul li.error").length;
 		if(errLen>0){
@@ -145,7 +160,7 @@ $(function(){
 			$("ul li.error:eq(0) input[type=password]").focus();
 		}else{
 			$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCardChk.htm");
-		$("#form-addBankCardAuth").submit();
+			$("#form-addBankCardAuth").submit();
 		}
 	});
 });
@@ -207,7 +222,12 @@ $(function(){
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg}</span>
                             </li>
                             #end
-                            <li class="ok clearfix">
+							
+                            #if($errMsg_bankNo)
+								<li id="errMsg_bankNo" class="ok clearfix error">
+							#else
+								<li id="errMsg_bankNo" class="ok clearfix">
+                            #end
                                 <span class="form-title">银行选择</span>
 								<!--
 								<div class="input-select">
@@ -240,11 +260,8 @@ $(function(){
                                         </div>
                                     </div>
                                 </div>
-								
-								
-								
                                 <span class="tips-normal"></span>
-								<span class="tips-check"><i class="icon"></i>$!{errMsg_organization}</span>
+								<span class="tips-check"><i class="icon"></i>$!{errMsg_bankNo}</span>
                             </li>
                             <li id="errMsg_bankAcnm"
                             #if($errMsg_bankAcnm)

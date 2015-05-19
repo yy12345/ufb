@@ -189,7 +189,7 @@ public class SettingController {
 	}
 	
 	/**
-	 * 获取短信验证码
+	 * 获取手机验证码
 	 * @param
 	 * @return
 	 */
@@ -210,7 +210,7 @@ public class SettingController {
 					resultMap.put("errCode", "errMsg_mobileno");
 					resultMap.put("errMsg", "手机号未注册");
 				}else{
-					// 获取短信验证码
+					// 获取手机验证码
 					String template = "";
 					// 发送短信
 					MsgCodeUtils.sendMsg(template);
@@ -253,7 +253,7 @@ public class SettingController {
 			model.addAttribute("TAB", "3");
 			if(null != s_custinfo){
 
-				// 校验短信验证码
+				// 校验手机验证码
 				MsgCodeUtils.validate(msgcode);
 				
 				ChangePasswordAction changePasswordAction = new ChangePasswordAction();

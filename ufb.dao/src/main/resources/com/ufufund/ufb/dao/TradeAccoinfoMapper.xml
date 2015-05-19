@@ -30,9 +30,11 @@
 			t.TRADEACCO,
 			t.FUNDCORPNO
 		from 
-			tradeaccoinfo t left join bankcardinfo b on t.bankserialid = b.serialid 
+			tradeaccoinfo t, bankcardinfo b
 		where 
-			t.TRADEACCOST = 'N' 
+			t.bankserialid = b.serialid 
+			and t.TRADEACCOST = 'N' 
+			and b.STATE = 'Y' 
 			and t.CUSTNO = #{custno,jdbcType=VARCHAR}
 		order by 
 			b.MAINFLAG desc

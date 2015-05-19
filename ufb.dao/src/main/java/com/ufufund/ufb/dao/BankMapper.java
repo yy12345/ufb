@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ufufund.ufb.common.dao.BaseDao;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
@@ -26,4 +27,6 @@ public interface BankMapper extends BaseDao {
 	public String getBankcardinfoSequence();
 	
 	public Tradeaccoinfo getTradeaccoinfo(Tradeaccoinfo tradeaccoinfo);
+	
+	public String isTradeaccoinfoBind(OpenAccountAction openAccountAction);
 }

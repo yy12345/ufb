@@ -104,7 +104,7 @@ public class CustManagerValidator {
 		}
 		// Custst 用户是否开户验证
 		if(!Constant.Custinfo.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
-			if (custManager.isIdCardNoRegister(action.getIdno())) {
+			if (custManager.isIdCardNoRegister(action.getIdno().trim())) {
 				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
 			}
 		}

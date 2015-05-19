@@ -8760,10 +8760,10 @@ function registerByPhoneSubmit() {
     var h = jQuery("#validPhoneCode").val();
     var d = "";
     if ("" == h || "6位验证码" == h) {
-        d = "请输入6位短信验证码"
+        d = "请输入6位手机验证码"
     } else {
         if (h.length != 6) {
-            d = "短信验证码错误"
+            d = "手机验证码错误"
         }
     } if (d != "") {
         $("#validPhoneCode_wrong").show();

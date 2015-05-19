@@ -203,7 +203,7 @@ var jsRegistFed = {
                     if (a) {
                         if (1 == a.sendRs) {
                             alert("验证码已发送至您的手机！");
-                            $("#text_change").html("短信验证码已发送至手机：" + subMobile + ",请查看短信并填写验证码");
+                            $("#text_change").html("手机验证码已发送至手机：" + subMobile + ",请查看短信并填写验证码");
                             return
                         } else {
                             if (2 == a.sendRs) {
@@ -559,10 +559,10 @@ function registerByPhoneSubmit() {
     console.log("line 547 #validPhoneCode: " + k);
     var o = "";
     if ("" == k || "6位验证码" == k) {
-        o = "请输入6位短信验证码"
+        o = "请输入6位手机验证码"
     } else {
         if (k.length != 6) {
-            o = "短信验证码错误"
+            o = "手机验证码错误"
         }
     }
     if (o != "") {

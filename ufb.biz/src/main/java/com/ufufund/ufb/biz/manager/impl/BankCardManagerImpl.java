@@ -121,6 +121,15 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// 银行基本信息验证
 		bankCardManagerValidator.validator(openAccountAction, "Bank_Base");
 		
+		// 是否已绑卡
+		openAccountAction.setFundcorpno(openAccountAction.getMerchant().Value());
+		openAccountAction.setBankacco(openAccountAction.getBankacco().trim());
+		if(null != bankCardMapper.isTradeaccoinfoBind(openAccountAction)){
+			throw new BizException(openAccountAction.getProcessId(), 
+					ErrorInfo.ALREADY_BIND, 
+					BisConst.Register.BANKACCO);
+		}
+		
 		// 生成流水号
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
 		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());

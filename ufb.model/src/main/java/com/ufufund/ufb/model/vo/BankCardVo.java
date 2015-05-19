@@ -34,7 +34,7 @@ public class BankCardVo implements Serializable {
 	private String updateDesc; // 银行通道升级文本内容
 	private String updateLink; // 银行通道升级链接
 	private String verifycode; // 系统验证码
-	private String msgcode; // 短信验证码
+	private String msgcode; // 手机验证码
 	private String otherserial;
 	private String organization;// 幼教机构名称
 	private String business; // 营业执照注册号

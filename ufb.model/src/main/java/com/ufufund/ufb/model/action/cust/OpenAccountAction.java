@@ -7,6 +7,7 @@ public class OpenAccountAction extends CommonAction {
 
 	private String reqSeq; // 绑卡开户顺序号 1初始化、2鉴权、3验证、4开户
 	private String custno;
+	private String fundcorpno;
 	private String invnm; // 用户姓名',
 	private String idno; // 证件号码',
 	private String tradepwd; // 交易密码，md5密文',
@@ -28,7 +29,7 @@ public class OpenAccountAction extends CommonAction {
 	private String business; // 营业执照注册号
 	private String invtp;
 	private String level;
-
+	
 	public String getReqSeq() {
 		return reqSeq;
 	}
@@ -43,6 +44,14 @@ public class OpenAccountAction extends CommonAction {
 
 	public void setCustno(String custno) {
 		this.custno = custno;
+	}
+
+	public String getFundcorpno() {
+		return fundcorpno;
+	}
+
+	public void setFundcorpno(String fundcorpno) {
+		this.fundcorpno = fundcorpno;
 	}
 
 	public String getInvnm() {
@@ -196,7 +205,7 @@ public class OpenAccountAction extends CommonAction {
 	public void setBusiness(String business) {
 		this.business = business;
 	}
-	
+
 	public String getInvtp() {
 		return invtp;
 	}

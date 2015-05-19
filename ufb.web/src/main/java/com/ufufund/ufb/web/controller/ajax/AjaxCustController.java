@@ -64,11 +64,30 @@ public class AjaxCustController {
 			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			resultMap.put("errCode", e.getOtherInfo());
-			resultMap.put("errMsg", e.getMessage());
+			
+			String ems = e.getOtherInfo();
+			if (BisConst.Register.BANKACNM.equals(ems)) {
+				resultMap.put("errCode", "errMsg_bankAcnm");
+				resultMap.put("errMsg", e.getMessage());
+			} else if (BisConst.Register.BANKIDNO.equals(ems)
+					|| BisConst.Register.IDNO.equals(ems)
+					|| BisConst.Register.IDCARDNO.equals(ems)) {
+				resultMap.put("errCode", "errMsg_bankIdno");
+				resultMap.put("errMsg", e.getMessage());
+			} else if (BisConst.Register.MOBILE.equals(ems)
+					|| BisConst.Register.BANKMOBILE.equals(ems)) {
+				resultMap.put("errCode", "errMsg_bankMobile");
+				resultMap.put("errMsg", e.getMessage());
+			} else if (BisConst.Register.BANKACCO.equals(ems)) {
+				resultMap.put("errCode", "errMsg_bankAcco");
+				resultMap.put("errMsg", e.getMessage());
+			} else {
+				resultMap.put("errCode", "9999");
+				resultMap.put("errMsg", e.getMessage());
+			}
 			//TODO
-			resultMap.put("errCode", "0000");
-			resultMap.put("errMsg", "银行卡鉴权成功");
+			//resultMap.put("errCode", "0000");
+			//resultMap.put("errMsg", "银行卡鉴权成功");
 		}catch (UserException e) {
 			LOG.error(e.getMessage(), e);
 			resultMap.put("errCode", e.getCode());
@@ -83,7 +102,7 @@ public class AjaxCustController {
 	}
 	
 	/**
-	 * 获取短信验证码
+	 * 获取手机验证码
 	 * @param
 	 * @return
 	 */
@@ -101,7 +120,7 @@ public class AjaxCustController {
 				resultMap.put("errCode", "errMsg_mobileno");
 				resultMap.put("errMsg", "手机号已注册!");
 			}else{
-				// 获取短信验证码
+				// 获取手机验证码
 				String msg = "";
 				// 发送短信
 				MsgCodeUtils.sendMsg(msg);
@@ -166,7 +185,7 @@ public class AjaxCustController {
 //	}
 	
 //	/**
-//	 * 校验短信验证码
+//	 * 校验手机验证码
 //	 * @param msgCode
 //	 * @return
 //	 */
@@ -176,12 +195,12 @@ public class AjaxCustController {
 //		Map<String,String> resultMap = new HashMap<String,String>();
 //		try {
 //			
-//			// 校验短信验证码
+//			// 校验手机验证码
 //			boolean checkMsgCode = MsgCodeUtils.validate(msgCode);
 //			
 //			if(!checkMsgCode){
 //				resultMap.put("errCode", "9999");
-//				resultMap.put("errMsg", "短信验证码无效。");
+//				resultMap.put("errMsg", "手机验证码无效。");
 //			}else{
 //				resultMap.put("errCode", "0000");
 //			}
