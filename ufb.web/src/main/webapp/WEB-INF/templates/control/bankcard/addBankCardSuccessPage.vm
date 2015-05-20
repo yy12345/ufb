@@ -16,7 +16,7 @@ $(function(){
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
             <div class="nav"><a 
 				href="${staticDomain}/home/index.htm">首页</a>|<a class="current" 
-				href="${staticDomain}/session/login.htm">资产总览</a>|<a 
+				href="${staticDomain}/cust/session.htm">资产总览</a>|<a 
 				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
 				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
 				href="javascript:;"><i class="trans icon"></i>#if ($CustinfoVo.invnm)

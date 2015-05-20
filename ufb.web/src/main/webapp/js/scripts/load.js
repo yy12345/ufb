@@ -125,4 +125,11 @@ $(function () {
        alertBox(".box-login");
     });
     // errorBox("系统错误","报错内容<br>报错内容<br>报错内容<br>");
+    
+	$("form input[type=text],input[type=password]").each(function () {
+        var _this = $(this);
+		if(_this.val()!="") {
+            _this.siblings(".tips-normal").hide();
+        }
+    });
 });

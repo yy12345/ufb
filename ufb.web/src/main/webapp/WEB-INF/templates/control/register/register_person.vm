@@ -1,4 +1,4 @@
-<form class="regist_form" action="../cust/register_person.htm">
+<form class="regist_form" action="../register/register_person.htm">
 <script type="text/javascript" src="../js/register.js"></script>
 <script type="text/javascript" src="../js/JSEncrypt.js"></script>
 <script type="text/javascript">

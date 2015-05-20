@@ -66,9 +66,7 @@ public class CustManagerValidator {
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.MOBILE);
 		}
 		if(Level.OPERATOR.equals(action.getLevel())){
-			// Level.PERSONAL
-			// PERSONAL("0"), //个人
-			// OPERATOR("1");//经办人
+			// 经办人注册
 			if (RegexUtil.isNull(action.getOrganization())) {
 				// 机构名称
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);

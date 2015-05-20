@@ -19,7 +19,7 @@
                     <ul>
                         <li class="clearfix">
 							<label class="fl">登录账号</label>
-							<a class="fr" href="${staticDomain}/cust/register.htm">免费注册</a>
+							<a class="fr" href="${staticDomain}/register/index.htm">免费注册</a>
 						</li>
                         <li
                         #if($errMsg_mobileno)
@@ -64,8 +64,8 @@
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
 			<div class="nav">
 				#if ($SessionVo)
-				<a href="${staticDomain}/cust/register.htm">注册</a>|<a
-				href="${staticDomain}/session/login.htm">资产总览</a>|<a
+				<a href="${staticDomain}/register/index.htm">注册</a>|<a
+				href="${staticDomain}/cust/session.htm">资产总览</a>|<a
 				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
 				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
     			href="javascript:;"><i class="trans icon"></i>
@@ -81,7 +81,7 @@
 				<a href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span>
 				#else
 				<a class="trigger-loginBox" href="javascript:;">登录</a>|<a
-				href="${staticDomain}/cust/register.htm">注册</a>|<a 
+				href="${staticDomain}/register/index.htm">注册</a>|<a 
 				href="javascript:;" class="trigger-loginBox" >资产总览</a>|<a class="last" 
 				href="${staticDomain}/help/helpNotice.htm">帮助中心</a>
 				#end

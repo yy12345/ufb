@@ -182,7 +182,7 @@ public class BankCardController {
 		try{
 			if("Y".equals(UserHelper.getAddBankCardStatus())){
 				// 此开户流程已结束
-				ServletHolder.forward("/session/login.htm");
+				ServletHolder.forward("/cust/session.htm");
 				return "cust/indexPage";
 			}
 			

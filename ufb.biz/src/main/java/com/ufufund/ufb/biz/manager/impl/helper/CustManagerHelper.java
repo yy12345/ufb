@@ -19,7 +19,6 @@ public class CustManagerHelper {
 		custinfo.setLevel(registerAction.getLevel().getValue());
 		custinfo.setOrganization(registerAction.getOrganization());
 		custinfo.setBusiness(registerAction.getBusiness());
-		
 		return custinfo;
 	}
 

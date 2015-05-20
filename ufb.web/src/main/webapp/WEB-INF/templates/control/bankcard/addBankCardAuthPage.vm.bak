@@ -166,7 +166,7 @@ $(function(){
                         <div class="nav"><a href="index.html">首页</a>|<a class="current" href="centerClose.html">资产总览</a>|<a href="settingAccount.html">账户管理</a>|<a href="helpNotice.html">帮助中心</a><span class="member" href="javascript:;"><i class="trans icon"></i>1500047781<a href="javascript:;" class="trans out">安全退出</a></span></div>
 			<div class="nav"><a id="btn-logout"
 				href="${staticDomain}/cust/logout.htm">登出</a>|<a 
-				href="${staticDomain}/session/login.htm;">我的幼富通</a>|<a class="last" 
+				href="${staticDomain}/cust/session.htm;">我的幼富通</a>|<a class="last" 
 				href="javascript:;">帮助</a></div>
         </div>
     </div>

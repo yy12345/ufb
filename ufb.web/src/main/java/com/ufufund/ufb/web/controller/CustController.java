@@ -25,6 +25,7 @@ import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.Level;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.UserHelper;
 
@@ -35,36 +36,42 @@ public class CustController {
 	
 	@Autowired
 	private CustManager custManager;
-	
-	@RequestMapping(value="cust/register")
-	public String getRegistPage(CustinfoVo custinfoVo, Model model){
-		LOG.info("清除Session=============custno = " + UserHelper.getCustno());
-		UserHelper.removeCustinfoVo();
-		if(null == custinfoVo.getInvtp()){
-			//个人注册开户
-			custinfoVo.setInvtp("0");
-			//经办人身份
-			custinfoVo.setLevel("1");
-		}
-		model.addAttribute("CustinfoVo", custinfoVo);
-		return "cust/registerPage";
-	}
-	
-//	@RequestMapping(value="login/index")
-//	public String getLoginPage(CustinfoVo custinfoVo, Model model){
-//		UserHelper.removeCustinfoVo();
-//		model.addAttribute("CustinfoVo", custinfoVo);
-//		return "login/indexPage";
-//	}
-	
+	@Autowired
+	private QueryManager queryManager;
+	@Autowired
+	private TradeAccoManager tradeAccoManager;
 	
 	/**
-	 * 注册用户
+	 * 注册页
 	 * @param custinfoVo
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "cust/register_org")
+	@RequestMapping(value="register/index")
+	public String getRegistPage(CustinfoVo custinfoVo, Model model){
+		try{
+			// 清除Session
+			UserHelper.removeCustinfoVo();
+			if(null == custinfoVo.getInvtp()){
+				custinfoVo.setInvtp(Invtp.PERSONAL.getValue()); //个人注册开户
+				custinfoVo.setLevel(Level.OPERATOR.getValue()); //经办人身份
+			}
+			model.addAttribute("CustinfoVo", custinfoVo);
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			return "error/error";
+		}
+		return "register/indexPage";
+	}
+	
+	/**
+	 * 注册用户：经办人注册
+	 * @param custinfoVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "register/org")
 	public String registerOrg(CustinfoVo custinfoVo, Model model) {
 		
 		try{
@@ -74,15 +81,13 @@ public class CustController {
 			// 防止重复注册
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
+				// Session登录
 				if(s_custinfo.getMobileno().equals(custinfoVo.getMobileno())){
-					// Session登录
-					model.addAttribute("CustinfoVo", s_custinfo);
-					return "cust/registerSuccessPage";
+					model.addAttribute("SessionVo", s_custinfo);
+					return "register/successPage";
 				}
 			}
 			
-			// 校验验证码
-			// VerifyCodeUtils.validate(custinfoVo.getVerifycode());
 			// 校验手机验证码
 			MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
 			
@@ -97,46 +102,37 @@ public class CustController {
 			registerAction.setBusiness(custinfoVo.getBusiness());
 			// 注册
 			custManager.register(registerAction);
-			// TODO 保存custno [比较怪，应付一下]
-			custinfoVo.setCustno(registerAction.getCustNo());
+
 			// 注册成功，保存用户至session
+			custinfoVo.setCustno(registerAction.getCustNo());
 			UserHelper.saveCustinfoVo(custinfoVo);
-			
-			model.addAttribute("CustinfoVo", custinfoVo);
-			
+			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			
 			String ems = e.getOtherInfo();
-			if (BisConst.Register.MOBILE.equals(ems)
-				|| BisConst.Register.BANKMOBILE.equals(ems)) {
-				//
-				model.addAttribute("errMsg_mobileno", e.getMessage());
+			if (BisConst.Register.MOBILE.equals(ems) || BisConst.Register.BANKMOBILE.equals(ems)) {
+				model.addAttribute("errMsg_mobileno", e.getMessage()); // 
 			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
-				//
-				model.addAttribute("errMsg_verifycode", e.getMessage());
+				model.addAttribute("errMsg_verifycode", e.getMessage()); // 验证码
 			} else if(BisConst.Register.MSGCODE.equals(ems)){
-				model.addAttribute("errMsg_msgcode", e.getMessage());
+				model.addAttribute("errMsg_msgcode", e.getMessage()); // 手机验证码
 			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
-				//
-				model.addAttribute("errMsg_pswpwd", e.getMessage());
+				model.addAttribute("errMsg_pswpwd", e.getMessage()); // 登录密码
 			} else if (BisConst.Register.LOGINPASSWORD2.equals(ems)) {
-				//
-				model.addAttribute("errMsg_pswpwd2", e.getMessage());
+				model.addAttribute("errMsg_pswpwd2", e.getMessage()); // 登录确认密码
 			} else if (BisConst.Register.ORGANIZATION.equals(ems)) {
-				//
-				model.addAttribute("errMsg_organization", e.getMessage());
+				model.addAttribute("errMsg_organization", e.getMessage()); //
 			} else if (BisConst.Register.BUSINESS.equals(ems)) {
-				//
-				model.addAttribute("errMsg_business", e.getMessage());
+				model.addAttribute("errMsg_business", e.getMessage()); //
 			} else {
+				// TODO
 				model.addAttribute("errMsg", e.getMessage());
 			}
-			
 			model.addAttribute("CustinfoVo", custinfoVo);
-			return "cust/registerPage";
+			return "register/indexPage";
 		}
-		return "cust/registerSuccessPage";
+		return "register/successPage";
 	}
 	
 	/**
@@ -146,7 +142,6 @@ public class CustController {
 	 */
 	@RequestMapping(value = "home/index")
 	public String index(Model model) {
-		
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
@@ -155,7 +150,6 @@ public class CustController {
 				model.addAttribute("SessionVo", null);
 			}
 		}catch (BizException e){
-			// TODO 调到登录页面
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
 			return "error/error";
@@ -173,91 +167,60 @@ public class CustController {
 	public String loginIn(CustinfoVo custinfoVo, Model model) {
 		
 		try{
+			// TODO
+			// 校验验证码 
+			// VerifyCodeUtils.validate(custinfoVo.getVerifycode());
+			
 			LoginAction loginAction = new LoginAction();
-			// 普通登录
 			loginAction.setLoginCode(custinfoVo.getMobileno());
 			loginAction.setLoginPassword(custinfoVo.getPswpwd());
 			
-			// 校验验证码 
-			// TODO 测试好加上
-			// VerifyCodeUtils.validate(custinfoVo.getVerifycode());
-			
 			// 登录
 			Custinfo custinfo = custManager.loginIn(loginAction);
-			custinfoVo = new CustinfoVo();
-			custinfoVo.setCustno(custinfo.getCustno());;                      
-			custinfoVo.setMobileno(custinfo.getMobileno());                    
-			custinfoVo.setInvtp(custinfo.getInvtp()); 
-			custinfoVo.setInvnm(custinfo.getInvnm());        
-			custinfoVo.setIdtp(custinfo.getIdtp());     
-			custinfoVo.setIdno(custinfo.getIdno());             
-			custinfoVo.setPswpwd(custinfo.getPasswd()); // 注意，页面上不能放密码信息                  
-			custinfoVo.setPswpwd2(custinfo.getPasswd()); // 注意，页面上不能放密码信息                         
-			custinfoVo.setTradepwd(custinfo.getTradepwd()); // 注意，页面上不能放密码信息                             
-			custinfoVo.setTradepwd2(custinfo.getTradepwd()); // 注意，页面上不能放密码信息         
-			custinfoVo.setOrganization(custinfo.getOrganization()); 
-			custinfoVo.setBusiness(custinfo.getBusiness()); 
-			custinfoVo.setCustst(custinfo.getCustst());
-			custinfoVo.setLevel(custinfo.getLevel());
-			custinfoVo.setOpenaccount(custinfo.getOpenaccount());
+			
 			// 登录成功，保存用户至session
+			custinfoVo = this.convertCustInfo2Vo(custinfo);
 			UserHelper.saveCustinfoVo(custinfoVo);
+			model.addAttribute("SessionVo", custinfoVo);
 			
 			if("Y".equals(custinfoVo.getOpenaccount())){
-				List<BankCardWithTradeAcco> tradeAccoList 
-				= tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
+				// 资产显示
+				List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 				Assets assets = queryManager.queryAssets(tradeAccoList);
-				model.addAttribute("totalBalance", assets.getTotal()); // 总资产
-				model.addAttribute("availableBalance", assets.getAvailable()); //可用资产
-				model.addAttribute("frozenBalance", assets.getFrozen()); // 冻结资产
-				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));
-				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
-				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));
-			
-				model.addAttribute("curCard", assets.getAccoList().get(0));
-				model.addAttribute("cardList", assets.getAccoList());
+				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
+				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));// 可用资产
+				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));// 冻结资产
 				
-				// 充值
+				// 交易明细显示
 				List<String> apkinds = new ArrayList<String>();
-				apkinds.add("022");
-				List<TradeRequest> list022 = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
-				// 取现
+				apkinds.add("022"); // 充值
+				List<TradeRequest> listIn = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
+
 				apkinds = new ArrayList<String>();
-				apkinds.add("023");
-				apkinds.add("024");
-				List<TradeRequest> list023 = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
-				
-				
-				model.addAttribute("list022", list022);
-				model.addAttribute("list023", list023);
+				apkinds.add("023"); // 取现
+				apkinds.add("024"); // 快速取现
+				List<TradeRequest> listOut = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
+				model.addAttribute("listIn", listIn);
+				model.addAttribute("listOut", listOut);
 			} else {
+				// 资产显示
 				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-				model.addAttribute("curCard", null);
-				model.addAttribute("cardList", null);
 			}
-			
-			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
-			// TODO 调到登录页面
 			LOG.error(e.getErrmsg(), e);
-			
 			String ems = e.getOtherInfo();
-			if (BisConst.Register.MOBILE.equals(ems)
-				|| BisConst.Register.LOGINCODE.equals(ems)) {
-				//
-				model.addAttribute("errMsg_mobileno", e.getMessage());
+			if (BisConst.Register.MOBILE.equals(ems) || BisConst.Register.LOGINCODE.equals(ems)) {
+				model.addAttribute("errMsg_mobileno", e.getMessage()); // 登录帐号
 			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
-				//
-				model.addAttribute("errMsg_verifycode", e.getMessage());
+				model.addAttribute("errMsg_verifycode", e.getMessage()); // 验证码
 			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
-				//
-				model.addAttribute("errMsg_pswpwd", e.getMessage());
+				model.addAttribute("errMsg_pswpwd", e.getMessage()); // 登录密码
 			} else {
+				// TODO throw userException?
 				model.addAttribute("errMsg", e.getMessage());
 			}
-					
 			model.addAttribute("CustinfoVo", custinfoVo);
 			return "home/indexPage";
 		}
@@ -271,15 +234,9 @@ public class CustController {
 	 */
 	@RequestMapping(value = "cust/logout")
 	public String logOut(Model model) {
-		
 		try{
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			if(null != s_custinfo){
-				// Session登出
-				UserHelper.removeCustinfoVo();
-			}
+			UserHelper.removeCustinfoVo();
 		}catch (BizException e){
-			// TODO 调到登录页面
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
 			return "error/error";
@@ -287,193 +244,91 @@ public class CustController {
 		return "home/indexPage";
 	}
 	
-//	/**
-//	 * 找回登录密码Page
-//	 * @param model
-//	 * @return
-//	 */
-//	@RequestMapping(value="password/getLoginPwdPage" , method=RequestMethod.GET)
-//	public String getLoginPwdPage(Model model){
-//		
-//		return "password/getLoginPwdChk";
-//	}
-//	
-//	/**
-//	 * 找回登录密码Check
-//	 * @param custinfoVo
-//	 * @param model
-//	 * @return
-//	 */
-//	@RequestMapping(value = "password/getLoginPwdChk")
-//	public String getLoginPwdChk(CustinfoVo custinfoVo, Model model) {
-//		
-//		try{
-//			//AjaxCustController.sendMsgCode
-//			//msgType: 注册REGISTER、找回登录密码GETLOGINPWD
-//			
-//			// 校验验证码
-//			boolean checkVerifyCode = VerifyCodeUtils.validate(custinfoVo.getVerifycode());
-//			if(!checkVerifyCode){
-//				throw new BizException("验证码无效。");
-//			}
-//
-//			// 查询手机号是否注册
-//			boolean isMobileRegister = custManager.isMobileRegister(custinfoVo.getMobileno());
-//			if(!isMobileRegister){
-//				throw new BizException("手机号未注册。");
-//			}
-//			
-//			// 校验手机验证码
-//			boolean checkMsgCode = MsgCodeUtils.validate(custinfoVo.getMsgcode());
-//			if(!checkMsgCode){
-//				throw new BizException("手机验证码无效。");
-//			}
-//			
-//		}catch (BizException e){
-//			LOG.error(e.getErrmsg(), e);
-//			model.addAttribute("errMsg", e.getMessage());
-//			model.addAttribute("returnUrl", "password/getLoginPwdChk");
-//			return "error/error";
-//		}
-//
-//		return "password/getLoginPwdSet";
-//	}
-//	
-//	/**
-//	 * 找回登录密码Set
-//	 * @param custinfoVo
-//	 * @param model
-//	 * @return
-//	 */
-//	@RequestMapping(value = "password/getLoginPwdSet")
-//	public String getLoginPwdSet(CustinfoVo custinfoVo, Model model) {
-//		
-//		try{
-////			// 校验验证码
-////			boolean checkVerifyCode = VerifyCodeUtils.validate("GETLOGINPWD", custinfoVo.getVerifycode());
-////			if(!checkVerifyCode){
-////				throw new BizException("验证码无效。");
-////			}
-////
-////			// 查询手机号是否注册
-////			boolean isMobileRegister = custManager.isMobileRegister(custinfoVo.getMobileno());
-////			if(!isMobileRegister){
-////				throw new BizException("手机号未注册。");
-////			}
-////			
-////			// 校验手机验证码
-////			boolean checkMsgCode = MsgCodeUtils.validate(custinfoVo.getMsgcode());
-////			if(!checkMsgCode){
-////				throw new BizException("手机验证码无效。");
-////			}
-//			
-//			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
-//			changePasswordAction.setMobile(custinfoVo.getMobileno());
-//			changePasswordAction.setLoginPassword(custinfoVo.getPswpwd());
-//			changePasswordAction.setLoginPassword2(custinfoVo.getPswpwd2());
-//			custManager.changePassword(changePasswordAction);
-//			
-//		}catch (BizException e){
-//			LOG.error(e.getErrmsg(), e);
-//			model.addAttribute("errMsg", e.getMessage());
-//			model.addAttribute("returnUrl", "password/getLoginPwdSet");
-//			return "error/error";
-//		}
-//
-//		return "password/getLoginPwdSuccess";
-//	}
-	
-	@Autowired
-	private QueryManager queryManager;
-
-	@Autowired
-	private TradeAccoManager tradeAccoManager;
-	
 	/**
 	 * 注册后直接登录
 	 * @param custinfoVo
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "session/login")
+	@RequestMapping(value = "cust/session")
 	public String custLogin(CustinfoVo custinfoVo, Model model) {
-		
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
 				// Session登录
-				custinfoVo.setCustno(s_custinfo.getCustno());;                      
-				custinfoVo.setMobileno(s_custinfo.getMobileno());                    
-				custinfoVo.setInvtp(s_custinfo.getInvtp()); 
-				custinfoVo.setInvnm(s_custinfo.getInvnm());        
-				custinfoVo.setIdtp(s_custinfo.getIdtp());     
-				custinfoVo.setIdno(s_custinfo.getIdno());             
-				custinfoVo.setOrganization(s_custinfo.getOrganization()); 
-				custinfoVo.setBusiness(s_custinfo.getBusiness()); 
-				custinfoVo.setCustst(s_custinfo.getCustst());
-				custinfoVo.setLevel(s_custinfo.getLevel());
-				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
+				custinfoVo = this.convertCustSession2Vo(s_custinfo);
 				
 				if("Y".equals(s_custinfo.getOpenaccount())){
-					List<BankCardWithTradeAcco> tradeAccoList 
-					= tradeAccoManager.getTradeAccoList(s_custinfo.getCustno());
+					// 资产显示
+					List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 					Assets assets = queryManager.queryAssets(tradeAccoList);
-					model.addAttribute("totalBalance", assets.getTotal()); // 总资产
-					model.addAttribute("availableBalance", assets.getAvailable()); //可用资产
-					model.addAttribute("frozenBalance", assets.getFrozen()); // 冻结资产
-					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));
-					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
-					model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));
-				
-					model.addAttribute("curCard", assets.getAccoList().get(0));
-					model.addAttribute("cardList", assets.getAccoList());
+					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
+					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));// 可用资产
+					model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));// 冻结资产
 					
-					// 充值
+					// 交易明细显示
 					List<String> apkinds = new ArrayList<String>();
-					apkinds.add("022");
-					List<TradeRequest> list022 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), apkinds, 4);
-					// 取现
+					apkinds.add("022"); // 充值
+					List<TradeRequest> listIn = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
+
 					apkinds = new ArrayList<String>();
-					apkinds.add("023");
-					apkinds.add("024");
-					List<TradeRequest> list023 = queryManager.qryRecentTradeList(s_custinfo.getCustno(), apkinds, 4);
-					
-					model.addAttribute("list022", list022);
-					model.addAttribute("list023", list023);
+					apkinds.add("023"); // 取现
+					apkinds.add("024"); // 快速取现
+					List<TradeRequest> listOut = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
+					model.addAttribute("listIn", listIn);
+					model.addAttribute("listOut", listOut);
 				} else {
 					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 					model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-					model.addAttribute("curCard", null);
-					model.addAttribute("cardList", null);
 				}
-				
 			}else{
-				return "home/indexPage";
+				// Session无效
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
 			}
 			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
-			// TODO 调到登录页面
 			LOG.error(e.getErrmsg(), e);
-			
-			String ems = e.getOtherInfo();
-			if (BisConst.Register.MOBILE.equals(ems)
-				|| BisConst.Register.LOGINCODE.equals(ems)) {
-				//
-				model.addAttribute("errMsg_mobileno", e.getMessage());
-			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
-				//
-				model.addAttribute("errMsg_verifycode", e.getMessage());
-			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
-				//
-				model.addAttribute("errMsg_pswpwd", e.getMessage());
-			} else {
-				model.addAttribute("errMsg", e.getMessage());
-			}
-					
 			model.addAttribute("CustinfoVo", custinfoVo);
 			return "home/indexPage";
 		}
 		return "cust/indexPage";
+	}
+	
+	private CustinfoVo convertCustInfo2Vo(Custinfo custinfo){
+		CustinfoVo custinfoVo = new CustinfoVo();
+		custinfoVo.setCustno(custinfo.getCustno());;                      
+		custinfoVo.setMobileno(custinfo.getMobileno());                    
+		custinfoVo.setInvtp(custinfo.getInvtp()); 
+		custinfoVo.setInvnm(custinfo.getInvnm());        
+		custinfoVo.setIdtp(custinfo.getIdtp());     
+		custinfoVo.setIdno(custinfo.getIdno());             
+		custinfoVo.setPswpwd(custinfo.getPasswd()); // 注意，页面上不能放密码信息                  
+		custinfoVo.setPswpwd2(custinfo.getPasswd()); // 注意，页面上不能放密码信息                         
+		custinfoVo.setTradepwd(custinfo.getTradepwd()); // 注意，页面上不能放密码信息                             
+		custinfoVo.setTradepwd2(custinfo.getTradepwd()); // 注意，页面上不能放密码信息         
+		custinfoVo.setOrganization(custinfo.getOrganization()); 
+		custinfoVo.setBusiness(custinfo.getBusiness()); 
+		custinfoVo.setCustst(custinfo.getCustst());
+		custinfoVo.setLevel(custinfo.getLevel());
+		custinfoVo.setOpenaccount(custinfo.getOpenaccount());
+		return custinfoVo;
+	}
+	
+	private CustinfoVo convertCustSession2Vo(CustinfoVo sessionInfo){
+		CustinfoVo custinfoVo = new CustinfoVo();
+		custinfoVo.setCustno(sessionInfo.getCustno());                  
+		custinfoVo.setMobileno(sessionInfo.getMobileno());                    
+		custinfoVo.setInvtp(sessionInfo.getInvtp()); 
+		custinfoVo.setInvnm(sessionInfo.getInvnm());        
+		custinfoVo.setIdtp(sessionInfo.getIdtp());     
+		custinfoVo.setIdno(sessionInfo.getIdno());       
+		custinfoVo.setOrganization(sessionInfo.getOrganization()); 
+		custinfoVo.setBusiness(sessionInfo.getBusiness()); 
+		custinfoVo.setCustst(sessionInfo.getCustst());
+		custinfoVo.setLevel(sessionInfo.getLevel());
+		custinfoVo.setOpenaccount(sessionInfo.getOpenaccount());
+		return custinfoVo;
 	}
 }

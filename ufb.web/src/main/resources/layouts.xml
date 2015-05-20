@@ -16,6 +16,14 @@
 	<layout page="layout/default_1.vm">
         <pattern>/ufb/trade/*.htm</pattern>
     </layout>
+    
+    <layout page="layout/default_register.vm">
+        <pattern>/ufb/register/*.htm</pattern>
+    </layout>
+    
+    <layout page="layout/default_register.vm">
+        <pattern>/ufb/cust/*.htm</pattern>
+    </layout>
 	
     <layout page="layout/default.vm" default="true">
         <pattern>/ufu/**/*</pattern>

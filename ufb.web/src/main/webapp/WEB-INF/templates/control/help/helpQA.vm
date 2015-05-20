@@ -12,7 +12,7 @@
             <div class="nav">
 				#if ($CustinfoVo)
 				<a href="${staticDomain}/home/index.htm">首页</a>|<a
-				href="${staticDomain}/session/login.htm">资产总览</a>|<a
+				href="${staticDomain}/cust/session.htm">资产总览</a>|<a
 				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
 				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
     			href="javascript:;"><i class="trans icon"></i>
@@ -28,7 +28,7 @@
 				<a href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span>
 				#else
 				<a href="${staticDomain}/home/index.htm">登录</a>|<a
-				href="${staticDomain}/cust/register.htm">注册</a>|<a 
+				href="${staticDomain}/register/index.htm">注册</a>|<a 
 				href="${staticDomain}/home/index.htm">资产总览</a>|<a class="last" 
 				href="${staticDomain}/help/helpNotice.htm">帮助中心</a>
 				#end

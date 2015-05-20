@@ -54,6 +54,9 @@ var showTips = function (ele, text) {
     }else {
         showErrorInfo(_wrap, text);
         // ADD BY GH
+        //if(ele.attr("type")!="password"){
+        //	ele.focus();
+        //}
         return false;
     }
 }

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+<title>幼富通 - 注册</title>
+-->
+<script>
+$(function(){
+	//经办人注册开户
+	var level = $("#level").val();
+	if(level == "1"){
+		var tab = $(".tab-org");
+		var panels = $(".register-panels .panel");
+    	tab.addClass("on").siblings().removeClass("on");
+    	panels.addClass("slide-out").eq(1).removeClass("slide-out");
+	}
+
+	// btn-getMsgCode
+	$("#btn-getMsgCode").on("click",function(){
+		if(!check_mobile($("#mobileno"))){
+			return false;
+		}
+		if(!check_code($("#verifycode"))){
+			return false;
+		}
+	
+        $.ajax({
+     		type: "GET",
+    		url: "../ajaxcust/getMsgCode.htm",
+    		data: {
+				mobileno: $("#mobileno").val(),
+				verifycode: $("#verifycode").val()
+    		},
+    		dataType: "json",
+    		success: function(b) {
+                if (b.errCode == "0000") {
+					alert("手机验证码已发送");
+					// 倒计时
+					var count = 60;
+            		var countdown = setTimeout(countDown, 1000);
+            		$("#btn-getMsgCode").addClass("off");
+            		$("#btn-getMsgCode").attr("disabled","disabled");
+            		// TODO
+					$("#msgcode").val(b.TODO);
+            		$("#msgcode").siblings(".tips-normal").hide();
+					//
+            		function countDown() {
+            			$("#btn-getMsgCode").prop("disabled", true); 
+            			$("#btn-getMsgCode").val("等待" + count + "秒!"); 
+            			if (count == 0) { 
+            				$("#btn-getMsgCode").val("重新发送"); 
+            				$("#btn-getMsgCode").removeClass("off");
+            				$("#btn-getMsgCode").removeAttr("disabled"); 
+            				clearTimeout(countdown); 
+            			}else{
+            				count--; 
+            				setTimeout(countDown, 1000);
+            			}
+            		}
+					//
+                } else {
+                  	var errCode = b.errCode;
+					var errMsg = b.errMsg;
+					//alert(errCode + ": " + errMsg);
+					if("errMsg_mobileno"==errCode){
+						$("#errMsg_mobileno").removeClass("ok").addClass("error");
+						$("#errMsg_mobileno > .tips-check").html("<i class=icon></i>" + errMsg);
+					}else 
+					if("errMsg_verifycode"==errCode){
+						$("#errMsg_verifycode").removeClass("ok").addClass("error");
+						$("#errMsg_verifycode > .tips-check").html("<i class=icon></i>" + errMsg);
+					}else{
+						alert(errMsg);
+					}
+					var src = $("#btn-verifycode").attr("src");
+					$("#btn-verifycode").attr("src",src +'?time='+(new Date()));
+                }
+        	}
+        });
+	});
+	
+	//注册按钮
+	$("#btn-org").on("click",function(){
+	
+		if(!check_mobile($("#mobileno"))){
+			return false;
+		}
+		//if(!check_code($("#verifycode"))){
+		//	return false;
+		//}
+		if(!check_phoneCode($("#msgcode"))){
+			return false;
+		}
+		if(!check_pwd1($("#pswpwd"))){
+			return false;
+		}
+		if(!check_pwd2($("#pswpwd2"))){
+			return false;
+		}
+		if(!check_organization($("#organization"))){
+			return false;
+		}
+		if(!check_business($("#business"))){
+			return false;
+		}
+		var errLen = $("ul li.error").length;
+		if(errLen>0){
+			$("ul li.error:eq(0) input[type=text]").focus();
+			$("ul li.error:eq(0) input[type=password]").focus();
+		}else{
+			$("#register-org").submit();
+		}
+	});
+});
+</script>
+</head>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<body>
+<div class="container">
+    <!--header-->
+    <div class="body">
+        <div class="inner container-register">
+            <div class="register-tabs clearfix">
+                <a class="tab tab-family fl on" href="javascript:;">家庭注册</a>
+                <a class="tab tab-org fl" href="javascript:;">幼教机构注册</a>
+            </div>
+            <div class="register-panels">
+                <div class="panel panel-family slide-on">
+    				<div>家庭用户敬请期待...</div>
+                </div>
+                <div class="panel panel-org slide-out">
+                    <form method="post" action="${staticDomain}/register/org.htm" id="register-org" class="common-form form-register">
+    					<input id="level" type="hidden" name="level" value="${CustinfoVo.level}"/>
+    					<input id="invtp" type="hidden" name="invtp" value="${CustinfoVo.invtp}"/>
+    					<ul>
+                            <li id="errMsg_mobileno"
+                            #if($errMsg_mobileno)
+                            class="error"
+                            #end
+                            >
+                                <span class="form-title">经办人手机号</span>
+                                <input id="mobileno" name="mobileno" class="ipt-phoneNum input-text" maxlength="11" type="text" value="$!{CustinfoVo.mobileno}">
+                                <span class="tips-normal">请输入手机号</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_mobileno}</span>
+                            </li>
+                            <li id="errMsg_verifycode"
+                            #if($errMsg_verifycode)
+                            class="error"
+                            #end
+                            >
+                                <span class="form-title">验证码</span>
+                                <input id="verifycode" name="verifycode" class="ipt-code input-code" maxlength="4" type="text" value="$!{CustinfoVo.verifycode}">
+                                <span class="tips-normal">请输入验证码</span>
+    							<span class="form-verifyCode">
+    								<img id="btn-verifycode" src="${staticDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())"/>
+    							</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_verifycode}</span>
+                            </li>
+                            <li id="errMsg_msgcode"
+                            #if($errMsg_msgcode)
+                            class="error"
+                            #end
+                            >
+                                <span class="form-title">手机验证码</span>
+                                <input id="msgcode" name="msgcode" class="ipt-phoneCode input-code" maxlength="6" type="text" value="$!{CustinfoVo.msgcode}">
+                                <input id="btn-getMsgCode" class="input-button" type="button" value="获取验证码">
+                                <span class="tips-normal">6位验证码</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>
+                            </li>
+                            <li
+                            #if($errMsg_pswpwd)
+                            class="error"
+                            #end
+                            >
+                                <span class="form-title">设置新密码</span>
+                                <input id="pswpwd" name="pswpwd" class="ipt-password1 input-text" maxlength="20" type="password" value="$!{CustinfoVo.pswpwd}">
+                                <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd}</span>
+                            </li>
+                            <li
+                            #if($errMsg_pswpwd2)
+                            class="error"
+                            #end
+                            >
+                                <span class="form-title">确认新密码</span>
+                                <input id="pswpwd2" name="pswpwd2" class="ipt-password2 input-text" maxlength="20" type="password" value="$!{CustinfoVo.pswpwd2}">
+                                <span class="tips-normal">请再次输入密码</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd2}</span>
+                            </li>
+    						<li
+                            #if($errMsg_organization)
+                            class="error"
+                            #end
+                            >
+    							<span class="form-title">幼教机构名称</span>
+    							<input id="organization" name="organization" class="ipt-organization input-text" maxlength="28" type="text" value="$!{CustinfoVo.organization}">
+    							<span class="tips-normal">请按照营业执照填写</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_organization}</span>
+                            </li>
+                            <li
+                            #if($errMsg_business)
+                            class="error"
+                            #end
+                            >
+    							<span class="form-title">营业执照注册号</span>
+    							<input id="business" name="business" class="ipt-business input-text" maxlength="28" type="text" value="$!{CustinfoVo.business}">
+    							<span class="tips-normal">请按照营业执照填写</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_business}</span>
+                            </li>
+                            <li>
+    							<label>点击注册表示同意<a href="javascript:;">《幼富通用户注册协议》</a></label>
+                            </li>
+                            <li>
+    							<input id="btn-org" class="ipt-submit input-button ok" type="button" value="注&nbsp;册">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="inner clearfix">
+            <div class="notice fl">
+                <h2 class="title">理财机构须知</h2>
+                <ul class="list">
+                    <li><a href="javascript:;">幼教机构如何注册幼富通？</a></li>
+                    <li><a href="javascript:;">如何购买幼富通的机构理财产品？</a></li>
+                    <li><a href="javascript:;">机构理财的交易安全有什么保障？</a></li>
+                    <li><a href="javascript:;">如何联系我们？</a></li>
+                </ul>
+            </div>
+            <div class="qa fl">
+                <h2 class="title">常见问题</h2>
+                <ul class="list">
+                    <li><a href="javascript:;">什么是机构理财专户？</a></li>
+                    <li><a href="javascript:;">什么是幼富宝？</a></li>
+                    <li><a href="javascript:;">购买幼富宝有什么好处？</a></li>
+                </ul>
+            </div>
+            <div class="about fl">
+                <h2 class="title"><a href="about.html">关于幼富通&nbsp;<span>|</span></a></h2>
+                <div class="info">
+                    <p>微信服务号：UFUfund</p>
+                    <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
+                    <p>海富通产品：400-8840-099</p>
+                </div>
+                <div class="copyright">
+                    <p>幼富通版权所有 ©2015</p>
+                    <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+<script src="${staticDomain}/js/scripts/register.js"></script>
+</body>
+</html>

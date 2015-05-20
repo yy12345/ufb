@@ -76,6 +76,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	public void register(RegisterAction registerAction) throws BizException {
 		String processId = this.getProcessId(registerAction);
 		custManagerValidator.validator(registerAction);
+		
 		// 查询手机号是否注册
 		if(this.isMobileRegister(registerAction.getLoginCode())){
 			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, BisConst.Register.MOBILE);
@@ -84,9 +85,15 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		// 插入客户信息表
 		Custinfo custinfo = custManagerHelper.toCustinfo(registerAction);
 		custinfo.setCustno(custinfoMapper.getCustinfoSequence());
-		registerAction.setCustNo(custinfo.getCustno());
+		
+		// 注册
 		custinfoMapper.insertCustinfo(custinfo);
+
+		// 插入流水表、更新变动表
 		this.insterSerialno(custinfo, Apkind.REGISTER.getValue());
+		
+		// 带回CustNo
+		registerAction.setCustNo(custinfo.getCustno());
 	}
 
 
@@ -120,11 +127,9 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	@Override
 	public Custinfo loginIn(LoginAction loginAction) throws BizException {
 		String processId = this.getProcessId(loginAction);
-		//loginAction.setLoginType(Apkind.LOGININ);
+		// 登录验证 登录账号、密码空校验
 		custManagerValidator.validator(loginAction);
-		/*
-		 * 加载信息
-		 */
+
 		Custinfo custinfo = new Custinfo();
 		if (RegexUtil.isMobile(loginAction.getLoginCode())) {
 			// 手机登录
@@ -135,18 +140,20 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			custinfo.setIdno(loginAction.getLoginCode());
 			custinfo.setCustst(null);
 		} else {
-			//登录账号 + 无效的登录账号 
+			// 登录账号无效
 			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_CODE, BisConst.Register.LOGINCODE);
 		}
+		
+		// 后台获取用户信息
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if (null == custinfo || null == custinfo.getCustno() || "".equals(custinfo.getCustno())) {
+			// 登录账号无效
 			throw new BizException(processId, ErrorInfo.NO_IDCARDNO, BisConst.Register.LOGINCODE);
 		}
 		if (Constant.Custinfo.CUSTST$P.equals(custinfo.getCustst())) {
-			//冻结状态
+			// 登录账号已经被冻结
 			throw new BizException(processId, ErrorInfo.FREEZE_USER, BisConst.Register.LOGINCODE);
 		}
-		custinfo.setLastlogintime("systime");// 最后登录时间
 		
 		//5次密码输错，冻结用户
 		if (!EncryptUtil.md5(loginAction.getLoginPassword()).equals(custinfo.getPasswd())) {
@@ -155,10 +162,12 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 				custinfo.setCustst(Constant.Custinfo.CUSTST$P);
 			}
 			custinfoMapper.updateCustinfo(custinfo);
+			// 登录密码不正确
 			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD, BisConst.Register.LOGINPASSWORD);
 		}
 		
-		// 登录
+		// 登录 更新
+		custinfo.setLastlogintime("systime");// 最后登录时间
 		custinfoMapper.updateCustinfo(custinfo);
 		return custinfo;
 	}
@@ -176,14 +185,20 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		return custinfo;
 	}
 	
-	private void insterSerialno(Custinfo custinfo,String apkind) throws BizException {
+	/**
+	 * 插入流水表、更新变动表
+	 * @param custinfo
+	 * @param apkind
+	 * @throws BizException
+	 */
+	private void insterSerialno(Custinfo custinfo, String apkind) throws BizException {
 		String seq = tradeNotesMapper.getFdacfinalresultSeq();
 		/*
 		 * 插入流水表
 		 */
 		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
-		fdacfinalresult.setCustno(custinfo.getCustno());
 		Today today = workDayManager.getSysDayInfo();
+		fdacfinalresult.setCustno(custinfo.getCustno());
 		fdacfinalresult.setWorkdate(today.getWorkday());
 		fdacfinalresult.setApdt(today.getDate());
 		fdacfinalresult.setAptm(today.getTime());
@@ -192,7 +207,6 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		
 		/*
-		 * 
 		 * 插入变动记录表
 		 */
 		Changerecordinfo changerecordinfo = new Changerecordinfo();
