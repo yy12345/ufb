@@ -101,7 +101,11 @@
 	</update>
 	
 	<select id="qryRecentTradeList" resultType="TradeRequest">
-		select t4.banknm,t1.* from traderequest t1,tradeaccoinfo t2, bankcardinfo t3,bankbase t4
+		select 
+			t4.banknm,
+			t3.bankacco,
+			t1.* 
+		from traderequest t1,tradeaccoinfo t2, bankcardinfo t3,bankbase t4
 		where 
 		(t1.state = 'Y' or t1.state = 'F' or t1.state = 'I') 
 		and t1.custno = #{custno,jdbcType=VARCHAR} 

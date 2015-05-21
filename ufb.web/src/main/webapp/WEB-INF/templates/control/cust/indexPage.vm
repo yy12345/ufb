@@ -7,7 +7,6 @@
 <script>
 $(function(){
 	$("#btn-openAccount").on("click",function(){
-		//check #register-org #mobileno
 		$("#form-index").attr("action", "../bankcard/addBankCard.htm");
 		$("#form-index").submit();
 	});
@@ -99,75 +98,66 @@ $(function(){
                                 <div id="chart-sy" class="panel slide-out">表二</div>
                             </div>
                         </div>
-                        <div class="detail-list fr">
+                        <div class="detail-list">
                             <div class="list-title">资金明细</div>
-							#if ($SessionVo.openaccount == "Y")
-                            <div class="tabs list-tabs clearfix">
-                                <a class="tab on" href="javascript:;">充值</a>
-                                <a class="tab" href="javascript:;">取现</a>
-                            </div>
-                            <div class="panels list-panels">
-                                <div class="panel slide-in">
-                                    <table width="100%">
-										#foreach($tradeRequest in $listIn)
-										<tr>
-                                            <td class="tl" width="30%">${tradeRequest.banknm}</td>
-                                            <td class="tl" width="">${tradeRequest.appamt}
-											#if(${tradeRequest.state}=="I")
-												#if(${tradeRequest.apkind}=="022")
-													充值
-												#elseif(${tradeRequest.apkind}=="023")
-													取现
-												#elseif(${tradeRequest.apkind}=="024")
-													快取
-												#end处理中
-											#else	
-												#if(${tradeRequest.apkind}=="022")
-													充值
-												#elseif(${tradeRequest.apkind}=="023")
-													取现
-												#elseif(${tradeRequest.apkind}=="024")
-													快取
-												#end成功
-											#end
-											</td>
-                                            <td class="tr">${tradeRequest.appdate}</td>
-                                        </tr>
+                            <table width="100%">
+                                <thead>
+                                <tr>
+                                    <td class="tc">时间</td>
+                                    <td class="tc">交易类型</td>
+                                    <td class="tc">金额</td>
+                                    <td class="tc">交易状态</td>
+                                    <td class="tc">银行卡</td>
+                                    <td class="tc">操作</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+								#foreach($tradeRequest in $listIn)
+                                <tr>
+                                    <td class="tc">2015-05-19 18:55</td>
+                                    <td class="tc">
+									#if(${tradeRequest.state}=="I")
+										#if(${tradeRequest.apkind}=="022")
+											充值
+										#elseif(${tradeRequest.apkind}=="023")
+											取现
+										#elseif(${tradeRequest.apkind}=="024")
+											快取
 										#end
-                                    </table>
-                                </div>
-                                <div class="panel slide-out">
-                                    <table width="100%">
-                                        #foreach($tradeRequest in $listOut)
-										<tr>
-                                            <td class="tl" width="30%">${tradeRequest.banknm}</td>
-                                            <td class="tl" width="">-${tradeRequest.appvol}
-											#if(${tradeRequest.state}=="I")
-												#if(${tradeRequest.apkind}=="022")
-													充值
-												#elseif(${tradeRequest.apkind}=="023")
-													取现
-												#elseif(${tradeRequest.apkind}=="024")
-													快取
-												#end处理中
-											#else	
-												#if(${tradeRequest.apkind}=="022")
-													充值
-												#elseif(${tradeRequest.apkind}=="023")
-													取现
-												#elseif(${tradeRequest.apkind}=="024")
-													快取
-												#end成功
-											#end
-											</td>
-                                            <td class="tr">${tradeRequest.appdate}</td>
-                                        </tr>
-    									#end
-                                    </table>
-                                </div>
-                            </div>
-							#end
-							
+									#else	
+										#if(${tradeRequest.apkind}=="022")
+											充值
+										#elseif(${tradeRequest.apkind}=="023")
+											取现
+										#elseif(${tradeRequest.apkind}=="024")
+											快取
+										#end
+									#end
+									</td>
+                                    <td class="tr">
+									#if(${tradeRequest.appamt})
+										+$!{tradeRequest.appamt}
+									#else
+										-$!{tradeRequest.appvol}
+									#end
+                                    <td class="tc">
+									#if(${tradeRequest.state}=="I")
+										处理中
+									#else	
+										成功
+									#end
+									</td>
+                                    <td class="tc">
+										#set($tailStr=$!{tradeRequest.bankacco})
+										#set($start=$tailStr.length() - 4)
+										#set($end=$tailStr.length())
+										${tradeRequest.banknm}[尾号$tailStr.substring($start,$end)]	
+									</td>
+                                    <td class="tc"><a href="javascript:;">查看</a></td>
+                                </tr>
+								#end
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </li>
@@ -202,15 +192,20 @@ $(function(){
             <div class="info-account">
                 <div class="account-header">
                     <a href="${staticDomain}/setting/settingAccount.htm" class="header-avatar"><img src="${staticDomain}/images/avatar.png" width="100%"></a>
-                    <div class="header-name">
-					#if ($SessionVo.invnm)
-                	    $!{SessionVo.invnm}
-                	#else
-                	    #set($tailStr=$SessionVo.mobileno)
-						#set($start=$tailStr.substring(0,3))
-						#set($end=$tailStr.substring(7,11))
-						$start****$end
-                	#end
+                    <div class="header-name center-box well">
+						<b class="center-hack"></b>
+						<div class="center-body">
+						#if ($SessionVo.invnm)
+	                	    $!{SessionVo.invnm}
+							银行卡理财账户银行卡理财账户
+	                	#else
+	                	    #set($tailStr=$SessionVo.mobileno)
+							#set($start=$tailStr.substring(0,3))
+							#set($end=$tailStr.substring(7,11))
+							$start****$end
+							银行卡理财账户银行卡理财账户
+	                	#end
+						</div>
 					</div>
                     <a href="${staticDomain}/setting/settingAccount.htm" class="header-setting"></a>
                 </div>

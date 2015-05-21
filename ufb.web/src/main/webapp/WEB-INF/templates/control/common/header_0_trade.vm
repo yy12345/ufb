@@ -1,0 +1,29 @@
+<div class="header">
+    <div class="inner clearfix rel">
+        <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+		<div class="nav">
+        	#if ($SessionVo)
+        	<a href="${staticDomain}/home/index.htm">首页</a>|<a class="current"
+        	href="${staticDomain}/cust/session.htm">资产总览</a>|<a
+        	href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
+        	href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
+        	href="javascript:;"><i class="trans icon"></i>
+        		#if ($SessionVo.invnm)
+        			$!{SessionVo.invnm}
+                #elseif ($SessionVo.mobileno)
+        			#set($tailStr=$SessionVo.mobileno)
+        			#set($start=$tailStr.substring(0,3))
+        			#set($end=$tailStr.substring(7,11))
+        			$start****$end
+        		#else
+        		#end
+        	<a href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span>
+        	#else
+        	<a href="${staticDomain}/home/index.htm">登录</a>|<a class="current"
+        	href="${staticDomain}/register/index.htm">注册</a>|<a 
+        	href="javascript:;">资产总览</a>|<a class="last"  
+        	href="${staticDomain}/help/helpNotice.htm">帮助中心</a>
+        	#end
+        </div>
+    </div>
+</div>	

@@ -5,11 +5,12 @@ var alertBox = function (el) {//遮罩层
     if($this.length ==0) {
         return false;
     }
-    $("body").prepend("<div class='alert-con'><a class='alert-close'></a>"+$this.html()+"</div>");
+    $("body").prepend("<div class='alert-con'><div class='alert-bg'></div><a class='alert-close'></a>"+$this.html()+"</div>");
 };
 $("body").on("click", ".alert-close", function () {
     var $this = $(this);
     var $con = $this.parents(".alert-con");
+    console.log($con);
     $con.remove();
 });
 var errorBox = function (errorTitle, errorText) {//错误框

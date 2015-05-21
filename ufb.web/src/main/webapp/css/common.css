@@ -27,6 +27,67 @@
 .camera_wrap .camera_pag .camera_pag_ul li.cameracurrent > span {
 	background: #fff;
 }
+/*
+ *@ Name:       未知高度垂直居中组件
+ *@ Author:     一丝
+ *@ Update:     2013-10-13 17:08:36
+ *@ Usage:      支持图片，单行或多行文字，以及图文混排
+ */
+
+/* 去除 inline-block 的空隙 */
+.center-box {
+	font-size: 0;
+	*word-spacing: -1px; /* IE6、7 */
+	height: 100%; /* 继承父级高度 */
+}
+
+/* 修复 Safari 5- inline-block 的空隙 */
+@media (-webkit-min-device-pixel-ratio:0) {
+	.center-box {
+		letter-spacing: -5px;
+	}
+}
+
+/* 使用空标签生成一个高度100%的参照元素 */
+.center-box .center-hack {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	font-size: 0;
+	width: 0;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.center-box .center-body {
+	letter-spacing: normal;
+	word-spacing: normal;
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	font-size: 14px;
+	vertical-align: middle; /* 保证文字垂直居中 */
+	padding: 0 !important; /* 防止设置边距导致居中失效 */
+	margin: 0 !important;
+	width: 100%; /* 保证连续字符也能居中 */
+	white-space: normal; /* 保证连续字符换行 */
+	word-wrap: break-word;
+}
+
+.center-box .center-img {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	width: 100%;
+	text-align: center; /* 图片默认水平居中 */
+	vertical-align: middle;
+	padding: 0 !important; /* 防止设置边距导致居中失效 */
+	margin: 0 !important;
+}
+
+.center-box img {
+	vertical-align: middle; /* 去除现代浏览器 img 底部空隙 */
+}
 /* transform */
 .slide-in {
 	opacity: 1;
@@ -308,13 +369,26 @@ a.btn {
 }
 /* common - box */
 .alert-con {
-	background-color: rgba(0,0,0,0.8);
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	height: 100%;
 	z-index: 100;
+}
+.alert-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	opacity: 0.8;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+	z-index: 1;
 }
 .alert-close {
 	position: absolute;
@@ -324,6 +398,7 @@ a.btn {
 	height: 51px;
 	background: url("../images/icon-close.png") no-repeat 0 0;
 	cursor: pointer;
+	z-index: 100;
 }
 .alert-box {
 	display: none;
@@ -381,6 +456,7 @@ a.btn {
 	left: 50%;
 	margin-left: -205px;
 	margin-top: -200px;
+    z-index: 10;
 }
 .login-tabs .tab {
 	width: 205px;
@@ -426,8 +502,9 @@ a.btn {
 	padding: 0 12px;
 	border: 1px solid #cbcbcb;
 	font-size: 14px;
+	line-height: 34px;
 	font-family: "microsoft yahei";
-	color: inherit;
+	color: #808080;
 }
 .common-form li input.input-checkbox {
 	margin-right: 6px;
@@ -514,15 +591,17 @@ a.btn {
 	line-height: 1.5;
 	position: relative;
 }
+.login-form li input {
+	height: 40px;
+	line-height: 40px;
+}
 .login-form li input.input-text {
 	width: 270px;
-	height: 40px;
 	padding:0 10px 0 50px;
 	border: 1px solid #e1e2e2;
 }
 .login-form li input.input-code {
 	width: 218px;
-	height: 40px;
 	padding: 0 10px;
 	border: 1px solid #e1e2e2;
 }
@@ -538,6 +617,12 @@ a.btn {
 	background: url("../images/icon-username.png") no-repeat left top;
 }
 .login-form .ipt-password {
+	background: url("../images/icon-password.png") no-repeat left top;
+}
+.login-form .ipt-loginUsername {
+	background: url("../images/icon-username.png") no-repeat left top;
+}
+.login-form .ipt-loginPassword {
 	background: url("../images/icon-password.png") no-repeat left top;
 }
 .login-form label {
@@ -740,6 +825,12 @@ a.btn {
 	font-size: 18px;
 	color: #cb3849;
 }
+.project-item.item-main .item-base .base-btn {
+	width: 170px;
+}
+.project-item.item-sub .item-base .base-btn {
+	width: 110px;
+}
 .base-btn .btn {
 	width: 100px;
 	height: 35px;
@@ -802,9 +893,9 @@ a.btn {
 	height: 100%;
 }
 .item-detail .detail-list {
-	width: 260px;
+	/*width: 260px;
 	padding-left: 20px;
-	border-left: 1px solid #cbcbcb;
+	border-left: 1px solid #cbcbcb;*/
 }
 .item-detail .detail-list .list-title {
 	font-size: 14px;
@@ -835,9 +926,16 @@ a.btn {
 	width: 100%;
 	height: 100%;
 }
-.item-detail .detail-list .list-panels .panel td {
-	height: 25px;
-	line-height: 25px;
+.item-detail .detail-list td {
+	line-height: 2;
+	padding:10px;
+}
+.item-detail .detail-list td a {
+	color: #cb3849;
+}
+.item-detail .detail-list thead td {
+	font-size: 14px;
+	background-color: #eeeeef;
 }
 
 /* index */
@@ -1034,9 +1132,6 @@ a.btn {
 	background:url("../images/icon.png") no-repeat 0 0;
 }
 .center .side .info-account .account-header .header-name {
-	line-height: 90px;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 }
 .center .side .info-account .account-header .header-setting {
 	position: absolute;

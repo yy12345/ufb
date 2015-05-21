@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>幼富通 - 首页</title>
 <script type='text/javascript' src='${staticDomain}/js/libs/camera.min.js'></script>
 </head>
 <body>
-	
 <div class="alert-box box-login">
     <div class="login">
         <div class="login-tabs tabs clearfix">
@@ -64,7 +62,7 @@
             <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
 			<div class="nav">
 				#if ($SessionVo)
-				<a href="${staticDomain}/register/index.htm">注册</a>|<a
+				<a class="current" href="${staticDomain}/home/index.htm">首页</a>|<a 
 				href="${staticDomain}/cust/session.htm">资产总览</a>|<a
 				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
 				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
@@ -213,30 +211,13 @@
 		}
 		$("#form-login").attr("action", "../cust/login.htm");
 		$("#form-login").submit();
-		
-		
-		//if(!check_mobile($("#mobileno"))){
-		//	return false;
-		//}
-		//if(!check_code($("#verifycode"))){
-		//	return false;
-		//}
-		//if(!check_pwd1($("#pswpwd"))){
-		//	return false;
-		//}
-		// $("#form-login").submit();
 	};
-	
 	$(function(){
-	
 		#if ($SessionVo)
-		
 		#else
 			alertBox(".box-login");
 		#end
-	
 	});
-	
 </script>
 </body>
 </html>

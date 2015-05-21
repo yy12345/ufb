@@ -65,7 +65,7 @@ public class TradeController {
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			
-			model.addAttribute("CustinfoVo", UserHelper.getCustinfoVo());
+			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
 			model.addAttribute("errorMsg", ue.getMessage());
@@ -89,7 +89,7 @@ public class TradeController {
 			
 			tradeManager.buyApply(vo);
 			
-			model.addAttribute("CustinfoVo", UserHelper.getCustinfoVo());
+			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
 			model.addAttribute("errorMsg", ue.getMessage());
@@ -136,7 +136,7 @@ public class TradeController {
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			
-			model.addAttribute("CustinfoVo", UserHelper.getCustinfoVo());
+			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
 			model.addAttribute("errorMsg", ue.getMessage());
@@ -175,7 +175,7 @@ public class TradeController {
 			return "error/user_error";
 		}
 		
-		model.addAttribute("CustinfoVo", UserHelper.getCustinfoVo());
+		model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		return "trade/cash_result";
 	}
 	

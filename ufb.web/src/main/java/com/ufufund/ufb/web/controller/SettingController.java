@@ -70,6 +70,7 @@ public class SettingController {
 			return "setting/settingAccount";
 		}
 		model.addAttribute("CustinfoVo", custinfoVo);
+		model.addAttribute("SessionVo", custinfoVo);
 		return "setting/settingAccount";
 	}
 	
@@ -101,6 +102,7 @@ public class SettingController {
 			return "setting/settingPassword";
 		}
 		model.addAttribute("CustinfoVo", custinfoVo);
+		model.addAttribute("SessionVo", custinfoVo);
 		return "setting/settingPassword";
 	}
 	
@@ -123,6 +125,7 @@ public class SettingController {
 				return "home/index";
 			}
 			model.addAttribute("CustinfoVo", s_custinfo);
+			model.addAttribute("SessionVo", s_custinfo);
 			model.addAttribute("TAB", "1S");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -166,6 +169,7 @@ public class SettingController {
 				return "home/index";
 			}
 			model.addAttribute("CustinfoVo", s_custinfo);
+			model.addAttribute("SessionVo", s_custinfo);
 			model.addAttribute("TAB", "2S");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -270,6 +274,7 @@ public class SettingController {
 				return "home/index";
 			}
 			model.addAttribute("CustinfoVo", s_custinfo);
+			model.addAttribute("SessionVo", s_custinfo);
 			model.addAttribute("TAB", "3S");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -344,6 +349,7 @@ public class SettingController {
 		}
 		
 		model.addAttribute("CustinfoVo", custinfoVo);
+		model.addAttribute("SessionVo", custinfoVo);
 		return "setting/settingCard";
 	}
 	

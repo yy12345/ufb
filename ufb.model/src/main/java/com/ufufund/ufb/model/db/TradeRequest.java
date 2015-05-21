@@ -31,12 +31,20 @@ public class TradeRequest implements Serializable{
 	private String referno ;             
 	private String updatetime;
 	private String banknm;
+	private String bankacco;
 	
 	public String getBanknm() {
 		return banknm;
 	}
 	public void setBanknm(String banknm) {
 		this.banknm = banknm;
+	}
+	
+	public String getBankacco() {
+		return bankacco;
+	}
+	public void setBankacco(String bankacco) {
+		this.bankacco = bankacco;
 	}
 	public String getSerialno() {
 		return serialno;

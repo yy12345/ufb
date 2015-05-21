@@ -184,6 +184,10 @@ public class CustController {
 			model.addAttribute("SessionVo", custinfoVo);
 			
 			if("Y".equals(custinfoVo.getOpenaccount())){
+				
+				// 货基信息
+				
+				
 				// 资产显示
 				List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 				Assets assets = queryManager.queryAssets(tradeAccoList);
@@ -194,14 +198,10 @@ public class CustController {
 				// 交易明细显示
 				List<String> apkinds = new ArrayList<String>();
 				apkinds.add("022"); // 充值
-				List<TradeRequest> listIn = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
-
-				apkinds = new ArrayList<String>();
 				apkinds.add("023"); // 取现
 				apkinds.add("024"); // 快速取现
-				List<TradeRequest> listOut = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
+				List<TradeRequest> listIn = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 8);
 				model.addAttribute("listIn", listIn);
-				model.addAttribute("listOut", listOut);
 			} else {
 				// 资产显示
 				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
@@ -269,14 +269,10 @@ public class CustController {
 					// 交易明细显示
 					List<String> apkinds = new ArrayList<String>();
 					apkinds.add("022"); // 充值
-					List<TradeRequest> listIn = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
-
-					apkinds = new ArrayList<String>();
 					apkinds.add("023"); // 取现
 					apkinds.add("024"); // 快速取现
-					List<TradeRequest> listOut = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 4);
+					List<TradeRequest> listIn = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 8);
 					model.addAttribute("listIn", listIn);
-					model.addAttribute("listOut", listOut);
 				} else {
 					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));

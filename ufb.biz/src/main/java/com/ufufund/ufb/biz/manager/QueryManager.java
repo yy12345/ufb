@@ -11,7 +11,7 @@ import com.ufufund.ufb.model.vo.TradeAccoVo;
 
 @Service
 public interface QueryManager {
-
+	
 	/**
 	 * 查询交易账号资产明细
 	 * @param tradeAccos 交易账号
