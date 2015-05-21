@@ -73,7 +73,7 @@ public class WorkDayManagerImpl implements WorkDayManager{
 		String date = systime.substring(0, 8);
 		int hour = Integer.parseInt(systime.substring(8, 10));
 		
-		if(hour <= 15){
+		if(hour < 15){
 			return date;
 		}else{
 			Date date1 = DateUtil.parse(systime, DateUtil.FULL_PATTERN_1);
