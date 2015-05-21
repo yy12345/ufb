@@ -21,7 +21,7 @@ import com.ufufund.ufb.remote.HftCustService;
  * @author ayis
  * 2015年3月22日
  */
-@Service
+//@Service
 public class HftCustServiceSimulator extends HftCustService{
 	private static final Logger LOG = LoggerFactory.getLogger(HftCustServiceSimulator.class);
 	

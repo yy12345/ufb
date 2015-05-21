@@ -17,7 +17,7 @@ import com.ufufund.ufb.model.remote.hft.TransQueryRequest;
 import com.ufufund.ufb.model.remote.hft.TransQueryResponse;
 import com.ufufund.ufb.remote.HftQueryService;
 
-@Service
+//@Service
 public class HftQueryServiceSimulator extends HftQueryService{
 	private static final Logger LOG = LoggerFactory.getLogger(HftQueryServiceSimulator.class);
 	

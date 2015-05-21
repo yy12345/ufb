@@ -14,7 +14,7 @@ import com.ufufund.ufb.model.remote.hft.OpenAccountResponse;
  * @author ayis
  * 2015年3月22日
  */
-//@Service
+@Service
 public class HftCustService extends HftBaseService{
 	
 	

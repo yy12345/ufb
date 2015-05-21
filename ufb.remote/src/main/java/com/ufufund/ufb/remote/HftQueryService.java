@@ -12,7 +12,7 @@ import com.ufufund.ufb.model.remote.hft.TransQueryResponse;
  * @author ayis
  * 2015年3月22日
  */
-//@Service
+@Service
 public class HftQueryService extends HftBaseService{
 
 	/**
