@@ -81,6 +81,7 @@ public class TradeManagerHelper {
 		tradeRequest.setAppdate(response.getTransactionDate());
 		tradeRequest.setApptime(response.getTransactiontime());
 		tradeRequest.setState(TradeStatus.I.getValue());
+		tradeRequest.setPayst(TradeStatus.Y.getValue());
 		return tradeRequest;
 	}
 	
@@ -165,6 +166,7 @@ public class TradeManagerHelper {
 		tradeRequest.setAppdate(response.getTransactionDate());
 		tradeRequest.setApptime(response.getTransactiontime());
 		tradeRequest.setState(TradeStatus.I.getValue());
+		tradeRequest.setPayst(TradeStatus.Y.getValue());
 		return tradeRequest;
 	}
 	
@@ -245,6 +247,7 @@ public class TradeManagerHelper {
 		tradeRequest.setAppdate(response.getTransactionDate());
 		tradeRequest.setApptime(response.getTransactiontime());
 		tradeRequest.setState(TradeStatus.I.getValue());
+		tradeRequest.setTranst(TradeStatus.D.getValue());
 		return tradeRequest;
 	}
 	
@@ -295,11 +298,6 @@ public class TradeManagerHelper {
 		return tradeQutyChg;
 	}
 	
-	
-	public static void main(String[] args) {
-		System.out.println(new BigDecimal(0.00).subtract(new BigDecimal(555.22)).doubleValue());
-	}
-	
 	/**
 	 * 生成RealRedeemRequest请求对象
 	 * @param vo
@@ -331,19 +329,8 @@ public class TradeManagerHelper {
 		tradeRequest.setAppdate(response.getTransactionDate());
 		tradeRequest.setApptime(response.getTransactiontime());
 		tradeRequest.setState(TradeStatus.I.getValue());
+		tradeRequest.setTranst(TradeStatus.D.getValue());
 		return tradeRequest;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

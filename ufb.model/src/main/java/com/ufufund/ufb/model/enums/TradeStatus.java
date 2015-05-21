@@ -5,7 +5,9 @@ public enum TradeStatus {
 	N("N", "初始化"),
 	I("I", "处理中"),
 	Y("Y", "成功"),
-	F("F", "失败");
+	F("F", "失败"),
+	D("D", "份额冻结"),
+	R("R", "已冲正");
 	
 	private String value;
 	private String desc;
