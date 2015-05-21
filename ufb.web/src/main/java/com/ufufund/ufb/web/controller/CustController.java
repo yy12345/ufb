@@ -1,6 +1,9 @@
 package com.ufufund.ufb.web.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,11 +18,13 @@ import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.common.constant.BisConst;
+import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.db.FundInfo;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.Level;
@@ -183,10 +188,10 @@ public class CustController {
 			UserHelper.saveCustinfoVo(custinfoVo);
 			model.addAttribute("SessionVo", custinfoVo);
 			
+			// 货基信息显示
+			model.addAttribute("FUNDINFOVO", this.getFundInfo());
+			
 			if("Y".equals(custinfoVo.getOpenaccount())){
-				
-				// 货基信息
-				
 				
 				// 资产显示
 				List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
@@ -258,6 +263,9 @@ public class CustController {
 				// Session登录
 				custinfoVo = this.convertCustSession2Vo(s_custinfo);
 				
+				// 货基信息显示
+				model.addAttribute("FUNDINFOVO", this.getFundInfo());
+				
 				if("Y".equals(s_custinfo.getOpenaccount())){
 					// 资产显示
 					List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
@@ -326,5 +334,16 @@ public class CustController {
 		custinfoVo.setLevel(sessionInfo.getLevel());
 		custinfoVo.setOpenaccount(sessionInfo.getOpenaccount());
 		return custinfoVo;
+	}
+	
+	private FundInfo getFundInfo(){
+		// 货基信息显示
+		FundInfo fundInfo = new FundInfo();
+		fundInfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+		fundInfo.setFundcode(Constant.FundCode.YFB);
+		DateFormat df = new SimpleDateFormat("YYYYmmDD");
+		fundInfo.setDate(df.format(new Date()));
+		fundInfo = queryManager.getFundInfo(fundInfo);
+		return fundInfo;
 	}
 }

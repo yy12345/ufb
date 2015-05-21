@@ -7,7 +7,7 @@
 		<pattern>/**/*.ajax</pattern>
 	</excludes>
 	
-	<errorPages page="layout/default_1.vm">
+	<errorPages page="layout/default_error.vm">
         <pattern>error/404.vm</pattern>
         <pattern>error/500.vm</pattern>
         <pattern>error/*</pattern>

@@ -13,10 +13,12 @@ import org.springframework.stereotype.Service;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.dao.FundBalanceMapper;
+import com.ufufund.ufb.dao.FundInfoMapper;
 import com.ufufund.ufb.dao.TradeQutyChgMapper;
 import com.ufufund.ufb.dao.TradeRequestMapper;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.FundBalance;
+import com.ufufund.ufb.model.db.FundInfo;
 import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.vo.Assets;
@@ -38,6 +40,9 @@ public class QueryManagerImpl implements QueryManager{
 	
 	@Autowired
 	private FundBalanceMapper fundBalanceMapper ;
+
+	@Autowired
+	private FundInfoMapper fundInfoMapper ;
 	
 	@Override
 	public TradeAccoVo queryAssets(String tradeAcco){
@@ -186,6 +191,11 @@ public class QueryManagerImpl implements QueryManager{
 		result.setAccoList(accoList);
 		
 		return result;
+	}
+	
+	@Override
+	public FundInfo getFundInfo(FundInfo fundInfo) {
+		return fundInfoMapper.getFundInfo(fundInfo);
 	}
 	
 	@Override

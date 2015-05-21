@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.FundInfoMapper">
+
+	<sql id="Base_Columns">
+		FUNDCORPNO,
+		FUNDCODE,
+		FUNDNAME,
+		STATUS,
+		FUNDTYPE,
+		FUNDVOL,
+		FUNDSIZE,
+		DATE,
+		NAV,
+		NAVADDITIVE,	
+		INCOME,
+		YIELD,
+		ISCONTRACT,
+		DEVMETHOD,
+		SHARECLASS		
+	</sql>
+	
+    <select id="getFundInfo" parameterType="FundInfo" resultType="FundInfo">
+		select <include refid="Base_Columns" /> from FundInfo
+		where
+		    FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR}  	
+			<if test="fundcode != null">
+            and FUNDCODE &gt;= #{fundcode,jdbcType=VARCHAR}
+        	</if>
+        	<if test="date != null">
+            and DATE &gt;= #{date,jdbcType=VARCHAR}
+        	</if>
+    </select>
+	
+</mapper>

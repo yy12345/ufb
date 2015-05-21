@@ -246,6 +246,28 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			}
 		}
 		
+		// 校验是否与登录密码一致
+		String md5 = EncryptUtil.md5(changePasswordAction.getPassword1());
+		if("TRADE".equals(actionType)){
+			// 交易密码
+			if(md5.equals(custinfo.getPasswd())){
+				// 交易密码不能和登录密码相同
+				throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
+			}
+		}else if("LOGIN".equals(actionType)){
+			// 登入密码
+			if(md5.equals(custinfo.getTradepwd())){
+				// 交易密码不能和登录密码相同
+				throw new BizException(processId, ErrorInfo.CANNOTEQUALTRADEPWD, BisConst.Register.LOGINPASSWORD);
+			}
+		}else{
+			// 找回交易密码
+			if(md5.equals(custinfo.getPasswd())){
+				// 交易密码不能和登录密码相同
+				throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
+			}
+		}
+		
 		/** 修改密码 **/
 		if("TRADE".equals(actionType)){
 			// 交易密码

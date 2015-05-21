@@ -15,6 +15,7 @@ import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.biz.util.HftResponseUtil;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.dao.BankBaseMapper;
 import com.ufufund.ufb.dao.BankMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
@@ -101,11 +102,20 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @return
 	 */
 	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction) throws BizException {
-		this.getProcessId(openAccountAction);
+		String processId = this.getProcessId(openAccountAction);
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
 		bankCardManagerValidator.validator(openAccountAction, "User_Base");
 		// 用户注册、冻结、已开户验证
 		custManagerValidator.validator(openAccountAction, "User_Business");
+		// 校验是否与登录密码一致
+		Custinfo custinfo = new Custinfo();
+		custinfo.setCustno(openAccountAction.getCustno());
+		custinfo = custinfoMapper.getCustinfo(custinfo);
+		String md5 = EncryptUtil.md5(openAccountAction.getTradepwd());
+		if(md5.equals(custinfo.getPasswd())){
+			// 交易密码不能和登录密码相同
+			throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
+		}
 		
 		return openAccountAction;
 	}

@@ -88,7 +88,7 @@ $(function(){
                         </div>
                     </div>
                     <div class="item-detail clearfix">
-                        <div class="detail-chart fl">
+                        <div class="detail-chart">
                             <div class="tabs chart-tabs clearfix">
                                 <a class="tab on" href="javascript:;">7日年化收益率(%)  4.8270</a>
                                 <a class="tab" href="javascript:;">万份收益(元)  1.2440</a>
@@ -197,13 +197,11 @@ $(function(){
 						<div class="center-body">
 						#if ($SessionVo.invnm)
 	                	    $!{SessionVo.invnm}
-							银行卡理财账户银行卡理财账户
 	                	#else
 	                	    #set($tailStr=$SessionVo.mobileno)
 							#set($start=$tailStr.substring(0,3))
 							#set($end=$tailStr.substring(7,11))
 							$start****$end
-							银行卡理财账户银行卡理财账户
 	                	#end
 						</div>
 					</div>
@@ -234,9 +232,15 @@ $(function(){
             <div class="info-yield">
                 <div class="yield-title">幼富宝</div>
                 <div class="yield-data">
-                    <div class="data-value">4.9510</div>
-                    <div class="data-name">七日年化收益率（%）</div>
+					#if($FUNDINFOVO)
+                    <div class="data-value">$!{FUNDINFOVO.nav}</div>
+                    <div class="data-name">七日年化收益率（$!{FUNDINFOVO.yield}%）</div>
                     <div class="data-source">数据来源：海富通基金</div>
+					#else
+					<div class="data-value">--</div>
+                    <div class="data-name">七日年化收益率（--%）</div>
+                    <div class="data-source">数据来源：海富通基金</div>
+					#end	
                 </div>
             </div>
         </div>

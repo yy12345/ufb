@@ -23,6 +23,7 @@ public class RefreshHolderFilter implements Filter{
 		HttpServletRequest req = (HttpServletRequest) request;
 		String value = req.getParameter(RefreshHolder.INPUT_NAME);
 		if(value != null && RefreshHolder.isRefresh(value)){
+			req.setAttribute("A", "1234");
 			req.getRequestDispatcher("/expire.html").forward(request, response);
 			return;
 		}

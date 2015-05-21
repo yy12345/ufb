@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
+import com.ufufund.ufb.model.db.FundInfo;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.TradeAccoVo;
@@ -40,4 +41,7 @@ public interface QueryManager {
 	 * @return
 	 */
 	public List<TradeRequest> qryRecentTradeList(String custno, List<String> apkinds, int n);
+	
+
+	public FundInfo getFundInfo(FundInfo fundInfo);
 }
