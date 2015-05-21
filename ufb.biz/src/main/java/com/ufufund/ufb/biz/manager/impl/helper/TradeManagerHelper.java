@@ -42,7 +42,7 @@ public class TradeManagerHelper {
 		tradeRequest.setFundcode(vo.getFundcode());
 		tradeRequest.setAppamt(vo.getAppamt());
 		tradeRequest.setAppvol(vo.getAppvol());
-		tradeRequest.setShareclass("0");
+		tradeRequest.setShareclass(vo.getShareclass());
 		tradeRequest.setDividenttype("0");
 		tradeRequest.setFee(vo.getFee());
 		tradeRequest.setReferno("");
@@ -104,7 +104,7 @@ public class TradeManagerHelper {
 		tradeRequest.setFundcode(vo.getFundcode());
 		tradeRequest.setAppamt(vo.getAppamt());
 		tradeRequest.setAppvol(vo.getAppvol());
-		tradeRequest.setShareclass("0");
+		tradeRequest.setShareclass(vo.getShareclass());
 		tradeRequest.setDividenttype("0");
 		tradeRequest.setFee(vo.getFee());
 		tradeRequest.setReferno("");
@@ -186,7 +186,7 @@ public class TradeManagerHelper {
 		tradeRequest.setFundcode(vo.getFundcode());
 		tradeRequest.setAppamt(vo.getAppamt());
 		tradeRequest.setAppvol(vo.getAppvol());
-		tradeRequest.setShareclass("0");
+		tradeRequest.setShareclass(vo.getShareclass());
 		tradeRequest.setDividenttype("0");
 		tradeRequest.setFee(vo.getFee());
 		tradeRequest.setReferno("");
@@ -267,7 +267,7 @@ public class TradeManagerHelper {
 		tradeRequest.setFundcode(vo.getFundcode());
 		tradeRequest.setAppamt(vo.getAppamt());
 		tradeRequest.setAppvol(vo.getAppvol());
-		tradeRequest.setShareclass("0");
+		tradeRequest.setShareclass(vo.getShareclass());
 		tradeRequest.setDividenttype("0");
 		tradeRequest.setFee(vo.getFee());
 		tradeRequest.setReferno("");

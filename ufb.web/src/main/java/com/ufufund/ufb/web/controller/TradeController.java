@@ -85,6 +85,7 @@ public class TradeController {
 			vo.setCustno(custno);
 			vo.setFundcode(Constant.FundCode.YFB);
 			vo.setFee(new BigDecimal("0.00"));
+			vo.setShareclass("0");
 			
 			tradeManager.buyApply(vo);
 			
@@ -155,6 +156,7 @@ public class TradeController {
 			vo.setCustno(custno);
 			vo.setFundcode(Constant.FundCode.YFB);
 			vo.setFee(new BigDecimal("0.00"));
+			vo.setShareclass("0");
 			
 			if("023".equals(vo.getApkind())){
 				tradeManager.redeem(vo);

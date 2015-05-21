@@ -75,6 +75,7 @@ public class HftBaseService {
 			LOG.error("验签失败：serialno="+((AbstractRequest)request).getApplicationNo()+" responseXml="+responseXml);
 			return null;
 		}
+		LOG.info("返回对象："+response.toString());
 		return response;
 	}
 	
