@@ -77,7 +77,7 @@ public interface Constant {
 	}
 
 	public static interface FundCode {
-		public static final String YFB = "001001";
+		public static final String YFB = "225010";
 		public static final String YFT_1 = "001002";
 	}
 
