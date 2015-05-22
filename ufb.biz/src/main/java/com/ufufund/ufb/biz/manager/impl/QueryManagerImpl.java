@@ -21,6 +21,7 @@ import com.ufufund.ufb.model.db.FundBalance;
 import com.ufufund.ufb.model.db.FundInfo;
 import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
+import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.TradeAccoVo;
 import com.ufufund.ufb.remote.HftQueryService;
@@ -61,7 +62,7 @@ public class QueryManagerImpl implements QueryManager{
 //		}
 		// 当日份额变动充值(取现)
 		tradeQutyChg.setTradeacco(tradeAcco);
-		tradeQutyChg.setFundcode(Constant.FundCode.YFB);
+		tradeQutyChg.setFundcode(BasicFundinfo.YFB.getFundCode());
 		tradeQutyChg.setApkind("023");
 		tradeQutyChg.setWorkdate(null);
 		// 当日份额变动 023 取现
@@ -72,7 +73,7 @@ public class QueryManagerImpl implements QueryManager{
 		}
 		// 当日份额变动充值(快速取现)
 		tradeQutyChg.setTradeacco(tradeAcco);
-		tradeQutyChg.setFundcode(Constant.FundCode.YFB);
+		tradeQutyChg.setFundcode(BasicFundinfo.YFB.getFundCode());
 		tradeQutyChg.setApkind("024");
 		tradeQutyChg.setWorkdate(null);
 		// 当日份额变动 024 快速取现
@@ -83,7 +84,7 @@ public class QueryManagerImpl implements QueryManager{
 		}
 		// 当日份额变动充值(充值)
 		tradeQutyChg.setTradeacco(tradeAcco);
-		tradeQutyChg.setFundcode(Constant.FundCode.YFB);
+		tradeQutyChg.setFundcode(BasicFundinfo.YFB.getFundCode());
 		tradeQutyChg.setApkind("022");
 		tradeQutyChg.setWorkdate(null);
 		// 当日份额变动 022 快速取现
@@ -95,7 +96,7 @@ public class QueryManagerImpl implements QueryManager{
 		// 昨日份额
 		FundBalance fundBalance = new FundBalance();
 		fundBalance.setTradeacco(tradeAcco);
-		fundBalance.setFundcode(Constant.FundCode.YFB);
+		fundBalance.setFundcode(BasicFundinfo.YFB.getFundCode());
 		fundBalance.setCustno(null);
 		fundBalance = fundBalanceMapper.getFundBalance(fundBalance);
 		BigDecimal total = new BigDecimal(0.00); // 总份额

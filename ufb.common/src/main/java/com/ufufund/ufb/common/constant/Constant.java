@@ -76,9 +76,9 @@ public interface Constant {
 		public static final String BalanceQuery = "staticShareQuery";
 	}
 
-	public static interface FundCode {
-		public static final String YFB = "225010";
-		public static final String YFT_1 = "001002";
-	}
+//	public static interface FundCode {
+//		public static final String YFB = "225010";
+//		public static final String YFT_1 = "001002";
+//	}
 
 }

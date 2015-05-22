@@ -25,7 +25,7 @@
 		TRANST       ,
 		PAYST        ,
 		SHARECLASS   ,
-		DIVIDENTTYPE ,
+		DIVIDMETHOD  ,
 		FEE          ,
 		REFERNO      ,
 		UPDATETIME   
@@ -58,7 +58,7 @@
 			'N',        
 			'N',        
 			#{shareclass,jdbcType=VARCHAR},        
-			#{dividenttype,jdbcType=VARCHAR},        
+			#{dividmethod,jdbcType=VARCHAR},        
 			#{fee,jdbcType=VARCHAR},        
 			#{referno,jdbcType=VARCHAR},           
 			now())

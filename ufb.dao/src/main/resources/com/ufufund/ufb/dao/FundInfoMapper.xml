@@ -18,7 +18,7 @@
 		INCOME,
 		YIELD,
 		ISCONTRACT,
-		DEVMETHOD,
+		DIVIDMETHOD,
 		SHARECLASS		
 	</sql>
 	
@@ -26,9 +26,7 @@
 		select <include refid="Base_Columns" /> from FundInfo
 		where
 		    FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR}  	
-			<if test="fundcode != null">
-            and FUNDCODE &gt;= #{fundcode,jdbcType=VARCHAR}
-        	</if>
+			and FUNDCODE = #{fundcode,jdbcType=VARCHAR}
         	<if test="date != null">
             and DATE &gt;= #{date,jdbcType=VARCHAR}
         	</if>

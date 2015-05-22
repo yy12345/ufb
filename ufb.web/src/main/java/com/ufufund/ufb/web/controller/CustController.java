@@ -26,6 +26,7 @@ import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.FundInfo;
 import com.ufufund.ufb.model.db.TradeRequest;
+import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.Level;
 import com.ufufund.ufb.model.vo.Assets;
@@ -340,8 +341,8 @@ public class CustController {
 		// 货基信息显示
 		FundInfo fundInfo = new FundInfo();
 		fundInfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-		fundInfo.setFundcode(Constant.FundCode.YFB);
-		DateFormat df = new SimpleDateFormat("YYYYmmDD");
+		fundInfo.setFundcode(BasicFundinfo.YFB.getFundCode());
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		fundInfo.setDate(df.format(new Date()));
 		fundInfo = queryManager.getFundInfo(fundInfo);
 		return fundInfo;

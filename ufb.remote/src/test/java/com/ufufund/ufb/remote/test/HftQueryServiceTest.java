@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.remote.hft.BalanceQueryRequest;
 import com.ufufund.ufb.model.remote.hft.BalanceQueryResponse;
 import com.ufufund.ufb.model.remote.hft.TransQueryRequest;
@@ -37,8 +38,8 @@ public class HftQueryServiceTest {
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.TransQuery);
-		request.setApplicationNo("20150410QQ0002");
-		request.setTransactionAccountID("225000006320");
+		request.setApplicationNo("20150522QQ0001");
+		request.setTransactionAccountID("226000006703");
 //		request.setAppSheetSerialNo("cccc0000111");
 		request.setPageNo("1");
 		request.setPageSize("10");
@@ -61,9 +62,9 @@ public class HftQueryServiceTest {
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.BalanceQuery);
-		request.setApplicationNo("20150410QQ0003");
-		request.setTransactionAccountID("225000006320");
-		request.setFundCode("025020");
+		request.setApplicationNo("201505210QQ0001");
+		request.setTransactionAccountID("226000006703");
+		request.setFundCode(BasicFundinfo.YFB.getFundCode());
 		request.setPageNo("1");
 		request.setPageSize("10");
 		request.setShareClass("0");

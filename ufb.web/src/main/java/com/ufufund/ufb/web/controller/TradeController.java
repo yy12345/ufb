@@ -10,16 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
-import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.exception.SysException;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
+import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.ApplyVo;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.RedeemVo;
@@ -81,11 +81,11 @@ public class TradeController {
 		
 		try{
 			String custno = UserHelper.getCustno();
-			
 			vo.setCustno(custno);
-			vo.setFundcode(Constant.FundCode.YFB);
+			vo.setFundcode(BasicFundinfo.YFB.getFundCode());
 			vo.setFee(new BigDecimal("0.00"));
-			vo.setShareclass("0");
+			vo.setShareclass(BasicFundinfo.YFB.getShareClass());
+			vo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
 			
 			tradeManager.buyApply(vo);
 			
@@ -154,16 +154,17 @@ public class TradeController {
 			String custno = UserHelper.getCustno();
 			
 			vo.setCustno(custno);
-			vo.setFundcode(Constant.FundCode.YFB);
+			vo.setFundcode(BasicFundinfo.YFB.getFundCode());
 			vo.setFee(new BigDecimal("0.00"));
-			vo.setShareclass("0");
+			vo.setShareclass(BasicFundinfo.YFB.getShareClass());
+			vo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
 			
 			if("023".equals(vo.getApkind())){
 				tradeManager.redeem(vo);
 			}else if("024".equals(vo.getApkind())){
 				tradeManager.realRedeem(vo);
 			}else{
-				throw new BizException("异常交易！");
+				throw new SysException("异常交易！");
 			}
 			
 			model.addAttribute("APKIND", vo.getApkind());

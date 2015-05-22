@@ -48,7 +48,7 @@ public class TradeRequestMapperTest {
 		request.setTranst("N");
 		request.setPayst("N");
 		request.setShareclass("0");
-		request.setDividenttype("0");
+		request.setDividmethod("0");
 		request.setFee(new BigDecimal("1.15"));
 		request.setReferno("RRRR00001111");
 		

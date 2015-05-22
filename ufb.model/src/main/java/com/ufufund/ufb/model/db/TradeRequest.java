@@ -26,7 +26,7 @@ public class TradeRequest implements Serializable{
 	private String transt;               
 	private String payst ;               
 	private String shareclass;           
-	private String dividenttype;         
+	private String dividmethod;         
 	private BigDecimal fee  ;                
 	private String referno ;             
 	private String updatetime;
@@ -166,11 +166,11 @@ public class TradeRequest implements Serializable{
 	public void setShareclass(String shareclass) {
 		this.shareclass = shareclass;
 	}
-	public String getDividenttype() {
-		return dividenttype;
+	public String getDividmethod() {
+		return dividmethod;
 	}
-	public void setDividenttype(String dividenttype) {
-		this.dividenttype = dividenttype;
+	public void setDividmethod(String dividmethod) {
+		this.dividmethod = dividmethod;
 	}
 	public BigDecimal getFee() {
 		return fee;
@@ -201,7 +201,7 @@ public class TradeRequest implements Serializable{
 				+ ", appvol=" + appvol + ", ackamt=" + ackamt + ", ackvol="
 				+ ackvol + ", state=" + state + ", transt=" + transt
 				+ ", payst=" + payst + ", shareclass=" + shareclass
-				+ ", devidenttype=" + dividenttype + ", fee=" + fee
+				+ ", dividmethod=" + dividmethod + ", fee=" + fee
 				+ ", referno=" + referno + ", updatetime=" + updatetime + "]";
 	}           
 	
