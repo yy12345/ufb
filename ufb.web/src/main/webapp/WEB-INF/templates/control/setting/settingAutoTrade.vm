@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+<title>幼富通 - 账户管理 - 银行卡管理</title>
+-->
+<script>
+$(function(){
+
+	$(".set-main").on("click", function(){
+		$("#bankacco").val($(this).attr("bankacco"));
+		$("#form-settingCard").attr("action", "../setting/settingMainCard.htm");
+		$("#form-settingCard").submit();
+	});
+	
+	$(".set-unbind").on("click", function(){
+		if($(this).attr("total")>0 ||
+		   	$(this).attr("available")>0 ||
+		   	$(this).attr("realavailable")>0 ||
+		   	$(this).attr("frozen")>0 ){
+		   	alert("对不起，您的银行卡有资金交易，暂时不能解绑！");
+			return false;
+		}else{
+			alert("您确定要解绑你的银行卡吗？");
+			$("#bankacco").val($(this).attr("bankacco"));
+			$("#tradeacco").val($(this).attr("tradeacco"));
+			$("#form-settingCard").attr("action", "../setting/settingUnbindCard.htm");
+			$("#form-settingCard").submit();
+		}
+	});
+	
+	$(".set-active").on("click", function(){
+		$("#bankacco").val($(this).attr("bankacco"));
+		$("#form-settingCard").attr("action", "../setting/settingActiveCard.htm");
+		$("#form-settingCard").submit();
+	});
+	
+});
+</script>
+</head>
+<body>
+    <div class="body">
+    	<form id="form-settingCard" action="${ufbDomain}/setting/settingCard.htm" method="post">
+    	<input id="bankacco" name="bankacco" value="${bankacco}" type="hidden"/>
+		<input id="tradeacco" name="tradeacco" value="${tradeacco}" type="hidden"/>
+        <div class="inner clearfix">
+            <div class="title">
+                <h2 class="title-main">账户管理</h2>
+            </div>
+            <div class="side side-nav fl">
+                <ul>
+    				<li><a href="${staticDomain}/setting/settingAccount.htm">账户信息</a></li>
+                    <li><a href="${staticDomain}/setting/settingPassword.htm">密码设置</a></li>
+                    <li><a href="${staticDomain}/setting/settingCard.htm">银行卡管理</a></li>
+                    <li><a class="current" href="${staticDomain}/setting/settingAutoTrade.htm">自动理财设置</a></li>
+                </ul>
+            </div>
+            <div class="main fr">
+                 <div class="detail-list">
+                    <table width="100%">
+                        <thead>
+                        <tr>
+                            <td class="tc">时间</td>
+                            <td class="tc">金额</td>
+                            <td class="tc">充值周期</td>
+                            <td class="tc">下次充值日</td>
+                            <td class="tc">银行卡</td>
+							<td class="tc">备注</td>
+                            <td class="tc">操作</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+						#foreach($autotrade in $LIST)
+                        <tr>
+                            <td class="tc">20150525</td>
+							<td class="tc">${autotrade.autoamt}</td>
+							<td class="tc">${autotrade.cycle}</td>
+							<td class="tc">${autotrade.nextdate}</td>
+							<td class="tc">
+								#set($tailStr=$!{autotrade.frombankserialid})
+								#set($start=$tailStr.length() - 4)
+								#set($end=$tailStr.length())
+								${tradeRequest.banknm}[尾号$tailStr.substring($start,$end)]	
+							</td>
+							<td class="tc">${autotrade.summary}</td>
+                            <td class="tc"><a href="javascript:;">查看</a></td>
+                        </tr>
+						#end
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    	</form>
+    </div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+</body>
+</html>

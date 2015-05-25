@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
+import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.CustinfoVo;
@@ -443,6 +445,30 @@ public class SettingController {
 		}
 		ServletHolder.forward("/setting/settingCard.htm");
 		return "setting/settingCard";
+	}
+	
+	@Autowired
+	AutotradeManager autotradeManager;
+	
+	@RequestMapping(value="setting/settingAutoTrade")
+	public String setAutoTrade(String bankacco, Model model){
+		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				
+				// 获取自动充值计划列表
+				List<Autotrade> list = autotradeManager.getAutotrade(s_custinfo.getCustno());
+				model.addAttribute("LIST", list);
+				
+			} else{
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
+			}
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			return "setting/settingAutoTrade";
+		}
+		return "setting/settingAutoTrade";
 	}
 	
 }
