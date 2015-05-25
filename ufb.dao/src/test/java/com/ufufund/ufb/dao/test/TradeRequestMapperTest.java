@@ -19,10 +19,10 @@ import com.ufufund.ufb.model.db.TradeRequest;
 @TransactionConfiguration(defaultRollback = false)
 public class TradeRequestMapperTest {
 
-	@Autowired
+//	@Autowired
 	private TradeRequestMapper tradeRequestMapper;
 	
-	@Test
+//	@Test
 	public void testGet(){
 		String serialno = "SSSS00001111";
 		TradeRequest request = tradeRequestMapper.getBySerialno(serialno);

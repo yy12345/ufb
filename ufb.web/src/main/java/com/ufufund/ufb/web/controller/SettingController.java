@@ -334,7 +334,7 @@ public class SettingController {
 				// 获取交易账户列表
 				List<BankCardWithTradeAcco> tradeAccoList_N = 
 						bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "N");
-				if(null != tradeAccoList_N && tradeAccoList_Y.size() > 0){
+				if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
 					model.addAttribute("cardList_N", tradeAccoList_N);
 				} else {
 					model.addAttribute("cardList_N", null);

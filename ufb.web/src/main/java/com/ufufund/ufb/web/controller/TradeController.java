@@ -59,8 +59,10 @@ public class TradeController {
 			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
 			String profitArriveDay = DateUtil.getNextDay(nextWorkDay, 1);
 			
-			model.addAttribute("curCard", tradeAccoList.get(0));
-			model.addAttribute("cardList", tradeAccoList);
+			if(null != tradeAccoList && tradeAccoList.size() > 0){
+				model.addAttribute("curCard", tradeAccoList.get(0));
+				model.addAttribute("cardList", tradeAccoList);
+			}
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
@@ -92,6 +94,7 @@ public class TradeController {
 			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
+			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", PAGE_PAY_INDEX);
 			return "error/user_error";
@@ -171,6 +174,7 @@ public class TradeController {
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
+			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
 			return "error/user_error";
