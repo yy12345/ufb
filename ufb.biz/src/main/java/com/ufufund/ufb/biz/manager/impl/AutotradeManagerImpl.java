@@ -11,6 +11,7 @@ import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.AutotradeManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.AutoTradeManagerValidator;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.AutotradeMapper;
 import com.ufufund.ufb.dao.BankMapper;
@@ -62,7 +63,29 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	
 	@Override
 	public String getNextdate(String cycle, String dat) throws BizException {
-		// TODO Auto-generated method stub
+		String processId = this.getProcessId("");
+		if(dat==null || "".equals(dat) || Integer.parseInt(dat)<0 || Integer.parseInt(dat)>31){
+			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR); //-----------------------
+		}
+		if(Constant.Autotrade.CYCLE$MM.equals(cycle)){
+			 String systime = workDayManager.getSysTime();
+			 String nextdate = DateUtil.getDateByMM(systime, dat);
+			 if(workDayManager.isWorkDay(nextdate)){
+				 return nextdate;
+			 }else{
+				 /* 当前日期的 下个工作日  */
+				 return "";
+			 }
+			
+		}else if(Constant.Autotrade.CYCLE$WW.equals(cycle)){
+		
+			
+		}else if(Constant.Autotrade.CYCLE$DD.equals(cycle)){
+			
+			
+		}else{
+			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR); //-----------------------
+		}
 		return "20150921";
 	}
 	

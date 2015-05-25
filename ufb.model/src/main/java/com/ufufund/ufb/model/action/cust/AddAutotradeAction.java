@@ -16,7 +16,7 @@ public class AddAutotradeAction extends CommonAction {
 	//private String state;// char(1) default null comment 'N:正常 C：删除 P：暂停  ',
 	private Apkind apkind;// char(3) default null comment '业务类型', AUTO开头业务类型
 	private String type;// char(1) default null comment '类型 S单次，E多次',
-	private String cycle;// char(2) default null comment 'MM=每月；WW=每周;DD 每隔多少天；',
+	private String cycle;// char(2) default null comment 'MM=每月；WW=每周;DD 每隔多少天； 如果当天非工作日，自动推迟到下个工作日 ',
 	private String dat;// char(2) default null comment '扣款日',
 	private String frombankserialid;// char(24) default null comment '源银行卡id',
 	//private int    fromaccoid;// int(11) default null comment '源交易账号编号',

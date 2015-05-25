@@ -34,6 +34,10 @@ public interface Constant {
 	public static interface Autotrade {
 		public final static String STATE$N = "N";
 		public final static String STATE$P = "P";
+		
+		public final static String CYCLE$MM = "MM";
+		public final static String CYCLE$WW = "WW";
+		public final static String CYCLE$DD = "DD";
 		// public final static String DICTIONARY$SYS = "SYS";
 		// public final static String DICTIONARY$HTFERROR = "HFTERROR";
 		// public final static String DICTIONARY$HFTBANKNO = "HFTBANKNO";

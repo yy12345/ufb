@@ -9,6 +9,6 @@
    	</select>
 	
   	<select id="getSerialNO" resultType="java.lang.String">
-		select getSequence('CUSTINFO_SEQ')
+		select getSequence('FDACFINALRESULT_SEQ')
    	</select>
 </mapper>

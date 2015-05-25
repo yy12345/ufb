@@ -53,4 +53,9 @@ public interface WorkDayManager {
 	 * @return
 	 */
 	public Today getSysDayInfo();
+	
+	
+	
+	
+	
 }
