@@ -241,18 +241,19 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 			// **** 变更表
 			tradeNotesMapper.insterChangerecordinfo(changerecordinfo1);
 		}		
-		
+		Today today = workDayManager.getSysDayInfo();
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
 		tradeaccoinfo.setCustno(openAccountAction.getCustno());// char(10) not null comment '客户编号',
 		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// char(2) not null default '' comment '交易账号类型：归属基金公司',
 		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
 		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionAccountID());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
+		tradeaccoinfo.setOpendt(today.getWorkday());
 		bankCardMapper.insterTradeaccoinfo(tradeaccoinfo);
 
 		// *** 插入流水表
 		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//helper.toFdacfinalresult(custinfo);
 		fdacfinalresult.setCustno(custinfo.getCustno());
-		Today today = workDayManager.getSysDayInfo();
+		
 		fdacfinalresult.setToBankserialid(bankcardinfodef.getSerialid());
 		fdacfinalresult.setToTradeaccoid(openAccountAction.getTransactionAccountID());
 		fdacfinalresult.setWorkdate(today.getWorkday());
