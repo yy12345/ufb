@@ -127,8 +127,8 @@ public class TradeManagerHelper {
 		tradeQutyChg.setAppdate(vo.getAppdate());
 		tradeQutyChg.setWorkdate(vo.getWorkday());
 		tradeQutyChg.setFundcode(vo.getFundcode());
-		tradeQutyChg.setAvailable(vo.getAppamt());
-		tradeQutyChg.setFrozen(BigDecimal.ZERO);
+		tradeQutyChg.setAvailable(BigDecimal.ZERO);
+		tradeQutyChg.setFrozen(vo.getAppamt());
 		tradeQutyChg.setOldserialno(vo.getSerialno());
 		return tradeQutyChg;
 	}
@@ -210,7 +210,7 @@ public class TradeManagerHelper {
 		tradeQutyChg.setAppdate(vo.getAppdate());
 		tradeQutyChg.setWorkdate(vo.getWorkday());
 		tradeQutyChg.setFundcode(vo.getFundcode());
-		tradeQutyChg.setAvailable(BigDecimal.ZERO);
+		tradeQutyChg.setAvailable(BigDecimal.ZERO.subtract(vo.getAppvol()));
 		tradeQutyChg.setFrozen(vo.getAppvol());
 		tradeQutyChg.setOldserialno(vo.getSerialno());
 		return tradeQutyChg;
