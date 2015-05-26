@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.manager.QueryManager;
-import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.dao.FundBalanceMapper;
 import com.ufufund.ufb.dao.FundInfoMapper;
 import com.ufufund.ufb.dao.TradeQutyChgMapper;
@@ -23,6 +22,7 @@ import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
+import com.ufufund.ufb.model.vo.Today;
 import com.ufufund.ufb.model.vo.TradeAccoVo;
 import com.ufufund.ufb.remote.HftQueryService;
 
@@ -49,120 +49,36 @@ public class QueryManagerImpl implements QueryManager{
 	public TradeAccoVo queryAssets(String tradeAcco){
 		TradeAccoVo result = new TradeAccoVo();
 		
-		/** 本地查询 **/
-		TradeQutyChg tradeQutyChg = new TradeQutyChg();
-//		// 当日份额变动充值(所有)
-//		tradeQutyChg.setTradeacco(tradeAcco);
-//		tradeQutyChg.setFundcode(Constant.FundCode.YFB);
-//		tradeQutyChg.setApkind(null);
-//		tradeQutyChg.setWorkdate(null);
-//		BigDecimal asset_all = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
-//		if(null == asset_all){
-//			asset_all = new BigDecimal(0); 
-//		}
-		// 当日份额变动充值(取现)
-		tradeQutyChg.setTradeacco(tradeAcco);
-		tradeQutyChg.setFundcode(BasicFundinfo.YFB.getFundCode());
-		tradeQutyChg.setApkind("023");
-		tradeQutyChg.setWorkdate(null);
-		// 当日份额变动 023 取现
-		TradeQutyChg quty = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
-		BigDecimal asset_023 = new BigDecimal(0);
-		if(null != quty){
-			asset_023 = quty.getFrozen();
-		}
-		// 当日份额变动充值(快速取现)
-		tradeQutyChg.setTradeacco(tradeAcco);
-		tradeQutyChg.setFundcode(BasicFundinfo.YFB.getFundCode());
-		tradeQutyChg.setApkind("024");
-		tradeQutyChg.setWorkdate(null);
-		// 当日份额变动 024 快速取现
-		quty = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
-		BigDecimal asset_024 = new BigDecimal(0);
-		if(null != quty){
-			asset_024 = quty.getAvailable();
-		}
-		// 当日份额变动充值(充值)
-		tradeQutyChg.setTradeacco(tradeAcco);
-		tradeQutyChg.setFundcode(BasicFundinfo.YFB.getFundCode());
-		tradeQutyChg.setApkind("022");
-		tradeQutyChg.setWorkdate(null);
-		// 当日份额变动 022 快速取现
-		quty = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
-		BigDecimal asset_022 = new BigDecimal(0);
-		if(null != quty){
-			asset_022 = quty.getAvailable();
-		}
-		// 昨日份额
+		// 已确认份额
 		FundBalance fundBalance = new FundBalance();
 		fundBalance.setTradeacco(tradeAcco);
 		fundBalance.setFundcode(BasicFundinfo.YFB.getFundCode());
-		fundBalance.setCustno(null);
 		fundBalance = fundBalanceMapper.getFundBalance(fundBalance);
-		BigDecimal total = new BigDecimal(0.00); // 总份额
-		BigDecimal available = new BigDecimal(0.00); // 用户当前可用份额
-		BigDecimal realavailable = new BigDecimal(0.00); //快取份额
+		TradeQutyChg tradeQutyChg = new TradeQutyChg();
+		// 变动份额（因T+1日终确认，可能包含2个工作日的变动）
+		tradeQutyChg.setTradeacco(tradeAcco);
+		tradeQutyChg.setFundcode(BasicFundinfo.YFB.getFundCode());
+		TradeQutyChg qutyChg = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
+	
+		// 资产累计
+		BigDecimal available = new BigDecimal(0.00); // 可用份额
 		BigDecimal frozen = new BigDecimal(0.00); //冻结份额
-		if(null != fundBalance){
-			total = fundBalance.getTotalfundvol(); // 总份额
-			available = fundBalance.getAvailablevol(); // 用户当前可用份额
-			frozen = fundBalance.getTotalfrozenvol(); //冻结份额
-			if(null == total){
-				total = new BigDecimal(0);
-			}
-			if(null == available){
-				available = new BigDecimal(0);
-			}
-			if(null == frozen){
-				frozen = new BigDecimal(0);
-			}
+		// 已确认份额
+		if(fundBalance != null){
+			available = fundBalance.getAvailablevol();
+			frozen = fundBalance.getTotalfrozenvol(); 
 		}
-		//总资产 = 历史  + 充值 + 快取
-		result.setTotal(total.add(asset_022).add(asset_024));  
-		//可取资产 = 历史  + 充值 + 取现 + 快取
-		result.setAvailable(available.add(asset_022).subtract(asset_023).add(asset_024)); 
-		//快速可取资产 = 历史 + 取现 + 快取
-		realavailable = available.subtract(asset_023).add(asset_024);
-		if(realavailable.compareTo(BigDecimal.ZERO) < 0){
-			realavailable = new BigDecimal(0);
+		// 当日变动
+		if(qutyChg != null){
+			available = available.add(qutyChg.getAvailable());
+			frozen = frozen.add(qutyChg.getFrozen());
 		}
-		result.setRealavailable(realavailable);
-		//冻结资产 = 历史 + 取现
-		result.setFrozen(frozen.add(asset_023));
 		
-//		/** 走接口查询 **/
-//		BalanceQueryRequest request = new BalanceQueryRequest();
-//		request.setVersion(Constant.HftSysConfig.Version);
-//		request.setMerchantId(Constant.HftSysConfig.MerchantId);
-//		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-//		request.setBusinType(Constant.HftBusiType.BalanceQuery);
-//		request.setApplicationNo(SequenceUtil.getSerial());
-//		request.setTransactionAccountID(tradeAcco);
-//		request.setFundCode(Constant.FundCode.YFB);
-//		request.setPageNo("1");
-//		request.setPageSize("10");
-//		request.setShareClass("0");
-//		
-//		BalanceQueryResponse response = hftQueryService.balanceQuery(request);
-//		
-//		/** 处理交易执行结果  **/
-//		if(response == null 
-//				|| !Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
-//			// 执行失败，处理返回异常码
-//			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-//					+", <Failed>查询份额失败：serialno="+request.getApplicationNo()+", tradeAcco="+request.getTransactionAccountID());
-//			HftResponseUtil.dealResponseCode(response);
-//		}else {
-//			// 执行成功 
-//			List<BalanceQueryAsset> balanceList = response.getAssets();
-//			for(BalanceQueryAsset asset : balanceList){
-//				LOG.debug("asset="+asset);
-//				result.setTotal(result.getTotal().add(asset.getTotalFundVol()));
-//				result.setAvailable(result.getAvailable().add(asset.getAvailableVol()));
-//				result.setFrozen(result.getFrozen().add(asset.getTotalFrozenVol()));
-//			}
-//		}
-		
+		// 总资产 = 可用  + 冻结
+		result.setTotal(available.add(frozen));  
+		result.setAvailable(available);
+		result.setRealavailable(available);  // 暂时设置与available一致
+		result.setFrozen(frozen);
 		return result;
 	}
 
