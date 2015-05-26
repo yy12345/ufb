@@ -64,7 +64,6 @@ public class TradeRequestMapperTest {
 		request.setSerialno("SSSS00001111");
 		request.setSheetserialno("SHEE00001111");
 		request.setAckdate("20150413");
-		request.setAcktime("230122");
 		request.setAckamt(new BigDecimal("100.15"));
 		request.setAckvol(new BigDecimal("100.15"));
 		request.setState("Y");

@@ -7,16 +7,16 @@
 	<sql id="Base_Columns">
 		SERIALNO     ,
 		SHEETSERIALNO,
+		TASERIALNO   ,
 		CUSTNO       ,
 		FUNDCORPNO   ,
 		TRADEACCO    ,
+		FUNDCODE     ,
+		APKIND       ,
+		WORKDAY      ,
 		APPDATE      ,
 		APPTIME      ,
 		ACKDATE      ,
-		ACKTIME      ,
-		WORKDAY      ,
-		APKIND       ,
-		FUNDCODE     ,
 		APPAMT       ,
 		APPVOL       ,
 		ACKAMT       ,
@@ -39,17 +39,17 @@
 	<insert id="add" parameterType="TradeRequest">
   	 	insert into traderequest values(
   	 		#{serialno,jdbcType=VARCHAR},        
-			#{sheetserialno,jdbcType=VARCHAR},        
+			#{sheetserialno,jdbcType=VARCHAR}, 
+			#{taserialno,jdbcType=VARCHAR},        
 			#{custno,jdbcType=VARCHAR},        
 			#{fundcorpno,jdbcType=VARCHAR},        
-			#{tradeacco,jdbcType=VARCHAR},        
+			#{tradeacco,jdbcType=VARCHAR},      
+			#{fundcode ,jdbcType=VARCHAR},        
+			#{apkind,jdbcType=VARCHAR},          
+			#{workday,jdbcType=VARCHAR},       
 			#{appdate,jdbcType=VARCHAR},        
 			#{apptime,jdbcType=VARCHAR},        
-			#{ackdate,jdbcType=VARCHAR},        
-			#{acktime,jdbcType=VARCHAR},        
-			#{workday,jdbcType=VARCHAR},        
-			#{apkind,jdbcType=VARCHAR},        
-			#{fundcode ,jdbcType=VARCHAR},        
+			#{ackdate,jdbcType=VARCHAR},         
 			#{appamt,jdbcType=VARCHAR},        
 			#{appvol,jdbcType=VARCHAR},        
 			#{ackamt,jdbcType=VARCHAR},        
@@ -77,15 +77,6 @@
 		</if>
 		<if test="ackdate != null">
 			ackdate = #{ackdate,jdbcType=VARCHAR}, 
-		</if>
-		<if test="acktime != null">
-			acktime = #{acktime,jdbcType=VARCHAR}, 
-		</if>
-		<if test="ackamt != null">
-			ackamt = #{ackamt,jdbcType=DECIMAL}, 
-		</if>
-		<if test="ackvol != null">
-			ackvol = #{ackvol,jdbcType=DECIMAL}, 
 		</if>
 		<if test="state != null">
 			state = #{state,jdbcType=VARCHAR}, 

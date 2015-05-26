@@ -7,17 +7,17 @@ public class TradeRequest implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String serialno;             
-	private String sheetserialno;        
+	private String sheetserialno;
+	private String taserialno;
 	private String custno;               
 	private String fundcorpno;           
-	private String tradeacco;            
+	private String tradeacco;              
+	private String fundcode;              
+	private String apkind ;               
+	private String workday;            
 	private String appdate;              
 	private String apptime;              
-	private String ackdate;              
-	private String acktime;              
-	private String workday;              
-	private String apkind ;              
-	private String fundcode;             
+	private String ackdate;            
 	private BigDecimal appamt;               
 	private BigDecimal appvol;               
 	private BigDecimal ackamt;               
@@ -33,19 +33,6 @@ public class TradeRequest implements Serializable{
 	private String banknm;
 	private String bankacco;
 	
-	public String getBanknm() {
-		return banknm;
-	}
-	public void setBanknm(String banknm) {
-		this.banknm = banknm;
-	}
-	
-	public String getBankacco() {
-		return bankacco;
-	}
-	public void setBankacco(String bankacco) {
-		this.bankacco = bankacco;
-	}
 	public String getSerialno() {
 		return serialno;
 	}
@@ -57,6 +44,12 @@ public class TradeRequest implements Serializable{
 	}
 	public void setSheetserialno(String sheetserialno) {
 		this.sheetserialno = sheetserialno;
+	}
+	public String getTaserialno() {
+		return taserialno;
+	}
+	public void setTaserialno(String taserialno) {
+		this.taserialno = taserialno;
 	}
 	public String getCustno() {
 		return custno;
@@ -76,6 +69,24 @@ public class TradeRequest implements Serializable{
 	public void setTradeacco(String tradeacco) {
 		this.tradeacco = tradeacco;
 	}
+	public String getFundcode() {
+		return fundcode;
+	}
+	public void setFundcode(String fundcode) {
+		this.fundcode = fundcode;
+	}
+	public String getApkind() {
+		return apkind;
+	}
+	public void setApkind(String apkind) {
+		this.apkind = apkind;
+	}
+	public String getWorkday() {
+		return workday;
+	}
+	public void setWorkday(String workday) {
+		this.workday = workday;
+	}
 	public String getAppdate() {
 		return appdate;
 	}
@@ -93,30 +104,6 @@ public class TradeRequest implements Serializable{
 	}
 	public void setAckdate(String ackdate) {
 		this.ackdate = ackdate;
-	}
-	public String getAcktime() {
-		return acktime;
-	}
-	public void setAcktime(String acktime) {
-		this.acktime = acktime;
-	}
-	public String getWorkday() {
-		return workday;
-	}
-	public void setWorkday(String workday) {
-		this.workday = workday;
-	}
-	public String getApkind() {
-		return apkind;
-	}
-	public void setApkind(String apkind) {
-		this.apkind = apkind;
-	}
-	public String getFundcode() {
-		return fundcode;
-	}
-	public void setFundcode(String fundcode) {
-		this.fundcode = fundcode;
 	}
 	public BigDecimal getAppamt() {
 		return appamt;
@@ -190,19 +177,32 @@ public class TradeRequest implements Serializable{
 	public void setUpdatetime(String updatetime) {
 		this.updatetime = updatetime;
 	}
+	public String getBanknm() {
+		return banknm;
+	}
+	public void setBanknm(String banknm) {
+		this.banknm = banknm;
+	}
+	public String getBankacco() {
+		return bankacco;
+	}
+	public void setBankacco(String bankacco) {
+		this.bankacco = bankacco;
+	}
 	@Override
 	public String toString() {
 		return "TradeRequest [serialno=" + serialno + ", sheetserialno="
-				+ sheetserialno + ", custno=" + custno + ", fundcorpno="
-				+ fundcorpno + ", tradeacco=" + tradeacco + ", appdate="
-				+ appdate + ", apptime=" + apptime + ", ackdate=" + ackdate
-				+ ", acktime=" + acktime + ", workday=" + workday + ", apkind="
-				+ apkind + ", fundcode=" + fundcode + ", appamt=" + appamt
-				+ ", appvol=" + appvol + ", ackamt=" + ackamt + ", ackvol="
-				+ ackvol + ", state=" + state + ", transt=" + transt
-				+ ", payst=" + payst + ", shareclass=" + shareclass
+				+ sheetserialno + ", taserialno=" + taserialno + ", custno="
+				+ custno + ", fundcorpno=" + fundcorpno + ", tradeacco="
+				+ tradeacco + ", fundcode=" + fundcode + ", apkind=" + apkind
+				+ ", workday=" + workday + ", appdate=" + appdate
+				+ ", apptime=" + apptime + ", ackdate=" + ackdate + ", appamt="
+				+ appamt + ", appvol=" + appvol + ", ackamt=" + ackamt
+				+ ", ackvol=" + ackvol + ", state=" + state + ", transt="
+				+ transt + ", payst=" + payst + ", shareclass=" + shareclass
 				+ ", dividmethod=" + dividmethod + ", fee=" + fee
-				+ ", referno=" + referno + ", updatetime=" + updatetime + "]";
-	}           
+				+ ", referno=" + referno + ", updatetime=" + updatetime
+				+ ", banknm=" + banknm + ", bankacco=" + bankacco + "]";
+	}
 	
 }
