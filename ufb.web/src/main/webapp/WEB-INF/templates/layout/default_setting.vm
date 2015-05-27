@@ -2,7 +2,7 @@
 <html>
 #parse("control/common/head_0.vm")
 <body>	
-<div class="container setting">
+<div id="container" class="container setting">
 #parse("control/common/header_0_setting.vm")
 $body
 #parse("control/common/footer_1.vm")

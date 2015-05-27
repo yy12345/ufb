@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+<title>幼富通 - 账户管理 - 银行卡管理</title>
+-->
+<script>
+$(function(){
+
+	$("#container").removeClass("setting");
+
+	// 金额表单控制
+	$("#autoamt").on("blur", function(){
+		var autoamt = formatCurrency1($("#autoamt").val());
+		if(autoamt == '0.00'){
+			$("#autoamt").val('');
+			showTips($(this), "请输入正确格式的金额，比如1000.00！");
+		}else{
+			$("#autoamt").val(autoamt);
+		}
+	});
+	
+	// 点击银行卡
+	$(".card").on("click", function(){
+		$("#fromtradeacco").val($(this).attr("tradeacco"));
+	});
+	
+	// 表单提交时，验证	
+	$("#submit").on("click", function(){
+		if(!check_cash($("#autoamt"))){
+			return false;
+		}
+		$(".common-form").attr("action","../setting/addAutoTradeConfirm.htm");
+	});
+});
+</script>
+</head>
+<body>
+<div class="body">
+    <div class="inner clearfix">
+        <div class="title clearfix">
+            <h2 class="title-main fl">账户管理 | 新增自动充值计划</h2>
+        </div>
+        <div class="notice"></div>
+        
+        <div class="form-payInto">
+            <form class="common-form" action="${ufbDomain}/setting/addAutoTrade.htm" method="post">
+                ${refreshTools.genInputHtml()}
+				<input id="fromtradeacco" name="fromtradeacco" value="${curCard.tradeacco}" type="hidden"/>
+				<ul>
+                    <li class="clearfix">
+                        <span class="form-title">银行选择</span>
+                        <div class="input-select">
+                            <div class="card card-current">
+								#set($tailStr=$curCard.bankacco)
+								#set($start=$tailStr.length() - 4)
+								#set($end=$tailStr.length())
+                                <img src="${staticDomain}/images/bank_${curCard.bankno}.png">
+                                <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
+                            </div>
+                            <div class="input-options">
+                                <div class="card-list clearfix">
+									#foreach($card in $cardList)
+                                    <a class="card" href="javascript:;" 
+										tradeacco="${card.tradeacco}">
+										#set($tailStr=$card.bankacco)
+										#set($start=$tailStr.length() - 4)
+										#set($end=$tailStr.length())
+										<img src="${staticDomain}/images/bank_${card.bankno}.png">
+                                        <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
+                                    </a>
+									#end
+                                </div>
+                            </div>
+                        </div>
+                        <span class="tips-normal"></span>
+                        <span class="tips-check"><i class="icon"></i>验证提示</span>
+                    </li>
+                    <li>
+                        <span class="form-title">充值金额</span>
+                        <input id="autoamt" name="autoamt" class="ipt-autoamt input-text" maxlength="11" type="text" value="">元
+                        <span class="tips-normal"></span>
+                        <span id="appamtTips" class="tips-check"><i class="icon"></i>验证提示</span>
+                    </li>
+					<li>
+                        <span class="form-title">充值时间 每月</span>
+                        <input id="dat" name="dat" class="ipt-dat input-text" maxlength="2" type="text" value="">日
+                        <span class="tips-normal"></span>
+                        <span id="appamtTips" class="tips-check"><i class="icon"></i>验证提示</span>
+                    </li>
+					<li>
+                        <span class="form-title">备注</span>
+                        <input id="summary" name="summary" class="ipt-summary input-text" maxlength="50" type="text" value="">
+                        <span class="tips-normal"></span>
+                        <span id="appamtTips" class="tips-check"><i class="icon"></i>验证提示</span>
+                    </li>
+                    <li>
+                        <input id="submit" class="input-button ok" type="submit" value="下一步">
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+<script src="${staticDomain}/js/scripts/register.js"></script>
+<script src="${staticDomain}/js/ufuCommon.js"></script>
+</body>
+</html>

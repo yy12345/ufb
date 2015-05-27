@@ -28,27 +28,27 @@
 	background: #fff;
 }
 /*
- *@ Name:       Î´Öª¸ß¶È´¹Ö±¾ÓÖÐ×é¼þ
+ *@ Name:       Î´Öªï¿½ß¶È´ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  *@ Author:     Ò»Ë¿
  *@ Update:     2013-10-13 17:08:36
- *@ Usage:      Ö§³ÖÍ¼Æ¬£¬µ¥ÐÐ»ò¶àÐÐÎÄ×Ö£¬ÒÔ¼°Í¼ÎÄ»ìÅÅ
+ *@ Usage:      Ö§ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½Ô¼ï¿½Í¼ï¿½Ä»ï¿½ï¿½ï¿½
  */
 
-/* È¥³ý inline-block µÄ¿ÕÏ¶ */
+/* È¥ï¿½ï¿½ inline-block ï¿½Ä¿ï¿½Ï¶ */
 .center-box {
 	font-size: 0;
-	*word-spacing: -1px; /* IE6¡¢7 */
-	height: 100%; /* ¼Ì³Ð¸¸¼¶¸ß¶È */
+	*word-spacing: -1px; /* IE6ï¿½ï¿½7 */
+	height: 100%; /* ï¿½Ì³Ð¸ï¿½ï¿½ï¿½ï¿½ß¶ï¿½ */
 }
 
-/* ÐÞ¸´ Safari 5- inline-block µÄ¿ÕÏ¶ */
+/* ï¿½Þ¸ï¿½ Safari 5- inline-block ï¿½Ä¿ï¿½Ï¶ */
 @media (-webkit-min-device-pixel-ratio:0) {
 	.center-box {
 		letter-spacing: -5px;
 	}
 }
 
-/* Ê¹ÓÃ¿Õ±êÇ©Éú³ÉÒ»¸ö¸ß¶È100%µÄ²ÎÕÕÔªËØ */
+/* Ê¹ï¿½Ã¿Õ±ï¿½Ç©ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ß¶ï¿½100%ï¿½Ä²ï¿½ï¿½ï¿½Ôªï¿½ï¿½ */
 .center-box .center-hack {
 	display: inline-block;
 	*display: inline;
@@ -66,11 +66,11 @@
 	*display: inline;
 	*zoom: 1;
 	font-size: 14px;
-	vertical-align: middle; /* ±£Ö¤ÎÄ×Ö´¹Ö±¾ÓÖÐ */
-	padding: 0 !important; /* ·ÀÖ¹ÉèÖÃ±ß¾àµ¼ÖÂ¾ÓÖÐÊ§Ð§ */
+	vertical-align: middle; /* ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½Ö´ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ */
+	padding: 0 !important; /* ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½Ã±ß¾àµ¼ï¿½Â¾ï¿½ï¿½ï¿½Ê§Ð§ */
 	margin: 0 !important;
-	width: 100%; /* ±£Ö¤Á¬Ðø×Ö·ûÒ²ÄÜ¾ÓÖÐ */
-	white-space: normal; /* ±£Ö¤Á¬Ðø×Ö·û»»ÐÐ */
+	width: 100%; /* ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½Ò²ï¿½Ü¾ï¿½ï¿½ï¿½ */
+	white-space: normal; /* ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ */
 	word-wrap: break-word;
 }
 
@@ -79,14 +79,14 @@
 	*display: inline;
 	*zoom: 1;
 	width: 100%;
-	text-align: center; /* Í¼Æ¬Ä¬ÈÏË®Æ½¾ÓÖÐ */
+	text-align: center; /* Í¼Æ¬Ä¬ï¿½ï¿½Ë®Æ½ï¿½ï¿½ï¿½ï¿½ */
 	vertical-align: middle;
-	padding: 0 !important; /* ·ÀÖ¹ÉèÖÃ±ß¾àµ¼ÖÂ¾ÓÖÐÊ§Ð§ */
+	padding: 0 !important; /* ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½Ã±ß¾àµ¼ï¿½Â¾ï¿½ï¿½ï¿½Ê§Ð§ */
 	margin: 0 !important;
 }
 
 .center-box img {
-	vertical-align: middle; /* È¥³ýÏÖ´úä¯ÀÀÆ÷ img µ×²¿¿ÕÏ¶ */
+	vertical-align: middle; /* È¥ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ img ï¿½×²ï¿½ï¿½ï¿½Ï¶ */
 }
 /* transform */
 .slide-in {

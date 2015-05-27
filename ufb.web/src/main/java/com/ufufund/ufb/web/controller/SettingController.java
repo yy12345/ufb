@@ -19,13 +19,18 @@ import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
+import com.ufufund.ufb.biz.manager.TradeAccoManager;
+import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.exception.UserException;
+import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.vo.Assets;
+import com.ufufund.ufb.model.vo.AutotradeVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.model.vo.Today;
 import com.ufufund.ufb.model.vo.TradeAccoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
@@ -450,8 +455,14 @@ public class SettingController {
 	@Autowired
 	AutotradeManager autotradeManager;
 	
+	@Autowired
+	TradeAccoManager tradeAccoManager;
+	
+	@Autowired
+	WorkDayManager workDayManager;
+	
 	@RequestMapping(value="setting/settingAutoTrade")
-	public String setAutoTrade(String bankacco, Model model){
+	public String setAutoTrade(Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
@@ -464,11 +475,80 @@ public class SettingController {
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
 			}
+			model.addAttribute("SessionVo", s_custinfo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingAutoTrade";
 		}
 		return "setting/settingAutoTrade";
 	}
+	
+
+	@RequestMapping(value="setting/addAutoTrade")
+	public String addAutoTrade(Model model){
+		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){String custno = UserHelper.getCustno();
+			// 获取交易账户列表
+			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+			
+			// 获取工作日信息等
+			Today today = workDayManager.getSysDayInfo();
+			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
+			String profitArriveDay = DateUtil.getNextDay(nextWorkDay, 1);
+			
+			if(null != tradeAccoList && tradeAccoList.size() > 0){
+				model.addAttribute("curCard", tradeAccoList.get(0));
+				model.addAttribute("cardList", tradeAccoList);
+			}
+			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			
+			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());} else{
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
+			}
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			return "setting/settingAutoTrade";
+		}
+		return "setting/addAutoTrade";
+	}
+	
+	@RequestMapping(value="setting/addAutoTradeConfirm")
+	public String addAutoTradeConfirm(AutotradeVo autotradeVo, Model model){
+		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){String custno = UserHelper.getCustno();
+			// 获取交易账户列表
+			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+			
+			// 获取工作日信息等
+			Today today = workDayManager.getSysDayInfo();
+			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
+			String profitArriveDay = DateUtil.getNextDay(nextWorkDay, 1);
+			
+			if(null != tradeAccoList && tradeAccoList.size() > 0){
+				model.addAttribute("curCard", tradeAccoList.get(0));
+				model.addAttribute("cardList", tradeAccoList);
+			}
+			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			
+			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());} else{
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
+			}
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			return "setting/settingAutoTrade";
+		}
+		return "setting/addAutoTrade";
+	}
+	
 	
 }

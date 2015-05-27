@@ -14,6 +14,10 @@ import com.ufufund.ufb.model.action.PrintableModel;
 public class Autotrade extends PrintableModel implements Serializable {
 
 	private static final long serialVersionUID = -6338092203128112153L;
+	
+	private String bankacco;
+	private String banknm;
+	
 	private String autoid;// char(24) default '' comment 'ID',
 	private String autoname;// varchar(50) default '' comment '自动交易名称',
 	private String custno;// char(24) default '' comment '客户编号',
@@ -45,7 +49,33 @@ public class Autotrade extends PrintableModel implements Serializable {
 	private String summary;// varchar(100) default null comment '备注',
 	//  `createtime` timestamp null default null on update current_timestamp comment '创建时间',
 	//  `updatetime` timestamp null default null on update current_timestamp comment '跟新时间'
+	private String createtime;
+	private String updatetime;
 	
+	public String getBankacco() {
+		return bankacco;
+	}
+	public void setBankacco(String bankacco) {
+		this.bankacco = bankacco;
+	}
+	public String getBanknm() {
+		return banknm;
+	}
+	public void setBanknm(String banknm) {
+		this.banknm = banknm;
+	}
+	public String getCreatetime() {
+		return createtime;
+	}
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
+	}
+	public String getUpdatetime() {
+		return updatetime;
+	}
+	public void setUpdatetime(String updatetime) {
+		this.updatetime = updatetime;
+	}
 	public String getAutoid() {
 		return autoid;
 	}

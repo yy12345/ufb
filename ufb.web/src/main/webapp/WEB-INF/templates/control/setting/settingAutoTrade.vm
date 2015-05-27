@@ -40,9 +40,7 @@ $(function(){
 </head>
 <body>
     <div class="body">
-    	<form id="form-settingCard" action="${ufbDomain}/setting/settingCard.htm" method="post">
-    	<input id="bankacco" name="bankacco" value="${bankacco}" type="hidden"/>
-		<input id="tradeacco" name="tradeacco" value="${tradeacco}" type="hidden"/>
+    	<form id="form-settingAutoTrade" action="${ufbDomain}/setting/settingAutoTrade.htm" method="post">
         <div class="inner clearfix">
             <div class="title">
                 <h2 class="title-main">账户管理</h2>
@@ -56,9 +54,15 @@ $(function(){
                 </ul>
             </div>
             <div class="main fr">
-                 <div class="detail-list">
-                    <table width="100%">
-                        <thead>
+				<div>
+					<span style="display:block;margin:10px">自动充值计划</span>
+				</div>
+				<!--f3f3f1-->
+				<a href="#" style="display:float;margin:0px 0px 10px 20px;background-color:">进行中</a>
+				<a href="${staticDomain}/setting/addAutoTrade.htm" style="text-decoration:underline;display:float;margin:0px 0px 10px 20px;background-color:">添加自动充值计划</a>
+                <div class="detail-list" style="width:700px;margin:10px 0px 20px 20px">
+					<table width="100%" style="border: 2px solid #ddd">
+						<thead>
                         <tr>
                             <td class="tc">时间</td>
                             <td class="tc">金额</td>
@@ -72,7 +76,10 @@ $(function(){
                         <tbody>
 						#foreach($autotrade in $LIST)
                         <tr>
-                            <td class="tc">20150525</td>
+                            <td class="tc">
+								#set($updatetime=$!{autotrade.updatetime})
+								$updatetime.substring(0,10)
+							</td>
 							<td class="tc">${autotrade.autoamt}</td>
 							<td class="tc">${autotrade.cycle}</td>
 							<td class="tc">${autotrade.nextdate}</td>
@@ -80,7 +87,7 @@ $(function(){
 								#set($tailStr=$!{autotrade.frombankserialid})
 								#set($start=$tailStr.length() - 4)
 								#set($end=$tailStr.length())
-								${tradeRequest.banknm}[尾号$tailStr.substring($start,$end)]	
+								${autotrade.banknm}[尾号$tailStr.substring($start,$end)]	
 							</td>
 							<td class="tc">${autotrade.summary}</td>
                             <td class="tc"><a href="javascript:;">查看</a></td>
@@ -89,6 +96,50 @@ $(function(){
                         </tbody>
                     </table>
                 </div>
+				
+				
+				<a href="#" style="display:float;margin:0px 0px 10px 20px;background-color:">已终止</a>
+                <div class="detail-list" style="width:700px;margin-left:20px;margin-top:10px;padding:0px 0px 20px 0px">
+					<table width="100%" style="border: 2px solid #ddd">
+						<thead>
+                        <tr>
+                            <td class="tc">时间</td>
+                            <td class="tc">金额</td>
+                            <td class="tc">充值周期</td>
+                            <td class="tc">下次充值日</td>
+                            <td class="tc">银行卡</td>
+							<td class="tc">备注</td>
+                            <td class="tc">操作</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+						<tr>
+                            <td class="tc">2015-05-26
+							</td>
+							<td class="tc">100</td>
+							<td class="tc">MM</td>
+							<td class="tc">20150601</td>
+							<td class="tc">工商银行[尾号0001]
+							</td>
+							<td class="tc">Test2</td>
+                            <td class="tc"><a href="javascript:;">查看</a></td>
+                        </tr>
+						<tr>
+                            <td class="tc">2015-05-26
+							</td>
+							<td class="tc">100</td>
+							<td class="tc">MM</td>
+							<td class="tc">20150602</td>
+							<td class="tc">工商银行[尾号0001]
+							</td>
+							<td class="tc">Test2</td>
+                            <td class="tc"><a href="javascript:;">查看</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+				
+				
             </div>
         </div>
     	</form>
