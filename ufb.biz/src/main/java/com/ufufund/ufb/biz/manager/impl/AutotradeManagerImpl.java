@@ -53,6 +53,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		}
 		Autotrade autotrade = AutotradeManagerHelper.toAutotrade(action);
 		autotrade.setState(Constant.Autotrade.STATE$N);
+		autotrade.setAutoid(seq);
 		/*
 		 * 根据业务获取冗余字段
 		 */

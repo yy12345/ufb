@@ -17,15 +17,6 @@ public class Fdacfinalresult extends PrintableModel  implements Serializable {
 	private String  apdt;//char(8) not null comment '申请日期',
 	private String  aptm;// char(6) not null comment '申请时间',
 	private String  status="Y";// char(1) not null comment '状态',
-	//private String  updatetimestamp;//timestamp not null default current_timestamp on update current_timestamp comment '更新时间'
-	
-	
-//	private String  toTradeaccoid;// varchar(24) not null comment '交易账号',
-//	private String  toBankserialid;//varchar(24) not null comment '银行账号',
-//	private String  tofundCode;//varchar(24) not null comment '银行账号',
-//	private String  fromTradeaccoid;// varchar(24) not null comment '交易账号',
-//	private String  fromBankserialid;//varchar(24) not null comment '银行账号',
-//	private String  fromFundCode;//varchar(24) not null comment '银行账号',
 	
 	private String  frombankserialid;// varchar(24) default null comment '银行卡id',
 	private String  fromaccoid;// int(11) default null comment '交易账号编号',
@@ -45,6 +36,10 @@ public class Fdacfinalresult extends PrintableModel  implements Serializable {
 	private BigDecimal ackamt;//` decimal(16,2) default null comment '确认金额',
 	private BigDecimal ackvol;//` decimal(16,2) default null comment '确认份额',
 //	private String  fundcorpno;
+	
+	private String autoid;// char(24) default '' comment 'ID',
+	private String orserialno;
+	
 	
 	public String getSerialno() {
 		return serialno;
@@ -190,6 +185,18 @@ public class Fdacfinalresult extends PrintableModel  implements Serializable {
 	}
 	public void setTochargetype(String tochargetype) {
 		this.tochargetype = tochargetype;
+	}
+	public String getAutoid() {
+		return autoid;
+	}
+	public void setAutoid(String autoid) {
+		this.autoid = autoid;
+	}
+	public String getOrserialno() {
+		return orserialno;
+	}
+	public void setOrserialno(String orserialno) {
+		this.orserialno = orserialno;
 	}
 	
 

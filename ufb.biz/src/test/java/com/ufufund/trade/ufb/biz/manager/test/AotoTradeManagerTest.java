@@ -128,6 +128,9 @@ public class AotoTradeManagerTest {
 		action.setAppvol(new BigDecimal(2));//` decimal(16,2) default null comment '申请份额',
 		action.setAckamt(new BigDecimal(3));//` decimal(16,2) default null comment '确认金额',
 		action.setAckvol(new BigDecimal(4));//` decimal(16,2) default null comment '确认份额',
+		
+		action.setAutoid("K");
+		action.setOrserialno("N");
 		tradeNotesMapper.insterFdacfinalresult(action);
 //		System.out.println(tradeaccoinfo.toString());	
 	}
@@ -136,29 +139,29 @@ public class AotoTradeManagerTest {
 	 * 
 	 * 测试addAutotrade
 	 */
-	//@Test
-//	public void testaddAutotrade(){
-//		AddAutotradeAction action = new AddAutotradeAction();
-//		action.setAutoname("Autoname");// varchar(50) default '' comment '自动交易名称',
-//		action.setCustno("CU150525200833FWWIJWN8W1");// char(24) default '' comment '客户编号',
-//		action.setApkind(Apkind.AUTORECHARGE);// char(3) default null comment '业务类型', AUTO开头业务类型
-//		action.setType("S");// char(1) default null comment '类型 S单次，E多次',
-//		action.setCycle("MM");// char(2) default null comment 'MM=每月；WW=每周;DD 每隔多少天； 如果当天非工作日，自动推迟到下个工作日 ',
-//		action.setDat("30");// char(2) default null comment '扣款日',
-//		action.setFrombankserialid("BA150525200833N39QNSNNZ1");// char(24) default null comment '源银行卡id',
+	@Test
+	public void testaddAutotrade(){
+		AddAutotradeAction action = new AddAutotradeAction();
+		action.setAutoname("Autoname");// varchar(50) default '' comment '自动交易名称',
+		action.setCustno("CU150525200833FWWIJWN8W1");// char(24) default '' comment '客户编号',
+		action.setApkind(Apkind.AUTORECHARGE);// char(3) default null comment '业务类型', AUTO开头业务类型
+		action.setType("S");// char(1) default null comment '类型 S单次，E多次',
+		action.setCycle("MM");// char(2) default null comment 'MM=每月；WW=每周;DD 每隔多少天； 如果当天非工作日，自动推迟到下个工作日 ',
+		action.setDat("30");// char(2) default null comment '扣款日',
+		action.setFrombankserialid("BA150525200833N39QNSNNZ1");// char(24) default null comment '源银行卡id',
 //		action.setFromfundcode("000002");// varchar(6) default null comment '源基金代码',
 //		action.setFromfundcorpno("02");// char(24) default null comment '源归属基金公司',
 //		action.setFromchargetype("B");// char(1) default null comment '源A：前收费 B：后收费',
 //		action.setTobankserialid("XXX");// char(24) default null comment '目标银行卡id',
-//		action.setTofundcode("000001");// varchar(6) default null comment '目标基金代码',
-//		action.setTofundcorpno("01");// char(24) default null comment '目标归属基金公司',
-//		action.setTochargetype("A");// char(1) default null comment '目标A：前收费 B：后收费',
-//		action.setAutoamt(new BigDecimal(1000));// decimal(16,2) default null comment '金额',
+		action.setTofundcode("000001");// varchar(6) default null comment '目标基金代码',
+		action.setTofundcorpno("01");// char(24) default null comment '目标归属基金公司',
+		action.setTochargetype("A");// char(1) default null comment '目标A：前收费 B：后收费',
+		action.setAutoamt(new BigDecimal(1000));// decimal(16,2) default null comment '金额',
 //		action.setAutovol(new BigDecimal(2000));// decimal(16,2) default null comment '份额',
-//		action.setSummary("自动充值测试");// varchar(100) default null comment '备注',
-//		autotradeManager.addAutotrade(action);
-////		System.out.println(tradeaccoinfo.toString());	
-//	}
+		action.setSummary("自动充值测试");// varchar(100) default null comment '备注',
+		autotradeManager.addAutotrade(action);
+//		System.out.println(tradeaccoinfo.toString());	
+	}
 	
 	
 	

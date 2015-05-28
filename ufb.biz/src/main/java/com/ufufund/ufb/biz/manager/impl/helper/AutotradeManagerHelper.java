@@ -1,5 +1,7 @@
 package com.ufufund.ufb.biz.manager.impl.helper;
 
+import java.math.BigDecimal;
+
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
@@ -49,15 +51,21 @@ public  class AutotradeManagerHelper {
 		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
 		fdacfinalresult.setCustno(vo.getCustno());
 		fdacfinalresult.setApkind(vo.getApkind());
-		
-//		fdacfinalresult.setFundcorpno(vo.getFundcorpno());
-//		fdacfinalresult.setFromTradeaccoid(vo.getTradeacco());
-//		fdacfinalresult.setFromBankserialid(vo.getBankid());
-//		fdacfinalresult.setTofundCode(vo.getFundcode());
-//		fdacfinalresult.setAppamt(vo.getAppamt());
-//		fdacfinalresult.setAppvol(vo.getAppvol());
-//		fdacfinalresult.setStatus("I");
-//		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+		fdacfinalresult.setFrombankserialid(vo.getFrombankserialid());// varchar(24) default null comment '银行卡id',
+		fdacfinalresult.setFromaccoid(vo.getFromaccoid());// int(11) default null comment '交易账号编号',
+		fdacfinalresult.setFromtradeacco(vo.getFromtradeacco());// varchar(17) default null comment '交易账号',
+		fdacfinalresult.setFromfundcode(vo.getFromfundcode());// varchar(6) default null comment '基金代码',
+		fdacfinalresult.setFromfundcorpno(vo.getFromfundcorpno());// varchar(24) default null comment '归属基金公司',
+		fdacfinalresult.setFromchargetype(vo.getFromchargetype());// varchar(1) default null comment 'A：前收费 B：后收费',
+		fdacfinalresult.setTobankserialid(vo.getTobankserialid());// varchar(24) default null,
+		fdacfinalresult.setToaccoid(vo.getToaccoid());// int(11) default null,
+		fdacfinalresult.setTotradeacco(vo.getTotradeacco());// varchar(17) default null,
+		fdacfinalresult.setTofundcode(vo.getTofundcode());// varchar(6) default null comment '基金代码',
+		fdacfinalresult.setTofundcorpno(vo.getTofundcorpno());// varchar(24) default null,
+		fdacfinalresult.setTochargetype(vo.getTochargetype());// varchar(1) default null,
+		fdacfinalresult.setAppamt(vo.getAutoamt());//` decimal(16,2) default null comment '申请金额',
+		fdacfinalresult.setAppvol(vo.getAutovol());//` decimal(16,2) default null comment '申请份额',
+		fdacfinalresult.setAutoid(vo.getAutoid());//` decimal(16,2) default null comment '申请份额',
 		return fdacfinalresult;
 	}
 	
