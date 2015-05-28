@@ -9,22 +9,6 @@ $(function(){
 
 	$("#container").removeClass("setting");
 
-	// 金额表单控制
-	$("#autoamt").on("blur", function(){
-		var autoamt = formatCurrency1($("#autoamt").val());
-		if(autoamt == '0.00'){
-			$("#autoamt").val('');
-			showTips($(this), "请输入正确格式的金额，比如1000.00！");
-		}else{
-			$("#autoamt").val(autoamt);
-		}
-	});
-	
-	// 点击银行卡
-	$(".card").on("click", function(){
-		$("#fromtradeacco").val($(this).attr("tradeacco"));
-	});
-	
 	// 表单提交时，验证	
 	$("#submit").on("click", function(){
 		if(!check_cash($("#autoamt"))){
@@ -46,18 +30,16 @@ $(function(){
         <div class="form-payInto">
             <form class="common-form" action="${ufbDomain}/setting/addAutoTradeSubmit.htm" method="post">
 				custno: <input id="custno" name="custno" value="${AutoTradeVo.custno}" type="text"/>
-				</br>fromfundcorpno: <input id="fromfundcorpno" name="fromfundcorpno" value="${AutoTradeVo.fromfundcorpno}" type="text"/>
 				</br>apkind: <input id="apkind" name="apkind" value="${AutoTradeVo.apkind}" type="text"/>
-				
-				</br>fromfundcode: <input id="fromfundcode" name="fromfundcode" value="${AutoTradeVo.fromfundcode}" type="text"/>
 				</br>cycle: <input id="cycle" name="cycle" value="${AutoTradeVo.cycle}" type="text"/>
 				</br>dat: <input id="dat" name="dat" value="${AutoTradeVo.dat}" type="text"/>
-				</br>frombankserialid: <input id="frombankserialid" name="frombankserialid" value="${AutoTradeVo.frombankserialid}" type="text"/>
-				</br>fromtradeacco: <input id="fromtradeacco" name="fromtradeacco" value="${AutoTradeVo.fromtradeacco}" type="text"/>
 				</br>autoamt: <input id="autoamt" name="autoamt" value="${AutoTradeVo.autoamt}" type="text"/>
 				</br>nextdate: <input id="nextdate" name="nextdate" value="${AutoTradeVo.nextdate}" type="text"/>
 				</br>summary: <input id="summary" name="summary" value="${AutoTradeVo.summary}" type="text"/>
-				
+				</br>tofundcorpno: <input id="tofundcorpno" name="tofundcorpno" value="${AutoTradeVo.tofundcorpno}" type="text"/>
+				</br>tofundcode: <input id="tofundcode" name="tofundcode" value="${AutoTradeVo.tofundcode}" type="text"/>
+				</br>tobankserialid: <input id="tobankserialid" name="tobankserialid" value="${AutoTradeVo.tobankserialid}" type="text"/>
+				</br>totradeacco: <input id="totradeacco" name="totradeacco" value="${AutoTradeVo.totradeacco}" type="text"/>
 				<ul>
                   
                     <li>

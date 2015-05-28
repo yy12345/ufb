@@ -84,7 +84,7 @@ $(function(){
 							<td class="tc">${autotrade.cycle}</td>
 							<td class="tc">${autotrade.nextdate}</td>
 							<td class="tc">
-								#set($tailStr=$!{autotrade.frombankserialid})
+								#set($tailStr=$!{autotrade.tobankacco})
 								#set($start=$tailStr.length() - 4)
 								#set($end=$tailStr.length())
 								${autotrade.banknm}[尾号$tailStr.substring($start,$end)]	

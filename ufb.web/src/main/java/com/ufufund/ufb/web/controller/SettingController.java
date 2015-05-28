@@ -530,8 +530,8 @@ public class SettingController {
 				autotradeVo.setCustno(s_custinfo.getCustno());
 //				autotradeVo.setApkind(Apkind.AUTORECHARGE.getValue());
 				autotradeVo.setCycle("MM");
-				autotradeVo.setFromfundcode(BasicFundinfo.YFB.getFundCode());
-				autotradeVo.setFromfundcorpno(Constant.HftSysConfig.HftFundCorpno);
+				autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
+				autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
 				
 				String nextdate = autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
 				autotradeVo.setNextdate(nextdate);
@@ -548,7 +548,7 @@ public class SettingController {
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingAutoTrade";
 		}
-		return "setting/settingAutoTradeConfirm";
+		return "setting/addAutoTradeConfirm";
 	}
 	
 	@RequestMapping(value="setting/addAutoTradeSubmit")
@@ -561,20 +561,19 @@ public class SettingController {
 				
 				action.setCustno(autotradeVo.getCustno());
 				action.setApkind(Apkind.AUTORECHARGE);
-//				action.setType("");
+				action.setType("E");
 				action.setCycle(autotradeVo.getCycle());
 				action.setDat(autotradeVo.getDat());
-//				action.setfromtradeacco
-				action.setFrombankserialid(autotradeVo.getFrombankserialid());
-//				action.setfromaccoid
-				action.setFromfundcode(autotradeVo.getFromfundcode());
-				action.setFromfundcorpno(autotradeVo.getFromfundcorpno());
-//				action.setFromchargetype("");
-				
+				action.setTofundcorpno(autotradeVo.getTofundcorpno());
+				action.setTofundcode(autotradeVo.getTofundcode());
+				action.setTochargetype("A");
+				action.setTobankserialid(autotradeVo.getTobankserialid());				
+				action.setTobankacco(autotradeVo.getTobankacco());
+				action.setToaccoid(autotradeVo.getToaccoid());
+				action.setTotradeacco(autotradeVo.getTotradeacco());
 				action.setAutoamt(autotradeVo.getAutoamt());
-//				action.setnextdate
+				action.setNextdate(autotradeVo.getNextdate());
 				action.setSummary(autotradeVo.getSummary());
-				
 				
 				autotradeManager.addAutotrade(action);
 				
@@ -586,7 +585,7 @@ public class SettingController {
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			return "setting/settingAutoTradeConfirm";
+			return "setting/addAutoTradeConfirm";
 		}
 		ServletHolder.forward("/setting/settingAutoTrade.htm");
 		return "setting/settingAutoTrade";
