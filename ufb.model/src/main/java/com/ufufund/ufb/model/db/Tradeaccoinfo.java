@@ -11,7 +11,7 @@ public class Tradeaccoinfo extends PrintableModel implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int accoid;// varchar(24) not null comment '交易账号编号(本地生成的)',
+	private String accoid;// varchar(24) not null comment '交易账号编号(本地生成的)',
 	private String custno;// char(10) not null comment '客户编号',
 	private String fundcorpno;// char(2) not null default '' comment '交易账号类型：归属基金公司',
 	private String bankserialid;// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
@@ -76,12 +76,13 @@ public class Tradeaccoinfo extends PrintableModel implements Serializable {
 		this.closedt = closedt;
 	}
 
-	public int getAccoid() {
+	public String getAccoid() {
 		return accoid;
 	}
 
-	public void setAccoid(int accoid) {
+	public void setAccoid(String accoid) {
 		this.accoid = accoid;
 	}
 
+	
 }

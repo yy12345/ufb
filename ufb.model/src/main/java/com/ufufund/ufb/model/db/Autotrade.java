@@ -27,7 +27,7 @@ public class Autotrade extends PrintableModel implements Serializable {
 	private String cycle;// char(2) default null comment 'MM=每月；WW=每周;DD 每隔多少天；如果当天非工作日，自动推迟到下个工作日 ',
 	private String dat;// char(2) default null comment '扣款日',
 	private String frombankserialid;// char(24) default null comment '源银行卡id',
-	private int    fromaccoid;// int(11) default null comment '源交易账号编号',
+	private String fromaccoid;// int(11) default null comment '源交易账号编号',
 	private String fromtradeacco;// varchar(17) default null comment '源交易账号',
 	
 	private String fromfundcode;// varchar(6) default null comment '源基金代码',
@@ -35,7 +35,7 @@ public class Autotrade extends PrintableModel implements Serializable {
 	private String fromchargetype;// char(1) default null comment '源A：前收费 B：后收费',
 	
 	private String tobankserialid;// char(24) default null comment '目标银行卡id',
-	private int    toaccoid;// int(11) default null comment '目标交易账号编号',
+	private String    toaccoid;// int(11) default null comment '目标交易账号编号',
 	private String totradeacco;// varchar(17) default null comment '目标交易账号',
 	
 	private String tofundcode;// varchar(6) default null comment '目标基金代码',
@@ -216,18 +216,19 @@ public class Autotrade extends PrintableModel implements Serializable {
 	public void setTochargetype(String tochargetype) {
 		this.tochargetype = tochargetype;
 	}
-	public int getFromaccoid() {
+	public String getFromaccoid() {
 		return fromaccoid;
 	}
-	public void setFromaccoid(int fromaccoid) {
+	public void setFromaccoid(String fromaccoid) {
 		this.fromaccoid = fromaccoid;
 	}
-	public int getToaccoid() {
+	public String getToaccoid() {
 		return toaccoid;
 	}
-	public void setToaccoid(int toaccoid) {
+	public void setToaccoid(String toaccoid) {
 		this.toaccoid = toaccoid;
 	}
+
 	
 	
 	

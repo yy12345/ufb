@@ -2,6 +2,8 @@ package com.ufufund.ufb.biz.manager.impl.helper;
 
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.db.Autotrade;
+import com.ufufund.ufb.model.db.Fdacfinalresult;
+import com.ufufund.ufb.model.enums.Apkind;
 
 
 public  class AutotradeManagerHelper {
@@ -39,6 +41,26 @@ public  class AutotradeManagerHelper {
 		return reaction;
 	}
 
+	public static Fdacfinalresult toFdacfinalresult(Autotrade vo){
+		/*
+		 * 写交易流水 
+		 * 没有更新交易流水
+		 */
+		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
+		fdacfinalresult.setCustno(vo.getCustno());
+		fdacfinalresult.setApkind(vo.getApkind());
+		
+//		fdacfinalresult.setFundcorpno(vo.getFundcorpno());
+//		fdacfinalresult.setFromTradeaccoid(vo.getTradeacco());
+//		fdacfinalresult.setFromBankserialid(vo.getBankid());
+//		fdacfinalresult.setTofundCode(vo.getFundcode());
+//		fdacfinalresult.setAppamt(vo.getAppamt());
+//		fdacfinalresult.setAppvol(vo.getAppvol());
+//		fdacfinalresult.setStatus("I");
+//		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+		return fdacfinalresult;
+	}
+	
 //	public Custinfo toOpenAccountAction(OpenAccountAction openAccountAction){
 //		Custinfo custinfo = new Custinfo();
 //		custinfo.setCustno(openAccountAction.getCustno());

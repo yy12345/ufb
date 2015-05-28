@@ -15,13 +15,16 @@ import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.AutotradeMapper;
 import com.ufufund.ufb.dao.BankMapper;
+import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.cust.ChangeAutoStateAction;
 import com.ufufund.ufb.model.action.cust.ModifyAutotradeAction;
 import com.ufufund.ufb.model.db.Autotrade;
+import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
+import com.ufufund.ufb.model.vo.Today;
 
 
 @Service
@@ -34,11 +37,11 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	private AutoTradeManagerValidator autoTradeManagerValidator;
 	@Autowired
 	private WorkDayManager workDayManager;
-//	@Autowired
-//	private CustManagerHelper custManagerHelper;
-
 	@Autowired
 	private BankMapper bankMapper;
+	@Autowired
+	private TradeNotesMapper tradeNotesMapper;
+	
 //	
 	@Override
 	public void addAutotrade(AddAutotradeAction action) throws BizException {
@@ -59,34 +62,42 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		if(n!=1){
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
+		Fdacfinalresult fdacfinalresult = AutotradeManagerHelper.toFdacfinalresult(autotrade);
+		fdacfinalresult.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		Today today = workDayManager.getSysDayInfo();
+		fdacfinalresult.setWorkdate(today.getWorkday());
+		fdacfinalresult.setApdt(today.getDate());
+		fdacfinalresult.setAptm(today.getTime());
+		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+		
 	}
 	
 	@Override
 	public String getNextdate(String cycle, String dat) throws BizException {
 		String processId = this.getProcessId("");
-		if(dat==null || "".equals(dat) || Integer.parseInt(dat)<0 || Integer.parseInt(dat)>31){
-			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR); //-----------------------
+		if(dat==null || "".equals(dat)){
+			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR); 
 		}
+		String systime = workDayManager.getSysTime();
+		String nextdate = "";
 		if(Constant.Autotrade.CYCLE$MM.equals(cycle)){
-			 String systime = workDayManager.getSysTime();
-			 String nextdate = DateUtil.getDateByMM(systime, dat);
-			 if(workDayManager.isWorkDay(nextdate)){
-				 return nextdate;
-			 }else{
-				 /* 当前日期的 下个工作日  */
-				 return "";
-			 }
-			
+			 nextdate = DateUtil.getDateByMM(systime, dat);		 
 		}else if(Constant.Autotrade.CYCLE$WW.equals(cycle)){
-		
-			
+			 nextdate = DateUtil.getDateByWW(systime, dat);		 
 		}else if(Constant.Autotrade.CYCLE$DD.equals(cycle)){
-			
-			
+			nextdate = DateUtil.getDateByDD(systime, dat);		
 		}else{
-			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR); //-----------------------
+			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR); 
 		}
-		return "20150921";
+		if("".equals(nextdate)){
+			return nextdate;
+		}
+		if(workDayManager.isWorkDay(nextdate)){
+			 return nextdate;
+		}else{
+			 /* 当前日期的 下个工作日  */
+			 return "20150921";
+		}
 	}
 	
 	@Override
@@ -146,15 +157,15 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	
 	
 	private Autotrade getOtherInfo(Apkind apkind,Autotrade autotrade) {
+		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
+		tradeaccoinfo.setCustno(autotrade.getCustno());
 		if(apkind.equals(Apkind.AUTORECHARGE)){
-			Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
 			tradeaccoinfo.setBankserialid(autotrade.getFrombankserialid());
 			tradeaccoinfo.setFundcorpno(autotrade.getTofundcorpno());
 			tradeaccoinfo = bankMapper.getTradeaccoinfo(tradeaccoinfo);
 			autotrade.setFromaccoid(tradeaccoinfo.getAccoid());
 			autotrade.setFromtradeacco(tradeaccoinfo.getTradeacco());			
 		}else if(apkind.equals(Apkind.AUTOWITHDRAWAL)){
-			Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
 			tradeaccoinfo.setBankserialid(autotrade.getTobankserialid());
 			tradeaccoinfo.setFundcorpno(autotrade.getFromfundcorpno());
 			tradeaccoinfo = bankMapper.getTradeaccoinfo(tradeaccoinfo);

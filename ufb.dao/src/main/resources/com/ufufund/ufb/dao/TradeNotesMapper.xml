@@ -36,19 +36,26 @@
 		    
 		    APTM,
 		    STATUS,
-		    FROM_TRADEACCOID,
 		    FROM_BANKSERIALID,
-		    FROM_FUNDCODE,
+		    FROM_ACCOID,
+		    FROM_TRADEACCO,
 		    
-		    TO_TRADEACCOID,
+		    FROM_FUNDCODE,
+		    FROM_FUNDCORPNO,
+		    FROM_CHARGETYPE,
 		    TO_BANKSERIALID,
+		    TO_ACCOID,
+		    
+		    TO_TRADEACCO,
 		    TO_FUNDCODE,
+		    TO_FUNDCORPNO,
+		    TO_CHARGETYPE,
 		    APPAMT,
+		    
   			APPVOL,
+  			ACKAMT,	
+  			ACKVOL
   			
-  			ACKAMT,
-  			ACKVOL,
-  			FUNDCORPNO
 		    )
 		values (
 			#{serialno,jdbcType=VARCHAR},
@@ -59,19 +66,25 @@
 			
 			#{aptm,jdbcType=VARCHAR},
 			#{status,jdbcType=VARCHAR},
-			#{fromTradeaccoid,jdbcType=VARCHAR},
-			#{fromBankserialid,jdbcType=VARCHAR},
-			#{fromFundCode,jdbcType=VARCHAR},
+			#{frombankserialid,jdbcType=VARCHAR},
+			#{fromaccoid,jdbcType=VARCHAR},
+			#{fromtradeacco,jdbcType=VARCHAR},
 			
-			#{toTradeaccoid,jdbcType=VARCHAR},
-			#{toBankserialid,jdbcType=VARCHAR},
-			#{tofundCode,jdbcType=VARCHAR},
+			#{fromfundcode,jdbcType=VARCHAR},
+			#{fromfundcorpno,jdbcType=VARCHAR},
+			#{fromchargetype,jdbcType=VARCHAR},
+			#{tobankserialid,jdbcType=VARCHAR},
+			#{toaccoid,jdbcType=VARCHAR},
+			
+			#{totradeacco,jdbcType=VARCHAR},
+			#{tofundcode,jdbcType=VARCHAR},
+			#{tofundcorpno,jdbcType=VARCHAR},
+			#{tochargetype,jdbcType=VARCHAR},
 			#{appamt,jdbcType=VARCHAR},
-			#{appvol,jdbcType=VARCHAR},
 			
+			#{appvol,jdbcType=VARCHAR},
 			#{ackamt,jdbcType=VARCHAR},
-			#{ackvol,jdbcType=VARCHAR},
-			#{fundcorpno,jdbcType=VARCHAR}
+			#{ackvol,jdbcType=VARCHAR}
 			)
 	 ]]>
   	</insert>

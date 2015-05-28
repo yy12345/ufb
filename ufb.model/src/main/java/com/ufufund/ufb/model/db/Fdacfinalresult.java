@@ -18,18 +18,33 @@ public class Fdacfinalresult extends PrintableModel  implements Serializable {
 	private String  aptm;// char(6) not null comment '申请时间',
 	private String  status="Y";// char(1) not null comment '状态',
 	//private String  updatetimestamp;//timestamp not null default current_timestamp on update current_timestamp comment '更新时间'
-	private String  toTradeaccoid;// varchar(24) not null comment '交易账号',
-	private String  toBankserialid;//varchar(24) not null comment '银行账号',
-	private String  tofundCode;//varchar(24) not null comment '银行账号',
-	private String  fromTradeaccoid;// varchar(24) not null comment '交易账号',
-	private String  fromBankserialid;//varchar(24) not null comment '银行账号',
-	private String  fromFundCode;//varchar(24) not null comment '银行账号',
+	
+	
+//	private String  toTradeaccoid;// varchar(24) not null comment '交易账号',
+//	private String  toBankserialid;//varchar(24) not null comment '银行账号',
+//	private String  tofundCode;//varchar(24) not null comment '银行账号',
+//	private String  fromTradeaccoid;// varchar(24) not null comment '交易账号',
+//	private String  fromBankserialid;//varchar(24) not null comment '银行账号',
+//	private String  fromFundCode;//varchar(24) not null comment '银行账号',
+	
+	private String  frombankserialid;// varchar(24) default null comment '银行卡id',
+	private String  fromaccoid;// int(11) default null comment '交易账号编号',
+	private String  fromtradeacco;// varchar(17) default null comment '交易账号',
+	private String  fromfundcode;// varchar(6) default null comment '基金代码',
+	private String  fromfundcorpno;// varchar(24) default null comment '归属基金公司',
+	private String  fromchargetype;// varchar(1) default null comment 'A：前收费 B：后收费',
+	private String  tobankserialid;// varchar(24) default null,
+	private String  toaccoid;// int(11) default null,
+	private String  totradeacco;// varchar(17) default null,
+	private String  tofundcode;// varchar(6) default null comment '基金代码',
+	private String  tofundcorpno;// varchar(24) default null,
+	private String  tochargetype;// varchar(1) default null,
 	
 	private BigDecimal appamt;//` decimal(16,2) default null comment '申请金额',
 	private BigDecimal appvol;//` decimal(16,2) default null comment '申请份额',
 	private BigDecimal ackamt;//` decimal(16,2) default null comment '确认金额',
 	private BigDecimal ackvol;//` decimal(16,2) default null comment '确认份额',
-	private String  fundcorpno;
+//	private String  fundcorpno;
 	
 	public String getSerialno() {
 		return serialno;
@@ -74,42 +89,6 @@ public class Fdacfinalresult extends PrintableModel  implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getToTradeaccoid() {
-		return toTradeaccoid;
-	}
-	public void setToTradeaccoid(String toTradeaccoid) {
-		this.toTradeaccoid = toTradeaccoid;
-	}
-	public String getToBankserialid() {
-		return toBankserialid;
-	}
-	public void setToBankserialid(String toBankserialid) {
-		this.toBankserialid = toBankserialid;
-	}
-	public String getTofundCode() {
-		return tofundCode;
-	}
-	public void setTofundCode(String tofundCode) {
-		this.tofundCode = tofundCode;
-	}
-	public String getFromTradeaccoid() {
-		return fromTradeaccoid;
-	}
-	public void setFromTradeaccoid(String fromTradeaccoid) {
-		this.fromTradeaccoid = fromTradeaccoid;
-	}
-	public String getFromBankserialid() {
-		return fromBankserialid;
-	}
-	public void setFromBankserialid(String fromBankserialid) {
-		this.fromBankserialid = fromBankserialid;
-	}
-	public String getFromFundCode() {
-		return fromFundCode;
-	}
-	public void setFromFundCode(String fromFundCode) {
-		this.fromFundCode = fromFundCode;
-	}
 	public BigDecimal getAppamt() {
 		return appamt;
 	}
@@ -134,11 +113,83 @@ public class Fdacfinalresult extends PrintableModel  implements Serializable {
 	public void setAckvol(BigDecimal ackvol) {
 		this.ackvol = ackvol;
 	}
-	public String getFundcorpno() {
-		return fundcorpno;
+//	public String getFundcorpno() {
+//		return fundcorpno;
+//	}
+//	public void setFundcorpno(String fundcorpno) {
+//		this.fundcorpno = fundcorpno;
+//	}
+	public String getFrombankserialid() {
+		return frombankserialid;
 	}
-	public void setFundcorpno(String fundcorpno) {
-		this.fundcorpno = fundcorpno;
+	public void setFrombankserialid(String frombankserialid) {
+		this.frombankserialid = frombankserialid;
+	}
+	public String getFromaccoid() {
+		return fromaccoid;
+	}
+	public void setFromaccoid(String fromaccoid) {
+		this.fromaccoid = fromaccoid;
+	}
+	public String getFromtradeacco() {
+		return fromtradeacco;
+	}
+	public void setFromtradeacco(String fromtradeacco) {
+		this.fromtradeacco = fromtradeacco;
+	}
+	public String getFromfundcode() {
+		return fromfundcode;
+	}
+	public void setFromfundcode(String fromfundcode) {
+		this.fromfundcode = fromfundcode;
+	}
+	public String getFromfundcorpno() {
+		return fromfundcorpno;
+	}
+	public void setFromfundcorpno(String fromfundcorpno) {
+		this.fromfundcorpno = fromfundcorpno;
+	}
+	public String getFromchargetype() {
+		return fromchargetype;
+	}
+	public void setFromchargetype(String fromchargetype) {
+		this.fromchargetype = fromchargetype;
+	}
+	public String getTobankserialid() {
+		return tobankserialid;
+	}
+	public void setTobankserialid(String tobankserialid) {
+		this.tobankserialid = tobankserialid;
+	}
+	public String getToaccoid() {
+		return toaccoid;
+	}
+	public void setToaccoid(String toaccoid) {
+		this.toaccoid = toaccoid;
+	}
+	public String getTotradeacco() {
+		return totradeacco;
+	}
+	public void setTotradeacco(String totradeacco) {
+		this.totradeacco = totradeacco;
+	}
+	public String getTofundcode() {
+		return tofundcode;
+	}
+	public void setTofundcode(String tofundcode) {
+		this.tofundcode = tofundcode;
+	}
+	public String getTofundcorpno() {
+		return tofundcorpno;
+	}
+	public void setTofundcorpno(String tofundcorpno) {
+		this.tofundcorpno = tofundcorpno;
+	}
+	public String getTochargetype() {
+		return tochargetype;
+	}
+	public void setTochargetype(String tochargetype) {
+		this.tochargetype = tochargetype;
 	}
 	
 

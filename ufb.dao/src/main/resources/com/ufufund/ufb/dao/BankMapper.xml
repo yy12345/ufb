@@ -57,6 +57,7 @@
 	<insert id="insterTradeaccoinfo" parameterType="com.ufufund.ufb.model.db.Tradeaccoinfo">
   	 <![CDATA[
 	 	insert into tradeaccoinfo (
+			  ACCOID,
 			  CUSTNO,
 			  FUNDCORPNO,
 			  BANKSERIALID,
@@ -67,7 +68,7 @@
 			  UPDATETIME				
 		)
 		values (
-					
+					getSequence('TRADEACCOINFO_SEQ'),
 					#{custno,jdbcType=VARCHAR},
 					#{fundcorpno,jdbcType=VARCHAR},
 					#{bankserialid,jdbcType=VARCHAR},
@@ -179,7 +180,7 @@
 	
 	<select id="getTradeaccoinfo" parameterType="com.ufufund.ufb.model.db.Tradeaccoinfo" resultType="com.ufufund.ufb.model.db.Tradeaccoinfo">
 		SELECT
-			tradeaccoinfo.TRADEACCOID,
+			tradeaccoinfo.ACCOID,
 			tradeaccoinfo.CUSTNO,
 			tradeaccoinfo.FUNDCORPNO,
 			tradeaccoinfo.BANKSERIALID,
@@ -192,7 +193,7 @@
 			tradeaccoinfo
 		WHERE 
 		<if test="accoid != null and accoid !=''" >
-			tradeaccoinfo.TRADEACCOID = #{accoid,jdbcType=INTEGER} AND
+			tradeaccoinfo.ACCOID = #{accoid,jdbcType=INTEGER} AND
 		</if>
   		<if test="custno != null and custno !=''" >
   		 	tradeaccoinfo.CUSTNO = #{custno,jdbcType=VARCHAR} AND
@@ -203,12 +204,12 @@
   		<if test="bankserialid != null and bankserialid !=''" >
   		 	tradeaccoinfo.BANKSERIALID = #{bankserialid,jdbcType=VARCHAR} AND
   		</if>
-	     	autotrade.STATE &lt;&gt; 'C'
+  		 1 = 1
   	</select>
   	
   	<select id="isTradeaccoinfoBind" parameterType="com.ufufund.ufb.model.action.cust.OpenAccountAction" resultType="java.lang.String">
 		SELECT
-			tradeaccoinfo.TRADEACCOID
+			tradeaccoinfo.ACCOID
 		FROM
 			tradeaccoinfo, bankcardinfo
 		WHERE 

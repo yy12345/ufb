@@ -124,22 +124,25 @@ public class DateUtil {
 	 * @param dat 日期
 	 * @return
 	 */
-	public static String getDateByMM(String systime,String dat){
+	public static String getDateByMM(String nowdate,String dat){
 		String str = "";
 		if(dat == null || "".equals(dat)){
 			return str;
 		}
-		int year = Integer.parseInt(systime.substring(0,4));
-		int moth = Integer.parseInt(systime.substring(4,6));
-		int day =  Integer.parseInt(systime.substring(6,8));
+		if(Integer.parseInt(dat)<0 || Integer.parseInt(dat)>31){
+			return str;
+		}
+		int year = Integer.parseInt(nowdate.substring(0,4));
+		int moth = Integer.parseInt(nowdate.substring(4,6));
+		int day =  Integer.parseInt(nowdate.substring(6,8));
 		int datint = Integer.parseInt(dat);
-		if(day>datint){
+		if(day>=datint){
 			moth = moth + 1; 
 		}
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.YEAR,  year);
 		calendar.set(Calendar.MONTH, moth-1);
-		if(datint>calendar.getLeastMaximum(Calendar.DATE)){
+		if(datint>calendar.getActualMaximum(Calendar.DAY_OF_MONTH)){
 			moth = moth + 1;
 			calendar.set(Calendar.MONTH, moth-1);
 			calendar.set(Calendar.DATE,  1);	
@@ -151,6 +154,60 @@ public class DateUtil {
 		return str;
 	}
 
+	
+	
+	public static String getDateByWW(String nowdate,String dat){
+		String str = "";
+		if(dat == null || "".equals(dat)){
+			return str;
+		}
+		if(Integer.parseInt(dat)<0 || Integer.parseInt(dat)>6){
+			return str;
+		}
+		int year = Integer.parseInt(nowdate.substring(0,4));
+		int moth = Integer.parseInt(nowdate.substring(4,6));
+		int day =  Integer.parseInt(nowdate.substring(6,8));
+		int datint = Integer.parseInt(dat);
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR,  year);
+		calendar.set(Calendar.MONTH, moth-1);
+		calendar.set(Calendar.DATE,  day);
+		int weeknow = calendar.get(Calendar.DAY_OF_WEEK)-1;
+		if(weeknow == datint){
+			calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)+7);
+		} else if(weeknow < datint){
+			calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)+(datint-weeknow));
+		} else if(weeknow > datint){
+			calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)+7-(weeknow-datint));
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN_1);
+		str = sdf.format(calendar.getTime());
+		return str;
+	}
+	
+	public static String getDateByDD(String nowdate,String dat){
+		String str = "";
+		if(dat == null || "".equals(dat)){
+			return str;
+		}
+		if(Integer.parseInt(dat)<0){
+			return str;
+		}
+		int year = Integer.parseInt(nowdate.substring(0,4));
+		int moth = Integer.parseInt(nowdate.substring(4,6));
+		int day =  Integer.parseInt(nowdate.substring(6,8));
+		int datint = Integer.parseInt(dat);
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR,  year);
+		calendar.set(Calendar.MONTH, moth-1);
+		calendar.set(Calendar.DATE,  day);
+		calendar.set(Calendar.DATE,  calendar.get(Calendar.DATE)+datint);
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN_1);
+		str = sdf.format(calendar.getTime());
+		return str;
+	}
+	
+	
 	public static void main(String args[]){
 		
 //		Date date = DateUtil.parse("20150405120015", DateUtil.FULL_PATTERN_1);
@@ -159,8 +216,16 @@ public class DateUtil {
 //		
 //		int str1 = DateUtil.subDateToDay(date1, date);
 //		System.out.println(str1);
+//		System.out.println(DateUtil.getDateByMM("20150528", "29"));
+//		DateUtil.getDateByWW("20150525","20150528", "7");
+//		DateUtil.getDateByWW("20150526","20150528", "7");
+//		DateUtil.getDateByWW("20150527","20150528", "7");
+//		DateUtil.getDateByWW("20150528","20150528", "7");
+//		DateUtil.getDateByWW("20150529","20150528", "7");
+//		DateUtil.getDateByWW("20150530","20150528", "7");
+//		DateUtil.getDateByWW("20150531","20150528", "7");
+		System.out.println(DateUtil.getDateByDD("20150528", "1"));
 		
-		System.out.println(DateUtil.getDateByMM("20150525170511", "27"));
 	}
 	
 	

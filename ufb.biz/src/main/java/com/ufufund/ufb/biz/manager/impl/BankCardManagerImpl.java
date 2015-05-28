@@ -253,15 +253,15 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// *** 插入流水表
 		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//helper.toFdacfinalresult(custinfo);
 		fdacfinalresult.setCustno(custinfo.getCustno());
-		
-		fdacfinalresult.setToBankserialid(bankcardinfodef.getSerialid());
-		fdacfinalresult.setToTradeaccoid(openAccountAction.getTransactionAccountID());
+						   
+		fdacfinalresult.setTobankserialid(bankcardinfodef.getSerialid());
+		fdacfinalresult.setTotradeacco(openAccountAction.getTransactionAccountID());
 		fdacfinalresult.setWorkdate(today.getWorkday());
 		fdacfinalresult.setApdt(today.getDate());
 		fdacfinalresult.setAptm(today.getTime());
 		fdacfinalresult.setSerialno(openAccountAction.getSerialno());
 		fdacfinalresult.setApkind(Apkind.OPEN_ACCOUNT.getValue());
-		fdacfinalresult.setFundcorpno(Constant.HftSysConfig.MerchantId);
+		fdacfinalresult.setTofundcorpno(Constant.HftSysConfig.MerchantId);
 		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		
 		Changerecordinfo changerecordinfo3 = bankCardManagerHelper.toTradeaccoinfo(tradeaccoinfo);
