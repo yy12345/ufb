@@ -63,7 +63,29 @@ public class WorkDayManagerImpl implements WorkDayManager{
 		}
 		return sysWorkDay.getWorkdate();
 	}
+	
+	@Override
+	public String getNextWorkDay(String day){
+		if(isWorkDay(day)){
+			return getNextWorkDay(day, 1);
+		}else{
+			return getCurrentWorkDay();
+		}
+	}
 
+	@Override
+	public Today getSysDayInfo() {
+		String systime = workDayMapper.getSysTime();
+		String date = dealNaturalDay(systime);
+		SysWorkDay workday = workDayMapper.getCurrentWorkDay(date);
+		
+		Today today = new Today();
+		today.setDate(systime.substring(0, 8));
+		today.setTime(systime.substring(8));
+		today.setWorkday(workday.getWorkdate());
+		return today;
+	}
+	
 	/**
 	 * 当前日期预处理
 	 * @param systime 系统时间
@@ -82,17 +104,5 @@ public class WorkDayManagerImpl implements WorkDayManager{
 		}
 	}
 
-	@Override
-	public Today getSysDayInfo() {
-		String systime = workDayMapper.getSysTime();
-		String date = dealNaturalDay(systime);
-		SysWorkDay workday = workDayMapper.getCurrentWorkDay(date);
-		
-		Today today = new Today();
-		today.setDate(systime.substring(0, 8));
-		today.setTime(systime.substring(8));
-		today.setWorkday(workday.getWorkdate());
-		return today;
-	}
 	
 }

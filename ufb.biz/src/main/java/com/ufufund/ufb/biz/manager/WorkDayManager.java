@@ -49,6 +49,13 @@ public interface WorkDayManager {
 	public String getNextWorkDay(String workday, int n);
 	
 	/**
+	 * 取当前自然日后的下一个工作日
+	 * @param day
+	 * @return
+	 */
+	public String getNextWorkDay(String day);
+	
+	/**
 	 * 获取当前工作日及申请时间信息
 	 * @return
 	 */
