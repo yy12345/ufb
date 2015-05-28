@@ -23,6 +23,7 @@ $(function(){
 	// 点击银行卡
 	$(".card").on("click", function(){
 		$("#fromtradeacco").val($(this).attr("tradeacco"));
+		$("#frombankserialid").val($(this).attr("serialid"));
 	});
 	
 	// 表单提交时，验证	
@@ -45,8 +46,8 @@ $(function(){
         
         <div class="form-payInto">
             <form class="common-form" action="${ufbDomain}/setting/addAutoTrade.htm" method="post">
-                ${refreshTools.genInputHtml()}
 				<input id="fromtradeacco" name="fromtradeacco" value="${curCard.tradeacco}" type="hidden"/>
+				<input id="frombankserialid" name="frombankserialid" value="${curCard.serialid}" type="hidden"/>
 				<ul>
                     <li class="clearfix">
                         <span class="form-title">银行选择</span>
@@ -62,7 +63,8 @@ $(function(){
                                 <div class="card-list clearfix">
 									#foreach($card in $cardList)
                                     <a class="card" href="javascript:;" 
-										tradeacco="${card.tradeacco}">
+										tradeacco="${card.tradeacco}"
+										serialid="${card.serialid}">
 										#set($tailStr=$card.bankacco)
 										#set($start=$tailStr.length() - 4)
 										#set($end=$tailStr.length())

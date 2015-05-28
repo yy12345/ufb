@@ -97,7 +97,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 			 return nextdate;
 		}else{
 			 /* 当前日期的 下个工作日  */
-			 return "20150921";
+			 return workDayManager.getNextWorkDay(nextdate, 1);
 		}
 	}
 	

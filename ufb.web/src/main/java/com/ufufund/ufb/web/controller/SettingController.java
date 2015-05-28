@@ -22,11 +22,15 @@ import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.common.constant.BisConst;
+import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.DateUtil;
+import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
+import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.AutotradeVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
@@ -521,34 +525,71 @@ public class SettingController {
 	public String addAutoTradeConfirm(AutotradeVo autotradeVo, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			if(null != s_custinfo){String custno = UserHelper.getCustno();
-			// 获取交易账户列表
-			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
-			
-			// 获取工作日信息等
-			Today today = workDayManager.getSysDayInfo();
-			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
-			String profitArriveDay = DateUtil.getNextDay(nextWorkDay, 1);
-			
-			if(null != tradeAccoList && tradeAccoList.size() > 0){
-				model.addAttribute("curCard", tradeAccoList.get(0));
-				model.addAttribute("cardList", tradeAccoList);
-			}
-			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
-			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
-			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
-			
-			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());} else{
+			if(null != s_custinfo){
+				
+				autotradeVo.setCustno(s_custinfo.getCustno());
+//				autotradeVo.setApkind(Apkind.AUTORECHARGE.getValue());
+				autotradeVo.setCycle("MM");
+				autotradeVo.setFromfundcode(BasicFundinfo.YFB.getFundCode());
+				autotradeVo.setFromfundcorpno(Constant.HftSysConfig.HftFundCorpno);
+				
+				String nextdate = autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
+				autotradeVo.setNextdate(nextdate);
+				
+				
+				model.addAttribute("AutoTradeVo", autotradeVo);
+				model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+				
+			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
 			}
-			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingAutoTrade";
 		}
-		return "setting/addAutoTrade";
+		return "setting/settingAutoTradeConfirm";
 	}
 	
+	@RequestMapping(value="setting/addAutoTradeSubmit")
+	public String addAutoTradeSubmit(AutotradeVo autotradeVo, Model model){
+		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				
+				AddAutotradeAction action = new AddAutotradeAction();
+				
+				action.setCustno(autotradeVo.getCustno());
+				action.setApkind(Apkind.AUTORECHARGE);
+//				action.setType("");
+				action.setCycle(autotradeVo.getCycle());
+				action.setDat(autotradeVo.getDat());
+//				action.setfromtradeacco
+				action.setFrombankserialid(autotradeVo.getFrombankserialid());
+//				action.setfromaccoid
+				action.setFromfundcode(autotradeVo.getFromfundcode());
+				action.setFromfundcorpno(autotradeVo.getFromfundcorpno());
+//				action.setFromchargetype("");
+				
+				action.setAutoamt(autotradeVo.getAutoamt());
+//				action.setnextdate
+				action.setSummary(autotradeVo.getSummary());
+				
+				
+				autotradeManager.addAutotrade(action);
+				
+				model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+				
+			} else{
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
+			}
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			return "setting/settingAutoTradeConfirm";
+		}
+		ServletHolder.forward("/setting/settingAutoTrade.htm");
+		return "setting/settingAutoTrade";
+	}
 	
 }

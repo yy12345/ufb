@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ufufund.ufb.dao.TradeAccoinfoMapper">
 
-	<select id="getTradeAccoList" parameterType="String" resultType="BankCardWithTradeAcco">
+	<select id="getTradeAccoList" resultType="BankCardWithTradeAcco">
 		select
 			b.SERIALID,
 			b.CUSTNO,
@@ -33,8 +33,11 @@
 			tradeaccoinfo t, bankcardinfo b
 		where 
 			t.bankserialid = b.serialid 
-			and t.TRADEACCOST = 'N' 
 			and b.STATE = 'Y' 
+			and t.TRADEACCOST = 'N' 
+			<if test="fundcorpno != null">
+            and t.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR}
+        	</if>
 			and t.CUSTNO = #{custno,jdbcType=VARCHAR}
 		order by 
 			b.MAINFLAG desc
