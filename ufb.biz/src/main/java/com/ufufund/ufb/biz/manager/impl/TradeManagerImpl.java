@@ -17,13 +17,10 @@ import com.ufufund.ufb.common.exception.UserErrorCode;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
-import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.dao.TradeQutyChgMapper;
 import com.ufufund.ufb.dao.TradeRequestMapper;
-import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
-import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.remote.hft.BuyApplyRequest;
 import com.ufufund.ufb.model.remote.hft.BuyApplyResponse;
 import com.ufufund.ufb.model.remote.hft.CancelRequest;
@@ -62,8 +59,8 @@ public class TradeManagerImpl implements TradeManager{
 	@Autowired
 	private TradeManagerHelper helper;
 	
-	@Autowired
-	private TradeNotesMapper tradeNotesMapper;
+//	@Autowired
+//	private TradeNotesMapper tradeNotesMapper;
 	
 	@Override
 	public String subApply(ApplyVo vo) {
@@ -128,25 +125,25 @@ public class TradeManagerImpl implements TradeManager{
 		vo.setApptime(today.getTime());
 		vo.setWorkday(today.getWorkday());
 		
-		/*
-		 * 写交易流水 
-		 * 没有更新交易流水
-		 */
-		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
-		fdacfinalresult.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-		fdacfinalresult.setApkind(Apkind.BUYAPPLY.getValue());
-		fdacfinalresult.setWorkdate(today.getWorkday());
-		fdacfinalresult.setApdt(today.getDate());
-		fdacfinalresult.setAptm(today.getTime());
-		fdacfinalresult.setCustno(vo.getCustno());
-		fdacfinalresult.setFromtradeacco(vo.getTradeacco());
-		fdacfinalresult.setFrombankserialid(vo.getBankid());
-		fdacfinalresult.setTofundcode(vo.getFundcode());
-		fdacfinalresult.setTofundcorpno(vo.getFundcorpno());
-		fdacfinalresult.setAppamt(vo.getAppamt());
-		fdacfinalresult.setAppvol(vo.getAppvol());
-		fdacfinalresult.setStatus("I");
-		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+//		/*
+//		 * 写交易流水 
+//		 * 没有更新交易流水 gaoxin
+//		 */
+//		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
+//		fdacfinalresult.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+//		fdacfinalresult.setApkind(Apkind.BUYAPPLY.getValue());
+//		fdacfinalresult.setWorkdate(today.getWorkday());
+//		fdacfinalresult.setApdt(today.getDate());
+//		fdacfinalresult.setAptm(today.getTime());
+//		fdacfinalresult.setCustno(vo.getCustno());
+//		fdacfinalresult.setFromtradeacco(vo.getTradeacco());
+//		fdacfinalresult.setFrombankserialid(vo.getBankid());
+//		fdacfinalresult.setTofundcode(vo.getFundcode());
+//		fdacfinalresult.setTofundcorpno(vo.getFundcorpno());
+//		fdacfinalresult.setAppamt(vo.getAppamt());
+//		fdacfinalresult.setAppvol(vo.getAppvol());
+//		fdacfinalresult.setStatus("I");
+//		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		
 		
 		/** 生成本地交易流水 **/
@@ -270,26 +267,25 @@ public class TradeManagerImpl implements TradeManager{
 		vo.setWorkday(today.getWorkday());
 		
 		
-		/*
-		 * 写交易流水 
-		 * 没有更新交易流水
-		 */
-		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
-		fdacfinalresult.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-		
-		fdacfinalresult.setApkind(Apkind.REALREDEEM.getValue());
-		fdacfinalresult.setWorkdate(today.getWorkday());
-		fdacfinalresult.setApdt(today.getDate());
-		fdacfinalresult.setAptm(today.getTime());
-		fdacfinalresult.setCustno(vo.getCustno());
-		fdacfinalresult.setTotradeacco(vo.getTradeacco());
-		fdacfinalresult.setTobankserialid(vo.getBankid());
-		fdacfinalresult.setFromfundcode(vo.getFundcode());
-		fdacfinalresult.setFromfundcorpno(vo.getFundcorpno());
-		fdacfinalresult.setAppamt(vo.getAppamt());
-		fdacfinalresult.setAppvol(vo.getAppvol());
-		fdacfinalresult.setStatus("I");
-		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
+//		/*
+//		 * 写交易流水   gaoxin 
+//		 * 没有更新交易流水
+//		 */
+//		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
+//		fdacfinalresult.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+//		fdacfinalresult.setApkind(Apkind.REALREDEEM.getValue());
+//		fdacfinalresult.setWorkdate(today.getWorkday());
+//		fdacfinalresult.setApdt(today.getDate());
+//		fdacfinalresult.setAptm(today.getTime());
+//		fdacfinalresult.setCustno(vo.getCustno());
+//		fdacfinalresult.setTotradeacco(vo.getTradeacco());
+//		fdacfinalresult.setTobankserialid(vo.getBankid());
+//		fdacfinalresult.setFromfundcode(vo.getFundcode());
+//		fdacfinalresult.setFromfundcorpno(vo.getFundcorpno());
+//		fdacfinalresult.setAppamt(vo.getAppamt());
+//		fdacfinalresult.setAppvol(vo.getAppvol());
+//		fdacfinalresult.setStatus("I");
+//		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		
 		
 		/** 生成本地交易流水 **/
