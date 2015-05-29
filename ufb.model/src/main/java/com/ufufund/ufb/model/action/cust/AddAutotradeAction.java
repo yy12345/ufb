@@ -3,13 +3,13 @@ package com.ufufund.ufb.model.action.cust;
 import java.math.BigDecimal;
 
 import com.ufufund.ufb.model.action.CommonAction;
-import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.AutoTradeType;
 
 public class AddAutotradeAction extends CommonAction {
 	
 	private String autoname;// varchar(50) default '' comment '自动交易名称',
 	private String custno;// char(24) default '' comment '客户编号',
-	private Apkind apkind;// char(3) default null comment '业务类型', AUTO开头业务类型
+	private AutoTradeType tradetype;// char(3) default null comment '业务类型', AUTO开头业务类型
 	private String type;// char(1) default null comment '类型 S单次，E多次',
 	private String cycle;// char(2) default null comment 'MM=每月；WW=每周;DD 每隔多少天； 如果当天非工作日，自动推迟到下个工作日 ',
 	private String dat;// char(2) default null comment '扣款日',
@@ -47,12 +47,6 @@ public class AddAutotradeAction extends CommonAction {
 	}
 	public void setCustno(String custno) {
 		this.custno = custno;
-	}
-	public Apkind getApkind() {
-		return apkind;
-	}
-	public void setApkind(Apkind apkind) {
-		this.apkind = apkind;
 	}
 	public String getType() {
 		return type;
@@ -185,6 +179,12 @@ public class AddAutotradeAction extends CommonAction {
 	}
 	public void setTobankacco(String tobankacco) {
 		this.tobankacco = tobankacco;
+	}
+	public AutoTradeType getTradetype() {
+		return tradetype;
+	}
+	public void setTradetype(AutoTradeType tradetype) {
+		this.tradetype = tradetype;
 	}
 	
 	

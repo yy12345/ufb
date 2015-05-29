@@ -18,7 +18,7 @@
 				AUTONAME,
 				CUSTNO,
 				STATE,
-				APKIND,
+				TRADETYPE,
 				
 				TYPE,
 				CYCLE,
@@ -53,7 +53,7 @@
 			#{autoname,jdbcType=VARCHAR},
 			#{custno,jdbcType=VARCHAR},
 			#{state,jdbcType=VARCHAR},
-			#{apkind,jdbcType=VARCHAR},
+			#{tradetype,jdbcType=VARCHAR},
 			
 			#{type,jdbcType=VARCHAR},
 			#{cycle,jdbcType=VARCHAR},
@@ -98,7 +98,7 @@
 	       	  ,T1.STATE = #{state,jdbcType=VARCHAR}
 	       	</if>
 	        <if test="apkind != null">
-	       	  ,T1.APKIND = #{apkind,jdbcType=VARCHAR}
+	       	  ,T1.TRADETYPE = #{tradetype,jdbcType=VARCHAR}
 	       	</if>
 	       	
 			<if test="type != null">
@@ -180,7 +180,7 @@
 			autotrade.AUTONAME,
 			autotrade.CUSTNO,
 			autotrade.STATE,
-			autotrade.APKIND,
+			autotrade.TRADETYPE,
 			autotrade.TYPE,
 			autotrade.CYCLE,
 			autotrade.DAT,

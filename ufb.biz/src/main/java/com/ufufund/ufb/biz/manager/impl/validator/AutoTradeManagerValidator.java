@@ -8,7 +8,7 @@ import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.cust.ChangeAutoStateAction;
 import com.ufufund.ufb.model.action.cust.ModifyAutotradeAction;
-import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.AutoTradeType;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 
 @Service
@@ -29,7 +29,7 @@ public class AutoTradeManagerValidator {
 		if (RegexUtil.isNull(action.getCustno())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.CUSTNO);
 		}
-		if (RegexUtil.isNull(action.getApkind().getValue())) {
+		if (RegexUtil.isNull(action.getTradetype().value())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.APKIND);
 		}
 		if (RegexUtil.isNull(action.getType())) {
@@ -41,7 +41,7 @@ public class AutoTradeManagerValidator {
 		if (RegexUtil.isNull(action.getDat())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.DAT);
 		}
-		if (action.getApkind().equals(Apkind.AUTORECHARGE)) {
+		if (action.getTradetype().equals(AutoTradeType.AUTORECHARGE)) {
 			if (RegexUtil.isNull(action.getFrombankserialid())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.FROMBANKSERIALID);
 			}
@@ -58,7 +58,7 @@ public class AutoTradeManagerValidator {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.AutoTrade.AUTOAMT);
 			}
 
-		} else if (action.getApkind().equals(Apkind.AUTOWITHDRAWAL)) {
+		} else if (action.getTradetype().equals(AutoTradeType.AUTOWITHDRAWAL)) {
 			if (RegexUtil.isNull(action.getFromfundcode())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.FROMFUNDCODE);
 			}

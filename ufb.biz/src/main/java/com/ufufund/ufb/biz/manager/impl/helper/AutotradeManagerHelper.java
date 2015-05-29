@@ -12,7 +12,7 @@ public  class AutotradeManagerHelper {
 		
 		reaction.setAutoname(action.getAutoname());// varchar(50) default '' comment '自动交易名称',
 		reaction.setCustno(action.getCustno());// char(24) default '' comment '客户编号',
-		reaction.setApkind(action.getApkind().getValue());// char(3) default null comment '业务类型', AUTO开头业务类型
+		reaction.setTradetype(action.getTradetype().value());// char(3) default null comment '业务类型', AUTO开头业务类型
 		reaction.setType(action.getType());// char(1) default null comment '类型 S单次，E多次',
 		reaction.setCycle(action.getCycle());// char(2) default null comment 'MM=每月；WW=每周;DD 每隔多少天；',
 		reaction.setDat(action.getDat());// char(2) default null comment '扣款日',
@@ -45,7 +45,6 @@ public  class AutotradeManagerHelper {
 		 */
 		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
 		fdacfinalresult.setCustno(vo.getCustno());
-		fdacfinalresult.setApkind(vo.getApkind());
 		fdacfinalresult.setFrombankserialid(vo.getFrombankserialid());// varchar(24) default null comment '银行卡id',
 		fdacfinalresult.setFromaccoid(vo.getFromaccoid());// int(11) default null comment '交易账号编号',
 		fdacfinalresult.setFromtradeacco(vo.getFromtradeacco());// varchar(17) default null comment '交易账号',

@@ -22,7 +22,7 @@ import com.ufufund.ufb.model.action.cust.ModifyAutotradeAction;
 import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
-import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.AutoTradeType;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.vo.Today;
 
@@ -57,7 +57,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		/*
 		 * 根据业务获取冗余字段
 		 */
-		autotrade = this.getOtherInfo(action.getApkind(), autotrade);
+		autotrade = this.getOtherInfo(action.getTradetype(), autotrade);
 		autotrade.setNextdate(this.getNextdate(autotrade.getCycle(), autotrade.getDat()));
 		int n = autotradeMapper.insertAutotrade(autotrade);
 		if(n!=1){
@@ -66,7 +66,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		/*
 		 * 记录交易流水
 		 */
-		this.insertFdacfinalresult(autotrade);
+		this.insertFdacfinalresult(autotrade,autotrade.getTradetype()+"0");
 		
 	}
 	
@@ -135,7 +135,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		/*
 		 * 根据业务获取冗余字段
 		 */
-		autotrade = this.getOtherInfo(action.getApkind(), autotrade);
+		autotrade = this.getOtherInfo(action.getTradetype(), autotrade);
 		String nextdate = this.getNextdate(action.getCycle(), action.getDat());
 		autotrade.setNextdate(nextdate);
 		int n = autotradeMapper.updateAutotrade(autotrade);
@@ -145,13 +145,14 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		/*
 		 * 记录交易流水
 		 */
-		this.insertFdacfinalresult(autotrade);
+		this.insertFdacfinalresult(autotrade,autotrade.getTradetype()+"1");
 		
 	}
 	
-	private void insertFdacfinalresult(Autotrade autotrade) {
+	private void insertFdacfinalresult(Autotrade autotrade,String apkind) {
 		Fdacfinalresult fdacfinalresult = AutotradeManagerHelper.toFdacfinalresult(autotrade);
 		fdacfinalresult.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		fdacfinalresult.setApkind(apkind);
 		Today today = workDayManager.getSysDayInfo();
 		fdacfinalresult.setWorkdate(today.getWorkday());
 		fdacfinalresult.setApdt(today.getDate());
@@ -161,16 +162,16 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	
 	
 	
-	private Autotrade getOtherInfo(Apkind apkind,Autotrade autotrade) {
+	private Autotrade getOtherInfo(AutoTradeType tradeType,Autotrade autotrade) {
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
 		tradeaccoinfo.setCustno(autotrade.getCustno());
-		if(apkind.equals(Apkind.AUTORECHARGE)){
+		if(tradeType.equals(AutoTradeType.AUTORECHARGE)){
 			tradeaccoinfo.setBankserialid(autotrade.getFrombankserialid());
 			tradeaccoinfo.setFundcorpno(autotrade.getTofundcorpno());
 			tradeaccoinfo = bankMapper.getTradeaccoinfo(tradeaccoinfo);
 			autotrade.setFromaccoid(tradeaccoinfo.getAccoid());
 			autotrade.setFromtradeacco(tradeaccoinfo.getTradeacco());			
-		}else if(apkind.equals(Apkind.AUTOWITHDRAWAL)){
+		}else if(tradeType.equals(AutoTradeType.AUTOWITHDRAWAL)){
 			tradeaccoinfo.setBankserialid(autotrade.getTobankserialid());
 			tradeaccoinfo.setFundcorpno(autotrade.getFromfundcorpno());
 			tradeaccoinfo = bankMapper.getTradeaccoinfo(tradeaccoinfo);
@@ -191,15 +192,20 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		//state  P-暂停 ,C 终止 删除 ,N 恢复
+		String apkind = "";
 		dbautotrade = list.get(0);
 		if(Constant.Autotrade.STATE$N.equals(action.getState())){
 			if(!Constant.Autotrade.STATE$P.equals(action.getState())){
 				throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
 			}
+			apkind = dbautotrade.getTradetype()+"2";
 		}else if(Constant.Autotrade.STATE$P.equals(action.getState())){
 			if(!Constant.Autotrade.STATE$N.equals(action.getState())){
 				throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
 			}
+			apkind = dbautotrade.getTradetype()+"3";
+		}else{
+			apkind = dbautotrade.getTradetype()+"4";
 		}
 		String workdate = workDayManager.getCurrentWorkDay();
 		if(dbautotrade.getNextdate().equals(workdate)){
@@ -212,7 +218,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		if(n!=1){
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
-		this.insertFdacfinalresult(dbautotrade);
+		this.insertFdacfinalresult(dbautotrade,apkind);
 	}
 	
 }

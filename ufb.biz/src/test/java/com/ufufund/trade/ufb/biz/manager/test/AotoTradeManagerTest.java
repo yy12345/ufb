@@ -2,7 +2,6 @@ package com.ufufund.trade.ufb.biz.manager.test;
 
 import java.math.BigDecimal;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -10,21 +9,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.ufufund.ufb.biz.manager.AutotradeManager;
-import com.ufufund.ufb.biz.manager.BankCardManager;
-import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.dao.AutotradeMapper;
 import com.ufufund.ufb.dao.BankMapper;
-import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
-import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
-import com.ufufund.ufb.model.action.cust.LoginAction;
-import com.ufufund.ufb.model.action.cust.OpenAccountAction;
-import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
-import com.ufufund.ufb.model.enums.Apkind;
-import com.ufufund.ufb.model.enums.Level;
+import com.ufufund.ufb.model.enums.AutoTradeType;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -144,7 +135,7 @@ public class AotoTradeManagerTest {
 		AddAutotradeAction action = new AddAutotradeAction();
 		action.setAutoname("Autoname");// varchar(50) default '' comment '自动交易名称',
 		action.setCustno("CU150525200833FWWIJWN8W1");// char(24) default '' comment '客户编号',
-		action.setApkind(Apkind.AUTORECHARGE);// char(3) default null comment '业务类型', AUTO开头业务类型
+		action.setTradetype(AutoTradeType.AUTORECHARGE);// char(3) default null comment '业务类型', AUTO开头业务类型
 		action.setType("S");// char(1) default null comment '类型 S单次，E多次',
 		action.setCycle("MM");// char(2) default null comment 'MM=每月；WW=每周;DD 每隔多少天； 如果当天非工作日，自动推迟到下个工作日 ',
 		action.setDat("30");// char(2) default null comment '扣款日',

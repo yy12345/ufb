@@ -28,9 +28,21 @@ public enum Apkind {
 	TRANSRESULTQUERY("041"),   // 交易结果查询
 	STATICSHAREQUERY("042"),   // 份额查询
 	
-	AUTORECHARGE("051"),  //自动充值
-	AUTOWITHDRAWAL("052") //自动取现
-	//AUTOAPPLY("042") 
+	/*  0 新增 1修改 2恢复 3暂停 4删除
+	 * 51 自动充值
+	 * 52 自动取现
+	 */
+	ADD_AUTORECHARGE("510"),  //新增自动充值
+	MODIFY_AUTORECHARGE("511"),  //修改自动充值
+	N_AUTORECHARGE("512"),  //恢复自动充值
+	P_AUTORECHARGE("513"),  //暂停自动充值
+	C_AUTORECHARGE("514"),  //删除自动充值
+
+	ADD_AUTOWITHDRAWAL("520"), //新增自动取现
+	MODIFY_AUTOWITHDRAWAL("521"), //修改自动取现
+	N_AUTOWITHDRAWAL("522"), //恢复自动取现
+	P_AUTOWITHDRAWAL("523"), //暂停自动取现
+	C_AUTOWITHDRAWAL("524") //删除自动取现
 	;
 	private String value;
 

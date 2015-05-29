@@ -29,7 +29,7 @@ import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
-import com.ufufund.ufb.model.enums.Apkind;
+import com.ufufund.ufb.model.enums.AutoTradeType;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.AutotradeVo;
@@ -560,7 +560,7 @@ public class SettingController {
 				AddAutotradeAction action = new AddAutotradeAction();
 				
 				action.setCustno(autotradeVo.getCustno());
-				action.setApkind(Apkind.AUTORECHARGE);
+				action.setTradetype(AutoTradeType.AUTORECHARGE);
 				action.setType("E");
 				action.setCycle(autotradeVo.getCycle());
 				action.setDat(autotradeVo.getDat());
