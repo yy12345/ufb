@@ -139,7 +139,7 @@ public class AotoTradeManagerTest {
 	 * 
 	 * 测试addAutotrade
 	 */
-	@Test
+	//@Test
 	public void testaddAutotrade(){
 		AddAutotradeAction action = new AddAutotradeAction();
 		action.setAutoname("Autoname");// varchar(50) default '' comment '自动交易名称',
