@@ -11,37 +11,39 @@ public  class AutotradeManagerHelper {
 	public static Autotrade toAutotrade(AddAutotradeAction action){
 		Autotrade reaction = new Autotrade();
 		
+		// 充值名称
 		reaction.setAutoname(action.getAutoname());// varchar(50) default '' comment '自动交易名称',
+		// 用户信息
 		reaction.setCustno(action.getCustno());// char(24) default '' comment '客户编号',
+		// 充值OR取现
 		reaction.setTradetype(action.getTradetype().value());// char(3) default null comment '业务类型', AUTO开头业务类型
+		// 交易周期
 		reaction.setType(action.getType());// char(1) default null comment '类型 S单次，E多次',
 		reaction.setCycle(action.getCycle());// char(2) default null comment 'MM=每月；WW=每周;DD 每隔多少天；',
 		reaction.setDat(action.getDat());// char(2) default null comment '扣款日',
-		
-		reaction.setAutoamt(action.getAutoamt());// decimal(16,2) default null comment '金额',
-		reaction.setAutovol(action.getAutovol());// decimal(16,2) default null comment '份额',
+		// 备注
 		reaction.setSummary(action.getSummary());// varchar(100) default null comment '备注',
 		
 		if(AutoTradeType.AUTORECHARGE.equals(action.getTradetype())){
-			// 自动充值
+			// 银行信息
 			reaction.setFrombankserialid(action.getFrombankserialid());// char(24) default null comment '源银行卡id',
+			// 货币信息
 			reaction.setTofundcorpno(action.getTofundcorpno());// char(24) default null comment '目标归属基金公司',
 			reaction.setTofundcode(action.getTofundcode());// varchar(6) default null comment '目标基金代码',
 			reaction.setTochargetype(action.getTochargetype());// char(1) default null comment '目标A：前收费 B：后收费',
-			reaction.setTobankserialid(action.getTobankserialid());// char(24) default null comment '目标银行卡id',
+			// 金额
+			reaction.setAutoamt(action.getAutoamt());// decimal(16,2) default null comment '金额',
 		}
 		
 		if(AutoTradeType.AUTOWITHDRAWAL.equals(action.getTradetype())){
-			// 自动取现
+			// 银行信息
+			reaction.setTobankserialid(action.getTobankserialid());// char(24) default null comment '目标银行卡id',
+			// 货币信息
 			reaction.setFromfundcorpno(action.getFromfundcorpno());// char(24) default null comment '源归属基金公司',
 			reaction.setFromfundcode(action.getFromfundcode());// varchar(6) default null comment '源基金代码',
 			reaction.setFromchargetype(action.getFromchargetype());// char(1) default null comment '源A：前收费 B：后收费',
-			reaction.setFrombankserialid(action.getFrombankserialid());// char(24) default null comment '源银行卡id',
-			reaction.setTofundcorpno(action.getTofundcorpno());// char(24) default null comment '目标归属基金公司',
-			reaction.setTofundcode(action.getTofundcode());// varchar(6) default null comment '目标基金代码',
-			reaction.setTochargetype(action.getTochargetype());// char(1) default null comment '目标A：前收费 B：后收费',
-			reaction.setTobankserialid(action.getTobankserialid());// char(24) default null comment '目标银行卡id',
-
+			// 份额
+			reaction.setAutovol(action.getAutovol());// decimal(16,2) default null comment '份额',
 		}
 		
 		//private String state;// char(1) default null comment 'N:正常 C：删除 P：暂停  ',

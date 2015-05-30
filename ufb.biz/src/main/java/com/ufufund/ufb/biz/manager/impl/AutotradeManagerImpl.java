@@ -48,12 +48,16 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	public void addAutotrade(AddAutotradeAction action) throws BizException {
 		String processId = this.getProcessId(action);
 		autoTradeManagerValidator.validator(action);
+		// 序列号
 		String seq = autotradeMapper.getAutotradeSequence();
 		if(RegexUtil.isNull(action.getAutoname())){
 			action.setAutoname(seq);
 		}
+		// 数据包装
 		Autotrade autotrade = AutotradeManagerHelper.toAutotrade(action);
+		// 状态
 		autotrade.setState(Constant.Autotrade.STATE$N);
+		// 序列号
 		autotrade.setAutoid(seq);
 		/*
 		 * 根据业务获取冗余字段
@@ -67,7 +71,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		/*
 		 * 记录交易流水
 		 */
-		this.insertFdacfinalresult(autotrade,autotrade.getTradetype()+"0");
+		this.insertFdacfinalresult(autotrade,autotrade.getTradetype() + "0");
 		
 	}
 	
@@ -100,11 +104,17 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	}
 	
 	@Override
-	public List<Autotrade> getAutotrade(String custno) throws BizException {
+	public List<Autotrade> getAutotradeList(String custno) throws BizException {
 		this.getProcessId(custno);
 		Autotrade autotrade = new Autotrade();
 		autotrade.setCustno(custno);
-		return autotradeMapper.getAutotrade(autotrade);
+		return autotradeMapper.getAutotradeList(autotrade);
+	}
+	
+	@Override
+	public Autotrade getAutotrade(String autoid) throws BizException {
+		this.getProcessId(autoid);
+		return autotradeMapper.getAutotrade(autoid);
 	}
 
 	@Override
@@ -113,7 +123,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		autoTradeManagerValidator.validatorModify(action);
 		Autotrade dbautotrade = new Autotrade();
 		dbautotrade.setAutoid(action.getAutoid());
-		List<Autotrade> list = autotradeMapper.getAutotrade(dbautotrade);
+		List<Autotrade> list = autotradeMapper.getAutotradeList(dbautotrade);
 		if(list.isEmpty()||list.size()!=1){
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
@@ -198,7 +208,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		autoTradeManagerValidator.validator(action);
 		Autotrade dbautotrade = new Autotrade();
 		dbautotrade.setAutoid(action.getAutoid());
-		List<Autotrade> list = autotradeMapper.getAutotrade(dbautotrade);
+		List<Autotrade> list = autotradeMapper.getAutotradeList(dbautotrade);
 		if(list.isEmpty()||list.size()!=1){
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}

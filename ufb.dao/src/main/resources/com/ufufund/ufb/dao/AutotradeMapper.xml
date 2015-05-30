@@ -172,7 +172,7 @@
 	</update>
    
    
-   <select id="getAutotrade" parameterType="com.ufufund.ufb.model.db.Autotrade" resultType="com.ufufund.ufb.model.db.Autotrade">
+   <select id="getAutotradeList" parameterType="com.ufufund.ufb.model.db.Autotrade" resultType="com.ufufund.ufb.model.db.Autotrade">
 		SELECT
 			t.AUTOID,
 			t.AUTONAME,
@@ -218,6 +218,52 @@
   		<if test="custno != null and custno !=''" >
   		t.CUSTNO = #{custno,jdbcType=VARCHAR} AND
   		</if>
+	    t.STATE &lt;&gt; 'C'
+  	</select>
+  	
+  	 <select id="getAutotrade" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.db.Autotrade">
+		SELECT
+			t.AUTOID,
+			t.AUTONAME,
+			t.CUSTNO,
+			t.STATE,
+			t.TRADETYPE,
+			t.TYPE,
+			t.CYCLE,
+			t.DAT,
+			t.FROM_FUNDCORPNO AS FROMFUNDCORPNO,
+			t.FROM_FUNDCODE AS FROMFUNDCODE,
+			t.FROM_CHARGETYPE AS FROMCHARGETYPE,
+			t.FROM_BANKSERIALID AS FROMBANKSERIALID,
+			t.FROM_BANKACCO AS FROMBANKACCO,
+			BS2.BANKNM AS FROMBANKNM,
+			t.FROM_ACCOID AS FROMACCOID,
+			t.FROM_TRADEACCO AS FROMTRADEACCO,
+			t.TO_FUNDCORPNO AS TOFUNDCORPNO,
+			t.TO_FUNDCODE AS TOFUNDCODE,
+			t.TO_CHARGETYPE AS TOCHARGETYPE,
+			t.TO_BANKSERIALID AS TOBANKSERIALID,
+			t.TO_BANKACCO AS TOBANKACCO,
+			BS1.BANKNM AS TOBANKNM,
+			t.TO_ACCOID AS TOACCOID,
+			t.TO_TRADEACCO TOTRADEACCO,
+			t.AUTOAMT,
+			t.AUTOVOL,
+			t.LASTDATE,
+			t.NEXTDATE,
+			t.SUMMARY,
+			t.CREATETIME,
+			t.UPDATETIME
+		FROM
+			AUTOTRADE t
+        LEFT JOIN BANKCARDINFO b1 ON T.TO_BANKSERIALID = b1.SERIALID                                       
+        LEFT JOIN BANKCARDINFO b2 ON T.FROM_BANKSERIALID = b2.SERIALID                  
+        LEFT JOIN BANKBASE bs1 ON b1.BANKNO = bs1.BANKNO                
+        LEFT JOIN BANKBASE bs2 ON b2.BANKNO = bs2.BANKNO 
+		WHERE 
+		<if test="autoid != null and autoid !=''" >
+		t.AUTOID = #{autoid,jdbcType=VARCHAR} AND
+		</if>
 	    t.STATE &lt;&gt; 'C'
   	</select>
    

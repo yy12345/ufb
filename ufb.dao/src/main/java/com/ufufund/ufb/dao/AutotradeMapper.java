@@ -2,6 +2,8 @@ package com.ufufund.ufb.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ufufund.ufb.common.dao.BaseDao;
 import com.ufufund.ufb.model.db.Autotrade;
 
@@ -32,7 +34,9 @@ public interface AutotradeMapper extends BaseDao {
 	
 	public int updateAutotrade(Autotrade autotrade);
 	
-	public List<Autotrade> getAutotrade(Autotrade autotrade);
+	public List<Autotrade> getAutotradeList(Autotrade autotrade);
+
+	public Autotrade getAutotrade(@Param("autoid")String autoid);
 	
 	
 }

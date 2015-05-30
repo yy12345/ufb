@@ -7,10 +7,10 @@
 <script>
 $(function(){
 
-	$(".set-main").on("click", function(){
-		$("#bankacco").val($(this).attr("bankacco"));
-		$("#form-settingCard").attr("action", "../setting/settingMainCard.htm");
-		$("#form-settingCard").submit();
+	$(".btn-updateAutoTrade").on("click", function(){
+		$("#autoid").val($(this).attr("autoid"));
+		$("#form-settingAutoTrade").attr("action", "../setting/updateAutoTrade.htm");
+		$("#form-settingAutoTrade").submit();
 	});
 	
 	$(".set-unbind").on("click", function(){
@@ -41,6 +41,7 @@ $(function(){
 <body>
     <div class="body">
     	<form id="form-settingAutoTrade" action="${ufbDomain}/setting/settingAutoTrade.htm" method="post">
+		<input id="autoid" name="autoid" value="" type="hidden"/>
         <div class="inner clearfix">
             <div class="title">
                 <h2 class="title-main">账户管理</h2>
@@ -90,7 +91,7 @@ $(function(){
 								${autotrade.frombanknm}[尾号$tailStr.substring($start,$end)]	
 							</td>
 							<td class="tc">${autotrade.summary}</td>
-                            <td class="tc"><a href="javascript:;">查看</a></td>
+                            <td class="tc"><a class="btn-updateAutoTrade" autoid="${autotrade.autoid}" href="#">修改</a></td>
                         </tr>
 						#end
                         </tbody>

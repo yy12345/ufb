@@ -13,6 +13,8 @@ public class AutotradeVo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private String autoid;
+	
 	private String custno;
 	private BigDecimal autoamt;
 	private String summary;
@@ -38,6 +40,14 @@ public class AutotradeVo implements Serializable {
 	
 	private String lastdate;// char(8) default null comment '最近扣款日期',
 	private String nextdate;// char(8) default null comment '下一扣款日期',
+	
+	public String getAutoid() {
+		return autoid;
+	}
+
+	public void setAutoid(String autoid) {
+		this.autoid = autoid;
+	}
 
 	public String getCustno() {
 		return custno;

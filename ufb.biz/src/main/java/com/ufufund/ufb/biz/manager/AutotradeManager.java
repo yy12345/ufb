@@ -31,8 +31,15 @@ public interface AutotradeManager { //extends CustInterface{
 	 * @param String custno
 	 * @return 
 	 */
-	public List<Autotrade> getAutotrade(String custno) throws BizException;
+	public List<Autotrade> getAutotradeList(String custno) throws BizException;
 	
+	
+	/**
+	 * 获取客户的智能交易 
+	 * @param String autoid
+	 * @return 
+	 */
+	public Autotrade getAutotrade(String autoid) throws BizException;
 	
 	/**
 	 * 修改自动交易

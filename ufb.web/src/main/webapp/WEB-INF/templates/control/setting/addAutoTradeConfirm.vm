@@ -33,18 +33,14 @@ $(function(){
 				</br>frombankserialid: <input id="frombankserialid" name="frombankserialid" value="${AutoTradeVo.frombankserialid}" type="text"/>
 				</br>tofundcorpno: <input id="tofundcorpno" name="tofundcorpno" value="${AutoTradeVo.tofundcorpno}" type="text"/>
 				</br>tofundcode: <input id="tofundcode" name="tofundcode" value="${AutoTradeVo.tofundcode}" type="text"/>
-				</br>totradeacco: <input id="totradeacco" name="totradeacco" value="${AutoTradeVo.totradeacco}" type="text"/>
-				</br>tochargetype: <input id="tochargetype" name="tochargetype" value="${AutoTradeVo.tochargetype}" type="text"/>
-				
+
 				</br>tradetype: <input id="tradetype" name="tradetype" value="${AutoTradeVo.tradetype}" type="text"/>
+				</br>tochargetype: <input id="tochargetype" name="tochargetype" value="${AutoTradeVo.tochargetype}" type="text"/>
 				</br>type: <input id="type" name="type" value="${AutoTradeVo.type}" type="text"/>
-				</br>apkind: <input id="apkind" name="apkind" value="${AutoTradeVo.apkind}" type="text"/>
 				</br>cycle: <input id="cycle" name="cycle" value="${AutoTradeVo.cycle}" type="text"/>
 				</br>dat: <input id="dat" name="dat" value="${AutoTradeVo.dat}" type="text"/>
 				</br>nextdate: <input id="nextdate" name="nextdate" value="${AutoTradeVo.nextdate}" type="text"/>
-				
 				</br>autoamt: <input id="autoamt" name="autoamt" value="${AutoTradeVo.autoamt}" type="text"/>
-
 				</br>summary: <input id="summary" name="summary" value="${AutoTradeVo.summary}" type="text"/>
 				<ul>
                     <li>

@@ -41,7 +41,7 @@ $(function(){
 <div class="body">
     <div class="inner clearfix">
         <div class="title clearfix">
-            <h2 class="title-main fl">账户管理 | 新增自动充值计划</h2>
+            <h2 class="title-main fl">账户管理 | 修改自动充值计划</h2>
         </div>
         <div class="notice"></div>
         
@@ -79,19 +79,19 @@ $(function(){
                     </li>
                     <li>
                         <span class="form-title">充值金额</span>
-                        <input id="autoamt" name="autoamt" class="ipt-autoamt input-text" maxlength="11" type="text" value="">元
+                        <input id="autoamt" name="autoamt" class="ipt-autoamt input-text" maxlength="11" type="text" value="$!{AutoTradeVo.autoamt}">元
                         <span class="tips-normal"></span>
                         <span id="appamtTips" class="tips-check"><i class="icon"></i>验证提示</span>
                     </li>
 					<li>
                         <span class="form-title">充值时间 每月</span>
-                        <input id="dat" name="dat" class="ipt-dat input-text" maxlength="2" type="text" value="">日
+                        <input id="dat" name="dat" class="ipt-dat input-text" maxlength="2" type="text" value="$!{AutoTradeVo.dat}">日
                         <span class="tips-normal"></span>
                         <span id="appamtTips" class="tips-check"><i class="icon"></i>验证提示</span>
                     </li>
 					<li>
                         <span class="form-title">备注</span>
-                        <input id="summary" name="summary" class="ipt-summary input-text" maxlength="50" type="text" value="">
+                        <input id="summary" name="summary" class="ipt-summary input-text" maxlength="50" type="text" value="$!{AutoTradeVo.summary}">
                         <span class="tips-normal"></span>
                         <span id="appamtTips" class="tips-check"><i class="icon"></i>验证提示</span>
                     </li>
