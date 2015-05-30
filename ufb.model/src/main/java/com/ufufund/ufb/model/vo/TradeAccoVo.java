@@ -2,9 +2,9 @@ package com.ufufund.ufb.model.vo;
 
 import java.math.BigDecimal;
 
-import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
+import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 
-public class TradeAccoVo extends BankCardWithTradeAcco {
+public class TradeAccoVo extends TradeAccoinfoOfMore {
 	private static final long serialVersionUID = 1L;
 
 	private BigDecimal total = new BigDecimal("0.00");

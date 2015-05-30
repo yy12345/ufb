@@ -1,9 +1,6 @@
 package com.ufufund.ufb.web.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.biz.manager.FundManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.common.constant.BisConst;
@@ -22,9 +20,9 @@ import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
-import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.FundInfo;
+import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.enums.Invtp;
@@ -34,7 +32,6 @@ import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.UserHelper;
-
 
 @Controller
 public class CustController {
@@ -46,6 +43,8 @@ public class CustController {
 	private QueryManager queryManager;
 	@Autowired
 	private TradeAccoManager tradeAccoManager;
+	@Autowired
+	private FundManager fundManager;
 	
 	/**
 	 * 注册页
@@ -195,7 +194,7 @@ public class CustController {
 			if("Y".equals(custinfoVo.getOpenaccount())){
 				
 				// 资产显示
-				List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
+				List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 				Assets assets = queryManager.queryAssets(tradeAccoList);
 				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
 				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));// 可用资产
@@ -269,7 +268,7 @@ public class CustController {
 				
 				if("Y".equals(s_custinfo.getOpenaccount())){
 					// 资产显示
-					List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
+					List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 					Assets assets = queryManager.queryAssets(tradeAccoList);
 					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
 					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));// 可用资产
@@ -342,9 +341,7 @@ public class CustController {
 		FundInfo fundInfo = new FundInfo();
 		fundInfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
 		fundInfo.setFundcode(BasicFundinfo.YFB.getFundCode());
-		DateFormat df = new SimpleDateFormat("yyyyMMdd");
-		fundInfo.setDate(df.format(new Date()));
-		fundInfo = queryManager.getFundInfo(fundInfo);
+		fundInfo = fundManager.getFundInfo(fundInfo);
 		return fundInfo;
 	}
 }

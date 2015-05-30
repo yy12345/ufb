@@ -11,6 +11,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.dao.AutotradeMapper;
 import com.ufufund.ufb.dao.BankMapper;
+import com.ufufund.ufb.dao.TradeAccoinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
@@ -33,7 +34,8 @@ public class AotoTradeManagerTest {
 	
 	@Autowired
 	private BankMapper bankMapper;
-	
+	@Autowired
+	private TradeAccoinfoMapper tradeAccoinfoMapper;
 	
 	@Autowired
 	private TradeNotesMapper tradeNotesMapper;
@@ -61,7 +63,7 @@ public class AotoTradeManagerTest {
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
 		tradeaccoinfo.setBankserialid("BA150521170501RGNLSXWJP4");
 		tradeaccoinfo.setFundcorpno("01");
-		tradeaccoinfo = bankMapper.getTradeaccoinfo(tradeaccoinfo);
+		tradeaccoinfo = tradeAccoinfoMapper.getTradeaccoinfo(tradeaccoinfo);
 		System.out.println(tradeaccoinfo.toString());	
 		//Tradeaccoinfo[accoid=45,custno=CU1505211705370DKHD5EA15,fundcorpno=01,bankserialid=BA150521170501RGNLSXWJP4,tradeacco=Tan20150521171201,tradeaccost=N,opendt=<null>,closedt=<null>]
 
@@ -78,7 +80,7 @@ public class AotoTradeManagerTest {
 			tradeaccoinfo.setTradeaccost("F");// char(1) not null comment '交易账号状态：n-正常 c-撤销',
 			tradeaccoinfo.setOpendt("6");// char(8) default null comment '开户日期',
 			tradeaccoinfo.setClosedt("7");// char(8) default null comment '销户日期',
-			bankMapper.insterTradeaccoinfo(tradeaccoinfo);
+			tradeAccoinfoMapper.insterTradeaccoinfo(tradeaccoinfo);
 			System.out.println(tradeaccoinfo.toString());	
 			//Tradeaccoinfo[accoid=45,custno=CU1505211705370DKHD5EA15,fundcorpno=01,bankserialid=BA150521170501RGNLSXWJP4,tradeacco=Tan20150521171201,tradeaccost=N,opendt=<null>,closedt=<null>]
 

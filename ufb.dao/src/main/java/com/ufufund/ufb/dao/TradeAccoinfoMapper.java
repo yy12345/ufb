@@ -4,9 +4,20 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
+import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
+import com.ufufund.ufb.model.db.Tradeaccoinfo;
 
 public interface TradeAccoinfoMapper {
 
-	public List<BankCardWithTradeAcco> getTradeAccoList(@Param("custno")String custno, @Param("fundcorpno")String fundcorpno);
+	public Tradeaccoinfo getTradeaccoinfo(Tradeaccoinfo tradeaccoinfo);
+	
+	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo);
+	
+	public String isTradeaccoinfoBind(OpenAccountAction openAccountAction);
+	
+	public List<TradeAccoinfoOfMore> getBankCardWithTradeAccoList();
+
+	public List<TradeAccoinfoOfMore> getTradeAccoList(@Param("custno")String custno, @Param("state")String state);
+
 }

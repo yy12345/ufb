@@ -4,8 +4,88 @@
 
 <mapper namespace="com.ufufund.ufb.dao.TradeAccoinfoMapper">
 
-	<select id="getTradeAccoList" resultType="BankCardWithTradeAcco">
+	<select id="getTradeaccoinfo" parameterType="com.ufufund.ufb.model.db.Tradeaccoinfo" resultType="com.ufufund.ufb.model.db.Tradeaccoinfo">
+		SELECT
+			tradeaccoinfo.ACCOID,
+			tradeaccoinfo.CUSTNO,
+			tradeaccoinfo.FUNDCORPNO,
+			tradeaccoinfo.BANKSERIALID,
+			tradeaccoinfo.TRADEACCO,
+			tradeaccoinfo.TRADEACCOST,
+			tradeaccoinfo.OPENDT,
+			tradeaccoinfo.CLOSEDT,
+			tradeaccoinfo.UPDATETIME
+		FROM
+			tradeaccoinfo
+		WHERE 
+		<if test="accoid != null and accoid !=''" >
+			tradeaccoinfo.ACCOID = #{accoid,jdbcType=INTEGER} AND
+		</if>
+  		<if test="custno != null and custno !=''" >
+  		 	tradeaccoinfo.CUSTNO = #{custno,jdbcType=VARCHAR} AND
+  		</if>
+  		<if test="fundcorpno != null and fundcorpno !=''" >
+  			tradeaccoinfo.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR} AND
+  		</if>
+  		<if test="bankserialid != null and bankserialid !=''" >
+  		 	tradeaccoinfo.BANKSERIALID = #{bankserialid,jdbcType=VARCHAR} AND
+  		</if>
+  		 1 = 1
+  	</select>
+	
+	<insert id="insterTradeaccoinfo" parameterType="com.ufufund.ufb.model.db.Tradeaccoinfo">
+  	 <![CDATA[
+	 	insert into tradeaccoinfo (
+			  ACCOID,
+			  CUSTNO,
+			  FUNDCORPNO,
+			  BANKSERIALID,
+			  TRADEACCO,
+			  TRADEACCOST,
+			  OPENDT,
+			  CLOSEDT,
+			  UPDATETIME				
+		)
+		values (
+				getSequence('TRADEACCOINFO_SEQ'),
+				#{custno,jdbcType=VARCHAR},
+				#{fundcorpno,jdbcType=VARCHAR},
+				#{bankserialid,jdbcType=VARCHAR},
+				#{tradeacco,jdbcType=VARCHAR},
+				#{tradeaccost,jdbcType=VARCHAR},
+				#{opendt,jdbcType=VARCHAR},
+				#{closedt,jdbcType=VARCHAR},
+				sysdate()
+	    )
+	 ]]>
+	</insert>
+	
+	<select id="isTradeaccoinfoBind" parameterType="com.ufufund.ufb.model.action.cust.OpenAccountAction" resultType="java.lang.String">
+		SELECT
+			tradeaccoinfo.ACCOID
+		FROM
+			tradeaccoinfo, bankcardinfo
+		WHERE 
+			tradeaccoinfo.BANKSERIALID = bankcardinfo.SERIALID
+  		<if test="custno != null and custno !=''" >
+  		 	AND tradeaccoinfo.CUSTNO = #{custno,jdbcType=VARCHAR}
+  		</if>
+  		<if test="fundcorpno != null and fundcorpno !=''" >
+  			AND tradeaccoinfo.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR}
+  		</if>
+  		<if test="bankno != null and bankno !=''" >
+  		 	AND bankcardinfo.BANKNO = #{bankno,jdbcType=VARCHAR}
+  		</if>
+  		<if test="bankacco != null and bankacco !=''" >
+  		 	AND bankcardinfo.BANKACCO = #{bankacco,jdbcType=VARCHAR}
+  		</if>
+  	</select>
+	
+	
+	<select id="getTradeAccoList" resultType="TradeAccoinfoOfMore">
 		select
+			t.TRADEACCO,
+			t.FUNDCORPNO,
 			b.SERIALID,
 			b.CUSTNO,
 			b.BANKNO,
@@ -26,21 +106,15 @@
 			b.OPENDT,
 			b.CLOSEDT,
 			b.DISORDER,
-			b.UPDATETIMESTAMP,
-			t.TRADEACCO,
-			t.FUNDCORPNO
-		from 
-			tradeaccoinfo t, bankcardinfo b
+			b.MAINFLAG,
+			b.UPDATETIMESTAMP
+		from tradeaccoinfo t, bankcardinfo b
 		where 
-			t.bankserialid = b.serialid 
-			and b.STATE = 'Y' 
-			and t.TRADEACCOST = 'N' 
-			<if test="fundcorpno != null">
-            and t.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR}
-        	</if>
-			and t.CUSTNO = #{custno,jdbcType=VARCHAR}
-		order by 
-			b.MAINFLAG desc
+			b.custno = #{custno,jdbcType=VARCHAR}
+			and b.state = #{state,jdbcType=VARCHAR}
+			and t.tradeaccost = 'N' 
+			and b.serialid  = t.bankserialid
+		order by b.mainflag desc
 	</select>
 	
 </mapper>

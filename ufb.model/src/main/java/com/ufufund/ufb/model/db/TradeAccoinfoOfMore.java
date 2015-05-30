@@ -5,8 +5,12 @@ import java.math.BigDecimal;
 
 import com.ufufund.ufb.model.action.PrintableModel;
 
-public class BankCardWithTradeAcco extends PrintableModel  implements Serializable {
+public class TradeAccoinfoOfMore extends PrintableModel  implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	/** tradeacco基本属性 **/
+	private String tradeacco;
+	private String fundcorpno;
 	
 	/** bankcardinfo表属性 **/
 	private String serialid;
@@ -30,10 +34,6 @@ public class BankCardWithTradeAcco extends PrintableModel  implements Serializab
 	private String disorder;
 	private String mainflag;
 	private String updatetimestamp;
-	
-	/** tradeacco基本属性 **/
-	private String tradeacco;
-	private String fundcorpno;
 	
 	/** 资金 **/
 	private BigDecimal total = new BigDecimal("0.00");

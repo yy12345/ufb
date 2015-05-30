@@ -18,7 +18,7 @@ import com.ufufund.ufb.common.exception.SysException;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.NumberUtils;
-import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
+import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.ApplyVo;
 import com.ufufund.ufb.model.vo.Assets;
@@ -52,7 +52,7 @@ public class TradeController {
 		try{
 			String custno = UserHelper.getCustno();
 			// 获取交易账户列表
-			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
 			
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
@@ -109,7 +109,7 @@ public class TradeController {
 		try{
 			String custno = UserHelper.getCustno();
 			// 获取交易账户列表
-			List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
 			// 获取用户总资产
 			Assets assets = queryManager.queryAssets(tradeAccoList);
 			// 获取工作日信息等

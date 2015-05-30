@@ -28,7 +28,7 @@ import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.db.Autotrade;
-import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
+import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.enums.AutoTradeType;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
@@ -48,12 +48,16 @@ public class SettingController {
 	
 	@Autowired
 	private CustManager custManager;
-	
 	@Autowired
 	private BankCardManager bankCardManager;
-	
+	@Autowired
+	private TradeAccoManager tradeAccoManager;
 	@Autowired
 	private QueryManager queryManager;
+	@Autowired
+	private AutotradeManager autotradeManager;
+	@Autowired
+	private WorkDayManager workDayManager;
 	
 	@RequestMapping(value="setting/settingAccount")
 	public String setAccount(CustinfoVo custinfoVo, Model model){
@@ -329,8 +333,8 @@ public class SettingController {
 				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 				
 				// 获取交易账户列表
-				List<BankCardWithTradeAcco> tradeAccoList_Y = 
-						bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "Y");
+				List<TradeAccoinfoOfMore> tradeAccoList_Y = 
+						tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), "Y");
 				if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
 					
 					// 获取用户总资产
@@ -343,8 +347,8 @@ public class SettingController {
 				}
 				
 				// 获取交易账户列表
-				List<BankCardWithTradeAcco> tradeAccoList_N = 
-						bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "N");
+				List<TradeAccoinfoOfMore> tradeAccoList_N = 
+						tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), "N");
 				if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
 					model.addAttribute("cardList_N", tradeAccoList_N);
 				} else {
@@ -456,15 +460,6 @@ public class SettingController {
 		return "setting/settingCard";
 	}
 	
-	@Autowired
-	AutotradeManager autotradeManager;
-	
-	@Autowired
-	TradeAccoManager tradeAccoManager;
-	
-	@Autowired
-	WorkDayManager workDayManager;
-	
 	@RequestMapping(value="setting/settingAutoTrade")
 	public String setAutoTrade(Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -496,7 +491,7 @@ public class SettingController {
 			if(null != s_custinfo){
 				String custno = UserHelper.getCustno();
 				// 获取交易账户列表
-				List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+				List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
 				
 				// 获取工作日信息等
 				Today today = workDayManager.getSysDayInfo();

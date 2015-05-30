@@ -15,6 +15,7 @@ import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.AutotradeMapper;
 import com.ufufund.ufb.dao.BankMapper;
+import com.ufufund.ufb.dao.TradeAccoinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.cust.ChangeAutoStateAction;
@@ -40,6 +41,8 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	private WorkDayManager workDayManager;
 	@Autowired
 	private BankMapper bankMapper;
+	@Autowired
+	private TradeAccoinfoMapper tradeAccoinfoMapper;
 	@Autowired
 	private TradeNotesMapper tradeNotesMapper;
 	
@@ -180,7 +183,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		if(tradeType.equals(AutoTradeType.AUTORECHARGE)){
 			tradeaccoinfo.setBankserialid(autotrade.getFrombankserialid());
 			tradeaccoinfo.setFundcorpno(autotrade.getTofundcorpno());
-			tradeaccoinfo = bankMapper.getTradeaccoinfo(tradeaccoinfo);
+			tradeaccoinfo = tradeAccoinfoMapper.getTradeaccoinfo(tradeaccoinfo);
 			autotrade.setToaccoid(tradeaccoinfo.getAccoid());
 			autotrade.setTotradeacco(tradeaccoinfo.getTradeacco());		
 			
@@ -195,7 +198,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		}else if(tradeType.equals(AutoTradeType.AUTOWITHDRAWAL)){
 			tradeaccoinfo.setBankserialid(autotrade.getTobankserialid());
 			tradeaccoinfo.setFundcorpno(autotrade.getFromfundcorpno());
-			tradeaccoinfo = bankMapper.getTradeaccoinfo(tradeaccoinfo);
+			tradeaccoinfo = tradeAccoinfoMapper.getTradeaccoinfo(tradeaccoinfo);
 			autotrade.setFromaccoid(tradeaccoinfo.getAccoid());
 			autotrade.setFromtradeacco(tradeaccoinfo.getTradeacco());				
 		}

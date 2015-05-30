@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
-import com.ufufund.ufb.model.db.FundInfo;
+import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.TradeAccoVo;
 
+/**
+ * 用户资产查询和交易查询类 
+ * @author ayis
+ * 2015年5月30日
+ */
 @Service
 public interface QueryManager {
 	
@@ -25,7 +29,7 @@ public interface QueryManager {
 	 * @param tradeAccos 交易账号列表
 	 * @return
 	 */
-	public Assets queryAssets(List<BankCardWithTradeAcco> tradeAccoList);
+	public Assets queryAssets(List<TradeAccoinfoOfMore> tradeAccoList);
 	
 	/**
 	 * 查询交易流水
@@ -42,6 +46,4 @@ public interface QueryManager {
 	 */
 	public List<TradeRequest> qryRecentTradeList(String custno, List<String> apkinds, int n);
 	
-
-	public FundInfo getFundInfo(FundInfo fundInfo);
 }

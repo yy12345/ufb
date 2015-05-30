@@ -19,9 +19,9 @@ import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.dao.BankBaseMapper;
 import com.ufufund.ufb.dao.BankMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
+import com.ufufund.ufb.dao.TradeAccoinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
-import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -59,6 +59,8 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	@Autowired
 	private BankMapper bankCardMapper;
 	@Autowired
+	private TradeAccoinfoMapper tradeAccoinfoMapper;
+	@Autowired
 	private TradeNotesMapper tradeNotesMapper;
 	@Autowired
 	private WorkDayManager workDayManager;
@@ -70,12 +72,6 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		bankcardinfo.setCustno(custno);
 		
 		return bankCardMapper.getBankcardinfo(bankcardinfo);
-	}
-	
-	@Override
-	public List<BankCardWithTradeAcco> getBankCardWithTradeAccoList(String custno, String state) {
-		List<BankCardWithTradeAcco> userCardList = bankCardMapper.getBankCardWithTradeAccoList(custno, state);
-		return userCardList;
 	}
 	
 	@Override
@@ -133,7 +129,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		
 		// 是否已绑卡
 		openAccountAction.setBankacco(openAccountAction.getBankacco().trim());
-		if(null != bankCardMapper.isTradeaccoinfoBind(openAccountAction)){
+		if(null != tradeAccoinfoMapper.isTradeaccoinfoBind(openAccountAction)){
 			throw new BizException(openAccountAction.getProcessId(), 
 					ErrorInfo.ALREADY_BIND, 
 					BisConst.Register.BANKACCO);
@@ -247,7 +243,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
 		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionAccountID());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
 		tradeaccoinfo.setOpendt(today.getWorkday());
-		bankCardMapper.insterTradeaccoinfo(tradeaccoinfo);
+		tradeAccoinfoMapper.insterTradeaccoinfo(tradeaccoinfo);
 
 		// *** 插入流水表
 		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//helper.toFdacfinalresult(custinfo);

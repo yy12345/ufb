@@ -5,10 +5,6 @@ import java.io.Serializable;
 import com.ufufund.ufb.model.action.PrintableModel;
 
 public class Tradeaccoinfo extends PrintableModel implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private String accoid;// varchar(24) not null comment '交易账号编号(本地生成的)',

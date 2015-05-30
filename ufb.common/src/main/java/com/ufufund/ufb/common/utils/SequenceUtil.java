@@ -39,18 +39,18 @@ public final class SequenceUtil {
      */
 	public static synchronized String getSerial() { 
 		StringBuffer buffer = new StringBuffer(16);
+		buffer.append(mac);
+        buffer.append(pid);
 		buffer.append(getCurrentTime(8));
 		if (num == 0xffff) num = 1;
 		String str = intToHexString((num++), 4);
 		buffer.append(str);
-		buffer.append(mac);
-        buffer.append(pid);
         String seq = buffer.toString();
         return seq;
 	}
 	
 	/**
-	 * 取当前时间<秒>的16进制表示，时间秒数的全值为int范围内，4个字节，8位16进制表示 （可用22年）
+	 * 取当前时间<秒>的16进制表示，（秒数值用int表示，还可用22年）
 	 * @param stringLength
 	 * @return
 	 */

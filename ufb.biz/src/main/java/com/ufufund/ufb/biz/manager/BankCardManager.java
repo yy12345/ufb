@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
-import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 
 public interface BankCardManager {
@@ -15,13 +14,6 @@ public interface BankCardManager {
 	 * @return
 	 */
 	public List<Bankcardinfo> getBankcardinfoList(String custno);
-	
-	/**
-	 * 获取带关联银行卡信息的基金交易账号列表
-	 * @param custno
-	 * @return
-	 */
-	public List<BankCardWithTradeAcco> getBankCardWithTradeAccoList(String custno, String state); 
 	
 	public void setBankCardMainFlag(String custno, String bankacco, String mainflag);
 	
