@@ -20,6 +20,7 @@ import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.cust.ChangeAutoStateAction;
 import com.ufufund.ufb.model.action.cust.ModifyAutotradeAction;
 import com.ufufund.ufb.model.db.Autotrade;
+import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.AutoTradeType;
@@ -164,19 +165,29 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	
 	private Autotrade getOtherInfo(AutoTradeType tradeType,Autotrade autotrade) {
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
+		Bankcardinfo bankcardinfo = new Bankcardinfo();
 		tradeaccoinfo.setCustno(autotrade.getCustno());
 		if(tradeType.equals(AutoTradeType.AUTORECHARGE)){
 			tradeaccoinfo.setBankserialid(autotrade.getFrombankserialid());
 			tradeaccoinfo.setFundcorpno(autotrade.getTofundcorpno());
 			tradeaccoinfo = bankMapper.getTradeaccoinfo(tradeaccoinfo);
-			autotrade.setFromaccoid(tradeaccoinfo.getAccoid());
-			autotrade.setFromtradeacco(tradeaccoinfo.getTradeacco());			
+			autotrade.setToaccoid(tradeaccoinfo.getAccoid());
+			autotrade.setTotradeacco(tradeaccoinfo.getTradeacco());		
+			
+			bankcardinfo.setSerialid(autotrade.getFrombankserialid());
+			List<Bankcardinfo> list = bankMapper.getBankcardinfo(bankcardinfo);
+			String bankacco = null;
+			if(null != list && list.size() > 0){
+				bankacco = list.get(0).getBankacco();
+			}
+			autotrade.setFrombankacco(bankacco);
+			
 		}else if(tradeType.equals(AutoTradeType.AUTOWITHDRAWAL)){
 			tradeaccoinfo.setBankserialid(autotrade.getTobankserialid());
 			tradeaccoinfo.setFundcorpno(autotrade.getFromfundcorpno());
 			tradeaccoinfo = bankMapper.getTradeaccoinfo(tradeaccoinfo);
-			autotrade.setToaccoid(tradeaccoinfo.getAccoid());
-			autotrade.setTotradeacco(tradeaccoinfo.getTradeacco());				
+			autotrade.setFromaccoid(tradeaccoinfo.getAccoid());
+			autotrade.setFromtradeacco(tradeaccoinfo.getTradeacco());				
 		}
 		return autotrade;
 	}

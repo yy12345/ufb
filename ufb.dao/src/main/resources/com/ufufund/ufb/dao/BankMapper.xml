@@ -113,6 +113,10 @@
 		<if test="custno != null and custno !=''">
 			bankcardinfo.CUSTNO = #{custno,jdbcType=VARCHAR} AND
 		</if>
+		<if test="serialid != null and serialid !=''">
+			bankcardinfo.SERIALID = #{serialid,jdbcType=VARCHAR} AND
+		</if>
+		
 		bankcardinfo.STATE &lt;&gt; 'N'
 	</select>
 	

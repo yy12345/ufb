@@ -22,8 +22,10 @@ $(function(){
 	
 	// 点击银行卡
 	$(".card").on("click", function(){
+		$("#fromtradeacco").val($(this).attr("tradeacco"));
+		$("#frombankserialid").val($(this).attr("serialid"));
+		
 		$("#totradeacco").val($(this).attr("tradeacco"));
-		$("#tobankserialid").val($(this).attr("serialid"));
 	});
 	
 	// 表单提交时，验证	
@@ -46,8 +48,9 @@ $(function(){
         
         <div class="form-payInto">
             <form class="common-form" action="${ufbDomain}/setting/addAutoTrade.htm" method="post">
+				<input id="fromtradeacco" name="fromtradeacco" value="${curCard.tradeacco}" type="hidden"/>
 				<input id="totradeacco" name="totradeacco" value="${curCard.tradeacco}" type="hidden"/>
-				<input id="tobankserialid" name="tobankserialid" value="${curCard.serialid}" type="hidden"/>
+				<input id="frombankserialid" name="frombankserialid" value="${curCard.serialid}" type="hidden"/>
 				<ul>
                     <li class="clearfix">
                         <span class="form-title">银行选择</span>

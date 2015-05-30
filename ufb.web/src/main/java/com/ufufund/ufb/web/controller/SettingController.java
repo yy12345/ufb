@@ -528,14 +528,14 @@ public class SettingController {
 			if(null != s_custinfo){
 				
 				autotradeVo.setCustno(s_custinfo.getCustno());
-//				autotradeVo.setApkind(Apkind.AUTORECHARGE.getValue());
 				autotradeVo.setCycle("MM");
-				autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
+				autotradeVo.setFrombankserialid(autotradeVo.getFrombankserialid());
 				autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
+				autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
+				autotradeVo.setTochargetype("A");
 				
 				String nextdate = autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
 				autotradeVo.setNextdate(nextdate);
-				
 				
 				model.addAttribute("AutoTradeVo", autotradeVo);
 				model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
@@ -559,18 +559,18 @@ public class SettingController {
 				
 				AddAutotradeAction action = new AddAutotradeAction();
 				
-				action.setCustno(autotradeVo.getCustno());
+				action.setCustno(s_custinfo.getCustno());
+
+				action.setFrombankserialid(autotradeVo.getFrombankserialid());				
+				action.setTofundcorpno(autotradeVo.getTofundcorpno());
+				action.setTofundcode(autotradeVo.getTofundcode());
+				action.setTotradeacco(autotradeVo.getTotradeacco());
+				action.setTochargetype("A");
+				
 				action.setTradetype(AutoTradeType.AUTORECHARGE);
 				action.setType("E");
 				action.setCycle(autotradeVo.getCycle());
 				action.setDat(autotradeVo.getDat());
-				action.setTofundcorpno(autotradeVo.getTofundcorpno());
-				action.setTofundcode(autotradeVo.getTofundcode());
-				action.setTochargetype("A");
-				action.setTobankserialid(autotradeVo.getTobankserialid());				
-				action.setTobankacco(autotradeVo.getTobankacco());
-				action.setToaccoid(autotradeVo.getToaccoid());
-				action.setTotradeacco(autotradeVo.getTotradeacco());
 				action.setAutoamt(autotradeVo.getAutoamt());
 				action.setNextdate(autotradeVo.getNextdate());
 				action.setSummary(autotradeVo.getSummary());

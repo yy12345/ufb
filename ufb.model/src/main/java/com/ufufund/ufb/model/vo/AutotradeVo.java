@@ -25,6 +25,8 @@ public class AutotradeVo implements Serializable {
 	private String frombankacco;
 	private String fromaccoid;
 	private String fromtradeacco;
+	private String fromchargetype;
+	
 
 	private String tofundcode;// varchar(6) default null comment '目标基金代码',
 	private String tofundcorpno;// char(24) default null comment '目标归属基金公司',
@@ -32,7 +34,8 @@ public class AutotradeVo implements Serializable {
 	private String tobankacco;
 	private String toaccoid;
 	private String totradeacco;
-
+	private String tochargetype;
+	
 	private String lastdate;// char(8) default null comment '最近扣款日期',
 	private String nextdate;// char(8) default null comment '下一扣款日期',
 
@@ -196,6 +199,22 @@ public class AutotradeVo implements Serializable {
 		this.nextdate = nextdate;
 	}
 
+	public String getFromchargetype() {
+		return fromchargetype;
+	}
+
+	public void setFromchargetype(String fromchargetype) {
+		this.fromchargetype = fromchargetype;
+	}
+
+	public String getTochargetype() {
+		return tochargetype;
+	}
+
+	public void setTochargetype(String tochargetype) {
+		this.tochargetype = tochargetype;
+	}
+
 	@Override
 	public String toString() {
 		return "AutotradeVo [custno=" + custno
@@ -210,12 +229,14 @@ public class AutotradeVo implements Serializable {
 				+ ", frombankacco=" + frombankacco
 				+ ", fromaccoid=" + fromaccoid
 				+ ", fromtradeacco=" + fromtradeacco
+				+ ", fromchargetype=" + fromchargetype
 				+ ", tofundcorpno=" + tofundcorpno
 				+ ", tofundcode=" + tofundcode
 				+ ", tobankserialid=" + tobankserialid
 				+ ", tobankacco=" + tobankacco
 				+ ", toaccoid=" + toaccoid
 				+ ", totradeacco=" + totradeacco
+				+ ", tochargetype=" + tochargetype
 				+ ", nextdate=" + nextdate
 				+ ", lastdate=" + lastdate
 				+ "]";
