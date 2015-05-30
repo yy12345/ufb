@@ -1,7 +1,6 @@
 package com.ufufund.ufb.model.action.cust;
 
 import com.ufufund.ufb.model.action.CommonAction;
-import com.ufufund.ufb.model.enums.Merchant;
 
 public class OpenAccountAction extends CommonAction {
 
@@ -19,7 +18,6 @@ public class OpenAccountAction extends CommonAction {
 	private String bankacco; // 银行卡号
 	private String bankmobile; //
 	private String mobileAutoCode; // 手机验证码
-	private Merchant merchant = Merchant.HFT_FUND; // 默认开户机构 海富通
 	private String otherserial; // 对方序列号
 	private String protocolno; // 银行协议编号
 	private String serialno; // 流水号
@@ -149,14 +147,6 @@ public class OpenAccountAction extends CommonAction {
 
 	public void setMobileAutoCode(String mobileAutoCode) {
 		this.mobileAutoCode = mobileAutoCode;
-	}
-
-	public Merchant getMerchant() {
-		return merchant;
-	}
-
-	public void setMerchant(Merchant merchant) {
-		this.merchant = merchant;
 	}
 
 	public String getOtherserial() {

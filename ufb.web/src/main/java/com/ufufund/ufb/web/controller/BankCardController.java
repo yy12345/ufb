@@ -15,10 +15,10 @@ import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.constant.BisConst;
+import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankBaseInfo;
-import com.ufufund.ufb.model.enums.Merchant;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
@@ -208,8 +208,7 @@ public class BankCardController {
 			openAccountAction.setIdno(bankCardVo.getBankIdno());
 			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
 			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
-			openAccountAction.setFundcorpno(Merchant.HFT_FUND.Value());// 海富通
-			openAccountAction.setMerchant(Merchant.HFT_FUND); // 海富通
+			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// 海富通
 			bankCardManager.openAccount4(openAccountAction);
 			
 			UserHelper.setAddBankCardStatus("Y");

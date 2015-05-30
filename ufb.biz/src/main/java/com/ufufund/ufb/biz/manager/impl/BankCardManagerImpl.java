@@ -132,7 +132,6 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		bankCardManagerValidator.validator(openAccountAction, "Bank_Base");
 		
 		// 是否已绑卡
-		openAccountAction.setFundcorpno(openAccountAction.getMerchant().Value());
 		openAccountAction.setBankacco(openAccountAction.getBankacco().trim());
 		if(null != bankCardMapper.isTradeaccoinfoBind(openAccountAction)){
 			throw new BizException(openAccountAction.getProcessId(), 
