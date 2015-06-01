@@ -137,6 +137,10 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		if(!Constant.Autotrade.STATE$N.equals(dbautotrade.getState())){
 			throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
 		}
+		String workdate = workDayManager.getCurrentWorkDay();
+		if(dbautotrade.getNextdate().equals(workdate)){
+			throw new BizException(processId, ErrorInfo.AUTO_NEXTDAY_ISWORKDAY); 
+		}
 		/*
 		 * 新增当前工作日的扣款也可以，该工作不发起当天新增的交易
 		 * nextdate = nextdate +1个周期
