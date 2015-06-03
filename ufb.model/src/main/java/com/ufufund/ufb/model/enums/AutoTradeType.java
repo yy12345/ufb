@@ -15,6 +15,10 @@ public enum AutoTradeType {
 		return value;
 	}
 
+//	public static void main(String[] args) {
+//		AutoTradeType autoTradeType = AutoTradeType.AUTORECHARGE;
+//		System.out.println(autoTradeType);
+//	}
 }
 
 

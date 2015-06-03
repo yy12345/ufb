@@ -1,9 +1,14 @@
 package com.ufufund.ufb.biz.manager.impl.helper;
 
+import java.math.BigDecimal;
+
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.enums.AutoTradeType;
+import com.ufufund.ufb.model.enums.BasicFundinfo;
+import com.ufufund.ufb.model.vo.ApplyVo;
+import com.ufufund.ufb.model.vo.RedeemVo;
 
 
 public  class AutotradeManagerHelper {
@@ -81,6 +86,32 @@ public  class AutotradeManagerHelper {
 		return fdacfinalresult;
 	}
 	
+	public static ApplyVo toApplyVo(Autotrade vo){
+		ApplyVo applyVo = new ApplyVo();
+		
+		applyVo.setCustno(vo.getCustno());
+		applyVo.setBankid(vo.getFrombankserialid());
+		applyVo.setBankacco(vo.getFrombankacco());
+		applyVo.setFundcode(vo.getTofundcode());
+		applyVo.setFundcorpno(vo.getTofundcorpno());
+		applyVo.setShareclass(vo.getTochargetype());
+		applyVo.setAppamt(vo.getAutoamt());
+		//applyVo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
+		return applyVo;
+	}
+	
+	public static RedeemVo toRedeemVo(Autotrade vo){
+		RedeemVo redeemVo = new RedeemVo();
+		redeemVo.setCustno(vo.getCustno());
+		redeemVo.setBankid(vo.getTobankserialid());
+		redeemVo.setBankacco(vo.getTobankacco());
+		redeemVo.setFundcode(vo.getFromfundcode());
+		redeemVo.setFundcorpno(vo.getFromfundcorpno());
+		redeemVo.setShareclass(vo.getFromchargetype());
+		redeemVo.setAppvol(vo.getAutovol());
+		//applyVo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
+		return redeemVo;
+	}
 //	public Custinfo toOpenAccountAction(OpenAccountAction openAccountAction){
 //		Custinfo custinfo = new Custinfo();
 //		custinfo.setCustno(openAccountAction.getCustno());

@@ -32,17 +32,20 @@ public enum Apkind {
 	 * 51 自动充值
 	 * 52 自动取现
 	 */
-	ADD_AUTORECHARGE("510"),  //新增自动充值
+	ADD_AUTORECHARGE("510"),     //新增自动充值
 	MODIFY_AUTORECHARGE("511"),  //修改自动充值
-	N_AUTORECHARGE("512"),  //恢复自动充值
-	P_AUTORECHARGE("513"),  //暂停自动充值
-	C_AUTORECHARGE("514"),  //删除自动充值
-
-	ADD_AUTOWITHDRAWAL("520"), //新增自动取现
+	N_AUTORECHARGE("512"),  	 //恢复自动充值
+	P_AUTORECHARGE("513"),  	 //暂停自动充值
+	C_AUTORECHARGE("514"),  	 //删除自动充值
+	S_AUTORECHARGE("515"),       //自动充值
+	
+	ADD_AUTOWITHDRAWAL("520"), 	  //新增自动取现
 	MODIFY_AUTOWITHDRAWAL("521"), //修改自动取现
-	N_AUTOWITHDRAWAL("522"), //恢复自动取现
-	P_AUTOWITHDRAWAL("523"), //暂停自动取现
-	C_AUTOWITHDRAWAL("524") //删除自动取现
+	N_AUTOWITHDRAWAL("522"), 	  //恢复自动取现
+	P_AUTOWITHDRAWAL("523"), 	  //暂停自动取现
+	C_AUTOWITHDRAWAL("524"), 	  //删除自动取现
+	S_AUTOWITHDRAWAL("525")       //自动取现
+	
 	;
 	private String value;
 

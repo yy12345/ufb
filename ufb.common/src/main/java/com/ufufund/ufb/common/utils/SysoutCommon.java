@@ -16,6 +16,9 @@ import java.lang.reflect.Field;
 
 public class SysoutCommon {
 	
+	
+	public static String JOB_STATUS = "N";
+	
 //	private static final Logger logger = Logger.getLogger(ValidatorMgr.class);
 //	
 //	

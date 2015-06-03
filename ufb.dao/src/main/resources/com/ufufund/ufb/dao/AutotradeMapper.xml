@@ -218,6 +218,12 @@
   		<if test="custno != null and custno !=''" >
   		t.CUSTNO = #{custno,jdbcType=VARCHAR} AND
   		</if>
+  		<if test="tradetype != null and tradetype !=''" >
+  		t.TRADETYPE = #{tradetype,jdbcType=VARCHAR} AND
+  		</if>
+  		<if test="nextdate != null and nextdate !=''" >
+  		t.NEXTDATE = #{nextdate,jdbcType=VARCHAR} AND
+  		</if>
 	    t.STATE &lt;&gt; 'C'
   	</select>
   	

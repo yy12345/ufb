@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.JobcontralMapper">
+    
+	
+	
+	<insert id="insertJobcontral" parameterType="com.ufufund.ufb.model.db.Jobcontral">
+  	 <![CDATA[
+	 		INSERT INTO job_contral (
+				JOB_NAME,
+				JOB_STATUS,
+				START_TIME,
+				END_TIME,
+				WORKDATE
+		  )
+		VALUES (
+			#{jobname,jdbcType=VARCHAR},
+			#{jobstatus,jdbcType=VARCHAR},
+			#{starttime,jdbcType=VARCHAR},
+			#{endtime,jdbcType=VARCHAR},
+			#{workdate,jdbcType=VARCHAR},
+			)
+	 ]]>
+  	</insert>
+  	
+  	
+  	<update id="updateJobcontral" parameterType="com.ufufund.ufb.model.db.Jobcontral">
+		UPDATE job_contral T1
+	       SET T1.JOB_STATUS = #{jobstatus,jdbcType=VARCHAR}
+	       <if test="starttime != null and starttime !=''" >
+	       	  ,T1.START_TIME = #{starttime,jdbcType=VARCHAR}
+	       </if>
+	       <if test="endtime != null and endtime !=''" >
+	       	  , T1.END_TIME = #{endtime,jdbcType=VARCHAR}	
+	       </if>
+	       WHERE T1.JOB_NAME = #{jobname,jdbcType=VARCHAR}
+	       AND T1.WORKDATE = #{workdate,jdbcType=VARCHAR}
+	</update>
+  	
+  	
+  	<select id="getFdacfinalresult" parameterType="java.lang.String"  resultType="java.lang.Integer">
+		SELECT  COUNT(1) 
+		FROM fdacfinalresult A 
+		WHERE A.AUTOID  = #{autoid,jdbcType=VARCHAR}
+		AND A.WORKDATE  = #{workDate,jdbcType=VARCHAR}
+	</select>
+   
+   
+   <select id="getJobcontral" parameterType="com.ufufund.ufb.model.db.Jobcontral" resultType="com.ufufund.ufb.model.db.Jobcontral">
+		SELECT
+		job_contral.JOB_NAME AS JOBNAME,
+		job_contral.JOB_STATUS AS JOBSTATUS,
+		job_contral.START_TIME AS STARTTIME,
+		job_contral.END_TIME AS ENDTIME,
+		job_contral.WORKDATE
+		FROM
+		job_contral
+		WHERE 
+		<if test="jobname != null and jobname !=''" >
+		job_contral.JOB_NAME = #{jobname,jdbcType=VARCHAR} AND
+		</if>
+  		<if test="workdate != null and workdate !=''" >
+  		job_contral.WORKDATE = #{workdate,jdbcType=VARCHAR} AND
+  		</if>
+ 		1 = 1 
+  	</select>
+  	
+  	 
+   
+</mapper>
+

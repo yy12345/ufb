@@ -1,7 +1,7 @@
 package com.ufufund.ufb.common.constant;
 
 public interface Constant {
-
+	
 	/*
 	 * 缓存
 	 */
@@ -45,6 +45,19 @@ public interface Constant {
 		// public final static String DICTIONARY$HFTAPKIND = "HFTAPKIND";
 	}
 
+	
+	/*
+	 * 客户
+	 */
+	public static interface Jobcontral {
+		//任务状态 N-初始化 I-处理中 P-停止 X-结束
+		public final static String STATUS$N = "N";
+		public final static String STATUS$I = "I";
+		public final static String STATUS$P = "P";
+		public final static String STATUS$X = "X";
+		
+	}
+	
 	public static final String RES_CODE_SUCCESS = "0000";
 	public static final String RES_CODE_FAIL = "9999";
 
