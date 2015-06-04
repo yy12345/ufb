@@ -35,7 +35,8 @@ public class HftBaseService {
 	private static final String ENCODING = "utf-8";
 	
 //	@Value("${hft_requestUrl}")
-	private String requestUrl = "http://60.191.25.162:12002/ecg/ecsg/prepositionaccess";
+	private String requestUrl = "http://60.191.25.162:12002/ecg/ecsg/prepositionaccess";  // 恒生测试环境
+//	private String requestUrl = "http://58.247.136.183:8008/ecg/ecsg/prepositionaccess";  // 海富通测试环境 
 	
 //	@Value("hft_signKey")
 	private String signKey = "8db4a013a8b515349c307f1e448ce836";
