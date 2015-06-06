@@ -193,36 +193,59 @@ $(function(){
             </div>
         </div>
     </div>
-    <div class="footer">
+    <div class="footer footer-all">
         <div class="inner clearfix">
-            <div class="notice fl">
-                <h2 class="title">理财机构须知</h2>
-                <ul class="list">
-                    <li><a href="javascript:;">幼教机构如何注册幼富通？</a></li>
-                    <li><a href="javascript:;">如何购买幼富通的机构理财产品？</a></li>
-                    <li><a href="javascript:;">机构理财的交易安全有什么保障？</a></li>
-                    <li><a href="javascript:;">如何联系我们？</a></li>
-                </ul>
-            </div>
             <div class="qa fl">
                 <h2 class="title">常见问题</h2>
                 <ul class="list">
-                    <li><a href="javascript:;">什么是机构理财专户？</a></li>
-                    <li><a href="javascript:;">什么是幼富宝？</a></li>
-                    <li><a href="javascript:;">购买幼富宝有什么好处？</a></li>
+                    <li><a href="helpQA.html#q1">什么是机构理财专户？</a></li>
+                    <li><a href="helpQA.html#q2">什么是幼富宝？</a></li>
+                    <li><a href="helpQA.html#q3">购买幼富宝有什么好处？</a></li>
+                </ul>
+            </div>
+            <div class="notice fl">
+                <h2 class="title">理财机构须知</h2>
+                <ul class="list">
+                    <li><a href="helpNotice.html#n1">幼教机构如何注册幼富通？</a></li>
+                    <li><a href="helpNotice.html#n2">如何购买幼富通的机构理财产品？</a></li>
+                    <li><a href="helpNotice.html#n3">机构理财的交易安全有什么保障？</a></li>
+                    <li><a href="helpNotice.html#n4">如何联系我们？</a></li>
                 </ul>
             </div>
             <div class="about fl">
-                <h2 class="title"><a href="about.html">关于幼富通&nbsp;<span>|</span></a></h2>
-                <div class="info">
-                    <p>微信服务号：UFUfund</p>
-                    <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
-                    <p>海富通产品：400-8840-099</p>
-                </div>
-                <div class="copyright">
-                    <p>幼富通版权所有 ©2015</p>
-                    <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
-                </div>
+                <h2 class="title">关于幼富通</h2>
+                <ul class="list">
+                    <li>微信服务号：UFUfund</li>
+                    <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                    <li>海富通产品：400-8840-099</li>
+                </ul>
+            </div>
+            <div class="copyright fr">
+                <h2 class="title"><img src="../images/logo_78x26.png"></h2>
+                <ul class="list">
+                    <li>幼富通版权所有 &copy;2014</li>
+                    <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer footer-simple">
+        <div class="inner clearfix">
+            <div class="logo fl">
+                <img src="../images/logo_130x55.png">
+            </div>
+            <div class="info fl">
+                <ul class="list">
+                    <li>微信服务号：UFUfund</li>
+                    <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                    <li>海富通产品：400-8840-099</li>
+                </ul>
+            </div>
+            <div class="copyright fr">
+                <ul class="list">
+                    <li>幼富通版权所有 &copy;2014</li>
+                    <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+                </ul>
             </div>
         </div>
     </div>

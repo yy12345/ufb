@@ -75,12 +75,14 @@ var check_mobile = function (ipt) {//验证手机号
     if (isNull(value)) {
         return showTips(ipt, "手机号不能为空");
     }
-    var regex = /^1\d{10}$/;
+    var regex = /^0?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0-9])[0-9]{8}$/;
     if (!regex.test(value)) {
         return showTips(ipt, "格式错误，请输入正确的手机号码");
     }
+
     return showTips(ipt, 0);
 }
+
 var check_code = function (ipt) {//验证验证码
     var value = ipt.val();
     if (isNull(value)) {

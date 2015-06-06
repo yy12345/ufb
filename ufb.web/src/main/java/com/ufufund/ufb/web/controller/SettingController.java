@@ -333,6 +333,9 @@ public class SettingController {
 				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 				
 				// 获取交易账户列表
+				//List<BankCardWithTradeAcco> tradeAccoList_Y = 
+				//	bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "Y");
+			
 				List<TradeAccoinfoOfMore> tradeAccoList_Y = 
 						tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), "Y");
 				if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
@@ -347,6 +350,9 @@ public class SettingController {
 				}
 				
 				// 获取交易账户列表
+				//List<BankCardWithTradeAcco> tradeAccoList_N = 
+				//		bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "N");
+			
 				List<TradeAccoinfoOfMore> tradeAccoList_N = 
 						tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), "N");
 				if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
@@ -460,6 +466,7 @@ public class SettingController {
 		return "setting/settingCard";
 	}
 	
+	//@RequestMapping(value="setting/autoTrade_index")
 	@RequestMapping(value="setting/settingAutoTrade")
 	public String setAutoTrade(Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -484,6 +491,7 @@ public class SettingController {
 	}
 	
 
+	//@RequestMapping(value="setting/autoTrade_add")
 	@RequestMapping(value="setting/addAutoTrade")
 	public String addAutoTrade(Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -491,6 +499,7 @@ public class SettingController {
 			if(null != s_custinfo){
 				String custno = UserHelper.getCustno();
 				// 获取交易账户列表
+				//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
 				List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
 				
 				// 获取工作日信息等
@@ -519,6 +528,7 @@ public class SettingController {
 		return "setting/addAutoTrade";
 	}
 	
+	//@RequestMapping(value="setting/autoTrade_preview")
 	@RequestMapping(value="setting/addAutoTradeConfirm")
 	public String addAutoTradeConfirm(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -550,6 +560,7 @@ public class SettingController {
 		return "setting/addAutoTradeConfirm";
 	}
 	
+	//@RequestMapping(value="setting/autoTrade_result")
 	@RequestMapping(value="setting/addAutoTradeSubmit")
 	public String addAutoTradeSubmit(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -593,7 +604,7 @@ public class SettingController {
 		return "setting/settingAutoTrade";
 	}
 	
-
+	//@RequestMapping(value="setting/autoTrade_update")
 	@RequestMapping(value="setting/updateAutoTrade")
 	public String updateAutoTrade(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();

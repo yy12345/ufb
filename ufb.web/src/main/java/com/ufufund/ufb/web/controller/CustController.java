@@ -1,6 +1,9 @@
 package com.ufufund.ufb.web.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,6 +23,7 @@ import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
+//import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.FundInfo;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
@@ -57,10 +61,11 @@ public class CustController {
 		try{
 			// 清除Session
 			UserHelper.removeCustinfoVo();
-			if(null == custinfoVo.getInvtp()){
-				custinfoVo.setInvtp(Invtp.PERSONAL.getValue()); //个人注册开户
-				custinfoVo.setLevel(Level.OPERATOR.getValue()); //经办人身份
-			}
+			//if(null == custinfoVo.getInvtp()){
+			custinfoVo.setInvtp(Invtp.PERSONAL.getValue()); //个人注册开户
+			custinfoVo.setLevel(Level.PERSONAL.getValue()); //家庭身份
+			//}
+			
 			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -68,6 +73,70 @@ public class CustController {
 			return "error/error";
 		}
 		return "register/indexPage";
+	}
+	
+	/**
+	 * 注册用户：经办人注册
+	 * @param custinfoVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "register/family")
+	public String registerfamily(CustinfoVo custinfoVo, Model model) {
+		
+		try{
+			custinfoVo.setInvtp(Invtp.PERSONAL.getValue()); // 个人
+			custinfoVo.setLevel(Level.PERSONAL.getValue()); // 家庭
+			
+			// 防止重复注册
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				// Session登录
+				if(s_custinfo.getMobileno().equals(custinfoVo.getMobileno())){
+					model.addAttribute("SessionVo", s_custinfo);
+					return "register/successPage";
+				}
+			}
+			
+			// 校验手机验证码
+			MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
+			
+			// 注册对象封装 
+			RegisterAction registerAction = new RegisterAction();
+			registerAction.setLoginCode(custinfoVo.getMobileno());
+			registerAction.setLoginPassword(custinfoVo.getPswpwd());
+			registerAction.setLoginPassword2(custinfoVo.getPswpwd2());
+			registerAction.setInvtp(Invtp.PERSONAL);// 个人
+			registerAction.setLevel(Level.PERSONAL); // 家庭
+			// 注册
+			custManager.register(registerAction);
+
+			// 注册成功，保存用户至session
+			custinfoVo.setCustno(registerAction.getCustNo());
+			UserHelper.saveCustinfoVo(custinfoVo);
+			model.addAttribute("SessionVo", custinfoVo);
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			
+			String ems = e.getOtherInfo();
+			if (BisConst.Register.MOBILE.equals(ems) || BisConst.Register.BANKMOBILE.equals(ems)) {
+				model.addAttribute("errMsg_mobileno_family", e.getMessage()); // 
+			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
+				model.addAttribute("errMsg_verifycode_family", e.getMessage()); // 验证码
+			} else if(BisConst.Register.MSGCODE.equals(ems)){
+				model.addAttribute("errMsg_msgcode_family", e.getMessage()); // 手机验证码
+			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
+				model.addAttribute("errMsg_pswpwd_family", e.getMessage()); // 登录密码
+			} else if (BisConst.Register.LOGINPASSWORD2.equals(ems)) {
+				model.addAttribute("errMsg_pswpwd2_family", e.getMessage()); // 登录确认密码
+			} else {
+				// TODO
+				model.addAttribute("errMsg_family", e.getMessage());
+			}
+			model.addAttribute("CustinfoVo_family", custinfoVo);
+			return "register/indexPage";
+		}
+		return "register/successPage";
 	}
 	
 	/**
@@ -117,24 +186,24 @@ public class CustController {
 			
 			String ems = e.getOtherInfo();
 			if (BisConst.Register.MOBILE.equals(ems) || BisConst.Register.BANKMOBILE.equals(ems)) {
-				model.addAttribute("errMsg_mobileno", e.getMessage()); // 
+				model.addAttribute("errMsg_mobileno_org", e.getMessage()); // 
 			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
-				model.addAttribute("errMsg_verifycode", e.getMessage()); // 验证码
+				model.addAttribute("errMsg_verifycode_org", e.getMessage()); // 验证码
 			} else if(BisConst.Register.MSGCODE.equals(ems)){
-				model.addAttribute("errMsg_msgcode", e.getMessage()); // 手机验证码
+				model.addAttribute("errMsg_msgcode_org", e.getMessage()); // 手机验证码
 			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
-				model.addAttribute("errMsg_pswpwd", e.getMessage()); // 登录密码
+				model.addAttribute("errMsg_pswpwd_org", e.getMessage()); // 登录密码
 			} else if (BisConst.Register.LOGINPASSWORD2.equals(ems)) {
-				model.addAttribute("errMsg_pswpwd2", e.getMessage()); // 登录确认密码
+				model.addAttribute("errMsg_pswpwd2_org", e.getMessage()); // 登录确认密码
 			} else if (BisConst.Register.ORGANIZATION.equals(ems)) {
-				model.addAttribute("errMsg_organization", e.getMessage()); //
+				model.addAttribute("errMsg_organization_org", e.getMessage()); //
 			} else if (BisConst.Register.BUSINESS.equals(ems)) {
-				model.addAttribute("errMsg_business", e.getMessage()); //
+				model.addAttribute("errMsg_business_org", e.getMessage()); //
 			} else {
 				// TODO
-				model.addAttribute("errMsg", e.getMessage());
+				model.addAttribute("errMsg_org", e.getMessage());
 			}
-			model.addAttribute("CustinfoVo", custinfoVo);
+			model.addAttribute("CustinfoVo_org", custinfoVo);
 			return "register/indexPage";
 		}
 		return "register/successPage";
@@ -194,6 +263,7 @@ public class CustController {
 			if("Y".equals(custinfoVo.getOpenaccount())){
 				
 				// 资产显示
+				//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 				List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 				Assets assets = queryManager.queryAssets(tradeAccoList);
 				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
@@ -268,6 +338,7 @@ public class CustController {
 				
 				if("Y".equals(s_custinfo.getOpenaccount())){
 					// 资产显示
+					//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 					List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 					Assets assets = queryManager.queryAssets(tradeAccoList);
 					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
@@ -341,6 +412,10 @@ public class CustController {
 		FundInfo fundInfo = new FundInfo();
 		fundInfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
 		fundInfo.setFundcode(BasicFundinfo.YFB.getFundCode());
+		//DateFormat df = new SimpleDateFormat("yyyyMMdd");
+		//fundInfo.setDate(df.format(new Date()));
+		//fundInfo = queryManager.getFundInfo(fundInfo);
+
 		fundInfo = fundManager.getFundInfo(fundInfo);
 		return fundInfo;
 	}

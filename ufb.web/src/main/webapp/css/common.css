@@ -2,7 +2,6 @@
 .trans{
 	-webkit-transition:all 0.3s;
 	   -moz-transition:all 0.3s;
-	    -ms-transition:all 0.3s;
 	     -o-transition:all 0.3s;
 	        transition:all 0.3s;
 }
@@ -28,27 +27,27 @@
 	background: #fff;
 }
 /*
- *@ Name:       δ֪�߶ȴ�ֱ�������
- *@ Author:     һ˿
+ *@ Name:       未知高度垂直居中组件
+ *@ Author:     一丝
  *@ Update:     2013-10-13 17:08:36
- *@ Usage:      ֧��ͼƬ�����л�������֣��Լ�ͼ�Ļ���
+ *@ Usage:      支持图片，单行或多行文字，以及图文混排
  */
 
-/* ȥ�� inline-block �Ŀ�϶ */
+/* 去除 inline-block 的空隙 */
 .center-box {
 	font-size: 0;
-	*word-spacing: -1px; /* IE6��7 */
-	height: 100%; /* �̳и����߶� */
+	*word-spacing: -1px; /* IE6、7 */
+	height: 100%; /* 继承父级高度 */
 }
 
-/* �޸� Safari 5- inline-block �Ŀ�϶ */
+/* 修复 Safari 5- inline-block 的空隙 */
 @media (-webkit-min-device-pixel-ratio:0) {
 	.center-box {
 		letter-spacing: -5px;
 	}
 }
 
-/* ʹ�ÿձ�ǩ���һ���߶�100%�Ĳ���Ԫ�� */
+/* 使用空标签生成一个高度100%的参照元素 */
 .center-box .center-hack {
 	display: inline-block;
 	*display: inline;
@@ -66,11 +65,11 @@
 	*display: inline;
 	*zoom: 1;
 	font-size: 14px;
-	vertical-align: middle; /* ��֤���ִ�ֱ���� */
-	padding: 0 !important; /* ��ֹ���ñ߾ർ�¾���ʧЧ */
+	vertical-align: middle; /* 保证文字垂直居中 */
+	padding: 0 !important; /* 防止设置边距导致居中失效 */
 	margin: 0 !important;
-	width: 100%; /* ��֤�����ַ�Ҳ�ܾ��� */
-	white-space: normal; /* ��֤�����ַ��� */
+	width: 100%; /* 保证连续字符也能居中 */
+	white-space: normal; /* 保证连续字符换行 */
 	word-wrap: break-word;
 }
 
@@ -79,14 +78,14 @@
 	*display: inline;
 	*zoom: 1;
 	width: 100%;
-	text-align: center; /* ͼƬĬ��ˮƽ���� */
+	text-align: center; /* 图片默认水平居中 */
 	vertical-align: middle;
-	padding: 0 !important; /* ��ֹ���ñ߾ർ�¾���ʧЧ */
+	padding: 0 !important; /* 防止设置边距导致居中失效 */
 	margin: 0 !important;
 }
 
 .center-box img {
-	vertical-align: middle; /* ȥ���ִ������ img �ײ���϶ */
+	vertical-align: middle; /* 去除现代浏览器 img 底部空隙 */
 }
 /* transform */
 .slide-in {
@@ -102,6 +101,17 @@
 .slide-in.slide-out {
 	opacity: 0;
 	transform: translateX(-100%);
+}
+/* tabs */
+.panels {
+	position: relative;
+}
+.panels .panel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 /* positon */
 .bc {
@@ -174,13 +184,27 @@ a {
 	position: absolute;
 }
 a.btn {
-	width: 120px;
-	height: 36px;
+	width: 118px;
+	height: 34px;
 	font-size: 14px;
-	line-height: 36px;
+	line-height: 34px;
 	text-align: center;
+	color: #cb3849;
+	background-color: #ffffff;
+	border: 1px solid #cb3849;
+	-webkit-transition:all 0.3s;
+	-moz-transition:all 0.3s;
+	-o-transition:all 0.3s;
+	transition:all 0.3s;
+}
+a.btn:hover {
 	color: #ffffff;
 	background-color: #cb3849;
+}
+a.btn.off {
+	color: #ffffff;
+	background-color: #b4b4b5;
+	border: 1px solid #b4b4b5;
 }
 .tips-float {
 	position: absolute;
@@ -191,7 +215,16 @@ a.btn {
 .mark {
 	color:#cb3849;
 }
-
+a.link {
+	color: #2f8fbf;
+	text-decoration: underline;
+}
+.m-b10 {
+	margin-bottom: 10px;
+}
+.c-blue {
+	color: #2f8fbf;
+}
 /* common - header */
 .header {
 	border-top: 5px solid #cb3849;
@@ -301,71 +334,63 @@ a.btn {
 }
 .body .side {
 	width: 240px;
+	margin-bottom: 20px;
 }
 
 /* common - footer */
 .footer {
-	padding-top: 35px;
-	padding-bottom: 30px;
+	padding-top: 30px;
+	padding-bottom: 40px;
 	color: #666666;
 	background-color: #e6e6e5;
+	border-top: 8px solid #2f8fbf;
 }
 .footer a {
 	color: #666666;
 }
 .footer .title {
-	height: 42px;
 	font-size: 18px;
-	line-height: 42px;
-	margin-bottom: 12px;
+	line-height: 30px;
+	margin-bottom: 20px;
+	color: #2f8fbf;
+}
+.footer .title img {
+	vertical-align: top;
 }
 .footer .list {
-	font-size: 14px;
+	font-size: 12px;
+	line-height: 2;
 	height: 100px;
 }
 .footer .list a:hover {
 	text-decoration: underline;
 }
-.footer .notice {
-	padding-right: 72px;
-	border-right: 1px solid #cbcbcb;
-}
-.footer .notice .title {
-	padding-left: 56px;
-	background: url("../images/icon.png") no-repeat -158px 0;
-}
 .footer .qa {
-	padding: 0 36px;
+	padding-right: 50px;
 	border-right: 1px solid #cbcbcb;
 }
 .footer .qa .title {
-	padding-left: 56px;
-	background: url("../images/icon.png") no-repeat -158px -42px;
 }
-.footer .info {
-	font-size: 14px;
-	padding-left: 150px;
-	background: url("../images/logo_130x55.png") no-repeat 0 center;
+.footer .notice {
+	padding: 0 50px;
+	border-right: 1px solid #cbcbcb;
+}
+.footer .notice .title {
+}
+.footer .about {
+	padding: 0 50px;
+	border-right: 1px solid #cbcbcb;
+}
+.footer .about .title {
 }
 .footer .copyright {
 	font-size: 12px;
 }
-.footer .about {
-	padding: 0 36px;
+.footer.footer-simple .info {
+	padding-left:20px;
 }
-.footer .about .title {
-}
-.footer .about .title a {
-	padding-right: 60px;
-	background: url("../images/logo_54x18.png") no-repeat right center;
-}
-.footer .about .title a span {
-	color: #cbcbcb;
-}
-.footer .about .info {
-	font-weight: bold;
-	padding: 0;
-	background: none;
+.footer.footer-simple .copyright {
+	margin-right: 110px;
 }
 /* common - box */
 .alert-con {
@@ -405,9 +430,10 @@ a.btn {
 }
 .img-openGuide {
 	position: absolute;
-	top: 170px;
+	top: 200px;
 	left: 50%;
 	margin-left: -300px;
+	z-index: 1;
 }
 .error-box {
 	width: 380px;
@@ -466,9 +492,15 @@ a.btn {
 	color: #666666;
 	font-size: 14px;
 }
-.login-tabs .tab.on {
-	color: #ffffff;
-	background-color: #CB3849;
+.login-tabs .tab span {
+	color: #666666;
+	display: block;
+	height: 38px;
+	border-bottom: 2px solid #ffffff;
+}
+.login-tabs .tab.on span {
+	color: #CB3849;
+	border-bottom: 2px solid #cb3849;
 }
 /* common - form */
 .common-form li {
@@ -607,17 +639,10 @@ a.btn {
 }
 .login-form li input.input-button {
 	width: 330px;
-	height: 40px;
 	border: 0;
 	padding: 0;
 	background-color: #cb3849;
 	color: #ffffff;
-}
-.login-form .ipt-username {
-	background: url("../images/icon-username.png") no-repeat left top;
-}
-.login-form .ipt-password {
-	background: url("../images/icon-password.png") no-repeat left top;
 }
 .login-form .ipt-loginUsername {
 	background: url("../images/icon-username.png") no-repeat left top;
@@ -795,7 +820,7 @@ a.btn {
 	vertical-align: top;
 }
 .project-item .item-base {
-	padding: 15px 15px 15px 100px;
+	padding: 60px 15px 15px 15px;
 	position: relative;
 	font-size: 14px;
 	text-align: center;
@@ -804,12 +829,15 @@ a.btn {
 	padding: 35px 15px 35px 100px;
 }
 .project-item.item-main .item-base .base-table {
-	width: 400px;
+	width: 300px;
 	border: 0;
 }
 .project-item.item-sub .item-base .base-table {
 	width: 460px;
 	border: 0;
+}
+.project-item.item-sub .item-base .base-table td {
+	text-align: center;
 }
 .base-table thead td {
 	background-color: #eeeeef;
@@ -817,6 +845,7 @@ a.btn {
 .base-table td {
 	height: 35px;
 	line-height: 35px;
+	text-align: left;
 	border-bottom: 10px solid #ffffff;
 	border-left: 2px solid #ffffff;
 	border-right: 2px solid #ffffff;
@@ -824,6 +853,20 @@ a.btn {
 .base-table td span {
 	font-size: 18px;
 	color: #cb3849;
+}
+.base-table .name {
+	color: #888888;
+}
+.base-table .value {
+	font-size: 18px;
+	color: #595757;
+}
+.base-table .value-big {
+	font-size: 28px;
+	color: #cb3849;
+}
+.base-table .link {
+	font-size: 12px;
 }
 .project-item.item-main .item-base .base-btn {
 	width: 170px;
@@ -836,14 +879,6 @@ a.btn {
 	height: 35px;
 	line-height: 35px;
 	text-align: center;
-	position: relative;
-	border-bottom: 10px solid #ffffff;
-	border-left: 2px solid #ffffff;
-	border-right: 2px solid #ffffff;
-}
-.base-btn .btn.off {
-	background-color: #b4b4b5;
-	color: #ffffff;
 }
 .base-btn .tips {
 	width: 60px;
@@ -855,8 +890,8 @@ a.btn {
 .project-item .item-detail {
 	width: 660px;
 	margin: 0 auto;
-	border-top: 1px solid #cbcbcb;
-	padding: 15px 0;
+	border-top: 1px solid #edeeee;
+	padding-bottom: 15px;
 }
 .project-item.item-sub .item-detail {
 	display: none;
@@ -864,33 +899,33 @@ a.btn {
 .project-item.item-sub .base-btn .tips {
 	display: none;
 }
-.item-detail .detail-chart {
-	width: 360px;
+.detail-chart {
+	width: 300px;
+	border-right: 1px solid #edeeee;
+	padding-right: 30px;
 }
-.item-detail .detail-chart .chart-tabs .tab {
+.detail-chart .chart-tabs {
+	margin-bottom: 20px;
+}
+.detail-chart .chart-tabs .tab {
 	float: left;
 	width: 50%;
-	font-size: 14px;
+	font-size: 12px;
 	line-height: 2;
 	text-align: center;
 	border-bottom: 1px solid #cbcbcb;
 }
-.item-detail .detail-chart .chart-tabs .tab.on,
-.item-detail .detail-chart .chart-tabs .tab:hover {
+.detail-chart .chart-tabs .tab.on,
+.detail-chart .chart-tabs .tab:hover {
 	color: #2F8FBF;
 	border-bottom-color: #2F8FBF;
 }
-.item-detail .detail-chart .chart-panels {
+.detail-chart .chart-panels {
 	height: 150px;
 	position: relative;
 	overflow: hidden;
 }
-.item-detail .detail-chart .chart-panels .panel {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+.detail-chart .chart-panels .panel {
 }
 .item-detail .detail-list {
 	/*width: 260px;
@@ -900,6 +935,11 @@ a.btn {
 .item-detail .detail-list .list-title {
 	font-size: 14px;
 	line-height: 2;
+	padding: 10px 0;
+}
+.item-detail .detail-list .list-title a {
+	line-height: 28px;
+	font-size: 12px;
 }
 .item-detail .detail-list .list-tabs .tab {
 	float: left;
@@ -920,24 +960,19 @@ a.btn {
 	overflow: hidden;
 }
 .item-detail .detail-list .list-panels .panel {
-	position: absolute;
 	top: 10px;
-	left: 0;
-	width: 100%;
-	height: 100%;
 }
 .item-detail .detail-list td {
 	line-height: 2;
 	padding:10px;
 }
-.item-detail .detail-list td a {
-	color: #cb3849;
-}
 .item-detail .detail-list thead td {
 	font-size: 14px;
-	background-color: #eeeeef;
+	background-color: #f7f7f7;
 }
-
+.item-detail .detail-list tbody td {
+	border-bottom: 1px solid #edeeee;
+}
 /* index */
 
 .index .kv {
@@ -1030,25 +1065,23 @@ a.btn {
 	line-height: 40px;
 	background-color: #ffffff;
 	font-size: 14px;
-	color: #666666;
-	transition:all 0.3s;
 	border: 1px solid #cbcbcb;
-
 }
-.register-tabs .tab.on {
-	color: #ffffff;
-	background-color: #CB3849;
-	border: 1px solid #CB3849;
+.register-tabs .tab span {
+	color: #666666;
+	display: block;
+	height: 38px;
+	border-bottom: 2px solid #ffffff;
+}
+.register-tabs .tab.on span {
+	color: #CB3849;
+	border-bottom: 2px solid #cb3849;
 }
 .register-panels {
-	position: relative;
+	height: 550px;
 }
 .register-panels .panel {
-	position: absolute;
 	top: 20px;
-	left: 0;
-	width: 100%;
-	height: 100%;
 	transition:all 0.3s;
 }
 /* find */
@@ -1087,11 +1120,7 @@ a.btn {
 	height: 300px;
 }
 .find-panels .panel {
-	position: absolute;
 	top: 20px;
-	left: 0;
-	width: 100%;
-	height: 100%;
 	transition:all 0.3s;
 }
 /* center */
@@ -1114,22 +1143,34 @@ a.btn {
 .center .side .info-account {
 	background-color: #ffffff;
 	border: 1px solid #d5d5d4;
-	height: 330px;
 	font-size: 14px;
+	border-bottom: none;
+}
+.center .side .info-account .tab {
+	float: left;
+	width: 50%;
+	border-bottom: 1px solid #e0e0e0;
+}
+.center .side .info-account .tab.on {
+	color: #2f8fbf;
+	border-bottom: 1px solid #499dc7;
+}
+.center .side .info-account .panels {
+	height: 215px;
 }
 .center .side .info-account .account-header {
-	height: 90px;
-	position: relative;
-	padding-left: 90px;
-	padding-right: 40px;
+	text-align: center;
+	padding-top: 15px;
 }
 .center .side .info-account .account-header .header-avatar {
-	position: absolute;
-	top: 15px;
-	left: 15px;
-	width: 60px;
-	height: 60px;
-	background:url("../images/icon.png") no-repeat 0 0;
+	width: 61px;
+	height: 61px;
+	display: block;
+	margin: 0 auto;
+	background: url("../images/avatar-off.png") no-repeat center center;
+}
+.center .side .info-account .on .account-header .header-avatar {
+	background: url("../images/avatar.png") no-repeat center center;
 }
 .center .side .info-account .account-header .header-name {
 }
@@ -1144,9 +1185,15 @@ a.btn {
 .center .side .info-account .account-item {
 	height: 70px;
 	padding: 0 15px;
-	border-top: 1px solid #CBCBCB;
+	border-bottom: 1px solid #CBCBCB;
+	line-height: 70px;
+	font-size: 12px;
+}
+.center .side .info-account .account-item .link {
+	margin-left: 10px;
 }
 .center .side .info-account .account-item .name {
+	font-size: 14px;
 	line-height: 30px;
 }
 .center .side .info-account .account-item .value {
@@ -1156,9 +1203,10 @@ a.btn {
 	text-align: right;
 }
 .center .side .info-account .account-btn {
-	border-top: 1px solid #CBCBCB;
+	border-bottom: 1px solid #CBCBCB;
 	padding-top: 10px;
 	position: relative;
+	height: 50px;
 }
 .center .side .info-account .account-btn .btn {
 	width: 210px;
@@ -1167,6 +1215,8 @@ a.btn {
 	z-index: 100;
 	left: 50%;
 	margin-left: -105px;
+	color: #ffffff;
+	background-color: #cb3849;
 }
 .center .body .title-side {
 	width: 225px;
@@ -1194,7 +1244,7 @@ a.btn {
 	color: #CB3849;
 	font-size: 20px;
 }
-.center .notice {
+.center .body .notice {
 	width: 90%;
 	padding: 10px 20px;
 	margin: -20px auto 70px;
@@ -1364,11 +1414,7 @@ a.btn {
 	overflow: hidden;
 }
 .setting .password-panels .panel {
-	position: absolute;
 	top: 20px;
-	left: 0;
-	width: 100%;
-	height: 100%;
 	transition:all 0.3s;
 }
 .setting .card-list {

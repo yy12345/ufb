@@ -20,254 +20,401 @@ $(function(){
 </head>
 <body>
 <div class="container center">
-<div class="header">
-    <div class="inner clearfix rel">
-        <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
-		<div class="nav"><a 
-			href="${staticDomain}/home/index.htm">首页</a>|<a class="current" 
-			href="${staticDomain}/cust/session.htm">资产总览</a>|<a 
-			href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
-			href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
-			href="javascript:;"><i class="trans icon"></i>
-				#if ($SessionVo.invnm)
-            	    $!{SessionVo.invnm}
-            	#else
-					#set($tailStr=$SessionVo.mobileno)
-					#set($start=$tailStr.substring(0,3))
-					#set($end=$tailStr.substring(7,11))
-					$start****$end
-            	#end<a 
-			href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span></div>
-    </div>
-</div>
-<form id="form-index" method="post" action="${staticDomain}/cust/index.htm">
-<input id="openaccount" type="hidden" name="openaccount" value="${SessionVo.openaccount}"/>
-<div class="body">
-    <div class="inner clearfix">
-        <div class="title clearfix">
-            <h2 class="title-main fl">资产总览</h2>
-            <h2 class="title-side fr">账户</h2>
+    <div class="header">
+        <div class="inner clearfix rel">
+            <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+    		<div class="nav"><a 
+    			href="${staticDomain}/home/index.htm">首页</a>|<a class="current" 
+    			href="${staticDomain}/cust/session.htm">资产总览</a>|<a 
+    			href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
+    			href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
+    			href="javascript:;"><i class="trans icon"></i>
+    				#if ($SessionVo.invnm)
+                	    $!{SessionVo.invnm}
+                	#else
+    					#set($tailStr=$SessionVo.mobileno)
+    					#set($start=$tailStr.substring(0,3))
+    					#set($end=$tailStr.substring(7,11))
+    					$start****$end
+                	#end<a 
+    			href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span></div>
         </div>
-        <div class="main fl">
-            <ul class="project-list">
-                <li class="project-item item-main shadow-normal trans">
-                    <i class="tag"><img src="${staticDomain}/images/tag2.png"></i>
-                    <div class="item-base clearfix">
-                        <table class="base-table fl">
-                            <thead>
-                            <tr>
-                                <td width="33%">昨日收益</td>
-                                <td width="33%">资产总额（元）</td>
-                                <td>累计收益（元）</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>0.00&nbsp;</td>
-                                <td>$!{totalBalanceDisplay}&nbsp;</td>
-                                <td>0.00&nbsp;</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="base-btn fr">
-							#if($SessionVo.openaccount!="Y")
-                            <div class="clearfix">
-								<a class="fl btn off" href="#">充值</a><span class="tips fl">自动充值</span>
-							</div>
-                            <div class="clearfix">
-								<a class="fl btn off" href="#">取现</a><span class="tips fl">自动取现</span>
-							</div>
-							#else
-                            <div class="clearfix">
-								<a class="fl btn" href="${staticDomain}/trade/pay_index.htm">充值</a><span class="tips fl">自动充值</span>
-							</div>
-                            <div class="clearfix">
-								<a class="fl btn" href="${staticDomain}/trade/cash_index.htm">取现</a><span class="tips fl">自动取现</span>
-							</div>
-							#end
-                        </div>
-                    </div>
-                    <div class="item-detail clearfix">
-                        <div class="detail-chart">
-                            <div class="tabs chart-tabs clearfix">
-                                <a class="tab on" href="javascript:;">7日年化收益率(%)  4.8270</a>
-                                <a class="tab" href="javascript:;">万份收益(元)  1.2440</a>
+    </div>
+    <div class="body">
+    	<form id="form-index" method="post" action="${staticDomain}/cust/index.htm">
+    	<input id="openaccount" type="hidden" name="openaccount" value="${SessionVo.openaccount}"/>
+    
+        <div class="inner clearfix">
+            <div class="title clearfix">
+                <h2 class="title-main fl">资产总览</h2>
+                <h2 class="title-side fr">账户</h2>
+            </div>
+            <div class="main fl">
+                <ul class="project-list">
+                    <li class="project-item item-main shadow-normal trans">
+                        <i class="tag"><img src="${staticDomain}/images/tag2.png"></i>
+                        <div class="item-base clearfix">
+    						<div class="detail-chart fl">
+                                <div class="tabs chart-tabs clearfix">
+                                    <a class="tab on" href="javascript:;">7日年化收益率(%)  4.8270</a>
+                                    <a class="tab" href="javascript:;">万份收益(元)  1.2440</a>
+                                </div>
+                                <div class="panels chart-panels">
+                                    <div id="chart-syl" class="panel slide-in"></div>
+                                    <div id="chart-sy" class="panel slide-out"></div>
+                                </div>
                             </div>
-                            <div class="panels chart-panels">
-                                <div id="chart-syl" class="panel slide-in">表一</div>
-                                <div id="chart-sy" class="panel slide-out">表二</div>
+    						<table class="base-table fr">
+                                <tr>
+                                    <td width="45%">
+                                        <div class="name">昨日收益</div>
+                                        <div class="value">5.1470</div>
+                                    </td>
+                                    <td>
+                                        <div class="name">资产总额（元）</div>
+                                        <div class="value">$!{totalBalanceDisplay}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="name">累计收益（元）</div>
+                                        <div class="value-big">1,231.34</div>
+                                    </td>
+                                    <td>
+                                        <div class="base-btn">
+    										
+    										#if($SessionVo.openaccount!="Y")
+                                            <div class="clearfix m-b10">
+    											<a class="fl btn off" href="javascript:;">充值</a>
+    											<a href="javascript:;" class="link fr">自动充值</a>
+    										</div>
+                                            <div class="clearfix">
+    											<a class="fl btn off" href="javascript:;">取现</a>
+    											<a href="javascript:;" class="link fr">自动取现</a>
+    										</div>
+    										#else
+    										<div class="clearfix m-b10">
+    											<a class="fl btn" href="${staticDomain}/trade/pay_index.htm">充值</a>
+    											<a href="${staticDomain}/trade/pay_index.htm" class="link fr">自动充值</a>
+    										</div>
+                                            <div class="clearfix">
+    											<a class="fl btn" href="${staticDomain}/trade/cash_index.htm">取现</a>
+    											<a href="${staticDomain}/trade/cash_index.htm" class="link fr">自动取现</a>
+    										</div>
+    										#end
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="item-detail clearfix">
+                            <div class="detail-list">
+                                <div class="list-title">资金明细<a class="link fr" href="detailList.html">查看更多</a></div>
+                                <table width="100%">
+                                    <thead>
+                                    <tr>
+                                        <td class="tc">时间</td>
+                                        <td class="tc">交易类型</td>
+                                        <td class="tc">金额</td>
+                                        <td class="tc">交易状态</td>
+                                        <td class="tc">银行卡</td>
+                                        <td class="tc">操作</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+    								#foreach($tradeRequest in $listIn)
+                                    <tr>
+                                        <td class="tc">2015-05-19</td>
+                                        <td class="tc">
+    									#if(${tradeRequest.apkind}=="022")
+    										充值
+    									#elseif(${tradeRequest.apkind}=="023")
+    										取现
+    									#elseif(${tradeRequest.apkind}=="024")
+    										快取
+    									#end
+    									</td>
+                                        <td class="tr">
+    									#if(${tradeRequest.appamt})
+    										+$!{tradeRequest.appamt}
+    									#else
+    										-$!{tradeRequest.appvol}
+    									#end
+    									</td>
+                                        <td class="tc">
+    									#if(${tradeRequest.state}=="I")
+    										处理中
+    									#else	
+    										成功
+    									#end
+    									</td>
+                                        <td class="tc">
+    									#set($tailStr=$!{tradeRequest.bankacco})
+    									#set($start=$tailStr.length() - 4)
+    									#set($end=$tailStr.length())
+    									${tradeRequest.banknm}（尾号$tailStr.substring($start,$end)）	
+    									</td>
+                                        <td class="tc"><a class="link" href="javascript:;">查看</a></td>
+                                    </tr>
+    								#end
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="detail-list">
-                            <div class="list-title">资金明细</div>
-                            <table width="100%">
+                    </li>
+                    <li class="project-item item-sub shadow-normal trans">
+                        <i class="tag"><img src="${staticDomain}/images/tag1.png"></i>
+                        <div class="item-base clearfix">
+                            <table class="base-table fl">
                                 <thead>
                                 <tr>
-                                    <td class="tc">时间</td>
-                                    <td class="tc">交易类型</td>
-                                    <td class="tc">金额</td>
-                                    <td class="tc">交易状态</td>
-                                    <td class="tc">银行卡</td>
-                                    <td class="tc">操作</td>
+                                    <td width="33%">昨日收益</td>
+                                    <td width="33%">资产总额（元）</td>
+                                    <td>累计收益（元）</td>
                                 </tr>
                                 </thead>
                                 <tbody>
-								#foreach($tradeRequest in $listIn)
                                 <tr>
-                                    <td class="tc">2015-05-19 18:55</td>
-                                    <td class="tc">
-									#if(${tradeRequest.state}=="I")
-										#if(${tradeRequest.apkind}=="022")
-											充值
-										#elseif(${tradeRequest.apkind}=="023")
-											取现
-										#elseif(${tradeRequest.apkind}=="024")
-											快取
-										#end
-									#else	
-										#if(${tradeRequest.apkind}=="022")
-											充值
-										#elseif(${tradeRequest.apkind}=="023")
-											取现
-										#elseif(${tradeRequest.apkind}=="024")
-											快取
-										#end
-									#end
-									</td>
-                                    <td class="tr">
-									#if(${tradeRequest.appamt})
-										+$!{tradeRequest.appamt}
-									#else
-										-$!{tradeRequest.appvol}
-									#end
-                                    <td class="tc">
-									#if(${tradeRequest.state}=="I")
-										处理中
-									#else	
-										成功
-									#end
-									</td>
-                                    <td class="tc">
-										#set($tailStr=$!{tradeRequest.bankacco})
-										#set($start=$tailStr.length() - 4)
-										#set($end=$tailStr.length())
-										${tradeRequest.banknm}[尾号$tailStr.substring($start,$end)]	
-									</td>
-                                    <td class="tc"><a href="javascript:;">查看</a></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
                                 </tr>
-								#end
                                 </tbody>
                             </table>
+                            <div class="base-btn fr">
+                                <div class="clearfix m-b10"><a class="fl btn off" href="javascript:;">购买</a></div>
+                                <div class="clearfix"><a class="fl btn off off" href="javascript:;">取现</a></div>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li class="project-item item-sub shadow-normal trans">
-                    <i class="tag"><img src="${staticDomain}/images/tag1.png"></i>
-                    <div class="item-base clearfix">
-                        <table class="base-table fl">
-                            <thead>
-                            <tr>
-                                <td width="33%">昨日收益</td>
-                                <td width="33%">资产总额（元）</td>
-                                <td>累计收益（元）</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="base-btn fr">
-                            <div class="clearfix"><a class="fl btn off" href="javascript:;">购买</a></div>
-                            <div class="clearfix"><a class="fl btn off" href="javascript:;">取现</a></div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="side fr">
-            <div class="info-account">
-                <div class="account-header">
-                    <a href="${staticDomain}/setting/settingAccount.htm" class="header-avatar"><img src="${staticDomain}/images/avatar.png" width="100%"></a>
-                    <div class="header-name center-box well">
-						<b class="center-hack"></b>
-						<div class="center-body">
-						#if ($SessionVo.invnm)
-	                	    $!{SessionVo.invnm}
-	                	#else
-	                	    #set($tailStr=$SessionVo.mobileno)
-							#set($start=$tailStr.substring(0,3))
-							#set($end=$tailStr.substring(7,11))
-							$start****$end
-	                	#end
-						</div>
-					</div>
-                    <a href="${staticDomain}/setting/settingAccount.htm" class="header-setting"></a>
-                </div>
-                <ul class="account-list">
-                    <li class="account-item">
-                        <div class="name">资产总金额（元）</div>
-                        <div class="value">$!{totalBalanceDisplay}</div>
                     </li>
-                    <li class="account-item">
-                        <div class="name">可用金额（元）</div>
-                        <div class="value">$!{availableBalanceDisplay}</div>
-                    </li>
-					#if($SessionVo.openaccount=="Y")
-					<li class="account-item">
-                        <div class="name">冻结金额（元）</div>
-                        <div class="value">$!{frozenBalanceDisplay}</div>
-                    </li>
-					#end
                 </ul>
-				#if($SessionVo.openaccount!="Y")
-                <div class="account-btn">
-                    <a id="btn-openAccount" class="btn" href="#">开办理财账户</a>
-                </div>
-				#end
             </div>
-            <div class="info-yield">
-                <div class="yield-title">幼富宝</div>
-                <div class="yield-data">
-					#if($FUNDINFOVO)
-                    <div class="data-value">$!{FUNDINFOVO.nav}</div>
-                    <div class="data-name">七日年化收益率（$!{FUNDINFOVO.yield}%）</div>
-                    <div class="data-source">数据来源：海富通基金</div>
-					#else
-					<div class="data-value">--</div>
-                    <div class="data-name">七日年化收益率（--%）</div>
-                    <div class="data-source">数据来源：海富通基金</div>
-					#end	
+    		<div class="side fr">
+                <div class="info-account">
+    				#if($SessionVo.openaccount!="Y")
+    				<div class="account-header">
+    					<a href="${staticDomain}/setting/settingAccount.htm" class="header-avatar"></a>   
+    					<div class="header-name">		
+    						<b class="center-hack"></b>
+    						<div class="center-body">
+    							#if ($SessionVo.invnm)
+    								$!{SessionVo.invnm}
+    							#else
+    								#set($tailStr=$SessionVo.mobileno)
+    								#set($start=$tailStr.substring(0,3))
+    								#set($end=$tailStr.substring(7,11))
+    								$start****$end
+    							#end
+    						</div>
+    					</div>
+                  	</div>	
+    				#else	
+                    <div class="tabs clearfix">
+                        <div class="tab on">
+                            <div class="account-header">
+                                <a href="${staticDomain}/setting/settingAccount.htm" class="header-avatar"></a>
+    							<div class="header-name">
+    								经办人：
+    								#if ($SessionVo.invnm)
+        								$!{SessionVo.invnm}
+        							#else
+        								#set($tailStr=$SessionVo.mobileno)
+        								#set($start=$tailStr.substring(0,3))
+        								#set($end=$tailStr.substring(7,11))
+        								$start****$end
+        							#end
+    							</div>
+                            </div>
+                        </div>
+                        <div class="tab">
+                            <div class="account-header">
+                                <a href="#" class="header-avatar" onclick="alert('切换机构账户，建设中...');"></a>
+                                <div class="header-name">
+    								机构：
+    								#if ($SessionVo.invnm)
+        								$!{SessionVo.invnm}
+        							#else
+        								#set($tailStr=$SessionVo.mobileno)
+        								#set($start=$tailStr.substring(0,3))
+        								#set($end=$tailStr.substring(7,11))
+        								$start****$end
+        							#end
+    							</div>
+                            </div>
+                        </div>
+                    </div>
+    				#end
+                    <div class="panels">
+                        <div class="panel slide-in">
+                            <ul class="account-list">
+                                <li class="account-item">
+                                    <div class="clearfix">
+                                        <div class="fl">银行卡已添加<span class="c-blue">？</span>张</div>
+                                        <a class="link fr" href="${staticDomain}/bankcard/addBankCard.htm">+新卡</a>
+                                        <a class="link fr" href="${staticDomain}/setting/settingCard.htm">查看全部</a>
+                                    </div>
+                                </li>
+                                <li class="account-item">
+                                    <div class="name">资产总金额（元）</div>
+                                    <div class="value">$!{totalBalanceDisplay}</div>
+                                </li>
+    							#if($SessionVo.openaccount=="Y")
+                                <li class="account-item">
+                                    <div class="name">冻结金额（元）</div>
+                                    <div class="value">$!{frozenBalanceDisplay}</div>
+                                </li>
+    							#end
+                            </ul>
+    						#if($SessionVo.openaccount!="Y")
+                            <div class="account-btn">
+                                <a id="btn-openAccount" class="btn" href="#">开办理财账户</a>
+                            </div>
+            				#end
+                        </div>
+                    </div>
+    			</div>
+                <div class="info-yield">
+                    <div class="yield-title">幼富宝</div>
+                    <div class="yield-data">
+    					#if($FUNDINFOVO)
+                        <div class="data-value">$!{FUNDINFOVO.nav}</div>
+                        <div class="data-name">七日年化收益率（$!{FUNDINFOVO.yield}%）</div>
+                        <div class="data-source">数据来源：海富通基金</div>
+    					#else
+    					<div class="data-value">--</div>
+                        <div class="data-name">七日年化收益率（--%）</div>
+                        <div class="data-source">数据来源：海富通基金</div>	
+    					#end	
+                    </div>
                 </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div class="footer footer-all">
+        <div class="inner clearfix">
+            <div class="qa fl">
+                <h2 class="title">常见问题</h2>
+                <ul class="list">
+                    <li><a href="helpQA.html#q1">什么是机构理财专户？</a></li>
+                    <li><a href="helpQA.html#q2">什么是幼富宝？</a></li>
+                    <li><a href="helpQA.html#q3">购买幼富宝有什么好处？</a></li>
+                </ul>
+            </div>
+            <div class="notice fl">
+                <h2 class="title">理财机构须知</h2>
+                <ul class="list">
+                    <li><a href="helpNotice.html#n1">幼教机构如何注册幼富通？</a></li>
+                    <li><a href="helpNotice.html#n2">如何购买幼富通的机构理财产品？</a></li>
+                    <li><a href="helpNotice.html#n3">机构理财的交易安全有什么保障？</a></li>
+                    <li><a href="helpNotice.html#n4">如何联系我们？</a></li>
+                </ul>
+            </div>
+            <div class="about fl">
+                <h2 class="title">关于幼富通</h2>
+                <ul class="list">
+                    <li>微信服务号：UFUfund</li>
+                    <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                    <li>海富通产品：400-8840-099</li>
+                </ul>
+            </div>
+            <div class="copyright fr">
+                <h2 class="title"><img src="../images/logo_78x26.png"></h2>
+                <ul class="list">
+                    <li>幼富通版权所有 &copy;2014</li>
+                    <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+                </ul>
             </div>
         </div>
     </div>
-</div>
-</form>
-<div class="footer">
-    <div class="inner clearfix">
-        <div class="info fl">
-            <p>微信服务号：UFUfund</p>
-            <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
-            <p>海富通产品：400-8840-099</p>
-        </div>
-        <div class="copyright fr">
-            <p>幼富通版权所有 ©2015</p>
-            <p><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></p>
+    <div class="footer footer-simple">
+        <div class="inner clearfix">
+            <div class="logo fl">
+                <img src="../images/logo_130x55.png">
+            </div>
+            <div class="info fl">
+                <ul class="list">
+                    <li>微信服务号：UFUfund</li>
+                    <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                    <li>海富通产品：400-8840-099</li>
+                </ul>
+            </div>
+            <div class="copyright fr">
+                <ul class="list">
+                    <li>幼富通版权所有 &copy;2014</li>
+                    <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <div class="alert-box box-openGuide"><img class="img-openGuide" src="${staticDomain}/images/img-open.png"></div>
+<script type='text/javascript' src='${staticDomain}/js/libs/highcharts.js'></script>
 <script src="${staticDomain}/js/scripts/load.js"></script>
 <script>
     $(function () {
 		#if($SessionVo.openaccount!="Y")
         alertBox(".box-openGuide");
 		#end
+    });
+	
+    $(function () {
+        $('#chart-syl').highcharts({
+            chart: {
+            },
+            title: {
+                text: null
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: ['05/25', '05/26', '05/27', '05/28', '05/29', '05/30','05/31']
+
+            },
+            yAxis: {
+                title: {
+                    text: null
+                }
+            },
+            tooltip: {
+                enabled: false
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: '',
+                data: [4.23, 4.27, 4.30, 4.25, 4.25, 4.26, 4.27]
+            }]
+        });
+        $('#chart-sy').highcharts({
+            title: {
+                text: null
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: ['05/25', '05/26', '05/27', '05/28', '05/29', '05/30','05/31']
+
+            },
+            yAxis: {
+                title: {
+                    text: null
+                }
+            },
+            tooltip: {
+                enabled: false
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: '',
+                data: [1.22, 1.22, 1.30, 1.25, 1.26, 1.26, 1.28]
+            }]
+        });
     });
 </script>
 </body>

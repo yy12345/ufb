@@ -53,29 +53,25 @@ $(function () {
     /*
      event - tab
      */
-    $(".register-tabs .tab").each(function (index) {
-        var tab = $(this);
-        var panels = $(".register-panels .panel");
-        tab.bind("click", function () {
-            tab.addClass("on").siblings().removeClass("on");
-            panels.addClass("slide-out").eq(index).removeClass("slide-out");
-        });
+    var tabSlide = function (tab) {
+        var _tab = tab;
+        var _tabs = _tab.parent(".tabs");
+        var _index = _tabs.find(".tab").index(_tab);
+        var _panel = _tabs.siblings(".panels").find(".panel");
+        _tab.addClass("on").siblings().removeClass("on");
+        _panel.addClass("slide-out").eq(_index).removeClass("slide-out");
+    }
+    $(".register-tabs").on("click", ".tab", function () {
+        tabSlide($(this));
     });
     $(".project-item .tabs").on("mouseenter", ".tab", function () {
-        var _tab = $(this);
-        var _tabs = _tab.parent(".tabs");
-        var _index = _tabs.find(".tab").index(_tab);
-        var _panel = _tabs.siblings(".panels").find(".panel");
-        _tab.addClass("on").siblings().removeClass("on");
-        _panel.addClass("slide-out").eq(_index).removeClass("slide-out");
+        tabSlide($(this));
     });
     $(".password-tabs").on("click", ".tab", function () {
-        var _tab = $(this);
-        var _tabs = _tab.parent(".tabs");
-        var _index = _tabs.find(".tab").index(_tab);
-        var _panel = _tabs.siblings(".panels").find(".panel");
-        _tab.addClass("on").siblings().removeClass("on");
-        _panel.addClass("slide-out").eq(_index).removeClass("slide-out");
+        tabSlide($(this));
+    });
+    $(".info-account .tabs").on("click", ".tab", function () {
+        tabSlide($(this));
     });
     /*
      event - form
