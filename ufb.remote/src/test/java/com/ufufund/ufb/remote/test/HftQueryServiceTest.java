@@ -10,10 +10,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryRequest;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryResponse;
-import com.ufufund.ufb.model.remote.hft.TransQueryRequest;
-import com.ufufund.ufb.model.remote.hft.TransQueryResponse;
+import com.ufufund.ufb.model.hft.BalanceQueryRequest;
+import com.ufufund.ufb.model.hft.BalanceQueryResponse;
+import com.ufufund.ufb.model.hft.TransQueryRequest;
+import com.ufufund.ufb.model.hft.TransQueryResponse;
 import com.ufufund.ufb.remote.HftQueryService;
 
 @RunWith(SpringJUnit4ClassRunner.class)

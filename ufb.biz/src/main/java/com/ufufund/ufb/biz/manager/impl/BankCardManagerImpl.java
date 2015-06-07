@@ -30,12 +30,12 @@ import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
-import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
-import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
-import com.ufufund.ufb.model.remote.hft.BankVeriRequest;
-import com.ufufund.ufb.model.remote.hft.BankVeriResponse;
-import com.ufufund.ufb.model.remote.hft.OpenAccountRequest;
-import com.ufufund.ufb.model.remote.hft.OpenAccountResponse;
+import com.ufufund.ufb.model.hft.BankAuthRequest;
+import com.ufufund.ufb.model.hft.BankAuthResponse;
+import com.ufufund.ufb.model.hft.BankVeriRequest;
+import com.ufufund.ufb.model.hft.BankVeriResponse;
+import com.ufufund.ufb.model.hft.OpenAccountRequest;
+import com.ufufund.ufb.model.hft.OpenAccountResponse;
 import com.ufufund.ufb.model.vo.Today;
 import com.ufufund.ufb.remote.HftCustService;
 

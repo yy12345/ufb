@@ -2,12 +2,12 @@ package com.ufufund.ufb.remote;
 
 import org.springframework.stereotype.Service;
 
-import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
-import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
-import com.ufufund.ufb.model.remote.hft.BankVeriRequest;
-import com.ufufund.ufb.model.remote.hft.BankVeriResponse;
-import com.ufufund.ufb.model.remote.hft.OpenAccountRequest;
-import com.ufufund.ufb.model.remote.hft.OpenAccountResponse;
+import com.ufufund.ufb.model.hft.BankAuthRequest;
+import com.ufufund.ufb.model.hft.BankAuthResponse;
+import com.ufufund.ufb.model.hft.BankVeriRequest;
+import com.ufufund.ufb.model.hft.BankVeriResponse;
+import com.ufufund.ufb.model.hft.OpenAccountRequest;
+import com.ufufund.ufb.model.hft.OpenAccountResponse;
 
 /**
  * 海富通银行鉴权、开户相关接口

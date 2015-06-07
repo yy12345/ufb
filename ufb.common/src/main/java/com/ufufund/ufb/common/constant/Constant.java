@@ -62,8 +62,9 @@ public interface Constant {
 	public static final String RES_CODE_FAIL = "9999";
 
 	public interface HftSysConfig {
-		/** 海富通分配给直销平台的销售代码及商户编号 **/
+		// 直销平台销售代码
 		public static final String DistributorCode = "223";
+		// 直销平台商户号
 		public static final String MerchantId = "00000001";
 		// 海富通接口版本号
 		public static final String Version = "1.0.0";
@@ -72,30 +73,35 @@ public interface Constant {
 	}
 
 	/**
-	 * 海富通业务类型（接口调用类型）
-	 * 
-	 * @author ayis 2015年4月9日
+	 * 海富通业务代码定义
 	 */
 	public static interface HftBusiType {
 		public static final String BankAuth = "bankSwiftAuth";
 		public static final String BankVeri = "bankSwiftVerify";
 		public static final String OpenAccount = "openAccount";
+		public static final String OpenAccountOrg = "openAccountOrg";
+		
 		public static final String SubApply = "subscribeApply";
+		public static final String SubApplyOrg = "subscribeApplyOrg";
 		public static final String BuyApply = "buyApply";
-		public static final String Cancel = "cancelApply";
+		public static final String BuyApplyOrg = "buyApplyOrg";
 		public static final String Redeem = "redeemApply";
+		public static final String RedeemOrg = "redeemApplyOrg";
 		public static final String RealRedeem = "realTimeRedeemApply";
-		public static final String BuyNotify = "buyApplyNotify";
+		public static final String RealRedeemOrg = "realTimeRedeemApplyOrg";
+		
 		public static final String Frozen = "frozenShare";
+		public static final String FrozenOrg = "frozenShareOrg";
 		public static final String Unfrozen = "unfrozenShare";
+		public static final String UnfrozenOrg = "unfrozenShareOrg";
 		public static final String Transfer = "swiftTransfer";
+		public static final String TransferOrg = "swiftTransferOrg";
+		
+		public static final String Cancel = "cancelApply";
+		public static final String BuyNotify = "buyApplyNotify";
 		public static final String TransQuery = "transResultQuery";
 		public static final String BalanceQuery = "staticShareQuery";
+		public static final String uploadedNotify = "docUploadedNotify";
 	}
-
-//	public static interface FundCode {
-//		public static final String YFB = "225010";
-//		public static final String YFT_1 = "001002";
-//	}
 
 }
