@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BuyNotifyRequest extends AbstractRequest{
+public class NotifyPaidRequest extends AbstractRequest{
 
 	private String TransactionAccountID;
 	private String AppSheetSerialNo    ;
@@ -23,7 +23,7 @@ public class BuyNotifyRequest extends AbstractRequest{
 	}
 	@Override
 	public String toString() {
-		return "BuyNotifyRequest [TransactionAccountID=" + TransactionAccountID
+		return "NotifyPaidRequest [TransactionAccountID=" + TransactionAccountID
 				+ ", AppSheetSerialNo=" + AppSheetSerialNo + ", toString()="
 				+ super.toString() + "]";
 	}

@@ -4,11 +4,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BuyNotifyResponse extends AbstractResponse{
+public class NotifyPaidResponse extends AbstractResponse{
 
 	@Override
 	public String toString() {
-		return "BuyNotifyResponse [toString()=" + super.toString() + "]";
+		return "NotifyPaidResponse [toString()=" + super.toString() + "]";
 	}
 
 }

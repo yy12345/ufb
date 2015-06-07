@@ -19,8 +19,7 @@ import com.ufufund.ufb.remote.HftQueryService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/spring-ufb-remote.xml" })
 public class HftQueryServiceTest {
-	private static Logger LOG = LoggerFactory
-			.getLogger(HftQueryServiceTest.class);
+	private static Logger LOG = LoggerFactory.getLogger(HftQueryServiceTest.class);
 
 	@Autowired
 	private HftQueryService hftQueryService;

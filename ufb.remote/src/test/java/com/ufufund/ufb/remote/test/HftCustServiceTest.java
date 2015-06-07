@@ -27,7 +27,7 @@ public class HftCustServiceTest {
 	@Autowired
 	private HftCustService hftCustService;
 	
-	@Test
+//	@Test
 	public void testBankAuth() throws UnsupportedEncodingException{
 	
 		BankAuthRequest request = new BankAuthRequest();
@@ -96,5 +96,10 @@ public class HftCustServiceTest {
 		
 		OpenAccountResponse response = hftCustService.openAccount(request);
 		LOG.debug("返回对象:"+response.toString());
+	}
+	
+	@Test
+	public void testOpenAccountOrg(){
+		
 	}
 }

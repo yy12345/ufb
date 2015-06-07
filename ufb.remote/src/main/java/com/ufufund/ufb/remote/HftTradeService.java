@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.model.hft.BuyApplyRequest;
 import com.ufufund.ufb.model.hft.BuyApplyResponse;
-import com.ufufund.ufb.model.hft.BuyNotifyRequest;
-import com.ufufund.ufb.model.hft.BuyNotifyResponse;
+import com.ufufund.ufb.model.hft.NotifyPaidRequest;
+import com.ufufund.ufb.model.hft.NotifyPaidResponse;
 import com.ufufund.ufb.model.hft.CancelRequest;
 import com.ufufund.ufb.model.hft.CancelResponse;
 import com.ufufund.ufb.model.hft.FrozenRequest;
@@ -72,15 +72,6 @@ public class HftTradeService extends HftBaseService{
 	 */
 	public CancelResponse cancel(CancelRequest request){
 		return super.send(request, CancelResponse.class);
-	}
-	
-	/**
-	 * 认申购扣款时，支付通知
-	 * @param request
-	 * @return
-	 */
-	public BuyNotifyResponse buyNotify(BuyNotifyRequest request){
-		return super.send(request, BuyNotifyResponse.class);
 	}
 	
 	/**
