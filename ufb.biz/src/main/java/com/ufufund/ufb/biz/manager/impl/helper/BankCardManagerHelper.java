@@ -8,9 +8,9 @@ import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.TableName;
-import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
-import com.ufufund.ufb.model.remote.hft.BankVeriRequest;
-import com.ufufund.ufb.model.remote.hft.OpenAccountRequest;
+import com.ufufund.ufb.model.hft.BankAuthRequest;
+import com.ufufund.ufb.model.hft.BankVeriRequest;
+import com.ufufund.ufb.model.hft.OpenAccountRequest;
 
 @Service
 public class BankCardManagerHelper {

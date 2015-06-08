@@ -9,24 +9,24 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ufufund.ufb.common.constant.Constant;
-import com.ufufund.ufb.model.remote.hft.BuyApplyRequest;
-import com.ufufund.ufb.model.remote.hft.BuyApplyResponse;
-import com.ufufund.ufb.model.remote.hft.BuyNotifyRequest;
-import com.ufufund.ufb.model.remote.hft.BuyNotifyResponse;
-import com.ufufund.ufb.model.remote.hft.CancelRequest;
-import com.ufufund.ufb.model.remote.hft.CancelResponse;
-import com.ufufund.ufb.model.remote.hft.FrozenRequest;
-import com.ufufund.ufb.model.remote.hft.FrozenResponse;
-import com.ufufund.ufb.model.remote.hft.RealRedeemRequest;
-import com.ufufund.ufb.model.remote.hft.RealRedeemResponse;
-import com.ufufund.ufb.model.remote.hft.RedeemRequest;
-import com.ufufund.ufb.model.remote.hft.RedeemResponse;
-import com.ufufund.ufb.model.remote.hft.SubApplyRequest;
-import com.ufufund.ufb.model.remote.hft.SubApplyResponse;
-import com.ufufund.ufb.model.remote.hft.TransferRequest;
-import com.ufufund.ufb.model.remote.hft.TransferResponse;
-import com.ufufund.ufb.model.remote.hft.UnFrozenRequest;
-import com.ufufund.ufb.model.remote.hft.UnFrozenResponse;
+import com.ufufund.ufb.model.hft.BuyApplyRequest;
+import com.ufufund.ufb.model.hft.BuyApplyResponse;
+import com.ufufund.ufb.model.hft.NotifyPaidRequest;
+import com.ufufund.ufb.model.hft.NotifyPaidResponse;
+import com.ufufund.ufb.model.hft.CancelRequest;
+import com.ufufund.ufb.model.hft.CancelResponse;
+import com.ufufund.ufb.model.hft.FrozenRequest;
+import com.ufufund.ufb.model.hft.FrozenResponse;
+import com.ufufund.ufb.model.hft.RealRedeemRequest;
+import com.ufufund.ufb.model.hft.RealRedeemResponse;
+import com.ufufund.ufb.model.hft.RedeemRequest;
+import com.ufufund.ufb.model.hft.RedeemResponse;
+import com.ufufund.ufb.model.hft.SubApplyRequest;
+import com.ufufund.ufb.model.hft.SubApplyResponse;
+import com.ufufund.ufb.model.hft.TransferRequest;
+import com.ufufund.ufb.model.hft.TransferResponse;
+import com.ufufund.ufb.model.hft.UnFrozenRequest;
+import com.ufufund.ufb.model.hft.UnFrozenResponse;
 import com.ufufund.ufb.remote.HftTradeService;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
@@ -144,26 +144,6 @@ public class HftTradeServiceTest {
 		request.setOriginalAppSheetNo("20140923001563");
 		
 		CancelResponse response = hftTradeService.cancel(request);
-		LOG.debug("返回对象:" + response.toString());
-	}
-	
-	/**
-	 * 认申购扣款时，支付通知
-	 * @param request
-	 * @return
-	 */
-//	@Test
-	public void buyNotify(){
-		BuyNotifyRequest request = new BuyNotifyRequest();
-		request.setVersion(Constant.HftSysConfig.Version);
-		request.setMerchantId(Constant.HftSysConfig.MerchantId);
-		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.BuyNotify);
-		request.setApplicationNo("20150410CC0010");
-		request.setTransactionAccountID("0001");
-		request.setAppSheetSerialNo("xxx000011111");
-		
-		BuyNotifyResponse response = hftTradeService.buyNotify(request);
 		LOG.debug("返回对象:" + response.toString());
 	}
 	

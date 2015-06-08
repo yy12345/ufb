@@ -2,24 +2,24 @@ package com.ufufund.ufb.remote;
 
 import org.springframework.stereotype.Service;
 
-import com.ufufund.ufb.model.remote.hft.BuyApplyRequest;
-import com.ufufund.ufb.model.remote.hft.BuyApplyResponse;
-import com.ufufund.ufb.model.remote.hft.BuyNotifyRequest;
-import com.ufufund.ufb.model.remote.hft.BuyNotifyResponse;
-import com.ufufund.ufb.model.remote.hft.CancelRequest;
-import com.ufufund.ufb.model.remote.hft.CancelResponse;
-import com.ufufund.ufb.model.remote.hft.FrozenRequest;
-import com.ufufund.ufb.model.remote.hft.FrozenResponse;
-import com.ufufund.ufb.model.remote.hft.RealRedeemRequest;
-import com.ufufund.ufb.model.remote.hft.RealRedeemResponse;
-import com.ufufund.ufb.model.remote.hft.RedeemRequest;
-import com.ufufund.ufb.model.remote.hft.RedeemResponse;
-import com.ufufund.ufb.model.remote.hft.SubApplyRequest;
-import com.ufufund.ufb.model.remote.hft.SubApplyResponse;
-import com.ufufund.ufb.model.remote.hft.TransferRequest;
-import com.ufufund.ufb.model.remote.hft.TransferResponse;
-import com.ufufund.ufb.model.remote.hft.UnFrozenRequest;
-import com.ufufund.ufb.model.remote.hft.UnFrozenResponse;
+import com.ufufund.ufb.model.hft.BuyApplyRequest;
+import com.ufufund.ufb.model.hft.BuyApplyResponse;
+import com.ufufund.ufb.model.hft.NotifyPaidRequest;
+import com.ufufund.ufb.model.hft.NotifyPaidResponse;
+import com.ufufund.ufb.model.hft.CancelRequest;
+import com.ufufund.ufb.model.hft.CancelResponse;
+import com.ufufund.ufb.model.hft.FrozenRequest;
+import com.ufufund.ufb.model.hft.FrozenResponse;
+import com.ufufund.ufb.model.hft.RealRedeemRequest;
+import com.ufufund.ufb.model.hft.RealRedeemResponse;
+import com.ufufund.ufb.model.hft.RedeemRequest;
+import com.ufufund.ufb.model.hft.RedeemResponse;
+import com.ufufund.ufb.model.hft.SubApplyRequest;
+import com.ufufund.ufb.model.hft.SubApplyResponse;
+import com.ufufund.ufb.model.hft.TransferRequest;
+import com.ufufund.ufb.model.hft.TransferResponse;
+import com.ufufund.ufb.model.hft.UnFrozenRequest;
+import com.ufufund.ufb.model.hft.UnFrozenResponse;
 
 /**
  * 海富通交易相关接口
@@ -72,15 +72,6 @@ public class HftTradeService extends HftBaseService{
 	 */
 	public CancelResponse cancel(CancelRequest request){
 		return super.send(request, CancelResponse.class);
-	}
-	
-	/**
-	 * 认申购扣款时，支付通知
-	 * @param request
-	 * @return
-	 */
-	public BuyNotifyResponse buyNotify(BuyNotifyRequest request){
-		return super.send(request, BuyNotifyResponse.class);
 	}
 	
 	/**

@@ -11,12 +11,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ufufund.ufb.common.constant.Constant;
-import com.ufufund.ufb.model.remote.hft.BankAuthRequest;
-import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
-import com.ufufund.ufb.model.remote.hft.BankVeriRequest;
-import com.ufufund.ufb.model.remote.hft.BankVeriResponse;
-import com.ufufund.ufb.model.remote.hft.OpenAccountRequest;
-import com.ufufund.ufb.model.remote.hft.OpenAccountResponse;
+import com.ufufund.ufb.model.hft.BankAuthRequest;
+import com.ufufund.ufb.model.hft.BankAuthResponse;
+import com.ufufund.ufb.model.hft.BankVeriRequest;
+import com.ufufund.ufb.model.hft.BankVeriResponse;
+import com.ufufund.ufb.model.hft.OpenAccountRequest;
+import com.ufufund.ufb.model.hft.OpenAccountResponse;
 import com.ufufund.ufb.remote.HftCustService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,7 +27,7 @@ public class HftCustServiceTest {
 	@Autowired
 	private HftCustService hftCustService;
 	
-	@Test
+//	@Test
 	public void testBankAuth() throws UnsupportedEncodingException{
 	
 		BankAuthRequest request = new BankAuthRequest();
@@ -96,5 +96,10 @@ public class HftCustServiceTest {
 		
 		OpenAccountResponse response = hftCustService.openAccount(request);
 		LOG.debug("返回对象:"+response.toString());
+	}
+	
+	@Test
+	public void testOpenAccountOrg(){
+		
 	}
 }

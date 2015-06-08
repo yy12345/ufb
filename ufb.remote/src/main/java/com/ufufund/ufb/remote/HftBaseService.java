@@ -17,11 +17,11 @@ import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.HttpClientUtils;
 import com.ufufund.ufb.common.utils.JaxbUtil;
-import com.ufufund.ufb.model.remote.hft.AbstractRequest;
-import com.ufufund.ufb.model.remote.hft.AbstractResponse;
-import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
-import com.ufufund.ufb.model.remote.hft.MessageResponse;
-import com.ufufund.ufb.model.remote.hft.Responsebody;
+import com.ufufund.ufb.model.hft.AbstractRequest;
+import com.ufufund.ufb.model.hft.AbstractResponse;
+import com.ufufund.ufb.model.hft.BankAuthResponse;
+import com.ufufund.ufb.model.hft.MessageResponse;
+import com.ufufund.ufb.model.hft.Responsebody;
 
 /**
  * 海富通remote接口基类

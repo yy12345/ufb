@@ -10,17 +10,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryRequest;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryResponse;
-import com.ufufund.ufb.model.remote.hft.TransQueryRequest;
-import com.ufufund.ufb.model.remote.hft.TransQueryResponse;
+import com.ufufund.ufb.model.hft.BalanceQueryRequest;
+import com.ufufund.ufb.model.hft.BalanceQueryResponse;
+import com.ufufund.ufb.model.hft.TransQueryRequest;
+import com.ufufund.ufb.model.hft.TransQueryResponse;
 import com.ufufund.ufb.remote.HftQueryService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/spring-ufb-remote.xml" })
 public class HftQueryServiceTest {
-	private static Logger LOG = LoggerFactory
-			.getLogger(HftQueryServiceTest.class);
+	private static Logger LOG = LoggerFactory.getLogger(HftQueryServiceTest.class);
 
 	@Autowired
 	private HftQueryService hftQueryService;

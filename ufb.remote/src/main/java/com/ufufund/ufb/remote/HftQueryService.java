@@ -2,10 +2,10 @@ package com.ufufund.ufb.remote;
 
 import org.springframework.stereotype.Service;
 
-import com.ufufund.ufb.model.remote.hft.BalanceQueryRequest;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryResponse;
-import com.ufufund.ufb.model.remote.hft.TransQueryRequest;
-import com.ufufund.ufb.model.remote.hft.TransQueryResponse;
+import com.ufufund.ufb.model.hft.BalanceQueryRequest;
+import com.ufufund.ufb.model.hft.BalanceQueryResponse;
+import com.ufufund.ufb.model.hft.TransQueryRequest;
+import com.ufufund.ufb.model.hft.TransQueryResponse;
 
 /**
  * 海富通查询相关接口

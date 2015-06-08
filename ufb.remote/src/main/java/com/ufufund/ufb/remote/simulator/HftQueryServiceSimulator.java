@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.common.constant.Constant;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryAsset;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryRequest;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryResponse;
-import com.ufufund.ufb.model.remote.hft.TransQueryAsset;
-import com.ufufund.ufb.model.remote.hft.TransQueryRequest;
-import com.ufufund.ufb.model.remote.hft.TransQueryResponse;
+import com.ufufund.ufb.model.hft.BalanceQueryAsset;
+import com.ufufund.ufb.model.hft.BalanceQueryRequest;
+import com.ufufund.ufb.model.hft.BalanceQueryResponse;
+import com.ufufund.ufb.model.hft.TransQueryAsset;
+import com.ufufund.ufb.model.hft.TransQueryRequest;
+import com.ufufund.ufb.model.hft.TransQueryResponse;
 import com.ufufund.ufb.remote.HftQueryService;
 
 @Service

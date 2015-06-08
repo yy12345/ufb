@@ -7,13 +7,13 @@ import java.util.List;
 import org.junit.Test;
 
 import com.ufufund.ufb.common.utils.JaxbUtil;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryAsset;
-import com.ufufund.ufb.model.remote.hft.BalanceQueryResponse;
-import com.ufufund.ufb.model.remote.hft.BankAuthResponse;
-import com.ufufund.ufb.model.remote.hft.MessageResponse;
-import com.ufufund.ufb.model.remote.hft.Responsebody;
-import com.ufufund.ufb.model.remote.hft.TransQueryAsset;
-import com.ufufund.ufb.model.remote.hft.TransQueryResponse;
+import com.ufufund.ufb.model.hft.BalanceQueryAsset;
+import com.ufufund.ufb.model.hft.BalanceQueryResponse;
+import com.ufufund.ufb.model.hft.BankAuthResponse;
+import com.ufufund.ufb.model.hft.MessageResponse;
+import com.ufufund.ufb.model.hft.Responsebody;
+import com.ufufund.ufb.model.hft.TransQueryAsset;
+import com.ufufund.ufb.model.hft.TransQueryResponse;
 
 @SuppressWarnings("rawtypes")
 public class XmlTest {

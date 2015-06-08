@@ -4,7 +4,7 @@ import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.SysErrorCode;
 import com.ufufund.ufb.common.exception.SysException;
 import com.ufufund.ufb.common.exception.UserException;
-import com.ufufund.ufb.model.remote.hft.AbstractResponse;
+import com.ufufund.ufb.model.hft.AbstractResponse;
 
 /**
  * 海富通交易返回异常码统一处理类
