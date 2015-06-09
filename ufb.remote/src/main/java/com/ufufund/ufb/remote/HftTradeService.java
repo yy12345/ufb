@@ -4,8 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.model.hft.BuyApplyRequest;
 import com.ufufund.ufb.model.hft.BuyApplyResponse;
-import com.ufufund.ufb.model.hft.NotifyPaidRequest;
-import com.ufufund.ufb.model.hft.NotifyPaidResponse;
 import com.ufufund.ufb.model.hft.CancelRequest;
 import com.ufufund.ufb.model.hft.CancelResponse;
 import com.ufufund.ufb.model.hft.FrozenRequest;
@@ -26,7 +24,7 @@ import com.ufufund.ufb.model.hft.UnFrozenResponse;
  * @author ayis
  * 2015年3月22日
  */
-//@Service
+@Service
 public class HftTradeService extends HftBaseService{
 
 	/**

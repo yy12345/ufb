@@ -15,6 +15,8 @@ import com.ufufund.ufb.model.hft.BankAuthRequest;
 import com.ufufund.ufb.model.hft.BankAuthResponse;
 import com.ufufund.ufb.model.hft.BankVeriRequest;
 import com.ufufund.ufb.model.hft.BankVeriResponse;
+import com.ufufund.ufb.model.hft.OpenAccountOrgRequest;
+import com.ufufund.ufb.model.hft.OpenAccountOrgResponse;
 import com.ufufund.ufb.model.hft.OpenAccountRequest;
 import com.ufufund.ufb.model.hft.OpenAccountResponse;
 import com.ufufund.ufb.remote.HftCustService;
@@ -27,7 +29,7 @@ public class HftCustServiceTest {
 	@Autowired
 	private HftCustService hftCustService;
 	
-//	@Test
+	@Test
 	public void testBankAuth() throws UnsupportedEncodingException{
 	
 		BankAuthRequest request = new BankAuthRequest();
@@ -98,8 +100,39 @@ public class HftCustServiceTest {
 		LOG.debug("返回对象:"+response.toString());
 	}
 	
-	@Test
+//	@Test
 	public void testOpenAccountOrg(){
+		OpenAccountOrgRequest request = new OpenAccountOrgRequest();
+		request.setVersion(Constant.HftSysConfig.Version);
+		request.setMerchantId(Constant.HftSysConfig.MerchantId);
+		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
+		request.setBusinType(Constant.HftBusiType.OpenAccountOrg);
+		request.setApplicationNo("20150609CC0001");
+		request.setClearingAgencyCode("012");
+		request.setAcctNameOfInvestorInClearingAgency("孙桥小学");
+		request.setAcctNoOfInvestorInClearingAgency("6230201120021000");
+		request.setProvince("320000");
+		request.setCity("320581");
+		request.setInvestorName("孙桥小学");
+		request.setCertificateType("0");
+		request.setCertificateNo("66251638X");
+		request.setCertValidDate("20181022");
+		request.setEmailAddress("15211827361@163.com");
+		request.setMobileTelNo("15211827361");
+		request.setOfficeTelNo("02188592231");
+		request.setFaxNo("02188592231");
+		request.setAddress("孙桥路");
+		request.setPostCode("200000");
+		request.setInstReprIDType("0");
+		request.setInstReprIDCode("441622197811056389");
+		request.setInstReprName("张薇");
+		request.setControlHolder("张江市政府");
+		request.setTransactorCertType("0");
+		request.setTransactorCertNo("530923198408078324");
+		request.setTransactorName("刘为");
+		request.setInstTranCertValidDate("20180512");
 		
+		OpenAccountOrgResponse response = hftCustService.openAccountOrg(request);
+		LOG.debug("返回对象:"+response.toString());
 	}
 }

@@ -1,5 +1,7 @@
 package com.ufufund.ufb.remote;
 
+import org.springframework.stereotype.Service;
+
 import com.ufufund.ufb.model.hft.BankAuthRequest;
 import com.ufufund.ufb.model.hft.BankAuthResponse;
 import com.ufufund.ufb.model.hft.BankVeriRequest;
@@ -14,7 +16,7 @@ import com.ufufund.ufb.model.hft.OpenAccountResponse;
  * @author ayis
  * 2015年3月22日
  */
-//@Service
+@Service
 public class HftCustService extends HftBaseService{
 	
 	

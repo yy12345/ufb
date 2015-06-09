@@ -2,17 +2,17 @@ package com.ufufund.ufb.remote.test;
 
 import java.math.BigDecimal;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.model.hft.BuyApplyRequest;
 import com.ufufund.ufb.model.hft.BuyApplyResponse;
-import com.ufufund.ufb.model.hft.NotifyPaidRequest;
-import com.ufufund.ufb.model.hft.NotifyPaidResponse;
 import com.ufufund.ufb.model.hft.CancelRequest;
 import com.ufufund.ufb.model.hft.CancelResponse;
 import com.ufufund.ufb.model.hft.FrozenRequest;
@@ -29,12 +29,12 @@ import com.ufufund.ufb.model.hft.UnFrozenRequest;
 import com.ufufund.ufb.model.hft.UnFrozenResponse;
 import com.ufufund.ufb.remote.HftTradeService;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations={"classpath:spring/spring-ufb-remote.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:spring/spring-ufb-remote.xml"})
 public class HftTradeServiceTest {
 	private static Logger LOG = LoggerFactory.getLogger(HftTradeServiceTest.class);
 	
-//	@Autowired
+	@Autowired
 	private HftTradeService hftTradeService;
 	
 	/**
@@ -49,8 +49,9 @@ public class HftTradeServiceTest {
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.SubApply);
-		request.setApplicationNo("20150410AA0001");
+//		request.setBusinType(Constant.HftBusiType.SubApply);
+		request.setBusinType(Constant.HftBusiType.SubApplyOrg);
+		request.setApplicationNo("20150608AA0001");
 		request.setTransactionAccountID("225000006320");
 		request.setFundCode("025010");
 		request.setApplicationAmount(new BigDecimal("1000.00"));
@@ -71,7 +72,8 @@ public class HftTradeServiceTest {
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.BuyApply);
+//		request.setBusinType(Constant.HftBusiType.BuyApply);
+		request.setBusinType(Constant.HftBusiType.BuyApplyOrg);
 		request.setApplicationNo("20150410AA0002");
 		request.setTransactionAccountID("225000006320");
 		request.setFundCode("025020");
@@ -94,7 +96,8 @@ public class HftTradeServiceTest {
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.Redeem);
+//		request.setBusinType(Constant.HftBusiType.Redeem);
+		request.setBusinType(Constant.HftBusiType.RedeemOrg);
 		request.setApplicationNo("20150410AA0006");
 		request.setTransactionAccountID("225000006320");
 		request.setFundCode("025020");
@@ -116,7 +119,8 @@ public class HftTradeServiceTest {
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.RealRedeem);
+//		request.setBusinType(Constant.HftBusiType.RealRedeem);
+		request.setBusinType(Constant.HftBusiType.RealRedeemOrg);
 		request.setApplicationNo("20150411AA0008");
 		request.setTransactionAccountID("225000006320");
 		request.setFundCode("225010");
@@ -158,7 +162,8 @@ public class HftTradeServiceTest {
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.Frozen);
+//		request.setBusinType(Constant.HftBusiType.Frozen);
+		request.setBusinType(Constant.HftBusiType.FrozenOrg);
 		request.setTransactionAccountID("225000006320");
 		request.setApplicationNo("20150409AA0004");
 		request.setFundCode("025020");
@@ -180,7 +185,8 @@ public class HftTradeServiceTest {
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.Unfrozen);
+//		request.setBusinType(Constant.HftBusiType.Unfrozen);
+		request.setBusinType(Constant.HftBusiType.UnfrozenOrg);
 		request.setTransactionAccountID("225000006320");
 		request.setApplicationNo("20150408AA0001");
 		request.setOriginalAppSheetNo("20150416001736"); 

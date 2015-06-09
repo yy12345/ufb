@@ -1,10 +1,13 @@
 package com.ufufund.ufb.remote;
 
+import org.springframework.stereotype.Service;
+
 import com.ufufund.ufb.model.hft.NotifyPaidRequest;
 import com.ufufund.ufb.model.hft.NotifyPaidResponse;
 import com.ufufund.ufb.model.hft.NotifyUploadedRequest;
 import com.ufufund.ufb.model.hft.NotifyUploadedResponse;
 
+@Service
 public class HftNotifyService extends HftBaseService{
 
 	/**

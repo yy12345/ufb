@@ -5,7 +5,7 @@
         </encoder>
     </appender>
 
-	<!-- 
+	<!-- 按日滚动日志 -->
     <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${ufb.log.path}/ufb-all.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -19,7 +19,7 @@
         <encoder charset="UTF-8">
             <pattern>%date %level [%thread] %logger{36} [%file : %line] %msg%n</pattern>
         </encoder>
-    </appender> -->
+    </appender>
     
     <logger name="org.springframework" level="WARN"/>
     
@@ -32,6 +32,7 @@
     <logger name="com.ufufund.mvc" level="WARN"/> 
 
     <root level="DEBUG">
-        <appender-ref ref="STDOUT"/>
+    	<appender-ref ref="STDOUT"/>
+        <appender-ref ref="ROLLING"/>
     </root>
 </configuration>
