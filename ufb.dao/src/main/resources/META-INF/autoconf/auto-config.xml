@@ -1,26 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <group>
-    	<!-- 
-       	<property name="ufb.jdbc.url" description="jdbc url" defaultValue="jdbc:mysql://localhost:3306/ec"/>
-        <property name="ufb.jdbc.username" description="jdbc 用户名"  defaultValue="root"/>
-        <property name="ufb.jdbc.password" description="jdbc 密码" defaultValue=""/>
-        <property name="ufb.dbcp.maxActive" description="连接池中可同时连接的最大的连接数，为0则表示没有限制，默认为8" defaultValue="20" />
-        <property name="ufb.dbcp.maxIdle" description="连接池中最大的空闲的连接数（默认为8,设 0 为没有限制）,超过的空闲连接将被释放" defaultValue="15" />
-        <property name="ufb.dbcp.maxWait" description="超过时间会丟出错误信息 最大等待时间(单位为 ms)" defaultValue="1000" />
-        <property name="ufb.jdbc.driverClassName" description="jdbc driver name" defaultValue="oracle.jdbc.OracleDriver" />
-        <property name="ufb.dbcp.testsql" description="dbcp连接池测试sql" defaultValue="select 1 from dual" />
-        <property name="ufb.dbcp.initialSize" description="连接池启动时创建的初始化连接数量（默认值为0）" defaultValue="5" />
-        <property name="ufb.dbcp.minIdle" description="连接池中最小的空闲的连接数（默认为0，一般可调整5）" defaultValue="10" />
-        <property name="ufb.dbcp.removeAbandoned" description="超过removeAbandonedTimeout时间后，是否进行没用连接的回收（默认为false)" defaultValue="true" />
-        <property name="ufb.dbcp.removeAbandonedTimeout" description="超过时间限制，回收无用的连接（默认为 300秒）" defaultValue="120" />
-        <property name="ufb.dbcp.timeBetweenEvictionRunsMillis" description="失效检查线程运行时间间隔" defaultValue="3600000" />
-        <property name="ufb.dbcp.minEvictableIdleTimeMillis" description="大于0 ，进行连接空闲时间判断，或为0，对空闲的连接不进行验证" defaultValue="3600000" />
-        <property name="ufb.datasource.jndiName" description="DataSource的JNDI名称" defaultValue="java:comp/env/EC" />
-    	 -->
+       	<property name="ufb.db.url" description="数据库连接url" defaultValue="jdbc:mysql://ufufund001.mysql.rds.aliyuncs.com:3306/ufu_dev"/>
+        <property name="ufb.db.username" description="数据库用户名"  defaultValue="user_dev"/>
+        <property name="ufb.db.pwd" description="数据库密码" defaultValue="password"/>
     </group>
-    <script>
-    	<!-- 
-        <generate template="spring/spring-ufb-dao.xml" />  -->
+    <script> 
+        <generate template="spring/spring-ufb-dao.xml" />
     </script>
 </config>
