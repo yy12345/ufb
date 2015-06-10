@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <group>
-       	<property name="ufb.db.url" description="数据库连接url" defaultValue="jdbc:mysql://ufufund001.mysql.rds.aliyuncs.com:3306/ufu_dev"/>
-        <property name="ufb.db.username" description="数据库用户名"  defaultValue="user_dev"/>
+       	<property name="ufb.db.url" description="数据库连接url" defaultValue="jdbc:mysql://ufufund001.mysql.rds.aliyuncs.com:3306/ufu_remote"/>
+        <property name="ufb.db.username" description="数据库用户名"  defaultValue="user_remote"/>
         <property name="ufb.db.pwd" description="数据库密码" defaultValue="password"/>
     </group>
     <script> 

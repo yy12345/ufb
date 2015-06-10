@@ -8,18 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.HttpClientUtils;
 import com.ufufund.ufb.common.utils.JaxbUtil;
+import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.hft.AbstractRequest;
-import com.ufufund.ufb.model.hft.AbstractResponse;
-import com.ufufund.ufb.model.hft.BankAuthResponse;
 import com.ufufund.ufb.model.hft.MessageResponse;
 import com.ufufund.ufb.model.hft.Responsebody;
 
@@ -34,12 +31,11 @@ public class HftBaseService {
 	// http交易的编码
 	private static final String ENCODING = "utf-8";
 	
-//	@Value("${hft_requestUrl}")
-	private String requestUrl = "http://60.191.25.162:12002/ecg/ecsg/prepositionaccess";  // 恒生测试环境
-//	private String requestUrl = "http://58.247.136.183:8008/ecg/ecsg/prepositionaccess";  // 海富通测试环境 
+	@Value("${hft_requestUrl}")
+	private String requestUrl;
 	
-//	@Value("hft_signKey")
-	private String signKey = "8db4a013a8b515349c307f1e448ce836";
+	@Value("hft_signKey")
+	private String signKey;
 
 	/**
 	 * 海富通remote请求基础方法
