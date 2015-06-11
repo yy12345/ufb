@@ -34,7 +34,7 @@ public class HftBaseService {
 	@Value("${hft_requestUrl}")
 	private String requestUrl;
 	
-	@Value("hft_signKey")
+	@Value("${hft_signKey}")
 	private String signKey;
 
 	/**
