@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+<title>幼富通 - 预览自动充值计划</title>
+-->
+<script>
+$(function(){
+
+	$("#container").removeClass("setting");
+
+	// 表单提交时，验证	
+	$("#next-step").on("click", function(){
+		if(!check_cash($("#autoamt"))){
+			return false;
+		}
+		if(!check_pwd1($("#tradePwd"))){
+			return false;
+		}
+		$("#form-autoTrade-result").attr("action","../setting/autoTrade_result.htm");
+		$("#form-autoTrade-result").submit();
+	});
+	
+	// 上一页
+	$("#btn-autoTrade-add").on("click",function(){
+		$("#form-autoTrade-result").attr("action", "../setting/autoTrade_add.htm");
+		$("#form-autoTrade-result").submit();
+	});
+});
+</script>
+</head>
+<body>
+<div class="body">
+    <div class="inner container-step">
+        <div class="step-title clearfix">自动充值设置<a class="link link-underline fr" href="${staticDomain}/setting/autoTrade_index.htm">&lt;&lt;自动充值设置</a></div>
+        <div class="step-tabs tabs-step2 clearfix">
+            <a class="tab fl" href="javascript:;">自动充值</a>
+            <a class="tab fl on" href="javascript:;">预览自动充值计划</a>
+            <a class="tab fl" href="javascript:;">开通结果</a>
+        </div>
+        <div class="step-panels">
+			<form id="form-autoTrade-result" class="common-form" action="${ufbDomain}/setting/autoTrade_result.htm" method="post">
+				<input id="custno" name="custno" value="${AutoTradeVo.custno}" type="hidden"/>
+				<input id="frombankserialid" name="frombankserialid" value="${AutoTradeVo.frombankserialid}" type="hidden"/>
+				<input id="frombankno" name="frombankno" value="${AutoTradeVo.frombankno}" type="hidden"/>
+				<input id="frombanktail" name="frombanktail" value="${AutoTradeVo.frombanktail}" type="hidden"/>
+				<input id="tofundcorpno" name="tofundcorpno" value="${AutoTradeVo.tofundcorpno}" type="hidden"/>
+				<input id="tofundcode" name="tofundcode" value="${AutoTradeVo.tofundcode}" type="hidden"/>
+				<input id="tradetype" name="tradetype" value="${AutoTradeVo.tradetype}" type="hidden"/>
+				<input id="tochargetype" name="tochargetype" value="${AutoTradeVo.tochargetype}" type="hidden"/>
+				<input id="type" name="type" value="${AutoTradeVo.type}" type="hidden"/>
+				<input id="cycle" name="cycle" value="${AutoTradeVo.cycle}" type="hidden"/>
+				<input id="dat" name="dat" value="${AutoTradeVo.dat}" type="hidden"/>
+				<input id="nextdate" name="nextdate" value="${AutoTradeVo.nextdate}" type="hidden"/>
+				<input id="autoamt" name="autoamt" value="${AutoTradeVo.autoamt}" type="hidden"/>
+				<input id="summary" name="summary" value="${AutoTradeVo.summary}" type="hidden"/>
+				
+				<div class="panel">
+                    <ul>
+                        <li>
+                            <span class="form-title">绑定货币基金</span>
+                            <span class="form-text">海富通货币A    代码： 519505</span>
+                        </li>
+                        <li>
+                            <span class="form-title">收费模式</span>
+                            <span class="form-text">0费率</span>
+                        </li>
+                        <li>
+                            <span class="form-title">银行选择</span>
+                            <div class="input-card">
+								<img src="${staticDomain}/images/bank_${AutoTradeVo.frombankno}.png">
+									<span class="card-number">尾号：${AutoTradeVo.frombanktail}</span>
+								</div>
+                        </li>
+                        <li>
+                            <span class="form-title">充值金额</span>
+                            <span class="form-text">${AutoTradeVo.autoamt}元</span>
+                        </li>
+                        <li>
+                            <span class="form-title">充值周期</span>
+                            <span class="form-text">每月${AutoTradeVo.dat}日（遇节假日顺延至下个基金工作日）</span>
+                        </li>
+                        <li>
+                            <span class="form-title">下次充值日期</span>
+                            <span class="form-text">
+							$!{AutoTradeVo.nextdate}
+							</span>
+                        </li>
+                        <li>
+                            <span class="form-title">备注</span>
+                            <span class="form-text">${AutoTradeVo.summary}</span>
+                        </li>
+                        <li>
+                            <span class="form-title">交易密码</span>
+                            <input id="tradepwd" name="tradepwd" class="ipt-password1 input-text" maxlength="20"  type="password" value="">
+                            <a class="find" href="${staticDomain}/setting/settingPassword.htm">忘记密码?</a>
+							<span class="tips-normal">请填写交易密码</span>
+                            <span id="tradePwdTips" class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <label class="tips">点击下一步表示同意<a class="link" href="javascript:;">《幼富通用户注册协议》</a></label>
+                        </li>
+                        <li class="clearfix">
+                            <a id="btn-autoTrade-add" class="input-button fl" href="javasript:;">返回修改</a>
+                            <input id="next-step" class="input-button ok fl" type="button" value="下一步">
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+<script src="${staticDomain}/js/scripts/register.js"></script>
+<script src="${staticDomain}/js/ufuCommon.js"></script>
+</body>
+</html>

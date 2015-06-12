@@ -47,7 +47,7 @@ $(function(){
         <div class="inner clearfix">
             <div class="title clearfix">
                 <h2 class="title-main fl">资产总览</h2>
-                <h2 class="title-side fr">账户</h2>
+                <h2 class="title-side fr clearfix">账户</h2>
             </div>
             <div class="main fl">
                 <ul class="project-list">
@@ -212,6 +212,9 @@ $(function(){
                     <div class="tabs clearfix">
                         <div class="tab on">
                             <div class="account-header">
+								<a href="javascript:;" class="tooltips">
+                                    <span class="tooltips-text">机构账户提示机构账户提示机构账户提示机构账户提示</span>
+                                </a>
                                 <a href="${staticDomain}/setting/settingAccount.htm" class="header-avatar"></a>
     							<div class="header-name">
     								经办人：
@@ -228,6 +231,9 @@ $(function(){
                         </div>
                         <div class="tab">
                             <div class="account-header">
+								 <a href="javascript:;" class="tooltips">
+                                    <span class="tooltips-text">机构账户提示机构账户提示机构账户提示机构账户提示</span>
+                                </a>
                                 <a href="#" class="header-avatar" onclick="alert('切换机构账户，建设中...');"></a>
                                 <div class="header-name">
     								机构：

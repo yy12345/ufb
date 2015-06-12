@@ -1,12 +1,9 @@
 package com.ufufund.ufb.biz.manager.impl.helper;
 
-import java.math.BigDecimal;
-
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.enums.AutoTradeType;
-import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.ApplyVo;
 import com.ufufund.ufb.model.vo.RedeemVo;
 
@@ -15,7 +12,6 @@ public  class AutotradeManagerHelper {
 	
 	public static Autotrade toAutotrade(AddAutotradeAction action){
 		Autotrade reaction = new Autotrade();
-		
 		// 充值名称
 		reaction.setAutoname(action.getAutoname());// varchar(50) default '' comment '自动交易名称',
 		// 用户信息

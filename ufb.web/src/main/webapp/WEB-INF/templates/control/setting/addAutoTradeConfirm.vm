@@ -14,7 +14,7 @@ $(function(){
 		if(!check_cash($("#autoamt"))){
 			return false;
 		}
-		$(".common-form").attr("action","../setting/addAutoTradeSubmit.htm");
+		$(".common-form").attr("action","../setting/autoTrade_result.htm");
 	});
 });
 </script>
@@ -28,7 +28,7 @@ $(function(){
         <div class="notice"></div>
         
         <div class="form-payInto">
-            <form class="common-form" action="${ufbDomain}/setting/addAutoTradeSubmit.htm" method="post">
+            <form class="common-form" action="${ufbDomain}/setting/autoTrade_result.htm" method="post">
 				</br>custno: <input id="custno" name="custno" value="${AutoTradeVo.custno}" type="text"/>
 				</br>frombankserialid: <input id="frombankserialid" name="frombankserialid" value="${AutoTradeVo.frombankserialid}" type="text"/>
 				</br>tofundcorpno: <input id="tofundcorpno" name="tofundcorpno" value="${AutoTradeVo.tofundcorpno}" type="text"/>

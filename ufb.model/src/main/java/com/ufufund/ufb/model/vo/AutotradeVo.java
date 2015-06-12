@@ -28,6 +28,9 @@ public class AutotradeVo implements Serializable {
 	private String fromaccoid;
 	private String fromtradeacco;
 	private String fromchargetype;
+	private String frombankno;
+	private String frombanktail;
+	private String tradepwd;
 	
 
 	private String tofundcode;// varchar(6) default null comment '目标基金代码',
@@ -41,6 +44,40 @@ public class AutotradeVo implements Serializable {
 	private String lastdate;// char(8) default null comment '最近扣款日期',
 	private String nextdate;// char(8) default null comment '下一扣款日期',
 	
+	private String step;
+	
+	public String getStep() {
+		return step;
+	}
+
+	public void setStep(String step) {
+		this.step = step;
+	}
+
+	public String getTradepwd() {
+		return tradepwd;
+	}
+
+	public void setTradepwd(String tradepwd) {
+		this.tradepwd = tradepwd;
+	}
+
+	public String getFrombankno() {
+		return frombankno;
+	}
+
+	public void setFrombankno(String frombankno) {
+		this.frombankno = frombankno;
+	}
+
+	public String getFrombanktail() {
+		return frombanktail;
+	}
+
+	public void setFrombanktail(String frombanktail) {
+		this.frombanktail = frombanktail;
+	}
+
 	public String getAutoid() {
 		return autoid;
 	}

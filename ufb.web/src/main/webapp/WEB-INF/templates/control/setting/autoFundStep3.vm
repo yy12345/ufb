@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+<title>幼富通 - 开通结果</title>
+-->
+<script>
+$(function(){
+
+});
+</script>
+</head>
+<body>
+<div class="body">
+    <div class="inner container-step">
+        <div class="step-title clearfix">自动充值设置<a class="link link-underline fr" href="${staticDomain}/setting/autoTrade_index.htm">&lt;&lt;自动充值设置</a></div>
+        <div class="step-tabs tabs-step3 clearfix">
+            <a class="tab fl" href="javascript:;">自动充值</a>
+            <a class="tab fl" href="javascript:;">预览自动充值计划</a>
+            <a class="tab fl on" href="javascript:;">开通结果</a>
+        </div>
+        <div class="step-panels">
+            <div class="panel">
+                <div class="form-done">
+                    <div class="title">你的自动充值计划已开通</div>
+                    <div class="text">
+						<!--
+                        <table width="300">
+                            <tr>
+                                <td>设置时间</td>
+                                <td>2015-04-14  18:30</td>
+                            </tr>
+                            <tr>
+                                <td>下次充值日期</td>
+                                <td>2015年5月14日</td>
+                            </tr>
+                            <tr>
+                                <td>每期充值金额</td>
+                                <td>10,000元</td>
+                            </tr>
+                        </table>
+						-->
+                    </div>
+                    <a class="btn" href="${staticDomain}/setting/autoTrade_index.htm">查看自动充值计划</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+</body>
+</html>

@@ -117,4 +117,40 @@
 		order by b.mainflag desc
 	</select>
 	
+	<select id="getTradeAcco" resultType="TradeAccoinfoOfMore">
+		select
+			t.TRADEACCO,
+			t.FUNDCORPNO,
+			b.SERIALID,
+			b.CUSTNO,
+			b.BANKNO,
+			b.BANKACCO,
+			b.BANKACCODISPLAY,
+			b.BANKIDTP,
+			b.BANKIDNO,
+			b.BANKIDVALIDDT,
+			b.BANKACNM,
+			b.BANKMOBILE,
+			b.SUBBANKNO,
+			b.BANKLONGNAME,
+			b.ISSIGN,
+			b.SIGNNO,
+			b.BANKPROEXISTS,
+			b.PROTOCOL_NO,
+			b.STATE,
+			b.OPENDT,
+			b.CLOSEDT,
+			b.DISORDER,
+			b.MAINFLAG,
+			b.UPDATETIMESTAMP
+		from tradeaccoinfo t, bankcardinfo b
+		where 
+			b.SERIALID  = t.BANKSERIALID
+			and t.TRADEACCOST = 'N' 
+			and b.STATE = #{state,jdbcType=VARCHAR}
+			and t.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR}
+			and b.CUSTNO = #{custno,jdbcType=VARCHAR}
+			and t.BANKSERIALID = #{bankserialid,jdbcType=VARCHAR}
+	</select>
+	
 </mapper>

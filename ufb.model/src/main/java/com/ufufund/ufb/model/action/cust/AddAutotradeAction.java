@@ -32,10 +32,17 @@ public class AddAutotradeAction extends CommonAction {
 	private String lastdate;// char(8) default null comment '最近扣款日期',
 	private String nextdate;// char(8) default null comment '下一扣款日期',
 	private String summary;// varchar(100) default null comment '备注',
+	private String tradepwd;
 	
 	//private String autoid;// char(24) default '' comment 'ID',
 	//private String state;// char(1) default null comment 'N:正常 C：删除 P：暂停  ',
 	
+	public String getTradepwd() {
+		return tradepwd;
+	}
+	public void setTradepwd(String tradepwd) {
+		this.tradepwd = tradepwd;
+	}
 	public String getAutoname() {
 		return autoname;
 	}

@@ -24,5 +24,9 @@ public class TradeAccoManagerImpl implements TradeAccoManager{
 	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno, String state) {
 		return tradeAccoinfoMapper.getTradeAccoList(custno, state);
 	}
+	
+	public TradeAccoinfoOfMore getTradeAcco(String custno, String fundcorpno, String bankserialid){
+		return tradeAccoinfoMapper.getTradeAcco(custno, fundcorpno, bankserialid, "Y");
+	}
 
 }

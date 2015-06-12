@@ -97,7 +97,7 @@
 			<if test="state != null">
 	       	  ,T1.STATE = #{state,jdbcType=VARCHAR}
 	       	</if>
-	        <if test="apkind != null">
+	        <if test="tradetype != null">
 	       	  ,T1.TRADETYPE = #{tradetype,jdbcType=VARCHAR}
 	       	</if>
 	       	
@@ -158,14 +158,14 @@
 	        <if test="autovol != null">
 	       	  ,T1.AUTOVOL = #{autovol,jdbcType=DECIMAL}
 	       	</if>
-			<if test="LASTDATE != null">
-	       	  ,T1.LASTDATE = #{LASTDATE,jdbcType=VARCHAR}
+			<if test="lastdate != null">
+	       	  ,T1.LASTDATE = #{lastdate,jdbcType=VARCHAR}
 	       	</if>
-			<if test="NEXTDATE != null">
-	       	  ,T1.NEXTDATE = #{NEXTDATE,jdbcType=VARCHAR}
+			<if test="nextdate != null">
+	       	  ,T1.NEXTDATE = #{nextdate,jdbcType=VARCHAR}
 	       	</if>
-			<if test="SUMMARY != null">
-	       	  ,T1.SUMMARY = #{SUMMARY,jdbcType=VARCHAR}
+			<if test="summary != null">
+	       	  ,T1.SUMMARY = #{summary,jdbcType=VARCHAR}
 	       	</if>	       	       	
 	  	       	
 	     WHERE T1.AUTOID = #{autoid,jdbcType=VARCHAR}
