@@ -164,14 +164,15 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		if(Constant.Autotrade.STATE$N.equals(dbautotrade.getState())){
 			// N状态-〉P暂停、C终止
 			if(!Constant.Autotrade.STATE$P.equals(action.getState())
-					|| !Constant.Autotrade.STATE$C.equals(action.getState()) ){
+					&& !Constant.Autotrade.STATE$C.equals(action.getState()) ){
 				throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
+//				throw new UserException("交易密码错误！");
 			}
 			apkind = dbautotrade.getTradetype()+"2";
 		}else if(Constant.Autotrade.STATE$P.equals(dbautotrade.getState())){
 			// P暂停-> N状态、C终止
 			if(!Constant.Autotrade.STATE$N.equals(action.getState())
-					|| !Constant.Autotrade.STATE$C.equals(action.getState())){
+					&& !Constant.Autotrade.STATE$C.equals(action.getState())){
 				throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
 			}
 			apkind = dbautotrade.getTradetype()+"3";

@@ -13,6 +13,22 @@ $(function(){
 		$("#form-autoTrade-index").attr("action", "../setting/autoTrade_update.htm");
 		$("#form-autoTrade-index").submit();
 	});
+	
+	$(".btn-autoTrade-pause").on("click", function(){
+		$("#autoid").val($(this).attr("autoid"));
+		$("#frombankserialid").val($(this).attr("frombankserialid"));
+		
+		$("#form-autoTrade-index").attr("action", "../setting/autoTrade_pause.htm");
+		$("#form-autoTrade-index").submit();
+	});
+	
+	$(".btn-autoTrade-stop").on("click", function(){
+		$("#autoid").val($(this).attr("autoid"));
+		$("#frombankserialid").val($(this).attr("frombankserialid"));
+		
+		$("#form-autoTrade-index").attr("action", "../setting/autoTrade_pause.htm");
+		$("#form-autoTrade-index").submit();
+	});
 });
 </script>
 </head>
@@ -45,7 +61,15 @@ $(function(){
                                 <table width="100%">
                                     <tr>
                                         <th class="item-name" width="78" rowspan="2">
-											<span class="item-type">进行中</span>
+											<span class="item-type">
+											#if("P"==$!{autotrade.state})
+												已暂停
+											#elseif("N"==$!{autotrade.state})
+												进行中
+											#else
+												未知状态
+											#end
+											</span>
 											幼富宝
 										</th>
                                         <th>设置时间</th>
@@ -59,8 +83,7 @@ $(function(){
                                                 <span class="do-title">操作</span>
                                                 <ul class="do-list">
                                                     <li><a class="link btn-autoTrade-update" frombankserialid="${autotrade.frombankserialid}" autoid="${autotrade.autoid}" href="javascript:;">修改</a></li>
-                                                    <li><a class="link">暂停</a></li>
-                                                    <li><a class="link">终止</a></li>
+													<li><a class="link btn-autoTrade-pause" frombankserialid="${autotrade.frombankserialid}" autoid="${autotrade.autoid}" href="javascript:;">暂停</a></li>
                                                 </ul>
                                             </div>
                                         </th>
@@ -99,6 +122,7 @@ $(function(){
                         </li>
 						#end
                     </ul>
+					<!--
                     <div class="item-title">已终止</div>
                     <ul class="autoFund-list">
                         <li class="autoFund-item">
@@ -159,9 +183,8 @@ $(function(){
                                 </table>
                             </div>
                         </li>
-
                     </ul>
-
+					-->
                 </div>
             </div>
         </div>

@@ -34,6 +34,9 @@ $(function(){
 		if(!check_cash($("#autoamt"))){
 			return false;
 		}
+		if(!check_autoDat($("#dat"))){
+			return false;
+		}
 		$(".common-form").attr("action","../setting/autoTradeUpdate_preview.htm");
 	});
 });

@@ -225,6 +225,7 @@
   		t.NEXTDATE = #{nextdate,jdbcType=VARCHAR} AND
   		</if>
 	    t.STATE &lt;&gt; 'C'
+	    ORDER BY t.STATE ASC, t.UPDATETIME DESC
   	</select>
   	
   	 <select id="getAutotrade" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.db.Autotrade">
