@@ -58,8 +58,11 @@ $(function () {
         var _tabs = _tab.parent(".tabs");
         var _index = _tabs.find(".tab").index(_tab);
         var _panel = _tabs.siblings(".panels").find(".panel");
+        //add by GH
+        _panel.hide();
         _tab.addClass("on").siblings().removeClass("on");
-        _panel.addClass("slide-out").eq(_index).removeClass("slide-out");
+        //modified by GH +show()
+        _panel.addClass("slide-out").eq(_index).removeClass("slide-out").show();
     }
     $(".register-tabs").on("click", ".tab", function () {
         tabSlide($(this));
