@@ -7,7 +7,7 @@ package com.ufufund.ufb.model.enums;
  */
 public enum BasicFundinfo {
 
-	YFB("225010","0","1");
+	YFB("519505","0","0");
 	
 	private String fundCode;
 	private String shareClass;   // 收费方式
