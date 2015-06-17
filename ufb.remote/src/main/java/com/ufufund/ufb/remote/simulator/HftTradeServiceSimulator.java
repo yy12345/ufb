@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.DateUtil;

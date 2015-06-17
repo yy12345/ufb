@@ -29,7 +29,7 @@ public class HftCustServiceTest {
 	@Autowired
 	private HftCustService hftCustService;
 	
-	@Test
+//	@Test
 	public void testBankAuth() throws UnsupportedEncodingException{
 	
 		BankAuthRequest request = new BankAuthRequest();
@@ -73,7 +73,7 @@ public class HftCustServiceTest {
 	}
 	
 	
-	//@Test
+//	@Test
 	public void testOpenAccount(){
 		OpenAccountRequest request = new OpenAccountRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
@@ -100,7 +100,7 @@ public class HftCustServiceTest {
 		LOG.debug("返回对象:"+response.toString());
 	}
 	
-//	@Test
+	@Test
 	public void testOpenAccountOrg(){
 		OpenAccountOrgRequest request = new OpenAccountOrgRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
@@ -111,8 +111,8 @@ public class HftCustServiceTest {
 		request.setClearingAgencyCode("012");
 		request.setAcctNameOfInvestorInClearingAgency("孙桥小学");
 		request.setAcctNoOfInvestorInClearingAgency("6230201120021000");
-		request.setProvince("320000");
-		request.setCity("320581");
+		request.setProvince("320");
+		request.setCity("581");
 		request.setInvestorName("孙桥小学");
 		request.setCertificateType("0");
 		request.setCertificateNo("66251638X");
@@ -133,6 +133,6 @@ public class HftCustServiceTest {
 		request.setInstTranCertValidDate("20180512");
 		
 		OpenAccountOrgResponse response = hftCustService.openAccountOrg(request);
-		LOG.debug("返回对象:"+response.toString());
+//		LOG.debug("返回对象:"+response.toString());
 	}
 }
