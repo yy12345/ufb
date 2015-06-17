@@ -99,14 +99,24 @@ public class MsgCodeUtils {
 	}
 
 	/**
-	 * 验证短信动态码<br/>
-	 * 1.验证是否匹配 2.验证是否在时效范围内
-	 * 
-	 * @param msgCode
-	 * @return 校验失败，直接提示业务类异常；否则，成功
+	 * 检验短信验证码：严格一次检验有效
+	 * @param compare
+	 * @param mobileNo
+	 * @exception 校验失败，直接提示业务类异常
 	 */
-	public static boolean validate(String compare, String mobileNo) {
-
+	public static void validate(String compare, String mobileNo) {
+		validate(compare, mobileNo, true);
+	}
+	
+	/**
+	 * 检验短信验证码
+	 * @param compare 比较码
+	 * @param mobileNo 手机号
+	 * @param strictly 是否严格一次检验有效
+	 * @exception 校验失败，直接提示业务类异常
+	 */
+	public static void validate(String compare, String mobileNo, boolean strictly){
+		
 		MsgCode msgCode = (MsgCode) ServletHolder.getSession().getAttribute("MSGCODE");
 		if (null == compare || StringUtils.isBlank(compare)) {
 			throw new BizException(ThreadLocalUtil.getProccessId(),
@@ -126,8 +136,9 @@ public class MsgCodeUtils {
 						"您的手机验证码已失效，请重新发送！", "手机验证码");
 			}
 		}
-		ServletHolder.getSession().removeAttribute("MSGCODE");
-		return true;
+		if(strictly){
+			ServletHolder.getSession().removeAttribute("MSGCODE");
+		}
 	}
 	
 	/**

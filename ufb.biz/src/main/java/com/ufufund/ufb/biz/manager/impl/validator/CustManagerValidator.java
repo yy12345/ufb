@@ -7,6 +7,7 @@ import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
@@ -43,37 +44,45 @@ public class CustManagerValidator {
 		String processId = action.getProcessId();
 		if (RegexUtil.isNull(action.getLoginCode())) {
 			// 账号
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.MOBILE);
+			 throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.MOBILE);
+//			throw new UserException("手机号为空");
 		}
 		if (RegexUtil.isNull(action.getLoginPassword())) {
 			// 密码
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD);
+			 throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD);
+//			throw new UserException("登录密码为空");
 		}
 		if (!RegexUtil.isPwd(action.getLoginPassword())) {
 			// 密码 以字母，数字开头，长度在6-12之间，只能包含字符、数字和下划线。
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.LOGINPASSWORD);
+			 throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.LOGINPASSWORD);
+//			throw new UserException("登录密码格式错误");
 		}
 		if (RegexUtil.isNull(action.getLoginPassword2())) {
 			// 确认密码
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD2);
+			 throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD2);
+//			throw new UserException("确认密码为空");
 		}
 		if (!action.getLoginPassword().equals(action.getLoginPassword2())) {
 			// 密码 = 确认密码
-			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.LOGINPASSWORD);
+			// throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.LOGINPASSWORD);
+			throw new UserException("两次密码确认不一致");
 		}
 		if (!RegexUtil.isMobile(action.getLoginCode())) {
 			// 手机号
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.MOBILE);
+			 throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.MOBILE);
+//			throw new UserException("手机号格式错误");
 		}
 		if(Level.OPERATOR.equals(action.getLevel())){
 			// 经办人注册
 			if (RegexUtil.isNull(action.getOrganization())) {
 				// 机构名称
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);
+				 throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);
+//				throw new UserException("机构名称为空");
 			}
 			if (RegexUtil.isNull(action.getBusiness())) {
 				// 营业执照
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BUSINESS);
+				 throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BUSINESS);
+//				throw new UserException("营业执照为空");
 			}
 		}
 	}

@@ -11,20 +11,16 @@ $(function(){
 
 	// 表单提交时，验证	
 	$("#next-step").on("click", function(){
-		if(!check_cash($("#autoamt"))){
-			return false;
-		}
 		if(!check_pwd1($("#tradepwd"))){
 			return false;
 		}
-		$("#form-autoTrade-result").attr("action","../setting/autoTrade_result.htm");
+		$("#form-autoTrade-result").attr("action","../setting/autoTradePause_result.htm");
 		$("#form-autoTrade-result").submit();
 	});
 	
 	// 上一页
-	$("#btn-autoTrade-add").on("click",function(){
-	alert(1);
-		$("#form-autoTrade-result").attr("action", "../setting/autoTrade_add.htm");
+	$("#btn-autoTrade-pause").on("click",function(){
+		$("#form-autoTrade-result").attr("action", "../setting/autoTrade_pause.htm");
 		$("#form-autoTrade-result").submit();
 	});
 });
@@ -33,14 +29,14 @@ $(function(){
 <body>
 <div class="body">
     <div class="inner container-step">
-        <div class="step-title clearfix">自动充值设置<a class="link link-underline fr" href="${staticDomain}/setting/autoTrade_index.htm">&lt;&lt;自动充值设置</a></div>
+        <div class="step-title clearfix">暂停自动充值计划<a class="link link-underline fr" href="${staticDomain}/setting/autoTrade_index.htm">&lt;&lt;自动充值设置</a></div>
         <div class="step-tabs tabs-step2 clearfix">
-            <a class="tab fl" href="javascript:;">自动充值</a>
-            <a class="tab fl on" href="javascript:;">预览自动充值计划</a>
-            <a class="tab fl" href="javascript:;">开通结果</a>
+            <a class="tab fl" href="javascript:;">自动充值（暂停）</a>
+            <a class="tab fl on" href="javascript:;">预览自动充值计划（暂停）</a>
+            <a class="tab fl" href="javascript:;">开通结果（暂停）</a>
         </div>
         <div class="step-panels">
-			<form id="form-autoTrade-result" class="common-form" action="${ufbDomain}/setting/autoTrade_result.htm" method="post">
+			<form id="form-autoTrade-result" class="common-form" action="${ufbDomain}/setting/autoTradePause_result.htm" method="post">
 				<input id="custno" name="custno" value="${AutoTradeVo.custno}" type="hidden"/>
 				<input id="frombankserialid" name="frombankserialid" value="${AutoTradeVo.frombankserialid}" type="hidden"/>
 				<input id="frombankno" name="frombankno" value="${AutoTradeVo.frombankno}" type="hidden"/>
@@ -55,6 +51,8 @@ $(function(){
 				<input id="nextdate" name="nextdate" value="${AutoTradeVo.nextdate}" type="hidden"/>
 				<input id="autoamt" name="autoamt" value="${AutoTradeVo.autoamt}" type="hidden"/>
 				<input id="summary" name="summary" value="${AutoTradeVo.summary}" type="hidden"/>
+				<input id="autoid" name="autoid" value="${AutoTradeVo.autoid}" type="hidden"/>
+				<input id="step" name="step" value="u2" type="hidden"/>
 				
 				<div class="panel">
                     <ul>
@@ -93,7 +91,7 @@ $(function(){
                         </li>
                         <li>
                             <span class="form-title">交易密码</span>
-                            <input id="tradepwd" name="tradepwd" class="ipt-password1 input-text" maxlength="20"  type="password" value="">
+                            <input id="tradepwd" name="tradepwd" class="ipt-password1 input-text" maxlength="20"  type="password" value="1q2w3e">
                             <a class="find" href="${staticDomain}/setting/settingPassword.htm">忘记密码?</a>
 							<span class="tips-normal">请填写交易密码</span>
                             <span id="tradePwdTips" class="tips-check"><i class="icon"></i>验证提示</span>
@@ -102,7 +100,7 @@ $(function(){
                             <label class="tips">点击下一步表示同意<a class="link" href="javascript:;">《幼富通用户注册协议》</a></label>
                         </li>
                         <li class="clearfix">
-                            <a id="btn-autoTrade-add" class="input-button fl" href="#">返回修改</a>
+                            <a id="btn-autoTrade-pause" class="input-button fl" href="#">返回修改</a>
                             <input id="next-step" class="input-button ok fl" type="button" value="下一步">
                         </li>
                     </ul>

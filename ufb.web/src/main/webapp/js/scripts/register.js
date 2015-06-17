@@ -104,6 +104,26 @@ var check_phoneCode = function (ipt) {//验证验证码
     return showTips(ipt, 0);
 }
 
+var check_autoDat = function (ipt) {//充值时间
+    var value = ipt.val();
+    if (isNull(value)) {
+        return showTips(ipt, "充值时间不能为空");
+    }
+    if (value.length > 2) {
+        return showTips(ipt, "充值时间为2位数字");
+    }
+    var regex2 = /^[0-9]+$/;
+    if (!regex2.test(value)) {
+        return showTips(ipt, "充值时间范围为1至28日");
+    }
+    if (value>29 || value<1) {
+        return showTips(ipt, "充值时间范围为1至28日");
+    }
+    return showTips(ipt, 0);
+}
+
+
+
 var check_id = function (ipt) {//验证身份证号
     var value = ipt.val();
     if (isNull(value)) {

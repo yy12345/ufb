@@ -557,9 +557,14 @@ public class SettingController {
 				return "home/index";
 			}
 		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("SessionVo", s_custinfo);
-			return "setting/autoFundStep1";
+//			LOG.error(e.getErrmsg(), e);
+//			model.addAttribute("SessionVo", s_custinfo);
+//			return "setting/autoFundStep1";
+			
+//			LOG.warn(e.getCodeMsg());
+			model.addAttribute("errorMsg", e.getMessage());
+			model.addAttribute("returnUrl", "setting/autoTrade_add.htm");
+			return "error/user_error";
 		}
 		return "setting/autoFundStep2";
 	}
@@ -687,9 +692,13 @@ public class SettingController {
 				return "home/index";
 			}
 		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("SessionVo", s_custinfo);
-			return "setting/autoFundStepU1";
+//			LOG.error(e.getErrmsg(), e);
+//			model.addAttribute("SessionVo", s_custinfo);
+//			return "setting/autoFundStepU1";
+			
+			model.addAttribute("errorMsg", e.getMessage());
+			model.addAttribute("returnUrl", "setting/autoTrade_index.htm");
+			return "error/user_error";
 		}
 		return "setting/autoFundStepU2";
 	}
@@ -773,6 +782,103 @@ public class SettingController {
 		}
 		ServletHolder.forward("/setting/autoTrade_index.htm");
 		return "setting/autoTrade_index";
+	}
+	
+	
+	@RequestMapping(value="setting/autoTrade_pause")
+	public String autoTradePause(AutotradeVo autotradeVo, Model model){
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+		try{
+			if(null != s_custinfo){
+				String custno = UserHelper.getCustno();
+				
+				String frombankserialid = autotradeVo.getFrombankserialid();
+				if(null != frombankserialid && frombankserialid.length() > 0){
+					TradeAccoinfoOfMore tradeAccoinfoOfMore = 
+							tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, frombankserialid);
+					model.addAttribute("curCard", tradeAccoinfoOfMore);
+				}
+				
+				if("u2".equals(autotradeVo.getStep())){
+					model.addAttribute("AutoTradeVo", autotradeVo);
+				}else{
+					Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
+					model.addAttribute("AutoTradeVo", autotrade);
+				}
+				
+				// 跳转确认页
+				model.addAttribute("SessionVo", s_custinfo);
+			} else{
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
+			}
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("SessionVo", s_custinfo);
+			return "setting/autoTrade_index";
+		}
+		return "setting/autoFundStepP1";
+	}
+	
+	@RequestMapping(value="setting/autoTradePause_preview")
+	public String autoTradePause_preview(AutotradeVo autotradeVo, Model model){
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+		try{
+			if(null != s_custinfo){
+				// 用户信息
+				autotradeVo.setCustno(s_custinfo.getCustno());
+				// 货币信息
+				autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
+				autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
+				autotradeVo.setTochargetype("A");
+				
+				// 跳转确认页
+				model.addAttribute("AutoTradeVo", autotradeVo);
+				model.addAttribute("SessionVo", s_custinfo);
+			} else{
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
+			}
+		}catch (BizException e){
+			model.addAttribute("errorMsg", e.getMessage());
+			model.addAttribute("returnUrl", "setting/autoTrade_index.htm");
+			return "error/user_error";
+		}
+		return "setting/autoFundStepP2";
+	}
+	
+	@RequestMapping(value="setting/autoTradePause_result")
+	public String autoTradePauseResult(AutotradeVo autotradeVo, Model model){
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+		try{
+			if(null != s_custinfo){
+				ChangeAutoStateAction action = new ChangeAutoStateAction();
+				
+				action.setCustno(s_custinfo.getCustno());// 用户信息
+				action.setAutoid(autotradeVo.getAutoid());
+				action.setState(Constant.Autotrade.STATE$P); //STATE$N,STATE$P,STATE$C
+				action.setTradepwd(autotradeVo.getTradepwd());
+				autotradeManager.changestatus(action);
+				
+				model.addAttribute("SessionVo", s_custinfo);
+			} else{
+				ServletHolder.forward("/home/index.htm");
+				return "home/index";
+			}
+		}catch (BizException e){
+//			LOG.warn(e.getCodeMsg());
+			model.addAttribute("errorMsg", e.getMessage());
+			model.addAttribute("returnUrl", "setting/autoTrade_index.htm");
+			return "error/user_error";
+			
+		}catch(UserException ue){
+			LOG.warn(ue.getCodeMsg());
+			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+			model.addAttribute("errorMsg", ue.getMessage());
+			model.addAttribute("returnUrl", "setting/autoTrade_add.htm");
+			return "error/user_error";
+		}
+		return "setting/autoFundStepP3";
 	}
 	
 }

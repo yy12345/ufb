@@ -20,6 +20,7 @@ import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
@@ -61,22 +62,27 @@ public class CustController {
 		try{
 			// 清除Session
 			UserHelper.removeCustinfoVo();
-			//if(null == custinfoVo.getInvtp()){
+			
+			// 初始化数据
 			custinfoVo.setInvtp(Invtp.PERSONAL.getValue()); //个人注册开户
 			custinfoVo.setLevel(Level.PERSONAL.getValue()); //家庭身份
-			//}
 			
 			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
 			return "error/error";
+//		}catch(UserException ue){
+//			LOG.warn(ue.getCodeMsg());
+//			model.addAttribute("errorMsg", ue.getMessage());
+//			model.addAttribute("returnUrl", "home/index.htm");
+//			return "error/user_error";
 		}
 		return "register/indexPage";
 	}
 	
 	/**
-	 * 注册用户：经办人注册
+	 * 注册用户：家庭注册
 	 * @param custinfoVo
 	 * @param model
 	 * @return
@@ -85,6 +91,7 @@ public class CustController {
 	public String registerfamily(CustinfoVo custinfoVo, Model model) {
 		
 		try{
+			// 初始化数据
 			custinfoVo.setInvtp(Invtp.PERSONAL.getValue()); // 个人
 			custinfoVo.setLevel(Level.PERSONAL.getValue()); // 家庭
 			
