@@ -81,7 +81,7 @@ public class TradeManagerHelper {
 //		tradeRequest.setAppdate(response.getTransactionDate());
 //		tradeRequest.setApptime(response.getTransactiontime());
 		tradeRequest.setState(TradeStatus.I.getValue());
-		tradeRequest.setPayst(TradeStatus.Y.getValue());
+//		tradeRequest.setPayst(TradeStatus.Y.getValue());
 		return tradeRequest;
 	}
 	
@@ -166,7 +166,7 @@ public class TradeManagerHelper {
 //		tradeRequest.setAppdate(response.getTransactionDate());
 //		tradeRequest.setApptime(response.getTransactiontime());
 		tradeRequest.setState(TradeStatus.I.getValue());
-		tradeRequest.setPayst(TradeStatus.Y.getValue());
+//		tradeRequest.setPayst(TradeStatus.Y.getValue());
 		return tradeRequest;
 	}
 	
@@ -247,7 +247,7 @@ public class TradeManagerHelper {
 //		tradeRequest.setAppdate(response.getTransactionDate());
 //		tradeRequest.setApptime(response.getTransactiontime());
 		tradeRequest.setState(TradeStatus.I.getValue());
-		tradeRequest.setTranst(TradeStatus.D.getValue());
+//		tradeRequest.setTranst(TradeStatus.D.getValue());
 		return tradeRequest;
 	}
 	
@@ -329,7 +329,7 @@ public class TradeManagerHelper {
 //		tradeRequest.setAppdate(response.getTransactionDate());
 //		tradeRequest.setApptime(response.getTransactiontime());
 		tradeRequest.setState(TradeStatus.I.getValue());
-		tradeRequest.setTranst(TradeStatus.D.getValue());
+//		tradeRequest.setTranst(TradeStatus.D.getValue());
 		return tradeRequest;
 	}
 	
