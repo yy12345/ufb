@@ -29,10 +29,10 @@ $(function(){
     			href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
     			href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
     			href="javascript:;"><i class="trans icon"></i>
-    				#if ($SessionVo.invnm)
-                	    $!{SessionVo.invnm}
+    				#if ($S_CUSTINFO.invnm)
+                	    $!{S_CUSTINFO.invnm}
                 	#else
-    					#set($tailStr=$SessionVo.mobileno)
+    					#set($tailStr=$S_CUSTINFO.mobileno)
     					#set($start=$tailStr.substring(0,3))
     					#set($end=$tailStr.substring(7,11))
     					$start****$end
@@ -42,7 +42,7 @@ $(function(){
     </div>
     <div class="body">
     	<form id="form-index" method="post" action="${staticDomain}/cust/index.htm">
-    	<input id="openaccount" type="hidden" name="openaccount" value="${SessionVo.openaccount}"/>
+    	<input id="openaccount" type="hidden" name="openaccount" value="${S_CUSTINFO.openaccount}"/>
     
         <div class="inner clearfix">
             <div class="title clearfix">
@@ -83,7 +83,7 @@ $(function(){
                                     <td>
                                         <div class="base-btn">
     										
-    										#if($SessionVo.openaccount!="Y")
+    										#if($S_CUSTINFO.openaccount!="Y")
                                             <div class="clearfix m-b10">
     											<a class="fl btn off" href="javascript:;">充值</a>
     											<a href="javascript:;" class="link fr">自动充值</a>
@@ -107,6 +107,7 @@ $(function(){
                                 </tr>
                             </table>
                         </div>
+						#if($S_CUSTINFO.openaccount=="Y")
                         <div class="item-detail clearfix">
                             <div class="detail-list">
                                 <div class="list-title">资金明细<a class="link fr" href="detailList.html">查看更多</a></div>
@@ -161,6 +162,7 @@ $(function(){
                                 </table>
                             </div>
                         </div>
+						#end
                     </li>
                     <li class="project-item item-sub shadow-normal trans">
                         <i class="tag"><img src="${staticDomain}/images/tag1.png"></i>
@@ -191,16 +193,16 @@ $(function(){
             </div>
     		<div class="side fr">
                 <div class="info-account">
-    				#if($SessionVo.openaccount!="Y")
+    				#if($S_CUSTINFO.openaccount!="Y")
     				<div class="account-header">
     					<a href="${staticDomain}/setting/settingAccount.htm" class="header-avatar"></a>   
     					<div class="header-name">		
     						<b class="center-hack"></b>
     						<div class="center-body">
-    							#if ($SessionVo.invnm)
-    								$!{SessionVo.invnm}
+    							#if ($S_CUSTINFO.invnm)
+    								$!{S_CUSTINFO.invnm}
     							#else
-    								#set($tailStr=$SessionVo.mobileno)
+    								#set($tailStr=$S_CUSTINFO.mobileno)
     								#set($start=$tailStr.substring(0,3))
     								#set($end=$tailStr.substring(7,11))
     								$start****$end
@@ -218,10 +220,10 @@ $(function(){
                                 <a href="${staticDomain}/setting/settingAccount.htm" class="header-avatar"></a>
     							<div class="header-name">
     								经办人：
-    								#if ($SessionVo.invnm)
-        								$!{SessionVo.invnm}
+    								#if ($S_CUSTINFO.invnm)
+        								$!{S_CUSTINFO.invnm}
         							#else
-        								#set($tailStr=$SessionVo.mobileno)
+        								#set($tailStr=$S_CUSTINFO.mobileno)
         								#set($start=$tailStr.substring(0,3))
         								#set($end=$tailStr.substring(7,11))
         								$start****$end
@@ -237,10 +239,10 @@ $(function(){
                                 <a href="#" class="header-avatar" onclick="alert('切换机构账户，建设中...');"></a>
                                 <div class="header-name">
     								机构：
-    								#if ($SessionVo.invnm)
-        								$!{SessionVo.invnm}
+    								#if ($S_CUSTINFO.invnm)
+        								$!{S_CUSTINFO.invnm}
         							#else
-        								#set($tailStr=$SessionVo.mobileno)
+        								#set($tailStr=$S_CUSTINFO.mobileno)
         								#set($start=$tailStr.substring(0,3))
         								#set($end=$tailStr.substring(7,11))
         								$start****$end
@@ -264,14 +266,14 @@ $(function(){
                                     <div class="name">资产总金额（元）</div>
                                     <div class="value">$!{totalBalanceDisplay}</div>
                                 </li>
-    							#if($SessionVo.openaccount=="Y")
+    							#if($S_CUSTINFO.openaccount=="Y")
                                 <li class="account-item">
                                     <div class="name">冻结金额（元）</div>
                                     <div class="value">$!{frozenBalanceDisplay}</div>
                                 </li>
     							#end
                             </ul>
-    						#if($SessionVo.openaccount!="Y")
+    						#if($S_CUSTINFO.openaccount!="Y")
                             <div class="account-btn">
                                 <a id="btn-openAccount" class="btn" href="#">开办理财账户</a>
                             </div>
@@ -359,7 +361,7 @@ $(function(){
 <script src="${staticDomain}/js/scripts/load.js"></script>
 <script>
     $(function () {
-		#if($SessionVo.openaccount!="Y")
+		#if($S_CUSTINFO.openaccount!="Y")
         alertBox(".box-openGuide");
 		#end
     });

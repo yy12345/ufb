@@ -23,6 +23,7 @@ public class BankCardManagerHelper {
 		bankcardinfo.setBankidtp(openAccountAction.getBankidtp());
 		bankcardinfo.setBankidno(openAccountAction.getBankidno());
 		bankcardinfo.setBankacnm(openAccountAction.getBankacnm());
+		bankcardinfo.setBankmobile(openAccountAction.getBankmobile());
 		return bankcardinfo;
 	}
 	

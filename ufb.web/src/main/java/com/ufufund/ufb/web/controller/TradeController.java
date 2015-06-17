@@ -67,7 +67,7 @@ public class TradeController {
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			
-			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
 			model.addAttribute("errorMsg", ue.getMessage());
@@ -91,10 +91,10 @@ public class TradeController {
 			
 			tradeManager.buyApply(vo);
 			
-			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
-			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", PAGE_PAY_INDEX);
 			return "error/user_error";
@@ -139,7 +139,7 @@ public class TradeController {
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			
-			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
 			model.addAttribute("errorMsg", ue.getMessage());
@@ -174,13 +174,13 @@ public class TradeController {
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
-			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
 			return "error/user_error";
 		}
 		
-		model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+//		model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		return "trade/cash_result";
 	}
 	

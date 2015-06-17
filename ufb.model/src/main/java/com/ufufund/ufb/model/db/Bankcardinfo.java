@@ -34,6 +34,15 @@ public class Bankcardinfo extends PrintableModel  implements Serializable {
 	private String disorder;// int(11) default null comment '展示顺序：用户多张卡时的展示顺序',
 	private String updatetimestamp;// timestamp not null default
 									// current_timestamp on u
+	
+	private String bankmobile;
+	
+	public String getBankmobile() {
+		return bankmobile;
+	}
+	public void setBankmobile(String bankmobile) {
+		this.bankmobile = bankmobile;
+	}
 	public String getSerialid() {
 		return serialid;
 	}

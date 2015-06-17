@@ -100,7 +100,7 @@ public class CustController {
 			if(null != s_custinfo){
 				// Session登录
 				if(s_custinfo.getMobileno().equals(custinfoVo.getMobileno())){
-					model.addAttribute("SessionVo", s_custinfo);
+//					model.addAttribute("SessionVo", s_custinfo);
 					return "register/successPage";
 				}
 			}
@@ -121,7 +121,7 @@ public class CustController {
 			// 注册成功，保存用户至session
 			custinfoVo.setCustno(registerAction.getCustNo());
 			UserHelper.saveCustinfoVo(custinfoVo);
-			model.addAttribute("SessionVo", custinfoVo);
+//			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			
@@ -164,7 +164,7 @@ public class CustController {
 			if(null != s_custinfo){
 				// Session登录
 				if(s_custinfo.getMobileno().equals(custinfoVo.getMobileno())){
-					model.addAttribute("SessionVo", s_custinfo);
+//					model.addAttribute("SessionVo", s_custinfo);
 					return "register/successPage";
 				}
 			}
@@ -187,7 +187,7 @@ public class CustController {
 			// 注册成功，保存用户至session
 			custinfoVo.setCustno(registerAction.getCustNo());
 			UserHelper.saveCustinfoVo(custinfoVo);
-			model.addAttribute("SessionVo", custinfoVo);
+//			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			
@@ -226,9 +226,9 @@ public class CustController {
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			}else{
-				model.addAttribute("SessionVo", null);
+//				model.addAttribute("SessionVo", null);
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -262,7 +262,7 @@ public class CustController {
 			// 登录成功，保存用户至session
 			custinfoVo = this.convertCustInfo2Vo(custinfo);
 			UserHelper.saveCustinfoVo(custinfoVo);
-			model.addAttribute("SessionVo", custinfoVo);
+//			model.addAttribute("SessionVo", custinfoVo);
 			
 			// 货基信息显示
 			model.addAttribute("FUNDINFOVO", this.getFundInfo());
@@ -369,7 +369,7 @@ public class CustController {
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
 			}
-			model.addAttribute("SessionVo", custinfoVo);
+//			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("CustinfoVo", custinfoVo);

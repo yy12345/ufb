@@ -2,16 +2,16 @@
     <div class="inner clearfix rel">
         <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
 		<div class="nav">
-        	#if ($SessionVo)
+        	#if ($S_CUSTINFO)
         	<a href="${staticDomain}/home/index.htm">首页</a>|<a class="current"
         	href="${staticDomain}/cust/session.htm">资产总览</a>|<a
         	href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
         	href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
         	href="javascript:;"><i class="trans icon"></i>
-        		#if ($SessionVo.invnm)
-        			$!{SessionVo.invnm}
-                #elseif ($SessionVo.mobileno)
-        			#set($tailStr=$SessionVo.mobileno)
+        		#if ($S_CUSTINFO.invnm)
+        			$!{S_CUSTINFO.invnm}
+                #elseif ($S_CUSTINFO.mobileno)
+        			#set($tailStr=$S_CUSTINFO.mobileno)
         			#set($start=$tailStr.substring(0,3))
         			#set($end=$tailStr.substring(7,11))
         			$start****$end

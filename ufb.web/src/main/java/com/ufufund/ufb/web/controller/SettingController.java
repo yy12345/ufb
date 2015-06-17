@@ -90,7 +90,7 @@ public class SettingController {
 			return "setting/settingAccount";
 		}
 		model.addAttribute("CustinfoVo", custinfoVo);
-		model.addAttribute("SessionVo", custinfoVo);
+//		model.addAttribute("SessionVo", custinfoVo);
 		return "setting/settingAccount";
 	}
 	
@@ -122,7 +122,7 @@ public class SettingController {
 			return "setting/settingPassword";
 		}
 		model.addAttribute("CustinfoVo", custinfoVo);
-		model.addAttribute("SessionVo", custinfoVo);
+//		model.addAttribute("SessionVo", custinfoVo);
 		return "setting/settingPassword";
 	}
 	
@@ -145,7 +145,7 @@ public class SettingController {
 				return "home/index";
 			}
 			model.addAttribute("CustinfoVo", s_custinfo);
-			model.addAttribute("SessionVo", s_custinfo);
+//			model.addAttribute("SessionVo", s_custinfo);
 			model.addAttribute("TAB", "1S");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -189,7 +189,7 @@ public class SettingController {
 				return "home/index";
 			}
 			model.addAttribute("CustinfoVo", s_custinfo);
-			model.addAttribute("SessionVo", s_custinfo);
+//			model.addAttribute("SessionVo", s_custinfo);
 			model.addAttribute("TAB", "2S");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -294,7 +294,7 @@ public class SettingController {
 				return "home/index";
 			}
 			model.addAttribute("CustinfoVo", s_custinfo);
-			model.addAttribute("SessionVo", s_custinfo);
+//			model.addAttribute("SessionVo", s_custinfo);
 			model.addAttribute("TAB", "3S");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -375,7 +375,7 @@ public class SettingController {
 		}
 		
 		model.addAttribute("CustinfoVo", custinfoVo);
-		model.addAttribute("SessionVo", custinfoVo);
+//		model.addAttribute("SessionVo", custinfoVo);
 		return "setting/settingCard";
 	}
 	
@@ -481,14 +481,14 @@ public class SettingController {
 				List<Autotrade> list = autotradeManager.getAutotradeList(s_custinfo.getCustno());
 				model.addAttribute("LIST", list);
 				
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("SessionVo", s_custinfo);
+//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoTrade_index";
 		}
 		return "setting/autoTrade_index";
@@ -520,14 +520,14 @@ public class SettingController {
 				}
 				
 				model.addAttribute("AutoTradeVo", autotradeVo);
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("SessionVo", s_custinfo);
+//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoTrade_index";
 		}
 		return "setting/autoFundStep1";
@@ -551,7 +551,7 @@ public class SettingController {
 				
 				// 跳转确认页
 				model.addAttribute("AutoTradeVo", autotradeVo);
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
@@ -600,18 +600,18 @@ public class SettingController {
 				
 				autotradeManager.addAutotrade(action);
 				
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("SessionVo", s_custinfo);
+//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoFundStep2";
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
-			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", "setting/autoTrade_add.htm");
 			return "error/user_error";
@@ -655,14 +655,14 @@ public class SettingController {
 				}
 				
 				// 跳转确认页
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("SessionVo", s_custinfo);
+//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoTrade_index";
 		}
 		return "setting/autoFundStepU1";
@@ -686,7 +686,7 @@ public class SettingController {
 				
 				// 跳转确认页
 				model.addAttribute("AutoTradeVo", autotradeVo);
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
@@ -736,18 +736,18 @@ public class SettingController {
 				
 				autotradeManager.modifyAutotrade(action);
 				
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("SessionVo", s_custinfo);
+//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoFundStepU2";
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
-			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", "setting/autoTrade_add.htm");
 			return "error/user_error";
@@ -770,14 +770,14 @@ public class SettingController {
 				
 				autotradeManager.changestatus(action);
 				// 跳转确认页
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("SessionVo", s_custinfo);
+//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoTrade_index";
 		}
 		ServletHolder.forward("/setting/autoTrade_index.htm");
@@ -807,14 +807,14 @@ public class SettingController {
 				}
 				
 				// 跳转确认页
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("SessionVo", s_custinfo);
+//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoTrade_index";
 		}
 		return "setting/autoFundStepP1";
@@ -834,7 +834,7 @@ public class SettingController {
 				
 				// 跳转确认页
 				model.addAttribute("AutoTradeVo", autotradeVo);
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
@@ -860,7 +860,7 @@ public class SettingController {
 				action.setTradepwd(autotradeVo.getTradepwd());
 				autotradeManager.changestatus(action);
 				
-				model.addAttribute("SessionVo", s_custinfo);
+//				model.addAttribute("SessionVo", s_custinfo);
 			} else{
 				ServletHolder.forward("/home/index.htm");
 				return "home/index";
@@ -873,7 +873,7 @@ public class SettingController {
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getCodeMsg());
-			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", "setting/autoTrade_add.htm");
 			return "error/user_error";

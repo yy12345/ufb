@@ -32,7 +32,7 @@ public class RefreshHolderFilter implements Filter{
 			filterChain.doFilter(request, response); // 不做处理
 		}else{
 			if(uri.indexOf("ufb/expire") > -1){
-				req.setAttribute("SessionVo", UserHelper.getCustinfoVo()); // 警告页
+				req.setAttribute("S_CUSTINFO", UserHelper.getCustinfoVo()); // 警告页
 			}
 			String input = req.getParameter(RefreshHolder.INPUT_NAME);
 			if(input != null && RefreshHolder.isRefresh(input)){

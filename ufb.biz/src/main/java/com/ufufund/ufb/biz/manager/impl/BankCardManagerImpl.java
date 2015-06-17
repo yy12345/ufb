@@ -103,14 +103,17 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		bankCardManagerValidator.validator(openAccountAction, "User_Base");
 		// 用户注册、冻结、已开户验证
 		custManagerValidator.validator(openAccountAction, "User_Business");
-		// 校验是否与登录密码一致
-		Custinfo custinfo = new Custinfo();
-		custinfo.setCustno(openAccountAction.getCustno());
-		custinfo = custinfoMapper.getCustinfo(custinfo);
-		String md5 = EncryptUtil.md5(openAccountAction.getTradepwd());
-		if(md5.equals(custinfo.getPasswd())){
-			// 交易密码不能和登录密码相同
-			throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
+		
+		if(!"Y".equals(openAccountAction.getOpenaccount())){
+			// 校验是否与登录密码一致（已绑卡开户的用户不需要再次验证密码）
+			Custinfo custinfo = new Custinfo();
+			custinfo.setCustno(openAccountAction.getCustno());
+			custinfo = custinfoMapper.getCustinfo(custinfo);
+			String md5 = EncryptUtil.md5(openAccountAction.getTradepwd());
+			if(md5.equals(custinfo.getPasswd())){
+				// 交易密码不能和登录密码相同
+				throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
+			}
 		}
 		
 		return openAccountAction;
