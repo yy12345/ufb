@@ -110,4 +110,19 @@
 		order by t1.updatetime desc limit #{n,jdbcType=INTEGER} 
 	</select>
 	
+	
+	<select id="qryFundNavList" resultType="FundNav" parameterType="FundNav">
+		select t.* from fundnav t
+		where
+			1=1
+		<if test="fundcorpno != null">
+			and fundcorpno = #{fundcorpno,jdbcType=VARCHAR}
+		</if>
+		<if test="fundcode != null">
+			and fundcode = #{fundcode,jdbcType=VARCHAR}
+		</if>
+			order by date desc 
+			limit 0,5
+	</select>
+	
 </mapper>

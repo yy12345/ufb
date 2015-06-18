@@ -13,6 +13,7 @@ import com.ufufund.ufb.dao.FundBalanceMapper;
 import com.ufufund.ufb.dao.TradeQutyChgMapper;
 import com.ufufund.ufb.dao.TradeRequestMapper;
 import com.ufufund.ufb.model.db.FundBalance;
+import com.ufufund.ufb.model.db.FundNav;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
@@ -71,6 +72,10 @@ public class QueryManagerImpl implements QueryManager{
 		result.setAvailable(available);
 		result.setRealavailable(available);  // 暂时设置与available一致
 		result.setFrozen(frozen);
+		
+		//
+		result.setFunddayincome(fundBalance.getFunddayincome());
+		result.setTotalincome(fundBalance.getTotalincome());
 		return result;
 	}
 
@@ -96,6 +101,8 @@ public class QueryManagerImpl implements QueryManager{
 			result.setAvailable(result.getAvailable().add(tradeAccoVo.getAvailable()));
 			result.setRealavailable(result.getRealavailable().add(tradeAccoVo.getRealavailable()));
 			result.setFrozen(result.getFrozen().add(tradeAccoVo.getFrozen()));
+			result.setFunddayincome(result.getFunddayincome().add(tradeAccoVo.getFunddayincome()));
+			result.setTotalincome(result.getTotalincome().add(tradeAccoVo.getTotalincome()));
 		}
 		result.setAccoList(accoList);
 		
@@ -110,5 +117,10 @@ public class QueryManagerImpl implements QueryManager{
 	@Override
 	public List<TradeRequest> qryRecentTradeList(String custno, List<String> apkind, int n){
 		return tradeRequestMapper.qryRecentTradeList(custno,apkind, n);
+	}
+	
+	@Override
+	public List<FundNav> qryFundNavList(FundNav fundnav){
+		return tradeRequestMapper.qryFundNavList(fundnav);
 	}
 }

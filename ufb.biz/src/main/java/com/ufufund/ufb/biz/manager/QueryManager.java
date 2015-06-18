@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ufufund.ufb.model.db.FundNav;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.vo.Assets;
@@ -46,4 +47,11 @@ public interface QueryManager {
 	 */
 	public List<TradeRequest> qryRecentTradeList(String custno, List<String> apkinds, int n);
 	
+	/**
+	 * 查询NAV
+	 * @param fundnav
+	 * @param n 获取条数
+	 * @return
+	 */
+	public List<FundNav> qryFundNavList(FundNav fundnav);
 }

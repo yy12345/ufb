@@ -30,7 +30,7 @@ $(function(){
     			href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
     			href="javascript:;"><i class="trans icon"></i>
     				#if ($S_CUSTINFO.invnm)
-                	    $!{S_CUSTINFO.invnm}
+                	    ${S_CUSTINFO.invnm}
                 	#else
     					#set($tailStr=$S_CUSTINFO.mobileno)
     					#set($start=$tailStr.substring(0,3))
@@ -56,8 +56,8 @@ $(function(){
                         <div class="item-base clearfix">
     						<div class="detail-chart fl">
                                 <div class="tabs chart-tabs clearfix">
-                                    <a class="tab on" href="javascript:;">7日年化收益率(%)  4.8270</a>
-                                    <a class="tab" href="javascript:;">万份收益(元)  1.2440</a>
+                                    <a class="tab on" href="javascript:;">7日年化收益率(%)  ${NAV.yield}</a>
+                                    <a class="tab" href="javascript:;">万份收益(元)  ${NAV.income}</a>
                                 </div>
                                 <div class="panels chart-panels">
                                     <div id="chart-syl" class="panel slide-in"></div>
@@ -68,17 +68,17 @@ $(function(){
                                 <tr>
                                     <td width="45%">
                                         <div class="name">昨日收益</div>
-                                        <div class="value">5.1470</div>
+                                        <div class="value">${funddayincome}</div>
                                     </td>
                                     <td>
                                         <div class="name">资产总额（元）</div>
-                                        <div class="value">$!{totalBalanceDisplay}</div>
+                                        <div class="value">${totalBalanceDisplay}</div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="name">累计收益（元）</div>
-                                        <div class="value-big">1,231.34</div>
+                                        <div class="value-big">${totalincome}</div>
                                     </td>
                                     <td>
                                         <div class="base-btn">
@@ -125,7 +125,12 @@ $(function(){
                                     <tbody>
     								#foreach($tradeRequest in $listIn)
                                     <tr>
-                                        <td class="tc">2015-05-19</td>
+                                        <td class="tc">
+											#set($appdate=${tradeRequest.appdate})
+											$appdate.substring(0,4)/$appdate.substring(4,6)/$appdate.substring(6,8)
+											#set($apptime=${tradeRequest.apptime})
+											$apptime.substring(0,2):$apptime.substring(2,4)
+										</td>
                                         <td class="tc">
     									#if(${tradeRequest.apkind}=="022")
     										充值
@@ -137,20 +142,22 @@ $(function(){
     									</td>
                                         <td class="tr">
     									#if(${tradeRequest.appamt})
-    										+$!{tradeRequest.appamt}
+    										+${tradeRequest.appamt}
     									#else
-    										-$!{tradeRequest.appvol}
+    										-${tradeRequest.appvol}
     									#end
     									</td>
                                         <td class="tc">
     									#if(${tradeRequest.state}=="I")
     										处理中
+										#elseif(${tradeRequest.state}=="F")	
+											失败
     									#else	
     										成功
     									#end
     									</td>
                                         <td class="tc">
-    									#set($tailStr=$!{tradeRequest.bankacco})
+    									#set($tailStr=${tradeRequest.bankacco})
     									#set($start=$tailStr.length() - 4)
     									#set($end=$tailStr.length())
     									${tradeRequest.banknm}（尾号$tailStr.substring($start,$end)）	
@@ -200,7 +207,7 @@ $(function(){
     						<b class="center-hack"></b>
     						<div class="center-body">
     							#if ($S_CUSTINFO.invnm)
-    								$!{S_CUSTINFO.invnm}
+    								${S_CUSTINFO.invnm}
     							#else
     								#set($tailStr=$S_CUSTINFO.mobileno)
     								#set($start=$tailStr.substring(0,3))
@@ -221,7 +228,7 @@ $(function(){
     							<div class="header-name">
     								经办人：
     								#if ($S_CUSTINFO.invnm)
-        								$!{S_CUSTINFO.invnm}
+        								${S_CUSTINFO.invnm}
         							#else
         								#set($tailStr=$S_CUSTINFO.mobileno)
         								#set($start=$tailStr.substring(0,3))
@@ -240,7 +247,7 @@ $(function(){
                                 <div class="header-name">
     								机构：
     								#if ($S_CUSTINFO.invnm)
-        								$!{S_CUSTINFO.invnm}
+        								${S_CUSTINFO.invnm}
         							#else
         								#set($tailStr=$S_CUSTINFO.mobileno)
         								#set($start=$tailStr.substring(0,3))
@@ -264,12 +271,12 @@ $(function(){
                                 </li>
                                 <li class="account-item">
                                     <div class="name">资产总金额（元）</div>
-                                    <div class="value">$!{totalBalanceDisplay}</div>
+                                    <div class="value">${totalBalanceDisplay}</div>
                                 </li>
     							#if($S_CUSTINFO.openaccount=="Y")
                                 <li class="account-item">
                                     <div class="name">冻结金额（元）</div>
-                                    <div class="value">$!{frozenBalanceDisplay}</div>
+                                    <div class="value">${frozenBalanceDisplay}</div>
                                 </li>
     							#end
                             </ul>
@@ -285,13 +292,13 @@ $(function(){
                     <div class="yield-title">幼富宝</div>
                     <div class="yield-data">
     					#if($FUNDINFOVO)
-                        <div class="data-value">$!{FUNDINFOVO.nav}</div>
-                        <div class="data-name">七日年化收益率（$!{FUNDINFOVO.yield}%）</div>
-                        <div class="data-source">数据来源：海富通基金</div>
+                        <div class="data-value">${FUNDINFOVO.nav}</div>
+                        <div class="data-name">七日年化收益率（${FUNDINFOVO.yield}%）</div>
+                        <div class="data-source">数据来源：${FUNDINFOVO.fundname}</div>
     					#else
     					<div class="data-value">--</div>
                         <div class="data-name">七日年化收益率（--%）</div>
-                        <div class="data-source">数据来源：海富通基金</div>	
+                        <div class="data-source">数据来源：--</div>	
     					#end	
                     </div>
                 </div>
@@ -377,8 +384,11 @@ $(function(){
                 enabled: false
             },
             xAxis: {
-                categories: ['05/25', '05/26', '05/27', '05/28', '05/29', '05/30','05/31']
-
+                categories: [
+				#foreach($nav in $navList)
+				'$nav.date',
+				#end
+				]
             },
             yAxis: {
                 title: {
@@ -393,7 +403,12 @@ $(function(){
             },
             series: [{
                 name: '',
-                data: [4.23, 4.27, 4.30, 4.25, 4.25, 4.26, 4.27]
+                data: 
+				[
+				#foreach($nav in $navList)
+				$nav.yield,
+				#end
+				]
             }]
         });
         $('#chart-sy').highcharts({

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ufufund.ufb.model.db.FundNav;
 import com.ufufund.ufb.model.db.TradeRequest;
 
 public interface TradeRequestMapper {
@@ -15,4 +16,6 @@ public interface TradeRequestMapper {
 	public int update(TradeRequest tradeRequest);
 	
 	public List<TradeRequest> qryRecentTradeList(@Param("custno")String custno, @Param("apkinds") List<String> apkinds, @Param("n")int n);
+	
+	public List<FundNav> qryFundNavList(FundNav fundnav);
 }

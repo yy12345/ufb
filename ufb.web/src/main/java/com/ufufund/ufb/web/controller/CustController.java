@@ -1,9 +1,6 @@
 package com.ufufund.ufb.web.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,13 +17,13 @@ import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
-import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 //import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.FundInfo;
+import com.ufufund.ufb.model.db.FundNav;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
@@ -267,6 +264,17 @@ public class CustController {
 			// 货基信息显示
 			model.addAttribute("FUNDINFOVO", this.getFundInfo());
 			
+			// NAV
+			FundNav fundnav = new FundNav();
+			fundnav.setFundcorpno("01");
+			fundnav.setFundcode("519005");
+			List<FundNav> navList = queryManager.qryFundNavList(fundnav);
+			model.addAttribute("navList", navList);
+			if(null != navList){
+				FundNav curFundNav = navList.get(0);
+				model.addAttribute("NAV", curFundNav);
+			}
+			
 			if("Y".equals(custinfoVo.getOpenaccount())){
 				
 				// 资产显示
@@ -276,6 +284,8 @@ public class CustController {
 				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
 				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));// 可用资产
 				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));// 冻结资产
+				model.addAttribute("funddayincome", NumberUtils.DF_CASH_CONMMA.format(assets.getFunddayincome()));// 昨日收益
+				model.addAttribute("totalincome", NumberUtils.DF_CASH_CONMMA.format(assets.getTotalincome()));// 累计受益
 				
 				// 交易明细显示
 				List<String> apkinds = new ArrayList<String>();
@@ -289,6 +299,9 @@ public class CustController {
 				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("funddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
+				model.addAttribute("totalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
+				
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -343,6 +356,18 @@ public class CustController {
 				// 货基信息显示
 				model.addAttribute("FUNDINFOVO", this.getFundInfo());
 				
+				// NAV
+				FundNav fundnav = new FundNav();
+				fundnav.setFundcorpno("01");
+				fundnav.setFundcode("519005");
+				List<FundNav> navList = queryManager.qryFundNavList(fundnav);
+				model.addAttribute("navList", navList);
+				if(null != navList){
+					FundNav curFundNav = navList.get(0);
+					model.addAttribute("NAV", curFundNav);
+				}
+				
+				
 				if("Y".equals(s_custinfo.getOpenaccount())){
 					// 资产显示
 					//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
@@ -351,7 +376,8 @@ public class CustController {
 					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
 					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));// 可用资产
 					model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));// 冻结资产
-					
+					model.addAttribute("funddayincome", NumberUtils.DF_CASH_CONMMA.format(assets.getFunddayincome()));// 昨日收益
+					model.addAttribute("totalincome", NumberUtils.DF_CASH_CONMMA.format(assets.getTotalincome()));// 累计受益
 					// 交易明细显示
 					List<String> apkinds = new ArrayList<String>();
 					apkinds.add("022"); // 充值
@@ -363,6 +389,8 @@ public class CustController {
 					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 					model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+					model.addAttribute("funddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
+					model.addAttribute("totalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
 				}
 			}else{
 				// Session无效

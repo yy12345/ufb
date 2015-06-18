@@ -11,6 +11,9 @@ public class TradeAccoVo extends TradeAccoinfoOfMore {
 	private BigDecimal available = new BigDecimal("0.00");
 	private BigDecimal realavailable = new BigDecimal("0.00");
 	private BigDecimal frozen = new BigDecimal("0.00");
+	
+	private BigDecimal funddayincome = new BigDecimal("0.00");
+	private BigDecimal totalincome = new BigDecimal("0.00");
 
 	public BigDecimal getTotal() {
 		return total;
@@ -43,4 +46,21 @@ public class TradeAccoVo extends TradeAccoinfoOfMore {
 	public void setFrozen(BigDecimal frozen) {
 		this.frozen = frozen;
 	}
+
+	public BigDecimal getFunddayincome() {
+		return funddayincome;
+	}
+
+	public void setFunddayincome(BigDecimal funddayincome) {
+		this.funddayincome = funddayincome;
+	}
+
+	public BigDecimal getTotalincome() {
+		return totalincome;
+	}
+
+	public void setTotalincome(BigDecimal totalincome) {
+		this.totalincome = totalincome;
+	}
+	
 }

@@ -13,6 +13,9 @@ public class Assets extends PrintableModel  implements Serializable{
 	private BigDecimal available = new BigDecimal("0.00");
 	private BigDecimal realavailable = new BigDecimal("0.00");
 	private BigDecimal frozen = new BigDecimal("0.00");
+
+	private BigDecimal funddayincome = new BigDecimal("0.00");
+	private BigDecimal totalincome = new BigDecimal("0.00");
 	
 	/**
 	 * 各个交易账号资产明细
@@ -49,6 +52,18 @@ public class Assets extends PrintableModel  implements Serializable{
 	}
 	public void setAccoList(List<TradeAccoVo> accoList) {
 		this.accoList = accoList;
+	}
+	public BigDecimal getFunddayincome() {
+		return funddayincome;
+	}
+	public void setFunddayincome(BigDecimal funddayincome) {
+		this.funddayincome = funddayincome;
+	}
+	public BigDecimal getTotalincome() {
+		return totalincome;
+	}
+	public void setTotalincome(BigDecimal totalincome) {
+		this.totalincome = totalincome;
 	}
 	
 }
