@@ -56,10 +56,15 @@ public class QueryManagerImpl implements QueryManager{
 		// 资产累计
 		BigDecimal available = new BigDecimal(0.00); // 可用份额
 		BigDecimal frozen = new BigDecimal(0.00); //冻结份额
+		BigDecimal funddayincome = new BigDecimal(0.00); // 
+		BigDecimal totalincome = new BigDecimal(0.00); //
 		// 已确认份额
 		if(fundBalance != null){
 			available = fundBalance.getAvailablevol();
 			frozen = fundBalance.getTotalfrozenvol(); 
+			funddayincome = fundBalance.getFunddayincome();
+			totalincome = fundBalance.getTotalincome();
+			
 		}
 		// 当日变动
 		if(qutyChg != null){
@@ -74,8 +79,8 @@ public class QueryManagerImpl implements QueryManager{
 		result.setFrozen(frozen);
 		
 		//
-		result.setFunddayincome(fundBalance.getFunddayincome());
-		result.setTotalincome(fundBalance.getTotalincome());
+		result.setFunddayincome(funddayincome);
+		result.setTotalincome(totalincome);
 		return result;
 	}
 

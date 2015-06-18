@@ -270,7 +270,7 @@ public class CustController {
 			fundnav.setFundcode("519005");
 			List<FundNav> navList = queryManager.qryFundNavList(fundnav);
 			model.addAttribute("navList", navList);
-			if(null != navList){
+			if(null != navList && navList.size() >0){
 				FundNav curFundNav = navList.get(0);
 				model.addAttribute("NAV", curFundNav);
 			}
@@ -362,7 +362,7 @@ public class CustController {
 				fundnav.setFundcode("519005");
 				List<FundNav> navList = queryManager.qryFundNavList(fundnav);
 				model.addAttribute("navList", navList);
-				if(null != navList){
+				if(null != navList && navList.size() >0){
 					FundNav curFundNav = navList.get(0);
 					model.addAttribute("NAV", curFundNav);
 				}
