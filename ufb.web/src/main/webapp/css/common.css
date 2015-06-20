@@ -620,6 +620,28 @@ a.link-underline {
 	background-color: #b4b4b5;
 	color: #ffffff;
 }
+/**GH**/
+.search-con li .input-button {
+	width: 82px;
+	height: 24px;
+	border: 0;
+	color: #ffffff;
+	background-color: #CB3849;
+	text-align: center;
+	/*background-color: #b4b4b5;*/
+}
+.search-con li .input-button.fl {
+	margin-right: 23px;
+}
+.search-con li input.input-button.ok {
+	color: #ffffff;
+	background-color: #CB3849;
+}
+.search-con li input.input-button.off {
+	background-color: #b4b4b5;
+	color: #ffffff;
+}
+/**  **/
 .common-form li input.input-short {
 	width: 20px;
 	margin-left: 20px;

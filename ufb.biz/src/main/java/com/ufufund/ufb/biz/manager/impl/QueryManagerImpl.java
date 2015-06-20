@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -120,8 +121,22 @@ public class QueryManagerImpl implements QueryManager{
 	}
 	
 	@Override
-	public List<TradeRequest> qryRecentTradeList(String custno, List<String> apkind, int n){
-		return tradeRequestMapper.qryRecentTradeList(custno,apkind, n);
+	public List<TradeRequest> qryTradeList(
+			String custno, 
+			List<String> apkinds,
+			List<String> states,
+			String startappdt, 
+			String endappdt,
+			int start, 
+			int end){
+		return tradeRequestMapper.qryTradeList(
+				custno, 
+				apkinds,
+				states,
+				startappdt, 
+				endappdt,
+				start, 
+				end);
 	}
 	
 	@Override

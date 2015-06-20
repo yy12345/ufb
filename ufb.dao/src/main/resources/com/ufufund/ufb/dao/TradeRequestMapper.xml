@@ -91,23 +91,35 @@
 		where serialno = #{serialno,jdbcType=VARCHAR}
 	</update>
 	
-	<select id="qryRecentTradeList" resultType="TradeRequest">
+	<select id="qryTradeList" resultType="TradeRequest">
 		select 
 			t4.banknm,
 			t3.bankacco,
 			t1.* 
 		from traderequest t1,tradeaccoinfo t2, bankcardinfo t3,bankbase t4
 		where 
-		(t1.state = 'Y' or t1.state = 'F' or t1.state = 'I') 
-		and t1.custno = #{custno,jdbcType=VARCHAR} 
-		and t1.apkind in 
-		<foreach item="item" index="index" collection="apkinds" open="(" separator="," close=")">
- 		   #{item, jdbcType=VARCHAR}
- 		 </foreach>
+		1=1
 		and t1.tradeacco = t2.tradeacco
         and t2.bankSERIALID = t3.SERIALID        
         and t3.bankno = t4.bankno
-		order by t1.updatetime desc limit #{n,jdbcType=INTEGER} 
+ 		and t1.apkind in 
+		<foreach item="apkind" index="index" collection="apkinds" open="(" separator="," close=")">
+ 		   #{apkind, jdbcType=VARCHAR}
+ 		</foreach>
+ 		and t1.state in 
+		<foreach item="state" index="index" collection="states" open="(" separator="," close=")">
+ 		   #{state, jdbcType=VARCHAR}
+ 		</foreach>
+ 		<if test="startappdt != null">
+			and t1.appdate &gt;= #{startappdt,jdbcType=VARCHAR}
+		</if>
+		<if test="endappdt != null">
+			and t1.appdate &lt;= #{endappdt,jdbcType=VARCHAR}
+		</if>
+		<if test="custno != null">
+			and t1.custno = #{custno,jdbcType=VARCHAR} 
+		</if>
+		order by t1.updatetime desc limit #{start,jdbcType=INTEGER}, #{end,jdbcType=INTEGER} 
 	</select>
 	
 	

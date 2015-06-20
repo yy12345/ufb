@@ -45,8 +45,14 @@ public interface QueryManager {
 	 * @param n 获取条数
 	 * @return
 	 */
-	public List<TradeRequest> qryRecentTradeList(String custno, List<String> apkinds, int n);
-	
+	public List<TradeRequest> qryTradeList(
+			String custno, 
+			List<String> apkinds,
+			List<String> states,
+			String startappdt, 
+			String endappdt,
+			int start, 
+			int end);
 	/**
 	 * 查询NAV
 	 * @param fundnav

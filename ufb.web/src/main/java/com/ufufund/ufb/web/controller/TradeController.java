@@ -1,6 +1,10 @@
 package com.ufufund.ufb.web.controller;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,11 +23,13 @@ import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
+import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.ApplyVo;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.RedeemVo;
 import com.ufufund.ufb.model.vo.Today;
+import com.ufufund.ufb.model.vo.TradeQueryVo;
 import com.ufufund.ufb.web.util.UserHelper;
 
 @Controller
@@ -183,7 +189,111 @@ public class TradeController {
 //		model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		return "trade/cash_result";
 	}
+
 	
+	@RequestMapping(value="trade/query_index.htm")
+	public String queryIndex(TradeQueryVo vo, Model model){
+		
+		try{
+			String custno = UserHelper.getCustno();
+			
+			String startappdate = null;
+			String endappdate = null;
+			String appdateindex = vo.getAppdateindex();
+			String appcateindex = vo.getAppcateindex();
+			String apptypeindex = vo.getApptypeindex();
+			// 交易明细显示
+			
+			// 今天
+			if("0".equals(appdateindex)){
+				// 今天
+				Calendar c = Calendar.getInstance();
+			    c.add(Calendar.DATE, -0);
+			    startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());
+			}else if("1".equals(appdateindex)){
+				// 最近1个月
+				Calendar c = Calendar.getInstance();
+			    c.add(Calendar.MONTH, -1);
+			    startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());
+			}else if("2".equals(appdateindex)){
+				// 最近3个月
+				Calendar c = Calendar.getInstance();
+			    c.add(Calendar.MONTH, -3);
+			    startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());
+			}else if("3".equals(appdateindex)){
+				// 1年
+				Calendar c = Calendar.getInstance();
+			    c.add(Calendar.MONTH, -12);
+			    startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());
+			}else{
+				vo.setAppdateindex("0");
+				Calendar c = Calendar.getInstance();
+			    c.add(Calendar.DATE, -0);
+			    startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());
+			}
+			endappdate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+			vo.setStartappdate(startappdate);
+			vo.setEndappdate(endappdate);
+			
+			/** 交易类型 **/
+			List<String> apkinds = new ArrayList<String>();
+			if("0".equals(appcateindex)){
+				apkinds.add("022"); // 充值
+				apkinds.add("023"); // 取现
+				apkinds.add("024"); // 快速取现
+			}else if("1".equals(appcateindex)){
+				apkinds.add("022"); // 充值
+			}else if("2".equals(appcateindex)){
+				apkinds.add("023"); // 取现
+				apkinds.add("024"); // 快速取现
+			}else if("3".equals(appcateindex)){
+				apkinds.add("000"); // 其他
+			}else{
+				vo.setAppcateindex("0");
+				apkinds.add("022"); // 充值
+				apkinds.add("023"); // 取现
+				apkinds.add("024"); // 快速取现
+			}
+			
+			/** 交易状态 **/
+			List<String> states = new ArrayList<String>();
+			if("0".equals(apptypeindex)){
+				states.add("Y"); // 
+				states.add("F"); // 
+				states.add("I"); // 
+			}else if("1".equals(apptypeindex)){
+				states.add("I"); // 
+			}else if("2".equals(apptypeindex)){
+				states.add("Y"); // 
+			}else if("3".equals(apptypeindex)){
+				states.add("F"); // 
+			}else{
+				vo.setApptypeindex("0");
+				states.add("Y"); // 
+				states.add("F"); // 
+				states.add("I"); // 
+			}
+			
+			List<TradeRequest> listIn = queryManager.qryTradeList(
+					custno, 
+					apkinds,
+					states,
+					startappdate, 
+					endappdate,
+					0, 
+					8
+					);
+			model.addAttribute("listIn", listIn);
+			model.addAttribute("TradeQueryVo", vo);
+		}catch(UserException ue){
+			LOG.warn(ue.getCodeMsg());
+			model.addAttribute("errorMsg", ue.getMessage());
+			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
+			return "error/user_error";
+		}
+		
+		return "trade/query_index";
+	}
 //	private List<BankCardWithTradeAcco> genBankcardinfoList(){
 //		List<BankCardWithTradeAcco> list = new ArrayList<BankCardWithTradeAcco>();
 //		BankCardWithTradeAcco b1 = new BankCardWithTradeAcco();

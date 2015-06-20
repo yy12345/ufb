@@ -292,7 +292,19 @@ public class CustController {
 				apkinds.add("022"); // 充值
 				apkinds.add("023"); // 取现
 				apkinds.add("024"); // 快速取现
-				List<TradeRequest> listIn = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 8);
+				List<String> states = new ArrayList<String>();
+				states.add("Y"); // 
+				states.add("F"); // 
+				states.add("I"); // 
+				List<TradeRequest> listIn = queryManager.qryTradeList(
+						custinfoVo.getCustno(), 
+						apkinds,
+						states,
+						null, 
+						null,
+						0, 
+						8
+						);
 				model.addAttribute("listIn", listIn);
 			} else {
 				// 资产显示
@@ -383,7 +395,19 @@ public class CustController {
 					apkinds.add("022"); // 充值
 					apkinds.add("023"); // 取现
 					apkinds.add("024"); // 快速取现
-					List<TradeRequest> listIn = queryManager.qryRecentTradeList(custinfoVo.getCustno(), apkinds, 8);
+					List<String> states = new ArrayList<String>();
+					states.add("Y"); // 
+					states.add("F"); // 
+					states.add("I"); // 
+					List<TradeRequest> listIn = queryManager.qryTradeList(
+							custinfoVo.getCustno(), 
+							apkinds,
+							states,
+							null, 
+							null,
+							0, 
+							8
+							);
 					model.addAttribute("listIn", listIn);
 				} else {
 					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));

@@ -15,7 +15,14 @@ public interface TradeRequestMapper {
 	
 	public int update(TradeRequest tradeRequest);
 	
-	public List<TradeRequest> qryRecentTradeList(@Param("custno")String custno, @Param("apkinds") List<String> apkinds, @Param("n")int n);
+	public List<TradeRequest> qryTradeList(
+			@Param("custno")String custno, 
+			@Param("apkinds") List<String> apkinds,
+			@Param("states") List<String> states,
+			@Param("startappdt")String startappdt, 
+			@Param("endappdt")String endappdt,
+			@Param("start")int start, 
+			@Param("end")int end);
 	
 	public List<FundNav> qryFundNavList(FundNav fundnav);
 }
