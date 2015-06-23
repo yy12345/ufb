@@ -328,7 +328,7 @@ public class TradeManagerHelper {
 		tradeRequest.setSheetserialno(response.getAppSheetSerialNo());
 //		tradeRequest.setAppdate(response.getTransactionDate());
 //		tradeRequest.setApptime(response.getTransactiontime());
-		tradeRequest.setState(TradeStatus.Y.getValue());
+		tradeRequest.setState(TradeStatus.I.getValue());
 		return tradeRequest;
 	}
 	
