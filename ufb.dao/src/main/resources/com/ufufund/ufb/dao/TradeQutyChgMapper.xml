@@ -13,6 +13,7 @@
 		APPDATE    	 ,
 		WORKDATE     ,
 		FUNDCODE     ,
+		TOTAL		 ,
 		AVAILABLE    ,
 		FROZEN   	 ,
 		OLDSERIALNO  ,
@@ -26,7 +27,7 @@
 	
     <select id="getTradeQutyChg" parameterType="TradeQutyChg" resultType="TradeQutyChg">
 		select 
-		    sum(AVAILABLE) as AVAILABLE, sum(FROZEN) as FROZEN
+		    sum(TOTAL) as TOTAL, sum(AVAILABLE) as AVAILABLE, sum(FROZEN) as FROZEN
 		from 
 		    TRADEQUTYCHG
 		where 
@@ -56,9 +57,10 @@
 			#{apkind,jdbctype=varchar},        
 			#{appdate,jdbctype=varchar},        
 			#{workdate,jdbctype=varchar},        
-			#{fundcode ,jdbctype=varchar},        
-			#{available,jdbctype=varchar},  
-			#{frozen,jdbctype=varchar},        
+			#{fundcode ,jdbctype=varchar},  
+			#{total,jdbctype=DECIMAL},      
+			#{available,jdbctype=DECIMAL},  
+			#{frozen,jdbctype=DECIMAL},        
 			#{oldserialno,jdbctype=varchar},        
 			now())
   	</insert>

@@ -81,7 +81,6 @@ public class TradeManagerHelper {
 //		tradeRequest.setAppdate(response.getTransactionDate());
 //		tradeRequest.setApptime(response.getTransactiontime());
 		tradeRequest.setState(TradeStatus.I.getValue());
-//		tradeRequest.setPayst(TradeStatus.Y.getValue());
 		return tradeRequest;
 	}
 	
@@ -127,6 +126,7 @@ public class TradeManagerHelper {
 		tradeQutyChg.setAppdate(vo.getAppdate());
 		tradeQutyChg.setWorkdate(vo.getWorkday());
 		tradeQutyChg.setFundcode(vo.getFundcode());
+		tradeQutyChg.setTotal(vo.getAppamt());
 		tradeQutyChg.setAvailable(BigDecimal.ZERO);
 		tradeQutyChg.setFrozen(vo.getAppamt());
 		tradeQutyChg.setOldserialno(vo.getSerialno());
@@ -166,7 +166,6 @@ public class TradeManagerHelper {
 //		tradeRequest.setAppdate(response.getTransactionDate());
 //		tradeRequest.setApptime(response.getTransactiontime());
 		tradeRequest.setState(TradeStatus.I.getValue());
-//		tradeRequest.setPayst(TradeStatus.Y.getValue());
 		return tradeRequest;
 	}
 	
@@ -210,6 +209,7 @@ public class TradeManagerHelper {
 		tradeQutyChg.setAppdate(vo.getAppdate());
 		tradeQutyChg.setWorkdate(vo.getWorkday());
 		tradeQutyChg.setFundcode(vo.getFundcode());
+		tradeQutyChg.setTotal(BigDecimal.ZERO);
 		tradeQutyChg.setAvailable(BigDecimal.ZERO.subtract(vo.getAppvol()));
 		tradeQutyChg.setFrozen(vo.getAppvol());
 		tradeQutyChg.setOldserialno(vo.getSerialno());
@@ -247,7 +247,6 @@ public class TradeManagerHelper {
 //		tradeRequest.setAppdate(response.getTransactionDate());
 //		tradeRequest.setApptime(response.getTransactiontime());
 		tradeRequest.setState(TradeStatus.I.getValue());
-//		tradeRequest.setTranst(TradeStatus.D.getValue());
 		return tradeRequest;
 	}
 	
@@ -292,6 +291,7 @@ public class TradeManagerHelper {
 		tradeQutyChg.setAppdate(vo.getAppdate());
 		tradeQutyChg.setWorkdate(vo.getWorkday());
 		tradeQutyChg.setFundcode(vo.getFundcode());
+		tradeQutyChg.setTotal(BigDecimal.ZERO.subtract(vo.getAppvol()));
 		tradeQutyChg.setAvailable(BigDecimal.ZERO.subtract(vo.getAppvol()));
 		tradeQutyChg.setFrozen(BigDecimal.ZERO);
 		tradeQutyChg.setOldserialno(vo.getSerialno());
@@ -328,8 +328,7 @@ public class TradeManagerHelper {
 		tradeRequest.setSheetserialno(response.getAppSheetSerialNo());
 //		tradeRequest.setAppdate(response.getTransactionDate());
 //		tradeRequest.setApptime(response.getTransactiontime());
-		tradeRequest.setState(TradeStatus.I.getValue());
-//		tradeRequest.setTranst(TradeStatus.D.getValue());
+		tradeRequest.setState(TradeStatus.Y.getValue());
 		return tradeRequest;
 	}
 	

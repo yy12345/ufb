@@ -55,12 +55,14 @@ public class QueryManagerImpl implements QueryManager{
 		TradeQutyChg qutyChg = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
 	
 		// 资产累计
+		BigDecimal total = new BigDecimal(0.00); // 总资产
 		BigDecimal available = new BigDecimal(0.00); // 可用份额
 		BigDecimal frozen = new BigDecimal(0.00); //冻结份额
 		BigDecimal funddayincome = new BigDecimal(0.00); // 
 		BigDecimal totalincome = new BigDecimal(0.00); //
 		// 已确认份额
 		if(fundBalance != null){
+			total = fundBalance.getTotalfundvol();
 			available = fundBalance.getAvailablevol();
 			frozen = fundBalance.getTotalfrozenvol(); 
 			funddayincome = fundBalance.getFunddayincome();
@@ -69,12 +71,17 @@ public class QueryManagerImpl implements QueryManager{
 		}
 		// 当日变动
 		if(qutyChg != null){
+			total = total.add(qutyChg.getTotal());
 			available = available.add(qutyChg.getAvailable());
 			frozen = frozen.add(qutyChg.getFrozen());
 		}
 		
-		// 总资产 = 可用  + 冻结
-		result.setTotal(available.add(frozen));  
+		/** 
+		 * 注：fundbalance份额与tradequtychg份额对应字段分别累加后，
+		 * 才满足：total = available + frozen 
+		 **/
+		
+		result.setTotal(total);  
 		result.setAvailable(available);
 		result.setRealavailable(available);  // 暂时设置与available一致
 		result.setFrozen(frozen);
