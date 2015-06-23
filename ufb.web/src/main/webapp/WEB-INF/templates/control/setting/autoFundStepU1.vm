@@ -63,7 +63,7 @@ $(function(){
 				<div class="panel">
                     <ul>
                         <li>
-                            <span class="form-title">货比绑定基金</span>
+                            <span class="form-title">绑定货币基金</span>
                             <span class="form-text">海富通货币A    代码： 519505</span>
                         </li>
                         <li class="clearfix">

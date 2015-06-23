@@ -110,10 +110,11 @@
 			b.UPDATETIMESTAMP
 		from tradeaccoinfo t, bankcardinfo b
 		where 
-			b.custno = #{custno,jdbcType=VARCHAR}
-			and b.state = #{state,jdbcType=VARCHAR}
-			and t.tradeaccost = 'N' 
+			t.tradeaccost = 'N' 
+			and t.fundcorpno = '01'
 			and b.serialid  = t.bankserialid
+			and b.state = #{state,jdbcType=VARCHAR}
+			and b.custno = #{custno,jdbcType=VARCHAR}
 		order by b.mainflag desc
 	</select>
 	

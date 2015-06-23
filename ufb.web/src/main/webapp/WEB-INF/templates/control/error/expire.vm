@@ -2,7 +2,7 @@ ${refreshTools.genInputHtml()}
 <div style="text-align: center; padding-top: 100px; padding-bottom: 100px;height:300px">
 	<h1>您的申请已提交，请勿重复操作！</h1>
 	<p>您可以通过交易查询，确认您的交易是否已发起，避免重复提交。
-	   <a href="${ufbDomain}/query/trade_detail.htm">立即查询</a>
+	   <a href="${ufbDomain}/trade/query_index.htm">立即查询</a>
 	</p>
 </div>
 <script src="${staticDomain}/js/scripts/load.js"></script>

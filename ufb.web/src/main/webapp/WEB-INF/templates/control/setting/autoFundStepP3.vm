@@ -13,6 +13,7 @@ $(function(){
 <body>
 <div class="body">
     <div class="inner container-step">
+		<form id="form-autoTrade-result" class="common-form" action="${ufbDomain}/setting/autoTradePause_result.htm" method="post">
         <div class="step-title clearfix">修改自动充值计划<a class="link link-underline fr" href="${staticDomain}/setting/autoTrade_index.htm">&lt;&lt;自动充值设置</a></div>
         <div class="step-tabs tabs-step3 clearfix">
             <a class="tab fl" href="javascript:;">自动充值（修改）</a>
@@ -45,6 +46,7 @@ $(function(){
                 </div>
             </div>
         </div>
+		</form>
     </div>
 </div>
 <script src="${staticDomain}/js/scripts/load.js"></script>

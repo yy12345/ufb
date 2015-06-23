@@ -347,26 +347,6 @@ $(function(){
             </div>
         </div>
     </div>
-    <div class="footer footer-simple">
-        <div class="inner clearfix">
-            <div class="logo fl">
-                <img src="../images/logo_130x55.png">
-            </div>
-            <div class="info fl">
-                <ul class="list">
-                    <li>微信服务号：UFUfund</li>
-                    <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                    <li>海富通产品：400-8840-099</li>
-                </ul>
-            </div>
-            <div class="copyright fr">
-                <ul class="list">
-                    <li>幼富通版权所有 &copy;2014</li>
-                    <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>
 <div class="alert-box box-openGuide"><img class="img-openGuide" src="${staticDomain}/images/img-open.png"></div>
 <script type='text/javascript' src='${staticDomain}/js/libs/highcharts.js'></script>
