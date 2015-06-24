@@ -89,11 +89,13 @@
 	<!-- 1.拦截器按照先后顺序进行拦截，2.拦截全部请求时使用"/**"， 3.拦截只针对controller -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/trade/*.htm" />
-			<mvc:exclude-mapping path="/account/*.htm" />
+			<mvc:mapping path="/**/*.htm" />
+			<mvc:exclude-mapping path="/cust/*.htm" />
+			<mvc:exclude-mapping path="/home/*.htm" />
+			<mvc:exclude-mapping path="/error/*.htm" />
 			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.LoginInterceptor">
 				<property name="loginUrl">
-					<value>http://localhost:8080/ufb/cust/login.htm</value>
+					<value>http://localhost:8080/ufb/home/index.htm</value>
 				</property>
 			</bean>
 		</mvc:interceptor>

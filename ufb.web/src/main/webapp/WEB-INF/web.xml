@@ -74,10 +74,10 @@
 	
 	<error-page>
 		<error-code>404</error-code>
-		<location>/404.htm</location>
+		<location>/error/404.htm</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/error.htm</location>
+		<location>/error/syserr.htm</location>
 	</error-page>
 </web-app>

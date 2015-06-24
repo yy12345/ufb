@@ -72,10 +72,9 @@ public class TradeController {
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
-			
-//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+		
 		}catch(UserException ue){
-			LOG.warn(ue.getCodeMsg());
+			LOG.warn(ue.getMessage(), ue);
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", PAGE_PAY_INDEX);
 			return "error/user_error";
@@ -97,10 +96,8 @@ public class TradeController {
 			
 			tradeManager.buyApply(vo);
 			
-//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
-			LOG.warn(ue.getCodeMsg());
-//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+			LOG.warn(ue.getMessage(), ue);
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", PAGE_PAY_INDEX);
 			return "error/user_error";
@@ -129,12 +126,9 @@ public class TradeController {
 			model.addAttribute("totalDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));
 			model.addAttribute("availableDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
 			model.addAttribute("frozenDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));
-
-//			model.addAttribute("totalBalance", assets.getAvailable());
-//			model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
+			
 			BigDecimal cardAvailable = assets.getAccoList().get(0).getAvailable();
 			BigDecimal cardRealAvailable = assets.getAccoList().get(0).getRealavailable();
-//			BigDecimal cardFrozen = assets.getAccoList().get(0).getFrozen();
 			model.addAttribute("cardAvailable", cardAvailable);
 			model.addAttribute("cardAvailableDisplay", NumberUtils.DF_CASH_CONMMA.format(cardAvailable));
 			model.addAttribute("cardRealAvailable", cardRealAvailable);
@@ -145,9 +139,8 @@ public class TradeController {
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			
-//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		}catch(UserException ue){
-			LOG.warn(ue.getCodeMsg());
+			LOG.warn(ue.getMessage(), ue);
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
 			return "error/user_error";
@@ -179,14 +172,11 @@ public class TradeController {
 			model.addAttribute("APKIND", vo.getApkind());
 			
 		}catch(UserException ue){
-			LOG.warn(ue.getCodeMsg());
-//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+			LOG.warn(ue.getMessage(), ue);
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
 			return "error/user_error";
 		}
-		
-//		model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 		return "trade/cash_result";
 	}
 
@@ -286,7 +276,7 @@ public class TradeController {
 			model.addAttribute("listIn", listIn);
 			model.addAttribute("TradeQueryVo", vo);
 		}catch(UserException ue){
-			LOG.warn(ue.getCodeMsg());
+			LOG.warn(ue.getMessage(), ue);
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
 			return "error/user_error";
@@ -294,22 +284,4 @@ public class TradeController {
 		
 		return "trade/query_index";
 	}
-//	private List<BankCardWithTradeAcco> genBankcardinfoList(){
-//		List<BankCardWithTradeAcco> list = new ArrayList<BankCardWithTradeAcco>();
-//		BankCardWithTradeAcco b1 = new BankCardWithTradeAcco();
-//		b1.setSerialid("s_001");
-//		b1.setBankno("002");
-//		b1.setBankaccodisplay("6226095920226081");
-//		b1.setTradeacco("TradeAcco001");
-//		b1.setFundcorpno("01");
-//		BankCardWithTradeAcco b2 = new BankCardWithTradeAcco();
-//		b2.setSerialid("s_002");
-//		b2.setBankno("004");
-//		b2.setBankaccodisplay("6226095920226071");
-//		b2.setTradeacco("TradeAcco002");
-//		b2.setFundcorpno("01");
-//		list.add(b1);
-//		list.add(b2);
-//		return list;
-//	}
 }

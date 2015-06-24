@@ -68,61 +68,49 @@ public class SettingController {
 	public String setAccount(CustinfoVo custinfoVo, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			if(null != s_custinfo){
-				// Session登录
-				custinfoVo.setCustno(s_custinfo.getCustno());;                      
-				custinfoVo.setMobileno(s_custinfo.getMobileno());                    
-				custinfoVo.setInvtp(s_custinfo.getInvtp()); 
-				custinfoVo.setInvnm(s_custinfo.getInvnm());        
-				custinfoVo.setIdtp(s_custinfo.getIdtp());     
-				custinfoVo.setIdno(s_custinfo.getIdno());             
-				custinfoVo.setOrganization(s_custinfo.getOrganization()); 
-				custinfoVo.setBusiness(s_custinfo.getBusiness()); 
-				custinfoVo.setCustst(s_custinfo.getCustst());
-				custinfoVo.setLevel(s_custinfo.getLevel());
-				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			
+			custinfoVo.setCustno(s_custinfo.getCustno());;                      
+			custinfoVo.setMobileno(s_custinfo.getMobileno());                    
+			custinfoVo.setInvtp(s_custinfo.getInvtp()); 
+			custinfoVo.setInvnm(s_custinfo.getInvnm());        
+			custinfoVo.setIdtp(s_custinfo.getIdtp());     
+			custinfoVo.setIdno(s_custinfo.getIdno());             
+			custinfoVo.setOrganization(s_custinfo.getOrganization()); 
+			custinfoVo.setBusiness(s_custinfo.getBusiness()); 
+			custinfoVo.setCustst(s_custinfo.getCustst());
+			custinfoVo.setLevel(s_custinfo.getLevel());
+			custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
+			
+			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingAccount";
 		}
-		model.addAttribute("CustinfoVo", custinfoVo);
-//		model.addAttribute("SessionVo", custinfoVo);
 		return "setting/settingAccount";
 	}
 	
 	@RequestMapping(value="setting/settingPassword")
 	public String setPassword(CustinfoVo custinfoVo, Model model){
 		try{
-			model.addAttribute("TAB", "1");
-			
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			if(null != s_custinfo){
-				// Session登录
-				custinfoVo.setCustno(s_custinfo.getCustno());;                      
-				custinfoVo.setMobileno(s_custinfo.getMobileno());                    
-				custinfoVo.setInvtp(s_custinfo.getInvtp()); 
-				custinfoVo.setInvnm(s_custinfo.getInvnm());        
-				custinfoVo.setIdtp(s_custinfo.getIdtp());     
-				custinfoVo.setIdno(s_custinfo.getIdno());             
-				custinfoVo.setOrganization(s_custinfo.getOrganization()); 
-				custinfoVo.setBusiness(s_custinfo.getBusiness()); 
-				custinfoVo.setCustst(s_custinfo.getCustst());
-				custinfoVo.setLevel(s_custinfo.getLevel());
-				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			custinfoVo.setCustno(s_custinfo.getCustno());;                      
+			custinfoVo.setMobileno(s_custinfo.getMobileno());                    
+			custinfoVo.setInvtp(s_custinfo.getInvtp()); 
+			custinfoVo.setInvnm(s_custinfo.getInvnm());        
+			custinfoVo.setIdtp(s_custinfo.getIdtp());     
+			custinfoVo.setIdno(s_custinfo.getIdno());             
+			custinfoVo.setOrganization(s_custinfo.getOrganization()); 
+			custinfoVo.setBusiness(s_custinfo.getBusiness()); 
+			custinfoVo.setCustst(s_custinfo.getCustst());
+			custinfoVo.setLevel(s_custinfo.getLevel());
+			custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
+			
+			model.addAttribute("TAB", "1");
+			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingPassword";
 		}
-		model.addAttribute("CustinfoVo", custinfoVo);
-//		model.addAttribute("SessionVo", custinfoVo);
 		return "setting/settingPassword";
 	}
 	
@@ -131,21 +119,16 @@ public class SettingController {
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
 			model.addAttribute("TAB", "1");
-			if(null != s_custinfo){
-				ChangePasswordAction changePasswordAction = new ChangePasswordAction();
-				changePasswordAction.setActionType("LOGIN");
-				changePasswordAction.setCustno(s_custinfo.getCustno());
-				changePasswordAction.setPassword0(password0);
-				changePasswordAction.setPassword1(password1);
-				changePasswordAction.setPassword2(password2);
-				/** 修改登录密码 **/
-				custManager.changePassword(changePasswordAction);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
+			changePasswordAction.setActionType("LOGIN");
+			changePasswordAction.setCustno(s_custinfo.getCustno());
+			changePasswordAction.setPassword0(password0);
+			changePasswordAction.setPassword1(password1);
+			changePasswordAction.setPassword2(password2);
+			/** 修改登录密码 **/
+			custManager.changePassword(changePasswordAction);
+				
 			model.addAttribute("CustinfoVo", s_custinfo);
-//			model.addAttribute("SessionVo", s_custinfo);
 			model.addAttribute("TAB", "1S");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -175,21 +158,15 @@ public class SettingController {
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
 			model.addAttribute("TAB", "2");
-			if(null != s_custinfo){
-				ChangePasswordAction changePasswordAction = new ChangePasswordAction();
-				changePasswordAction.setActionType("TRADE");
-				changePasswordAction.setCustno(s_custinfo.getCustno());
-				changePasswordAction.setPassword0(password0);
-				changePasswordAction.setPassword1(password1);
-				changePasswordAction.setPassword2(password2);
-				/** 修改交易密码 **/
-				custManager.changePassword(changePasswordAction);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
+			changePasswordAction.setActionType("TRADE");
+			changePasswordAction.setCustno(s_custinfo.getCustno());
+			changePasswordAction.setPassword0(password0);
+			changePasswordAction.setPassword1(password1);
+			changePasswordAction.setPassword2(password2);
+			/** 修改交易密码 **/
+			custManager.changePassword(changePasswordAction);
 			model.addAttribute("CustinfoVo", s_custinfo);
-//			model.addAttribute("SessionVo", s_custinfo);
 			model.addAttribute("TAB", "2S");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -277,24 +254,17 @@ public class SettingController {
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
 			model.addAttribute("TAB", "3");
-			if(null != s_custinfo){
-
-				// 校验手机验证码
-				MsgCodeUtils.validate(msgcode, s_custinfo.getMobileno());
-				
-				ChangePasswordAction changePasswordAction = new ChangePasswordAction();
-				changePasswordAction.setActionType("TRADEBACK");
-				changePasswordAction.setCustno(s_custinfo.getCustno());
-				changePasswordAction.setPassword1(password1);
-				changePasswordAction.setPassword2(password2);
-				/** 修改交易密码 **/
-				custManager.changePassword(changePasswordAction);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			// 校验手机验证码
+			MsgCodeUtils.validate(msgcode, s_custinfo.getMobileno());
+			
+			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
+			changePasswordAction.setActionType("TRADEBACK");
+			changePasswordAction.setCustno(s_custinfo.getCustno());
+			changePasswordAction.setPassword1(password1);
+			changePasswordAction.setPassword2(password2);
+			/** 修改交易密码 **/
+			custManager.changePassword(changePasswordAction);
 			model.addAttribute("CustinfoVo", s_custinfo);
-//			model.addAttribute("SessionVo", s_custinfo);
 			model.addAttribute("TAB", "3S");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -323,59 +293,51 @@ public class SettingController {
 	public String setCard(CustinfoVo custinfoVo, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			if(null != s_custinfo){
-				// Session登录
-				custinfoVo.setCustno(s_custinfo.getCustno());;                      
-				custinfoVo.setMobileno(s_custinfo.getMobileno());                    
-				custinfoVo.setInvtp(s_custinfo.getInvtp()); 
-				custinfoVo.setInvnm(s_custinfo.getInvnm());        
-				custinfoVo.setIdtp(s_custinfo.getIdtp());     
-				custinfoVo.setIdno(s_custinfo.getIdno());             
-				custinfoVo.setOrganization(s_custinfo.getOrganization()); 
-				custinfoVo.setBusiness(s_custinfo.getBusiness()); 
-				custinfoVo.setCustst(s_custinfo.getCustst());
-				custinfoVo.setLevel(s_custinfo.getLevel());
-				custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
-				
-				// 获取交易账户列表
-				//List<BankCardWithTradeAcco> tradeAccoList_Y = 
-				//	bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "Y");
+			custinfoVo.setCustno(s_custinfo.getCustno());;                      
+			custinfoVo.setMobileno(s_custinfo.getMobileno());                    
+			custinfoVo.setInvtp(s_custinfo.getInvtp()); 
+			custinfoVo.setInvnm(s_custinfo.getInvnm());        
+			custinfoVo.setIdtp(s_custinfo.getIdtp());     
+			custinfoVo.setIdno(s_custinfo.getIdno());             
+			custinfoVo.setOrganization(s_custinfo.getOrganization()); 
+			custinfoVo.setBusiness(s_custinfo.getBusiness()); 
+			custinfoVo.setCustst(s_custinfo.getCustst());
+			custinfoVo.setLevel(s_custinfo.getLevel());
+			custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 			
-				List<TradeAccoinfoOfMore> tradeAccoList_Y = 
-						tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), "Y");
-				if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
-					
-					// 获取用户总资产
-					Assets assets = queryManager.queryAssets(tradeAccoList_Y);
-					List<TradeAccoVo> list_y =  assets.getAccoList();
-					
-					model.addAttribute("cardList_Y", list_y);
-				} else {
-					model.addAttribute("cardList_Y", null);
-				}
+			// 获取交易账户列表
+			//List<BankCardWithTradeAcco> tradeAccoList_Y = 
+			//	bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "Y");
+		
+			List<TradeAccoinfoOfMore> tradeAccoList_Y = 
+					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), "Y");
+			if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
 				
-				// 获取交易账户列表
-				//List<BankCardWithTradeAcco> tradeAccoList_N = 
-				//		bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "N");
-			
-				List<TradeAccoinfoOfMore> tradeAccoList_N = 
-						tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), "N");
-				if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
-					model.addAttribute("cardList_N", tradeAccoList_N);
-				} else {
-					model.addAttribute("cardList_N", null);
-				}
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
+				// 获取用户总资产
+				Assets assets = queryManager.queryAssets(tradeAccoList_Y);
+				List<TradeAccoVo> list_y =  assets.getAccoList();
+				
+				model.addAttribute("cardList_Y", list_y);
+			} else {
+				model.addAttribute("cardList_Y", null);
 			}
+			
+			// 获取交易账户列表
+			//List<BankCardWithTradeAcco> tradeAccoList_N = 
+			//		bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "N");
+		
+			List<TradeAccoinfoOfMore> tradeAccoList_N = 
+					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), "N");
+			if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
+				model.addAttribute("cardList_N", tradeAccoList_N);
+			} else {
+				model.addAttribute("cardList_N", null);
+			}
+			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingCard";
 		}
-		
-		model.addAttribute("CustinfoVo", custinfoVo);
-//		model.addAttribute("SessionVo", custinfoVo);
 		return "setting/settingCard";
 	}
 	
@@ -384,25 +346,21 @@ public class SettingController {
 	public String setMainCard(String bankacco, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			if(null != s_custinfo){
-				// 短信验证
-				bankCardManager.setBankCardMainFlag(
-						s_custinfo.getCustno(), 
-						null, 
-						"N");
-				bankCardManager.setBankCardMainFlag(
-						s_custinfo.getCustno(), 
-						ServletHolder.getRequest().getParameter("bankacco"), 
-						"Y");
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			// 短信验证
+			bankCardManager.setBankCardMainFlag(
+					s_custinfo.getCustno(), 
+					null, 
+					"N");
+			bankCardManager.setBankCardMainFlag(
+					s_custinfo.getCustno(), 
+					ServletHolder.getRequest().getParameter("bankacco"), 
+					"Y");
+			
+//			ServletHolder.forward("/setting/settingCard.htm");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingCard";
 		}
-		ServletHolder.forward("/setting/settingCard.htm");
 		return "setting/settingCard";
 	}
 	
@@ -410,42 +368,38 @@ public class SettingController {
 	public String setUnbindCard(String bankacco, String tradeacco, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			if(null != s_custinfo){
-				// 短信验证
-				TradeAccoVo tradeAccoVo = queryManager.queryAssets(tradeacco);
-				BigDecimal total = tradeAccoVo.getTotal();
-				BigDecimal available = tradeAccoVo.getAvailable();
-				BigDecimal realavailable = tradeAccoVo.getRealavailable();
-				BigDecimal frozen = tradeAccoVo.getFrozen();
+			// 短信验证
+			TradeAccoVo tradeAccoVo = queryManager.queryAssets(tradeacco);
+			BigDecimal total = tradeAccoVo.getTotal();
+			BigDecimal available = tradeAccoVo.getAvailable();
+			BigDecimal realavailable = tradeAccoVo.getRealavailable();
+			BigDecimal frozen = tradeAccoVo.getFrozen();
+			
+			if (total.compareTo(BigDecimal.ZERO) > 0
+					|| available.compareTo(BigDecimal.ZERO) > 0
+					|| realavailable.compareTo(BigDecimal.ZERO) > 0
+					|| frozen.compareTo(BigDecimal.ZERO) > 0) {
 				
-				if (total.compareTo(BigDecimal.ZERO) > 0
-						|| available.compareTo(BigDecimal.ZERO) > 0
-						|| realavailable.compareTo(BigDecimal.ZERO) > 0
-						|| frozen.compareTo(BigDecimal.ZERO) > 0) {
-					
-					throw new UserException("对不起，您的银行卡有资金交易，暂时不能解绑！");
-				}
-				bankCardManager.unbindBankCard(
-						s_custinfo.getCustno(), 
-						ServletHolder.getRequest().getParameter("bankacco"), 
-						"N");
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
+				throw new UserException("对不起，您的银行卡有资金交易，暂时不能解绑！");
 			}
+			bankCardManager.unbindBankCard(
+					s_custinfo.getCustno(), 
+					ServletHolder.getRequest().getParameter("bankacco"), 
+					"N");
+			
+			ServletHolder.forward("/setting/settingCard.htm");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
 			model.addAttribute("CustinfoVo", s_custinfo);
 			return "setting/settingCard";
 		}catch(UserException ue){
-			LOG.warn(ue.getCodeMsg());
+			LOG.warn(ue.getMessage(), ue);
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("CustinfoVo", s_custinfo);
 			model.addAttribute("returnUrl", "setting/settingCard.htm");
 			return "error/user_error";
 		}
-		ServletHolder.forward("/setting/settingCard.htm");
 		return "setting/settingCard";
 	}
 	
@@ -453,21 +407,17 @@ public class SettingController {
 	public String setActiveCard(String bankacco, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			if(null != s_custinfo){
-				// 短信验证
-				bankCardManager.unbindBankCard(
-						s_custinfo.getCustno(), 
-						ServletHolder.getRequest().getParameter("bankacco"), 
-						"Y");
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			// 短信验证
+			bankCardManager.unbindBankCard(
+					s_custinfo.getCustno(), 
+					ServletHolder.getRequest().getParameter("bankacco"), 
+					"Y");
+			
+			ServletHolder.forward("/setting/settingCard.htm");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingCard";
 		}
-		ServletHolder.forward("/setting/settingCard.htm");
 		return "setting/settingCard";
 	}
 	
@@ -475,20 +425,11 @@ public class SettingController {
 	public String autoTradeIndex(Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			if(null != s_custinfo){
-				
-				// 获取自动充值计划列表
-				List<Autotrade> list = autotradeManager.getAutotradeList(s_custinfo.getCustno());
-				model.addAttribute("LIST", list);
-				
-//				model.addAttribute("SessionVo", s_custinfo);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			// 获取自动充值计划列表
+			List<Autotrade> list = autotradeManager.getAutotradeList(s_custinfo.getCustno());
+			model.addAttribute("LIST", list);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoTrade_index";
 		}
 		return "setting/autoTrade_index";
@@ -499,35 +440,28 @@ public class SettingController {
 	public String autoTradeAdd(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			if(null != s_custinfo){
-				String custno = UserHelper.getCustno();
-				// 获取交易账户列表
-				//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
-				List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
-				
-				if(null != tradeAccoList && tradeAccoList.size() > 0){
-					model.addAttribute("curCard", tradeAccoList.get(0));
-					model.addAttribute("cardList", tradeAccoList);
-				}
-				
-				// 从第二步返回
-				String frombankserialid = autotradeVo.getFrombankserialid();
-				if(null != frombankserialid && frombankserialid.length() > 0){
-					// autotradeVo.getTofundcorpno()
-					TradeAccoinfoOfMore tradeAccoinfoOfMore = 
-							tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, frombankserialid);
-					model.addAttribute("curCard", tradeAccoinfoOfMore);
-				}
-				
-				model.addAttribute("AutoTradeVo", autotradeVo);
-//				model.addAttribute("SessionVo", s_custinfo);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
+			String custno = UserHelper.getCustno();
+			// 获取交易账户列表
+			//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+			
+			if(null != tradeAccoList && tradeAccoList.size() > 0){
+				model.addAttribute("curCard", tradeAccoList.get(0));
+				model.addAttribute("cardList", tradeAccoList);
 			}
+			
+			// 从第二步返回
+			String frombankserialid = autotradeVo.getFrombankserialid();
+			if(null != frombankserialid && frombankserialid.length() > 0){
+				// autotradeVo.getTofundcorpno()
+				TradeAccoinfoOfMore tradeAccoinfoOfMore = 
+						tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, frombankserialid);
+				model.addAttribute("curCard", tradeAccoinfoOfMore);
+			}
+			
+			model.addAttribute("AutoTradeVo", autotradeVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoTrade_index";
 		}
 		return "setting/autoFundStep1";
@@ -537,25 +471,19 @@ public class SettingController {
 	public String autoTradePreview(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			if(null != s_custinfo){
-				// 用户信息
-				autotradeVo.setCustno(s_custinfo.getCustno());
-				// 货币信息
-				autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
-				autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
-				autotradeVo.setTochargetype("A");
-				// 充值周期
-				autotradeVo.setCycle("MM");
-				String nextdate = autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
-				autotradeVo.setNextdate(nextdate);
-				
-				// 跳转确认页
-				model.addAttribute("AutoTradeVo", autotradeVo);
-//				model.addAttribute("SessionVo", s_custinfo);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			// 用户信息
+			autotradeVo.setCustno(s_custinfo.getCustno());
+			// 货币信息
+			autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
+			autotradeVo.setTochargetype("A");
+			// 充值周期
+			autotradeVo.setCycle("MM");
+			String nextdate = autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
+			autotradeVo.setNextdate(nextdate);
+			
+			// 跳转确认页
+			model.addAttribute("AutoTradeVo", autotradeVo);
 		}catch (BizException e){
 //			LOG.error(e.getErrmsg(), e);
 //			model.addAttribute("SessionVo", s_custinfo);
@@ -573,45 +501,35 @@ public class SettingController {
 	public String autoTradeResult(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			if(null != s_custinfo){
-				
-				AddAutotradeAction action = new AddAutotradeAction();
-				// 用户信息
-				action.setCustno(s_custinfo.getCustno());
-				// 银行卡
-				action.setFrombankserialid(autotradeVo.getFrombankserialid());	
-				// 货币信息
-				action.setTofundcorpno(autotradeVo.getTofundcorpno());
-				action.setTofundcode(autotradeVo.getTofundcode());
-				action.setTochargetype("A");
-				// 交易类型
-				action.setTradetype(AutoTradeType.AUTORECHARGE);
-				// 充值周期
-				action.setType("E");
-				action.setCycle("MM");
-				action.setDat(autotradeVo.getDat());
-				action.setNextdate(autotradeVo.getNextdate());
-				// 充值金额
-				action.setAutoamt(autotradeVo.getAutoamt());
-				// 备注
-				action.setSummary(autotradeVo.getSummary());
-				// 交易密码
-				action.setTradepwd(autotradeVo.getTradepwd());
-				
-				autotradeManager.addAutotrade(action);
-				
-//				model.addAttribute("SessionVo", s_custinfo);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			AddAutotradeAction action = new AddAutotradeAction();
+			// 用户信息
+			action.setCustno(s_custinfo.getCustno());
+			// 银行卡
+			action.setFrombankserialid(autotradeVo.getFrombankserialid());	
+			// 货币信息
+			action.setTofundcorpno(autotradeVo.getTofundcorpno());
+			action.setTofundcode(autotradeVo.getTofundcode());
+			action.setTochargetype("A");
+			// 交易类型
+			action.setTradetype(AutoTradeType.AUTORECHARGE);
+			// 充值周期
+			action.setType("E");
+			action.setCycle("MM");
+			action.setDat(autotradeVo.getDat());
+			action.setNextdate(autotradeVo.getNextdate());
+			// 充值金额
+			action.setAutoamt(autotradeVo.getAutoamt());
+			// 备注
+			action.setSummary(autotradeVo.getSummary());
+			// 交易密码
+			action.setTradepwd(autotradeVo.getTradepwd());
+			
+			autotradeManager.addAutotrade(action);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoFundStep2";
 		}catch(UserException ue){
-			LOG.warn(ue.getCodeMsg());
-//			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
+			LOG.warn(ue.getMessage(), ue);
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", "setting/autoTrade_add.htm");
 			return "error/user_error";
@@ -625,44 +543,35 @@ public class SettingController {
 	public String autoTradeUpdate(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			if(null != s_custinfo){
-				String custno = UserHelper.getCustno();
-				// 获取交易账户列表
-				//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
-				List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
-				
-				if(null != tradeAccoList && tradeAccoList.size() > 0){
-					model.addAttribute("cardList", tradeAccoList);
-				}
-				
-				String frombankserialid = autotradeVo.getFrombankserialid();
-				if(null != frombankserialid && frombankserialid.length() > 0){
-					TradeAccoinfoOfMore tradeAccoinfoOfMore = 
-							tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, frombankserialid);
-					model.addAttribute("curCard", tradeAccoinfoOfMore);
-				}
-				
-//				RequestAttributes ra = RequestContextHolder.getRequestAttributes();  
-//				HttpServletRequest request = ((ServletRequestAttributes)ra).getRequest(); 
-//				String uri = request.getRequestURI();
-//				StringBuffer url = request.getRequestURL();
-				
-				if("u2".equals(autotradeVo.getStep())){
-					model.addAttribute("AutoTradeVo", autotradeVo);
-				}else{
-					Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
-					model.addAttribute("AutoTradeVo", autotrade);
-				}
-				
-				// 跳转确认页
-//				model.addAttribute("SessionVo", s_custinfo);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
+			String custno = UserHelper.getCustno();
+			// 获取交易账户列表
+			//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+			
+			if(null != tradeAccoList && tradeAccoList.size() > 0){
+				model.addAttribute("cardList", tradeAccoList);
+			}
+			
+			String frombankserialid = autotradeVo.getFrombankserialid();
+			if(null != frombankserialid && frombankserialid.length() > 0){
+				TradeAccoinfoOfMore tradeAccoinfoOfMore = 
+						tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, frombankserialid);
+				model.addAttribute("curCard", tradeAccoinfoOfMore);
+			}
+			
+//			RequestAttributes ra = RequestContextHolder.getRequestAttributes();  
+//			HttpServletRequest request = ((ServletRequestAttributes)ra).getRequest(); 
+//			String uri = request.getRequestURI();
+//			StringBuffer url = request.getRequestURL();
+			
+			if("u2".equals(autotradeVo.getStep())){
+				model.addAttribute("AutoTradeVo", autotradeVo);
+			}else{
+				Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
+				model.addAttribute("AutoTradeVo", autotrade);
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoTrade_index";
 		}
 		return "setting/autoFundStepU1";
@@ -672,25 +581,19 @@ public class SettingController {
 	public String autoTradeUpdate_preview(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			if(null != s_custinfo){
-				// 用户信息
-				autotradeVo.setCustno(s_custinfo.getCustno());
-				// 货币信息
-				autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
-				autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
-				autotradeVo.setTochargetype("A");
-				// 充值周期
-				autotradeVo.setCycle("MM");
-				String nextdate = autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
-				autotradeVo.setNextdate(nextdate);
-				
-				// 跳转确认页
-				model.addAttribute("AutoTradeVo", autotradeVo);
-//				model.addAttribute("SessionVo", s_custinfo);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			// 用户信息
+			autotradeVo.setCustno(s_custinfo.getCustno());
+			// 货币信息
+			autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
+			autotradeVo.setTochargetype("A");
+			// 充值周期
+			autotradeVo.setCycle("MM");
+			String nextdate = autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
+			autotradeVo.setNextdate(nextdate);
+			
+			// 跳转确认页
+			model.addAttribute("AutoTradeVo", autotradeVo);
 		}catch (BizException e){
 //			LOG.error(e.getErrmsg(), e);
 //			model.addAttribute("SessionVo", s_custinfo);
@@ -707,46 +610,38 @@ public class SettingController {
 	public String autoTradeUpdateResult(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			if(null != s_custinfo){
-				
-				ModifyAutotradeAction action = new ModifyAutotradeAction();
-				// autoid
-				action.setAutoid(autotradeVo.getAutoid());
-				// 用户信息
-				action.setCustno(s_custinfo.getCustno());
-				// 银行卡
-				action.setFrombankserialid(autotradeVo.getFrombankserialid());	
-				// 货币信息
-				action.setTofundcorpno(autotradeVo.getTofundcorpno());
-				action.setTofundcode(autotradeVo.getTofundcode());
-				action.setTochargetype("A");
-				// 交易类型
-				action.setTradetype(AutoTradeType.AUTORECHARGE);
-				// 充值周期
-				action.setType("E");
-				action.setCycle("MM");
-				action.setDat(autotradeVo.getDat());
-				action.setNextdate(autotradeVo.getNextdate());
-				// 充值金额
-				action.setAutoamt(autotradeVo.getAutoamt());
-				// 备注
-				action.setSummary(autotradeVo.getSummary());
-				// 交易密码
-				action.setTradepwd(autotradeVo.getTradepwd());
-				
-				autotradeManager.modifyAutotrade(action);
-				
-//				model.addAttribute("SessionVo", s_custinfo);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			ModifyAutotradeAction action = new ModifyAutotradeAction();
+			// autoid
+			action.setAutoid(autotradeVo.getAutoid());
+			// 用户信息
+			action.setCustno(s_custinfo.getCustno());
+			// 银行卡
+			action.setFrombankserialid(autotradeVo.getFrombankserialid());	
+			// 货币信息
+			action.setTofundcorpno(autotradeVo.getTofundcorpno());
+			action.setTofundcode(autotradeVo.getTofundcode());
+			action.setTochargetype("A");
+			// 交易类型
+			action.setTradetype(AutoTradeType.AUTORECHARGE);
+			// 充值周期
+			action.setType("E");
+			action.setCycle("MM");
+			action.setDat(autotradeVo.getDat());
+			action.setNextdate(autotradeVo.getNextdate());
+			// 充值金额
+			action.setAutoamt(autotradeVo.getAutoamt());
+			// 备注
+			action.setSummary(autotradeVo.getSummary());
+			// 交易密码
+			action.setTradepwd(autotradeVo.getTradepwd());
+			
+			autotradeManager.modifyAutotrade(action);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 //			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoFundStepU2";
 		}catch(UserException ue){
-			LOG.warn(ue.getCodeMsg());
+			LOG.warn(ue.getMessage(), ue);
 //			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", "setting/autoTrade_add.htm");
@@ -789,32 +684,23 @@ public class SettingController {
 	public String autoTradePause(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			if(null != s_custinfo){
-				String custno = UserHelper.getCustno();
-				
-				String frombankserialid = autotradeVo.getFrombankserialid();
-				if(null != frombankserialid && frombankserialid.length() > 0){
-					TradeAccoinfoOfMore tradeAccoinfoOfMore = 
-							tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, frombankserialid);
-					model.addAttribute("curCard", tradeAccoinfoOfMore);
-				}
-				
-				if("u2".equals(autotradeVo.getStep())){
-					model.addAttribute("AutoTradeVo", autotradeVo);
-				}else{
-					Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
-					model.addAttribute("AutoTradeVo", autotrade);
-				}
-				
-				// 跳转确认页
-//				model.addAttribute("SessionVo", s_custinfo);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
+			String custno = UserHelper.getCustno();
+			
+			String frombankserialid = autotradeVo.getFrombankserialid();
+			if(null != frombankserialid && frombankserialid.length() > 0){
+				TradeAccoinfoOfMore tradeAccoinfoOfMore = 
+						tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, frombankserialid);
+				model.addAttribute("curCard", tradeAccoinfoOfMore);
+			}
+			
+			if("u2".equals(autotradeVo.getStep())){
+				model.addAttribute("AutoTradeVo", autotradeVo);
+			}else{
+				Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
+				model.addAttribute("AutoTradeVo", autotrade);
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-//			model.addAttribute("SessionVo", s_custinfo);
 			return "setting/autoTrade_index";
 		}
 		return "setting/autoFundStepP1";
@@ -824,21 +710,15 @@ public class SettingController {
 	public String autoTradePause_preview(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			if(null != s_custinfo){
-				// 用户信息
-				autotradeVo.setCustno(s_custinfo.getCustno());
-				// 货币信息
-				autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
-				autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
-				autotradeVo.setTochargetype("A");
-				
-				// 跳转确认页
-				model.addAttribute("AutoTradeVo", autotradeVo);
-//				model.addAttribute("SessionVo", s_custinfo);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			// 用户信息
+			autotradeVo.setCustno(s_custinfo.getCustno());
+			// 货币信息
+			autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
+			autotradeVo.setTochargetype("A");
+			
+			// 跳转确认页
+			model.addAttribute("AutoTradeVo", autotradeVo);
 		}catch (BizException e){
 			model.addAttribute("errorMsg", e.getMessage());
 			model.addAttribute("returnUrl", "setting/autoTrade_index.htm");
@@ -851,20 +731,13 @@ public class SettingController {
 	public String autoTradePauseResult(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
-			if(null != s_custinfo){
-				ChangeAutoStateAction action = new ChangeAutoStateAction();
-				
-				action.setCustno(s_custinfo.getCustno());// 用户信息
-				action.setAutoid(autotradeVo.getAutoid());
-				action.setState(Constant.Autotrade.STATE$P); //STATE$N,STATE$P,STATE$C
-				action.setTradepwd(autotradeVo.getTradepwd());
-				autotradeManager.changestatus(action);
-				
-//				model.addAttribute("SessionVo", s_custinfo);
-			} else{
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
-			}
+			ChangeAutoStateAction action = new ChangeAutoStateAction();
+			
+			action.setCustno(s_custinfo.getCustno());// 用户信息
+			action.setAutoid(autotradeVo.getAutoid());
+			action.setState(Constant.Autotrade.STATE$P); //STATE$N,STATE$P,STATE$C
+			action.setTradepwd(autotradeVo.getTradepwd());
+			autotradeManager.changestatus(action);
 		}catch (BizException e){
 //			LOG.warn(e.getCodeMsg());
 			model.addAttribute("errorMsg", e.getMessage());
@@ -872,7 +745,7 @@ public class SettingController {
 			return "error/user_error";
 			
 		}catch(UserException ue){
-			LOG.warn(ue.getCodeMsg());
+			LOG.warn(ue.getMessage(), ue);
 //			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", "setting/autoTrade_add.htm");

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 @Controller
+@RequestMapping(value="error")
 public class ExceptionHandlingController {
 	private static final Logger LOG = LoggerFactory.getLogger(ExceptionHandlingController.class);
 	
@@ -21,7 +22,7 @@ public class ExceptionHandlingController {
 	}
 	
 	@ExceptionHandler(Exception.class)
-	@RequestMapping("error")
+	@RequestMapping("syserr")
 	public ModelAndView handleException(Exception e,WebRequest request) {
 		ModelAndView mav=new ModelAndView("error/500");
 		LOG.error("error:",e);
@@ -32,12 +33,6 @@ public class ExceptionHandlingController {
 	@RequestMapping("expire")
 	public ModelAndView handleExpire(WebRequest request) {
 		ModelAndView mav = new ModelAndView("error/expire");
-		return mav;
-	}
-	
-	@RequestMapping("account/unlogin")
-	public ModelAndView handleUnlogin(WebRequest request) {
-		ModelAndView mav = new ModelAndView("error/unlogin");
 		return mav;
 	}
 	
