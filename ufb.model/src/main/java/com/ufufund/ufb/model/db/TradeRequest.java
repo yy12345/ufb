@@ -30,6 +30,7 @@ public class TradeRequest implements Serializable{
 	private BigDecimal fee  ;                
 	private String referno ;             
 	private String updatetime;
+	private String bankno;
 	private String banknm;
 	private String bankacco;
 	
@@ -183,6 +184,12 @@ public class TradeRequest implements Serializable{
 	public void setBanknm(String banknm) {
 		this.banknm = banknm;
 	}
+	public String getBankno() {
+		return bankno;
+	}
+	public void setBankno(String bankno) {
+		this.bankno = bankno;
+	}
 	public String getBankacco() {
 		return bankacco;
 	}
@@ -202,7 +209,7 @@ public class TradeRequest implements Serializable{
 				+ transt + ", payst=" + payst + ", shareclass=" + shareclass
 				+ ", dividmethod=" + dividmethod + ", fee=" + fee
 				+ ", referno=" + referno + ", updatetime=" + updatetime
-				+ ", banknm=" + banknm + ", bankacco=" + bankacco + "]";
+				+ ", bankno=" + bankno + ", banknm=" + banknm + ", bankacco=" + bankacco + "]";
 	}
 	
 }

@@ -13,6 +13,7 @@ public class RegisterAction extends CommonAction {
 	private String loginPassword2;// 确认密码
 	private Invtp invtp = Invtp.PERSONAL; // 用户类型
 	private Level level = Level.PERSONAL;// 级别
+	private String custst;
 	private String organization;// 机构名称
 	private String business;// 营业执照
 	
@@ -62,6 +63,14 @@ public class RegisterAction extends CommonAction {
 
 	public void setLevel(Level level) {
 		this.level = level;
+	}
+	
+	public String getCustst() {
+		return custst;
+	}
+
+	public void setCustst(String custst) {
+		this.custst = custst;
 	}
 
 	public String getOrganization() {

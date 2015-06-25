@@ -7,6 +7,7 @@ public class TradeQueryVo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String custno;
+	private String serialno;        
 	private String appdateindex;
 	private String appcateindex;
 	private String apptypeindex;
@@ -19,6 +20,14 @@ public class TradeQueryVo implements Serializable {
 
 	public void setCustno(String custno) {
 		this.custno = custno;
+	}
+
+	public String getSerialno() {
+		return serialno;
+	}
+
+	public void setSerialno(String serialno) {
+		this.serialno = serialno;
 	}
 
 	public String getAppdateindex() {

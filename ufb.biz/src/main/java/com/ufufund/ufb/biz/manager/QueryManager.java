@@ -34,10 +34,11 @@ public interface QueryManager {
 	
 	/**
 	 * 查询交易流水
+	 * @param custno
 	 * @param serialno 流水号
 	 * @return
 	 */
-	public TradeRequest queryTradeRequest(String serialno);
+	public TradeRequest queryTradeRequest(String custno, String serialno);
 	
 	/**
 	 * 查询最近交易明细

@@ -32,8 +32,18 @@
 	</sql>
 	
 	<select id="getBySerialno" parameterType="String" resultType="TradeRequest">
-		select <include refid="Base_Columns" /> from traderequest
-		where serialno = #{serialno,jdbcType=VARCHAR} 
+		select 
+			t4.banknm,
+			t4.bankno,
+			t3.bankacco,
+			t1.*
+		from traderequest t1,tradeaccoinfo t2, bankcardinfo t3,bankbase t4
+		where 
+			t1.tradeacco = t2.tradeacco
+        and t2.bankSERIALID = t3.SERIALID        
+        and t3.bankno = t4.bankno    
+		and t1.serialno = #{serialno,jdbcType=VARCHAR} 
+		and t1.custno = #{custno,jdbcType=VARCHAR} 
 	</select>
 	
 	<insert id="add" parameterType="TradeRequest">

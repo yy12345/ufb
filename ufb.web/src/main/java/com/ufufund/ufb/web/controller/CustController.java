@@ -112,6 +112,7 @@ public class CustController {
 			registerAction.setLoginPassword2(custinfoVo.getPswpwd2());
 			registerAction.setInvtp(Invtp.PERSONAL);// 个人
 			registerAction.setLevel(Level.PERSONAL); // 家庭
+			registerAction.setCustst("N");
 			// 注册
 			custManager.register(registerAction);
 
@@ -176,6 +177,7 @@ public class CustController {
 			registerAction.setLoginPassword2(custinfoVo.getPswpwd2());
 			registerAction.setInvtp(Invtp.PERSONAL);// 个人
 			registerAction.setLevel(Level.OPERATOR); // 经办人
+			registerAction.setCustst("N");
 			registerAction.setOrganization(custinfoVo.getOrganization());
 			registerAction.setBusiness(custinfoVo.getBusiness());
 			// 注册

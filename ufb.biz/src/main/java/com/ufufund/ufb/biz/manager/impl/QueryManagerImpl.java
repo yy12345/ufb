@@ -123,8 +123,8 @@ public class QueryManagerImpl implements QueryManager{
 	}
 	
 	@Override
-	public TradeRequest queryTradeRequest(String serialno) {
-		return tradeRequestMapper.getBySerialno(serialno);
+	public TradeRequest queryTradeRequest(String custno, String serialno) {
+		return tradeRequestMapper.getBySerialno(custno, serialno);
 	}
 	
 	@Override

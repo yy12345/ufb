@@ -9,7 +9,7 @@ import com.ufufund.ufb.model.db.TradeRequest;
 
 public interface TradeRequestMapper {
 	
-	public TradeRequest getBySerialno(String serialno);
+	public TradeRequest getBySerialno(@Param("custno")String custno, @Param("serialno")String serialno);
 
 	public int add(TradeRequest tradeRequest);
 	

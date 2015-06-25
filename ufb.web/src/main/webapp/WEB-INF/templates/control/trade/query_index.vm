@@ -5,10 +5,12 @@
 </head>
 <body>
 <div class="body">
-	<form id="form-index" method="post" action="${staticDomain}/trade/query_index.htm">
+	<form id="form-index" action="${staticDomain}/trade/query_index.htm">
 	<input type="hidden" id="appdateindex" name="appdateindex" value="${TradeQueryVo.appdateindex}">
-	<input type="hidden" id="appcateindex" name="appcateindex" value="${TradeQueryVo.appcateindex}"">
-	<input type="hidden" id="apptypeindex" name="apptypeindex" value="${TradeQueryVo.apptypeindex}"">
+	<input type="hidden" id="appcateindex" name="appcateindex" value="${TradeQueryVo.appcateindex}">
+	<input type="hidden" id="apptypeindex" name="apptypeindex" value="${TradeQueryVo.apptypeindex}">
+	<input type="hidden" id="serialno" name="serialno" value="">
+		
     <div class="inner clearfix">
         <div class="title clearfix">
             <h2 class="title-main fl">资产总览 | 资金明细</h2><a href="javascript:;" class="e-bill fr">电子对账单</a>
@@ -39,7 +41,7 @@
 						<a class="off" href="javascript:;" index="1">处理中</a>
 						<a class="off" href="javascript:;" index="2">成功</a>
 						<a class="off" href="javascript:;" index="3">失败</a>
-						<input id="submit" class="input-button ok" type="submit" value="查&nbsp;询">
+						<input id="btn-search" class="input-button ok" type="button" value="查&nbsp;询">
 					</div>
                 </li>
             </ul>
@@ -100,7 +102,7 @@
 					#set($end=$tailStr.length())
 					${tradeRequest.banknm}（尾号$tailStr.substring($start,$end)）	
 					</td>
-                    <td class="tc"><a class="link" href="javascript:;">查看</a></td>
+                    <td class="tc"><a serialno="${tradeRequest.serialno}" class="link" href="javascript:;">查看</a></td>
                 </tr>
 				#end
                 </tbody>
@@ -151,7 +153,14 @@ $(function(){
 		$("#apptypeindex").val($(this).attr("index"));
 	});
 	
-	$("#submit").on("click",function(){
+	$("#btn-search").on("click",function(){
+		$("#form-index").submit();
+	});
+	
+	$(".link").on("click",function(){
+		$("#serialno").val($(this).attr("serialno"));
+		$("#form-index").attr("action", "../trade/query_detail.htm");
+		$("#form-index").submit();
 	});
 });
 </script>

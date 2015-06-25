@@ -22,7 +22,7 @@ public class Custinfo extends PrintableModel implements Serializable {
 	private String idno;// 证件号码,
 	private String mobileno;// 手机号,
 	private String email;// 邮箱,
-	private String custst = "N";// 账户状态：Y开户；N 注册；C注销;P冻结
+	private String custst;// 账户状态：Y开户；N 注册；C注销;P冻结
 	private String passwd;// 登陆密码，md5密文,
 	private String lastlogintime;// 上次登录时间,
 	private int passwderr;// 密码错误次数,

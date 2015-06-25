@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>幼富通 - 充值中心</title>
+</head>
+<body>
+<div class="container center">
+    <div class="body">
+        <div class="inner clearfix">
+            <div class="title clearfix">
+                <h2 class="title-main fl">资产总览 | 资金明细</h2>
+				<a href="javascript:;" class="e-bill fr">电子对账单</a>
+            </div>
+            <div class="bill-detail">
+                <div class="clearfix">
+                    <div class="detail-info fl">
+                        <table width="480">
+                            <tr>
+								<td width="50%">流水号：${TradeRequest.serialno}</td>
+								<td>金额<span>${TradeRequest.appamt}元</span></td>
+							</tr>
+                            <tr>
+								<td>交易状态<span>${TradeRequest.state}</span></td>
+								<td>类型<span>#if(${TradeRequest.apkind}=="022")充值
+    									#elseif(${TradeRequest.apkind}=="023")取现
+    									#elseif(${TradeRequest.apkind}=="024")快取
+    									#end</span></td>
+							</tr>
+                            <tr>
+								<td>&nbsp;</td>
+								<td><img src="${staticDomain}/images/bank_${TradeRequest.bankno}.png">
+										尾号：
+										#set($tailStr=${TradeRequest.bankacco})
+										#set($start=$tailStr.length() - 4)
+										#set($end=$tailStr.length())
+										$tailStr.substring($start,$end)
+								</td>
+							</tr>
+                        </table>
+                    </div>
+                    <div class="detail-process fr">
+                        <div class="process-line process-fail">
+                            <div class="moving-line"></div>
+                            <div class="process-point point-start">
+                                <div class="point-text">
+									#if(${TradeRequest.apkind}=="022")充值
+    								#elseif(${TradeRequest.apkind}=="023")取现
+    								#elseif(${TradeRequest.apkind}=="024")快取
+    								#end
+									<br>
+									#set($appdate=${TradeRequest.appdate})
+									$appdate.substring(0,4)/$appdate.substring(4,6)/$appdate.substring(6,8)
+								</div>
+                            </div>
+                            <div class="process-point point-end">
+                                <div class="point-text">基金公司到账<br>
+									#set($workday=${TradeRequest.workday})
+									$workday.substring(0,4)/$workday.substring(4,6)/$workday.substring(6,8)
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-btn clearfix">
+                    <a href="${staticDomain}/trade/query_index.htm" class="btn off fl">返回</a>
+					#if(${TradeRequest.apkind}=="023")
+                    <a href="javascript:;" class="btn fl">撤单</a>
+					#end
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+<script src="${staticDomain}/js/scripts/register.js"></script>
+<script>
+$(function(){
+
+	$("#btn-search").on("click",function(){
+		$("#form-index").submit();
+	});
+	
+	$(".link").on("click",function(){
+		$("#serialno").val($(this).attr("serialno"));
+		$("#form-index").attr("action", "../trade/query_detail.htm");
+		$("#form-index").submit();
+	});
+});
+</script>
+</body>
+</html>

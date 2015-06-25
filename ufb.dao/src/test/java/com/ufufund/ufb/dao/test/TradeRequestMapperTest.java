@@ -25,7 +25,7 @@ public class TradeRequestMapperTest {
 //	@Test
 	public void testGet(){
 		String serialno = "SSSS00001111";
-		TradeRequest request = tradeRequestMapper.getBySerialno(serialno);
+		TradeRequest request = tradeRequestMapper.getBySerialno("", serialno);
 		System.out.println(request);
 	}
 	
