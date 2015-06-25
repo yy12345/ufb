@@ -296,7 +296,7 @@ public class TradeController {
 			
 			model.addAttribute("TradeRequest", tradeRequest);
 		}catch(UserException ue){
-			LOG.warn(ue.getCodeMsg());
+			LOG.warn(ue.getMessage(), ue);
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
 			return "error/user_error";
