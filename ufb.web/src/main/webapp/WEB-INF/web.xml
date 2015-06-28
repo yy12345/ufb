@@ -40,11 +40,11 @@
     <!-- filter匹配url -->
     <filter-mapping>
       <filter-name>servletFilter</filter-name>
-      <url-pattern>/*</url-pattern>
+      <url-pattern>*.htm</url-pattern>
     </filter-mapping>
     <filter-mapping>
       <filter-name>refreshFilter</filter-name>
-      <url-pattern>/*</url-pattern>
+      <url-pattern>*.htm</url-pattern>
     </filter-mapping>
 	<filter-mapping>
       <filter-name>encodingFilter</filter-name>

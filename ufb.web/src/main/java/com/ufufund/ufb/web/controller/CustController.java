@@ -1,5 +1,6 @@
 package com.ufufund.ufb.web.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -358,9 +359,10 @@ public class CustController {
 	 * @param custinfoVo
 	 * @param model
 	 * @return
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "cust/session")
-	public String custLogin(CustinfoVo custinfoVo, Model model) {
+	public String custLogin(CustinfoVo custinfoVo, Model model) throws IOException {
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
@@ -420,8 +422,8 @@ public class CustController {
 				}
 			}else{
 				// Session无效
-				ServletHolder.forward("/home/index.htm");
-				return "home/index";
+				ServletHolder.getResponse().sendRedirect("/ufb/home/index.htm");
+				return null;
 			}
 //			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
