@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.CancelRequestMapper">
+	
+	<insert id="add" parameterType="CancelRequest">
+  	 	insert into cancelrequest values(
+  	 		#{serialno,jdbcType=VARCHAR},        
+			NULL, 
+			NULL,        
+			#{custno,jdbcType=VARCHAR},        
+			#{fundcorpno,jdbcType=VARCHAR},        
+			#{tradeacco,jdbcType=VARCHAR},      
+			#{apkind,jdbcType=VARCHAR},          
+			#{fundcode ,jdbcType=VARCHAR}, 
+			#{ofundcode ,jdbcType=VARCHAR},       
+			#{subquty,jdbcType=VARCHAR},        
+			#{subamt,jdbcType=VARCHAR},        
+			#{canceldt,jdbcType=VARCHAR},         
+			#{canceltm,jdbcType=VARCHAR},        
+			#{cancelst,jdbcType=VARCHAR},        
+			#{paytype,jdbcType=VARCHAR},        
+			#{payst,jdbcType=VARCHAR},        
+			#{oldserialno,jdbcType=VARCHAR},        
+			#{accptmd,jdbcType=VARCHAR},        
+			now(),
+			now())
+  	</insert>
+  	
+  	<update id="update" parameterType="CancelRequest">
+		update cancelrequest set
+		<if test="sheetserialno != null">
+			sheetserialno = #{sheetserialno,jdbcType=VARCHAR}, 
+		</if>
+		<if test="cancelst != null">
+			cancelst = #{cancelst,jdbcType=VARCHAR}, 
+		</if>
+		<if test="transt != null">
+			transt = #{transt,jdbcType=VARCHAR}, 
+		</if>
+			updatetime = now()
+		where serialno = #{serialno,jdbcType=VARCHAR}
+	</update>
+  	
+  	<select id="getByOldSerialno" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.db.CancelRequest">
+		select 
+			*
+		from cancelrequest
+		where 
+		custno = #{custno,jdbcType=VARCHAR} 
+		and oldserialno = #{oldserialno,jdbcType=VARCHAR} 
+	</select>
+	
+</mapper>

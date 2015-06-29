@@ -21,8 +21,13 @@
 	</sql>
 	
 	<select id="getBySerialno" parameterType="String" resultType="TradeQutyChg">
-		select <include refid="Base_Columns" /> from traderequest
+		select * from tradequtychg
 		where serialno = #{serialno,jdbcType=VARCHAR} 
+	</select>
+	
+	<select id="getByOldSerialno" parameterType="String" resultType="TradeQutyChg">
+		select * from tradequtychg
+		where oldserialno = #{oldserialno,jdbcType=VARCHAR} 
 	</select>
 	
     <select id="getTradeQutyChg" parameterType="TradeQutyChg" resultType="TradeQutyChg">

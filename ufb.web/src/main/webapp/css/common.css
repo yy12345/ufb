@@ -412,6 +412,9 @@ a.link-underline {
 	margin-bottom: 20px;
 	color: #2f8fbf;
 }
+.footer .title a {
+	color: #2f8fbf;
+}
 .footer .title img {
 	vertical-align: top;
 }
@@ -1097,6 +1100,9 @@ a.link-underline {
 	right: 0;
 	top: 0;
 }
+.index .main {
+	width: 690px;
+}
 .index .side {
 	margin-top: 45px;
 	background-color: #fff;
@@ -1280,7 +1286,8 @@ a.link-underline {
 	border-bottom: 1px solid #499dc7;
 }
 .center .side .info-account .panels {
-	height: 215px;
+	height: 213px;
+	overflow: hidden;
 }
 .center .side .info-account .account-header {
 	text-align: center;
@@ -1798,6 +1805,12 @@ a.link-underline {
 }
 .setting .content-autoFund {
 	font-size: 12px;
+}
+.setting .content-autoFund .autoFund-title span {
+	font-size: 14px;
+}
+.setting .content-autoFund .autoFund-title .tab-1 {
+	margin-right: 20px;
 }
 .setting .content-autoFund .autoFund-item {
 	margin-bottom: 20px;

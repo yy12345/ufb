@@ -80,13 +80,25 @@ public class QueryManagerImpl implements QueryManager{
 		 * 注：fundbalance份额与tradequtychg份额对应字段分别累加后，
 		 * 才满足：total = available + frozen 
 		 **/
-		
+		if(null==total){
+			total = new BigDecimal(0.00);
+		}
+		if(null==available){
+			available = new BigDecimal(0.00);
+		}
+		if(null==frozen){
+			frozen = new BigDecimal(0.00);
+		}
+		if(null==funddayincome){
+			funddayincome = new BigDecimal(0.00);
+		}
+		if(null==totalincome){
+			totalincome = new BigDecimal(0.00);
+		}
 		result.setTotal(total);  
 		result.setAvailable(available);
 		result.setRealavailable(available);  // 暂时设置与available一致
 		result.setFrozen(frozen);
-		
-		//
 		result.setFunddayincome(funddayincome);
 		result.setTotalincome(totalincome);
 		return result;

@@ -1,5 +1,7 @@
 package com.ufufund.ufb.model.hft;
 
+import java.math.BigDecimal;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
@@ -9,6 +11,10 @@ public class CancelResponse extends AbstractResponse{
 	private String AppSheetSerialNo;
 	private String TransactionDate ;
 	private String Transactiontime ;
+	
+	private BigDecimal TotalFundVol    ;
+	private BigDecimal AvailableVol    ;
+	private BigDecimal TotalFrozenVol  ;
 	
 	public String getAppSheetSerialNo() {
 		return AppSheetSerialNo;
@@ -27,6 +33,26 @@ public class CancelResponse extends AbstractResponse{
 	}
 	public void setTransactiontime(String transactiontime) {
 		Transactiontime = transactiontime;
+	}
+	
+	
+	public BigDecimal getTotalFundVol() {
+		return TotalFundVol;
+	}
+	public void setTotalFundVol(BigDecimal totalFundVol) {
+		TotalFundVol = totalFundVol;
+	}
+	public BigDecimal getAvailableVol() {
+		return AvailableVol;
+	}
+	public void setAvailableVol(BigDecimal availableVol) {
+		AvailableVol = availableVol;
+	}
+	public BigDecimal getTotalFrozenVol() {
+		return TotalFrozenVol;
+	}
+	public void setTotalFrozenVol(BigDecimal totalFrozenVol) {
+		TotalFrozenVol = totalFrozenVol;
 	}
 	@Override
 	public String toString() {

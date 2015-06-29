@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.vo.ApplyVo;
+import com.ufufund.ufb.model.vo.CancelVo;
 import com.ufufund.ufb.model.vo.RedeemVo;
 
 @Service
@@ -74,6 +75,21 @@ public class TradeManagerValidator {
 		}
 	}
 	
+	/**
+	 * 快速赎回校验
+	 * @param vo
+	 */
+	public void validateCancel(CancelVo vo){
+		// 参数检查
+		paramCheck4Cancel(vo);
+		/** 业务规则校验 **/ 
+		// 验证交易密码
+		// TODO
+//		if(!userModuleValidator.checkTradePwd(vo.getCustno(), vo.getTradePwd())){
+//			throw new UserException("交易密码错误！");
+//		}
+	}
+	
 	private void paramCheck4Apply(ApplyVo vo){
 		if(StringUtils.isBlank(vo.getCustno())){
 			throw new UserException("参数[custno]不能为空！");
@@ -101,6 +117,15 @@ public class TradeManagerValidator {
 //		}
 		if(vo.getAppvol() == null || vo.getAppvol().compareTo(new BigDecimal("0")) <= 0){
 			throw new UserException("参数[appamt]不能为空！");
+		}
+	}
+	
+	private void paramCheck4Cancel(CancelVo vo){
+		if(StringUtils.isBlank(vo.getCustno())){
+			throw new UserException("参数[custno]不能为空！");
+		}
+		if(vo.getTradeacco() == null || vo.getTradeacco().length() == 0){
+			throw new UserException("参数[tradeacco]不能为空！");
 		}
 	}
 }

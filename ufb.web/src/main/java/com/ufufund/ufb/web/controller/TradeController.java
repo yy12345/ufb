@@ -27,6 +27,7 @@ import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.ApplyVo;
 import com.ufufund.ufb.model.vo.Assets;
+import com.ufufund.ufb.model.vo.CancelVo;
 import com.ufufund.ufb.model.vo.RedeemVo;
 import com.ufufund.ufb.model.vo.Today;
 import com.ufufund.ufb.model.vo.TradeQueryVo;
@@ -302,6 +303,37 @@ public class TradeController {
 			return "error/user_error";
 		}
 		
+		return "trade/query_detail";
+	}
+	
+	
+	@RequestMapping(value="trade/cancel_result")
+	public String canclApply(CancelVo vo, Model model){
+		
+		try{
+			String custno = UserHelper.getCustno();
+			
+			vo.setCustno(custno);
+			vo.setFundcode(BasicFundinfo.YFB.getFundCode());
+			
+			tradeManager.cancel(vo);
+//			
+//			if("023".equals(vo.getApkind())){
+//				tradeManager.redeem(vo);
+//			}else if("024".equals(vo.getApkind())){
+//				tradeManager.realRedeem(vo);
+//			}else{
+//				throw new SysException("异常交易！");
+//			}
+//			
+			model.addAttribute("tmp", "success");
+			
+		}catch(UserException ue){
+			LOG.warn(ue.getMessage(), ue);
+			model.addAttribute("errorMsg", ue.getMessage());
+			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
+			return "error/user_error";
+		}
 		return "trade/query_detail";
 	}
 //	private List<BankCardWithTradeAcco> genBankcardinfoList(){

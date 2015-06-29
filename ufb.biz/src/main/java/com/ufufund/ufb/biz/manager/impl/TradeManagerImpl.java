@@ -1,5 +1,7 @@
 package com.ufufund.ufb.biz.manager.impl;
 
+import java.math.BigDecimal;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +19,18 @@ import com.ufufund.ufb.common.exception.UserErrorCode;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
+import com.ufufund.ufb.dao.CancelRequestMapper;
 import com.ufufund.ufb.dao.TradeQutyChgMapper;
 import com.ufufund.ufb.dao.TradeRequestMapper;
+import com.ufufund.ufb.model.db.CancelRequest;
 import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
+import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.hft.BuyApplyRequest;
 import com.ufufund.ufb.model.hft.BuyApplyResponse;
-import com.ufufund.ufb.model.hft.CancelRequest;
 import com.ufufund.ufb.model.hft.CancelResponse;
+//import com.ufufund.ufb.model.hft.CancelRequest;
+//import com.ufufund.ufb.model.hft.CancelResponse;
 import com.ufufund.ufb.model.hft.RealRedeemRequest;
 import com.ufufund.ufb.model.hft.RealRedeemResponse;
 import com.ufufund.ufb.model.hft.RedeemRequest;
@@ -47,6 +53,9 @@ public class TradeManagerImpl implements TradeManager{
 	@Autowired
 	private TradeRequestMapper tradeRequestMapper;
 	
+	@Autowired
+	private CancelRequestMapper cancelRequestMapper;
+
 	@Autowired
 	private TradeQutyChgMapper tradeQutyChgMapper;
 	
@@ -338,29 +347,110 @@ public class TradeManagerImpl implements TradeManager{
 	@Override
 	public String cancel(CancelVo vo) {
 		
-		CancelRequest request = new CancelRequest();
-		request.setVersion(Constant.HftSysConfig.Version);
-		request.setMerchantId(Constant.HftSysConfig.MerchantId);
-		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.Cancel);
-		request.setApplicationNo("20150410CC0010");
-		request.setTransactionAccountID("0001");
-		request.setOriginalAppSheetNo("20150410CC0001");
+		String serialno = SequenceUtil.getSerial();
+		Today today = workDayManager.getSysDayInfo();
+		vo.setSerialno(serialno);
+		vo.setCanceldt(today.getDate());
+		vo.setCanceltm(today.getTime());
+		vo.setWorkday(today.getWorkday());
 		
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 撤单申请："+request);
+		// 参数及业务规则验证
+		validator.validateCancel(vo);
+		
+		TradeRequest oldtradeRequest = tradeRequestMapper.getBySerialno(vo.getCustno(), vo.getOldserialno());
+		//原交易申请流水号不存在
+		if(null == oldtradeRequest){
+			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+					+", <Failed>原交易申请流水号不存在：serialno="+vo.getOldserialno());
+			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
+		}
+		//不能撤销已受理的单		
+		if(!"I".equals(oldtradeRequest.getState())){
+			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+					+", <Failed>不能撤销已受理的单：serialno="+vo.getOldserialno());
+			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
+		}
+		//撤单业务不能取消
+		if(Apkind.CANCEL.getValue().equals(oldtradeRequest.getApkind())){
+			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+					+", <Failed>撤单业务不能取消：serialno="+vo.getOldserialno());
+			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
+		}
+		//认购业务不能取消
+		if(Apkind.SUBAPPLY.getValue().equals(oldtradeRequest.getApkind())){
+			LOG.error("procc8nhvbessId="+ThreadLocalUtil.getProccessId()
+					+", <Failed>认购业务不能取消：serialno="+vo.getOldserialno());
+			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
+		}
+		// 相同工作日单据财允许撤销
+		if(!vo.getWorkday().equals(oldtradeRequest.getWorkday())){
+			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+					+", <Failed>相同工作日单据才允许撤销：serialno="+vo.getOldserialno());
+			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
+		}
+		// 不能重复撤单
+		CancelRequest oldCancelRequest = cancelRequestMapper.getByOldSerialno(vo.getCustno(), vo.getOldserialno());
+		if(null != oldCancelRequest){
+			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+					+", <Failed>不能重复撤单：serialno="+vo.getOldserialno());
+			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
+		}
+		// 获得原来那笔赎回单据
+		TradeQutyChg oldTradeQutyChg = tradeQutyChgMapper.getByOldSerialno(vo.getOldserialno());
+//		tradeQutyChg.setSerialno(vo.getSerialno());
+//		tradeQutyChg.setCustno(vo.getCustno());
+//		tradeQutyChg.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+//		tradeQutyChg.setTradeacco(vo.getTradeacco());
+//		tradeQutyChg.setApkind(Apkind.REDEEM.getValue());
+//		tradeQutyChg.setAppdate(vo.getAppdate());
+//		tradeQutyChg.setWorkdate(vo.getWorkday());
+//		tradeQutyChg.setFundcode(vo.getFundcode());
+		oldTradeQutyChg.setTotal(BigDecimal.ZERO);
+		oldTradeQutyChg.setAvailable(BigDecimal.ZERO.subtract(oldTradeQutyChg.getAvailable()));
+		oldTradeQutyChg.setFrozen(BigDecimal.ZERO.subtract(oldTradeQutyChg.getFrozen()));
+//		tradeQutyChg.setOldserialno(vo.getSerialno());
+		tradeQutyChgMapper.add(oldTradeQutyChg);
+		
+		//更新状态为已撤单
+		//IBF_WRITE_TRADESTATUS 
+		//PI_STATUS     => 'C',
+		//更新状态为已撤单 更新母单APPLYST状态为C  TRANSST 为G 
+		
+		/** 生成本地交易流水 **/
+		CancelRequest cancelRequest = helper.toCancelRequest4Cancel(vo);
+		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
+				+", 撤单流水："+cancelRequest);
+		int n = cancelRequestMapper.add(cancelRequest);
+		if(n < 1){
+			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+					+", <Failed>撤单流水：serialno="+cancelRequest.getSerialno());
+			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
+		}
+		
+		/** 调用基金公司接口 **/
+		com.ufufund.ufb.model.hft.CancelRequest request = helper.toCancelRequest(vo);
+		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 撤单下单："+request);
 		CancelResponse response = hftTradeService.cancel(request);
 		
 		/** 处理交易执行结果  **/
 		if(response != null 
 				&& Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
 			// 执行成功，回写本地数据
-			// code...
+			cancelRequest = helper.toResponse4Cancel(response);
+			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
+					+", 撤单回写："+cancelRequest);
+			n = cancelRequestMapper.update(cancelRequest);
+			if(n < 1){
+				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+						+", <Failed>撤单回写：serialno="+cancelRequest.getSerialno());
+				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
+			}
 		}else {
+			// 执行失败，处理返回异常码
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>撤单申请：serialno="+request.getApplicationNo());
+					+", <Failed>撤单下单：serialno="+request.getApplicationNo());
 			HftResponseUtil.dealResponseCode(response);
 		}
-		
 		return response.getApplicationNo();
 	}
 
