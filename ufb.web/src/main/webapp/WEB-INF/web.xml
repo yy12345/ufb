@@ -40,7 +40,7 @@
     <!-- filter匹配url -->
     <filter-mapping>
       <filter-name>servletFilter</filter-name>
-      <url-pattern>*.htm</url-pattern>
+      <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
       <filter-name>refreshFilter</filter-name>
