@@ -77,7 +77,7 @@ $(function(){
 					
         $.ajax({
      		type: "GET",
-    		url: "../ajaxbankcard/addBankCardAuth.htm",
+    		url: "../ajaxbankcard/addBankCardAuth.ajax",
     		data: {
 				bankNo: $("#bankNo").val(),
     			bankAcnm: $("#bankAcnm").val(),

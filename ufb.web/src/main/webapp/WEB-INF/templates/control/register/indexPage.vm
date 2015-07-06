@@ -36,7 +36,7 @@ $(function(){
 		}
         $.ajax({
      		type: "GET",
-    		url: "../ajaxcust/getMsgCode.htm",
+    		url: "../ajaxcust/getMsgCode.ajax",
     		data: {
 				mobileno: $("#register-family #mobileno").val(),
 				verifycode: $("#register-family #verifycode").val()
@@ -100,7 +100,7 @@ $(function(){
 	
         $.ajax({
      		type: "GET",
-    		url: "../ajaxcust/getMsgCode.htm",
+    		url: "../ajaxcust/getMsgCode.ajax",
     		data: {
 				mobileno: $("#register-org #mobileno").val(),
 				verifycode: $("#register-org #verifycode").val()
