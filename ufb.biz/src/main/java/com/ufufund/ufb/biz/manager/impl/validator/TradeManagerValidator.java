@@ -84,10 +84,9 @@ public class TradeManagerValidator {
 		paramCheck4Cancel(vo);
 		/** 业务规则校验 **/ 
 		// 验证交易密码
-		// TODO
-//		if(!userModuleValidator.checkTradePwd(vo.getCustno(), vo.getTradePwd())){
-//			throw new UserException("交易密码错误！");
-//		}
+		if(!userModuleValidator.checkTradePwd(vo.getCustno(), vo.getTradePwd())){
+			throw new UserException("交易密码错误！");
+		}
 	}
 	
 	private void paramCheck4Apply(ApplyVo vo){

@@ -75,6 +75,17 @@
                         </div>
                     </div>
                 </div>
+				#if(${TradeRequest.apkind}=="023")
+				<ul>
+				<li>
+                    <span class="form-title">交易密码</span>
+                    <input id="tradePwd" name="tradePwd" class="input-text" maxlength="20" type="password" value="">
+					<a class="find" href="${staticDomain}/setting/settingPassword.htm">忘记密码?</a>
+                    <span class="tips-normal"></span>
+                    <span id="tradePwdTips" class="tips-check"><i class="icon"></i>验证提示</span>
+                </li>
+				</ul>
+				#end
                 <div class="detail-btn clearfix">
                     <a href="${staticDomain}/trade/query_index.htm" class="btn off fl">返回</a>
 					#if(${TradeRequest.apkind}=="023")
@@ -97,7 +108,31 @@
 <script>
 $(function(){
 
+	// 覆盖register.js验证
+	var check_pwd1 = function (ipt) {
+		var value = ipt.val();
+        if (value == "") {
+        	showTips(ipt, "密码不能为空");
+			return false;
+        }
+        var regex1 = /\s+/;
+        if (regex1.test(value)) {
+            showTips(ipt, "密码中不允许有空格");
+			return false;
+        }
+		
+		showTips(ipt, 0);
+		return true;
+	}
+	
+	$("#tradePwd").on("blur", function() {
+		check_pwd1($("#tradePwd"));
+    });
+		
 	$("#btn-cancel").on("click",function(){
+		if(!check_pwd1($("#tradePwd"))){
+			return false;
+		}
 		$("#form-detail").attr("action", "../trade/cancel_result.htm");
 		$("#form-detail").submit();
 	});

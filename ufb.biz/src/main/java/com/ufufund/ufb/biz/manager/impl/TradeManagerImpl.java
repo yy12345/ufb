@@ -395,21 +395,6 @@ public class TradeManagerImpl implements TradeManager{
 					+", <Failed>不能重复撤单：serialno="+vo.getOldserialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
-		// 获得原来那笔赎回单据
-		TradeQutyChg oldTradeQutyChg = tradeQutyChgMapper.getByOldSerialno(vo.getOldserialno());
-//		tradeQutyChg.setSerialno(vo.getSerialno());
-//		tradeQutyChg.setCustno(vo.getCustno());
-//		tradeQutyChg.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-//		tradeQutyChg.setTradeacco(vo.getTradeacco());
-//		tradeQutyChg.setApkind(Apkind.REDEEM.getValue());
-//		tradeQutyChg.setAppdate(vo.getAppdate());
-//		tradeQutyChg.setWorkdate(vo.getWorkday());
-//		tradeQutyChg.setFundcode(vo.getFundcode());
-		oldTradeQutyChg.setTotal(BigDecimal.ZERO);
-		oldTradeQutyChg.setAvailable(BigDecimal.ZERO.subtract(oldTradeQutyChg.getAvailable()));
-		oldTradeQutyChg.setFrozen(BigDecimal.ZERO.subtract(oldTradeQutyChg.getFrozen()));
-//		tradeQutyChg.setOldserialno(vo.getSerialno());
-		tradeQutyChgMapper.add(oldTradeQutyChg);
 		
 		//更新状态为已撤单
 		//IBF_WRITE_TRADESTATUS 
@@ -445,6 +430,20 @@ public class TradeManagerImpl implements TradeManager{
 						+", <Failed>撤单回写：serialno="+cancelRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
+			
+			// 获得原来那笔赎回单据
+			TradeQutyChg oldTradeQutyChg = tradeQutyChgMapper.getByOldSerialno(vo.getOldserialno());
+			oldTradeQutyChg.setSerialno(cancelRequest.getSerialno()); // SequenceUtil.getSerial()
+			oldTradeQutyChg.setTotal(BigDecimal.ZERO);
+			oldTradeQutyChg.setAvailable(BigDecimal.ZERO.subtract(oldTradeQutyChg.getAvailable()));
+			oldTradeQutyChg.setFrozen(BigDecimal.ZERO.subtract(oldTradeQutyChg.getFrozen()));
+			n = tradeQutyChgMapper.add(oldTradeQutyChg);
+			if(n < 1){
+				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
+						+", <Failed>撤单回写份额：serialno="+oldTradeQutyChg.getSerialno());
+				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
+			}
+			
 		}else {
 			// 执行失败，处理返回异常码
 			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()

@@ -48,7 +48,7 @@ $(function(){
     <div class="body">
     	<form id="form-index" method="post" action="${staticDomain}/cust/index.htm">
     	<input id="openaccount" type="hidden" name="openaccount" value="${S_CUSTINFO.openaccount}"/>
-    
+		<input type="hidden" id="serialno" name="serialno" value="">
         <div class="inner clearfix">
             <div class="title clearfix">
                 <h2 class="title-main fl">资产总览</h2>
@@ -167,7 +167,9 @@ $(function(){
     									#set($end=$tailStr.length())
     									${tradeRequest.banknm}（尾号$tailStr.substring($start,$end)）	
     									</td>
-                                        <td class="tc"><a class="link" href="javascript:;">查看</a></td>
+                                        <td class="tc">
+											<a serialno="${tradeRequest.serialno}" class="link" href="javascript:;">查看</a>
+										</td>
                                     </tr>
     								#end
                                     </tbody>
@@ -352,14 +354,21 @@ $(function(){
 <script type='text/javascript' src='${staticDomain}/js/libs/highcharts.js'></script>
 <script src="${staticDomain}/js/scripts/load.js"></script>
 <script>
+
+	
+	
     $(function () {
 		#if($S_CUSTINFO.openaccount!="Y")
         alertBox(".box-openGuide");
 		#end
-    });
-	
-    $(function () {
-        $('#chart-syl').highcharts({
+
+		$(".link").on("click",function(){
+    		$("#serialno").val($(this).attr("serialno"));
+    		$("#form-index").attr("action", "../trade/query_detail.htm");
+    		$("#form-index").submit();
+    	});
+
+		$('#chart-syl').highcharts({
             chart: {
             },
             title: {
