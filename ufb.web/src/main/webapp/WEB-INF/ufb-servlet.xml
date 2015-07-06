@@ -92,6 +92,7 @@
 			<mvc:mapping path="/**/*.htm" />
 			<mvc:exclude-mapping path="/cust/*.htm" />
 			<mvc:exclude-mapping path="/home/*.htm" />
+			<mvc:exclude-mapping path="/register/*.htm" />
 			<mvc:exclude-mapping path="/error/*.htm" />
 			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.LoginInterceptor">
 				<property name="loginUrl">
