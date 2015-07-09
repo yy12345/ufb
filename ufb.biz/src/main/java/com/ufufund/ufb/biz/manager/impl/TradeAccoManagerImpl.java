@@ -17,12 +17,12 @@ public class TradeAccoManagerImpl implements TradeAccoManager{
 
 	@Override
 	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno) {
-		return tradeAccoinfoMapper.getTradeAccoList(custno, "Y");
+		return tradeAccoinfoMapper.getTradeAccoList(custno, "01", "Y");
 	}
 
 	@Override
-	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno, String state) {
-		return tradeAccoinfoMapper.getTradeAccoList(custno, state);
+	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno, String fundcorpno, String state) {
+		return tradeAccoinfoMapper.getTradeAccoList(custno, fundcorpno, state);
 	}
 	
 	public TradeAccoinfoOfMore getTradeAcco(String custno, String fundcorpno, String bankserialid){

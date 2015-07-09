@@ -310,7 +310,7 @@ public class SettingController {
 			//	bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "Y");
 		
 			List<TradeAccoinfoOfMore> tradeAccoList_Y = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), "Y");
+					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, "Y");
 			if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
 				
 				// 获取用户总资产
@@ -327,7 +327,7 @@ public class SettingController {
 			//		bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "N");
 		
 			List<TradeAccoinfoOfMore> tradeAccoList_N = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), "N");
+					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, "N");
 			if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
 				model.addAttribute("cardList_N", tradeAccoList_N);
 			} else {

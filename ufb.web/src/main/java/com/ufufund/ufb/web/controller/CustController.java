@@ -278,11 +278,11 @@ public class CustController {
 				model.addAttribute("NAV", curFundNav);
 			}
 			
-			if("Y".equals(custinfoVo.getOpenaccount())){
-				
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
+			if(null != tradeAccoList && tradeAccoList.size() > 0){
 				// 资产显示
 				//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
-				List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
+				//List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 				Assets assets = queryManager.queryAssets(tradeAccoList);
 				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
 				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));// 可用资产
@@ -309,6 +309,8 @@ public class CustController {
 						8
 						);
 				model.addAttribute("listIn", listIn);
+				model.addAttribute("tradeAccoListSize", tradeAccoList.size());
+				
 			} else {
 				// 资产显示
 				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
@@ -316,7 +318,7 @@ public class CustController {
 				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 				model.addAttribute("funddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
 				model.addAttribute("totalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
-				
+				model.addAttribute("tradeAccoListSize", "0");
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -384,10 +386,12 @@ public class CustController {
 				}
 				
 				
-				if("Y".equals(s_custinfo.getOpenaccount())){
+				List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
+				if(null != tradeAccoList && tradeAccoList.size() > 0){
+				//if("Y".equals(s_custinfo.getOpenaccount())){
 					// 资产显示
 					//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
-					List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
+					//List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 					Assets assets = queryManager.queryAssets(tradeAccoList);
 					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
 					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));// 可用资产
@@ -413,12 +417,14 @@ public class CustController {
 							8
 							);
 					model.addAttribute("listIn", listIn);
+					model.addAttribute("tradeAccoListSize", tradeAccoList.size());
 				} else {
 					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 					model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 					model.addAttribute("funddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
 					model.addAttribute("totalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
+					model.addAttribute("tradeAccoListSize", "0");
 				}
 			}else{
 				// Session无效

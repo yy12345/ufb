@@ -111,7 +111,9 @@
 		from tradeaccoinfo t, bankcardinfo b
 		where 
 			t.tradeaccost = 'N' 
-			and t.fundcorpno = '01'
+			<if test="fundcorpno != null and fundcorpno !=''" >
+  			and t.fundcorpno = #{fundcorpno,jdbcType=VARCHAR}
+  			</if>
 			and b.serialid  = t.bankserialid
 			and b.state = #{state,jdbcType=VARCHAR}
 			and b.custno = #{custno,jdbcType=VARCHAR}

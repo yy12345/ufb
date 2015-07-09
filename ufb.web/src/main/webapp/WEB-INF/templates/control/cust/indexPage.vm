@@ -88,7 +88,7 @@ $(function(){
                                     <td>
                                         <div class="base-btn">
     										
-    										#if($S_CUSTINFO.openaccount!="Y")
+    										#if($tradeaccoListSize=="0")
                                             <div class="clearfix m-b10">
     											<a class="fl btn off" href="javascript:;">充值</a>
     											<a href="javascript:;" class="link fr">自动充值</a>
@@ -112,7 +112,7 @@ $(function(){
                                 </tr>
                             </table>
                         </div>
-						#if($S_CUSTINFO.openaccount=="Y")
+						#if($tradeaccoListSize!="0")
                         <div class="item-detail clearfix">
                             <div class="detail-list">
                                 <div class="list-title">资金明细<a id="btn-queryIndex" class="link fr" href="#">查看更多</a></div>
@@ -207,7 +207,7 @@ $(function(){
             </div>
     		<div class="side fr">
                 <div class="info-account">
-    				#if($S_CUSTINFO.openaccount!="Y")
+    				#if($tradeaccoListSize=="0")
     				<div class="account-header">
     					<a href="${staticDomain}/setting/settingAccount.htm" class="header-avatar"></a>   
     					<div class="header-name">		
@@ -271,7 +271,7 @@ $(function(){
                             <ul class="account-list">
                                 <li class="account-item">
                                     <div class="clearfix">
-                                        <div class="fl">银行卡已添加<span class="c-blue">？</span>张</div>
+                                        <div class="fl">银行卡已添加<span class="c-blue">${tradeAccoListSize}</span>张</div>
                                         <a class="link fr" href="${staticDomain}/bankcard/addBankCard.htm">+新卡</a>
                                         <a class="link fr" href="${staticDomain}/setting/settingCard.htm">查看全部</a>
                                     </div>
@@ -280,14 +280,14 @@ $(function(){
                                     <div class="name">资产总金额（元）</div>
                                     <div class="value">${totalBalanceDisplay}</div>
                                 </li>
-    							#if($S_CUSTINFO.openaccount=="Y")
+    							#if($tradeaccoListSize!="0")
                                 <li class="account-item">
                                     <div class="name">冻结金额（元）</div>
                                     <div class="value">${frozenBalanceDisplay}</div>
                                 </li>
     							#end
                             </ul>
-    						#if($S_CUSTINFO.openaccount!="Y")
+    						#if($tradeaccoListSize=="0")
                             <div class="account-btn">
                                 <a id="btn-openAccount" class="btn" href="#">开办理财账户</a>
                             </div>
@@ -358,7 +358,7 @@ $(function(){
 	
 	
     $(function () {
-		#if($S_CUSTINFO.openaccount!="Y")
+		#if($tradeaccoListSize=="0")
         alertBox(".box-openGuide");
 		#end
 
