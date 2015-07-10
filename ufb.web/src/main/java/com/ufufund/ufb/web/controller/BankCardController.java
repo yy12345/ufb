@@ -14,11 +14,13 @@ import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankBaseInfo;
+import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
@@ -34,7 +36,8 @@ public class BankCardController {
 	private BankBaseManager bankBaseManager;
 	@Autowired
 	private BankCardManager bankCardManager;
-	
+	@Autowired
+	private TradeAccoManager tradeAccoManager;
 	/**
 	 * 绑卡-Page
 	 * @param model
@@ -45,8 +48,11 @@ public class BankCardController {
 		
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			
 			if(null != s_custinfo){
-				if("Y".equals(s_custinfo.getOpenaccount())){
+				List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(s_custinfo.getCustno());
+				if(null != tradeAccoList && tradeAccoList.size() > 0){
+				//if("Y".equals(s_custinfo.getOpenaccount())){
 					//bankCardVo.setTradePwd("YYY***");
 					//bankCardVo.setTradePwd2("YYY***");
 					//直接跳转
@@ -92,11 +98,14 @@ public class BankCardController {
 		
 		try{
 			String openaccount = null;
+			List<TradeAccoinfoOfMore> tradeAccoList = null;
 			if(null != s_custinfo){
 				openaccount = s_custinfo.getOpenaccount();
+				tradeAccoList = tradeAccoManager.getTradeAccoList(s_custinfo.getCustno());
 			}
 			OpenAccountAction openAccountAction = new OpenAccountAction();
-			if("Y".equals(openaccount)){
+			if(null != tradeAccoList && tradeAccoList.size() > 0){
+			//if("Y".equals(openaccount)){
 				bankCardVo.setOpenaccount(openaccount);
 				bankCardVo.setOrganization(s_custinfo.getOrganization());
 				bankCardVo.setInvtp(s_custinfo.getInvtp());

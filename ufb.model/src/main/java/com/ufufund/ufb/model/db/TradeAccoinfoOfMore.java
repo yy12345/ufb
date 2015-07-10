@@ -10,6 +10,7 @@ public class TradeAccoinfoOfMore extends PrintableModel  implements Serializable
 	
 	/** tradeacco基本属性 **/
 	private String tradeacco;
+	private String tradeaccost;
 	private String fundcorpno;
 	
 	/** bankcardinfo表属性 **/
@@ -203,5 +204,10 @@ public class TradeAccoinfoOfMore extends PrintableModel  implements Serializable
 	public void setMainflag(String mainflag) {
 		this.mainflag = mainflag;
 	}
-							
+	public String getTradeaccost() {
+		return tradeaccost;
+	}
+	public void setTradeaccost(String tradeaccost) {
+		this.tradeaccost = tradeaccost;
+	}
 }

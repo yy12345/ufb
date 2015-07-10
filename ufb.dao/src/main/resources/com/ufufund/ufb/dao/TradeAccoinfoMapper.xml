@@ -86,6 +86,7 @@
 		select
 			t.TRADEACCO,
 			t.FUNDCORPNO,
+			t.TRADEACCOST,
 			b.SERIALID,
 			b.CUSTNO,
 			b.BANKNO,
@@ -110,12 +111,17 @@
 			b.UPDATETIMESTAMP
 		from tradeaccoinfo t, bankcardinfo b
 		where 
-			t.tradeaccost = 'N' 
+			b.serialid  = t.bankserialid
+			and t.tradeaccost in 
+			<foreach item="tradeaccost" index="index" collection="tradeaccosts" open="(" separator="," close=")">
+ 		   	#{tradeaccost, jdbcType=VARCHAR}
+ 			</foreach>
 			<if test="fundcorpno != null and fundcorpno !=''" >
   			and t.fundcorpno = #{fundcorpno,jdbcType=VARCHAR}
   			</if>
-			and b.serialid  = t.bankserialid
+  			<if test="state != null and state !=''" >
 			and b.state = #{state,jdbcType=VARCHAR}
+			</if>
 			and b.custno = #{custno,jdbcType=VARCHAR}
 		order by b.mainflag desc
 	</select>

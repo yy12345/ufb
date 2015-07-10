@@ -93,7 +93,7 @@ $(function(){
     					#end
                         <li class="card card-add"><a href="${staticDomain}/bankcard/addBankCard.htm">添加银行卡</a></li>
                     </ul>
-                    <div>已解绑银行卡：</div>
+                    <div>历史银行卡：</div>
                     <ul class="card-list clearfix">
                         #foreach($card in $cardList_N)
     					#set($tailStr=$card.bankacco)
@@ -105,7 +105,12 @@ $(function(){
     							<span>尾号：$tailStr.substring($start,$end)</span>
     						</div>
                             <div class="card-setting">
+								#if(${card.tradeaccost}=="C")
     							<a bankacco="${card.bankacco}" class="set-active" href="#">激活</a>
+								#end
+								#if(${card.tradeaccost}=="F")
+    							<a bankacco="${card.bankacco}" href="${staticDomain}/bankcard/addBankCard.htm?bankAcco=$tailStr">再次绑卡</a>
+								#end
     						</div>
                         </li>
     					#end

@@ -1,6 +1,7 @@
 package com.ufufund.ufb.web.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -309,8 +310,11 @@ public class SettingController {
 			//List<BankCardWithTradeAcco> tradeAccoList_Y = 
 			//	bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "Y");
 		
+			List<String> tradeaccosts = new ArrayList<String>();
+			tradeaccosts.add("Y"); // 
+			tradeaccosts.add("N"); // 
 			List<TradeAccoinfoOfMore> tradeAccoList_Y = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, "Y");
+					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, tradeaccosts, null);
 			if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
 				
 				// 获取用户总资产
@@ -326,8 +330,11 @@ public class SettingController {
 			//List<BankCardWithTradeAcco> tradeAccoList_N = 
 			//		bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "N");
 		
+			tradeaccosts = new ArrayList<String>();
+			tradeaccosts.add("C"); // 
+			tradeaccosts.add("F"); // 
 			List<TradeAccoinfoOfMore> tradeAccoList_N = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, "N");
+					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, tradeaccosts, null);
 			if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
 				model.addAttribute("cardList_N", tradeAccoList_N);
 			} else {
