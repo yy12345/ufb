@@ -139,28 +139,29 @@ var check_id_back = function (ipt) {//验证身份证号
 
 
 var check_id = function (ipt) {
-	if(ipt == "") {  
+	var value = ipt.val();
+	if(value == "") {  
 		return showTips(ipt, "输入身份证号码不能为空!");
 	}  
  
-	if (ipt.length != 15 && ipt.length != 18) {  
+	if (value.length != 15 && value.length != 18) {  
 		return showTips(ipt, "输入身份证号码格式不正确!");
     }  
          
     var area={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"};   
         
-	if(area[parseInt(ipt.substr(0,2))]==null) {  
+	if(area[parseInt(value.substr(0,2))]==null) {  
 		return showTips(ipt, "身份证号码不正确(地区非法)!");
 	}   
              
-	if (ipt.length == 15) {  
+	if (value.length == 15) {  
 		pattern= /^\d{15}$/;  
-        if (pattern.exec(ipt)==null){  
+        if (pattern.exec(value)==null){  
         	return showTips(ipt, "15位身份证号码必须为数字！");
         }  
-        var birth = parseInt("19" + ipt.substr(6,2));  
-        var month = ipt.substr(8,2);  
-        var day = parseInt(ipt.substr(10,2));  
+        var birth = parseInt("19" + value.substr(6,2));  
+        var month = value.substr(8,2);  
+        var day = parseInt(value.substr(10,2));  
         switch(month) {  
        		case '01':  
        		case '03':  
@@ -208,20 +209,20 @@ var check_id = function (ipt) {
     var nCheckSum   = 0;  
        
     for (i = 0; i < 17; ++i) {  
-    	if ( ipt.charAt(i) < '0' || ipt.charAt(i) > '9' ) {  
+    	if ( value.charAt(i) < '0' || value.charAt(i) > '9' ) {  
     		return showTips(ipt, "输入身份证号码不格式正确!");
         }  
         else {  
-        	nNum = ipt.charAt(i) - '0';  
+        	nNum = value.charAt(i) - '0';  
         }  
         lSum += nNum * Wi[i];  
     }  
-    if( ipt.charAt(17) == 'X' || ipt.charAt(17) == 'x') {  
+    if( value.charAt(17) == 'X' || value.charAt(17) == 'x') {  
     	lSum += 10*Wi[17];  
-    } else if ( ipt.charAt(17) < '0' || ipt.charAt(17) > '9' ) {  
+    } else if ( value.charAt(17) < '0' || value.charAt(17) > '9' ) {  
     	return showTips(ipt, "输入身份证号码不格式正确!");
     } else {  
-        lSum += ( ipt.charAt(17) - '0' ) * Wi[17];  
+        lSum += ( value.charAt(17) - '0' ) * Wi[17];  
     } 
          
     if ((lSum % 11) == 1) {  

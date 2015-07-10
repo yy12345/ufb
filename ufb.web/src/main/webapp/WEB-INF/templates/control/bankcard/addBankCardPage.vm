@@ -13,7 +13,8 @@ $(function(){
             _this.siblings(".tips-normal").hide();
         }
     });
-	if($("#openaccount").val()=="Y"){
+	#if(${tradeAccoListSize}!=0)
+	//if($("#openaccount").val()=="Y"){
 		$("#organization").attr("readonly","readonly");
 		$("#business").attr("readonly","readonly");
 		$("#bankAcnm").attr("readonly","readonly");
@@ -34,15 +35,18 @@ $(function(){
 		$("#bankIdno").unbind("blur");
 		$("#tradePwd").unbind("blur");
 		$("#tradePwd2").unbind("blur");
-	}
+	//}
+	#end
 	
 	$("#btn-addBankCardInit").on("click",function(){
 		//check #register-org #mobileno
-		if($("#openaccount").val()=="Y"){
+		#if(${tradeAccoListSize}!=0)
+		//if($("#openaccount").val()=="Y"){
 			$("#form-addBankCard").attr("action", "../bankcard/addBankCardInit.htm");
 			$("#form-addBankCard").submit();
 			return false;
-		}
+		//}
+		#end
 		if(!check_organization($("#organization"))){
 			return false;
 		}

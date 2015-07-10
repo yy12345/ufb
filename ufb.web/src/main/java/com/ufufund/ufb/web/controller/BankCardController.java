@@ -48,9 +48,9 @@ public class BankCardController {
 		
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			
+			List<TradeAccoinfoOfMore> tradeAccoList = null;
 			if(null != s_custinfo){
-				List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(s_custinfo.getCustno());
+				tradeAccoList = tradeAccoManager.getTradeAccoList(s_custinfo.getCustno());
 				if(null != tradeAccoList && tradeAccoList.size() > 0){
 				//if("Y".equals(s_custinfo.getOpenaccount())){
 					//bankCardVo.setTradePwd("YYY***");
@@ -76,6 +76,8 @@ public class BankCardController {
 				
 			}
 			UserHelper.setAddBankCardStatus("N");
+			
+			model.addAttribute("tradeAccoListSize", tradeAccoList.size());
 			model.addAttribute("BankCardVo", bankCardVo);
 			model.addAttribute("CustinfoVo", s_custinfo);
 		}catch (BizException e){
@@ -143,6 +145,8 @@ public class BankCardController {
 			}else{
 				// 上下文中的
 			}
+			
+			model.addAttribute("tradeAccoListSize", tradeAccoList.size());
 			model.addAttribute("bankList", bankBaseList);
 			model.addAttribute("BankCardVo", bankCardVo);
 			model.addAttribute("CustinfoVo", s_custinfo);

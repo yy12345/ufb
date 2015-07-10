@@ -25,7 +25,8 @@ $(function(){
 		$("#btn-addBankCardChk").attr("disabled","disabled");
 	#end
 
-	if($("#openaccount").val()=="Y"){
+	#if(${tradeAccoListSize}!=0)
+	//if($("#openaccount").val()=="Y"){
 		$("#bankAcnm").attr("readonly","readonly");
 		$("#bankIdno").attr("readonly","readonly");
 		
@@ -34,7 +35,8 @@ $(function(){
 		
 		$("#bankAcnm").unbind("blur");
 		$("#bankIdno").unbind("blur");
-	}
+	//}
+	#end
 
 	// 上一页
 	$("#btn-addBankCard").on("click",function(){
@@ -315,7 +317,8 @@ $(function(){
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>
                             </li>
                             <li>
-								#if($CustinfoVo.openaccount!="Y")
+								//#if($CustinfoVo.openaccount!="Y")
+								#if(${tradeAccoListSize}==0)
 								<input id="btn-addBankCard" class="input-button" type="button" value="上一步">
 								#end
                                 <input id="btn-addBankCardChk" class="input-button 
