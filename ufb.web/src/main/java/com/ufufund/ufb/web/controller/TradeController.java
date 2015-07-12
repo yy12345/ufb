@@ -123,7 +123,7 @@ public class TradeController {
 			// 获取交易账户列表
 			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
 			// 获取用户总资产
-			Assets assets = queryManager.queryAssets(tradeAccoList, null);
+			Assets assets = queryManager.queryAssets(tradeAccoList, BasicFundinfo.YFB.getFundCode());
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
 			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
