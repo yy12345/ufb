@@ -1,5 +1,6 @@
 package com.ufufund.ufb.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -48,13 +49,19 @@ public class BankCardController {
 		
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			List<TradeAccoinfoOfMore> tradeAccoList = null;
+			List<TradeAccoinfoOfMore> hftTradeAccoList = null;
 			if(null != s_custinfo){
-				tradeAccoList = tradeAccoManager.getTradeAccoList(s_custinfo.getCustno());
-				if(null != tradeAccoList && tradeAccoList.size() > 0){
-				//if("Y".equals(s_custinfo.getOpenaccount())){
-					//bankCardVo.setTradePwd("YYY***");
-					//bankCardVo.setTradePwd2("YYY***");
+				List<String> tradeaccosts = new ArrayList<String>();
+				tradeaccosts.add("Y"); 
+				tradeaccosts.add("N"); 
+				tradeaccosts.add("F"); 
+				// 海富通开户
+				hftTradeAccoList = tradeAccoManager.getTradeAccoList(
+						s_custinfo.getCustno(), 
+						Constant.HftSysConfig.HftFundCorpno,
+						tradeaccosts,
+						null);
+				if(null != hftTradeAccoList && hftTradeAccoList.size() > 0){
 					//直接跳转
 					UserHelper.setAddBankCardStatus("N");
 					ServletHolder.forward("/bankcard/addBankCardInit.htm");
@@ -73,11 +80,10 @@ public class BankCardController {
 				if(null == bankCardVo.getBankIdno() || bankCardVo.getBankIdno().trim().length() == 0){
 					bankCardVo.setBankIdno(s_custinfo.getIdno());
 				}
-				
 			}
 			UserHelper.setAddBankCardStatus("N");
 			
-			model.addAttribute("tradeAccoListSize", tradeAccoList.size());
+			model.addAttribute("hftTradeAccoListSize", hftTradeAccoList.size());
 			model.addAttribute("BankCardVo", bankCardVo);
 			model.addAttribute("CustinfoVo", s_custinfo);
 		}catch (BizException e){
@@ -99,21 +105,30 @@ public class BankCardController {
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		
 		try{
-			String openaccount = null;
-			List<TradeAccoinfoOfMore> tradeAccoList = null;
+			int hftTradeAccoCount = 0;
+			List<TradeAccoinfoOfMore> hftTradeAccoList = null;
 			if(null != s_custinfo){
-				openaccount = s_custinfo.getOpenaccount();
-				tradeAccoList = tradeAccoManager.getTradeAccoList(s_custinfo.getCustno());
+				List<String> tradeaccosts = new ArrayList<String>();
+				tradeaccosts.add("Y"); 
+				tradeaccosts.add("N"); 
+				tradeaccosts.add("F"); 
+				// 海富通开户
+				hftTradeAccoList = tradeAccoManager.getTradeAccoList(
+						s_custinfo.getCustno(), 
+						Constant.HftSysConfig.HftFundCorpno,
+						tradeaccosts,
+						null);
 			}
 			OpenAccountAction openAccountAction = new OpenAccountAction();
-			if(null != tradeAccoList && tradeAccoList.size() > 0){
-			//if("Y".equals(openaccount)){
-				bankCardVo.setOpenaccount(openaccount);
+			if(null != hftTradeAccoList && hftTradeAccoList.size() > 0){
+				hftTradeAccoCount = hftTradeAccoList.size();
+				
 				bankCardVo.setOrganization(s_custinfo.getOrganization());
 				bankCardVo.setInvtp(s_custinfo.getInvtp());
 				bankCardVo.setLevel(s_custinfo.getLevel());
 				bankCardVo.setBusiness(s_custinfo.getBusiness());
 				bankCardVo.setCustNo(s_custinfo.getCustno());
+				bankCardVo.setBankMobile(s_custinfo.getMobileno());
 				bankCardVo.setBankAcnm(s_custinfo.getInvnm());
 				bankCardVo.setBankIdtp(s_custinfo.getIdtp());
 				bankCardVo.setBankIdno(s_custinfo.getIdno());
@@ -121,8 +136,8 @@ public class BankCardController {
 				bankCardVo.setTradePwd2(s_custinfo.getTradepwd2());
 			}else{
 			}
+			model.addAttribute("hftTradeAccoListSize", hftTradeAccoCount);
 			
-			openAccountAction.setOpenaccount(openaccount);
 			openAccountAction.setOrganization(bankCardVo.getOrganization());
 			openAccountAction.setInvtp(bankCardVo.getInvtp());
 			openAccountAction.setLevel(bankCardVo.getLevel());
@@ -134,6 +149,7 @@ public class BankCardController {
 			openAccountAction.setIdno(bankCardVo.getBankIdno());
 			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
 			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
+			openAccountAction.setHftTradeAccoCount(hftTradeAccoCount);
 			
 			bankCardManager.openAccount1(openAccountAction);
 			
@@ -145,8 +161,6 @@ public class BankCardController {
 			}else{
 				// 上下文中的
 			}
-			
-			model.addAttribute("tradeAccoListSize", tradeAccoList.size());
 			model.addAttribute("bankList", bankBaseList);
 			model.addAttribute("BankCardVo", bankCardVo);
 			model.addAttribute("CustinfoVo", s_custinfo);
@@ -178,6 +192,7 @@ public class BankCardController {
 				model.addAttribute("errMsg", e.getMessage());
 			}
 			model.addAttribute("BankCardVo", bankCardVo);
+			model.addAttribute("CustinfoVo", s_custinfo);
 			return "bankcard/addBankCardPage";
 		}
 		return "bankcard/addBankCardAuthPage";
@@ -199,7 +214,24 @@ public class BankCardController {
 				return "cust/indexPage";
 			}
 			
+			int hftTradeAccoCount = 0;
+			List<String> tradeaccosts = new ArrayList<String>();
+			tradeaccosts.add("Y"); 
+			tradeaccosts.add("N"); 
+			tradeaccosts.add("F"); 
+			// 海富通开户
+			List<TradeAccoinfoOfMore> hftTradeAccoList = tradeAccoManager.getTradeAccoList(
+					s_custinfo.getCustno(), 
+					Constant.HftSysConfig.HftFundCorpno,
+					tradeaccosts,
+					null);
+			if(null != hftTradeAccoList){
+				hftTradeAccoCount = hftTradeAccoList.size();
+			}
+			
+			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setHftTradeAccoCount(hftTradeAccoCount);
 			openAccountAction.setOpenaccount(s_custinfo.getOpenaccount());
 			openAccountAction.setReqSeq("3"); // 第三步，需要验证手机验证码
 			openAccountAction.setBankno(bankCardVo.getBankNo());
@@ -217,6 +249,7 @@ public class BankCardController {
 			
 			// 4 开户
 			openAccountAction.setCustno(bankCardVo.getCustNo());
+			openAccountAction.setLevel(s_custinfo.getLevel());
 			openAccountAction.setInvnm(bankCardVo.getBankAcnm());
 			openAccountAction.setIdno(bankCardVo.getBankIdno());
 			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
@@ -227,7 +260,7 @@ public class BankCardController {
 			UserHelper.setAddBankCardStatus("Y");
 			s_custinfo.setInvnm(bankCardVo.getBankAcnm());
 			s_custinfo.setIdno(bankCardVo.getBankIdno());
-			s_custinfo.setOpenaccount("Y");
+			//s_custinfo.setOpenaccount("Y");
 			
 			UserHelper.saveCustinfoVo(s_custinfo);
 			

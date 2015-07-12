@@ -49,6 +49,24 @@
   		</if>
 	     T1.CUSTST &lt;&gt; 'C'
   	</select>
+  	
+  	<select id="getCustinfoMapping" resultType="java.lang.String">
+  		SELECT
+			<if test="orgNo != null and orgNo !=''" >
+			T1.oprNo
+			</if>
+			<if test="oprNo != null and oprNo !=''" >
+			T1.orgNo
+			</if>
+  		FROM CUSTINFOMAPPING T1 
+		WHERE 
+		<if test="orgNo != null and orgNo !=''" >
+		T1.orgNo =  #{orgNo,jdbcType=VARCHAR}
+		</if>
+  		<if test="oprNo != null and oprNo !=''" >
+  		 T1.oprNo = #{oprNo,jdbcType=VARCHAR}
+  		</if>
+  	</select>
 				
 	<insert id="insertCustinfo" parameterType="com.ufufund.ufb.model.db.Custinfo">
   	 <![CDATA[

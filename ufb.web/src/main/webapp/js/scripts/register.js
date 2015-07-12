@@ -226,7 +226,7 @@ var check_id = function (ipt) {
     } 
          
     if ((lSum % 11) == 1) {  
-    	showTips(ipt, 0);
+    	return showTips(ipt, 0);
     } else {  
     	return showTips(ipt, "输入身份证号码不格式正确!");
 	}  

@@ -31,7 +31,7 @@ public class CustManagerHelper {
 		custinfo.setTradepwd(EncryptUtil.md5(openAccountAction.getTradepwd()));
 		custinfo.setInvtp(Invtp.PERSONAL.getValue());
 		custinfo.setIdtp(openAccountAction.getBankidtp());
-		custinfo.setOpenaccount("Y");
+		//custinfo.setOpenaccount("Y");
 		return custinfo;
 	}
 }

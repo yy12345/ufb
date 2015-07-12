@@ -25,7 +25,11 @@
         <pattern>/ufb/trade/*.htm</pattern>
     </layout>
     
+    <layout page="layout/public_cust.vm" default="true">
+        <pattern>/ufb/cust/*.htm</pattern>
+    </layout>
+    
     <layout page="layout/default.vm" default="true">
-        <pattern>/ufu/**/*</pattern>
+        <pattern>/ufb/**/*</pattern>
     </layout>
 </layouts>

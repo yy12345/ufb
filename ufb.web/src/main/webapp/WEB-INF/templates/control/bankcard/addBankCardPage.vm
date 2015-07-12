@@ -13,8 +13,7 @@ $(function(){
             _this.siblings(".tips-normal").hide();
         }
     });
-	#if(${tradeAccoListSize}!=0)
-	//if($("#openaccount").val()=="Y"){
+	#if(${hftTradeAccoListSize}!=0)
 		$("#organization").attr("readonly","readonly");
 		$("#business").attr("readonly","readonly");
 		$("#bankAcnm").attr("readonly","readonly");
@@ -40,19 +39,20 @@ $(function(){
 	
 	$("#btn-addBankCardInit").on("click",function(){
 		//check #register-org #mobileno
-		#if(${tradeAccoListSize}!=0)
-		//if($("#openaccount").val()=="Y"){
+		#if(${hftTradeAccoListSize}!=0)
 			$("#form-addBankCard").attr("action", "../bankcard/addBankCardInit.htm");
 			$("#form-addBankCard").submit();
 			return false;
 		//}
 		#end
+		#if(${CustinfoVo.level} != 0)
 		if(!check_organization($("#organization"))){
 			return false;
 		}
 		if(!check_business($("#business"))){
 			return false;
 		}
+		#end
 		if(!check_bankAcnm($("#bankAcnm"))){
 			return false;
 		}
@@ -127,33 +127,41 @@ $(function(){
 							<li class="error">
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg}</span>
                             </li>
-                            #end
-                            <li
-                            #if($errMsg_organization)
-                            class="error"
-                            #end
-                            >
-                                <span class="form-title">幼教机构</span>
-								<input id="organization" name="organization" class="ipt-organization input-text" maxlength="28" type="text" value="$!{BankCardVo.organization}">
-                                <span class="tips-normal">请按照营业执照填写</span>
-                                <span class="tips-check"><i class="icon"></i>$!{errMsg_organization}</span>
-                            </li>
-                            <li
-                            #if($errMsg_business)
-                            class="error"
-                            #end
-                            >
-                                <span class="form-title">营业执照</span>
-								<input id="business" name="business" class="ipt-business input-text" maxlength="28" type="text" value="$!{BankCardVo.business}">
-                                <span class="tips-normal">请按照营业执照填写</span>
-                                <span class="tips-check"><i class="icon"></i>$!{errMsg_business}</span>
-                            </li>
+							#end
+							#if(${CustinfoVo.level} != 0)
+                                <li
+                                #if($errMsg_organization)
+                                class="error"
+                                #end
+                                >
+                                    <span class="form-title">幼教机构</span>
+    								<input id="organization" name="organization" class="ipt-organization input-text" maxlength="28" type="text" value="$!{BankCardVo.organization}">
+                                    <span class="tips-normal">请按照营业执照填写</span>
+                                    <span class="tips-check"><i class="icon"></i>$!{errMsg_organization}</span>
+                                </li>
+                                <li
+                                #if($errMsg_business)
+                                class="error"
+                                #end
+                                >
+                                    <span class="form-title">营业执照</span>
+    								<input id="business" name="business" class="ipt-business input-text" maxlength="28" type="text" value="$!{BankCardVo.business}">
+                                    <span class="tips-normal">请按照营业执照填写</span>
+                                    <span class="tips-check"><i class="icon"></i>$!{errMsg_business}</span>
+                                </li>
+							#end
                             <li
                             #if($errMsg_bankAcnm)
                             class="error"
                             #end
                             >
-                                <span class="form-title">经办人姓名</span>
+                                <span class="form-title">
+									#if(${CustinfoVo.level} != 0)
+									经办人姓名
+									#else
+									用户姓名
+									#end
+								</span>
                                 <input id="bankAcnm" name="bankAcnm" class="ipt-bankAcnm input-text" maxlength="28" type="text" value="$!{BankCardVo.bankAcnm}">
                                 <span class="tips-normal">请填写真实姓名</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcnm}</span>

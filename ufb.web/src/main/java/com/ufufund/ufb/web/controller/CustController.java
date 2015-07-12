@@ -86,7 +86,7 @@ public class CustController {
 	 * @return
 	 */
 	@RequestMapping(value = "register/family")
-	public String registerfamily(CustinfoVo custinfoVo, Model model) {
+	public String registerFamily(CustinfoVo custinfoVo, Model model) {
 		
 		try{
 			// 初始化数据
@@ -244,8 +244,8 @@ public class CustController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "cust/login")
-	public String loginIn(CustinfoVo custinfoVo, Model model) {
+	@RequestMapping(value = "cust/login_back")
+	public String loginIn_back(CustinfoVo custinfoVo, Model model) {
 		
 		try{
 			// TODO
@@ -265,7 +265,7 @@ public class CustController {
 //			model.addAttribute("SessionVo", custinfoVo);
 			
 			// 货基信息显示
-			model.addAttribute("FUNDINFOVO", this.getFundInfo());
+			model.addAttribute("FUNDINFOVO", this.getFundInfo(null));
 			
 			// NAV
 			FundNav fundnav = new FundNav();
@@ -283,7 +283,7 @@ public class CustController {
 				// 资产显示
 				//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 				//List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
-				Assets assets = queryManager.queryAssets(tradeAccoList);
+				Assets assets = queryManager.queryAssets(tradeAccoList,null);
 				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
 				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));// 可用资产
 				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));// 冻结资产
@@ -340,6 +340,159 @@ public class CustController {
 	}
 	
 	/**
+	 * 登录
+	 * @param custinfoVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "cust/login")
+	public String loginIn(CustinfoVo custinfoVo, Model model) {
+		
+		try{
+			// TODO
+			// 校验验证码 
+			// VerifyCodeUtils.validate(custinfoVo.getVerifycode());
+			
+			LoginAction loginAction = new LoginAction();
+			loginAction.setLoginCode(custinfoVo.getMobileno());
+			loginAction.setLoginPassword(custinfoVo.getPswpwd());
+			
+			// 登录
+			Custinfo custinfo = custManager.loginIn(loginAction);
+			custinfoVo = this.convertCustInfo2Vo(custinfo);
+			
+			CustinfoVo org = null;
+			CustinfoVo opr = null;
+			CustinfoVo family = null;
+			// 分流
+			String invtp = custinfo.getInvtp();
+			if("0".equals(invtp)){
+				// 个人，检查level:0家庭1经办人
+				String level = custinfo.getLevel();
+				if("0".equals(level)){
+					// 家庭
+					family = custinfoVo;
+					// 无处理
+				}else{
+					// 经办人
+					opr = custinfoVo;
+					// 找出对应机构
+					org = this.convertCustInfo2Vo(custManager.getCustinfoMapping(null, opr.getCustno()));
+				}
+			
+			}else{
+				// 机构
+				org = custinfoVo;
+				// 找出对应经办人
+				opr = this.convertCustInfo2Vo(custManager.getCustinfoMapping(org.getCustno(), null));
+			}
+			
+			/** 货基信息显示 **/
+			// 海富通
+			FundInfo hftFundInfo = new FundInfo();
+			hftFundInfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			hftFundInfo.setFundcode(BasicFundinfo.YFB.getFundCode());
+			//model.addAttribute("FUNDINFOVO", this.getFundInfo(htfFundInfo));
+			model.addAttribute("hftFundInfo", this.getFundInfo(hftFundInfo));
+			// 银联
+			FundInfo cpFundInfo = new FundInfo();
+			cpFundInfo.setFundcorpno(null);
+			cpFundInfo.setFundcode(null);
+			model.addAttribute("cpFundInfo", null);
+			
+			/** NAV **/
+			// 海富通
+			FundNav hftFundNav = new FundNav();
+			hftFundNav.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			hftFundNav.setFundcode(BasicFundinfo.YFB.getFundCode());
+			List<FundNav> hftNavList = queryManager.qryFundNavList(hftFundNav);
+			//model.addAttribute("navList", hftNavList);
+			model.addAttribute("hftNavList", hftNavList);
+			if(null != hftNavList && hftNavList.size() >0){
+				FundNav curHtfFundNav = hftNavList.get(0);
+				//model.addAttribute("NAV", curFundNav);
+				model.addAttribute("curHtfFundNav", curHtfFundNav);
+			}
+			// 银联
+			FundNav cpFundNav = new FundNav();
+			hftFundNav.setFundcorpno(null);
+			hftFundNav.setFundcode(null);
+			List<FundNav> cpNavList = queryManager.qryFundNavList(cpFundNav);
+			model.addAttribute("cpNavList", cpNavList);
+			if(null != cpNavList && cpNavList.size() >0){
+				FundNav curCpFundNav = cpNavList.get(0);
+				model.addAttribute("curCpFundNav", curCpFundNav);
+			}
+
+			/** 资产 **/
+			// 保存主帐户至session
+			UserHelper.saveCustinfoVo(custinfoVo); // S_CUSTINFO
+			
+			if(null != org){
+				// 左上角
+				model.addAttribute("org", org);
+			}
+			if(null != opr){
+				// 右上角
+				model.addAttribute("opr", opr);
+				this.setModel(opr, model);
+			}
+			if(null != family){
+				// 右上角
+				model.addAttribute("family", family);
+				this.setModel(family, model);
+			}
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			String ems = e.getOtherInfo();
+			if (BisConst.Register.MOBILE.equals(ems) || BisConst.Register.LOGINCODE.equals(ems)) {
+				model.addAttribute("errMsg_mobileno", e.getMessage()); // 登录帐号
+			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
+				model.addAttribute("errMsg_verifycode", e.getMessage()); // 验证码
+			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
+				model.addAttribute("errMsg_pswpwd", e.getMessage()); // 登录密码
+			} else {
+				// TODO throw userException?
+				model.addAttribute("errMsg", e.getMessage());
+			}
+			model.addAttribute("CustinfoVo", custinfoVo);
+			return "home/indexPage";
+		}
+		return "cust/indexPage";
+	}
+	
+	private void setModel(CustinfoVo custinfoVo, Model model){
+		// 海富通
+		List<String> tradeaccosts = new ArrayList<String>();
+		tradeaccosts.add("Y"); // 
+		tradeaccosts.add("N"); // 
+		List<TradeAccoinfoOfMore> hftTradeAccoList = tradeAccoManager.getTradeAccoList(
+				custinfoVo.getCustno(),
+				Constant.HftSysConfig.HftFundCorpno, 
+				tradeaccosts,
+				null);
+		if(null != hftTradeAccoList && hftTradeAccoList.size() > 0){
+			// 海富通资产显示
+			Assets htfAssets = queryManager.queryAssets(hftTradeAccoList, BasicFundinfo.YFB.getFundCode());
+			model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotal()));// 总资产
+			model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getAvailable()));// 可用资产
+			model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFrozen()));// 冻结资产
+			model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFunddayincome()));// 昨日收益
+			model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotalincome()));// 累计受益
+			model.addAttribute("hftTradeAccoListSize", hftTradeAccoList.size());
+		} else {
+			// 资产显示
+			model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+			model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+			model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+			model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
+			model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
+			model.addAttribute("hftTradeAccoListSize", "0");
+		}
+	}
+	
+	/**
 	 * 登出
 	 * @param model
 	 * @return
@@ -369,69 +522,89 @@ public class CustController {
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
 				// Session登录
-				custinfoVo = this.convertCustSession2Vo(s_custinfo);
+				CustinfoVo org = null;
+				CustinfoVo opr = null;
+				CustinfoVo family = null;
+				// 分流
+				String invtp = s_custinfo.getInvtp();
+				if("0".equals(invtp)){
+					// 个人，检查level:0家庭1经办人
+					String level = s_custinfo.getLevel();
+					if("0".equals(level)){
+						// 家庭
+						family = s_custinfo;
+						// 无处理
+					}else{
+						// 经办人
+						opr = s_custinfo;
+						// 找出对应机构
+						org = this.convertCustInfo2Vo(custManager.getCustinfoMapping(null, opr.getCustno()));
+					}
 				
-				// 货基信息显示
-				model.addAttribute("FUNDINFOVO", this.getFundInfo());
-				
-				// NAV
-				FundNav fundnav = new FundNav();
-				fundnav.setFundcorpno("01");
-				fundnav.setFundcode("519005");
-				List<FundNav> navList = queryManager.qryFundNavList(fundnav);
-				model.addAttribute("navList", navList);
-				if(null != navList && navList.size() >0){
-					FundNav curFundNav = navList.get(0);
-					model.addAttribute("NAV", curFundNav);
+				}else{
+					// 机构
+					org = s_custinfo;
+					// 找出对应经办人
+					opr = this.convertCustInfo2Vo(custManager.getCustinfoMapping(org.getCustno(), null));
 				}
 				
+				/** 货基信息显示 **/
+				// 海富通
+				FundInfo hftFundInfo = new FundInfo();
+				hftFundInfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+				hftFundInfo.setFundcode(BasicFundinfo.YFB.getFundCode());
+				//model.addAttribute("FUNDINFOVO", this.getFundInfo(htfFundInfo));
+				model.addAttribute("hftFundInfo", this.getFundInfo(hftFundInfo));
+				// 银联
+				FundInfo cpFundInfo = new FundInfo();
+				cpFundInfo.setFundcorpno(null);
+				cpFundInfo.setFundcode(null);
+				model.addAttribute("cpFundInfo", null);
 				
-				List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
-				if(null != tradeAccoList && tradeAccoList.size() > 0){
-				//if("Y".equals(s_custinfo.getOpenaccount())){
-					// 资产显示
-					//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
-					//List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
-					Assets assets = queryManager.queryAssets(tradeAccoList);
-					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
-					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));// 可用资产
-					model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));// 冻结资产
-					model.addAttribute("funddayincome", NumberUtils.DF_CASH_CONMMA.format(assets.getFunddayincome()));// 昨日收益
-					model.addAttribute("totalincome", NumberUtils.DF_CASH_CONMMA.format(assets.getTotalincome()));// 累计受益
-					// 交易明细显示
-					List<String> apkinds = new ArrayList<String>();
-					apkinds.add("022"); // 充值
-					apkinds.add("023"); // 取现
-					apkinds.add("024"); // 快速取现
-					List<String> states = new ArrayList<String>();
-					states.add("Y"); // 
-					states.add("F"); // 
-					states.add("I"); // 
-					List<TradeRequest> listIn = queryManager.qryTradeList(
-							custinfoVo.getCustno(), 
-							apkinds,
-							states,
-							null, 
-							null,
-							0, 
-							8
-							);
-					model.addAttribute("listIn", listIn);
-					model.addAttribute("tradeAccoListSize", tradeAccoList.size());
-				} else {
-					model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-					model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-					model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-					model.addAttribute("funddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
-					model.addAttribute("totalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
-					model.addAttribute("tradeAccoListSize", "0");
+				/** NAV **/
+				// 海富通
+				FundNav hftFundNav = new FundNav();
+				hftFundNav.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+				hftFundNav.setFundcode(BasicFundinfo.YFB.getFundCode());
+				List<FundNav> hftNavList = queryManager.qryFundNavList(hftFundNav);
+				//model.addAttribute("navList", hftNavList);
+				model.addAttribute("hftNavList", hftNavList);
+				if(null != hftNavList && hftNavList.size() >0){
+					FundNav curHtfFundNav = hftNavList.get(0);
+					//model.addAttribute("NAV", curFundNav);
+					model.addAttribute("curHtfFundNav", curHtfFundNav);
+				}
+				// 银联
+				FundNav cpFundNav = new FundNav();
+				hftFundNav.setFundcorpno(null);
+				hftFundNav.setFundcode(null);
+				List<FundNav> cpNavList = queryManager.qryFundNavList(cpFundNav);
+				model.addAttribute("cpNavList", cpNavList);
+				if(null != cpNavList && cpNavList.size() >0){
+					FundNav curCpFundNav = cpNavList.get(0);
+					model.addAttribute("curCpFundNav", curCpFundNav);
+				}
+
+				/** 资产 **/
+				if(null != org){
+					// 左上角
+					model.addAttribute("org", org);
+				}
+				if(null != opr){
+					// 右上角
+					model.addAttribute("opr", opr);
+					this.setModel(opr, model);
+				}
+				if(null != family){
+					// 右上角
+					model.addAttribute("family", family);
+					this.setModel(family, model);
 				}
 			}else{
 				// Session无效
 				ServletHolder.getResponse().sendRedirect("/ufb/home/index.htm");
 				return null;
 			}
-//			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("CustinfoVo", custinfoVo);
@@ -441,6 +614,9 @@ public class CustController {
 	}
 	
 	private CustinfoVo convertCustInfo2Vo(Custinfo custinfo){
+		if(null == custinfo){
+			return null;
+		}
 		CustinfoVo custinfoVo = new CustinfoVo();
 		custinfoVo.setCustno(custinfo.getCustno());;                      
 		custinfoVo.setMobileno(custinfo.getMobileno());                    
@@ -461,6 +637,9 @@ public class CustController {
 	}
 	
 	private CustinfoVo convertCustSession2Vo(CustinfoVo sessionInfo){
+		if(null == sessionInfo){
+			return null;
+		}
 		CustinfoVo custinfoVo = new CustinfoVo();
 		custinfoVo.setCustno(sessionInfo.getCustno());                  
 		custinfoVo.setMobileno(sessionInfo.getMobileno());                    
@@ -476,11 +655,9 @@ public class CustController {
 		return custinfoVo;
 	}
 	
-	private FundInfo getFundInfo(){
+	private FundInfo getFundInfo(FundInfo fundInfo){
 		// 货基信息显示
-		FundInfo fundInfo = new FundInfo();
-		fundInfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-		fundInfo.setFundcode(BasicFundinfo.YFB.getFundCode());
+		
 		//DateFormat df = new SimpleDateFormat("yyyyMMdd");
 		//fundInfo.setDate(df.format(new Date()));
 		//fundInfo = queryManager.getFundInfo(fundInfo);

@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ import com.ufufund.ufb.model.db.FundNav;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
-import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.TradeAccoVo;
 import com.ufufund.ufb.remote.HftQueryService;
@@ -40,19 +38,19 @@ public class QueryManagerImpl implements QueryManager{
 	private FundBalanceMapper fundBalanceMapper ;
 
 	@Override
-	public TradeAccoVo queryAssets(String tradeAcco){
+	public TradeAccoVo queryAssets(String tradeAcco, String fundCode){
 		TradeAccoVo result = new TradeAccoVo();
 		
 		// 已确认份额
 		FundBalance fundBalance = new FundBalance();
 		fundBalance.setTradeacco(tradeAcco);
-		fundBalance.setFundcode(BasicFundinfo.YFB.getFundCode());
+		fundBalance.setFundcode(fundCode);
 		fundBalance = fundBalanceMapper.getFundBalance(fundBalance);
 		TradeQutyChg tradeQutyChg = new TradeQutyChg();
 		// 变动份额（因T+1日终确认，可能包含2个工作日的变动）
 		tradeQutyChg.setTradeacco(tradeAcco);
-		tradeQutyChg.setFundcode(BasicFundinfo.YFB.getFundCode());
-		TradeQutyChg qutyChg = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
+		tradeQutyChg.setFundcode(fundCode);
+		tradeQutyChg = tradeQutyChgMapper.getTradeQutyChg(tradeQutyChg); 
 	
 		// 资产累计
 		BigDecimal total = new BigDecimal(0.00); // 总资产
@@ -67,13 +65,12 @@ public class QueryManagerImpl implements QueryManager{
 			frozen = fundBalance.getTotalfrozenvol(); 
 			funddayincome = fundBalance.getFunddayincome();
 			totalincome = fundBalance.getTotalincome();
-			
 		}
 		// 当日变动
-		if(qutyChg != null){
-			total = total.add(qutyChg.getTotal());
-			available = available.add(qutyChg.getAvailable());
-			frozen = frozen.add(qutyChg.getFrozen());
+		if(tradeQutyChg != null){
+			total = total.add(tradeQutyChg.getTotal());
+			available = available.add(tradeQutyChg.getAvailable());
+			frozen = frozen.add(tradeQutyChg.getFrozen());
 		}
 		
 		/** 
@@ -105,16 +102,14 @@ public class QueryManagerImpl implements QueryManager{
 	}
 
 	@Override
-	public Assets queryAssets(List<TradeAccoinfoOfMore> tradeAccoList) {
+	public Assets queryAssets(List<TradeAccoinfoOfMore> tradeAccoList, String fundCode) {
 		
 		Assets result = new Assets();
 		
 		List<TradeAccoVo> accoList = new ArrayList<TradeAccoVo>();
 		for(TradeAccoinfoOfMore acco : tradeAccoList){
-			TradeAccoVo tradeAccoVo = queryAssets(acco.getTradeacco());
+			TradeAccoVo tradeAccoVo = queryAssets(acco.getTradeacco(), fundCode);
 			
-			//BeanUtils.copyProperties(acco, tradeAccoVo);
-			//accoList.add(tradeAccoVo);
 			acco.setAvailable(tradeAccoVo.getAvailable());
 			acco.setRealavailable(tradeAccoVo.getRealavailable());
 			acco.setTotal(tradeAccoVo.getTotal());

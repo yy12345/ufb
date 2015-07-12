@@ -23,14 +23,14 @@ public interface QueryManager {
 	 * @param tradeAccos 交易账号
 	 * @return
 	 */
-	public TradeAccoVo queryAssets(String tradeAcco);
+	public TradeAccoVo queryAssets(String tradeAcco, String fundCode);
 	
 	/**
 	 * 查询用户总资产
 	 * @param tradeAccos 交易账号列表
 	 * @return
 	 */
-	public Assets queryAssets(List<TradeAccoinfoOfMore> tradeAccoList);
+	public Assets queryAssets(List<TradeAccoinfoOfMore> tradeAccoList, String fundCode);
 	
 	/**
 	 * 查询交易流水

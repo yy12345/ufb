@@ -41,7 +41,7 @@ public class BankCardManagerValidator {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDCARDNO);
 			}
 			
-			if(!"Y".equals(action.getOpenaccount())){
+			if(action.getHftTradeAccoCount() == 0){
 				// 已经绑卡用户不需要再次设置交易密码
 				// 交易密码
 				if (RegexUtil.isNull(action.getTradepwd())) {
@@ -65,7 +65,7 @@ public class BankCardManagerValidator {
 //				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, MERCHANT);
 //			}
 			
-			if("1".equals(action.getLevel())){
+			if(!"0".equals(action.getLevel())){
 				//幼教机构
 				if(RegexUtil.isNull(action.getOrganization())){
 					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);

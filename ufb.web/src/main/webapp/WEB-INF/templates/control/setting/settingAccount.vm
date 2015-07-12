@@ -26,9 +26,18 @@ $(function(){
         <div class="main fr">
             <div class="setting-content">
                 <ul>
+					#if(${CustinfoVo.level} != 0)
                     <li>幼教机构：$!{CustinfoVo.organization}</li>
                     <li>营业执照注册号：$!{CustinfoVo.business}</li>
-                    <li>经办人：$!{CustinfoVo.invnm}</li>
+					#end
+                    <li>
+						#if(${CustinfoVo.level} != 0)
+							经办人姓名：
+						#else
+							用户姓名：
+						#end
+						$!{CustinfoVo.invnm}
+					</li>
                     <li>身份证号：
 						#if ($CustinfoVo.idno)
 						#set($tailStr=$CustinfoVo.idno)

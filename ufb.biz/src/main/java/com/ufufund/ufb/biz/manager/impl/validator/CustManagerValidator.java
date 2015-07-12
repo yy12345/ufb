@@ -110,7 +110,7 @@ public class CustManagerValidator {
 			throw new BizException(action.getProcessId(), ErrorInfo.FREEZE_USER, BisConst.Register.CUSTNO);
 		}
 		// Custst 用户是否开户验证
-		if(!Constant.Custinfo.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
+		if(action.getHftTradeAccoCount() == 0){
 			if (custManager.isIdCardNoRegister(action.getIdno().trim())) {
 				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
 			}

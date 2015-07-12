@@ -18,6 +18,7 @@ import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
+import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.SysException;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.DateUtil;
@@ -59,7 +60,14 @@ public class TradeController {
 		try{
 			String custno = UserHelper.getCustno();
 			// 获取交易账户列表
-			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+			List<String> tradeaccosts = new ArrayList<String>();
+			tradeaccosts.add("Y"); // 
+			tradeaccosts.add("N"); // 
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
+					custno, 
+					Constant.HftSysConfig.HftFundCorpno, 
+					tradeaccosts, 
+					null);
 			
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
@@ -115,7 +123,7 @@ public class TradeController {
 			// 获取交易账户列表
 			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
 			// 获取用户总资产
-			Assets assets = queryManager.queryAssets(tradeAccoList);
+			Assets assets = queryManager.queryAssets(tradeAccoList, null);
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
 			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);

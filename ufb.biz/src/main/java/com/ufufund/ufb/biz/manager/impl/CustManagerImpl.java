@@ -186,6 +186,23 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	}
 	
 	/**
+	 * 根据缓存获取family,org获取客户信息 
+	 * 
+	 * @param custno
+	 * @return
+	 */
+	public Custinfo getCustinfoMapping(String orgNo, String oprNo) throws BizException {
+		String custno = custinfoMapper.getCustinfoMapping(orgNo, oprNo);
+		if(null == custno){
+			return null;
+		}
+		Custinfo custinfo = new Custinfo();
+		custinfo.setCustno(custno);
+		custinfo = custinfoMapper.getCustinfo(custinfo);
+		return custinfo;
+	}
+	
+	/**
 	 * 插入流水表、更新变动表
 	 * @param custinfo
 	 * @param apkind

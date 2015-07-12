@@ -307,18 +307,14 @@ public class SettingController {
 			custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 			
 			// 获取交易账户列表
-			//List<BankCardWithTradeAcco> tradeAccoList_Y = 
-			//	bankCardManager.getBankCardWithTradeAccoList(s_custinfo.getCustno(), "Y");
-		
 			List<String> tradeaccosts = new ArrayList<String>();
 			tradeaccosts.add("Y"); // 
 			tradeaccosts.add("N"); // 
 			List<TradeAccoinfoOfMore> tradeAccoList_Y = 
 					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, tradeaccosts, null);
 			if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
-				
 				// 获取用户总资产
-				Assets assets = queryManager.queryAssets(tradeAccoList_Y);
+				Assets assets = queryManager.queryAssets(tradeAccoList_Y, null);
 				List<TradeAccoVo> list_y =  assets.getAccoList();
 				
 				model.addAttribute("cardList_Y", list_y);
@@ -376,7 +372,7 @@ public class SettingController {
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
 			// 短信验证
-			TradeAccoVo tradeAccoVo = queryManager.queryAssets(tradeacco);
+			TradeAccoVo tradeAccoVo = queryManager.queryAssets(tradeacco, null);
 			BigDecimal total = tradeAccoVo.getTotal();
 			BigDecimal available = tradeAccoVo.getAvailable();
 			BigDecimal realavailable = tradeAccoVo.getRealavailable();

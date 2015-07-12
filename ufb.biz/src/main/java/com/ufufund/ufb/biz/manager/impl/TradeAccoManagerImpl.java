@@ -21,7 +21,7 @@ public class TradeAccoManagerImpl implements TradeAccoManager{
 		List<String> tradeaccosts = new ArrayList<String>();
 		tradeaccosts.add("Y"); // 
 		tradeaccosts.add("N"); // 
-		return tradeAccoinfoMapper.getTradeAccoList(custno, "01", tradeaccosts, "Y");
+		return tradeAccoinfoMapper.getTradeAccoList(custno, "01", tradeaccosts, null);
 	}
 	
 	@Override

@@ -28,7 +28,26 @@ public class OpenAccountAction extends CommonAction {
 	private String invtp;
 	private String level;
 	private String openaccount; //是否已开户 
+	private int hftTradeAccoCount;
+	private int cpTradeAccoCount;
 	
+
+	public int getHftTradeAccoCount() {
+		return hftTradeAccoCount;
+	}
+
+	public void setHftTradeAccoCount(int hftTradeAccoCount) {
+		this.hftTradeAccoCount = hftTradeAccoCount;
+	}
+
+	public int getCpTradeAccoCount() {
+		return cpTradeAccoCount;
+	}
+
+	public void setCpTradeAccoCount(int cpTradeAccoCount) {
+		this.cpTradeAccoCount = cpTradeAccoCount;
+	}
+
 	public String getOpenaccount() {
 		return openaccount;
 	}

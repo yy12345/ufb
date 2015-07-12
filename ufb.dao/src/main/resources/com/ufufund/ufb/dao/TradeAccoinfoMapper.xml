@@ -67,6 +67,7 @@
 			tradeaccoinfo, bankcardinfo
 		WHERE 
 			tradeaccoinfo.BANKSERIALID = bankcardinfo.SERIALID
+			AND tradeaccoinfo.TRADEACCOST &lt;&gt; 'F'
   		<if test="custno != null and custno !=''" >
   		 	AND tradeaccoinfo.CUSTNO = #{custno,jdbcType=VARCHAR}
   		</if>

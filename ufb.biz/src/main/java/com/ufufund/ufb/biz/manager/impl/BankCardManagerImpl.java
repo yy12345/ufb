@@ -104,7 +104,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// 用户注册、冻结、已开户验证
 		custManagerValidator.validator(openAccountAction, "User_Business");
 		
-		if(!"Y".equals(openAccountAction.getOpenaccount())){
+		if(openAccountAction.getHftTradeAccoCount() == 0){
 			// 校验是否与登录密码一致（已绑卡开户的用户不需要再次验证密码）
 			Custinfo custinfo = new Custinfo();
 			custinfo.setCustno(openAccountAction.getCustno());
@@ -203,7 +203,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(openAccountAction.getCustno());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
-		if(!Constant.Custinfo.OPENACCOUNT$Y.equals(custinfo.getOpenaccount())){
+		if(openAccountAction.getHftTradeAccoCount() == 0){
 		    custinfo = custManagerHelper.toOpenAccountAction(openAccountAction);
 			custinfoMapper.updateCustinfo(custinfo);
 			Changerecordinfo changerecordinfo2 = new Changerecordinfo();

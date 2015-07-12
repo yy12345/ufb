@@ -1,5 +1,7 @@
 package com.ufufund.ufb.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ufufund.ufb.common.dao.BaseDao;
 import com.ufufund.ufb.model.db.Custinfo;
 
@@ -16,6 +18,7 @@ public interface CustinfoMapper extends BaseDao {
 	 */
 	public Custinfo getCustinfo(Custinfo custinfo);
 	
+	public String getCustinfoMapping(@Param("orgNo")String orgNo, @Param("oprNo")String oprNo);
 	/*
 	 * 不使用  ，使用CustManager insterCustinfo方法
 	 */

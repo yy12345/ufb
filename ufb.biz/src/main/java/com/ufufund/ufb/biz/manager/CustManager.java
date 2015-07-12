@@ -46,6 +46,9 @@ public interface CustManager extends CustInterface{
 	 */
 	public Custinfo getCustinfo(String custno) throws BizException;
 	
+	
+	public Custinfo getCustinfoMapping(String orgNo, String oprNo) throws BizException;
+	
 	/**
 	 * 修改密码
 	 * @param ChangePasswordAction changePasswordAction
