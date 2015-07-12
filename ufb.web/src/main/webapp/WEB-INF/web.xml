@@ -8,7 +8,9 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:/spring/spring-ufb-biz.xml,classpath*:/spring/spring-ufb-web.xml</param-value>
+        <param-value>
+        	classpath*:/spring/spring-ufb-biz.xml,classpath*:/spring/spring-ufb-web.xml
+        </param-value>
     </context-param>
 
     <listener>

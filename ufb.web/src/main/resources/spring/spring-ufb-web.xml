@@ -18,5 +18,5 @@
     
     <context:property-placeholder
 			ignore-resource-not-found="false" location="classpath*:config/*.properties" />
-	
+		
 </beans>
