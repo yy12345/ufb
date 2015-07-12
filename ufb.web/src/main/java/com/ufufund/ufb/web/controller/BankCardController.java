@@ -233,6 +233,8 @@ public class BankCardController {
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setHftTradeAccoCount(hftTradeAccoCount);
 			openAccountAction.setOpenaccount(s_custinfo.getOpenaccount());
+			openAccountAction.setBusiness(s_custinfo.getBusiness());
+			openAccountAction.setOrganization(s_custinfo.getOrganization());
 			openAccountAction.setReqSeq("3"); // 第三步，需要验证手机验证码
 			openAccountAction.setBankno(bankCardVo.getBankNo());
 			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
