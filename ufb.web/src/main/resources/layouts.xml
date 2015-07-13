@@ -2,8 +2,10 @@
 <layouts defaultdir="/WEB-INF/ftl-layouts/">
 
 	<excludes>
-		<pattern>static.localhost.com**</pattern>
-		<pattern>api.localhost.com**</pattern>
+		<!-- host匹配 -->
+		<pattern>static.*</pattern>
+		<pattern>api.*</pattern>
+		<!-- 请求地址path匹配 -->
 		<pattern>/**/*.ajax</pattern>
 		<pattern>/**/*.service</pattern>
 	</excludes>
