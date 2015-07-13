@@ -51,7 +51,7 @@ public class BankCardManagerHelper {
 		req.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		req.setBusinType(Constant.HftBusiType.BankAuth);
 		req.setApplicationNo(openAccountAction.getSerialno());
-		req.setClearingAgencyCode("012");
+		req.setClearingAgencyCode(openAccountAction.getBankno());
 		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());
 		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());
 		req.setCertificateType(openAccountAction.getBankidtp());
@@ -68,7 +68,7 @@ public class BankCardManagerHelper {
 		req.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		req.setBusinType(Constant.HftBusiType.BankVeri);
 		req.setApplicationNo(openAccountAction.getSerialno());
-		req.setClearingAgencyCode("012");
+		req.setClearingAgencyCode(openAccountAction.getBankno());
 		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());
 		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());
 		req.setCertificateType(openAccountAction.getBankidtp());
@@ -86,7 +86,7 @@ public class BankCardManagerHelper {
 		req.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		req.setBusinType(Constant.HftBusiType.OpenAccount);
 		req.setApplicationNo(openAccountAction.getSerialno());
-		req.setClearingAgencyCode("012");
+		req.setClearingAgencyCode(openAccountAction.getBankno());
 		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());
 		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());
 		req.setInvestorName(openAccountAction.getBankacnm());
