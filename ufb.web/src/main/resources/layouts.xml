@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layouts defaultdir="/WEB-INF/ftl-layouts/">
-	<errorPages page="layout/default_error.vm">
+
+	<excludes>
+		<pattern>static.localhost.com**</pattern>
+		<pattern>api.localhost.com**</pattern>
+		<pattern>/**/*.ajax</pattern>
+		<pattern>/**/*.service</pattern>
+	</excludes>
+
+	<layout page="layout/default_error.vm">
         <pattern>error/404.vm</pattern>
         <pattern>error/500.vm</pattern>
         <pattern>error/*</pattern>
-    </errorPages> 
+    </layout> 
 	
     <layout page="layout/default_register.vm">
-        <pattern>/ufb/register/*.vm</pattern>
+        <pattern>register/*.vm</pattern>
     </layout>
     
     <layout page="layout/default_setting.vm">
-        <pattern>/ufb/setting/*.vm</pattern>
+        <pattern>setting/*.vm</pattern>
     </layout>
     
     <layout page="layout/default_trade.vm">
-        <pattern>/ufb/trade/*.vm</pattern>
+        <pattern>trade/*.vm</pattern>
     </layout>
     
-    <layout page="layout/public_cust.vm" default="true">
-        <pattern>/ufb/cust/*.vm</pattern>
+    <layout page="layout/public_cust.vm">
+        <pattern>cust/*.vm</pattern>
     </layout>
     
     <layout page="layout/default.vm" default="true">
-        <pattern>/ufb/**/*</pattern>
+        <pattern>**/*.vm</pattern>
     </layout>
-    
-    <excludes>
-		<pattern>/static/*</pattern>
-		<pattern>/api/*</pattern>
-		<pattern>/api/**/</pattern>
-		<pattern>/**/*.ajax</pattern>
-	</excludes>
 </layouts>

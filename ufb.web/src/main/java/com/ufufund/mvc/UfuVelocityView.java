@@ -103,41 +103,26 @@ public class UfuVelocityView extends VelocityToolboxView {
 			}
 			context.put("head", head);
 		}
-
 	}
 
 	private String getLayoutUrl(HttpServletRequest request) {
 		
 		String path = request.getRequestURI();
+		String host = request.getHeader("host");
 		AntPathMatcher pathMatcher = new AntPathMatcher();
-		for (String s : layoutConfig.getErrorPages()) {
-			if (pathMatcher.match(s, super.getUrl())) {
-				return layoutConfig.getErrorPageLayout();
-			}
-		}
-		// modified by GH 从下面移上来
+		// excludes，根据path或者host匹配
 		for (String s : layoutConfig.getExcludes()) {
-			if (pathMatcher.match(s, path)) {
+			if (pathMatcher.match(s, path) || pathMatcher.match(s, host)) {
 				return null;
 			}
 		}
-		// add by GH
+		// controller响应的vm页面：根据vm文件路径匹配
 		for (LayoutEntry e : layoutConfig.getLayouts()) {
-			if (pathMatcher.match(e.getUrlPattern(), "/ufb/" + super.getUrl())) {
+			if (pathMatcher.match(e.getUrlPattern(), super.getUrl())) {
 				return e.getLayoutUrl();
 			}
 		}
-		for (LayoutEntry e : layoutConfig.getLayouts()) {
-			if (pathMatcher.match(e.getUrlPattern(), path)) {
-				return e.getLayoutUrl();
-			}
-		}
-		// modified by GH 移到上面
-//		for (String s : layoutConfig.getExcludes()) {
-//			if (pathMatcher.match(s, path)) {
-//				return null;
-//			}
-//		}
+		// default默认布局
 		return layoutConfig.getDefaultLayout();
 	}
 
