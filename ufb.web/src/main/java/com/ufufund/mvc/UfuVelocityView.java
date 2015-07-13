@@ -115,16 +115,29 @@ public class UfuVelocityView extends VelocityToolboxView {
 				return layoutConfig.getErrorPageLayout();
 			}
 		}
-		for (LayoutEntry e : layoutConfig.getLayouts()) {
-			if (pathMatcher.match(e.getUrlPattern(), path)) {
-				return e.getLayoutUrl();
-			}
-		}
+		// modified by GH 从下面移上来
 		for (String s : layoutConfig.getExcludes()) {
 			if (pathMatcher.match(s, path)) {
 				return null;
 			}
 		}
+		// add by GH
+		for (LayoutEntry e : layoutConfig.getLayouts()) {
+			if (pathMatcher.match(e.getUrlPattern(), "/ufb/" + super.getUrl())) {
+				return e.getLayoutUrl();
+			}
+		}
+		for (LayoutEntry e : layoutConfig.getLayouts()) {
+			if (pathMatcher.match(e.getUrlPattern(), path)) {
+				return e.getLayoutUrl();
+			}
+		}
+		// modified by GH 移到上面
+//		for (String s : layoutConfig.getExcludes()) {
+//			if (pathMatcher.match(s, path)) {
+//				return null;
+//			}
+//		}
 		return layoutConfig.getDefaultLayout();
 	}
 

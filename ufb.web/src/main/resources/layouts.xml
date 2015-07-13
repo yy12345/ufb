@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layouts defaultdir="/WEB-INF/ftl-layouts/">
-	<excludes>
-		<pattern>/static/*</pattern>
-		<pattern>/api/*</pattern>
-		<pattern>/api/**/</pattern>
-		<pattern>/**/*.ajax</pattern>
-	</excludes>
-	
 	<errorPages page="layout/default_error.vm">
         <pattern>error/404.vm</pattern>
         <pattern>error/500.vm</pattern>
@@ -14,22 +7,29 @@
     </errorPages> 
 	
     <layout page="layout/default_register.vm">
-        <pattern>/ufb/register/*.htm</pattern>
+        <pattern>/ufb/register/*.vm</pattern>
     </layout>
     
     <layout page="layout/default_setting.vm">
-        <pattern>/ufb/setting/*.htm</pattern>
+        <pattern>/ufb/setting/*.vm</pattern>
     </layout>
     
     <layout page="layout/default_trade.vm">
-        <pattern>/ufb/trade/*.htm</pattern>
+        <pattern>/ufb/trade/*.vm</pattern>
     </layout>
     
     <layout page="layout/public_cust.vm" default="true">
-        <pattern>/ufb/cust/*.htm</pattern>
+        <pattern>/ufb/cust/*.vm</pattern>
     </layout>
     
     <layout page="layout/default.vm" default="true">
         <pattern>/ufb/**/*</pattern>
     </layout>
+    
+    <excludes>
+		<pattern>/static/*</pattern>
+		<pattern>/api/*</pattern>
+		<pattern>/api/**/</pattern>
+		<pattern>/**/*.ajax</pattern>
+	</excludes>
 </layouts>
