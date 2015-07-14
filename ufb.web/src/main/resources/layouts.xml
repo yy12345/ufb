@@ -32,6 +32,10 @@
         <pattern>cust/*.vm</pattern>
     </layout>
     
+    <layout page="layout/public_cust.vm">
+        <pattern>org/*.vm</pattern>
+    </layout>
+    
     <layout page="layout/default.vm" default="true">
         <pattern>**/*.vm</pattern>
     </layout>

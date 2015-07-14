@@ -39,6 +39,150 @@ public class BankCardController {
 	private BankCardManager bankCardManager;
 	@Autowired
 	private TradeAccoManager tradeAccoManager;
+	
+	/**
+	 * 绑卡-Page
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="org/openAccountOrgInit")
+	public String openAccountOrgInit(BankCardVo bankCardVo, Model model){
+		//110101198808085574
+		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				bankCardVo.setCustNo(s_custinfo.getCustno());
+				bankCardVo.setBankMobile(s_custinfo.getMobileno());// 不能修改
+				//bankCardVo.setInvtp(s_custinfo.getInvtp());
+				//bankCardVo.setLevel(s_custinfo.getLevel());
+				bankCardVo.setInvtp("1"); // 不能修改
+				bankCardVo.setLevel("2"); // 不能修改
+				bankCardVo.setOrganization(s_custinfo.getOrganization()); // 不能修改
+				bankCardVo.setBusiness(s_custinfo.getBusiness());  // 不能修改
+				if(null == bankCardVo.getBankAcnm() || bankCardVo.getBankAcnm().trim().length() == 0){
+					bankCardVo.setBankAcnm(s_custinfo.getInvnm()); // 可以修改
+				}
+				if(null == bankCardVo.getBankIdno() || bankCardVo.getBankIdno().trim().length() == 0){
+					bankCardVo.setBankIdno(s_custinfo.getIdno()); // 可以修改
+				}
+			}
+			UserHelper.setAddBankCardStatus("N");
+			
+			model.addAttribute("BankCardVo", bankCardVo);
+			model.addAttribute("CustinfoVo", s_custinfo);
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			return "cust/indexPage";
+		}
+		return "org/openAccountOrgInit";
+	}
+	
+	/**
+	 * 绑卡-银行卡绑定(验证) + 开户
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="org/openAccountOrgResult" , method=RequestMethod.POST)
+	public String openAccountOrgResult(BankCardVo bankCardVo, Model model){
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+		
+		try{
+			if("Y".equals(UserHelper.getAddBankCardStatus())){
+				// 此开户流程已结束
+				ServletHolder.forward("/cust/session.htm");
+				return "cust/indexPage";
+			}
+			
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setHftTradeAccoCount(0);
+			openAccountAction.setBusiness(s_custinfo.getBusiness());
+			openAccountAction.setOrganization(s_custinfo.getOrganization());
+			//openAccountAction.setReqSeq("3"); // 第三步，需要验证手机验证码
+			openAccountAction.setBankno(bankCardVo.getBankNo());
+			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());
+			openAccountAction.setBankacco(bankCardVo.getBankAcco());
+			bankCardVo.setBankIdtp("0"); // 身份证绑卡
+			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());
+			openAccountAction.setBankidno(bankCardVo.getBankIdno());
+			openAccountAction.setBankmobile(bankCardVo.getBankMobile());
+			openAccountAction.setMobileAutoCode(bankCardVo.getMsgcode());
+			openAccountAction.setOtherserial(bankCardVo.getOtherserial());
+			
+			// 开户
+			openAccountAction.setCustno(bankCardVo.getCustNo());
+			openAccountAction.setLevel(s_custinfo.getLevel());
+			openAccountAction.setInvnm(bankCardVo.getBankAcnm());
+			openAccountAction.setIdno(bankCardVo.getBankIdno());
+			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
+			openAccountAction.setTradepwd2(bankCardVo.getTradePwd2());
+			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// 海富通
+			bankCardManager.openAccount4(openAccountAction);
+			
+			UserHelper.setAddBankCardStatus("Y");
+			s_custinfo.setInvnm(bankCardVo.getBankAcnm());
+			s_custinfo.setIdno(bankCardVo.getBankIdno());
+			//s_custinfo.setOpenaccount("Y");
+			
+			UserHelper.saveCustinfoVo(s_custinfo);
+			
+			model.addAttribute("BankCardVo", bankCardVo);
+			model.addAttribute("CustinfoVo", s_custinfo);
+		}catch (BizException e){
+			
+			// 获取银行列表
+			List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
+			if(StringUtils.isBlank(bankCardVo.getBankNo())){
+				// 默认第一个
+				bankCardVo.setBankNo(bankBaseList.get(0).getBankno());
+			}else{
+				// 上下文中的
+			}
+			model.addAttribute("bankList", bankBaseList);
+			
+			//验证码
+			LOG.error(e.getErrmsg(), e);
+			String ems = e.getOtherInfo();
+			
+			if(BisConst.Register.BANKACNM.equals(ems)){
+				model.addAttribute("errMsg_bankAcnm", e.getMessage());
+			}else 
+			if(BisConst.Register.BANKNO.equals(ems)){
+				model.addAttribute("errMsg_bankNo", e.getMessage());
+			}else
+			if(BisConst.Register.BANKIDNO.equals(ems) 
+				|| BisConst.Register.IDNO.equals(ems) 
+				|| BisConst.Register.IDCARDNO.equals(ems)){
+				model.addAttribute("errMsg_bankIdno", e.getMessage());
+			}else
+			if(BisConst.Register.BANKACCO.equals(ems)){
+				model.addAttribute("errMsg_bankAcco", e.getMessage());
+			}else
+			if(BisConst.Register.MOBILE.equals(ems)
+				|| BisConst.Register.BANKMOBILE.equals(ems)){
+				model.addAttribute("errMsg_bankMobile", e.getMessage());
+			}else
+			if(BisConst.Register.BANKMOBILEMSGCODE.equals(ems) 
+				|| "对方序列号".equals(ems)){
+				if("对方序列号".equals(ems)){
+					model.addAttribute("errMsg_msgcode", "手机验证码无效！");
+				}else{
+					model.addAttribute("errMsg_msgcode", e.getMessage());
+				}
+			}else{
+				model.addAttribute("errMsg", e.getMessage());
+			}
+			
+			model.addAttribute("BankCardVo", bankCardVo);
+			return "bankcard/addBankCardAuthPage";
+		}
+
+		return "org/openAccountOrgResult";
+	}
+	
+	
+	
+	
 	/**
 	 * 绑卡-Page
 	 * @param model

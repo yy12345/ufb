@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>幼富通</title>
+</head>
+<body>
+<div id="page">
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1">
+					#if(${S_CUSTINFO.level} == "0")
+					<a href="#">机构版</a>
+					<a href="#" class="active">家庭版</a>
+					#end
+					#if(${S_CUSTINFO.level} == "1" || ${S_CUSTINFO.level} == "2")
+					<a href="#" class="active">机构版</a>
+					<a href="#">家庭版</a>
+					#end
+				</div>
+				<div class="b2">
+					#if(${S_CUSTINFO})
+						<span>
+						#if (${S_CUSTINFO.invnm})
+                			${S_CUSTINFO.invnm}
+                        #elseif ($S_CUSTINFO.mobileno)
+                			#set($tailStr=$S_CUSTINFO.mobileno)
+                			#set($start=$tailStr.substring(0,3))
+                			#set($end=$tailStr.substring(7,11))
+                			$start****$end
+                		#else
+						#end
+						</span><a href="${staticDomain}/setting/settingAccount.htm"></a>
+					#end
+					
+					#if(!${S_CUSTINFO})
+						<a href="javascript:;" class="c1" id="login">登录</a>
+					#end
+				</div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="../cust/session.htm" class="active">我的幼富通</a>
+				<a href="#">学费通</a>
+				<a href="#">幼富宝</a>
+				<a href="#">短期理财</a>
+				<a href="#">幼富贷</a>
+			</div>
+        </div>
+    </div>
+    
+    <div id="body">
+		<form id="form-addBankCard" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardPage.htm">
+		<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
+		<input id="bankNo" name="bankNo" type="hidden" value="$!{BankCardVo.bankNo}">
+		<input id="bankAcco" name="bankAcco" type="hidden" value="$!{BankCardVo.bankAcco}">
+		<input id="bankMobile" name="bankMobile" type="hidden" value="$!{BankCardVo.bankMobile}">
+        <input id="invtp" name="invtp" type="hidden" value="$!{BankCardVo.invtp}">
+		<input id="level" name="level" type="hidden" value="$!{BankCardVo.level}">
+		<input id="openaccount" name="openaccount" type="hidden" value="$!{BankCardVo.openaccount}">
+					
+        <div class="container">
+			<div class="a1">机构开户</div>
+			<div class="u2">
+				<ul class="v1">
+					<li class="v1_hover">1 基本资料</li>
+					<li>2 提交材料</li>
+					<li>3 银行账户</li>
+					<li>4 开户完成 </li>
+				</ul>
+				<div class="v2">
+				    <i class="v2_1"></i>
+					<p>你正在访问幼富通安全网址，请放心操作。幼富通致力于为全国幼教机构打造安全、稳定、便捷的互联网金融服务平台。为了保障你的机构和广大幼儿家庭用户的合法权益，请认真填写以下机构登记信息，我们会严格保密相关隐私信息。</p>
+				</div>
+			</div>
+			<div class="a4 mt20">
+				<div class="b1">
+					<table>
+						<tr>
+							<td>机构名称</td>
+							<td><label class="inputText"><input name="organization" type="text" value="${CustinfoVo.organization}"></label></td>
+							<td>须与营业执照、银行对公账户的开户名称一致，信息审核成功后，名称不可修改。</td>
+						</tr>
+						<tr>
+							<td>营业执照号</td>
+							<td><label class="cardFormat" id="card1"><input name="business" type="text" value="${CustinfoVo.business}"></label></td>
+							<td>请输入15位营业执照注册号</td>
+						</tr>
+						<tr>
+							<td>实际办学/经营地址</td>
+							<td>
+								<select class="select">
+                                    <option>省份</option>
+                                    <option>浙江省</option>
+                                    <option>福建省</option>
+                                    <option>安徽省</option>
+                                </select>
+							</td>
+							<td>
+								<select class="select">
+                                    <option>城市</option>
+                                    <option>北京市</option>
+                                    <option>上海市</option>
+                                </select>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<label class="inputText"><input type="text"></label>
+							</td>
+							<td>
+								必须为真实办公或经营地址、办学地址
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<label class="checkbox"><input type="checkbox">与营业执照中注册地址相同</label>
+							</td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+				<div class="b1">
+					<table>
+						<tr>
+							<td>授权经办人姓名</td>
+							<td><label class="inputText"><input name="invnm" type="text" value="${CustinfoVo.invnm}"></label></td>
+							<td><label class="checkbox"><input type="checkbox">与营业执照中注册地址相同</label></td>
+						</tr>
+						<tr>
+							<td>身份证号</td>
+							<td><label class="cardFormat" id="card2"><input name="idno" type="text" value="${CustinfoVo.idno}"></label></td>
+							<td>若为临时身份证，请输入临时身份证号</td>
+						</tr>
+						<tr>
+							<td>手机</td>
+							<td>
+								<label class="inputText"><input name="mobileno" type="text" value="${CustinfoVo.mobileno}"></label>
+							</td>
+							<td>
+								开户审核过程中将与经办人联系
+							</td>
+						</tr>
+						<tr>
+							<td>固定电话</td>
+							<td>
+								<label class="inputText"><input type="text" value="${CustinfoVo}"></label>
+							</td>
+							<td>
+								包括区号、号码、分机号，请用“-”隔开
+							</td>
+						</tr>
+						<tr>
+							<td>邮箱</td>
+							<td>
+								<label class="inputText"><input type="text" value="${CustinfoVo}"></label>
+							</td>
+							<td><div class="formErr">错误提示</div></td>
+						</tr>
+					</table>
+				</div>
+				<div class="b1">
+					<table>
+						<tr>
+							<td>法定代表人姓名</td>
+							<td><label class="inputText"><input type="text" value="${CustinfoVo}"></label></td>
+							<td>须与营业执照一致</td>
+						</tr>
+						<tr>
+							<td>身份证号</td>
+							<td><label class="cardFormat" id="card3"><input type="text" value="${CustinfoVo}"></label></td>
+							<td>若为临时身份证，请输入临时身份证号</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<label class="checkbox"><input type="checkbox" checked="checked">我已阅读并同意</label><a href="#">《幼富通用户注册协议》</a>
+							</td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+				<div class="b2"><a href="#" class="btnA">下一步</a></div>
+			</div>
+        </div>
+		</form>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+    	//$('.checkbox').checkbox();
+    	//$('.select').selectMenu();
+    	//$('#card1').cardFormat('####,####,####,####,###');//营业执照
+    	//$('#card2,#card3').cardFormat('###,###,####,####,####');//身份证
+	
+        $(".u2 .v2 .v2_1").click(function(){
+            $(".u2 .v2").hide();
+        });
+    });
+</script>
+ 
+</body>
+</html>

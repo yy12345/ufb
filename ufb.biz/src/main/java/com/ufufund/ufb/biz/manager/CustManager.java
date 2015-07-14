@@ -28,7 +28,7 @@ public interface CustManager extends CustInterface{
 	 * @param idCardNo
 	 * @return 
 	 */
-	public boolean isIdCardNoRegister(String idCardNo) throws BizException;
+	public boolean isIdCardNoRegister(String idCardNo, String ivnTp) throws BizException;
 	
 	/**
 	 * 查询手机号是否注册

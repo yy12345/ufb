@@ -110,9 +110,15 @@ public class CustManagerValidator {
 			throw new BizException(action.getProcessId(), ErrorInfo.FREEZE_USER, BisConst.Register.CUSTNO);
 		}
 		// Custst 用户是否开户验证
-		if(action.getHftTradeAccoCount() == 0){
-			if (custManager.isIdCardNoRegister(action.getIdno().trim())) {
+		if("Org_Business".equals(actionName)){
+			if (custManager.isIdCardNoRegister(action.getIdno().trim(), "1")) {
 				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
+			}
+		}else{
+			if(action.getHftTradeAccoCount() == 0){
+				if (custManager.isIdCardNoRegister(action.getIdno().trim(), "0")) {
+					throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
+				}
 			}
 		}
 	}

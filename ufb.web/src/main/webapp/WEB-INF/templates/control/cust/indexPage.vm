@@ -86,7 +86,7 @@
 					#if(!${org} && !${family})
 					<div style="height:200px;background-color:#fff;margin-top:10px">
 						<div style="padding-top:100px;padding-left:180px">
-						<a href="#" >注册机构账户</a>
+						<a id="btn-openAccount4org" href="#" >注册机构账户</a>
 						</div>
 					</div>
 					#end	
@@ -271,6 +271,10 @@ $(function(){
 	});
 	$("#btn-openAccount4family").on("click",function(){
 		$("#form").attr("action", "../bankcard/addBankCard.htm");
+		$("#form").submit();
+	});
+	$("#btn-openAccount4org").on("click",function(){
+		$("#form").attr("action", "../org/openAccountOrgInit.htm");
 		$("#form").submit();
 	});
 	$(".btn-query").on("click",function(){

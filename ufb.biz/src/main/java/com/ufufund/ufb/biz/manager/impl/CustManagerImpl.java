@@ -103,13 +103,14 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 * @param idCardNo
 	 * @return
 	 */
-	public boolean isIdCardNoRegister(String idCardNo) throws BizException {
+	public boolean isIdCardNoRegister(String idCardNo, String invTp) throws BizException {
 		String processId = this.getProcessId(idCardNo);
 		boolean res = false;
 		if (!RegexUtil.isIdCardNo(idCardNo)) {
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.IDCARDNO);
 		}
 		Custinfo custinfo = new Custinfo();
+		custinfo.setInvtp(invTp);
 		custinfo.setIdno(idCardNo);
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if (custinfo != null && custinfo.getCustno() != null && !"".equals(custinfo.getCustno())) {

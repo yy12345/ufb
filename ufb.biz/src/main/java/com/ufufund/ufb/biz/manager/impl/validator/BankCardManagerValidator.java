@@ -120,5 +120,41 @@ public class BankCardManagerValidator {
 				}
 			}
 		}
+		
+		//基本信息验证（用户名、身份证、交易密码、开户机构）
+		if("Org_Base".equals(actionName)){
+			// CustNo
+			if (RegexUtil.isNull(action.getCustno())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.CUSTNO);
+			}
+			// 用户名
+			if (RegexUtil.isNull(action.getInvnm())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.INVNM);
+			}
+			// 证件号码
+			if (RegexUtil.isNull(action.getIdno())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.IDNO);
+			}
+			// 身份证号码
+			if (!RegexUtil.isIdCardNo(action.getIdno())) {
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDCARDNO);
+			}
+			
+			// 先不考虑绑定银行卡
+			// TODO
+			
+			// 先不考虑
+			// TODO
+			if(!"0".equals(action.getLevel())){
+//				//幼教机构
+//				if(RegexUtil.isNull(action.getOrganization())){
+//					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);
+//				}
+//				//营业执照
+//				if(RegexUtil.isNull(action.getBusiness())){
+//					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BUSINESS);
+//				}
+			}
+		}
 	}
 }

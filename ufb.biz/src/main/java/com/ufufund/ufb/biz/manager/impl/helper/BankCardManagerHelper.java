@@ -10,6 +10,7 @@ import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.TableName;
 import com.ufufund.ufb.model.hft.BankAuthRequest;
 import com.ufufund.ufb.model.hft.BankVeriRequest;
+import com.ufufund.ufb.model.hft.OpenAccountOrgRequest;
 import com.ufufund.ufb.model.hft.OpenAccountRequest;
 
 @Service
@@ -101,5 +102,40 @@ public class BankCardManagerHelper {
 //		req.setPostCode("200000");
 		req.setProtocolNo(openAccountAction.getProtocolno());
 		return req;
+	}
+	
+	public OpenAccountOrgRequest toOpenAccountOrgRequest(OpenAccountAction openAccountAction) {
+		
+		OpenAccountOrgRequest request = new OpenAccountOrgRequest();
+		
+		request.setVersion(Constant.HftSysConfig.Version);
+		request.setMerchantId(Constant.HftSysConfig.MerchantId);
+		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
+		request.setBusinType(Constant.HftBusiType.OpenAccountOrg);
+		request.setApplicationNo(openAccountAction.getSerialno());
+		request.setClearingAgencyCode(openAccountAction.getBankno());
+		request.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());
+		request.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());
+		request.setProvince("320");
+		request.setCity("581");
+		request.setInvestorName(openAccountAction.getBankacnm());//孙桥小学
+		request.setCertificateType(openAccountAction.getBankidtp());//0
+		request.setCertificateNo(openAccountAction.getBankidno());//66251638X
+		request.setCertValidDate("20181022");
+		request.setEmailAddress("15211827361@163.com");
+		request.setMobileTelNo(openAccountAction.getBankmobile());//15211827361
+		request.setOfficeTelNo("02188592231");
+		request.setFaxNo("02188592231");
+		request.setAddress("孙桥路");
+		request.setPostCode("200000");
+		request.setInstReprIDType("0");
+		request.setInstReprIDCode("441622197811056389");
+		request.setInstReprName("张薇");
+		request.setControlHolder("张江市政府");
+		request.setTransactorCertType("0");
+		request.setTransactorCertNo("530923198408078324");
+		request.setTransactorName("刘为");
+		request.setInstTranCertValidDate("20180512");
+		return request;
 	}
 }
