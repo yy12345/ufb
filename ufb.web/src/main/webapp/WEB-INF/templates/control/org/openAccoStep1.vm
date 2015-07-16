@@ -53,7 +53,7 @@
     </div>
     
     <div id="body">
-		<form id="form-addBankCard" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardPage.htm">
+		<form id="form" class="common-form"  method="post" action="${staticDomain}/org/openAccoStep1.htm">
 		<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
 		<input id="bankNo" name="bankNo" type="hidden" value="$!{BankCardVo.bankNo}">
 		<input id="bankAcco" name="bankAcco" type="hidden" value="$!{BankCardVo.bankAcco}">
@@ -201,6 +201,11 @@
         $(".u2 .v2 .v2_1").click(function(){
             $(".u2 .v2").hide();
         });
+		
+		$(".btnA").on("click",function(){
+    		$("#form").attr("action", "../org/openAccoStep2.htm");
+    		$("#form").submit();
+    	});
     });
 </script>
  

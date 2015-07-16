@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountOrgAction;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 
 public interface BankCardManager {
@@ -27,5 +28,6 @@ public interface BankCardManager {
 	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction) throws BizException;
 	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException;
 	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException;
-	public void openAccount4(OpenAccountAction openAccountAction) throws BizException;
+	public void openAccountPerson(OpenAccountAction openAccountAction) throws BizException;
+	public void openAccountOrg(OpenAccountOrgAction openAccountOrgAction) throws BizException;
 }

@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>幼富通</title>
+</head>
+<body>
+<div id="page">
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1">
+					#if(${S_CUSTINFO.level} == "0")
+					<a href="#">机构版</a>
+					<a href="#" class="active">家庭版</a>
+					#end
+					#if(${S_CUSTINFO.level} == "1" || ${S_CUSTINFO.level} == "2")
+					<a href="#" class="active">机构版</a>
+					<a href="#">家庭版</a>
+					#end
+				</div>
+				<div class="b2">
+					#if(${S_CUSTINFO})
+						<span>
+						#if (${S_CUSTINFO.invnm})
+                			${S_CUSTINFO.invnm}
+                        #elseif ($S_CUSTINFO.mobileno)
+                			#set($tailStr=$S_CUSTINFO.mobileno)
+                			#set($start=$tailStr.substring(0,3))
+                			#set($end=$tailStr.substring(7,11))
+                			$start****$end
+                		#else
+						#end
+						</span><a href="${staticDomain}/setting/settingAccount.htm"></a>
+					#end
+					
+					#if(!${S_CUSTINFO})
+						<a href="javascript:;" class="c1" id="login">登录</a>
+					#end
+				</div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="../cust/session.htm" class="active">我的幼富通</a>
+				<a href="#">学费通</a>
+				<a href="#">幼富宝</a>
+				<a href="#">短期理财</a>
+				<a href="#">幼富贷</a>
+			</div>
+        </div>
+    </div>
+    
+    <div id="body">
+		<form id="form-addBankCard" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardPage.htm">
+        <div class="container">
+			<div class="a1">机构开户</div>
+			<div class="u2">
+				<ul class="v1">
+					<li>1 基本资料</li>
+					<li>2 提交材料</li>
+					<li>3 银行账户</li>
+					<li class="v1_hover">4 开户完成 </li>
+				</ul>
+    			<div class="a7 mt20">
+                	<div class="b1">机构开户申请审核中...</div>
+                    <div class="b2">
+                    	<p>为确保你的机构理财资金服务安全，幼富通将在24小时内（工作日）严格审核您的开户申请材料，审核通过即可使用幼富通平台内产品及服务，敬请理解。</p>
+    					<p>请注意查收你的手机短信和开户邮箱，我们将及时给你发送开户确认消息。</p>
+                    </div>
+    				<div class="b3"><a href="../cust/session.htm" class="btnA">我的幼富通</a></div>
+    			</div>
+            </div>
+        </div>
+		</form>
+	</div>
+<script type="text/javascript">
+$(function(){
+	$('.select').selectMenu();
+	$('.inputText').inputText();
+	$('#card1,#card2').cardFormat('####,####,####,####,###');//营业执照
+})
+</script>
+</body>
+</html>

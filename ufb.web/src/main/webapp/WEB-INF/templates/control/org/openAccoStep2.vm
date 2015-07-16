@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>幼富通</title>
+</head>
+<body>
+<div id="page">
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1">
+					#if(${S_CUSTINFO.level} == "0")
+					<a href="#">机构版</a>
+					<a href="#" class="active">家庭版</a>
+					#end
+					#if(${S_CUSTINFO.level} == "1" || ${S_CUSTINFO.level} == "2")
+					<a href="#" class="active">机构版</a>
+					<a href="#">家庭版</a>
+					#end
+				</div>
+				<div class="b2">
+					#if(${S_CUSTINFO})
+						<span>
+						#if (${S_CUSTINFO.invnm})
+                			${S_CUSTINFO.invnm}
+                        #elseif ($S_CUSTINFO.mobileno)
+                			#set($tailStr=$S_CUSTINFO.mobileno)
+                			#set($start=$tailStr.substring(0,3))
+                			#set($end=$tailStr.substring(7,11))
+                			$start****$end
+                		#else
+						#end
+						</span><a href="${staticDomain}/setting/settingAccount.htm"></a>
+					#end
+					
+					#if(!${S_CUSTINFO})
+						<a href="javascript:;" class="c1" id="login">登录</a>
+					#end
+				</div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="#">我的幼富通</a>
+				<a href="#">学费通</a>
+				<a href="#"  class="active">幼富宝</a>
+				<a href="#">短期理财</a>
+				<a href="#">幼富贷</a>
+			</div>
+        </div>
+    </div>
+    
+    <div id="body">
+		<form id="form" class="common-form"  method="post" action="${staticDomain}/org/openAccoStep2.htm">
+        <div class="container">
+			<div class="a1">机构开户</div>
+			<div class="u2">
+				<ul class="v1">
+					<li>1 基本资料</li>
+					<li class="v1_hover">2 提交材料</li>
+					<li>3 银行账户</li>
+					<li>4 开户完成 </li>
+				</ul>
+				<div class="v2">
+				    <i class="v2_1"></i>
+					<p>以下证件材料，均须在有效期内。</p>
+					<p>格式：请提供可清晰辨认的彩色原件扫描件或数码照片；若为复印扫描件均须加盖公章后再提供彩色扫描或照片；禁止使用网上电子照片或通过PS修改过的证件； </p>
+					<p>支持：.jpg .jpeg .bmp .gif格式，大小不超过2M</p>
+				</div>
+			</div>
+			<div class="u3">
+			    <div class="v1">
+			        <span class="v1_1">经办人授权委托书</span>
+			        <div class="x1">
+			            <label class="inputFile y1"><input type="file" accept="image/*"><p>经办人授权委托书</p></label>
+			            <div class="y2">
+			                <p>◆ 下载并打印<a href="">经办人授权委托书，参考样例 </a></p>
+			                <p>&emsp;上传加盖公章的原件照片或扫描件</p>
+			            </div>
+			        </div>
+			    </div>
+			    <div class="v1">
+			        <span class="v1_1">经办人授权委托书</span>
+			        <div class="x1">
+			            <label class="inputFile y1"><input type="file" accept="image/*"><p>民非企业登记证/营业执照</p></label>
+			            <div class="y2">
+			                <p>◆ 下须与营业执照、银行对公账户的开户名称一致，</a></p>
+			                <p>&emsp;信息审核成功后，名称不可修改。</p>
+			            </div>
+			        </div>
+			         <div class="x1">
+			            <label class="inputFile y1"><input type="file" accept="image/*"><p>组织机构代码证</p></label>
+			            <div class="y2">
+			                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</a></p>
+			                <p>&emsp;信息审核成功后，名称不可修改。</p>
+			            </div>
+			        </div>
+			         <div class="x1">
+			            <label class="inputFile y1"><input type="file" accept="image/*"><p>税务登记证</p></label>
+			            <div class="y2">
+			                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</a></p>
+			                <p>&emsp;信息审核成功后，名称不可修改。</p>
+			            </div>
+			        </div>
+			         <div class="x1">
+			            <label class="inputFile y1"><input type="file" accept="image/*"><p>银行开户证明/开户许可证</p></label>
+			            <div class="y2">
+			                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
+			                <p>&emsp; 信息审核成功后，名称不可修改。</p>
+			            </div>
+			        </div>
+			        <div class="x1">
+			            <label class="inputFile y1"><input type="file" accept="image/*"><p>办学许可证</p></label>
+			            <div class="y2">
+			                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
+			                <p>&emsp;  信息审核成功后，名称不可修改。</p>
+			            </div>
+			        </div>
+			    </div>
+			     <div class="v1">
+			        <span class="v1_1">举办人/法人身份证</span>
+			        <div class="x1">
+			            <label class="inputFile y1 y5"><input type="file" accept="image/*"><p>身份证 正面</p></label>
+			           	<label class="inputFile y1 y3"><input type="file" accept="image/*"><p>身份证 正面</p></label>
+			            <div class="y4">
+			                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
+			                <p>&emsp;信息审核成功后，名称不可修改。</p>
+			            </div>
+			        </div>
+			    </div>
+			     <div class="v1">
+			        <span class="v1_1">经办人身份证</span>
+			        <div class="x1">
+			            <label class="inputFile y1 y5"><input type="file" accept="image/*"><p>身份证 正面</p></label>
+			            <label class="inputFile y1 y3"><input type="file" accept="image/*"><p>身份证 正面</p></label>
+			            <div class="y4">
+			                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
+			                <p>&emsp;信息审核成功后，名称不可修改。</p>
+			            </div>
+			        </div>
+                     <div class="x2"><a href="#" class="">上一步</a><a href="#" class="btnA">下一步</a></div>
+			    </div>
+			</div>
+			
+        </div>
+		</form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $(".u2 .v2 .v2_1").click(function(){
+            $(".u2 .v2").hide();
+        });
+		
+		$(".btnA").on("click",function(){
+    		$("#form").attr("action", "../org/openAccoStep3.htm");
+    		$("#form").submit();
+    	});
+    });
+
+</script>
+</body>
+</html>

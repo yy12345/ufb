@@ -274,7 +274,7 @@ $(function(){
 		$("#form").submit();
 	});
 	$("#btn-openAccount4org").on("click",function(){
-		$("#form").attr("action", "../org/openAccountOrgInit.htm");
+		$("#form").attr("action", "../org/openAccoStep1.htm");
 		$("#form").submit();
 	});
 	$(".btn-query").on("click",function(){

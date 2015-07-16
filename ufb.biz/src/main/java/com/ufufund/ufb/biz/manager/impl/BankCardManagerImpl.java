@@ -188,7 +188,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @param openAccountAction
 	 * @return
 	 */
-	public void openAccount4(OpenAccountAction openAccountAction) throws BizException {
+	public void openAccountPerson(OpenAccountAction openAccountAction) throws BizException {
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
 		bankCardManagerValidator.validator(openAccountAction, "User_Base");
 		// 用户注册、冻结、已开户验证
