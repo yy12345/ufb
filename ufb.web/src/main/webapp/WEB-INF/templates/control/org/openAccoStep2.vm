@@ -54,6 +54,18 @@
     
     <div id="body">
 		<form id="form" class="common-form"  method="post" action="${staticDomain}/org/openAccoStep2.htm">
+		<input id="organization" name="organization" type="hidden" value="$!{BankCardVo.organization}">
+		<input id="business" name="business" type="hidden" value="$!{BankCardVo.business}">
+		<input id="orgprovinceno" name="orgprovinceno" type="hidden" value="$!{BankCardVo.orgprovinceno}">
+		<input id="orgcityno" name="orgcityno" type="hidden" value="$!{BankCardVo.orgcityno}">
+		<input id="orgadd" name="orgadd" type="hidden" value="$!{BankCardVo.orgadd}">
+		<input id="operatornm" name="operatornm" type="hidden" value="$!{BankCardVo.operatornm}">
+		<input id="operatoridno" name="operatoridno" type="hidden" value="$!{BankCardVo.operatoridno}">
+		<input id="operatormobile" name="operatormobile" type="hidden" value="$!{BankCardVo.operatormobile}">
+		<input id="operatortelno" name="operatortelno" type="hidden" value="$!{BankCardVo.operatortelno}">
+		<input id="operatoreamiladd" name="operatoreamiladd" type="hidden" value="$!{BankCardVo.operatoreamiladd}">
+		<input id="rerpidno" name="rerpidno" type="hidden" value="$!{BankCardVo.rerpidno}">
+		<input id="rerpnm" name="rerpnm" type="hidden" value="$!{BankCardVo.rerpnm}">
         <div class="container">
 			<div class="a1">机构开户</div>
 			<div class="u2">

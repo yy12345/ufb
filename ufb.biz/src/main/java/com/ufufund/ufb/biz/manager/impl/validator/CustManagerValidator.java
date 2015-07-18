@@ -12,6 +12,7 @@ import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountOrgAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.ErrorInfo;
@@ -111,10 +112,13 @@ public class CustManagerValidator {
 		}
 		// Custst 用户是否开户验证
 		if("Org_Business".equals(actionName)){
-			if (custManager.isIdCardNoRegister(action.getIdno().trim(), "1")) {
-				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
+			// 是否开了机构户 custno ＋ invtp＝1
+			OpenAccountOrgAction orgaction = (OpenAccountOrgAction)action;
+			if (custManager.isIdCardNoRegister(orgaction.getOperatoridno().trim(), "1")) {
+				throw new BizException(orgaction.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.BANKIDNO);
 			}
 		}else{
+			// 其他 经办人、家庭
 			if(action.getHftTradeAccoCount() == 0){
 				if (custManager.isIdCardNoRegister(action.getIdno().trim(), "0")) {
 					throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);

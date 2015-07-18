@@ -95,6 +95,66 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	}
 	
 	/**
+	 * @param OpenAccountOrgAction
+	 * @return
+	 */
+	public OpenAccountOrgAction openAccoStep1(OpenAccountOrgAction openAccountOrgAction) throws BizException {
+		
+		return openAccountOrgAction;
+	}
+	
+	/**
+	 * @param OpenAccountOrgAction
+	 * @return
+	 */
+	public OpenAccountOrgAction openAccoStep2(OpenAccountOrgAction openAccountOrgAction) throws BizException {
+		String processId = this.getProcessId(openAccountOrgAction);
+		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
+		bankCardManagerValidator.validator(openAccountOrgAction, "Org_Base");
+		// 用户注册、冻结、已开户验证
+		custManagerValidator.validator(openAccountOrgAction, "Org_Business");
+		
+		// 校验是否与登录密码一致（已绑卡开户的用户不需要再次验证密码）
+		// 没有输入密码 下面检查
+//		Custinfo custinfo = new Custinfo();
+//		custinfo.setCustno(openAccountOrgAction.getCustno());
+//		custinfo = custinfoMapper.getCustinfo(custinfo);
+//		String md5 = EncryptUtil.md5(openAccountOrgAction.getTradepwd());
+//		if(md5.equals(custinfo.getPasswd())){
+//			// 交易密码不能和登录密码相同
+//			throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
+//		}
+		
+		return openAccountOrgAction;
+	}
+	
+	/**
+	 * @param OpenAccountOrgAction
+	 * @return
+	 */
+	public OpenAccountOrgAction openAccoStep3(OpenAccountOrgAction openAccountOrgAction) throws BizException {
+//		String processId = this.getProcessId(openAccountAction);
+//		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
+//		bankCardManagerValidator.validator(openAccountAction, "User_Base");
+//		// 用户注册、冻结、已开户验证
+//		custManagerValidator.validator(openAccountAction, "User_Business");
+//		
+//		if(openAccountAction.getHftTradeAccoCount() == 0){
+//			// 校验是否与登录密码一致（已绑卡开户的用户不需要再次验证密码）
+//			Custinfo custinfo = new Custinfo();
+//			custinfo.setCustno(openAccountAction.getCustno());
+//			custinfo = custinfoMapper.getCustinfo(custinfo);
+//			String md5 = EncryptUtil.md5(openAccountAction.getTradepwd());
+//			if(md5.equals(custinfo.getPasswd())){
+//				// 交易密码不能和登录密码相同
+//				throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
+//			}
+//		}
+		
+		return openAccountOrgAction;
+	}
+	
+	/**
 	 *  1 验证身份
 	 *  1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户
 	 * 
@@ -290,7 +350,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// 用户注册、冻结、已开户验证
 		custManagerValidator.validator(openAccountOrgAction, "Org_Business");
 		// 银行基本信息验证
-		bankCardManagerValidator.validator(openAccountOrgAction, "Bank_Base");
+		bankCardManagerValidator.validator(openAccountOrgAction, "Org_Bank_Base");
 		
 		// 执行开户交易
 		openAccountOrgAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());

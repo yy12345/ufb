@@ -30,4 +30,8 @@ public interface BankCardManager {
 	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException;
 	public void openAccountPerson(OpenAccountAction openAccountAction) throws BizException;
 	public void openAccountOrg(OpenAccountOrgAction openAccountOrgAction) throws BizException;
+	
+	public OpenAccountOrgAction openAccoStep1(OpenAccountOrgAction openAccountOrgAction) throws BizException;
+	public OpenAccountOrgAction openAccoStep2(OpenAccountOrgAction openAccountOrgAction) throws BizException;
+	public OpenAccountOrgAction openAccoStep3(OpenAccountOrgAction openAccountOrgAction) throws BizException;
 }

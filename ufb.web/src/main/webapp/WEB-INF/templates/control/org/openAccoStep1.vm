@@ -54,14 +54,6 @@
     
     <div id="body">
 		<form id="form" class="common-form"  method="post" action="${staticDomain}/org/openAccoStep1.htm">
-		<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
-		<input id="bankNo" name="bankNo" type="hidden" value="$!{BankCardVo.bankNo}">
-		<input id="bankAcco" name="bankAcco" type="hidden" value="$!{BankCardVo.bankAcco}">
-		<input id="bankMobile" name="bankMobile" type="hidden" value="$!{BankCardVo.bankMobile}">
-        <input id="invtp" name="invtp" type="hidden" value="$!{BankCardVo.invtp}">
-		<input id="level" name="level" type="hidden" value="$!{BankCardVo.level}">
-		<input id="openaccount" name="openaccount" type="hidden" value="$!{BankCardVo.openaccount}">
-					
         <div class="container">
 			<div class="a1">机构开户</div>
 			<div class="u2">
@@ -81,18 +73,18 @@
 					<table>
 						<tr>
 							<td>机构名称</td>
-							<td><label class="inputText"><input name="organization" type="text" value="${CustinfoVo.organization}"></label></td>
+							<td><label class="inputText"><input name="organization" type="text" value="${BankCardVo.organization}"></label></td>
 							<td>须与营业执照、银行对公账户的开户名称一致，信息审核成功后，名称不可修改。</td>
 						</tr>
 						<tr>
 							<td>营业执照号</td>
-							<td><label class="cardFormat" id="card1"><input name="business" type="text" value="${CustinfoVo.business}"></label></td>
+							<td><label class="cardFormat" id="card1"><input name="business" type="text" value="${BankCardVo.business}"></label></td>
 							<td>请输入15位营业执照注册号</td>
 						</tr>
 						<tr>
 							<td>实际办学/经营地址</td>
 							<td>
-								<select class="select">
+								<select name="orgprovinceno" class="select" value="${BankCardVo.orgprovinceno}">
                                     <option>省份</option>
                                     <option>浙江省</option>
                                     <option>福建省</option>
@@ -100,7 +92,7 @@
                                 </select>
 							</td>
 							<td>
-								<select class="select">
+								<select name="orgcityno" class="select" value="${BankCardVo.orgcityno}">
                                     <option>城市</option>
                                     <option>北京市</option>
                                     <option>上海市</option>
@@ -110,7 +102,7 @@
 						<tr>
 							<td></td>
 							<td>
-								<label class="inputText"><input type="text"></label>
+								<label class="inputText"><input name="orgadd" type="text" value="${BankCardVo.orgadd}"></label>
 							</td>
 							<td>
 								必须为真实办公或经营地址、办学地址
@@ -129,18 +121,18 @@
 					<table>
 						<tr>
 							<td>授权经办人姓名</td>
-							<td><label class="inputText"><input name="invnm" type="text" value="${CustinfoVo.invnm}"></label></td>
+							<td><label class="inputText"><input name="operatornm" type="text" value="${BankCardVo.operatornm}"></label></td>
 							<td><label class="checkbox"><input type="checkbox">与营业执照中注册地址相同</label></td>
 						</tr>
 						<tr>
 							<td>身份证号</td>
-							<td><label class="cardFormat" id="card2"><input name="idno" type="text" value="${CustinfoVo.idno}"></label></td>
+							<td><label class="cardFormat" id="card2"><input name="operatoridno" type="text" value="${BankCardVo.operatoridno}"></label></td>
 							<td>若为临时身份证，请输入临时身份证号</td>
 						</tr>
 						<tr>
 							<td>手机</td>
 							<td>
-								<label class="inputText"><input name="mobileno" type="text" value="${CustinfoVo.mobileno}"></label>
+								<label class="inputText"><input name="operatormobile" type="text" value="${BankCardVo.operatormobile}"></label>
 							</td>
 							<td>
 								开户审核过程中将与经办人联系
@@ -149,7 +141,7 @@
 						<tr>
 							<td>固定电话</td>
 							<td>
-								<label class="inputText"><input type="text" value="${CustinfoVo}"></label>
+								<label class="inputText"><input name="operatortelno" type="text" value="${BankCardVo.operatortelno}"></label>
 							</td>
 							<td>
 								包括区号、号码、分机号，请用“-”隔开
@@ -158,7 +150,7 @@
 						<tr>
 							<td>邮箱</td>
 							<td>
-								<label class="inputText"><input type="text" value="${CustinfoVo}"></label>
+								<label class="inputText"><input name="operatoreamilladd" type="text" value="${BankCardVo.operatoreamilladd}"></label>
 							</td>
 							<td><div class="formErr">错误提示</div></td>
 						</tr>
@@ -168,12 +160,12 @@
 					<table>
 						<tr>
 							<td>法定代表人姓名</td>
-							<td><label class="inputText"><input type="text" value="${CustinfoVo}"></label></td>
+							<td><label class="inputText"><input name="rerpnm" type="text" value="${BankCardVo.rerpnm}"></label></td>
 							<td>须与营业执照一致</td>
 						</tr>
 						<tr>
 							<td>身份证号</td>
-							<td><label class="cardFormat" id="card3"><input type="text" value="${CustinfoVo}"></label></td>
+							<td><label class="cardFormat" id="card3"><input name="rerpidno" type="text" value="${BankCardVo.rerpidno}"></label></td>
 							<td>若为临时身份证，请输入临时身份证号</td>
 						</tr>
 						<tr>

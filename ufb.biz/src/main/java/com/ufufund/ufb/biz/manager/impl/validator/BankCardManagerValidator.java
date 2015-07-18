@@ -7,6 +7,7 @@ import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountOrgAction;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 
 @Service
@@ -123,21 +124,23 @@ public class BankCardManagerValidator {
 		
 		//基本信息验证（用户名、身份证、交易密码、开户机构）
 		if("Org_Base".equals(actionName)){
+			OpenAccountOrgAction orgaction = (OpenAccountOrgAction)action;
 			// CustNo
-			if (RegexUtil.isNull(action.getCustno())) {
+			if (RegexUtil.isNull(orgaction.getCustno())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.CUSTNO);
 			}
 			// 用户名
-			if (RegexUtil.isNull(action.getInvnm())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.INVNM);
+			if (RegexUtil.isNull(orgaction.getOperatornm())) {
+				// TODO
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACNM);
 			}
 			// 证件号码
-			if (RegexUtil.isNull(action.getIdno())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.IDNO);
+			if (RegexUtil.isNull(orgaction.getOperatoridno())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDNO);
 			}
 			// 身份证号码
-			if (!RegexUtil.isIdCardNo(action.getIdno())) {
-				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDCARDNO);
+			if (!RegexUtil.isIdCardNo(orgaction.getOperatoridno())) {
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.BANKIDNO);
 			}
 			
 			// 先不考虑绑定银行卡
@@ -145,7 +148,7 @@ public class BankCardManagerValidator {
 			
 			// 先不考虑
 			// TODO
-			if(!"0".equals(action.getLevel())){
+			if(!"0".equals(orgaction.getLevel())){
 //				//幼教机构
 //				if(RegexUtil.isNull(action.getOrganization())){
 //					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);
@@ -154,6 +157,22 @@ public class BankCardManagerValidator {
 //				if(RegexUtil.isNull(action.getBusiness())){
 //					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BUSINESS);
 //				}
+			}
+		}
+		
+		//银行基本信息验证
+		if("Org_Bank_Base".equals(actionName)){
+			if (RegexUtil.isNull(action.getBankno())) {
+				//银行编码
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKNO);
+			}
+			if (RegexUtil.isNull(action.getBankacnm())) {
+				//银行开户户名
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACNM);
+			}
+			if (RegexUtil.isNull(action.getBankacco())) {
+				//银行卡号
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACCO);
 			}
 		}
 	}
