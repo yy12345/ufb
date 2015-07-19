@@ -73,8 +73,8 @@ public class CustManagerValidator {
 			 throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.MOBILE);
 //			throw new UserException("手机号格式错误");
 		}
-		if(Level.OPERATOR.equals(action.getLevel())){
-			// 经办人注册
+		if(Level.ORGANIZATION.equals(action.getLevel())){
+			// 机构注册
 			if (RegexUtil.isNull(action.getOrganization())) {
 				// 机构名称
 				 throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);

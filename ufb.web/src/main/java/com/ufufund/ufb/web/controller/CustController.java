@@ -155,8 +155,8 @@ public class CustController {
 	public String registerOrg(CustinfoVo custinfoVo, Model model) {
 		
 		try{
-			custinfoVo.setInvtp(Invtp.PERSONAL.getValue()); // 个人
-			custinfoVo.setLevel(Level.OPERATOR.getValue()); // 经办人
+			custinfoVo.setInvtp(Invtp.ORGANIZATION.getValue()); // 机构
+			custinfoVo.setLevel(Level.ORGANIZATION.getValue()); // 机构
 			
 			// 防止重复注册
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -176,8 +176,8 @@ public class CustController {
 			registerAction.setLoginCode(custinfoVo.getMobileno());
 			registerAction.setLoginPassword(custinfoVo.getPswpwd());
 			registerAction.setLoginPassword2(custinfoVo.getPswpwd2());
-			registerAction.setInvtp(Invtp.PERSONAL);// 个人
-			registerAction.setLevel(Level.OPERATOR); // 经办人
+			registerAction.setInvtp(Invtp.ORGANIZATION);// 机构
+			registerAction.setLevel(Level.ORGANIZATION); // 机构
 			registerAction.setCustst("N");
 			registerAction.setOrganization(custinfoVo.getOrganization());
 			registerAction.setBusiness(custinfoVo.getBusiness());

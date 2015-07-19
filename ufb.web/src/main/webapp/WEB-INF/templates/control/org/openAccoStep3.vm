@@ -100,7 +100,7 @@
 						</tr>
                         <tr>
 							<td>*重复银行账号</td>
-							<td><label class="cardFormat" id="card2"><input name="bankAcco" type="text" value="${BankCardVo.bankAcco}"></label></td>
+							<td><label class="cardFormat" id="card2"><input name="bankAcco2" type="text" value="${BankCardVo.bankAcco2}"></label></td>
 							<td><div class="formSuc"></div></td>
 						</tr>
 					</table>
