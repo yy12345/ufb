@@ -10,6 +10,7 @@ public class Tradeaccoinfo extends PrintableModel implements Serializable {
 	private String accoid;// varchar(24) not null comment '交易账号编号(本地生成的)',
 	private String custno;// char(10) not null comment '客户编号',
 	private String fundcorpno;// char(2) not null default '' comment '交易账号类型：归属基金公司',
+	private String level;
 	private String bankserialid;// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
 	private String tradeacco;// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
 	private String tradeaccost="N";// char(1) not null comment '交易账号状态：n-正常 c-撤销',
@@ -30,6 +31,14 @@ public class Tradeaccoinfo extends PrintableModel implements Serializable {
 
 	public void setFundcorpno(String fundcorpno) {
 		this.fundcorpno = fundcorpno;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 
 	public String getBankserialid() {

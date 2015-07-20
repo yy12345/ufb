@@ -63,10 +63,15 @@ public class TradeController {
 			List<String> tradeaccosts = new ArrayList<String>();
 			tradeaccosts.add("Y"); // 
 			tradeaccosts.add("N"); // 
+			
+			List<String> levels = new ArrayList<String>();
+			levels.add("0"); 
+			levels.add("2");
+			
 			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
 					custno, 
 					Constant.HftSysConfig.HftFundCorpno, 
-					null,
+					levels,
 					tradeaccosts);
 			
 			// 获取工作日信息等

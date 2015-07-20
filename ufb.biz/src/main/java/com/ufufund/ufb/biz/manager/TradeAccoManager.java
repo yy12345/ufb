@@ -24,7 +24,7 @@ public interface TradeAccoManager {
 	 * @param custno
 	 * @return
 	 */
-	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno, String fundcorpno, String state, List<String> tradeaccosts); 
+	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno, String fundcorpno, List<String> levels, List<String> tradeaccosts); 
 	
 	/**
 	 * 获取带关联银行卡信息的基金交易账号

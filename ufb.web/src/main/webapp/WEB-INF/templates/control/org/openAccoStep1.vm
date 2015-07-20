@@ -150,7 +150,7 @@
 						<tr>
 							<td>邮箱</td>
 							<td>
-								<label class="inputText"><input name="operatoreamilladd" type="text" value="${BankCardVo.operatoreamilladd}"></label>
+								<label class="inputText"><input name="operatoreamilladd" type="text" value="${BankCardVo.operatoremailadd}"></label>
 							</td>
 							<td><div class="formErr">错误提示</div></td>
 						</tr>

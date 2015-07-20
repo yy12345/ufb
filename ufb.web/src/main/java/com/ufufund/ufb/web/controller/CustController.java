@@ -428,21 +428,30 @@ public class CustController {
 		tradeaccosts.add("Y"); // 
 		tradeaccosts.add("N"); // 
 		
+		List<String> levels = new ArrayList<String>();
+		levels.add("0"); 
 		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(
 				custinfoVo.getCustno(),
 				Constant.HftSysConfig.HftFundCorpno, 
-				"0",
-				null);
-		List<TradeAccoinfoOfMore> hft_operator_trade = tradeAccoManager.getTradeAccoList(
-				custinfoVo.getCustno(),
-				Constant.HftSysConfig.HftFundCorpno, 
-				"1",
-				null);
+				levels,
+				tradeaccosts);
+		
+		levels = new ArrayList<String>();
+		levels.add("1"); 
 		List<TradeAccoinfoOfMore> hft_organization_trade = tradeAccoManager.getTradeAccoList(
 				custinfoVo.getCustno(),
 				Constant.HftSysConfig.HftFundCorpno, 
-				"2",
-				null);
+				levels,
+				tradeaccosts);
+		
+		levels = new ArrayList<String>();
+		levels.add("2"); 
+		List<TradeAccoinfoOfMore> hft_operator_trade = tradeAccoManager.getTradeAccoList(
+				custinfoVo.getCustno(),
+				Constant.HftSysConfig.HftFundCorpno, 
+				levels,
+				tradeaccosts);
+		
 		
 		if("0".equals(custinfoVo.getInvtp())){
 			// 家庭

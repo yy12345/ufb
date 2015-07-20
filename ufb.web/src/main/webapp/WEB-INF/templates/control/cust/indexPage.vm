@@ -56,7 +56,8 @@
 			<div class="a1">幼富宝</div>
 			<div class="a2">
 				<div class="b1">
-					#if(${org})
+					#if(${S_CUSTINFO.invtp} == "1")
+					#if(${hft_organization_trade_size} != 0)
 					<div class="c1">
 						机构对公账户<span>账号：**0000</span>
 						<div class="trip"><div>解释文字内容解释文字内容解释文字内容解释文字内容<b></b></div></div>
@@ -82,22 +83,22 @@
 						</div>
 						<div class="d2"><a href="" class="a_m1 mr20">资产明细</a><a href="#">自动理财设置</a><div class="trip"><div>解释文字内容解释文字内容解释文字内容解释文字内容<b></b></div></div></div>
 					</div>
-					#end
-					#if(!${org} && !${family})
+					#else
 					<div style="height:200px;background-color:#fff;margin-top:10px">
 						<div style="padding-top:100px;padding-left:180px">
 						<a id="btn-openAccount4org" href="#" >注册机构账户</a>
 						</div>
 					</div>
 					#end	
+					#end
 				</div>
 				<div class="b2">
-					#if(${opr})
-    					#if($hftTradeAccoListSize!="0")
+					#if(${S_CUSTINFO.invtp} == "1")
+    					#if(${hft_operator_trade_size} != 0)
     					<div class="c1">
     						理财银行卡账号<div class="trip"><div>解释文字内容解释文字内容解释文字内容解释文字内容<b></b></div></div>
     						<div class="d1">
-    							银行卡已添加<span class="cBlue">${hftTradeAccoListSize}</span>张
+    							银行卡已添加<span class="cBlue">${hft_operator_trade_size}</span>张
     							<a href="${staticDomain}/setting/settingCard.htm">查看全部</a>
     							<a href="${staticDomain}/bankcard/addBankCard.htm">+新卡</a>
     						</div>
@@ -132,12 +133,12 @@
         					</div>
 						#end
 					#end
-					#if(${family})
-    					#if($hftTradeAccoListSize!="0")
+					#if(${S_CUSTINFO.invtp} == "0")
+    					#if(${hft_family_trade_size} != 0)
     					<div class="c1">
     						理财银行卡账号<div class="trip"><div>解释文字内容解释文字内容解释文字内容解释文字内容<b></b></div></div>
     						<div class="d1">
-    							银行卡已添加<span class="cBlue">${hftTradeAccoListSize}</span>张
+    							银行卡已添加<span class="cBlue">${hft_family_trade_size}</span>张
     							<a href="${staticDomain}/setting/settingCard.htm">查看全部</a>
     							<a href="${staticDomain}/bankcard/addBankCard.htm">+新卡</a>
     						</div>

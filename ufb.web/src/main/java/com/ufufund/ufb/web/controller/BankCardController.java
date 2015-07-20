@@ -53,7 +53,7 @@ public class BankCardController {
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
 				bankCardVo.setCustNo(s_custinfo.getCustno());
-				bankCardVo.setBankMobile(s_custinfo.getMobileno());// 不能修改
+				bankCardVo.setOperatormobile(s_custinfo.getMobileno());// 不能修改
 				bankCardVo.setInvtp("1"); // 不能修改
 				bankCardVo.setLevel("2"); // 不能修改
 				bankCardVo.setOrganization(s_custinfo.getOrganization()); // 不能修改
@@ -66,14 +66,14 @@ public class BankCardController {
 			bankCardVo.setOrgcityno("001");
 			bankCardVo.setOrgadd("办学地址");
 			
-			bankCardVo.setOperatornm("李会山");
-			bankCardVo.setOperatoridno("110101198808083851");
-			bankCardVo.setOperatormobile("18616502181");
+			bankCardVo.setOperatornm("栾成伟");
+			bankCardVo.setOperatoridno("310108198202182814");
+			//bankCardVo.setOperatormobile("18616502181");
 			bankCardVo.setOperatortelno("51234567");
 			bankCardVo.setOperatoremailadd("18616502181@qq.com");
 			
-			bankCardVo.setRerpnm("李会山");
-			bankCardVo.setRerpidno("110101198808083851");
+			bankCardVo.setRerpnm(bankCardVo.getOperatornm());
+			bankCardVo.setRerpidno(bankCardVo.getOperatoridno());
 			
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
@@ -135,11 +135,11 @@ public class BankCardController {
 			openAccountOrgAction.setCustno(s_custinfo.getCustno());
 			
 			// for test
-			bankCardVo.setBankAcnm("XXXXXX");
+			bankCardVo.setBankAcnm("xxx幼儿园");
 			bankCardVo.setBankNo("002");
 			bankCardVo.setBankcityno("001");
 			bankCardVo.setBankprovinceno("002");
-			bankCardVo.setBankadd("---");
+			bankCardVo.setBankadd("支行网点");
 			bankCardVo.setBankAcco("6225882211122222");
 			bankCardVo.setTradePwd("123qwe");
 			bankCardVo.setTradePwd2("123qwe");
@@ -172,6 +172,8 @@ public class BankCardController {
 			
 			OpenAccountOrgAction openAccountOrgAction = new OpenAccountOrgAction();
 			openAccountOrgAction.setCustno(s_custinfo.getCustno());
+			
+			openAccountOrgAction.setLevel("1");
 			// page1
 			openAccountOrgAction.setBusiness(bankCardVo.getBusiness());
 			openAccountOrgAction.setOrganization(bankCardVo.getOrganization());
@@ -202,8 +204,9 @@ public class BankCardController {
 			bankCardManager.openAccountOrg(openAccountOrgAction);
 			
 			UserHelper.setAddBankCardStatus("Y");
-			s_custinfo.setInvnm(bankCardVo.getBankAcnm());
-			s_custinfo.setIdno(bankCardVo.getBankIdno());
+			s_custinfo.setLevel("1");
+			s_custinfo.setInvnm(bankCardVo.getOperatornm());
+			s_custinfo.setIdno(bankCardVo.getOperatoridno());
 			UserHelper.saveCustinfoVo(s_custinfo);
 			
 			model.addAttribute("BankCardVo", bankCardVo);
@@ -272,19 +275,25 @@ public class BankCardController {
 		
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			List<TradeAccoinfoOfMore> hftTradeAccoList = null;
+//			List<TradeAccoinfoOfMore> hftTradeAccoList = null;
+//			List<TradeAccoinfoOfMore> hft_family_trade = null;
+//			List<TradeAccoinfoOfMore> hft_organization_trade = null;
 			if(null != s_custinfo){
-				List<String> tradeaccosts = new ArrayList<String>();
-				tradeaccosts.add("Y"); 
-				tradeaccosts.add("N"); 
-				tradeaccosts.add("F"); 
+//				String level = "0".equals(s_custinfo.getInvtp())?"0":"2";
+//				List<String> tradeaccosts = new ArrayList<String>();
+//				tradeaccosts.add("Y"); 
+//				tradeaccosts.add("N"); 
+//				tradeaccosts.add("F"); 
 				// 海富通开户
-				hftTradeAccoList = tradeAccoManager.getTradeAccoList(
-						s_custinfo.getCustno(), 
-						Constant.HftSysConfig.HftFundCorpno,
-						null,
-						tradeaccosts);
-				if(null != hftTradeAccoList && hftTradeAccoList.size() > 0){
+				
+				
+//				hftTradeAccoList = tradeAccoManager.getTradeAccoList(
+//						s_custinfo.getCustno(), 
+//						Constant.HftSysConfig.HftFundCorpno,
+//						level,
+//						tradeaccosts);
+//				if(null != hftTradeAccoList && hftTradeAccoList.size() > 0){
+				if(s_custinfo.getIdno() !=null && s_custinfo.getInvnm() != null){
 					//直接跳转
 					UserHelper.setAddBankCardStatus("N");
 					ServletHolder.forward("/bankcard/addBankCardInit.htm");
@@ -306,7 +315,7 @@ public class BankCardController {
 			}
 			UserHelper.setAddBankCardStatus("N");
 			
-			model.addAttribute("hftTradeAccoListSize", hftTradeAccoList.size());
+			//model.addAttribute("hftTradeAccoListSize", hftTradeAccoList.size());
 			model.addAttribute("BankCardVo", bankCardVo);
 			model.addAttribute("CustinfoVo", s_custinfo);
 		}catch (BizException e){
@@ -329,23 +338,24 @@ public class BankCardController {
 		
 		try{
 			int hftTradeAccoCount = 0;
-			List<TradeAccoinfoOfMore> hftTradeAccoList = null;
+//			List<TradeAccoinfoOfMore> hftTradeAccoList = null;
 			if(null != s_custinfo){
-				List<String> tradeaccosts = new ArrayList<String>();
-				tradeaccosts.add("Y"); 
-				tradeaccosts.add("N"); 
-				tradeaccosts.add("F"); 
-				// 海富通开户
-				hftTradeAccoList = tradeAccoManager.getTradeAccoList(
-						s_custinfo.getCustno(), 
-						Constant.HftSysConfig.HftFundCorpno,
-						null,
-						tradeaccosts);
+//				List<String> tradeaccosts = new ArrayList<String>();
+//				tradeaccosts.add("Y"); 
+//				tradeaccosts.add("N"); 
+//				tradeaccosts.add("F"); 
+//				// 海富通开户
+//				hftTradeAccoList = tradeAccoManager.getTradeAccoList(
+//						s_custinfo.getCustno(), 
+//						Constant.HftSysConfig.HftFundCorpno,
+//						null,
+//						tradeaccosts);
 			}
 			OpenAccountAction openAccountAction = new OpenAccountAction();
-			if(null != hftTradeAccoList && hftTradeAccoList.size() > 0){
-				hftTradeAccoCount = hftTradeAccoList.size();
-				
+			//if(null != hftTradeAccoList && hftTradeAccoList.size() > 0){
+			if(s_custinfo.getIdno() !=null && s_custinfo.getInvnm() != null){
+//				hftTradeAccoCount = hftTradeAccoList.size();
+				hftTradeAccoCount = 1;
 				bankCardVo.setOrganization(s_custinfo.getOrganization());
 				bankCardVo.setInvtp(s_custinfo.getInvtp());
 				bankCardVo.setLevel(s_custinfo.getLevel());
@@ -358,8 +368,9 @@ public class BankCardController {
 				bankCardVo.setTradePwd(s_custinfo.getTradepwd());
 				bankCardVo.setTradePwd2(s_custinfo.getTradepwd2());
 			}else{
+				hftTradeAccoCount = 0;
 			}
-			model.addAttribute("hftTradeAccoListSize", hftTradeAccoCount);
+//			model.addAttribute("hftTradeAccoListSize", hftTradeAccoCount);
 			
 			openAccountAction.setOrganization(bankCardVo.getOrganization());
 			openAccountAction.setInvtp(bankCardVo.getInvtp());
@@ -443,13 +454,17 @@ public class BankCardController {
 			tradeaccosts.add("N"); 
 			tradeaccosts.add("F"); 
 			// 海富通开户
-			List<TradeAccoinfoOfMore> hftTradeAccoList = tradeAccoManager.getTradeAccoList(
-					s_custinfo.getCustno(), 
-					Constant.HftSysConfig.HftFundCorpno,
-					null,
-					tradeaccosts);
-			if(null != hftTradeAccoList){
-				hftTradeAccoCount = hftTradeAccoList.size();
+//			List<TradeAccoinfoOfMore> hftTradeAccoList = tradeAccoManager.getTradeAccoList(
+//					s_custinfo.getCustno(), 
+//					Constant.HftSysConfig.HftFundCorpno,
+//					null,
+//					tradeaccosts);
+//			if(null != hftTradeAccoList){
+//				hftTradeAccoCount = hftTradeAccoList.size();
+//			}
+			
+			if(s_custinfo.getIdno() !=null && s_custinfo.getInvnm() != null){
+				hftTradeAccoCount = 1;
 			}
 			
 			
@@ -474,7 +489,8 @@ public class BankCardController {
 			
 			// 4 开户
 			openAccountAction.setCustno(bankCardVo.getCustNo());
-			openAccountAction.setLevel(s_custinfo.getLevel());
+			String level = "0".equals(s_custinfo.getInvtp())?"0":"2";
+			openAccountAction.setLevel(level);
 			openAccountAction.setInvnm(bankCardVo.getBankAcnm());
 			openAccountAction.setIdno(bankCardVo.getBankIdno());
 			openAccountAction.setTradepwd(bankCardVo.getTradePwd());
@@ -483,10 +499,9 @@ public class BankCardController {
 			bankCardManager.openAccountPerson(openAccountAction);
 			
 			UserHelper.setAddBankCardStatus("Y");
+			s_custinfo.setLevel(level);
 			s_custinfo.setInvnm(bankCardVo.getBankAcnm());
 			s_custinfo.setIdno(bankCardVo.getBankIdno());
-			//s_custinfo.setOpenaccount("Y");
-			
 			UserHelper.saveCustinfoVo(s_custinfo);
 			
 			model.addAttribute("BankCardVo", bankCardVo);

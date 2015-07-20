@@ -309,6 +309,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
 		tradeaccoinfo.setCustno(openAccountAction.getCustno());// char(10) not null comment '客户编号',
 		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// char(2) not null default '' comment '交易账号类型：归属基金公司',
+		tradeaccoinfo.setLevel(openAccountAction.getLevel());
 		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
 		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionAccountID());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
 		tradeaccoinfo.setOpendt(today.getWorkday());
@@ -411,6 +412,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
 		tradeaccoinfo.setCustno(openAccountOrgAction.getCustno());// char(10) not null comment '客户编号',
 		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// char(2) not null default '' comment '交易账号类型：归属基金公司',
+		tradeaccoinfo.setLevel(openAccountOrgAction.getLevel());
 		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
 		tradeaccoinfo.setTradeacco(openAccountOrgAction.getTransactionAccountID());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
 		tradeaccoinfo.setOpendt(today.getWorkday());

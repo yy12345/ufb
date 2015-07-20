@@ -21,7 +21,7 @@ public interface TradeAccoinfoMapper {
 	public List<TradeAccoinfoOfMore> getTradeAccoList(
 			@Param("custno")String custno, 
 			@Param("fundcorpno")String fundcorpno, 
-			@Param("level")String level,
+			@Param("levels") List<String> levels,
 			@Param("tradeaccosts") List<String> tradeaccosts);
 	
 	public TradeAccoinfoOfMore getTradeAcco(

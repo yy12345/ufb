@@ -32,7 +32,6 @@ public class CustManagerHelper {
 		custinfo.setTradepwd(EncryptUtil.md5(openAccountAction.getTradepwd()));
 		custinfo.setInvtp(Invtp.PERSONAL.getValue());
 		custinfo.setIdtp(openAccountAction.getBankidtp());
-		//custinfo.setOpenaccount("Y");
 		return custinfo;
 	}
 	
@@ -41,8 +40,7 @@ public class CustManagerHelper {
 		custinfo.setCustno(openAccountOrgAction.getCustno());
 		custinfo.setInvnm(openAccountOrgAction.getInvnm());
 		custinfo.setIdno(openAccountOrgAction.getIdno());
-//		TODO 先不加密码
-//		custinfo.setTradepwd(EncryptUtil.md5(openAccountOrgAction.getTradepwd()));
+		custinfo.setTradepwd(EncryptUtil.md5(openAccountOrgAction.getTradepwd()));
 		custinfo.setInvtp(Invtp.ORGANIZATION.getValue());
 		custinfo.setIdtp(openAccountOrgAction.getBankidtp());
 		return custinfo;
