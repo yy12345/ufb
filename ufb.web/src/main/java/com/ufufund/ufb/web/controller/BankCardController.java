@@ -48,33 +48,26 @@ public class BankCardController {
 	 */
 	@RequestMapping(value="org/openAccoStep1")
 	public String openAccoStep1(BankCardVo bankCardVo, Model model){
-		//110101198808085574
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			if(null != s_custinfo){
-				bankCardVo.setCustNo(s_custinfo.getCustno());
-				bankCardVo.setOperatormobile(s_custinfo.getMobileno());// 不能修改
-				bankCardVo.setInvtp("1"); // 不能修改
-				bankCardVo.setLevel("2"); // 不能修改
-				bankCardVo.setOrganization(s_custinfo.getOrganization()); // 不能修改
-				bankCardVo.setBusiness(s_custinfo.getBusiness());  // 不能修改
-			}
-			UserHelper.setAddBankCardStatus("N");
+			bankCardVo.setCustNo(s_custinfo.getCustno());
+			bankCardVo.setOperatormobile(s_custinfo.getMobileno());
+			bankCardVo.setOrganization(s_custinfo.getOrganization()); 
+			bankCardVo.setBusiness(s_custinfo.getBusiness()); 
 			
 			// for test
 			bankCardVo.setOrgprovinceno("001");
 			bankCardVo.setOrgcityno("001");
-			bankCardVo.setOrgadd("办学地址");
-			
-			bankCardVo.setOperatornm("栾成伟");
-			bankCardVo.setOperatoridno("310108198202182814");
-			//bankCardVo.setOperatormobile("18616502181");
-			bankCardVo.setOperatortelno("51234567");
-			bankCardVo.setOperatoremailadd("18616502181@qq.com");
-			
+			bankCardVo.setOrgadd("测试幼儿园1地址");
+			bankCardVo.setOperatornm("测试账号1");
+			bankCardVo.setOperatoridno("110101198808088150");
+			bankCardVo.setOperatortelno("12345678");
+			bankCardVo.setOperatoremailadd("12345678@qq.com");
 			bankCardVo.setRerpnm(bankCardVo.getOperatornm());
 			bankCardVo.setRerpidno(bankCardVo.getOperatoridno());
+			// test end
 			
+			UserHelper.setAddBankCardStatus("N");
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -96,18 +89,19 @@ public class BankCardController {
 			OpenAccountOrgAction openAccountOrgAction = new OpenAccountOrgAction();
 			openAccountOrgAction.setCustno(s_custinfo.getCustno());
 			
+			/** 机构 **/
 			openAccountOrgAction.setBusiness(bankCardVo.getBusiness());
 			openAccountOrgAction.setOrganization(bankCardVo.getOrganization());
-			openAccountOrgAction.setOrgprovinceno(bankCardVo.getOrgprovinceno());
-			openAccountOrgAction.setOrgcityno(bankCardVo.getOrgcityno());
-			openAccountOrgAction.setOrgadd(bankCardVo.getOrgadd());
-			
+			openAccountOrgAction.setOrgprovinceno(bankCardVo.getOrgprovinceno()); //机构省、直辖市
+			openAccountOrgAction.setOrgcityno(bankCardVo.getOrgcityno()); // 机构市
+			openAccountOrgAction.setOrgadd(bankCardVo.getOrgadd()); // 机构地址
+			/** 经办人 **/
 			openAccountOrgAction.setOperatornm(bankCardVo.getOperatornm());
 			openAccountOrgAction.setOperatoridno(bankCardVo.getOperatoridno());
 			openAccountOrgAction.setOperatormobile(bankCardVo.getOperatormobile());
 			openAccountOrgAction.setOperatortelno(bankCardVo.getOperatortelno());
 			openAccountOrgAction.setOperatoremailadd(bankCardVo.getOperatoremailadd());
-			
+			/** 法人 **/
 			openAccountOrgAction.setRerpidno(bankCardVo.getRerpidno());
 			openAccountOrgAction.setRerpnm(bankCardVo.getRerpnm());
 			
@@ -271,7 +265,7 @@ public class BankCardController {
 	 * @return
 	 */
 	@RequestMapping(value="bankcard/addBankCard")
-	public String addBankCard(BankCardVo bankCardVo, Model model){
+	public String addBankCard1(BankCardVo bankCardVo, Model model){
 		
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -333,7 +327,7 @@ public class BankCardController {
 	 * @return
 	 */
 	@RequestMapping(value="bankcard/addBankCardInit")
-	public String addBankCardInit(BankCardVo bankCardVo, Model model){
+	public String addBankCard2(BankCardVo bankCardVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		
 		try{
@@ -438,7 +432,7 @@ public class BankCardController {
 	 * @return
 	 */
 	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
-	public String addBankCardChk(BankCardVo bankCardVo, Model model){
+	public String addBankCard3(BankCardVo bankCardVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		
 		try{
