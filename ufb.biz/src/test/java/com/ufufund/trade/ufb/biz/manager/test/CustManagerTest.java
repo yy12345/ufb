@@ -117,7 +117,7 @@ public class CustManagerTest {
 		openAccountAction.setBankacco("1234567890");
 		openAccountAction.setBankmobile("13611686341");
 		openAccountAction = bankCardManager.openAccount2(openAccountAction);
-		openAccountAction.setMobileAutoCode("12345678");	
+		openAccountAction.setMobileautocode("12345678");	
 		openAccountAction = bankCardManager.openAccount3(openAccountAction);
 		bankCardManager.openAccountPerson(openAccountAction);
 		//areaManager.loginIn(loginAction);

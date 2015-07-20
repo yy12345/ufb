@@ -58,7 +58,7 @@ public class BankCardManagerHelper {
 		req.setCertificateType(openAccountAction.getBankidtp());
 		req.setCertificateNo(openAccountAction.getBankidno());
 		req.setMobileTelNo(openAccountAction.getBankmobile());
-		req.setAccoreqSerial(openAccountAction.getAccoreqSerial());
+		req.setAccoreqSerial(openAccountAction.getAccoreqserial());
 		return req;
 	}
 
@@ -75,7 +75,7 @@ public class BankCardManagerHelper {
 		req.setCertificateType(openAccountAction.getBankidtp());
 		req.setCertificateNo(openAccountAction.getBankidno());
 		req.setMobileTelNo(openAccountAction.getBankmobile());
-		req.setMobileAuthCode(openAccountAction.getMobileAutoCode());
+		req.setMobileAuthCode(openAccountAction.getMobileautocode());
 		req.setOtherSerial(openAccountAction.getOtherserial());
 		return req;
 	}

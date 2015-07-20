@@ -46,13 +46,13 @@ public class AjaxCustController {
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try{
 			OpenAccountAction openAccountAction = new OpenAccountAction();
-			openAccountAction.setBankno(bankCardVo.getBankNo());//银行编号
-			openAccountAction.setBankacnm(bankCardVo.getBankAcnm());//银行用户名
-			bankCardVo.setBankIdtp("0");//银行证件类型
-			openAccountAction.setBankidtp(bankCardVo.getBankIdtp());//银行证件类型
-			openAccountAction.setBankidno(bankCardVo.getBankIdno());//银行证件号
-			openAccountAction.setBankacco(bankCardVo.getBankAcco());//银行卡号码
-			openAccountAction.setBankmobile(bankCardVo.getBankMobile());//银行手机号
+			openAccountAction.setBankno(bankCardVo.getBankno());//银行编号
+			openAccountAction.setBankacnm(bankCardVo.getBankacnm());//银行用户名
+			bankCardVo.setBankidtp("0");//银行证件类型
+			openAccountAction.setBankidtp(bankCardVo.getBankidtp());//银行证件类型
+			openAccountAction.setBankidno(bankCardVo.getBankidno());//银行证件号
+			openAccountAction.setBankacco(bankCardVo.getBankacco());//银行卡号码
+			openAccountAction.setBankmobile(bankCardVo.getMobile());//银行手机号
 			
 			//调用银行快捷鉴权
 			bankCardManager.openAccount2(openAccountAction);
@@ -60,7 +60,7 @@ public class AjaxCustController {
 			resultMap.put("errCode", "0000");
 			resultMap.put("errMsg", "银行卡鉴权成功");
 			// 对方序列号
-			resultMap.put("otherserial", openAccountAction.getAccoreqSerial());
+			resultMap.put("otherserial", openAccountAction.getAccoreqserial());
 			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);

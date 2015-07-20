@@ -42,7 +42,7 @@ public class BankCardManagerValidator {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDCARDNO);
 			}
 			
-			if(action.getHftTradeAccoCount() == 0){
+			if(action.getHftfamilytradeaccoct()== 0){
 				// 已经绑卡用户不需要再次设置交易密码
 				// 交易密码
 				if (RegexUtil.isNull(action.getTradepwd())) {
@@ -68,11 +68,11 @@ public class BankCardManagerValidator {
 			
 			if(!"0".equals(action.getLevel())){
 				//幼教机构
-				if(RegexUtil.isNull(action.getOrganization())){
+				if(RegexUtil.isNull(action.getOrgnm())){
 					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);
 				}
 				//营业执照
-				if(RegexUtil.isNull(action.getBusiness())){
+				if(RegexUtil.isNull(action.getOrgbusiness())){
 					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BUSINESS);
 				}
 			}
@@ -114,8 +114,8 @@ public class BankCardManagerValidator {
 			}
 			
 			// 绑卡验证需要验证
-			if("3".equals(action.getReqSeq())){
-				if(RegexUtil.isNull(action.getMobileAutoCode())){
+			if("3".equals(action.getReqseq())){
+				if(RegexUtil.isNull(action.getMobileautocode())){
 					//银行开户手机验证吗 isNull
 					throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKMOBILEMSGCODE);
 				}
@@ -130,16 +130,16 @@ public class BankCardManagerValidator {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.CUSTNO);
 			}
 			// 用户名
-			if (RegexUtil.isNull(orgaction.getOperatornm())) {
+			if (RegexUtil.isNull(orgaction.getInvnm())) {
 				// TODO
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACNM);
 			}
 			// 证件号码
-			if (RegexUtil.isNull(orgaction.getOperatoridno())) {
+			if (RegexUtil.isNull(orgaction.getIdno())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDNO);
 			}
 			// 身份证号码
-			if (!RegexUtil.isIdCardNo(orgaction.getOperatoridno())) {
+			if (!RegexUtil.isIdCardNo(orgaction.getIdno())) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.BANKIDNO);
 			}
 			

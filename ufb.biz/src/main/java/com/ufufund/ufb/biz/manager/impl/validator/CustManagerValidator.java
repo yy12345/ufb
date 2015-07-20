@@ -114,12 +114,12 @@ public class CustManagerValidator {
 		if("Org_Business".equals(actionName)){
 			// 是否开了机构户 custno ＋ invtp＝1
 			OpenAccountOrgAction orgaction = (OpenAccountOrgAction)action;
-			if (custManager.isIdCardNoRegister(orgaction.getOperatoridno().trim(), "1")) {
+			if (custManager.isIdCardNoRegister(orgaction.getIdno().trim(), "1")) {
 				throw new BizException(orgaction.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.BANKIDNO);
 			}
 		}else{
 			// 其他 经办人、家庭
-			if(action.getHftTradeAccoCount() == 0){
+			if(action.getHftfamilytradeaccoct() == 0){
 				if (custManager.isIdCardNoRegister(action.getIdno().trim(), "0")) {
 					throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
 				}

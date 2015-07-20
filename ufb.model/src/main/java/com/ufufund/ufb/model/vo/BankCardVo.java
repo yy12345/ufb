@@ -2,6 +2,8 @@ package com.ufufund.ufb.model.vo;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * 银行卡VO <br>
  * 创建日期：2015年3月
@@ -13,58 +15,68 @@ public class BankCardVo implements Serializable {
 
 	private static final long serialVersionUID = 2728670885588522587L;
 
-	private String reqSeq; // 步骤标示
+	// private String verifycode; // 系统验证码
+	// private String msgcode; // 手机验证码
+	/** 银行信息 **/
+	// private String bankserialid; // 银行卡ID(系统)
+	// private String sumaryCardName; // 银行卡概要名称（银行名+卡号后4位）
+	/** 其他银行信息 **/
+	// private String perLimit; // 银行卡单笔充值限额
+	// private String dayLimit; // 银行卡日累计限额
+	// private String cardLevel; // 银行卡安全级别：屏蔽充值、强制升级、非强制升级
+	// private String limitDesc; // 单笔及每日限额话术
+	// private boolean b2c; // 是否B2C
+	// private String updateDesc; // 银行通道升级文本内容
+	// private String updateLink; // 银行通道升级链接
 
-	private String custNo;
+	/////////////////////////////////////////////
+	private String reqseq; // 绑卡开户顺序号 1初始化、2鉴权、3验证、4开户
+	private String fundcorpno;
+	private String custno;
 	private String invtp;
 	private String level;
-	private String TradePwd; // 交易密码
-	private String TradePwd2; // 交易密码
-	private String verifycode; // 系统验证码
-	private String msgcode; // 手机验证码
-	private String otherserial;
-	private String openaccount;
+	private String tradepwd; // 交易密码，md5密文',
+	private String tradepwd2; // 交易密码，md5密文',
+	private String mobileautocode; // 手机验证码
 
-	/** 经办人信息 **/
-	private String operatornm; // 经办人
-	private String operatoridtp;
-	private String operatoridno;
-	private String operatormobile;
-	private String operatortelno;
-	private String operatoremailadd;
+	/** 接口必须 **/
+	private String serialno; // 流水号
+	private String accoreqserial; // 请求序列号
+	private String transactionaccountid;
+	private String otherserial; // 对方序列号
+	private String protocolno; // 银行协议编号
 
-	/** 银行信息 **/
-	private String bankSerialId; // 银行卡ID(系统)
-	private String bankNo;
-	private String bankAcco; // 银行账户
-	private String bankIdtp; // 银行证件类型
-	private String bankIdno; // 银行证件号
-	private String bankAcnm; // 银行开户户名
-	private String bankMobile; // 银行开户手机
+	/** 个人 **/
+	private String invnm; // 用户姓名',
+	private String idno; // 证件号码',
+	private String idtp;
+	private String mobile;
+	private String telno;
+	private String emailadd;
+
+	/** 机构信息 **/
+	private String orgnm; // 幼教机构名称
+	private String orgbusiness; // 营业执照注册号
+	private String orgprovinceno; // 省份
+	private String orgprovincenm;
+	private String orgcityno; // 城市
+	private String orgcitynm;
+	private String orgadd; // 实际办学经营地址
+
+	/** 银行 **/
+	// 1
+	private String bankno; // 银行编码
+	private String bankacnm; // 银行开户户名
+	private String bankidtp; // 银行证件类型
+	private String bankidno; // 银行证件号码
+	private String bankacco; // 银行卡号
+	private String bankmobile; //
+	// 2
 	private String bankprovinceno; // 省份
 	private String bankprovincenm;
 	private String bankcityno; // 城市
 	private String bankcitynm;
 	private String bankadd; // 支行网点
-	private String sumaryCardName; // 银行卡概要名称（银行名+卡号后4位）
-
-	/** 其他银行信息 **/
-	private String perLimit; // 银行卡单笔充值限额
-	private String dayLimit; // 银行卡日累计限额
-	private String cardLevel; // 银行卡安全级别：屏蔽充值、强制升级、非强制升级
-	private String limitDesc; // 单笔及每日限额话术
-	private boolean b2c; // 是否B2C
-	private String updateDesc; // 银行通道升级文本内容
-	private String updateLink; // 银行通道升级链接
-
-	/** 机构信息 **/
-	private String business; // 营业执照注册号
-	private String organization;// 幼教机构名称
-	private String orgprovinceno; // 省份
-	private String orgprovincenm;
-	private String orgcityno; // 城市
-	private String orgadd; // 实际办学经营地址
-	private String orgcitynm;
 
 	/** 法人信息 **/
 	private String rerpidtp; // 法人证件类型
@@ -72,20 +84,49 @@ public class BankCardVo implements Serializable {
 	private String rerpvalidt; // 法人证件有效日期
 	private String rerpnm; // 法人姓名
 
-	public String getReqSeq() {
-		return reqSeq;
+	private int hftfamilytradeaccoct;
+	private int hftoperatortradeaccoct;
+	private int hftorganizationtradeaccoct;
+	private int cpfamilytradeaccoct;
+	private int cporganizationtradeaccoct;
+	/////////////////////////////////////////////
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+		// return "BankCardVO [bankSerialId=" + bankSerialId + ", bankNo=" +
+		// bankNo + ", custNo=" + custNo + ", bankAcco="
+		// + bankAcco + ", sumaryCardName=" + sumaryCardName + ", bankAcnm=" +
+		// bankAcnm + ", bankIdtp=" + bankIdtp
+		// + ", bankIdno=" + bankIdno + ", bankMobile=" + bankMobile + ",
+		// perLimit=" + perLimit + ", dayLimit="
+		// + dayLimit + ", cardLevel=" + cardLevel + ", limitDesc=" + limitDesc
+		// + ", b2c=" + b2c + ", updateDesc="
+		// + updateDesc + ", updateLink=" + updateLink + "]";
 	}
 
-	public void setReqSeq(String reqSeq) {
-		this.reqSeq = reqSeq;
+	public String getReqseq() {
+		return reqseq;
 	}
 
-	public String getCustNo() {
-		return custNo;
+	public void setReqseq(String reqseq) {
+		this.reqseq = reqseq;
 	}
 
-	public void setCustNo(String custNo) {
-		this.custNo = custNo;
+	public String getFundcorpno() {
+		return fundcorpno;
+	}
+
+	public void setFundcorpno(String fundcorpno) {
+		this.fundcorpno = fundcorpno;
+	}
+
+	public String getCustno() {
+		return custno;
+	}
+
+	public void setCustno(String custno) {
+		this.custno = custno;
 	}
 
 	public String getInvtp() {
@@ -104,36 +145,52 @@ public class BankCardVo implements Serializable {
 		this.level = level;
 	}
 
-	public String getTradePwd() {
-		return TradePwd;
+	public String getTradepwd() {
+		return tradepwd;
 	}
 
-	public void setTradePwd(String tradePwd) {
-		TradePwd = tradePwd;
+	public void setTradepwd(String tradepwd) {
+		this.tradepwd = tradepwd;
 	}
 
-	public String getTradePwd2() {
-		return TradePwd2;
+	public String getTradepwd2() {
+		return tradepwd2;
 	}
 
-	public void setTradePwd2(String tradePwd2) {
-		TradePwd2 = tradePwd2;
+	public void setTradepwd2(String tradepwd2) {
+		this.tradepwd2 = tradepwd2;
 	}
 
-	public String getVerifycode() {
-		return verifycode;
+	public String getMobileautocode() {
+		return mobileautocode;
 	}
 
-	public void setVerifycode(String verifycode) {
-		this.verifycode = verifycode;
+	public void setMobileautocode(String mobileautocode) {
+		this.mobileautocode = mobileautocode;
 	}
 
-	public String getMsgcode() {
-		return msgcode;
+	public String getSerialno() {
+		return serialno;
 	}
 
-	public void setMsgcode(String msgcode) {
-		this.msgcode = msgcode;
+	public void setSerialno(String serialno) {
+		this.serialno = serialno;
+	}
+
+	public String getAccoreqserial() {
+		return accoreqserial;
+	}
+
+	public void setAccoreqserial(String accoreqserial) {
+		this.accoreqserial = accoreqserial;
+	}
+
+	public String getTransactionaccountid() {
+		return transactionaccountid;
+	}
+
+	public void setTransactionaccountid(String transactionaccountid) {
+		this.transactionaccountid = transactionaccountid;
 	}
 
 	public String getOtherserial() {
@@ -144,116 +201,164 @@ public class BankCardVo implements Serializable {
 		this.otherserial = otherserial;
 	}
 
-	public String getOpenaccount() {
-		return openaccount;
+	public String getProtocolno() {
+		return protocolno;
 	}
 
-	public void setOpenaccount(String openaccount) {
-		this.openaccount = openaccount;
+	public void setProtocolno(String protocolno) {
+		this.protocolno = protocolno;
 	}
 
-	public String getOperatornm() {
-		return operatornm;
+	public String getInvnm() {
+		return invnm;
 	}
 
-	public void setOperatornm(String operatornm) {
-		this.operatornm = operatornm;
+	public void setInvnm(String invnm) {
+		this.invnm = invnm;
 	}
 
-	public String getOperatoridtp() {
-		return operatoridtp;
+	public String getIdno() {
+		return idno;
 	}
 
-	public void setOperatoridtp(String operatoridtp) {
-		this.operatoridtp = operatoridtp;
+	public void setIdno(String idno) {
+		this.idno = idno;
 	}
 
-	public String getOperatoridno() {
-		return operatoridno;
+	public String getIdtp() {
+		return idtp;
 	}
 
-	public void setOperatoridno(String operatoridno) {
-		this.operatoridno = operatoridno;
+	public void setIdtp(String idtp) {
+		this.idtp = idtp;
 	}
 
-	public String getOperatormobile() {
-		return operatormobile;
+	public String getMobile() {
+		return mobile;
 	}
 
-	public void setOperatormobile(String operatormobile) {
-		this.operatormobile = operatormobile;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
-	public String getOperatortelno() {
-		return operatortelno;
+	public String getTelno() {
+		return telno;
 	}
 
-	public void setOperatortelno(String operatortelno) {
-		this.operatortelno = operatortelno;
+	public void setTelno(String telno) {
+		this.telno = telno;
 	}
 
-	public String getOperatoremailadd() {
-		return operatoremailadd;
+	public String getEmailadd() {
+		return emailadd;
 	}
 
-	public void setOperatoremailadd(String operatoremailadd) {
-		this.operatoremailadd = operatoremailadd;
+	public void setEmailadd(String emailadd) {
+		this.emailadd = emailadd;
 	}
 
-	public String getBankSerialId() {
-		return bankSerialId;
+	public String getOrgnm() {
+		return orgnm;
 	}
 
-	public void setBankSerialId(String bankSerialId) {
-		this.bankSerialId = bankSerialId;
+	public void setOrgnm(String orgnm) {
+		this.orgnm = orgnm;
 	}
 
-	public String getBankNo() {
-		return bankNo;
+	public String getOrgbusiness() {
+		return orgbusiness;
 	}
 
-	public void setBankNo(String bankNo) {
-		this.bankNo = bankNo;
+	public void setOrgbusiness(String orgbusiness) {
+		this.orgbusiness = orgbusiness;
 	}
 
-	public String getBankAcco() {
-		return bankAcco;
+	public String getOrgprovinceno() {
+		return orgprovinceno;
 	}
 
-	public void setBankAcco(String bankAcco) {
-		this.bankAcco = bankAcco;
+	public void setOrgprovinceno(String orgprovinceno) {
+		this.orgprovinceno = orgprovinceno;
 	}
 
-	public String getBankIdtp() {
-		return bankIdtp;
+	public String getOrgprovincenm() {
+		return orgprovincenm;
 	}
 
-	public void setBankIdtp(String bankIdtp) {
-		this.bankIdtp = bankIdtp;
+	public void setOrgprovincenm(String orgprovincenm) {
+		this.orgprovincenm = orgprovincenm;
 	}
 
-	public String getBankIdno() {
-		return bankIdno;
+	public String getOrgcityno() {
+		return orgcityno;
 	}
 
-	public void setBankIdno(String bankIdno) {
-		this.bankIdno = bankIdno;
+	public void setOrgcityno(String orgcityno) {
+		this.orgcityno = orgcityno;
 	}
 
-	public String getBankAcnm() {
-		return bankAcnm;
+	public String getOrgcitynm() {
+		return orgcitynm;
 	}
 
-	public void setBankAcnm(String bankAcnm) {
-		this.bankAcnm = bankAcnm;
+	public void setOrgcitynm(String orgcitynm) {
+		this.orgcitynm = orgcitynm;
 	}
 
-	public String getBankMobile() {
-		return bankMobile;
+	public String getOrgadd() {
+		return orgadd;
 	}
 
-	public void setBankMobile(String bankMobile) {
-		this.bankMobile = bankMobile;
+	public void setOrgadd(String orgadd) {
+		this.orgadd = orgadd;
+	}
+
+	public String getBankno() {
+		return bankno;
+	}
+
+	public void setBankno(String bankno) {
+		this.bankno = bankno;
+	}
+
+	public String getBankacnm() {
+		return bankacnm;
+	}
+
+	public void setBankacnm(String bankacnm) {
+		this.bankacnm = bankacnm;
+	}
+
+	public String getBankidtp() {
+		return bankidtp;
+	}
+
+	public void setBankidtp(String bankidtp) {
+		this.bankidtp = bankidtp;
+	}
+
+	public String getBankidno() {
+		return bankidno;
+	}
+
+	public void setBankidno(String bankidno) {
+		this.bankidno = bankidno;
+	}
+
+	public String getBankacco() {
+		return bankacco;
+	}
+
+	public void setBankacco(String bankacco) {
+		this.bankacco = bankacco;
+	}
+
+	public String getBankmobile() {
+		return bankmobile;
+	}
+
+	public void setBankmobile(String bankmobile) {
+		this.bankmobile = bankmobile;
 	}
 
 	public String getBankprovinceno() {
@@ -296,126 +401,6 @@ public class BankCardVo implements Serializable {
 		this.bankadd = bankadd;
 	}
 
-	public String getSumaryCardName() {
-		return sumaryCardName;
-	}
-
-	public void setSumaryCardName(String sumaryCardName) {
-		this.sumaryCardName = sumaryCardName;
-	}
-
-	public String getPerLimit() {
-		return perLimit;
-	}
-
-	public void setPerLimit(String perLimit) {
-		this.perLimit = perLimit;
-	}
-
-	public String getDayLimit() {
-		return dayLimit;
-	}
-
-	public void setDayLimit(String dayLimit) {
-		this.dayLimit = dayLimit;
-	}
-
-	public String getCardLevel() {
-		return cardLevel;
-	}
-
-	public void setCardLevel(String cardLevel) {
-		this.cardLevel = cardLevel;
-	}
-
-	public String getLimitDesc() {
-		return limitDesc;
-	}
-
-	public void setLimitDesc(String limitDesc) {
-		this.limitDesc = limitDesc;
-	}
-
-	public boolean isB2c() {
-		return b2c;
-	}
-
-	public void setB2c(boolean b2c) {
-		this.b2c = b2c;
-	}
-
-	public String getUpdateDesc() {
-		return updateDesc;
-	}
-
-	public void setUpdateDesc(String updateDesc) {
-		this.updateDesc = updateDesc;
-	}
-
-	public String getUpdateLink() {
-		return updateLink;
-	}
-
-	public void setUpdateLink(String updateLink) {
-		this.updateLink = updateLink;
-	}
-
-	public String getBusiness() {
-		return business;
-	}
-
-	public void setBusiness(String business) {
-		this.business = business;
-	}
-
-	public String getOrganization() {
-		return organization;
-	}
-
-	public void setOrganization(String organization) {
-		this.organization = organization;
-	}
-
-	public String getOrgprovinceno() {
-		return orgprovinceno;
-	}
-
-	public void setOrgprovinceno(String orgprovinceno) {
-		this.orgprovinceno = orgprovinceno;
-	}
-
-	public String getOrgprovincenm() {
-		return orgprovincenm;
-	}
-
-	public void setOrgprovincenm(String orgprovincenm) {
-		this.orgprovincenm = orgprovincenm;
-	}
-
-	public String getOrgcityno() {
-		return orgcityno;
-	}
-
-	public void setOrgcityno(String orgcityno) {
-		this.orgcityno = orgcityno;
-	}
-
-	public String getOrgadd() {
-		return orgadd;
-	}
-
-	public void setOrgadd(String orgadd) {
-		this.orgadd = orgadd;
-	}
-
-	public String getOrgcitynm() {
-		return orgcitynm;
-	}
-
-	public void setOrgcitynm(String orgcitynm) {
-		this.orgcitynm = orgcitynm;
-	}
-
 	public String getRerpidtp() {
 		return rerpidtp;
 	}
@@ -448,13 +433,44 @@ public class BankCardVo implements Serializable {
 		this.rerpnm = rerpnm;
 	}
 
-	@Override
-	public String toString() {
-		return "BankCardVO [bankSerialId=" + bankSerialId + ", bankNo=" + bankNo + ", custNo=" + custNo + ", bankAcco="
-				+ bankAcco + ", sumaryCardName=" + sumaryCardName + ", bankAcnm=" + bankAcnm + ", bankIdtp=" + bankIdtp
-				+ ", bankIdno=" + bankIdno + ", bankMobile=" + bankMobile + ", perLimit=" + perLimit + ", dayLimit="
-				+ dayLimit + ", cardLevel=" + cardLevel + ", limitDesc=" + limitDesc + ", b2c=" + b2c + ", updateDesc="
-				+ updateDesc + ", updateLink=" + updateLink + "]";
+	public int getHftfamilytradeaccoct() {
+		return hftfamilytradeaccoct;
+	}
+
+	public void setHftfamilytradeaccoct(int hftfamilytradeaccoct) {
+		this.hftfamilytradeaccoct = hftfamilytradeaccoct;
+	}
+
+	public int getHftoperatortradeaccoct() {
+		return hftoperatortradeaccoct;
+	}
+
+	public void setHftoperatortradeaccoct(int hftoperatortradeaccoct) {
+		this.hftoperatortradeaccoct = hftoperatortradeaccoct;
+	}
+
+	public int getHftorganizationtradeaccoct() {
+		return hftorganizationtradeaccoct;
+	}
+
+	public void setHftorganizationtradeaccoct(int hftorganizationtradeaccoct) {
+		this.hftorganizationtradeaccoct = hftorganizationtradeaccoct;
+	}
+
+	public int getCpfamilytradeaccoct() {
+		return cpfamilytradeaccoct;
+	}
+
+	public void setCpfamilytradeaccoct(int cpfamilytradeaccoct) {
+		this.cpfamilytradeaccoct = cpfamilytradeaccoct;
+	}
+
+	public int getCporganizationtradeaccoct() {
+		return cporganizationtradeaccoct;
+	}
+
+	public void setCporganizationtradeaccoct(int cporganizationtradeaccoct) {
+		this.cporganizationtradeaccoct = cporganizationtradeaccoct;
 	}
 
 }

@@ -168,7 +168,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// 用户注册、冻结、已开户验证
 		custManagerValidator.validator(openAccountAction, "User_Business");
 		
-		if(openAccountAction.getHftTradeAccoCount() == 0){
+		if(openAccountAction.getHftorganizationtradeaccoct() == 0){
 			// 校验是否与登录密码一致（已绑卡开户的用户不需要再次验证密码）
 			Custinfo custinfo = new Custinfo();
 			custinfo.setCustno(openAccountAction.getCustno());
@@ -204,7 +204,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		
 		// 生成流水号
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-		openAccountAction.setAccoreqSerial(tradeNotesMapper.getAccoreqSerialSeq());
+		openAccountAction.setAccoreqserial(tradeNotesMapper.getAccoreqSerialSeq());
 		
 		// 执行鉴权交易
 		BankAuthRequest request = bankCardManagerHelper.toBankAuthRequest(openAccountAction);
@@ -265,11 +265,11 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		HftResponseUtil.dealResponseCode(response);
 		
 		// *** 开户成功，更新custinfo表的交易帐号、投资人姓名、证件类型、证件号、开户状态、交易密码
-		openAccountAction.setTransactionAccountID(response.getTransactionAccountID());
+		openAccountAction.setTransactionaccountid(response.getTransactionAccountID());
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(openAccountAction.getCustno());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
-		if(openAccountAction.getHftTradeAccoCount() == 0){
+		if(openAccountAction.getHftfamilytradeaccoct() == 0){
 		    custinfo = custManagerHelper.toOpenAccountAction(openAccountAction);
 			custinfoMapper.updateCustinfo(custinfo);
 			Changerecordinfo changerecordinfo2 = new Changerecordinfo();
@@ -311,7 +311,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// char(2) not null default '' comment '交易账号类型：归属基金公司',
 		tradeaccoinfo.setLevel(openAccountAction.getLevel());
 		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
-		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionAccountID());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
+		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionaccountid());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
 		tradeaccoinfo.setOpendt(today.getWorkday());
 		tradeAccoinfoMapper.insterTradeaccoinfo(tradeaccoinfo);
 
@@ -320,7 +320,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		fdacfinalresult.setCustno(custinfo.getCustno());
 						   
 		fdacfinalresult.setTobankserialid(bankcardinfodef.getSerialid());
-		fdacfinalresult.setTotradeacco(openAccountAction.getTransactionAccountID());
+		fdacfinalresult.setTotradeacco(openAccountAction.getTransactionaccountid());
 		fdacfinalresult.setWorkdate(today.getWorkday());
 		fdacfinalresult.setApdt(today.getDate());
 		fdacfinalresult.setAptm(today.getTime());
@@ -362,7 +362,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		HftResponseUtil.dealResponseCode(response);
 		
 		// *** 开户成功，更新custinfo表的交易帐号、投资人姓名、证件类型、证件号、开户状态、交易密码
-		openAccountOrgAction.setTransactionAccountID(response.getTransactionAccountID());
+		openAccountOrgAction.setTransactionaccountid(response.getTransactionAccountID());
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(openAccountOrgAction.getCustno());
 		custinfo.setInvtp(Invtp.ORGANIZATION.getValue());
@@ -414,7 +414,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// char(2) not null default '' comment '交易账号类型：归属基金公司',
 		tradeaccoinfo.setLevel(openAccountOrgAction.getLevel());
 		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
-		tradeaccoinfo.setTradeacco(openAccountOrgAction.getTransactionAccountID());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
+		tradeaccoinfo.setTradeacco(openAccountOrgAction.getTransactionaccountid());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
 		tradeaccoinfo.setOpendt(today.getWorkday());
 		tradeAccoinfoMapper.insterTradeaccoinfo(tradeaccoinfo);
 
@@ -422,7 +422,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//helper.toFdacfinalresult(custinfo);
 		fdacfinalresult.setCustno(custinfo.getCustno());
 		fdacfinalresult.setTobankserialid(bankcardinfodef.getSerialid());
-		fdacfinalresult.setTotradeacco(openAccountOrgAction.getTransactionAccountID());
+		fdacfinalresult.setTotradeacco(openAccountOrgAction.getTransactionaccountid());
 		fdacfinalresult.setWorkdate(today.getWorkday());
 		fdacfinalresult.setApdt(today.getDate());
 		fdacfinalresult.setAptm(today.getTime());
