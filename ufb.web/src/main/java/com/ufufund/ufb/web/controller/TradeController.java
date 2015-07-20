@@ -66,8 +66,8 @@ public class TradeController {
 			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
 					custno, 
 					Constant.HftSysConfig.HftFundCorpno, 
-					tradeaccosts, 
-					null);
+					null,
+					tradeaccosts);
 			
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();

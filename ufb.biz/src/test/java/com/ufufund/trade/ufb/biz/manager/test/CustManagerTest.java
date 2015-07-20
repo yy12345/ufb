@@ -119,7 +119,7 @@ public class CustManagerTest {
 		openAccountAction = bankCardManager.openAccount2(openAccountAction);
 		openAccountAction.setMobileAutoCode("12345678");	
 		openAccountAction = bankCardManager.openAccount3(openAccountAction);
-		bankCardManager.openAccount4(openAccountAction);
+		bankCardManager.openAccountPerson(openAccountAction);
 		//areaManager.loginIn(loginAction);
 	}
 	

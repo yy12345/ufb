@@ -282,8 +282,8 @@ public class BankCardController {
 				hftTradeAccoList = tradeAccoManager.getTradeAccoList(
 						s_custinfo.getCustno(), 
 						Constant.HftSysConfig.HftFundCorpno,
-						tradeaccosts,
-						null);
+						null,
+						tradeaccosts);
 				if(null != hftTradeAccoList && hftTradeAccoList.size() > 0){
 					//直接跳转
 					UserHelper.setAddBankCardStatus("N");
@@ -339,8 +339,8 @@ public class BankCardController {
 				hftTradeAccoList = tradeAccoManager.getTradeAccoList(
 						s_custinfo.getCustno(), 
 						Constant.HftSysConfig.HftFundCorpno,
-						tradeaccosts,
-						null);
+						null,
+						tradeaccosts);
 			}
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			if(null != hftTradeAccoList && hftTradeAccoList.size() > 0){
@@ -446,8 +446,8 @@ public class BankCardController {
 			List<TradeAccoinfoOfMore> hftTradeAccoList = tradeAccoManager.getTradeAccoList(
 					s_custinfo.getCustno(), 
 					Constant.HftSysConfig.HftFundCorpno,
-					tradeaccosts,
-					null);
+					null,
+					tradeaccosts);
 			if(null != hftTradeAccoList){
 				hftTradeAccoCount = hftTradeAccoList.size();
 			}

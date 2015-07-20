@@ -120,8 +120,8 @@
 			<if test="fundcorpno != null and fundcorpno !=''" >
   			and t.fundcorpno = #{fundcorpno,jdbcType=VARCHAR}
   			</if>
-  			<if test="state != null and state !=''" >
-			and b.state = #{state,jdbcType=VARCHAR}
+  			<if test="level != null and level !=''" >
+			and t.level = #{level,jdbcType=VARCHAR}
 			</if>
 			and b.custno = #{custno,jdbcType=VARCHAR}
 		order by b.mainflag desc

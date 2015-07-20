@@ -361,32 +361,6 @@ public class CustController {
 			Custinfo custinfo = custManager.loginIn(loginAction);
 			custinfoVo = this.convertCustInfo2Vo(custinfo);
 			
-			CustinfoVo org = null;
-			CustinfoVo opr = null;
-			CustinfoVo family = null;
-			// 分流
-			String invtp = custinfo.getInvtp();
-			if("0".equals(invtp)){
-				// 个人，检查level:0家庭1经办人
-				String level = custinfo.getLevel();
-				if("0".equals(level)){
-					// 家庭
-					family = custinfoVo;
-					// 无处理
-				}else{
-					// 经办人
-					opr = custinfoVo;
-					// 找出对应机构
-					org = this.convertCustInfo2Vo(custManager.getCustinfoMapping(null, opr.getCustno()));
-				}
-			
-			}else{
-				// 机构
-				org = custinfoVo;
-				// 找出对应经办人
-				opr = this.convertCustInfo2Vo(custManager.getCustinfoMapping(org.getCustno(), null));
-			}
-			
 			/** 货基信息显示 **/
 			// 海富通
 			FundInfo hftFundInfo = new FundInfo();
@@ -427,21 +401,7 @@ public class CustController {
 			/** 资产 **/
 			// 保存主帐户至session
 			UserHelper.saveCustinfoVo(custinfoVo); // S_CUSTINFO
-			
-			if(null != org){
-				// 左上角
-				model.addAttribute("org", org);
-			}
-			if(null != opr){
-				// 右上角
-				model.addAttribute("opr", opr);
-				this.setModel(opr, model);
-			}
-			if(null != family){
-				// 右上角
-				model.addAttribute("family", family);
-				this.setModel(family, model);
-			}
+			this.setModel(custinfoVo, model);
 			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -467,28 +427,82 @@ public class CustController {
 		List<String> tradeaccosts = new ArrayList<String>();
 		tradeaccosts.add("Y"); // 
 		tradeaccosts.add("N"); // 
-		List<TradeAccoinfoOfMore> hftTradeAccoList = tradeAccoManager.getTradeAccoList(
+		
+		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(
 				custinfoVo.getCustno(),
 				Constant.HftSysConfig.HftFundCorpno, 
-				tradeaccosts,
+				"0",
 				null);
-		if(null != hftTradeAccoList && hftTradeAccoList.size() > 0){
-			// 海富通资产显示
-			Assets htfAssets = queryManager.queryAssets(hftTradeAccoList, BasicFundinfo.YFB.getFundCode());
-			model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotal()));// 总资产
-			model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getAvailable()));// 可用资产
-			model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFrozen()));// 冻结资产
-			model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFunddayincome()));// 昨日收益
-			model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotalincome()));// 累计受益
-			model.addAttribute("hftTradeAccoListSize", hftTradeAccoList.size());
-		} else {
-			// 资产显示
-			model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-			model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-			model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-			model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
-			model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
-			model.addAttribute("hftTradeAccoListSize", "0");
+		List<TradeAccoinfoOfMore> hft_operator_trade = tradeAccoManager.getTradeAccoList(
+				custinfoVo.getCustno(),
+				Constant.HftSysConfig.HftFundCorpno, 
+				"1",
+				null);
+		List<TradeAccoinfoOfMore> hft_organization_trade = tradeAccoManager.getTradeAccoList(
+				custinfoVo.getCustno(),
+				Constant.HftSysConfig.HftFundCorpno, 
+				"2",
+				null);
+		
+		if("0".equals(custinfoVo.getInvtp())){
+			// 家庭
+			if(null != hft_family_trade && hft_family_trade.size() > 0){
+				// 海富通资产显示
+				Assets htfAssets = queryManager.queryAssets(hft_family_trade, BasicFundinfo.YFB.getFundCode());
+				model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotal()));// 总资产
+				model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getAvailable()));// 可用资产
+				model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFrozen()));// 冻结资产
+				model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFunddayincome()));// 昨日收益
+				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotalincome()));// 累计受益
+				model.addAttribute("hft_family_trade_size", hft_family_trade.size());
+			} else {
+				// 资产显示
+				model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
+				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
+				model.addAttribute("hft_family_trade_size", "0");
+			}
+		}else if("1".equals(custinfoVo.getInvtp())){
+			// 机构
+			if(null != hft_operator_trade && hft_operator_trade.size() > 0){
+				// 海富通资产显示
+				Assets htfAssets = queryManager.queryAssets(hft_operator_trade, BasicFundinfo.YFB.getFundCode());
+				model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotal()));// 总资产
+				model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getAvailable()));// 可用资产
+				model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFrozen()));// 冻结资产
+				model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFunddayincome()));// 昨日收益
+				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotalincome()));// 累计受益
+				model.addAttribute("hft_operator_trade_size", hft_operator_trade.size());
+			} else {
+				// 资产显示
+				model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
+				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
+				model.addAttribute("hft_operator_trade_size", "0");
+			}
+			// 经办人
+			if(null != hft_organization_trade && hft_organization_trade.size() > 0){
+				// 海富通资产显示
+				Assets htfAssets = queryManager.queryAssets(hft_organization_trade, BasicFundinfo.YFB.getFundCode());
+				model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotal()));// 总资产
+				model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getAvailable()));// 可用资产
+				model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFrozen()));// 冻结资产
+				model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFunddayincome()));// 昨日收益
+				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotalincome()));// 累计受益
+				model.addAttribute("hft_organization_trade_size", hft_organization_trade.size());
+			} else {
+				// 资产显示
+				model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+				model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
+				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
+				model.addAttribute("hft_organization_trade_size", "0");
+			}
 		}
 	}
 	
@@ -522,31 +536,31 @@ public class CustController {
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
 				// Session登录
-				CustinfoVo org = null;
-				CustinfoVo opr = null;
-				CustinfoVo family = null;
-				// 分流
-				String invtp = s_custinfo.getInvtp();
-				if("0".equals(invtp)){
-					// 个人，检查level:0家庭1经办人
-					String level = s_custinfo.getLevel();
-					if("0".equals(level)){
-						// 家庭
-						family = s_custinfo;
-						// 无处理
-					}else{
-						// 经办人
-						opr = s_custinfo;
-						// 找出对应机构
-						org = this.convertCustInfo2Vo(custManager.getCustinfoMapping(null, opr.getCustno()));
-					}
-				
-				}else{
-					// 机构
-					org = s_custinfo;
-					// 找出对应经办人
-					opr = this.convertCustInfo2Vo(custManager.getCustinfoMapping(org.getCustno(), null));
-				}
+//				CustinfoVo org = null;
+//				CustinfoVo opr = null;
+//				CustinfoVo family = null;
+//				// 分流
+//				String invtp = s_custinfo.getInvtp();
+//				if("0".equals(invtp)){
+//					// 个人，检查level:0家庭1经办人
+//					String level = s_custinfo.getLevel();
+//					if("0".equals(level)){
+//						// 家庭
+//						family = s_custinfo;
+//						// 无处理
+//					}else{
+//						// 经办人
+//						opr = s_custinfo;
+//						// 找出对应机构
+//						org = this.convertCustInfo2Vo(custManager.getCustinfoMapping(null, opr.getCustno()));
+//					}
+//				
+//				}else{
+//					// 机构
+//					org = s_custinfo;
+//					// 找出对应经办人
+//					opr = this.convertCustInfo2Vo(custManager.getCustinfoMapping(org.getCustno(), null));
+//				}
 				
 				/** 货基信息显示 **/
 				// 海富通
@@ -586,20 +600,7 @@ public class CustController {
 				}
 
 				/** 资产 **/
-				if(null != org){
-					// 左上角
-					model.addAttribute("org", org);
-				}
-				if(null != opr){
-					// 右上角
-					model.addAttribute("opr", opr);
-					this.setModel(opr, model);
-				}
-				if(null != family){
-					// 右上角
-					model.addAttribute("family", family);
-					this.setModel(family, model);
-				}
+				this.setModel(s_custinfo, model);
 			}else{
 				// Session无效
 				ServletHolder.getResponse().sendRedirect("/ufb/home/index.htm");

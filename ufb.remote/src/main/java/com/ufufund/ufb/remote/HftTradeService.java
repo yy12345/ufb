@@ -24,7 +24,7 @@ import com.ufufund.ufb.model.hft.UnFrozenResponse;
  * @author ayis
  * 2015年3月22日
  */
-@Service
+//@Service
 public class HftTradeService extends HftBaseService{
 
 	/**

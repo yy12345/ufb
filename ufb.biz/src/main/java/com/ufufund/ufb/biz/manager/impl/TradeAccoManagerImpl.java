@@ -21,12 +21,12 @@ public class TradeAccoManagerImpl implements TradeAccoManager{
 		List<String> tradeaccosts = new ArrayList<String>();
 		tradeaccosts.add("Y"); // 
 		tradeaccosts.add("N"); // 
-		return tradeAccoinfoMapper.getTradeAccoList(custno, "01", tradeaccosts, null);
+		return tradeAccoinfoMapper.getTradeAccoList(custno, null, null, tradeaccosts);
 	}
 	
 	@Override
-	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno, String fundcorpno, List<String> tradeaccosts, String state) {
-		return tradeAccoinfoMapper.getTradeAccoList(custno, fundcorpno, tradeaccosts, state);
+	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno, String fundcorpno, String level, List<String> tradeaccosts) {
+		return tradeAccoinfoMapper.getTradeAccoList(custno, fundcorpno, level, tradeaccosts);
 	}
 	
 	public TradeAccoinfoOfMore getTradeAcco(String custno, String fundcorpno, String bankserialid){
