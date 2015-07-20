@@ -76,11 +76,10 @@ public class SettingController {
 			custinfoVo.setInvnm(s_custinfo.getInvnm());        
 			custinfoVo.setIdtp(s_custinfo.getIdtp());     
 			custinfoVo.setIdno(s_custinfo.getIdno());             
-			custinfoVo.setOrganization(s_custinfo.getOrganization()); 
-			custinfoVo.setBusiness(s_custinfo.getBusiness()); 
+			custinfoVo.setOrgnm(s_custinfo.getOrgnm()); 
+			custinfoVo.setOrgbusiness(s_custinfo.getOrgbusiness()); 
 			custinfoVo.setCustst(s_custinfo.getCustst());
 			custinfoVo.setLevel(s_custinfo.getLevel());
-			custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 			
 			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
@@ -100,11 +99,10 @@ public class SettingController {
 			custinfoVo.setInvnm(s_custinfo.getInvnm());        
 			custinfoVo.setIdtp(s_custinfo.getIdtp());     
 			custinfoVo.setIdno(s_custinfo.getIdno());             
-			custinfoVo.setOrganization(s_custinfo.getOrganization()); 
-			custinfoVo.setBusiness(s_custinfo.getBusiness()); 
+			custinfoVo.setOrgnm(s_custinfo.getOrgnm()); 
+			custinfoVo.setOrgbusiness(s_custinfo.getOrgbusiness()); 
 			custinfoVo.setCustst(s_custinfo.getCustst());
 			custinfoVo.setLevel(s_custinfo.getLevel());
-			custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 			
 			model.addAttribute("TAB", "1");
 			model.addAttribute("CustinfoVo", custinfoVo);
@@ -300,11 +298,10 @@ public class SettingController {
 			custinfoVo.setInvnm(s_custinfo.getInvnm());        
 			custinfoVo.setIdtp(s_custinfo.getIdtp());     
 			custinfoVo.setIdno(s_custinfo.getIdno());             
-			custinfoVo.setOrganization(s_custinfo.getOrganization()); 
-			custinfoVo.setBusiness(s_custinfo.getBusiness()); 
+			custinfoVo.setOrgnm(s_custinfo.getOrgnm()); 
+			custinfoVo.setOrgbusiness(s_custinfo.getOrgbusiness()); 
 			custinfoVo.setCustst(s_custinfo.getCustst());
 			custinfoVo.setLevel(s_custinfo.getLevel());
-			custinfoVo.setOpenaccount(s_custinfo.getOpenaccount());
 			
 			// 获取交易账户列表
 			List<String> tradeaccosts = new ArrayList<String>();

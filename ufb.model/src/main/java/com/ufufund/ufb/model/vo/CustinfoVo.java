@@ -10,10 +10,11 @@ package com.ufufund.ufb.model.vo;
 public class CustinfoVo {
 
 	private String custno;
-	private String mobileno;
-	private String msgcode;
-	private String verifycode;
+	private String custst;
 	private String invtp; // 用户类型
+	private String level;
+	private String mobileno;
+
 	private String invnm; // 用户姓名
 	private String idtp; // 证件类型
 	private String idno; // 证件号码
@@ -21,11 +22,20 @@ public class CustinfoVo {
 	private String pswpwd2;
 	private String tradepwd;
 	private String tradepwd2;// 交易密码
-	private String organization;// 幼教机构名称
-	private String business; // 营业执照注册号
-	private String custst;
-	private String level;
-	private String openaccount;
+
+	private String orgnm;// 幼教机构名称
+	private String orgbusiness; // 营业执照注册号
+
+	private String msgcode;
+	private String verifycode;
+
+	public String getCustno() {
+		return custno;
+	}
+
+	public void setCustno(String custno) {
+		this.custno = custno;
+	}
 
 	public String getCustst() {
 		return custst;
@@ -33,6 +43,14 @@ public class CustinfoVo {
 
 	public void setCustst(String custst) {
 		this.custst = custst;
+	}
+
+	public String getInvtp() {
+		return invtp;
+	}
+
+	public void setInvtp(String invtp) {
+		this.invtp = invtp;
 	}
 
 	public String getLevel() {
@@ -43,68 +61,12 @@ public class CustinfoVo {
 		this.level = level;
 	}
 
-	public String getOpenaccount() {
-		return openaccount;
-	}
-
-	public void setOpenaccount(String openaccount) {
-		this.openaccount = openaccount;
-	}
-
-	public String getOrganization() {
-		return organization;
-	}
-
-	public void setOrganization(String organization) {
-		this.organization = organization;
-	}
-
-	public String getBusiness() {
-		return business;
-	}
-
-	public void setBusiness(String business) {
-		this.business = business;
-	}
-
-	public String getCustno() {
-		return custno;
-	}
-
-	public void setCustno(String custno) {
-		this.custno = custno;
-	}
-
 	public String getMobileno() {
 		return mobileno;
 	}
 
 	public void setMobileno(String mobileno) {
 		this.mobileno = mobileno;
-	}
-
-	public String getMsgcode() {
-		return msgcode;
-	}
-
-	public void setMsgcode(String msgcode) {
-		this.msgcode = msgcode;
-	}
-
-	public String getVerifycode() {
-		return verifycode;
-	}
-
-	public void setVerifycode(String verifycode) {
-		this.verifycode = verifycode;
-	}
-
-	public String getInvtp() {
-		return invtp;
-	}
-
-	public void setInvtp(String invtp) {
-		this.invtp = invtp;
 	}
 
 	public String getInvnm() {
@@ -161,6 +123,38 @@ public class CustinfoVo {
 
 	public void setTradepwd2(String tradepwd2) {
 		this.tradepwd2 = tradepwd2;
+	}
+
+	public String getOrgnm() {
+		return orgnm;
+	}
+
+	public void setOrgnm(String orgnm) {
+		this.orgnm = orgnm;
+	}
+
+	public String getOrgbusiness() {
+		return orgbusiness;
+	}
+
+	public void setOrgbusiness(String orgbusiness) {
+		this.orgbusiness = orgbusiness;
+	}
+
+	public String getMsgcode() {
+		return msgcode;
+	}
+
+	public void setMsgcode(String msgcode) {
+		this.msgcode = msgcode;
+	}
+
+	public String getVerifycode() {
+		return verifycode;
+	}
+
+	public void setVerifycode(String verifycode) {
+		this.verifycode = verifycode;
 	}
 
 }

@@ -52,8 +52,8 @@ public class BankCardController {
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			bankCardVo.setCustno(s_custinfo.getCustno());
 			bankCardVo.setMobile(s_custinfo.getMobileno());
-			bankCardVo.setOrgnm(s_custinfo.getOrganization()); 
-			bankCardVo.setOrgbusiness(s_custinfo.getBusiness()); 
+			bankCardVo.setOrgnm(s_custinfo.getOrgnm()); 
+			bankCardVo.setOrgbusiness(s_custinfo.getOrgbusiness()); 
 			
 			// for test
 			bankCardVo.setOrgprovinceno("001");
@@ -298,8 +298,8 @@ public class BankCardController {
 				bankCardVo.setInvtp(s_custinfo.getInvtp());
 				bankCardVo.setLevel(s_custinfo.getLevel());
 //				bankCardVo.setOpenaccount(s_custinfo.getOpenaccount());
-				bankCardVo.setOrgnm(s_custinfo.getOrganization());
-				bankCardVo.setOrgbusiness(s_custinfo.getBusiness());
+				bankCardVo.setOrgnm(s_custinfo.getOrgnm());
+				bankCardVo.setOrgbusiness(s_custinfo.getOrgbusiness());
 				if(null == bankCardVo.getBankacnm() || bankCardVo.getBankacnm().trim().length() == 0){
 					bankCardVo.setBankacnm(s_custinfo.getInvnm());
 				}
@@ -350,10 +350,10 @@ public class BankCardController {
 			if(s_custinfo.getIdno() !=null && s_custinfo.getInvnm() != null){
 //				hftTradeAccoCount = hftTradeAccoList.size();
 				hftTradeAccoCount = 1;
-				bankCardVo.setOrgnm(s_custinfo.getOrganization());
+				bankCardVo.setOrgnm(s_custinfo.getOrgnm());
 				bankCardVo.setInvtp(s_custinfo.getInvtp());
 				bankCardVo.setLevel(s_custinfo.getLevel());
-				bankCardVo.setOrgbusiness(s_custinfo.getBusiness());
+				bankCardVo.setOrgbusiness(s_custinfo.getOrgbusiness());
 				bankCardVo.setCustno(s_custinfo.getCustno());
 				bankCardVo.setMobile(s_custinfo.getMobileno());
 				bankCardVo.setBankacnm(s_custinfo.getInvnm());
@@ -467,8 +467,8 @@ public class BankCardController {
 			// TODO
 			//openAccountAction.setHftTradeAccoCount(hftTradeAccoCount);
 			//openAccountAction.setOpenaccount(s_custinfo.getOpenaccount());
-			openAccountAction.setOrgbusiness(s_custinfo.getBusiness());
-			openAccountAction.setOrgnm(s_custinfo.getOrganization());
+			openAccountAction.setOrgbusiness(s_custinfo.getOrgbusiness());
+			openAccountAction.setOrgnm(s_custinfo.getOrgnm());
 			openAccountAction.setReqseq("3"); // 第三步，需要验证手机验证码
 			openAccountAction.setBankno(bankCardVo.getBankno());
 			openAccountAction.setBankacnm(bankCardVo.getBankacnm());

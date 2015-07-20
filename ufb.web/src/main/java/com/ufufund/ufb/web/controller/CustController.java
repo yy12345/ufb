@@ -179,8 +179,8 @@ public class CustController {
 			registerAction.setInvtp(Invtp.ORGANIZATION);// 机构
 			registerAction.setLevel(Level.ORGANIZATION); // 机构
 			registerAction.setCustst("N");
-			registerAction.setOrganization(custinfoVo.getOrganization());
-			registerAction.setBusiness(custinfoVo.getBusiness());
+			registerAction.setOrganization(custinfoVo.getOrgnm());
+			registerAction.setBusiness(custinfoVo.getOrgbusiness());
 			// 注册
 			custManager.register(registerAction);
 
@@ -638,11 +638,10 @@ public class CustController {
 		custinfoVo.setPswpwd2(custinfo.getPasswd()); // 注意，页面上不能放密码信息                         
 		custinfoVo.setTradepwd(custinfo.getTradepwd()); // 注意，页面上不能放密码信息                             
 		custinfoVo.setTradepwd2(custinfo.getTradepwd()); // 注意，页面上不能放密码信息         
-		custinfoVo.setOrganization(custinfo.getOrganization()); 
-		custinfoVo.setBusiness(custinfo.getBusiness()); 
+		custinfoVo.setOrgnm(custinfo.getOrganization()); 
+		custinfoVo.setOrgbusiness(custinfo.getBusiness()); 
 		custinfoVo.setCustst(custinfo.getCustst());
 		custinfoVo.setLevel(custinfo.getLevel());
-		custinfoVo.setOpenaccount(custinfo.getOpenaccount());
 		return custinfoVo;
 	}
 	
@@ -657,11 +656,10 @@ public class CustController {
 		custinfoVo.setInvnm(sessionInfo.getInvnm());        
 		custinfoVo.setIdtp(sessionInfo.getIdtp());     
 		custinfoVo.setIdno(sessionInfo.getIdno());       
-		custinfoVo.setOrganization(sessionInfo.getOrganization()); 
-		custinfoVo.setBusiness(sessionInfo.getBusiness()); 
+		custinfoVo.setOrgnm(sessionInfo.getOrgnm()); 
+		custinfoVo.setOrgbusiness(sessionInfo.getOrgbusiness()); 
 		custinfoVo.setCustst(sessionInfo.getCustst());
 		custinfoVo.setLevel(sessionInfo.getLevel());
-		custinfoVo.setOpenaccount(sessionInfo.getOpenaccount());
 		return custinfoVo;
 	}
 	
