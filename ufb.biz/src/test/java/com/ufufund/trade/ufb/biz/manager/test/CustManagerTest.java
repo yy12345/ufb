@@ -49,9 +49,9 @@ public class CustManagerTest {
 	//@Test
 	public void testregister(){
 		RegisterAction loginAction = new RegisterAction();
-		loginAction.setLoginCode("13611686341");
-		loginAction.setLoginPassword("123257");
-		loginAction.setLoginPassword2("123257");
+		loginAction.setLogincode("13611686341");
+		loginAction.setLoginpwd("123257");
+		loginAction.setLoginpwd2("123257");
 		custManager.register(loginAction);
 	}
 	
@@ -63,12 +63,12 @@ public class CustManagerTest {
 	//@Test
 	public void testOrgregister(){
 		RegisterAction loginAction = new RegisterAction();
-		loginAction.setLoginCode("13611686342");
-		loginAction.setLoginPassword("123257");
-		loginAction.setLoginPassword2("123257");
+		loginAction.setLogincode("13611686342");
+		loginAction.setLoginpwd("123257");
+		loginAction.setLoginpwd2("123257");
 		loginAction.setLevel(Level.OPERATOR);
-		loginAction.setOrganization("Organization");
-		loginAction.setBusiness("business");
+		loginAction.setOrgnm("Organization");
+		loginAction.setOrgbusiness("business");
 		custManager.register(loginAction);
 	}
 	

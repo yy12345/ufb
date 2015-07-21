@@ -12,6 +12,8 @@ import com.ufufund.ufb.model.hft.BankAuthRequest;
 import com.ufufund.ufb.model.hft.BankAuthResponse;
 import com.ufufund.ufb.model.hft.BankVeriRequest;
 import com.ufufund.ufb.model.hft.BankVeriResponse;
+import com.ufufund.ufb.model.hft.OpenAccountOrgRequest;
+import com.ufufund.ufb.model.hft.OpenAccountOrgResponse;
 import com.ufufund.ufb.model.hft.OpenAccountRequest;
 import com.ufufund.ufb.model.hft.OpenAccountResponse;
 import com.ufufund.ufb.remote.HftCustService;
@@ -21,7 +23,7 @@ import com.ufufund.ufb.remote.HftCustService;
  * @author ayis
  * 2015年3月22日
  */
-//@Service
+@Service
 public class HftCustServiceSimulator extends HftCustService{
 	private static final Logger LOG = LoggerFactory.getLogger(HftCustServiceSimulator.class);
 	
@@ -91,6 +93,27 @@ public class HftCustServiceSimulator extends HftCustService{
 		response.setReturnMsg("交易成功");
 		LOG.warn("模拟器返回："+response);
 		return response;
+	}
+	
+	/**
+	 * 基金账户开户接口:机构
+	 * @param request
+	 * @return
+	 */
+	public OpenAccountOrgResponse openAccountOrg(OpenAccountOrgRequest request){
+		OpenAccountOrgResponse response = new OpenAccountOrgResponse();
+		response.setVersion(Constant.HftSysConfig.Version);
+		response.setMerchantId(Constant.HftSysConfig.MerchantId);
+		response.setDistributorCode(Constant.HftSysConfig.DistributorCode);
+		response.setBusinType(request.getBusinType());
+		response.setApplicationNo(request.getApplicationNo());
+		
+		response.setTransactionAccountID("Tan"+DateUtil.format(new Date(), DateUtil.FULL_PATTERN_1));
+		
+		response.setReturnCode("0000");
+		response.setReturnMsg("交易成功");
+		LOG.warn("模拟器返回："+response);
+		return response;	
 	}
 	
 }

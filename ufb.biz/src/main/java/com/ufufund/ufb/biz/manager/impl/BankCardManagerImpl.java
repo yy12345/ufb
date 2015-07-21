@@ -174,7 +174,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 			custinfo.setCustno(openAccountAction.getCustno());
 			custinfo = custinfoMapper.getCustinfo(custinfo);
 			String md5 = EncryptUtil.md5(openAccountAction.getTradepwd());
-			if(md5.equals(custinfo.getPasswd())){
+			if(md5.equals(custinfo.getLoginpwd())){
 				// 交易密码不能和登录密码相同
 				throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
 			}

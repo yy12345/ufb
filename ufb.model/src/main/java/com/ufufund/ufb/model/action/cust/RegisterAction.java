@@ -5,48 +5,47 @@ import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.Level;
 
 public class RegisterAction extends CommonAction {
-	
-	
-	private String custNo;
-	private String loginCode;
-	private String loginPassword;
-	private String loginPassword2;// 确认密码
+
+	private String custno;
+	private String logincode;
+	private String loginpwd;
+	private String loginpwd2;// 确认密码
 	private Invtp invtp = Invtp.PERSONAL; // 用户类型
 	private Level level = Level.PERSONAL;// 级别
 	private String custst;
-	private String organization;// 机构名称
-	private String business;// 营业执照
-	
-	public String getCustNo() {
-		return custNo;
+	private String orgnm;// 机构名称
+	private String orgbusiness;// 营业执照
+
+	public String getCustno() {
+		return custno;
 	}
 
-	public void setCustNo(String custNo) {
-		this.custNo = custNo;
+	public void setCustno(String custno) {
+		this.custno = custno;
 	}
 
-	public String getLoginCode() {
-		return loginCode;
+	public String getLogincode() {
+		return logincode;
 	}
 
-	public void setLoginCode(String loginCode) {
-		this.loginCode = loginCode;
+	public void setLogincode(String logincode) {
+		this.logincode = logincode;
 	}
 
-	public String getLoginPassword() {
-		return loginPassword;
+	public String getLoginpwd() {
+		return loginpwd;
 	}
 
-	public void setLoginPassword(String loginPassword) {
-		this.loginPassword = loginPassword;
+	public void setLoginpwd(String loginpwd) {
+		this.loginpwd = loginpwd;
 	}
 
-	public String getLoginPassword2() {
-		return loginPassword2;
+	public String getLoginpwd2() {
+		return loginpwd2;
 	}
 
-	public void setLoginPassword2(String loginPassword2) {
-		this.loginPassword2 = loginPassword2;
+	public void setLoginpwd2(String loginpwd2) {
+		this.loginpwd2 = loginpwd2;
 	}
 
 	public Invtp getInvtp() {
@@ -64,7 +63,7 @@ public class RegisterAction extends CommonAction {
 	public void setLevel(Level level) {
 		this.level = level;
 	}
-	
+
 	public String getCustst() {
 		return custst;
 	}
@@ -73,20 +72,20 @@ public class RegisterAction extends CommonAction {
 		this.custst = custst;
 	}
 
-	public String getOrganization() {
-		return organization;
+	public String getOrgnm() {
+		return orgnm;
 	}
 
-	public void setOrganization(String organization) {
-		this.organization = organization;
+	public void setOrgnm(String orgnm) {
+		this.orgnm = orgnm;
 	}
 
-	public String getBusiness() {
-		return business;
+	public String getOrgbusiness() {
+		return orgbusiness;
 	}
 
-	public void setBusiness(String business) {
-		this.business = business;
+	public void setOrgbusiness(String orgbusiness) {
+		this.orgbusiness = orgbusiness;
 	}
 
 	// @Override

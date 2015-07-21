@@ -39,7 +39,7 @@
 		 T1.IDNO = #{idno,jdbcType=VARCHAR} AND
 		</if>
 		<if test="passwd != null and passwd !=''" >
-  		 T1.PASSWD = #{passwd,jdbcType=VARCHAR} AND
+  		 T1.PASSWD = #{loginpwd,jdbcType=VARCHAR} AND
   		</if>
   		<if test="tradepwd != null and tradepwd !=''" >
   		 T1.TRADEPWD = #{tradepwd,jdbcType=VARCHAR} AND
@@ -100,9 +100,9 @@
 			
 			#{idno,jdbcType=VARCHAR},
 			#{mobileno,jdbcType=VARCHAR},
-			#{email,jdbcType=VARCHAR},
+			#{emailadd,jdbcType=VARCHAR},
 			#{custst,jdbcType=VARCHAR},
-			#{passwd,jdbcType=VARCHAR},
+			#{loginpwd,jdbcType=VARCHAR},
 			
 			sysdate(),
 			#{passwderr,jdbcType=INTEGER},
@@ -111,8 +111,8 @@
 			#{tradepwd,jdbcType=VARCHAR},
 			
 			#{level,jdbcType=VARCHAR},
-			#{organization,jdbcType=VARCHAR},
-			#{business,jdbcType=VARCHAR}
+			#{orgnm,jdbcType=VARCHAR},
+			#{orgbusiness,jdbcType=VARCHAR}
 			)
 	 ]]>
   	</insert>
@@ -136,13 +136,13 @@
 	       	  ,T1.MOBILENO = #{mobileno,jdbcType=VARCHAR}
 	       	</if>
 			<if test="email != null">
-	       	  ,T1.EMAIL = #{email,jdbcType=VARCHAR}
+	       	  ,T1.EMAIL = #{emailadd,jdbcType=VARCHAR}
 	       	</if>
 			<if test="custst != null">
 	       	  ,T1.CUSTST = #{custst,jdbcType=VARCHAR}
 	       	</if>
 			<if test="passwd != null">
-	       	  ,T1.PASSWD = #{passwd,jdbcType=VARCHAR}
+	       	  ,T1.PASSWD = #{loginpwd,jdbcType=VARCHAR}
 	       	</if>
 	        <if test="lastlogintime != null">
 	       	  ,T1.LASTLOGINTIME = sysdate()
@@ -152,9 +152,6 @@
 	       	</if>
 			<if test="tradepwd != null">
 	       	  ,T1.TRADEPWD = #{tradepwd,jdbcType=VARCHAR}
-	       	</if>
-	       	<if test="openaccount != null">
-	       	  ,T1.OPENACCOUNT = #{openaccount,jdbcType=VARCHAR}
 	       	</if>
 	     WHERE T1.custno = #{custno,jdbcType=VARCHAR}
 	</update>

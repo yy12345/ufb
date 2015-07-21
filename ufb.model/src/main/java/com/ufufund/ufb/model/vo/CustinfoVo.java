@@ -18,8 +18,8 @@ public class CustinfoVo {
 	private String invnm; // 用户姓名
 	private String idtp; // 证件类型
 	private String idno; // 证件号码
-	private String pswpwd;
-	private String pswpwd2;
+	private String loginpwd;
+	private String loginpwd2;// 确认密码
 	private String tradepwd;
 	private String tradepwd2;// 交易密码
 
@@ -93,20 +93,20 @@ public class CustinfoVo {
 		this.idno = idno;
 	}
 
-	public String getPswpwd() {
-		return pswpwd;
+	public String getLoginpwd() {
+		return loginpwd;
 	}
 
-	public void setPswpwd(String pswpwd) {
-		this.pswpwd = pswpwd;
+	public void setLoginpwd(String loginpwd) {
+		this.loginpwd = loginpwd;
 	}
 
-	public String getPswpwd2() {
-		return pswpwd2;
+	public String getLoginpwd2() {
+		return loginpwd2;
 	}
 
-	public void setPswpwd2(String pswpwd2) {
-		this.pswpwd2 = pswpwd2;
+	public void setLoginpwd2(String loginpwd2) {
+		this.loginpwd2 = loginpwd2;
 	}
 
 	public String getTradepwd() {

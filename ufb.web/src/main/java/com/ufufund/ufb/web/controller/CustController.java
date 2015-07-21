@@ -57,25 +57,14 @@ public class CustController {
 	 */
 	@RequestMapping(value="register/index")
 	public String getRegistPage(CustinfoVo custinfoVo, Model model){
-		try{
-			// 清除Session
-			UserHelper.removeCustinfoVo();
-			
-			// 初始化数据
-			custinfoVo.setInvtp(Invtp.PERSONAL.getValue()); //个人注册开户
-			custinfoVo.setLevel(Level.PERSONAL.getValue()); //家庭身份
-			
-			model.addAttribute("CustinfoVo", custinfoVo);
-		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			model.addAttribute("errMsg", e.getMessage());
-			return "error/error";
-//		}catch(UserException ue){
-//			LOG.warn(ue.getCodeMsg());
-//			model.addAttribute("errorMsg", ue.getMessage());
-//			model.addAttribute("returnUrl", "home/index.htm");
-//			return "error/user_error";
-		}
+		// 清除Session
+		UserHelper.removeCustinfoVo();
+		
+//		// 初始化数据
+//		custinfoVo.setInvtp(Invtp.ORGANIZATION.getValue()); 
+//		custinfoVo.setLevel(Level.ORGANIZATION.getValue()); 
+		
+//		model.addAttribute("CustinfoVo", custinfoVo);
 		return "register/indexPage";
 	}
 	
@@ -98,7 +87,6 @@ public class CustController {
 			if(null != s_custinfo){
 				// Session登录
 				if(s_custinfo.getMobileno().equals(custinfoVo.getMobileno())){
-//					model.addAttribute("SessionVo", s_custinfo);
 					return "register/successPage";
 				}
 			}
@@ -108,9 +96,9 @@ public class CustController {
 			
 			// 注册对象封装 
 			RegisterAction registerAction = new RegisterAction();
-			registerAction.setLoginCode(custinfoVo.getMobileno());
-			registerAction.setLoginPassword(custinfoVo.getPswpwd());
-			registerAction.setLoginPassword2(custinfoVo.getPswpwd2());
+			registerAction.setLogincode(custinfoVo.getMobileno());
+			registerAction.setLoginpwd(custinfoVo.getLoginpwd());
+			registerAction.setLoginpwd2(custinfoVo.getLoginpwd2());
 			registerAction.setInvtp(Invtp.PERSONAL);// 个人
 			registerAction.setLevel(Level.PERSONAL); // 家庭
 			registerAction.setCustst("N");
@@ -118,9 +106,8 @@ public class CustController {
 			custManager.register(registerAction);
 
 			// 注册成功，保存用户至session
-			custinfoVo.setCustno(registerAction.getCustNo());
+			custinfoVo.setCustno(registerAction.getCustno());
 			UserHelper.saveCustinfoVo(custinfoVo);
-//			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			
@@ -163,7 +150,6 @@ public class CustController {
 			if(null != s_custinfo){
 				// Session登录
 				if(s_custinfo.getMobileno().equals(custinfoVo.getMobileno())){
-//					model.addAttribute("SessionVo", s_custinfo);
 					return "register/successPage";
 				}
 			}
@@ -173,19 +159,19 @@ public class CustController {
 			
 			// 注册对象封装 
 			RegisterAction registerAction = new RegisterAction();
-			registerAction.setLoginCode(custinfoVo.getMobileno());
-			registerAction.setLoginPassword(custinfoVo.getPswpwd());
-			registerAction.setLoginPassword2(custinfoVo.getPswpwd2());
+			registerAction.setLogincode(custinfoVo.getMobileno());
+			registerAction.setLoginpwd(custinfoVo.getLoginpwd());
+			registerAction.setLoginpwd2(custinfoVo.getLoginpwd2());
 			registerAction.setInvtp(Invtp.ORGANIZATION);// 机构
 			registerAction.setLevel(Level.ORGANIZATION); // 机构
 			registerAction.setCustst("N");
-			registerAction.setOrganization(custinfoVo.getOrgnm());
-			registerAction.setBusiness(custinfoVo.getOrgbusiness());
+			registerAction.setOrgnm(custinfoVo.getOrgnm());
+			registerAction.setOrgbusiness(custinfoVo.getOrgbusiness());
 			// 注册
 			custManager.register(registerAction);
 
 			// 注册成功，保存用户至session
-			custinfoVo.setCustno(registerAction.getCustNo());
+			custinfoVo.setCustno(registerAction.getCustno());
 			UserHelper.saveCustinfoVo(custinfoVo);
 //			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
@@ -254,7 +240,7 @@ public class CustController {
 			
 			LoginAction loginAction = new LoginAction();
 			loginAction.setLoginCode(custinfoVo.getMobileno());
-			loginAction.setLoginPassword(custinfoVo.getPswpwd());
+			loginAction.setLoginPassword(custinfoVo.getLoginpwd());
 			
 			// 登录
 			Custinfo custinfo = custManager.loginIn(loginAction);
@@ -355,7 +341,7 @@ public class CustController {
 			
 			LoginAction loginAction = new LoginAction();
 			loginAction.setLoginCode(custinfoVo.getMobileno());
-			loginAction.setLoginPassword(custinfoVo.getPswpwd());
+			loginAction.setLoginPassword(custinfoVo.getLoginpwd());
 			
 			// 登录
 			Custinfo custinfo = custManager.loginIn(loginAction);
@@ -634,12 +620,12 @@ public class CustController {
 		custinfoVo.setInvnm(custinfo.getInvnm());        
 		custinfoVo.setIdtp(custinfo.getIdtp());     
 		custinfoVo.setIdno(custinfo.getIdno());             
-		custinfoVo.setPswpwd(custinfo.getPasswd()); // 注意，页面上不能放密码信息                  
-		custinfoVo.setPswpwd2(custinfo.getPasswd()); // 注意，页面上不能放密码信息                         
+		custinfoVo.setLoginpwd(custinfo.getLoginpwd()); // 注意，页面上不能放密码信息                  
+		custinfoVo.setLoginpwd2(custinfo.getLoginpwd()); // 注意，页面上不能放密码信息                         
 		custinfoVo.setTradepwd(custinfo.getTradepwd()); // 注意，页面上不能放密码信息                             
 		custinfoVo.setTradepwd2(custinfo.getTradepwd()); // 注意，页面上不能放密码信息         
-		custinfoVo.setOrgnm(custinfo.getOrganization()); 
-		custinfoVo.setOrgbusiness(custinfo.getBusiness()); 
+		custinfoVo.setOrgnm(custinfo.getOrgnm()); 
+		custinfoVo.setOrgbusiness(custinfo.getOrgbusiness()); 
 		custinfoVo.setCustst(custinfo.getCustst());
 		custinfoVo.setLevel(custinfo.getLevel());
 		return custinfoVo;

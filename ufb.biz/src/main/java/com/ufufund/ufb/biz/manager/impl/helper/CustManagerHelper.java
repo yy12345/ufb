@@ -14,12 +14,12 @@ public class CustManagerHelper {
 	
 	public Custinfo toCustinfo(RegisterAction registerAction){
 		Custinfo custinfo = new Custinfo();
-		custinfo.setMobileno(registerAction.getLoginCode());
-		custinfo.setPasswd(EncryptUtil.md5(registerAction.getLoginPassword()));
+		custinfo.setMobileno(registerAction.getLogincode());
+		custinfo.setLoginpwd(EncryptUtil.md5(registerAction.getLoginpwd()));
 		custinfo.setInvtp(registerAction.getInvtp().getValue());
 		custinfo.setLevel(registerAction.getLevel().getValue());
-		custinfo.setOrganization(registerAction.getOrganization());
-		custinfo.setBusiness(registerAction.getBusiness());
+		custinfo.setOrgnm(registerAction.getOrgnm());
+		custinfo.setOrgbusiness(registerAction.getOrgbusiness());
 		custinfo.setCustst(registerAction.getCustst());
 		return custinfo;
 	}

@@ -78,7 +78,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		custManagerValidator.validator(registerAction);
 		
 		// 查询手机号是否注册
-		if(this.isMobileRegister(registerAction.getLoginCode())){
+		if(this.isMobileRegister(registerAction.getLogincode())){
 			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, BisConst.Register.MOBILE);
 		}
 		
@@ -93,7 +93,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		this.insterSerialno(custinfo, Apkind.REGISTER.getValue());
 		
 		// 带回CustNo
-		registerAction.setCustNo(custinfo.getCustno());
+		registerAction.setCustno(custinfo.getCustno());
 	}
 
 
@@ -157,7 +157,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		}
 		
 		//5次密码输错，冻结用户
-		if (!EncryptUtil.md5(loginAction.getLoginPassword()).equals(custinfo.getPasswd())) {
+		if (!EncryptUtil.md5(loginAction.getLoginPassword()).equals(custinfo.getLoginpwd())) {
 			custinfo.setPasswderr(custinfo.getPasswderr() + 1);
 			if (custinfo.getPasswderr() == 5) {
 				custinfo.setCustst(Constant.Custinfo.CUSTST$P);
@@ -251,7 +251,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			custinfo.setTradepwd(EncryptUtil.md5(changePasswordAction.getPassword0()));
 		}else if("LOGIN".equals(actionType)){
 			// 登入密码
-			custinfo.setPasswd(EncryptUtil.md5(changePasswordAction.getPassword0()));
+			custinfo.setLoginpwd(EncryptUtil.md5(changePasswordAction.getPassword0()));
 		}else{
 			// 找回交易密码
 		}
@@ -268,7 +268,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		String md5 = EncryptUtil.md5(changePasswordAction.getPassword1());
 		if("TRADE".equals(actionType)){
 			// 交易密码
-			if(md5.equals(custinfo.getPasswd())){
+			if(md5.equals(custinfo.getLoginpwd())){
 				// 交易密码不能和登录密码相同
 				throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
 			}
@@ -280,7 +280,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			}
 		}else{
 			// 找回交易密码
-			if(md5.equals(custinfo.getPasswd())){
+			if(md5.equals(custinfo.getLoginpwd())){
 				// 交易密码不能和登录密码相同
 				throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
 			}
@@ -292,7 +292,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			custinfo.setTradepwd(EncryptUtil.md5(changePasswordAction.getPassword1()));
 		}else if("LOGIN".equals(actionType)){
 			// 登入密码
-			custinfo.setPasswd(EncryptUtil.md5(changePasswordAction.getPassword1()));
+			custinfo.setLoginpwd(EncryptUtil.md5(changePasswordAction.getPassword1()));
 		}else{
 			// 找回交易密码
 			custinfo.setTradepwd(EncryptUtil.md5(changePasswordAction.getPassword1()));
