@@ -7,7 +7,6 @@ import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
-import com.ufufund.ufb.model.action.cust.OpenAccountOrgAction;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 
 @Service
@@ -24,7 +23,7 @@ public class BankCardManagerValidator {
 		String processId = action.getProcessId();
 		
 		//基本信息验证（用户名、身份证、交易密码、开户机构）
-		if("User_Base".equals(actionName)){
+		if("UserBase".equals(actionName)){
 			// CustNo
 			if (RegexUtil.isNull(action.getCustno())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.CUSTNO);
@@ -42,7 +41,8 @@ public class BankCardManagerValidator {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDCARDNO);
 			}
 			
-			if(action.getHftfamilytradeaccoct()== 0){
+			if(("0".equals(action.getInvtp()) && action.getHftfamilytradeaccoct() == 0) || 
+					("1".equals(action.getInvtp()) && action.getHftoperatortradeaccoct() == 0)	){
 				// 已经绑卡用户不需要再次设置交易密码
 				// 交易密码
 				if (RegexUtil.isNull(action.getTradepwd())) {
@@ -61,12 +61,7 @@ public class BankCardManagerValidator {
 					throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD2);
 				}
 			}
-			
-//			if (action.getMerchant()==null||RegexUtil.isNull(action.getMerchant().Value())) {
-//				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, MERCHANT);
-//			}
-			
-			if(!"0".equals(action.getLevel())){
+			if("1".equals(action.getInvtp())){
 				//幼教机构
 				if(RegexUtil.isNull(action.getOrgnm())){
 					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);
@@ -79,7 +74,7 @@ public class BankCardManagerValidator {
 		}
 		
 		//银行基本信息验证
-		if("Bank_Base".equals(actionName)){
+		if("BankBase".equals(actionName)){
 			if (RegexUtil.isNull(action.getBankno())) {
 				//银行编码
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKNO);
@@ -123,56 +118,81 @@ public class BankCardManagerValidator {
 		}
 		
 		//基本信息验证（用户名、身份证、交易密码、开户机构）
-		if("Org_Base".equals(actionName)){
-			OpenAccountOrgAction orgaction = (OpenAccountOrgAction)action;
+		if("OrgBase".equals(actionName)){
+			// 幼教机构
+			if(RegexUtil.isNull(action.getOrgnm())){
+				throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);
+			}
+			// 营业执照
+			if(RegexUtil.isNull(action.getOrgbusiness())){
+				throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BUSINESS);
+			}
 			// CustNo
-			if (RegexUtil.isNull(orgaction.getCustno())) {
+			if (RegexUtil.isNull(action.getCustno())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.CUSTNO);
 			}
 			// 用户名
-			if (RegexUtil.isNull(orgaction.getInvnm())) {
-				// TODO
+			if (RegexUtil.isNull(action.getInvnm())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACNM);
 			}
 			// 证件号码
-			if (RegexUtil.isNull(orgaction.getIdno())) {
+			if (RegexUtil.isNull(action.getIdno())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDNO);
 			}
 			// 身份证号码
-			if (!RegexUtil.isIdCardNo(orgaction.getIdno())) {
+			if (!RegexUtil.isIdCardNo(action.getIdno())) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.BANKIDNO);
 			}
-			
-			// 先不考虑绑定银行卡
-			// TODO
-			
-			// 先不考虑
-			// TODO
-			if(!"0".equals(orgaction.getLevel())){
-//				//幼教机构
-//				if(RegexUtil.isNull(action.getOrganization())){
-//					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);
-//				}
-//				//营业执照
-//				if(RegexUtil.isNull(action.getBusiness())){
-//					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BUSINESS);
-//				}
+			// 法人证件号码
+			if (RegexUtil.isNull(action.getRerpidno())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDNO);
+			}
+			// 法人证件号码
+			if (!RegexUtil.isIdCardNo(action.getRerpidno())) {
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.BANKIDNO);
 			}
 		}
 		
 		//银行基本信息验证
-		if("Org_Bank_Base".equals(actionName)){
-			if (RegexUtil.isNull(action.getBankno())) {
-				//银行编码
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKNO);
-			}
+		if("OrgBankBase".equals(actionName)){
 			if (RegexUtil.isNull(action.getBankacnm())) {
-				//银行开户户名
+				// 银行开户户名
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACNM);
 			}
+			if (RegexUtil.isNull(action.getBankno())) {
+				// 银行编码
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKNO);
+			}
+			if (RegexUtil.isNull(action.getBankadd())) {
+				// 支行网点
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKADD);
+			}
 			if (RegexUtil.isNull(action.getBankacco())) {
-				//银行卡号
+				// 银行卡号
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACCO);
+			}
+			// 银行卡号2
+			if (!action.getBankacco().equals(action.getBankacco2())) {
+				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.BANKACCO2);
+			}
+			if(action.getHftorganizationtradeaccoct() == 0){
+				// 已经绑卡用户不需要再次设置交易密码
+				// 交易密码
+				if (RegexUtil.isNull(action.getTradepwd())) {
+					throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD);
+				}
+				// 交易密码
+				if (!RegexUtil.isPwd(action.getTradepwd())) {
+					throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.TRADEPWD);
+				}
+				// 交易确认密码
+				if (RegexUtil.isNull(action.getTradepwd2())) {
+					throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD2);
+				}
+				// 交易确认密码
+				if (!action.getTradepwd().equals(action.getTradepwd2())) {
+					throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD2);
+				}
 			}
 		}
 	}

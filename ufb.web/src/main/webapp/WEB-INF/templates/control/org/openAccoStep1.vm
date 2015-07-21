@@ -73,12 +73,12 @@
 					<table>
 						<tr>
 							<td>机构名称</td>
-							<td><label class="inputText"><input name="organization" type="text" value="${BankCardVo.organization}"></label></td>
+							<td><label class="inputText"><input name="orgnm" type="text" value="${BankCardVo.orgnm}"></label></td>
 							<td>须与营业执照、银行对公账户的开户名称一致，信息审核成功后，名称不可修改。</td>
 						</tr>
 						<tr>
 							<td>营业执照号</td>
-							<td><label class="cardFormat" id="card1"><input name="business" type="text" value="${BankCardVo.business}"></label></td>
+							<td><label class="cardFormat" id="card1"><input name="orgbusiness" type="text" value="${BankCardVo.orgbusiness}"></label></td>
 							<td>请输入15位营业执照注册号</td>
 						</tr>
 						<tr>
@@ -121,18 +121,18 @@
 					<table>
 						<tr>
 							<td>授权经办人姓名</td>
-							<td><label class="inputText"><input name="operatornm" type="text" value="${BankCardVo.operatornm}"></label></td>
+							<td><label class="inputText"><input name="invnm" type="text" value="${BankCardVo.invnm}"></label></td>
 							<td><label class="checkbox"><input type="checkbox">与营业执照中注册地址相同</label></td>
 						</tr>
 						<tr>
 							<td>身份证号</td>
-							<td><label class="cardFormat" id="card2"><input name="operatoridno" type="text" value="${BankCardVo.operatoridno}"></label></td>
+							<td><label class="cardFormat" id="card2"><input name="idno" type="text" value="${BankCardVo.idno}"></label></td>
 							<td>若为临时身份证，请输入临时身份证号</td>
 						</tr>
 						<tr>
 							<td>手机</td>
 							<td>
-								<label class="inputText"><input name="operatormobile" type="text" value="${BankCardVo.operatormobile}"></label>
+								<label class="inputText"><input name="mobile" type="text" value="${BankCardVo.mobile}"></label>
 							</td>
 							<td>
 								开户审核过程中将与经办人联系
@@ -141,7 +141,7 @@
 						<tr>
 							<td>固定电话</td>
 							<td>
-								<label class="inputText"><input name="operatortelno" type="text" value="${BankCardVo.operatortelno}"></label>
+								<label class="inputText"><input name="telno" type="text" value="${BankCardVo.telno}"></label>
 							</td>
 							<td>
 								包括区号、号码、分机号，请用“-”隔开
@@ -150,7 +150,7 @@
 						<tr>
 							<td>邮箱</td>
 							<td>
-								<label class="inputText"><input name="operatoreamilladd" type="text" value="${BankCardVo.operatoremailadd}"></label>
+								<label class="inputText"><input name="emailladd" type="text" value="${BankCardVo.emailadd}"></label>
 							</td>
 							<td><div class="formErr">错误提示</div></td>
 						</tr>

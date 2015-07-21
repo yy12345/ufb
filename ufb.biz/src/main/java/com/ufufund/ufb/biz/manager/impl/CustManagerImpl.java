@@ -135,10 +135,12 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		if (RegexUtil.isMobile(loginAction.getLoginCode())) {
 			// 手机登录
 			custinfo.setMobileno(loginAction.getLoginCode());
+			custinfo.setLoginpwd(EncryptUtil.md5(loginAction.getLoginPassword()));
 			custinfo.setCustst(null);
 		} else if (RegexUtil.isIdCardNo(loginAction.getLoginCode())) {
 			// 身份证登录
 			custinfo.setIdno(loginAction.getLoginCode());
+			custinfo.setLoginpwd(EncryptUtil.md5(loginAction.getLoginPassword()));
 			custinfo.setCustst(null);
 		} else {
 			// 登录账号无效

@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
-import com.ufufund.ufb.model.action.cust.OpenAccountOrgAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.Invtp;
@@ -35,14 +34,14 @@ public class CustManagerHelper {
 		return custinfo;
 	}
 	
-	public Custinfo toOpenAccountOrgAction(OpenAccountOrgAction openAccountOrgAction){
+	public Custinfo toOpenAccountOrgAction(OpenAccountAction openAccountAction){
 		Custinfo custinfo = new Custinfo();
-		custinfo.setCustno(openAccountOrgAction.getCustno());
-		custinfo.setInvnm(openAccountOrgAction.getInvnm());
-		custinfo.setIdno(openAccountOrgAction.getIdno());
-		custinfo.setTradepwd(EncryptUtil.md5(openAccountOrgAction.getTradepwd()));
+		custinfo.setCustno(openAccountAction.getCustno());
+		custinfo.setInvnm(openAccountAction.getInvnm());
+		custinfo.setIdno(openAccountAction.getIdno());
+		custinfo.setTradepwd(EncryptUtil.md5(openAccountAction.getTradepwd()));
 		custinfo.setInvtp(Invtp.ORGANIZATION.getValue());
-		custinfo.setIdtp(openAccountOrgAction.getBankidtp());
+		custinfo.setIdtp(openAccountAction.getBankidtp());
 		return custinfo;
 	}
 }

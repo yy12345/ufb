@@ -20,7 +20,6 @@ import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
-import com.ufufund.ufb.model.action.cust.OpenAccountOrgAction;
 import com.ufufund.ufb.model.db.BankBaseInfo;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.vo.BankCardVo;
@@ -86,26 +85,26 @@ public class BankCardController {
 	public String openAccoStep2(BankCardVo bankCardVo, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			OpenAccountOrgAction openAccountOrgAction = new OpenAccountOrgAction();
-			openAccountOrgAction.setCustno(s_custinfo.getCustno());
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setCustno(s_custinfo.getCustno());
 			
 			/** 机构 **/
-			openAccountOrgAction.setOrgbusiness(bankCardVo.getOrgbusiness());
-			openAccountOrgAction.setOrgnm(bankCardVo.getOrgnm());
-			openAccountOrgAction.setOrgprovinceno(bankCardVo.getOrgprovinceno()); //机构省、直辖市
-			openAccountOrgAction.setOrgcityno(bankCardVo.getOrgcityno()); // 机构市
-			openAccountOrgAction.setOrgadd(bankCardVo.getOrgadd()); // 机构地址
+			openAccountAction.setOrgbusiness(bankCardVo.getOrgbusiness());
+			openAccountAction.setOrgnm(bankCardVo.getOrgnm());
+			openAccountAction.setOrgprovinceno(bankCardVo.getOrgprovinceno()); //机构省、直辖市
+			openAccountAction.setOrgcityno(bankCardVo.getOrgcityno()); // 机构市
+			openAccountAction.setOrgadd(bankCardVo.getOrgadd()); // 机构地址
 			/** 经办人 **/
-			openAccountOrgAction.setInvnm(bankCardVo.getInvnm());
-			openAccountOrgAction.setIdno(bankCardVo.getIdno());
-			openAccountOrgAction.setMobile(bankCardVo.getMobile());
-			openAccountOrgAction.setTelno(bankCardVo.getTelno());
-			openAccountOrgAction.setEmailadd(bankCardVo.getEmailadd());
+			openAccountAction.setInvnm(bankCardVo.getInvnm());
+			openAccountAction.setIdno(bankCardVo.getIdno());
+			openAccountAction.setMobile(bankCardVo.getMobile());
+			openAccountAction.setTelno(bankCardVo.getTelno());
+			openAccountAction.setEmailadd(bankCardVo.getEmailadd());
 			/** 法人 **/
-			openAccountOrgAction.setRerpidno(bankCardVo.getRerpidno());
-			openAccountOrgAction.setRerpnm(bankCardVo.getRerpnm());
+			openAccountAction.setRerpidno(bankCardVo.getRerpidno());
+			openAccountAction.setRerpnm(bankCardVo.getRerpnm());
 			
-			bankCardManager.openAccoStep2(openAccountOrgAction);
+			bankCardManager.openAccoStep2(openAccountAction);
 
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
@@ -125,8 +124,8 @@ public class BankCardController {
 	public String openAccoStep3(BankCardVo bankCardVo, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			OpenAccountOrgAction openAccountOrgAction = new OpenAccountOrgAction();
-			openAccountOrgAction.setCustno(s_custinfo.getCustno());
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setCustno(s_custinfo.getCustno());
 			
 			// for test
 			bankCardVo.setBankacnm("xxx幼儿园");
@@ -164,38 +163,38 @@ public class BankCardController {
 				return "cust/indexPage";
 			}
 			
-			OpenAccountOrgAction openAccountOrgAction = new OpenAccountOrgAction();
-			openAccountOrgAction.setCustno(s_custinfo.getCustno());
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setCustno(s_custinfo.getCustno());
 			
-			openAccountOrgAction.setLevel("1");
+			openAccountAction.setLevel("1");
 			// page1
-			openAccountOrgAction.setOrgbusiness(bankCardVo.getOrgbusiness());
-			openAccountOrgAction.setOrgnm(bankCardVo.getOrgnm());
-			openAccountOrgAction.setOrgprovinceno(bankCardVo.getOrgprovinceno());
-			openAccountOrgAction.setOrgcityno(bankCardVo.getOrgcityno());
-			openAccountOrgAction.setOrgadd(bankCardVo.getOrgadd());
-			openAccountOrgAction.setInvnm(bankCardVo.getInvnm());
-			openAccountOrgAction.setIdno(bankCardVo.getIdno());
-			openAccountOrgAction.setMobile(bankCardVo.getMobile());
-			openAccountOrgAction.setTelno(bankCardVo.getTelno());
-			openAccountOrgAction.setEmailadd(bankCardVo.getEmailadd());
-			openAccountOrgAction.setRerpidno(bankCardVo.getRerpidno());
-			openAccountOrgAction.setRerpnm(bankCardVo.getRerpnm());
+			openAccountAction.setOrgbusiness(bankCardVo.getOrgbusiness());
+			openAccountAction.setOrgnm(bankCardVo.getOrgnm());
+			openAccountAction.setOrgprovinceno(bankCardVo.getOrgprovinceno());
+			openAccountAction.setOrgcityno(bankCardVo.getOrgcityno());
+			openAccountAction.setOrgadd(bankCardVo.getOrgadd());
+			openAccountAction.setInvnm(bankCardVo.getInvnm());
+			openAccountAction.setIdno(bankCardVo.getIdno());
+			openAccountAction.setMobile(bankCardVo.getMobile());
+			openAccountAction.setTelno(bankCardVo.getTelno());
+			openAccountAction.setEmailadd(bankCardVo.getEmailadd());
+			openAccountAction.setRerpidno(bankCardVo.getRerpidno());
+			openAccountAction.setRerpnm(bankCardVo.getRerpnm());
 			
 			// page3
-			openAccountOrgAction.setBankacnm(bankCardVo.getBankacnm());
-			openAccountOrgAction.setBankno(bankCardVo.getBankno());
-			openAccountOrgAction.setBankcityno(bankCardVo.getBankcityno());
-			openAccountOrgAction.setBankprovinceno(bankCardVo.getBankprovinceno());
-			openAccountOrgAction.setBankadd(bankCardVo.getBankadd());
-			openAccountOrgAction.setBankacco(bankCardVo.getBankacco());
-			openAccountOrgAction.setTradepwd(bankCardVo.getTradepwd());
-			openAccountOrgAction.setTradepwd2(bankCardVo.getTradepwd2());
+			openAccountAction.setBankacnm(bankCardVo.getBankacnm());
+			openAccountAction.setBankno(bankCardVo.getBankno());
+			openAccountAction.setBankcityno(bankCardVo.getBankcityno());
+			openAccountAction.setBankprovinceno(bankCardVo.getBankprovinceno());
+			openAccountAction.setBankadd(bankCardVo.getBankadd());
+			openAccountAction.setBankacco(bankCardVo.getBankacco());
+			openAccountAction.setTradepwd(bankCardVo.getTradepwd());
+			openAccountAction.setTradepwd2(bankCardVo.getTradepwd2());
 			
-			openAccountOrgAction.setMobileautocode(bankCardVo.getMobileautocode());
-			openAccountOrgAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// 海富通
+			openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
+			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// 海富通
 			
-			bankCardManager.openAccountOrg(openAccountOrgAction);
+			bankCardManager.openAccountOrg(openAccountAction);
 			
 			UserHelper.setAddBankCardStatus("Y");
 			s_custinfo.setLevel("1");

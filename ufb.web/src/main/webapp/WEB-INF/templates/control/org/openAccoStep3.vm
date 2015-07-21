@@ -27,16 +27,16 @@
         </div>
     </div>
 	<form id="form" class="common-form"  method="post" action="${staticDomain}/org/openAccoStep3.htm">
-	<input id="organization" name="organization" type="hidden" value="$!{BankCardVo.organization}">
-	<input id="business" name="business" type="hidden" value="$!{BankCardVo.business}">
+	<input id="orgnm" name="orgnm" type="hidden" value="$!{BankCardVo.orgnm}">
+	<input id="orgbusiness" name="orgbusiness" type="hidden" value="$!{BankCardVo.orgbusiness}">
 	<input id="orgprovinceno" name="orgprovinceno" type="hidden" value="$!{BankCardVo.orgprovinceno}">
 	<input id="orgcityno" name="orgcityno" type="hidden" value="$!{BankCardVo.orgcityno}">
 	<input id="orgadd" name="orgadd" type="hidden" value="$!{BankCardVo.orgadd}">
-	<input id="operatornm" name="operatornm" type="hidden" value="$!{BankCardVo.operatornm}">
-	<input id="operatoridno" name="operatoridno" type="hidden" value="$!{BankCardVo.operatoridno}">
-	<input id="operatormobile" name="operatormobile" type="hidden" value="$!{BankCardVo.operatormobile}">
-	<input id="operatortelno" name="operatortelno" type="hidden" value="$!{BankCardVo.operatortelno}">
-	<input id="operatoreamiladd" name="operatoreamiladd" type="hidden" value="$!{BankCardVo.operatoreamiladd}">
+	<input id="invnm" name="invnm" type="hidden" value="$!{BankCardVo.invnm}">
+	<input id="idno" name="idno" type="hidden" value="$!{BankCardVo.idno}">
+	<input id="mobile" name="mobile" type="hidden" value="$!{BankCardVo.mobile}">
+	<input id="telno" name="telno" type="hidden" value="$!{BankCardVo.telno}">
+	<input id="emailadd" name="emailadd" type="hidden" value="$!{BankCardVo.emailadd}">
 	<input id="rerpidno" name="rerpidno" type="hidden" value="$!{BankCardVo.rerpidno}">
 	<input id="rerpnm" name="rerpnm" type="hidden" value="$!{BankCardVo.rerpnm}">
     <div id="body">
@@ -55,13 +55,13 @@
 					<table>
 						<tr>
 							<td>*银行户名</td>
-							<td><label class="inputText"><input type="text" name="bankAcnm" value="${BankCardVo.bankAcnm}"></label></td>
+							<td><label class="inputText"><input type="text" name="bankacnm" value="${BankCardVo.bankacnm}"></label></td>
 							<td>跟组织机构代码证上的机构名称一致（基本户、一般户均可），<a href="javascript:$('.pop').box({title:'无对公账户如何填写？'});">对公账户填写指引</a> </td>
 						</tr>
 						<tr>
 							<td>*开户银行</td>
 							<td>
-                            	<select name="bankNo" class="select" value="${BankCardVo.bankNo}">
+                            	<select name="bankno" class="select" value="${BankCardVo.bankno}">
                                     <option value="001">招商银行</option>
                                     <option value="002">建设银行</option>
                                     <option value="003">农业银行</option>
@@ -95,12 +95,12 @@
 						</tr>
 						<tr>
 							<td>*银行账号</td>
-							<td><label class="cardFormat" id="card1"><input name="bankAcco" type="text" value="${BankCardVo.bankAcco}"></label></td>
+							<td><label class="cardFormat" id="card1"><input name="bankacco" type="text" value="${BankCardVo.bankacco}"></label></td>
 							<td>请务必正确填写，填错会造成打款失败</td>
 						</tr>
                         <tr>
 							<td>*重复银行账号</td>
-							<td><label class="cardFormat" id="card2"><input name="bankAcco2" type="text" value="${BankCardVo.bankAcco2}"></label></td>
+							<td><label class="cardFormat" id="card2"><input name="bankacco2" type="text" value="${BankCardVo.bankacco2}"></label></td>
 							<td><div class="formSuc"></div></td>
 						</tr>
 					</table>
@@ -110,12 +110,12 @@
 					<table>
 						<tr>
 							<td>设置交易密码</td>
-							<td><label class="inputText"><input name="TradePwd" type="password" value="${BankCardVo.TradePwd}"><b>六位数字密码</b></label></td>
+							<td><label class="inputText"><input name="tradepwd" type="password" value="${BankCardVo.tradepwd}"><b>六位数字密码</b></label></td>
 							<td>交易密码为使用幼富通内相关资金交易的数字密码，不可与登录密码相同！</td>
 						</tr>
 						<tr>
 							<td>确认交易密码</td>
-							<td><label class="inputText"><input name="TradePwd2" type="password" value="${BankCardVo.TradePwd2}"></label></td>
+							<td><label class="inputText"><input name="tradepwd2" type="password" value="${BankCardVo.tradepwd2}"></label></td>
 							<td></td>
 						</tr>
 					</table>

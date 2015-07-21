@@ -35,7 +35,7 @@
                         class="error"
                         #end
                         >
-							<input type="password" id="ipt-loginPassword" name="pswpwd" value="$!{CustinfoVo.pswpwd}" class="ipt-loginPassword input-text">
+							<input type="password" id="ipt-loginPassword" name="loginpwd" value="$!{CustinfoVo.loginpwd}" class="ipt-loginPassword input-text">
 							<span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd}</span>
 						</li>
                         <li class="clearfix">

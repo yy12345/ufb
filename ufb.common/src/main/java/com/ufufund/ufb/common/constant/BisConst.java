@@ -21,9 +21,11 @@ public interface BisConst {
 
 		public static final String BANKNO = "银行编码";
 		public static final String BANKACCO = "银行卡号";
+		public static final String BANKACCO2 = "确认银行卡号";
 		public static final String BANKIDTP = "银行证件类型";
 		public static final String BANKIDNO = "银行证件号码";
-		public static final String BANKACNM = "银行开户姓名";
+		public static final String BANKACNM = "银行开户名";
+		public static final String BANKADD = "支行网点";
 		public static final String BANKMOBILE = "银行开户手机号";	
 		public static final String BANKMOBILEMSGCODE = "手机验证码";
 		

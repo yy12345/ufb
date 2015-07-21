@@ -15,17 +15,17 @@
 			T1.IDTP,
 			T1.IDNO,
 			T1.MOBILENO,
-			T1.EMAIL,
+			T1.EMAIL AS EMAILADD,
 			T1.CUSTST,
-			T1.PASSWD,
+			T1.PASSWD AS LOGINPWD,
 			DATE_FORMAT(T1.LASTLOGINTIME,'%Y-%m-%d %H:%i:%s') AS LASTLOGINTIME,
 			T1.PASSWDERR,
 			T1.OPENDT,
 			T1.UPDATETIMESTAMP,
 			T1.TRADEPWD,
 			T1.LEVEL,
-			T1.ORGANIZATION,
-			T1.BUSINESS,
+			T1.ORGANIZATION AS ORGNM,
+			T1.BUSINESS AS ORGBUSINESS,
 			T1.OPENACCOUNT
   		FROM CUSTINFO T1 
 		WHERE 
@@ -38,7 +38,7 @@
 		<if test="idno != null and idno !=''" >
 		 T1.IDNO = #{idno,jdbcType=VARCHAR} AND
 		</if>
-		<if test="passwd != null and passwd !=''" >
+		<if test="loginpwd != null and loginpwd !=''" >
   		 T1.PASSWD = #{loginpwd,jdbcType=VARCHAR} AND
   		</if>
   		<if test="tradepwd != null and tradepwd !=''" >
@@ -79,9 +79,9 @@
 			
 		    IDNO,
 		    MOBILENO,
-		    EMAIL,
+		    EMAIL AS EMAILADD,
 		    CUSTST,
-		    PASSWD,
+		    PASSWD AS LOGINPWD,
 		    
 		    LASTLOGINTIME,
 		    PASSWDERR,
@@ -89,8 +89,8 @@
 		    UPDATETIMESTAMP,
 		    TRADEPWD,
 		    LEVEL,
-		    ORGANIZATION,
-		    BUSINESS)
+		    ORGANIZATION AS ORGNM,
+		    BUSINESS AS ORGBUSINESS)
 		VALUES (
 			#{custno,jdbcType=VARCHAR},
 			#{invtp,jdbcType=VARCHAR},
@@ -135,13 +135,13 @@
 	        <if test="mobileno != null">
 	       	  ,T1.MOBILENO = #{mobileno,jdbcType=VARCHAR}
 	       	</if>
-			<if test="email != null">
+			<if test="emailadd != null">
 	       	  ,T1.EMAIL = #{emailadd,jdbcType=VARCHAR}
 	       	</if>
 			<if test="custst != null">
 	       	  ,T1.CUSTST = #{custst,jdbcType=VARCHAR}
 	       	</if>
-			<if test="passwd != null">
+			<if test="loginpwd != null">
 	       	  ,T1.PASSWD = #{loginpwd,jdbcType=VARCHAR}
 	       	</if>
 	        <if test="lastlogintime != null">

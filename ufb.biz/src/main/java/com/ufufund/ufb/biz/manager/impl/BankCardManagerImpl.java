@@ -22,7 +22,6 @@ import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeAccoinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
-import com.ufufund.ufb.model.action.cust.OpenAccountOrgAction;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -95,44 +94,44 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	}
 	
 	/**
-	 * @param OpenAccountOrgAction
+	 * @param OpenAccountAction
 	 * @return
 	 */
-	public OpenAccountOrgAction openAccoStep1(OpenAccountOrgAction openAccountOrgAction) throws BizException {
+	public OpenAccountAction openAccoStep1(OpenAccountAction openAccountAction) throws BizException {
 		
-		return openAccountOrgAction;
+		return openAccountAction;
 	}
 	
 	/**
-	 * @param OpenAccountOrgAction
+	 * @param OpenAccountAction
 	 * @return
 	 */
-	public OpenAccountOrgAction openAccoStep2(OpenAccountOrgAction openAccountOrgAction) throws BizException {
-		String processId = this.getProcessId(openAccountOrgAction);
+	public OpenAccountAction openAccoStep2(OpenAccountAction openAccountAction) throws BizException {
+		String processId = this.getProcessId(openAccountAction);
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
-		bankCardManagerValidator.validator(openAccountOrgAction, "Org_Base");
+		bankCardManagerValidator.validator(openAccountAction, "OrgBase");
 		// 用户注册、冻结、已开户验证
-		custManagerValidator.validator(openAccountOrgAction, "Org_Business");
+		custManagerValidator.validator(openAccountAction, "OrgBusiness");
 		
 		// 校验是否与登录密码一致（已绑卡开户的用户不需要再次验证密码）
 		// 没有输入密码 下面检查
 //		Custinfo custinfo = new Custinfo();
-//		custinfo.setCustno(openAccountOrgAction.getCustno());
+//		custinfo.setCustno(openAccountAction.getCustno());
 //		custinfo = custinfoMapper.getCustinfo(custinfo);
-//		String md5 = EncryptUtil.md5(openAccountOrgAction.getTradepwd());
+//		String md5 = EncryptUtil.md5(openAccountAction.getTradepwd());
 //		if(md5.equals(custinfo.getPasswd())){
 //			// 交易密码不能和登录密码相同
 //			throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
 //		}
 		
-		return openAccountOrgAction;
+		return openAccountAction;
 	}
 	
 	/**
-	 * @param OpenAccountOrgAction
+	 * @param OpenAccountAction
 	 * @return
 	 */
-	public OpenAccountOrgAction openAccoStep3(OpenAccountOrgAction openAccountOrgAction) throws BizException {
+	public OpenAccountAction openAccoStep3(OpenAccountAction openAccountAction) throws BizException {
 //		String processId = this.getProcessId(openAccountAction);
 //		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
 //		bankCardManagerValidator.validator(openAccountAction, "User_Base");
@@ -151,7 +150,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 //			}
 //		}
 		
-		return openAccountOrgAction;
+		return openAccountAction;
 	}
 	
 	/**
@@ -164,9 +163,9 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction) throws BizException {
 		String processId = this.getProcessId(openAccountAction);
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
-		bankCardManagerValidator.validator(openAccountAction, "User_Base");
+		bankCardManagerValidator.validator(openAccountAction, "UserBase");
 		// 用户注册、冻结、已开户验证
-		custManagerValidator.validator(openAccountAction, "User_Business");
+		custManagerValidator.validator(openAccountAction, "UserBusiness");
 		
 		if(openAccountAction.getHftorganizationtradeaccoct() == 0){
 			// 校验是否与登录密码一致（已绑卡开户的用户不需要再次验证密码）
@@ -192,7 +191,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 */
 	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException {
 		// 银行基本信息验证
-		bankCardManagerValidator.validator(openAccountAction, "Bank_Base");
+		bankCardManagerValidator.validator(openAccountAction, "BankBase");
 		
 		// 是否已绑卡
 		openAccountAction.setBankacco(openAccountAction.getBankacco().trim());
@@ -225,7 +224,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 */
 	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException {
 		// 银行基本信息验证
-		bankCardManagerValidator.validator(openAccountAction, "Bank_Base");
+		bankCardManagerValidator.validator(openAccountAction, "BankBase");
 		
 		// 执行银行验证交易
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
@@ -250,11 +249,11 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 */
 	public void openAccountPerson(OpenAccountAction openAccountAction) throws BizException {
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
-		bankCardManagerValidator.validator(openAccountAction, "User_Base");
+		bankCardManagerValidator.validator(openAccountAction, "UserBase");
 		// 用户注册、冻结、已开户验证
-		custManagerValidator.validator(openAccountAction, "User_Business");
+		custManagerValidator.validator(openAccountAction, "UserBusiness");
 		// 银行基本信息验证
-		bankCardManagerValidator.validator(openAccountAction, "Bank_Base");
+		bankCardManagerValidator.validator(openAccountAction, "BankBase");
 		
 		// 执行开户交易
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
@@ -342,40 +341,40 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 *  4 开户
 	 *  1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户
 	 * 
-	 * @param openAccountOrgAction
+	 * @param openAccountAction
 	 * @return
 	 */
-	public void openAccountOrg(OpenAccountOrgAction openAccountOrgAction) throws BizException {
+	public void openAccountOrg(OpenAccountAction openAccountAction) throws BizException {
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
-		bankCardManagerValidator.validator(openAccountOrgAction, "Org_Base");
+		bankCardManagerValidator.validator(openAccountAction, "OrgBase");
 		// 用户注册、冻结、已开户验证
-		custManagerValidator.validator(openAccountOrgAction, "Org_Business");
+		custManagerValidator.validator(openAccountAction, "OrgBusiness");
 		// 银行基本信息验证
-		bankCardManagerValidator.validator(openAccountOrgAction, "Org_Bank_Base");
+		bankCardManagerValidator.validator(openAccountAction, "OrgBankBase");
 		
 		// 执行开户交易
-		openAccountOrgAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-		OpenAccountOrgRequest request = bankCardManagerHelper.toOpenAccountOrgRequest(openAccountOrgAction);
+		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		OpenAccountOrgRequest request = bankCardManagerHelper.toOpenAccountOrgRequest(openAccountAction);
 		OpenAccountOrgResponse response = hftCustService.openAccountOrg(request);
 		
 		// 处理返回异常码
 		HftResponseUtil.dealResponseCode(response);
 		
 		// *** 开户成功，更新custinfo表的交易帐号、投资人姓名、证件类型、证件号、开户状态、交易密码
-		openAccountOrgAction.setTransactionaccountid(response.getTransactionAccountID());
+		openAccountAction.setTransactionaccountid(response.getTransactionAccountID());
 		Custinfo custinfo = new Custinfo();
-		custinfo.setCustno(openAccountOrgAction.getCustno());
+		custinfo.setCustno(openAccountAction.getCustno());
 		custinfo.setInvtp(Invtp.ORGANIZATION.getValue());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if(custinfo.getTradepwd() == null){
-		    custinfo = custManagerHelper.toOpenAccountOrgAction(openAccountOrgAction);
+		    custinfo = custManagerHelper.toOpenAccountOrgAction(openAccountAction);
 			custinfoMapper.updateCustinfo(custinfo);
 			Changerecordinfo changerecordinfo2 = new Changerecordinfo();
 			changerecordinfo2.setCustno(custinfo.getCustno());
 			changerecordinfo2.setRecordafter(custinfo.toString());
 			changerecordinfo2.setTablename(TableName.CUSTINFO.value());
 			changerecordinfo2.setApkind(Apkind.OPEN_ACCOUNT.getValue());
-			changerecordinfo2.setRefserialno(openAccountOrgAction.getSerialno());
+			changerecordinfo2.setRefserialno(openAccountAction.getSerialno());
 			// **** 变更表
 			tradeNotesMapper.insterChangerecordinfo(changerecordinfo2);	
 		}
@@ -387,15 +386,15 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		List<Bankcardinfo> bankList = bankCardMapper.getBankcardinfo(bankcardinfoqey);
 		for(Bankcardinfo bankcardinfo : bankList){
 			if(bankcardinfo.getBankno()!=null && 
-			   bankcardinfo.getBankno().equals(openAccountOrgAction.getBankno())&&
-			   bankcardinfo.getBankacco().equals(openAccountOrgAction.getBankacco())){
+			   bankcardinfo.getBankno().equals(openAccountAction.getBankno())&&
+			   bankcardinfo.getBankacco().equals(openAccountAction.getBankacco())){
 			   bankcardinfodef = bankcardinfo;
 			   break;
 			}
 		}
 		// 如果此银行卡没有记录，添加银行卡
 		if(bankcardinfodef==null){
-			bankcardinfodef = bankCardManagerHelper.toBankcardinfo(openAccountOrgAction);
+			bankcardinfodef = bankCardManagerHelper.toBankcardinfo(openAccountAction);
 			String bankSeq = bankCardMapper.getBankcardinfoSequence();
 			bankcardinfodef.setSerialid(bankSeq);
 			bankcardinfodef.setState("Y");
@@ -403,18 +402,18 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 			bankCardMapper.insterBankcardinfo(bankcardinfodef);
 			Changerecordinfo changerecordinfo1 = bankCardManagerHelper.toBankcardinfo(bankcardinfodef);
 			changerecordinfo1.setApkind(Apkind.OPEN_ACCOUNT.getValue());
-			changerecordinfo1.setRefserialno(openAccountOrgAction.getSerialno());
+			changerecordinfo1.setRefserialno(openAccountAction.getSerialno());
 			// **** 变更表
 			tradeNotesMapper.insterChangerecordinfo(changerecordinfo1);
 		}		
 		// 添加tradeacco表
 		Today today = workDayManager.getSysDayInfo();
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
-		tradeaccoinfo.setCustno(openAccountOrgAction.getCustno());// char(10) not null comment '客户编号',
+		tradeaccoinfo.setCustno(openAccountAction.getCustno());// char(10) not null comment '客户编号',
 		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// char(2) not null default '' comment '交易账号类型：归属基金公司',
-		tradeaccoinfo.setLevel(openAccountOrgAction.getLevel());
+		tradeaccoinfo.setLevel(openAccountAction.getLevel());
 		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
-		tradeaccoinfo.setTradeacco(openAccountOrgAction.getTransactionaccountid());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
+		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionaccountid());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
 		tradeaccoinfo.setOpendt(today.getWorkday());
 		tradeAccoinfoMapper.insterTradeaccoinfo(tradeaccoinfo);
 
@@ -422,18 +421,18 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//helper.toFdacfinalresult(custinfo);
 		fdacfinalresult.setCustno(custinfo.getCustno());
 		fdacfinalresult.setTobankserialid(bankcardinfodef.getSerialid());
-		fdacfinalresult.setTotradeacco(openAccountOrgAction.getTransactionaccountid());
+		fdacfinalresult.setTotradeacco(openAccountAction.getTransactionaccountid());
 		fdacfinalresult.setWorkdate(today.getWorkday());
 		fdacfinalresult.setApdt(today.getDate());
 		fdacfinalresult.setAptm(today.getTime());
-		fdacfinalresult.setSerialno(openAccountOrgAction.getSerialno());
+		fdacfinalresult.setSerialno(openAccountAction.getSerialno());
 		fdacfinalresult.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 		fdacfinalresult.setTofundcorpno(Constant.HftSysConfig.MerchantId);
 		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		
 		Changerecordinfo changerecordinfo3 = bankCardManagerHelper.toTradeaccoinfo(tradeaccoinfo);
 		changerecordinfo3.setApkind(Apkind.OPEN_ACCOUNT.getValue());
-		changerecordinfo3.setRefserialno(openAccountOrgAction.getSerialno());
+		changerecordinfo3.setRefserialno(openAccountAction.getSerialno());
 		// **** 变更表
 		tradeNotesMapper.insterChangerecordinfo(changerecordinfo3);
 	}
