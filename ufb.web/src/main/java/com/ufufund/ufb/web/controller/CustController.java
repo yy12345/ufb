@@ -80,7 +80,6 @@ public class CustController {
 		try{
 			// 初始化数据
 			custinfoVo.setInvtp(Invtp.PERSONAL.getValue()); // 个人
-			custinfoVo.setLevel(Level.PERSONAL.getValue()); // 家庭
 			
 			// 防止重复注册
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -100,7 +99,6 @@ public class CustController {
 			registerAction.setLoginpwd(custinfoVo.getLoginpwd());
 			registerAction.setLoginpwd2(custinfoVo.getLoginpwd2());
 			registerAction.setInvtp(Invtp.PERSONAL);// 个人
-			registerAction.setLevel(Level.PERSONAL); // 家庭
 			registerAction.setCustst("N");
 			// 注册
 			custManager.register(registerAction);
@@ -143,7 +141,6 @@ public class CustController {
 		
 		try{
 			custinfoVo.setInvtp(Invtp.ORGANIZATION.getValue()); // 机构
-			custinfoVo.setLevel(Level.ORGANIZATION.getValue()); // 机构
 			
 			// 防止重复注册
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -163,7 +160,6 @@ public class CustController {
 			registerAction.setLoginpwd(custinfoVo.getLoginpwd());
 			registerAction.setLoginpwd2(custinfoVo.getLoginpwd2());
 			registerAction.setInvtp(Invtp.ORGANIZATION);// 机构
-			registerAction.setLevel(Level.ORGANIZATION); // 机构
 			registerAction.setCustst("N");
 			registerAction.setOrgnm(custinfoVo.getOrgnm());
 			registerAction.setOrgbusiness(custinfoVo.getOrgbusiness());

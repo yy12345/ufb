@@ -7,23 +7,20 @@
 <script>
 $(function(){
 	//家庭、经办人注册开户
-	var level_org = $("#level_org").val();
-	var level_family = $("#level_family").val();
-	if(level_org == "1"){
+	var invtp_org = $("#invtp_org").val();
+	var invtp_family = $("#invtp_family").val();
+	if(invtp_org == "1"){
 		var tab = $(".tab-org");
 		var panels = $(".register-panels .panel");
     	tab.addClass("on").siblings().removeClass("on");
     	panels.addClass("slide-out").eq(1).removeClass("slide-out");
 	}
-	if(level_family == "0"){
+	if(invtp_family == "0"){
 		var tab = $(".tab-family");
 		var panels = $(".register-panels .panel");
     	tab.addClass("on").siblings().removeClass("on");
     	panels.addClass("slide-out").eq(0).removeClass("slide-out");
 	}
-	
-	//alert($("#register-family #level").val());
-	//alert($("#register-org #level").val());
 	
 	// 家庭手机短信
 	$("#register-family #btn-getMsgCode").on("click",function(){
@@ -159,16 +156,13 @@ $(function(){
 		if(!check_mobile($("#register-family #mobileno"))){
 			return false;
 		}
-		//if(!check_code($("#register-family #verifycode"))){
-		//	return false;
-		//}
 		if(!check_phoneCode($("#register-family #msgcode"))){
 			return false;
 		}
-		if(!check_pwd1($("#register-family #pswpwd"))){
+		if(!check_pwd1($("#register-family #loginpwd"))){
 			return false;
 		}
-		if(!check_pwd2($("#register-family #pswpwd2"))){
+		if(!check_pwd2($("#register-family #loginpwd2"))){
 			return false;
 		}
 		var errLen = $("#register-family ul li.error").length;
@@ -186,22 +180,19 @@ $(function(){
 		if(!check_mobile($("#register-org #mobileno"))){
 			return false;
 		}
-		//if(!check_code($("#register-org #verifycode"))){
-		//	return false;
-		//}
 		if(!check_phoneCode($("#register-org #msgcode"))){
 			return false;
 		}
-		if(!check_pwd1($("#register-org #pswpwd"))){
+		if(!check_pwd1($("#register-org #loginpwd"))){
 			return false;
 		}
-		if(!check_pwd2($("#register-org #pswpwd2"))){
+		if(!check_pwd2($("#register-org #loginpwd2"))){
 			return false;
 		}
-		if(!check_organization($("#register-org #organization"))){
+		if(!check_organization($("#register-org #orgnm"))){
 			return false;
 		}
-		if(!check_business($("#register-org #business"))){
+		if(!check_business($("#register-org #orgbusiness"))){
 			return false;
 		}
 		var errLen = $("#register-org ul li.error").length;
@@ -228,7 +219,6 @@ $(function(){
             <div class="register-panels panels">
                 <div class="panel panel-family slide-out">
                     <form id="register-family" action="${staticDomain}/register/family.htm" id="register-family" class="common-form form-register" method="post" >
-					<input id="level_family" type="hidden" name="level" value="$!{CustinfoVo_family.level}"/>
     				<input id="invtp_family" type="hidden" name="invtp" value="$!{CustinfoVo_family.invtp}"/>
 						<ul>
 							<li id="errMsg_mobileno_family"
@@ -271,7 +261,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">设置新密码</span>
-                                <input id="pswpwd" name="pswpwd" class="ipt-password1 input-text" maxlength="20" type="password" value="$!{CustinfoVo_family.pswpwd}">
+                                <input id="loginpwd" name="loginpwd" class="ipt-password1 input-text" maxlength="20" type="password" value="$!{CustinfoVo_family.loginpwd}">
                                 <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd_family}</span>
                             </li>
@@ -281,7 +271,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">确认新密码</span>
-                                <input id="pswpwd2" name="pswpwd2" class="ipt-password2 input-text" maxlength="20" type="password" value="$!{CustinfoVo_family.pswpwd2}">
+                                <input id="loginpwd2" name="loginpwd2" class="ipt-password2 input-text" maxlength="20" type="password" value="$!{CustinfoVo_family.loginpwd2}">
                                 <span class="tips-normal">请再次输入密码</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd2_family}</span>
                             </li>
@@ -296,7 +286,6 @@ $(function(){
                 </div>
                 <div class="panel panel-org slide-on">
                     <form method="post" action="${staticDomain}/register/org.htm" id="register-org" class="common-form form-register">
-    					<input id="level_org" type="hidden" name="level" value="$!{CustinfoVo_org.level}"/>
     					<input id="invtp_org" type="hidden" name="invtp" value="$!{CustinfoVo_org.invtp}"/>
     					<ul>
                             <li id="errMsg_mobileno_org"
@@ -339,7 +328,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">设置新密码</span>
-                                <input id="pswpwd" name="pswpwd" class="ipt-password1 input-text" maxlength="20" type="password" value="$!{CustinfoVo_org.pswpwd}">
+                                <input id="loginpwd" name="loginpwd" class="ipt-password1 input-text" maxlength="20" type="password" value="$!{CustinfoVo_org.loginpwd}">
                                 <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd_org}</span>
                             </li>
@@ -349,7 +338,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">确认新密码</span>
-                                <input id="pswpwd2" name="pswpwd2" class="ipt-password2 input-text" maxlength="20" type="password" value="$!{CustinfoVo_org.pswpwd2}">
+                                <input id="loginpwd2" name="loginpwd2" class="ipt-password2 input-text" maxlength="20" type="password" value="$!{CustinfoVo_org.loginpwd2}">
                                 <span class="tips-normal">请再次输入密码</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd2_org}</span>
                             </li>
@@ -359,7 +348,7 @@ $(function(){
                             #end
                             >
     							<span class="form-title">幼教机构名称</span>
-    							<input id="organization" name="organization" class="ipt-organization input-text" maxlength="28" type="text" value="$!{CustinfoVo_org.organization}">
+    							<input id="orgnm" name="orgnm" class="ipt-organization input-text" maxlength="28" type="text" value="$!{CustinfoVo_org.orgnm}">
     							<span class="tips-normal">请按照营业执照填写</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_organization_org}</span>
                             </li>
@@ -369,7 +358,7 @@ $(function(){
                             #end
                             >
     							<span class="form-title">营业执照注册号</span>
-    							<input id="business" name="business" class="ipt-business input-text" maxlength="28" type="text" value="$!{CustinfoVo_org.business}">
+    							<input id="orgbusiness" name="orgbusiness" class="ipt-business input-text" maxlength="28" type="text" value="$!{CustinfoVo_org.orgbusiness}">
     							<span class="tips-normal">请按照营业执照填写</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_business_org}</span>
                             </li>
