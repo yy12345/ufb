@@ -116,9 +116,9 @@ public class CustController {
 				model.addAttribute("errMsg_verifycode_family", e.getMessage()); // 验证码
 			} else if(BisConst.Register.MSGCODE.equals(ems)){
 				model.addAttribute("errMsg_msgcode_family", e.getMessage()); // 手机验证码
-			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
+			} else if (BisConst.Register.LOGINPWD.equals(ems)) {
 				model.addAttribute("errMsg_pswpwd_family", e.getMessage()); // 登录密码
-			} else if (BisConst.Register.LOGINPASSWORD2.equals(ems)) {
+			} else if (BisConst.Register.LOGINPWD2.equals(ems)) {
 				model.addAttribute("errMsg_pswpwd2_family", e.getMessage()); // 登录确认密码
 			} else {
 				// TODO
@@ -180,13 +180,13 @@ public class CustController {
 				model.addAttribute("errMsg_verifycode_org", e.getMessage()); // 验证码
 			} else if(BisConst.Register.MSGCODE.equals(ems)){
 				model.addAttribute("errMsg_msgcode_org", e.getMessage()); // 手机验证码
-			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
+			} else if (BisConst.Register.LOGINPWD.equals(ems)) {
 				model.addAttribute("errMsg_pswpwd_org", e.getMessage()); // 登录密码
-			} else if (BisConst.Register.LOGINPASSWORD2.equals(ems)) {
+			} else if (BisConst.Register.LOGINPWD2.equals(ems)) {
 				model.addAttribute("errMsg_pswpwd2_org", e.getMessage()); // 登录确认密码
-			} else if (BisConst.Register.ORGANIZATION.equals(ems)) {
+			} else if (BisConst.Register.ORGNM.equals(ems)) {
 				model.addAttribute("errMsg_organization_org", e.getMessage()); //
-			} else if (BisConst.Register.BUSINESS.equals(ems)) {
+			} else if (BisConst.Register.ORGBUSINESS.equals(ems)) {
 				model.addAttribute("errMsg_business_org", e.getMessage()); //
 			} else {
 				// TODO
@@ -309,7 +309,7 @@ public class CustController {
 				model.addAttribute("errMsg_mobileno", e.getMessage()); // 登录帐号
 			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
 				model.addAttribute("errMsg_verifycode", e.getMessage()); // 验证码
-			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
+			} else if (BisConst.Register.LOGINPWD.equals(ems)) {
 				model.addAttribute("errMsg_pswpwd", e.getMessage()); // 登录密码
 			} else {
 				// TODO throw userException?
@@ -392,7 +392,7 @@ public class CustController {
 				model.addAttribute("errMsg_mobileno", e.getMessage()); // 登录帐号
 			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
 				model.addAttribute("errMsg_verifycode", e.getMessage()); // 验证码
-			} else if (BisConst.Register.LOGINPASSWORD.equals(ems)) {
+			} else if (BisConst.Register.LOGINPWD.equals(ems)) {
 				model.addAttribute("errMsg_pswpwd", e.getMessage()); // 登录密码
 			} else {
 				// TODO throw userException?

@@ -191,7 +191,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 */
 	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException {
 		// 银行基本信息验证
-		bankCardManagerValidator.validator(openAccountAction, "BankBase");
+		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
 		// 是否已绑卡
 		openAccountAction.setBankacco(openAccountAction.getBankacco().trim());
@@ -224,7 +224,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 */
 	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException {
 		// 银行基本信息验证
-		bankCardManagerValidator.validator(openAccountAction, "BankBase");
+		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
 		// 执行银行验证交易
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
@@ -253,7 +253,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// 用户注册、冻结、已开户验证
 		custManagerValidator.validator(openAccountAction, "UserBusiness");
 		// 银行基本信息验证
-		bankCardManagerValidator.validator(openAccountAction, "BankBase");
+		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
 		// 执行开户交易
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());

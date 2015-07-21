@@ -70,8 +70,7 @@ public class AjaxCustController {
 				resultMap.put("errCode", "errMsg_bankAcnm");
 				resultMap.put("errMsg", e.getMessage());
 			} else if (BisConst.Register.BANKIDNO.equals(ems)
-					|| BisConst.Register.IDNO.equals(ems)
-					|| BisConst.Register.IDCARDNO.equals(ems)) {
+					|| BisConst.Register.IDNO.equals(ems)) {
 				resultMap.put("errCode", "errMsg_bankIdno");
 				resultMap.put("errMsg", e.getMessage());
 			} else if (BisConst.Register.MOBILE.equals(ems)

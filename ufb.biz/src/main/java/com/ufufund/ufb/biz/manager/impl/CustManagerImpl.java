@@ -107,7 +107,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		String processId = this.getProcessId(idCardNo);
 		boolean res = false;
 		if (!RegexUtil.isIdCardNo(idCardNo)) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.IDCARDNO);
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.IDNO);
 		}
 		Custinfo custinfo = new Custinfo();
 		custinfo.setInvtp(invTp);
@@ -166,7 +166,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			}
 			custinfoMapper.updateCustinfo(custinfo);
 			// 登录密码不正确
-			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD, BisConst.Register.LOGINPASSWORD);
+			throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD, BisConst.Register.LOGINPWD);
 		}
 		
 		// 登录 更新
@@ -262,7 +262,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			if("TRADE".equals(actionType)){
 				throw new BizException(processId, ErrorInfo.WRONG_TRADE_PASSWORD, BisConst.Register.TRADEPWD0);
 			}else{
-				throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD, BisConst.Register.LOGINPASSWORD0);
+				throw new BizException(processId, ErrorInfo.WRONG_LOGIN_PASSWORD, BisConst.Register.LOGINPWD0);
 			}
 		}
 		
@@ -278,7 +278,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			// 登入密码
 			if(md5.equals(custinfo.getTradepwd())){
 				// 交易密码不能和登录密码相同
-				throw new BizException(processId, ErrorInfo.CANNOTEQUALTRADEPWD, BisConst.Register.LOGINPASSWORD);
+				throw new BizException(processId, ErrorInfo.CANNOTEQUALTRADEPWD, BisConst.Register.LOGINPWD);
 			}
 		}else{
 			// 找回交易密码

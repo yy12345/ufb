@@ -132,13 +132,13 @@ public class SettingController {
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			String ems = e.getOtherInfo();
-			if(BisConst.Register.LOGINPASSWORD0.equals(ems)){
+			if(BisConst.Register.LOGINPWD0.equals(ems)){
 				model.addAttribute("errMsg_login_password0", e.getMessage());
 			}else
-			if(BisConst.Register.LOGINPASSWORD.equals(ems)){
+			if(BisConst.Register.LOGINPWD.equals(ems)){
 				model.addAttribute("errMsg_login_password1", e.getMessage());
 			}else
-			if(BisConst.Register.LOGINPASSWORD2.equals(ems)){
+			if(BisConst.Register.LOGINPWD2.equals(ems)){
 				model.addAttribute("errMsg_login_password2", e.getMessage());
 			}else{
 				model.addAttribute("errMsg", e.getMessage());

@@ -31,7 +31,7 @@ public class CustManagerValidator {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINCODE);
 		}
 		if (RegexUtil.isNull(action.getLoginPassword())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD);
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPWD);
 		}
 	}
 	
@@ -48,19 +48,19 @@ public class CustManagerValidator {
 		}
 		if (RegexUtil.isNull(action.getLoginpwd())) {
 			// 登录密码为空
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD);
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPWD);
 		}
 		if (!RegexUtil.isPwd(action.getLoginpwd())) {
 			// 密码 以字母，数字开头，长度在6-12之间，只能包含字符、数字和下划线。
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.LOGINPASSWORD);
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.LOGINPWD);
 		}
 		if (RegexUtil.isNull(action.getLoginpwd2())) {
 			// 确认密码为空
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD2);
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPWD2);
 		}
 		if (!action.getLoginpwd().equals(action.getLoginpwd2())) {
 			// 两次密码确认不一致
-			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.LOGINPASSWORD);
+			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.LOGINPWD);
 		}
 		if (!RegexUtil.isMobile(action.getLogincode())) {
 			// 手机号格式错误
@@ -70,11 +70,11 @@ public class CustManagerValidator {
 			// 机构注册
 			if (RegexUtil.isNull(action.getOrgnm())) {
 				// 机构名称为空
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGNM);
 			}
 			if (RegexUtil.isNull(action.getOrgbusiness())) {
 				// 营业执照为空
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BUSINESS);
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGBUSINESS);
 			}
 		}
 	}
@@ -142,19 +142,19 @@ public class CustManagerValidator {
 			}
 		}else if("LOGIN".equals(action.getActionType())){
 			if (RegexUtil.isNull(action.getPassword0())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD0);
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPWD0);
 			}
 			if (RegexUtil.isNull(action.getPassword1())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD);
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPWD);
 			}
 			if (RegexUtil.isNull(action.getPassword2())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPASSWORD2);
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPWD2);
 			}
 			if (!action.getPassword1().equals(action.getPassword2())) {
-				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.LOGINPASSWORD);
+				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.LOGINPWD);
 			}
 			if (!RegexUtil.isPwd(action.getPassword1())) {
-				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.LOGINPASSWORD);
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.LOGINPWD);
 			}
 		}else{
 			if (RegexUtil.isNull(action.getPassword1())) {

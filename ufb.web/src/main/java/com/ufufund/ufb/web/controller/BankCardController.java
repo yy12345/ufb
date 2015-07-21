@@ -227,8 +227,7 @@ public class BankCardController {
 				model.addAttribute("errMsg_bankNo", e.getMessage());
 			}else
 			if(BisConst.Register.BANKIDNO.equals(ems) 
-				|| BisConst.Register.IDNO.equals(ems) 
-				|| BisConst.Register.IDCARDNO.equals(ems)){
+				|| BisConst.Register.IDNO.equals(ems)){
 				model.addAttribute("errMsg_bankIdno", e.getMessage());
 			}else
 			if(BisConst.Register.BANKACCO.equals(ems)){
@@ -397,8 +396,7 @@ public class BankCardController {
 			LOG.error(e.getErrmsg(), e);
 			String ems = e.getOtherInfo();
 			if(BisConst.Register.BANKIDNO.equals(ems) 
-				|| BisConst.Register.IDNO.equals(ems) 
-				|| BisConst.Register.IDCARDNO.equals(ems)){
+				|| BisConst.Register.IDNO.equals(ems)){
 				model.addAttribute("errMsg_bankIdno", e.getMessage());
 			}else
 			if(BisConst.Register.BANKACNM.equals(ems) 
@@ -411,10 +409,10 @@ public class BankCardController {
 			if(BisConst.Register.TRADEPWD2.equals(ems)){
 				model.addAttribute("errMsg_tradePwd2", e.getMessage());
 			}else
-			if(BisConst.Register.ORGANIZATION.equals(ems)){
+			if(BisConst.Register.ORGNM.equals(ems)){
 				model.addAttribute("errMsg_organization", e.getMessage());
 			}else
-			if(BisConst.Register.BUSINESS.equals(ems)){
+			if(BisConst.Register.ORGBUSINESS.equals(ems)){
 				model.addAttribute("errMsg_business", e.getMessage());
 			}else{
 				model.addAttribute("errMsg", e.getMessage());
@@ -524,8 +522,7 @@ public class BankCardController {
 				model.addAttribute("errMsg_bankNo", e.getMessage());
 			}else
 			if(BisConst.Register.BANKIDNO.equals(ems) 
-				|| BisConst.Register.IDNO.equals(ems) 
-				|| BisConst.Register.IDCARDNO.equals(ems)){
+				|| BisConst.Register.IDNO.equals(ems)){
 				model.addAttribute("errMsg_bankIdno", e.getMessage());
 			}else
 			if(BisConst.Register.BANKACCO.equals(ems)){

@@ -38,7 +38,7 @@ public class BankCardManagerValidator {
 			}
 			// 身份证号码
 			if (!RegexUtil.isIdCardNo(action.getIdno())) {
-				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDCARDNO);
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDNO);
 			}
 			
 			if(("0".equals(action.getInvtp()) && action.getHftfamilytradeaccoct() == 0) || 
@@ -62,19 +62,19 @@ public class BankCardManagerValidator {
 				}
 			}
 			if("1".equals(action.getInvtp())){
-				//幼教机构
+				// 幼教机构
 				if(RegexUtil.isNull(action.getOrgnm())){
-					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);
+					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGNM);
 				}
-				//营业执照
+				// 营业执照
 				if(RegexUtil.isNull(action.getOrgbusiness())){
-					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BUSINESS);
+					throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGBUSINESS);
 				}
 			}
 		}
 		
 		//银行基本信息验证
-		if("BankBase".equals(actionName)){
+		if("UserBankBase".equals(actionName)){
 			if (RegexUtil.isNull(action.getBankno())) {
 				//银行编码
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKNO);
@@ -121,11 +121,11 @@ public class BankCardManagerValidator {
 		if("OrgBase".equals(actionName)){
 			// 幼教机构
 			if(RegexUtil.isNull(action.getOrgnm())){
-				throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGANIZATION);
+				throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGNM);
 			}
 			// 营业执照
 			if(RegexUtil.isNull(action.getOrgbusiness())){
-				throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BUSINESS);
+				throw new BizException(ThreadLocalUtil.getProccessId(), ErrorInfo.NECESSARY_EMPTY, BisConst.Register.ORGBUSINESS);
 			}
 			// CustNo
 			if (RegexUtil.isNull(action.getCustno())) {
@@ -133,23 +133,27 @@ public class BankCardManagerValidator {
 			}
 			// 用户名
 			if (RegexUtil.isNull(action.getInvnm())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACNM);
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.INVNM);
 			}
 			// 证件号码
 			if (RegexUtil.isNull(action.getIdno())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDNO);
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.IDNO);
 			}
 			// 身份证号码
 			if (!RegexUtil.isIdCardNo(action.getIdno())) {
-				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.BANKIDNO);
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDNO);
+			}
+			// 法人姓名
+			if (!RegexUtil.isNull(action.getRerpnm())) {
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.RERPNM);
 			}
 			// 法人证件号码
 			if (RegexUtil.isNull(action.getRerpidno())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDNO);
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.RERPIDNO);
 			}
 			// 法人证件号码
 			if (!RegexUtil.isIdCardNo(action.getRerpidno())) {
-				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.BANKIDNO);
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.RERPIDNO);
 			}
 		}
 		

@@ -12,9 +12,9 @@ public interface BisConst {
 		public static final String CUSTNO = "用户编号";
 		public static final String LOGINCODE = "登录账号";
 		
-		public static final String LOGINPASSWORD0 = "原登录密码";
-		public static final String LOGINPASSWORD = "登录密码";
-		public static final String LOGINPASSWORD2 = "确认密码";
+		public static final String LOGINPWD0 = "原登录密码";
+		public static final String LOGINPWD = "登录密码";
+		public static final String LOGINPWD2 = "确认密码";
 		public static final String MOBILE = "手机号";
 		public static final String VERIFYCODE = "验证码";
 		public static final String MSGCODE = "手机验证码";
@@ -31,14 +31,16 @@ public interface BisConst {
 		
 		public static final String INVNM = "用户姓名";
 		public static final String IDNO = "证件号码";
-		public static final String IDCARDNO = "身份证号码";
+		
+		public static final String RERPIDNO = "法人证件号码";
+		public static final String RERPNM = "法人姓名";
 
 		public static final String TRADEPWD0 = "原交易密码";
 		public static final String TRADEPWD = "交易密码";
 		public static final String TRADEPWD2 = "交易确认密码";
 		
-		public static final String ORGANIZATION = "机构名称";
-		public static final String BUSINESS = "营业执照";
+		public static final String ORGNM = "机构名称";
+		public static final String ORGBUSINESS = "营业执照";
 	}
 	
 	
