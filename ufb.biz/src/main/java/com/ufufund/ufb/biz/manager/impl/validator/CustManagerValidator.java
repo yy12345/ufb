@@ -102,16 +102,18 @@ public class CustManagerValidator {
 			throw new BizException(action.getProcessId(), ErrorInfo.FREEZE_USER, BisConst.Register.CUSTNO);
 		}
 		// Custst 用户是否开户验证
-		if("Org_Business".equals(actionName)){
+		if("OrgBase".equals(actionName)){
 			// 是否开了机构户 custno ＋ invtp＝1
 			if (custManager.isIdCardNoRegister(action.getIdno().trim(), "1")) {
-				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.BANKIDNO);
+				// 经办人idno
+				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
 			}
 		}else{
 			// 其他 经办人、家庭
 			if(action.getHftfamilytradeaccoct() == 0){
-				if (custManager.isIdCardNoRegister(action.getIdno().trim(), "0")) {
-					throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
+				if (custManager.isIdCardNoRegister(action.getBankidno().trim(), "0")) {
+					// 银行卡idno
+					throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.BANKIDNO);
 				}
 			}
 		}
