@@ -52,7 +52,7 @@ public class AjaxCustController {
 			openAccountAction.setBankidtp(bankCardVo.getBankidtp());//银行证件类型
 			openAccountAction.setBankidno(bankCardVo.getBankidno());//银行证件号
 			openAccountAction.setBankacco(bankCardVo.getBankacco());//银行卡号码
-			openAccountAction.setBankmobile(bankCardVo.getMobile());//银行手机号
+			openAccountAction.setBankmobile(bankCardVo.getBankmobile());//银行手机号
 			
 			//调用银行快捷鉴权
 			bankCardManager.openAccount2(openAccountAction);

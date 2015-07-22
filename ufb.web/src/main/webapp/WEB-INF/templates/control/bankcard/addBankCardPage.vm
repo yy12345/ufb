@@ -14,26 +14,26 @@ $(function(){
         }
     });
 	#if(${hftTradeAccoListSize}!=0)
-		$("#organization").attr("readonly","readonly");
-		$("#business").attr("readonly","readonly");
-		$("#bankAcnm").attr("readonly","readonly");
-		$("#bankIdno").attr("readonly","readonly");
-		$("#tradePwd").attr("readonly","readonly");
-		$("#tradePwd2").attr("readonly","readonly");
+		//$("#orgnm").attr("readonly","readonly");
+		//$("#orgbusiness").attr("readonly","readonly");
+		//$("#bankAcnm").attr("readonly","readonly");
+		//$("#bankIdno").attr("readonly","readonly");
+		//$("#tradepwd").attr("readonly","readonly");
+		//$("#tradepwd2").attr("readonly","readonly");
 		
-		$("#organization").css("background-color","#ddd");
-		$("#business").css("background-color","#ddd");
-		$("#bankAcnm").css("background-color","#ddd");
-		$("#bankIdno").css("background-color","#ddd");
-		$("#tradePwd").css("background-color","#ddd");
-		$("#tradePwd2").css("background-color","#ddd");
+		//$("#orgnm").css("background-color","#ddd");
+		//$("#business").css("background-color","#ddd");
+		//$("#bankacnm").css("background-color","#ddd");
+		//$("#bankidno").css("background-color","#ddd");
+		//$("#tradepwd").css("background-color","#ddd");
+		//$("#tradepwd2").css("background-color","#ddd");
 		
-		$("#organization").unbind("blur");
-		$("#business").unbind("blur");
-		$("#bankAcnm").unbind("blur");
-		$("#bankIdno").unbind("blur");
-		$("#tradePwd").unbind("blur");
-		$("#tradePwd2").unbind("blur");
+		//$("#organization").unbind("blur");
+		//$("#business").unbind("blur");
+		//$("#bankAcnm").unbind("blur");
+		//$("#bankIdno").unbind("blur");
+		//$("#tradepwd").unbind("blur");
+		//$("#tradepwd2").unbind("blur");
 	//}
 	#end
 	
@@ -46,23 +46,23 @@ $(function(){
 		//}
 		#end
 		#if(${CustinfoVo.level} != 0)
-		if(!check_organization($("#organization"))){
+		if(!check_organization($("#orgnm"))){
 			return false;
 		}
-		if(!check_business($("#business"))){
+		if(!check_business($("#orgbusiness"))){
 			return false;
 		}
 		#end
-		if(!check_bankAcnm($("#bankAcnm"))){
+		if(!check_bankAcnm($("#bankacnm"))){
 			return false;
 		}
-		if(!check_id($("#bankIdno"))){
+		if(!check_id($("#bankidno"))){
 			return false;
 		}
-		if(!check_pwd1($("#tradePwd"))){
+		if(!check_pwd1($("#tradepwd"))){
 			return false;
 		}
-		if(!check_pwd2($("#tradePwd2"))){
+		if(!check_pwd2($("#tradepwd2"))){
 			return false;
 		}
 		var errLen = $("ul li.error").length;
@@ -114,13 +114,10 @@ $(function(){
 					我们会严格保密您的隐私信息。</p>
                 </div>
 				<form id="form-addBankCard" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardPage.htm">
-					<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
-					<input id="bankNo" name="bankNo" type="hidden" value="$!{BankCardVo.bankNo}">
-					<input id="bankAcco" name="bankAcco" type="hidden" value="$!{BankCardVo.bankAcco}">
-					<input id="bankMobile" name="bankMobile" type="hidden" value="$!{BankCardVo.bankMobile}">
+					<input id="bankno" name="bankno" type="hidden" value="$!{BankCardVo.bankno}">
+					<input id="bankacco" name="bankacco" type="hidden" value="$!{BankCardVo.bankacco}">
+					<input id="bankmobile" name="bankmobile" type="hidden" value="$!{BankCardVo.bankmobile}">
                     <input id="invtp" name="invtp" type="hidden" value="$!{BankCardVo.invtp}">
-					<input id="level" name="level" type="hidden" value="$!{BankCardVo.level}">
-					<input id="openaccount" name="openaccount" type="hidden" value="$!{BankCardVo.openaccount}">
 					<div class="panel">
                         <ul>
 							#if($errMsg)
@@ -135,7 +132,7 @@ $(function(){
                                 #end
                                 >
                                     <span class="form-title">幼教机构</span>
-    								<input id="organization" name="organization" class="ipt-organization input-text" maxlength="28" type="text" value="$!{BankCardVo.organization}">
+    								<input id="orgnm" name="orgnm" class="ipt-organization input-text" maxlength="28" type="text" value="$!{BankCardVo.orgnm}">
                                     <span class="tips-normal">请按照营业执照填写</span>
                                     <span class="tips-check"><i class="icon"></i>$!{errMsg_organization}</span>
                                 </li>
@@ -145,7 +142,7 @@ $(function(){
                                 #end
                                 >
                                     <span class="form-title">营业执照</span>
-    								<input id="business" name="business" class="ipt-business input-text" maxlength="28" type="text" value="$!{BankCardVo.business}">
+    								<input id="orgbusiness" name="orgbusiness" class="ipt-business input-text" maxlength="28" type="text" value="$!{BankCardVo.orgbusiness}">
                                     <span class="tips-normal">请按照营业执照填写</span>
                                     <span class="tips-check"><i class="icon"></i>$!{errMsg_business}</span>
                                 </li>
@@ -162,7 +159,7 @@ $(function(){
 									用户姓名
 									#end
 								</span>
-                                <input id="bankAcnm" name="bankAcnm" class="ipt-bankAcnm input-text" maxlength="28" type="text" value="$!{BankCardVo.bankAcnm}">
+                                <input id="bankacnm" name="bankacnm" class="ipt-bankAcnm input-text" maxlength="28" type="text" value="$!{BankCardVo.bankacnm}">
                                 <span class="tips-normal">请填写真实姓名</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcnm}</span>
                             </li>
@@ -172,7 +169,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">身份证号</span>
-                                <input id="bankIdno" name="bankIdno" class="ipt-idCard input-text" maxlength="18" type="text" value="$!{BankCardVo.bankIdno}">
+                                <input id="bankidno" name="bankidno" class="ipt-idCard input-text" maxlength="18" type="text" value="$!{BankCardVo.bankidno}">
                                 <span class="tips-normal">请填写身份证号</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankIdno}</span>
                             </li>
@@ -182,7 +179,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">交易密码</span>
-                                <input id="tradePwd" name="tradePwd" class="ipt-password1 input-text" maxlength="20" type="password" value="$!{BankCardVo.tradePwd}">
+                                <input id="tradepwd" name="tradepwd" class="ipt-password1 input-text" maxlength="20" type="password" value="$!{BankCardVo.tradepwd}">
                                 <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_tradePwd}</span>
                             </li>
@@ -192,7 +189,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">交易密码确认</span>
-                                <input id="tradePwd2" name="tradePwd2" class="ipt-password2 input-text" maxlength="20" type="password" value="$!{BankCardVo.tradePwd2}">
+                                <input id="tradepwd2" name="tradepwd2" class="ipt-password2 input-text" maxlength="20" type="password" value="$!{BankCardVo.tradepwd2}">
                                 <span class="tips-normal">请再次输入密码</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_tradePwd2}</span>
                             </li>

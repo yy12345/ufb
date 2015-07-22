@@ -50,6 +50,65 @@
 	     T1.CUSTST &lt;&gt; 'C'
   	</select>
   	
+  	<select id="isTradePwdSet" parameterType="com.ufufund.ufb.model.db.Custinfo" resultType="com.ufufund.ufb.model.db.Custinfo">
+  		SELECT
+			T1.CUSTNO
+  		FROM CUSTINFO T1 
+		WHERE 
+		<if test="custno != null and custno !=''" >
+			T1.CUSTNO =  #{custno,jdbcType=VARCHAR} AND
+		</if>
+	     	T1.TRADEPWD IS NOT NULL
+  	</select>
+  	
+  	<select id="isIdNoBindByTradeAcco" resultType="com.ufufund.ufb.model.db.Custinfo">
+  		SELECT
+			custinfo.CUSTNO,
+			custinfo.INVTP,
+			custinfo.INVNM,
+			custinfo.SEX,
+			custinfo.IDTP,
+			custinfo.IDNO,
+			custinfo.MOBILENO,
+			custinfo.EMAIL AS EMAILADD,
+			custinfo.CUSTST,
+			custinfo.PASSWD AS LOGINPWD,
+			DATE_FORMAT(custinfo.LASTLOGINTIME,'%Y-%m-%d %H:%i:%s') AS LASTLOGINTIME,
+			custinfo.PASSWDERR,
+			custinfo.OPENDT,
+			custinfo.UPDATETIMESTAMP,
+			custinfo.TRADEPWD,
+			custinfo.LEVEL,
+			custinfo.ORGANIZATION AS ORGNM,
+			custinfo.BUSINESS AS ORGBUSINESS,
+			tradeaccoinfo.ACCOID,
+			tradeaccoinfo.CUSTNO,
+			tradeaccoinfo.FUNDCORPNO,
+			tradeaccoinfo.LEVEL,
+			tradeaccoinfo.BANKSERIALID,
+			tradeaccoinfo.TRADEACCO,
+			tradeaccoinfo.TRADEACCOST,
+			tradeaccoinfo.OPENDT,
+			tradeaccoinfo.CLOSEDT,
+			tradeaccoinfo.UPDATETIME
+		FROM
+			tradeaccoinfo,custinfo
+		WHERE 
+			custinfo.CUSTNO = tradeaccoinfo.CUSTNO
+  		<if test="fundcorpno != null and fundcorpno !=''" >
+  			AND tradeaccoinfo.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="level != null and level !=''" >
+  			AND tradeaccoinfo.LEVEL = #{level,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="invtp != null and invtp !=''" >
+  			AND custinfo.LEVEL = #{invtp,jdbcType=VARCHAR} 
+  		</if>
+  		<if test="idno != null and idno !=''" >
+  		 	AND custinfo.IDNO = #{idno,jdbcType=VARCHAR} 
+  		</if>
+  	</select>
+  	
   	<select id="getCustinfoMapping" resultType="java.lang.String">
   		SELECT
 			<if test="orgNo != null and orgNo !=''" >
@@ -79,9 +138,9 @@
 			
 		    IDNO,
 		    MOBILENO,
-		    EMAIL AS EMAILADD,
+		    EMAIL,
 		    CUSTST,
-		    PASSWD AS LOGINPWD,
+		    PASSWD,
 		    
 		    LASTLOGINTIME,
 		    PASSWDERR,
@@ -89,8 +148,8 @@
 		    UPDATETIMESTAMP,
 		    TRADEPWD,
 		    LEVEL,
-		    ORGANIZATION AS ORGNM,
-		    BUSINESS AS ORGBUSINESS)
+		    ORGANIZATION,
+		    BUSINESS)
 		VALUES (
 			#{custno,jdbcType=VARCHAR},
 			#{invtp,jdbcType=VARCHAR},

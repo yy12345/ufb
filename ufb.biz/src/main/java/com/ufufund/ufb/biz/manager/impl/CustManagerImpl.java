@@ -1,5 +1,6 @@
 package com.ufufund.ufb.biz.manager.impl;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,7 +66,49 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		}
 		return res;
 	}
- 
+	
+	@Override
+	public boolean isIdnoRegister(String idno) throws BizException {
+		String processId = this.getProcessId(idno);
+		boolean res = false;
+		if (RegexUtil.isNull(idno)) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.IDNO);
+		}
+		if (!RegexUtil.isIdCardNo(idno)) {
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDNO);
+		}
+		Custinfo custinfo = new Custinfo();
+		custinfo.setIdno(idno.trim());
+		custinfo = custinfoMapper.getCustinfo(custinfo);
+		if (custinfo != null && custinfo.getCustno() != null && !"".equals(custinfo.getCustno())) {
+			res = true;
+		}
+		return res;
+	}
+	
+	/**
+	 * 检查是否已设置交易密码
+	 * 
+	 * @param String
+	 *            mobile
+	 * @return
+	 */
+	@Override
+	public boolean isTradePwdSet(String custno) throws BizException {
+		String processId = this.getProcessId(custno);
+		boolean res = false;
+		if (RegexUtil.isNull(custno)) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.MOBILE);
+		}
+		Custinfo custinfo = new Custinfo();
+		custinfo.setCustno(custno);
+		custinfo = custinfoMapper.isTradePwdSet(custinfo);
+		if (custinfo != null && custinfo.getCustno() != null && !"".equals(custinfo.getCustno())) {
+			res = true;
+		}
+		return res;
+	}
+	
 	/**
 	 * 注册
 	 * 
@@ -103,16 +146,13 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 * @param idCardNo
 	 * @return
 	 */
-	public boolean isIdCardNoRegister(String idCardNo, String invTp) throws BizException {
-		String processId = this.getProcessId(idCardNo);
+	public boolean isIdNoBindByTradeAcco(String fundcorpno, String invtp, String level, String idno) throws BizException {
+		String processId = this.getProcessId(idno);
 		boolean res = false;
-		if (!RegexUtil.isIdCardNo(idCardNo)) {
+		if (!RegexUtil.isIdCardNo(idno)) {
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.IDNO);
 		}
-		Custinfo custinfo = new Custinfo();
-		custinfo.setInvtp(invTp);
-		custinfo.setIdno(idCardNo);
-		custinfo = custinfoMapper.getCustinfo(custinfo);
+		Custinfo custinfo = custinfoMapper.isIdNoBindByTradeAcco(fundcorpno, invtp, level, idno);
 		if (custinfo != null && custinfo.getCustno() != null && !"".equals(custinfo.getCustno())) {
 			res = true;
 		}

@@ -9,6 +9,7 @@
 			tradeaccoinfo.ACCOID,
 			tradeaccoinfo.CUSTNO,
 			tradeaccoinfo.FUNDCORPNO,
+			tradeaccoinfo.LEVEL,
 			tradeaccoinfo.BANKSERIALID,
 			tradeaccoinfo.TRADEACCO,
 			tradeaccoinfo.TRADEACCOST,
@@ -26,6 +27,9 @@
   		</if>
   		<if test="fundcorpno != null and fundcorpno !=''" >
   			tradeaccoinfo.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR} AND
+  		</if>
+  		<if test="level != null and level !=''" >
+  			tradeaccoinfo.LEVEL = #{level,jdbcType=VARCHAR} AND
   		</if>
   		<if test="bankserialid != null and bankserialid !=''" >
   		 	tradeaccoinfo.BANKSERIALID = #{bankserialid,jdbcType=VARCHAR} AND

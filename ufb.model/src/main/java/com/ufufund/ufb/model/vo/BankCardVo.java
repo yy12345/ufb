@@ -70,6 +70,7 @@ public class BankCardVo implements Serializable {
 	private String bankidtp; // 银行证件类型
 	private String bankidno; // 银行证件号码
 	private String bankacco; // 银行卡号
+	private String bankacco2;
 	private String bankmobile; //
 	// 2
 	private String bankprovinceno; // 省份
@@ -351,6 +352,14 @@ public class BankCardVo implements Serializable {
 
 	public void setBankacco(String bankacco) {
 		this.bankacco = bankacco;
+	}
+	
+	public String getBankacco2() {
+		return bankacco2;
+	}
+
+	public void setBankacco2(String bankacco2) {
+		this.bankacco2 = bankacco2;
 	}
 
 	public String getBankmobile() {

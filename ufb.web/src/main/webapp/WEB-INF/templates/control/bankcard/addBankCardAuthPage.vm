@@ -25,16 +25,12 @@ $(function(){
 		$("#btn-addBankCardChk").attr("disabled","disabled");
 	#end
 
-	#if(${hftTradeAccoListSize}!=0)
-		$("#bankAcnm").attr("readonly","readonly");
-		$("#bankIdno").attr("readonly","readonly");
-		
-		$("#bankAcnm").css("background-color","#ddd");
-		$("#bankIdno").css("background-color","#ddd");
-		
-		$("#bankAcnm").unbind("blur");
-		$("#bankIdno").unbind("blur");
-	#end
+	$("#bankacnm").attr("readonly","readonly");
+	$("#bankidno").attr("readonly","readonly");
+	$("#bankacnm").css("background-color","#ddd");
+	$("#bankidno").css("background-color","#ddd");
+	$("#bankacnm").unbind("blur");
+	$("#bankidno").unbind("blur");
 
 	// 上一页
 	$("#btn-addBankCard").on("click",function(){
@@ -46,10 +42,10 @@ $(function(){
 	// 验证码
 	$("#btn-addBankCardAuth").on("click",function(){
 	
-		if(!check_bankAcnm($("#bankAcnm"))){
+		if(!check_bankAcnm($("#bankacnm"))){
 			return false;
 		}
-		if(!check_id($("#bankIdno"))){
+		if(!check_id($("#bankidno"))){
 			return false;
 		}
 		
@@ -62,12 +58,12 @@ $(function(){
 			// 
 		}
 		
-		$("#bankAcco").attr("readonly","readonly");
-		$("#bankMobile").attr("readonly","readonly");
-		$("#bankAcco").css("background-color","#ddd");
-		$("#bankMobile").css("background-color","#ddd");
-		$("#bankAcco").unbind("blur");
-		$("#bankMobile").unbind("blur");
+		$("#bankacco").attr("readonly","readonly");
+		$("#bankmobile").attr("readonly","readonly");
+		$("#bankacco").css("background-color","#ddd");
+		$("#bankmobile").css("background-color","#ddd");
+		$("#bankacco").unbind("blur");
+		$("#bankmobile").unbind("blur");
 		
 		$(".panel ul li").removeClass("error").removeClass("ok");
 		
@@ -79,11 +75,11 @@ $(function(){
      		type: "GET",
     		url: "../ajaxbankcard/addBankCardAuth.ajax",
     		data: {
-				bankNo: $("#bankNo").val(),
-    			bankAcnm: $("#bankAcnm").val(),
-				bankIdno: $("#bankIdno").val(),
-				bankAcco: $("#bankAcco").val(),
-				bankMobile: $("#bankMobile").val()
+				bankno: $("#bankno").val(),
+    			bankacnm: $("#bankacnm").val(),
+				bankidno: $("#bankidno").val(),
+				bankacco: $("#bankacco").val(),
+				bankmobile: $("#bankmobile").val()
     		},
     		dataType: "json",
     		success: function(b) {
@@ -99,12 +95,12 @@ $(function(){
             		$("#btn-addBankCardAuth").removeAttr("disabled");
             		$("#btn-addBankCardAuth").removeClass("off");
 					
-					$("#bankAcco").removeAttr("readonly");
-            		$("#bankMobile").removeAttr("readonly");
-            		$("#bankAcco").css("background-color","#fff");
-            		$("#bankMobile").css("background-color","#fff");
-            		$("#bankAcco").bind("blur");
-            		$("#bankMobile").bind("blur");
+					$("#bankacco").removeAttr("readonly");
+            		$("#bankmobile").removeAttr("readonly");
+            		$("#bankacco").css("background-color","#fff");
+            		$("#bankmobile").css("background-color","#fff");
+            		$("#bankacco").bind("blur");
+            		$("#bankmobile").bind("blur");
 				
                   	var errCode = b.errCode;
 					var errMsg = b.errMsg;
@@ -137,19 +133,19 @@ $(function(){
 	});
 	
 	$("#btn-addBankCardChk").on("click",function(){
-		if(!check_bankAcnm($("#bankAcnm"))){
+		if(!check_bankAcnm($("#bankacnm"))){
 			return false;
 		}
-		if(!check_id($("#bankIdno"))){
+		if(!check_id($("#bankidno"))){
 			return false;
 		}
-		if(!check_bankCard($("#bankAcco"))){
+		if(!check_bankCard($("#bankacco"))){
 			return false;
 		}
-		if(!check_mobile($("#bankMobile"))){
+		if(!check_mobile($("#bankmobile"))){
 			return false;
 		}
-		if(!check_phoneCode($("#msgcode"))){
+		if(!check_phoneCode($("#mobileautocode"))){
 			return false;
 		}
 		
@@ -205,15 +201,12 @@ $(function(){
                     <span class="mark">企业网银开户即将上线</span></p>
                 </div>
                 <form id="form-addBankCardAuth" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardAuth.htm">
-				<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
-				<input id="bankNo" name="bankNo" type="hidden" value="$!{BankCardVo.bankNo}">	
-				<input id="tradePwd" name="tradePwd" type="hidden" value="$!{BankCardVo.tradePwd}">
-				<input id="tradePwd2" name="tradePwd2" type="hidden" value="$!{BankCardVo.tradePwd2}">
-				<input id="organization" name="organization" type="hidden" value="$!{BankCardVo.organization}">
-				<input id="business" name="business" type="hidden" value="$!{BankCardVo.business}">
+				<input id="bankno" name="bankno" type="hidden" value="$!{BankCardVo.bankno}">	
+				<input id="tradepwd" name="tradepwd" type="hidden" value="$!{BankCardVo.tradepwd}">
+				<input id="tradepwd2" name="tradepwd2" type="hidden" value="$!{BankCardVo.tradepwd2}">
+				<input id="orgnm" name="orgnm" type="hidden" value="$!{BankCardVo.orgnm}">
+				<input id="orgbusiness" name="orgbusiness" type="hidden" value="$!{BankCardVo.orgbusiness}">
 				<input id="invtp" name="invtp" type="hidden" value="$!{BankCardVo.invtp}">
-				<input id="level" name="level" type="hidden" value="$!{BankCardVo.level}">
-				<input id="openaccount" name="openaccount" type="hidden" value="$!{BankCardVo.openaccount}">
 				<input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
                     <div class="panel">
                         <ul>
@@ -229,28 +222,9 @@ $(function(){
 								<li id="errMsg_bankNo" class="ok clearfix">
                             #end
                                 <span class="form-title">银行选择</span>
-								<!--
-								<div class="input-select">
-                                    <div class="bank bank-current"><img src="${staticDomain}/images/bank_01.png"></div>
-                                    <div class="input-options">
-                                        <div class="bank-list clearfix">
-                                            <a id="001" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_01.png"></a>
-                                            <a id="002" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_02.png"></a>
-                                            <a id="003" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_03.png"></a>
-                                            <a id="004" class="bank active" href="javascript:;"><i class="icon"></i><img src="${staticDomain}/images/bank_04.png" ></a>
-                                            <a id="005" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_05.png"></a>
-                                            <a id="006" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_06.png"></a>
-                                            <a id="007" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_07.png"></a>
-                                            <a id="008" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_08.png"></a>
-                                            <a id="009" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_09.png"></a>
-                                            <a id="010" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_10.png"></a>
-                                        </div>
-                                    </div>
-                                </div>
-								-->
 								<div class="input-select">
                                     <div class="bank bank-current">
-                                        <img src="${staticDomain}/images/bank_${BankCardVo.bankNo}.png">
+                                        <img src="${staticDomain}/images/bank_${BankCardVo.bankno}.png">
                                     </div>
                                     <div class="input-options">
                                         <div class="bank-list clearfix">
@@ -269,7 +243,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">经办人姓名</span>
-								<input id="bankAcnm" name="bankAcnm" class="ipt-bankAcnm input-text" maxlength="28" type="text" value="$!{BankCardVo.bankAcnm}">
+								<input id="bankacnm" name="bankacnm" class="ipt-bankAcnm input-text" maxlength="28" type="text" value="$!{BankCardVo.bankacnm}">
                                 <span class="tips-normal">经办人姓名</span>
 								<span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcnm}</span>
                             </li>
@@ -279,7 +253,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">身份证号</span>
-                                <input id="bankIdno" name="bankIdno" class="ipt-idCard input-text" maxlength="18"  type="text" value="$!{BankCardVo.bankIdno}">
+                                <input id="bankidno" name="bankidno" class="ipt-idCard input-text" maxlength="18"  type="text" value="$!{BankCardVo.bankidno}">
                                 <span class="tips-normal">身份证号</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankIdno}</span>
                             </li>
@@ -289,7 +263,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">银行卡号</span>
-                                <input id="bankAcco" name="bankAcco" class="ipt-bankCard input-text" maxlength="21" type="text" value="$!{BankCardVo.bankAcco}">
+                                <input id="bankacco" name="bankacco" class="ipt-bankCard input-text" maxlength="21" type="text" value="$!{BankCardVo.bankacco}">
                                 <span class="tips-normal">银行卡号</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcco}</span>
                             </li>
@@ -299,7 +273,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">银行预留手机号</span>
-                                <input id="bankMobile" name="bankMobile" class="ipt-phoneNum input-text" maxlength="11" type="text" value="$!{BankCardVo.bankMobile}">
+                                <input id="bankmobile" name="bankmobile" class="ipt-phoneNum input-text" maxlength="11" type="text" value="$!{BankCardVo.bankmobile}">
                                 <span class="tips-normal">银行预留手机号</span>
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_bankMobile}</span>
                             </li>
@@ -309,7 +283,7 @@ $(function(){
                             #end
                             >
                                 <span class="form-title">手机验证码</span>
-								<input style="width:95px" id="msgcode" name="msgcode" class="ipt-phoneCode input-text" maxlength="6" type="text" value="$!{BankCardVo.msgcode}">
+								<input style="width:95px" id="mobileautocode" name="mobileautocode" class="ipt-phoneCode input-text" maxlength="6" type="text" value="$!{BankCardVo.mobileautocode}">
                                 <span class="tips-normal">6位验证码</span>
                                 <input id="btn-addBankCardAuth" class="input-button" type="button" value="获取验证码">
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>

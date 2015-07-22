@@ -110,7 +110,7 @@
 					<table>
 						<tr>
 							<td>设置交易密码</td>
-							<td><label class="inputText"><input name="tradepwd" type="password" value="${BankCardVo.tradepwd}"><b>六位数字密码</b></label></td>
+							<td><label class="inputText"><input name="tradepwd" type="password" value="${BankCardVo.tradepwd}"><!--<b>六位数字密码</b>--></label></td>
 							<td>交易密码为使用幼富通内相关资金交易的数字密码，不可与登录密码相同！</td>
 						</tr>
 						<tr>

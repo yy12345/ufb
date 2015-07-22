@@ -18,6 +18,10 @@ public interface CustinfoMapper extends BaseDao {
 	 */
 	public Custinfo getCustinfo(Custinfo custinfo);
 	
+	public Custinfo isTradePwdSet(Custinfo custinfo);
+	
+	public Custinfo isIdNoBindByTradeAcco(@Param("fundcorpno")String fundcorpno, @Param("invtp")String invtp, @Param("level")String level, @Param("idno")String idno);
+	
 	public String getCustinfoMapping(@Param("orgNo")String orgNo, @Param("oprNo")String oprNo);
 	/*
 	 * 不使用  ，使用CustManager insterCustinfo方法

@@ -1,8 +1,10 @@
 package com.ufufund.ufb.biz.manager.impl.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.common.utils.ThreadLocalUtil;
@@ -12,6 +14,9 @@ import com.ufufund.ufb.model.enums.ErrorInfo;
 @Service
 public class BankCardManagerValidator {
 
+	@Autowired
+	private CustManager custManager;
+	
 	/**
 	 * 用户基本信息验证（用户名、身份证、交易密码、开户机构）
 	 * 银行基本信息验证（鉴权、验证、开户）
@@ -41,8 +46,8 @@ public class BankCardManagerValidator {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDNO);
 			}
 			
-			if(("0".equals(action.getInvtp()) && action.getHftfamilytradeaccoct() == 0) || 
-					("1".equals(action.getInvtp()) && action.getHftoperatortradeaccoct() == 0)	){
+			// 家庭、经办人
+			if (!custManager.isTradePwdSet(action.getCustno())) {
 				// 已经绑卡用户不需要再次设置交易密码
 				// 交易密码
 				if (RegexUtil.isNull(action.getTradepwd())) {
@@ -83,10 +88,10 @@ public class BankCardManagerValidator {
 				//银行开户户名
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACNM);
 			}
-			if (RegexUtil.isNull(action.getBankidtp())) {
-				//银行证件类型
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDTP);
-			}
+//			if (RegexUtil.isNull(action.getBankidtp())) {
+//				//银行证件类型
+//				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDTP);
+//			}
 			if (RegexUtil.isNull(action.getBankidno())) {
 				//银行证件号码
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDNO);
@@ -144,7 +149,7 @@ public class BankCardManagerValidator {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDNO);
 			}
 			// 法人姓名
-			if (!RegexUtil.isNull(action.getRerpnm())) {
+			if (RegexUtil.isNull(action.getRerpnm())) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.RERPNM);
 			}
 			// 法人证件号码
@@ -177,10 +182,12 @@ public class BankCardManagerValidator {
 			}
 			// 银行卡号2
 			if (!action.getBankacco().equals(action.getBankacco2())) {
-				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.BANKACCO2);
+				throw new BizException(processId, ErrorInfo.NOT_EQUALS_BANKACCO, BisConst.Register.BANKACCO2);
 			}
-			if(action.getHftorganizationtradeaccoct() == 0){
-				// 已经绑卡用户不需要再次设置交易密码
+			
+			// 机构
+			if (!custManager.isTradePwdSet(action.getCustno())) {
+							
 				// 交易密码
 				if (RegexUtil.isNull(action.getTradepwd())) {
 					throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD);

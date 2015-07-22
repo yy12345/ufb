@@ -65,6 +65,14 @@ public class OpenAccountAction extends CommonAction {
 	private int cpfamilytradeaccoct;
 	private int cporganizationtradeaccoct;
 	
+	private boolean openaccoflag; // 开户标志，不需要验证身份证、交易密码
+	
+	public boolean isOpenaccoflag() {
+		return openaccoflag;
+	}
+	public void setOpenaccoflag(boolean openaccoflag) {
+		this.openaccoflag = openaccoflag;
+	}
 	public String getReqseq() {
 		return reqseq;
 	}

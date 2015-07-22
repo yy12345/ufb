@@ -28,7 +28,14 @@ public interface CustManager extends CustInterface{
 	 * @param idCardNo
 	 * @return 
 	 */
-	public boolean isIdCardNoRegister(String idCardNo, String ivnTp) throws BizException;
+	public boolean isIdNoBindByTradeAcco(String fundcorpno, String invtp, String level, String idno) throws BizException;
+	
+	/**
+	 * 检查是否已设置交易密码
+	 * @param custno
+	 * @return 
+	 */
+	public boolean isTradePwdSet(String custno) throws BizException;
 	
 	/**
 	 * 查询手机号是否注册
@@ -37,6 +44,8 @@ public interface CustManager extends CustInterface{
 	 */
 	public boolean isMobileRegister(String mobile) throws BizException;
 	
+	
+	public boolean isIdnoRegister(String idno) throws BizException;
 	/**
 	 * 根据缓存获取custno
 	 * 获取客户信息 判断是否具有身份证

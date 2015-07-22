@@ -19,6 +19,9 @@ import com.ufufund.ufb.model.enums.Level;
 
 @Service
 public class CustManagerValidator {
+	
+	@Autowired
+	private CustManager custManager;
 
 	/**
 	 * 登录的validator
@@ -78,8 +81,7 @@ public class CustManagerValidator {
 			}
 		}
 	}
-	@Autowired
-	private CustManager custManager;
+
 	
 	/**
 	 *  用户注册、冻结、已开户验证
@@ -101,22 +103,28 @@ public class CustManagerValidator {
 		if(Constant.Custinfo.CUSTST$P.equals(custinfo.getCustst())){
 			throw new BizException(action.getProcessId(), ErrorInfo.FREEZE_USER, BisConst.Register.CUSTNO);
 		}
-		// Custst 用户是否开户验证
-		if("OrgBase".equals(actionName)){
-			// 是否开了机构户 custno ＋ invtp＝1
-			if (custManager.isIdCardNoRegister(action.getIdno().trim(), "1")) {
+		
+		if(!action.isOpenaccoflag()){
+			if (custManager.isIdnoRegister(action.getIdno())) {
 				// 经办人idno
 				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
 			}
-		}else{
-			// 其他 经办人、家庭
-			if(action.getHftfamilytradeaccoct() == 0){
-				if (custManager.isIdCardNoRegister(action.getBankidno().trim(), "0")) {
-					// 银行卡idno
-					throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.BANKIDNO);
-				}
-			}
 		}
+//		// Custst 用户是否开户验证
+//		if("OrgBase".equals(actionName)){
+//			// 是否开了机构户 custno ＋ invtp＝1
+//			if (!custManager.isIdNoBindByTradeAcco(action.getFundcorpno(), action.getInvtp(), "1", action.getIdno().trim())) {
+//				// 经办人idno
+//				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
+//			}
+//		}else{
+//			// 家庭、经办人
+//			String level = "0".equals(action.getInvtp()) ? "0" : "2";
+//			if (!custManager.isIdNoBindByTradeAcco(action.getFundcorpno(), action.getInvtp(), level, action.getIdno().trim())) {
+//				// 银行卡idno
+//				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.BANKIDNO);
+//			}
+//		}
 	}
 	
 	/**
