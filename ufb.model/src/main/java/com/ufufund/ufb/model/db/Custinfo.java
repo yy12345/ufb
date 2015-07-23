@@ -28,8 +28,6 @@ public class Custinfo extends PrintableModel implements Serializable {
 	private String lastlogintime;// 上次登录时间
 	private int passwderr;// 密码错误次数
 	private String tradepwd;// 交易密码，md5密文
-	// private String opendt;// 开户日期
-	// private String updatetimestamp;// 更新时间
 	private String orgnm;// 机构名称
 	private String orgbusiness;// 营业执照
 
