@@ -213,7 +213,6 @@ public class BankCardController {
 			bankCardManager.openAccountOrg(openAccountAction);
 			
 			UserHelper.setAddBankCardStatus("Y");
-			s_custinfo.setLevel("1");
 			s_custinfo.setInvnm(bankCardVo.getInvnm());
 			s_custinfo.setIdno(bankCardVo.getIdno());
 			UserHelper.saveCustinfoVo(s_custinfo);

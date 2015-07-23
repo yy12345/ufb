@@ -60,11 +60,6 @@ public class CustController {
 		// 清除Session
 		UserHelper.removeCustinfoVo();
 		
-//		// 初始化数据
-//		custinfoVo.setInvtp(Invtp.ORGANIZATION.getValue()); 
-//		custinfoVo.setLevel(Level.ORGANIZATION.getValue()); 
-		
-//		model.addAttribute("CustinfoVo", custinfoVo);
 		return "register/indexPage";
 	}
 	
@@ -169,7 +164,6 @@ public class CustController {
 			// 注册成功，保存用户至session
 			custinfoVo.setCustno(registerAction.getCustno());
 			UserHelper.saveCustinfoVo(custinfoVo);
-//			model.addAttribute("SessionVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			
@@ -207,118 +201,12 @@ public class CustController {
 	public String index(Model model) {
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			if(null != s_custinfo){
-//				model.addAttribute("SessionVo", s_custinfo);
-			}else{
-//				model.addAttribute("SessionVo", null);
-			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
 			return "error/error";
 		}
 		return "home/indexPage";
-	}
-	
-	/**
-	 * 登录
-	 * @param custinfoVo
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "cust/login_back")
-	public String loginIn_back(CustinfoVo custinfoVo, Model model) {
-		
-		try{
-			// TODO
-			// 校验验证码 
-			// VerifyCodeUtils.validate(custinfoVo.getVerifycode());
-			
-			LoginAction loginAction = new LoginAction();
-			loginAction.setLoginCode(custinfoVo.getMobileno());
-			loginAction.setLoginPassword(custinfoVo.getLoginpwd());
-			
-			// 登录
-			Custinfo custinfo = custManager.loginIn(loginAction);
-			
-			// 登录成功，保存用户至session
-			custinfoVo = this.convertCustInfo2Vo(custinfo);
-			UserHelper.saveCustinfoVo(custinfoVo);
-//			model.addAttribute("SessionVo", custinfoVo);
-			
-			// 货基信息显示
-			model.addAttribute("FUNDINFOVO", this.getFundInfo(null));
-			
-			// NAV
-			FundNav fundnav = new FundNav();
-			fundnav.setFundcorpno("01");
-			fundnav.setFundcode("519005");
-			List<FundNav> navList = queryManager.qryFundNavList(fundnav);
-			model.addAttribute("navList", navList);
-			if(null != navList && navList.size() >0){
-				FundNav curFundNav = navList.get(0);
-				model.addAttribute("NAV", curFundNav);
-			}
-			
-			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
-			if(null != tradeAccoList && tradeAccoList.size() > 0){
-				// 资产显示
-				//List<BankCardWithTradeAcco> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
-				//List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
-				Assets assets = queryManager.queryAssets(tradeAccoList,null);
-				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));// 总资产
-				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));// 可用资产
-				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));// 冻结资产
-				model.addAttribute("funddayincome", NumberUtils.DF_CASH_CONMMA.format(assets.getFunddayincome()));// 昨日收益
-				model.addAttribute("totalincome", NumberUtils.DF_CASH_CONMMA.format(assets.getTotalincome()));// 累计受益
-				
-				// 交易明细显示
-				List<String> apkinds = new ArrayList<String>();
-				apkinds.add("022"); // 充值
-				apkinds.add("023"); // 取现
-				apkinds.add("024"); // 快速取现
-				List<String> states = new ArrayList<String>();
-				states.add("Y"); // 
-				states.add("F"); // 
-				states.add("I"); // 
-				List<TradeRequest> listIn = queryManager.qryTradeList(
-						custinfoVo.getCustno(), 
-						apkinds,
-						states,
-						null, 
-						null,
-						0, 
-						8
-						);
-				model.addAttribute("listIn", listIn);
-				model.addAttribute("tradeAccoListSize", tradeAccoList.size());
-				
-			} else {
-				// 资产显示
-				model.addAttribute("totalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-				model.addAttribute("availableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-				model.addAttribute("frozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-				model.addAttribute("funddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
-				model.addAttribute("totalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
-				model.addAttribute("tradeAccoListSize", "0");
-			}
-		}catch (BizException e){
-			LOG.error(e.getErrmsg(), e);
-			String ems = e.getOtherInfo();
-			if (BisConst.Register.MOBILE.equals(ems) || BisConst.Register.LOGINCODE.equals(ems)) {
-				model.addAttribute("errMsg_mobileno", e.getMessage()); // 登录帐号
-			} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
-				model.addAttribute("errMsg_verifycode", e.getMessage()); // 验证码
-			} else if (BisConst.Register.LOGINPWD.equals(ems)) {
-				model.addAttribute("errMsg_pswpwd", e.getMessage()); // 登录密码
-			} else {
-				// TODO throw userException?
-				model.addAttribute("errMsg", e.getMessage());
-			}
-			model.addAttribute("CustinfoVo", custinfoVo);
-			return "home/indexPage";
-		}
-		return "cust/indexPage";
 	}
 	
 	/**
@@ -526,32 +414,6 @@ public class CustController {
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(null != s_custinfo){
-				// Session登录
-//				CustinfoVo org = null;
-//				CustinfoVo opr = null;
-//				CustinfoVo family = null;
-//				// 分流
-//				String invtp = s_custinfo.getInvtp();
-//				if("0".equals(invtp)){
-//					// 个人，检查level:0家庭1经办人
-//					String level = s_custinfo.getLevel();
-//					if("0".equals(level)){
-//						// 家庭
-//						family = s_custinfo;
-//						// 无处理
-//					}else{
-//						// 经办人
-//						opr = s_custinfo;
-//						// 找出对应机构
-//						org = this.convertCustInfo2Vo(custManager.getCustinfoMapping(null, opr.getCustno()));
-//					}
-//				
-//				}else{
-//					// 机构
-//					org = s_custinfo;
-//					// 找出对应经办人
-//					opr = this.convertCustInfo2Vo(custManager.getCustinfoMapping(org.getCustno(), null));
-//				}
 				
 				/** 货基信息显示 **/
 				// 海富通
@@ -624,24 +486,6 @@ public class CustController {
 		custinfoVo.setOrgbusiness(custinfo.getOrgbusiness()); 
 		custinfoVo.setCustst(custinfo.getCustst());
 		custinfoVo.setLevel(custinfo.getLevel());
-		return custinfoVo;
-	}
-	
-	private CustinfoVo convertCustSession2Vo(CustinfoVo sessionInfo){
-		if(null == sessionInfo){
-			return null;
-		}
-		CustinfoVo custinfoVo = new CustinfoVo();
-		custinfoVo.setCustno(sessionInfo.getCustno());                  
-		custinfoVo.setMobileno(sessionInfo.getMobileno());                    
-		custinfoVo.setInvtp(sessionInfo.getInvtp()); 
-		custinfoVo.setInvnm(sessionInfo.getInvnm());        
-		custinfoVo.setIdtp(sessionInfo.getIdtp());     
-		custinfoVo.setIdno(sessionInfo.getIdno());       
-		custinfoVo.setOrgnm(sessionInfo.getOrgnm()); 
-		custinfoVo.setOrgbusiness(sessionInfo.getOrgbusiness()); 
-		custinfoVo.setCustst(sessionInfo.getCustst());
-		custinfoVo.setLevel(sessionInfo.getLevel());
 		return custinfoVo;
 	}
 	
