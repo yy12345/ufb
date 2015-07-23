@@ -4,7 +4,7 @@ import com.ufufund.ufb.model.action.CommonAction;
 
 public class OpenAccountAction extends CommonAction {
 	
-	private String reqseq; // 绑卡开户顺序号 1初始化、2鉴权、3验证、4开户
+	
 	private String fundcorpno;
 	private String custno;
 	private String invtp;
@@ -65,7 +65,8 @@ public class OpenAccountAction extends CommonAction {
 	private int cpfamilytradeaccoct;
 	private int cporganizationtradeaccoct;
 	
-	private boolean openaccoflag; // 开户标志，不需要验证身份证、交易密码
+	private boolean openaccoflag = false; // 开户标志，不需要验证身份证、交易密码
+	private boolean checkautocodeflag = false;
 	
 	public boolean isOpenaccoflag() {
 		return openaccoflag;
@@ -73,11 +74,11 @@ public class OpenAccountAction extends CommonAction {
 	public void setOpenaccoflag(boolean openaccoflag) {
 		this.openaccoflag = openaccoflag;
 	}
-	public String getReqseq() {
-		return reqseq;
+	public boolean isCheckautocodeflag() {
+		return checkautocodeflag;
 	}
-	public void setReqseq(String reqseq) {
-		this.reqseq = reqseq;
+	public void setCheckautocodeflag(boolean checkautocodeflag) {
+		this.checkautocodeflag = checkautocodeflag;
 	}
 	public String getFundcorpno() {
 		return fundcorpno;

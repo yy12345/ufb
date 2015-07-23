@@ -53,7 +53,7 @@
     </div>
     
     <div id="body">
-		<form id="form-addBankCard" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardPage.htm">
+		<form id="form-addBankCard" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCard1.htm">
         <div class="container">
 			<div class="a1">机构开户</div>
 			<div class="u2">

@@ -278,19 +278,20 @@ public class BankCardController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="bankcard/addBankCard")
+	@RequestMapping(value="bankcard/addBankCard1")
 	public String addBankCard1(BankCardVo bankCardVo, Model model){
 		
 		try{
-			// 绑卡初始化
+			/** 绑卡初始化 **/
 			UserHelper.setAddBankCardStatus("N");
 			
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if(s_custinfo.getIdno() !=null && s_custinfo.getInvnm() != null){
-				//直接跳转
-				ServletHolder.forward("/bankcard/addBankCardInit.htm");
-				return "bankcard/addBankCardAuthPage";
+				// 已开户
+				ServletHolder.forward("/bankcard/addBankCard2.htm");
+				return "bankcard/addBankCard2";
 			}else{
+				// 新开户
 				bankCardVo.setCustno(s_custinfo.getCustno());
 				bankCardVo.setMobile(s_custinfo.getMobileno());
 				bankCardVo.setInvtp(s_custinfo.getInvtp());
@@ -303,7 +304,7 @@ public class BankCardController {
 			model.addAttribute("errMsg", e.getMessage());
 			return "cust/indexPage";
 		}
-		return "bankcard/addBankCardPage";
+		return "bankcard/addBankCard1";
 	}
 	
 	/**
@@ -311,7 +312,7 @@ public class BankCardController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="bankcard/addBankCardInit")
+	@RequestMapping(value="bankcard/addBankCard2")
 	public String addBankCard2(BankCardVo bankCardVo, Model model){
 		
 		try{
@@ -320,18 +321,24 @@ public class BankCardController {
 			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
 			
 			if(s_custinfo.getIdno() !=null && s_custinfo.getInvnm() != null){
+				// 已开户
+				/** 开户标志 **/
+				bankCardVo.setOpenaccoflag(true);
 				bankCardVo.setOrgnm(s_custinfo.getOrgnm());
 				bankCardVo.setInvtp(s_custinfo.getInvtp());
 				bankCardVo.setLevel(s_custinfo.getLevel());
 				bankCardVo.setOrgbusiness(s_custinfo.getOrgbusiness());
 				bankCardVo.setCustno(s_custinfo.getCustno());
 				bankCardVo.setMobile(s_custinfo.getMobileno());
+				bankCardVo.setBankmobile(s_custinfo.getMobileno());
 				bankCardVo.setBankacnm(s_custinfo.getInvnm());
 				bankCardVo.setBankidtp(s_custinfo.getIdtp());
 				bankCardVo.setBankidno(s_custinfo.getIdno());
 				bankCardVo.setTradepwd(s_custinfo.getTradepwd());
 				bankCardVo.setTradepwd2(s_custinfo.getTradepwd2());
 			}else{
+				// 新开户
+				bankCardVo.setOpenaccoflag(false);
 				openAccountAction.setOrgnm(bankCardVo.getOrgnm());
 				openAccountAction.setInvtp(bankCardVo.getInvtp());
 				openAccountAction.setLevel(bankCardVo.getLevel());
@@ -345,7 +352,8 @@ public class BankCardController {
 				openAccountAction.setTradepwd2(bankCardVo.getTradepwd2());
 				bankCardManager.openAccount1(openAccountAction);
 			}
-			// 获取银行列表
+			
+			/** 获取银行列表 **/
 			List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
 			if(StringUtils.isBlank(bankCardVo.getBankno())){
 				// 默认第一个
@@ -353,6 +361,8 @@ public class BankCardController {
 			}else{
 				// 上下文中的
 			}
+			
+			/** 页面元素 **/
 			model.addAttribute("bankList", bankBaseList);
 			model.addAttribute("BankCardVo", bankCardVo);
 			
@@ -382,9 +392,9 @@ public class BankCardController {
 				model.addAttribute("errMsg", e.getMessage());
 			}
 			model.addAttribute("BankCardVo", bankCardVo);
-			return "bankcard/addBankCardPage";
+			return "bankcard/addBankCard1";
 		}
-		return "bankcard/addBankCardAuthPage";
+		return "bankcard/addBankCard2";
 	}
 	
 	/**
@@ -392,60 +402,65 @@ public class BankCardController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="bankcard/addBankCardChk" , method=RequestMethod.POST)
+	@RequestMapping(value="bankcard/addBankCard3" , method=RequestMethod.POST)
 	public String addBankCard3(BankCardVo bankCardVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		
+		bankCardVo.setBankidtp("0"); // 身份证绑卡
+		
 		try{
+			/** 判断开户流程是否已结束 **/
 			if("Y".equals(UserHelper.getAddBankCardStatus())){
-				// 此开户流程已结束
+				// 开户流程已结束，跳转主页
 				ServletHolder.forward("/cust/session.htm");
 				return "cust/indexPage";
 			}
 			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
+			/** 开户所属基金单位 **/
 			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			/** 开户标志 **/
 			if(s_custinfo.getIdno() !=null && s_custinfo.getInvnm() != null){
 				openAccountAction.setOpenaccoflag(true);
 			}else{
 				openAccountAction.setOpenaccoflag(false);
 			}
+			// 机构
 			openAccountAction.setOrgbusiness(s_custinfo.getOrgbusiness());
 			openAccountAction.setOrgnm(s_custinfo.getOrgnm());
-			openAccountAction.setReqseq("3"); // 第三步，需要验证手机验证码
+			// 个人
+			openAccountAction.setCustno(s_custinfo.getCustno());
+			openAccountAction.setInvnm(bankCardVo.getBankacnm());
+			openAccountAction.setIdno(bankCardVo.getBankidno());
+			/** 家庭、经办人判断 **/
+			String level = "0".equals(s_custinfo.getInvtp())?"0":"2";
+			openAccountAction.setLevel(level);
+			openAccountAction.setTradepwd(bankCardVo.getTradepwd());
+			openAccountAction.setTradepwd2(bankCardVo.getTradepwd2());
+			// 银行
 			openAccountAction.setBankno(bankCardVo.getBankno());
 			openAccountAction.setBankacnm(bankCardVo.getBankacnm());
 			openAccountAction.setBankacco(bankCardVo.getBankacco());
-			bankCardVo.setBankidtp("0"); // 身份证绑卡
 			openAccountAction.setBankidtp(bankCardVo.getBankidtp());
 			openAccountAction.setBankidno(bankCardVo.getBankidno());
 			openAccountAction.setBankmobile(bankCardVo.getBankmobile());
 			openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
 			openAccountAction.setOtherserial(bankCardVo.getOtherserial());
+			/** 需要验证手机验证码标志 **/
+			openAccountAction.setCheckautocodeflag(true);
 			
-			// 3 银行手机验证，并带回Serialno、Protocolno的值 
+			/** 银行手机验证，并带回Serialno、Protocolno的值 **/
 			bankCardManager.openAccount3(openAccountAction);
 			
-			// 4 开户
-			openAccountAction.setCustno(s_custinfo.getCustno());
-			String level = "0".equals(s_custinfo.getInvtp())?"0":"2";
-			openAccountAction.setLevel(level);
-			openAccountAction.setInvnm(bankCardVo.getBankacnm());
-			openAccountAction.setIdno(bankCardVo.getBankidno());
-			openAccountAction.setTradepwd(bankCardVo.getTradepwd());
-			openAccountAction.setTradepwd2(bankCardVo.getTradepwd2());
-			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// 海富通
-			
+			/** 开户 **/
 			bankCardManager.openAccountPerson(openAccountAction);
 			
 			UserHelper.setAddBankCardStatus("Y");
-			s_custinfo.setLevel(level);
 			s_custinfo.setInvnm(bankCardVo.getBankacnm());
 			s_custinfo.setIdno(bankCardVo.getBankidno());
 			UserHelper.saveCustinfoVo(s_custinfo);
 			
 			model.addAttribute("BankCardVo", bankCardVo);
-			model.addAttribute("CustinfoVo", s_custinfo);
 		}catch (BizException e){
 			
 			// 获取银行列表
@@ -491,9 +506,9 @@ public class BankCardController {
 			}
 			
 			model.addAttribute("BankCardVo", bankCardVo);
-			return "bankcard/addBankCardAuthPage";
+			return "bankcard/addBankCard2";
 		}
 
-		return "bankcard/addBankCardSuccessPage";
+		return "bankcard/addBankCard3";
 	}
 }

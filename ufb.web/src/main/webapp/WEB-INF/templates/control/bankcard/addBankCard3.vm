@@ -19,10 +19,10 @@ $(function(){
 				href="${staticDomain}/cust/session.htm">资产总览</a>|<a 
 				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
 				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
-				href="javascript:;"><i class="trans icon"></i>#if ($CustinfoVo.invnm)
-                	    $!{CustinfoVo.invnm}
+				href="javascript:;"><i class="trans icon"></i>#if ($S_CUSTINFO.invnm)
+                	    $!{S_CUSTINFO.invnm}
                 	#else
-                	    #set($tailStr=$CustinfoVo.mobileno)
+                	    #set($tailStr=$S_CUSTINFO.mobileno)
 						#set($start=$tailStr.substring(0,3))
 						#set($end=$tailStr.substring(7,11))
 						$start****$end
@@ -50,7 +50,7 @@ $(function(){
                     </div>
                 </div>
             </div>
-			<form id="form-addBankCardSuccess" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardSuccess.htm">
+			<form id="form-addBankCard3" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCard3.htm">
 				<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
 				<input id="reqSeq" name="reqSeq" type="hidden" value="$!{BankCardVo.reqSeq}">
 				<input id="invtp" name="invtp" type="hidden" value="$!{BankCardVo.invtp}">

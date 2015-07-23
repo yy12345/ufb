@@ -29,8 +29,7 @@ public class BankCardVo implements Serializable {
 	// private String updateDesc; // 银行通道升级文本内容
 	// private String updateLink; // 银行通道升级链接
 
-	/////////////////////////////////////////////
-	private String reqseq; // 绑卡开户顺序号 1初始化、2鉴权、3验证、4开户
+	// ///////////////////////////////////////////
 	private String fundcorpno;
 	private String custno;
 	private String invtp;
@@ -90,7 +89,10 @@ public class BankCardVo implements Serializable {
 	private int hftorganizationtradeaccoct;
 	private int cpfamilytradeaccoct;
 	private int cporganizationtradeaccoct;
-	/////////////////////////////////////////////
+
+	private boolean openaccoflag = false;
+
+	// ///////////////////////////////////////////
 
 	@Override
 	public String toString() {
@@ -104,14 +106,6 @@ public class BankCardVo implements Serializable {
 		// + dayLimit + ", cardLevel=" + cardLevel + ", limitDesc=" + limitDesc
 		// + ", b2c=" + b2c + ", updateDesc="
 		// + updateDesc + ", updateLink=" + updateLink + "]";
-	}
-
-	public String getReqseq() {
-		return reqseq;
-	}
-
-	public void setReqseq(String reqseq) {
-		this.reqseq = reqseq;
 	}
 
 	public String getFundcorpno() {
@@ -353,7 +347,7 @@ public class BankCardVo implements Serializable {
 	public void setBankacco(String bankacco) {
 		this.bankacco = bankacco;
 	}
-	
+
 	public String getBankacco2() {
 		return bankacco2;
 	}
@@ -480,6 +474,14 @@ public class BankCardVo implements Serializable {
 
 	public void setCporganizationtradeaccoct(int cporganizationtradeaccoct) {
 		this.cporganizationtradeaccoct = cporganizationtradeaccoct;
+	}
+
+	public boolean isOpenaccoflag() {
+		return openaccoflag;
+	}
+
+	public void setOpenaccoflag(boolean openaccoflag) {
+		this.openaccoflag = openaccoflag;
 	}
 
 }

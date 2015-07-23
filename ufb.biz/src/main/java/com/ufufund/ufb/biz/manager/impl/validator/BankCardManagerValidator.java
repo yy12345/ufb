@@ -114,7 +114,7 @@ public class BankCardManagerValidator {
 			}
 			
 			// 绑卡验证需要验证
-			if("3".equals(action.getReqseq())){
+			if(action.isCheckautocodeflag()){
 				if(RegexUtil.isNull(action.getMobileautocode())){
 					//银行开户手机验证吗 isNull
 					throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKMOBILEMSGCODE);
@@ -180,8 +180,8 @@ public class BankCardManagerValidator {
 				// 银行卡号
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACCO);
 			}
-			// 银行卡号2
 			if (!action.getBankacco().equals(action.getBankacco2())) {
+				// 银行卡号2
 				throw new BizException(processId, ErrorInfo.NOT_EQUALS_BANKACCO, BisConst.Register.BANKACCO2);
 			}
 			

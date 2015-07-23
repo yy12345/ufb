@@ -100,7 +100,7 @@
     						<div class="d1">
     							银行卡已添加<span class="cBlue">${hft_operator_trade_size}</span>张
     							<a href="${staticDomain}/setting/settingCard.htm">查看全部</a>
-    							<a href="${staticDomain}/bankcard/addBankCard.htm">+新卡</a>
+    							<a href="${staticDomain}/bankcard/addBankCard1.htm">+新卡</a>
     						</div>
     					</div>
     					<div class="c2">
@@ -140,7 +140,7 @@
     						<div class="d1">
     							银行卡已添加<span class="cBlue">${hft_family_trade_size}</span>张
     							<a href="${staticDomain}/setting/settingCard.htm">查看全部</a>
-    							<a href="${staticDomain}/bankcard/addBankCard.htm">+新卡</a>
+    							<a href="${staticDomain}/bankcard/addBankCard1.htm">+新卡</a>
     						</div>
     					</div>
     					<div class="c2">
@@ -267,11 +267,11 @@ $(function(){
 	$('.inputUser').inputText();
 	
 	$("#btn-openAccount4opr").on("click",function(){
-		$("#form").attr("action", "../bankcard/addBankCard.htm");
+		$("#form").attr("action", "../bankcard/addBankCard1.htm");
 		$("#form").submit();
 	});
 	$("#btn-openAccount4family").on("click",function(){
-		$("#form").attr("action", "../bankcard/addBankCard.htm");
+		$("#form").attr("action", "../bankcard/addBankCard1.htm");
 		$("#form").submit();
 	});
 	$("#btn-openAccount4org").on("click",function(){

@@ -7,7 +7,7 @@
 <script>
 $(function(){
 	$("#btn-openAccount").on("click",function(){
-		$("#form-index").attr("action", "../bankcard/addBankCard.htm");
+		$("#form-index").attr("action", "../bankcard/addBankCard1.htm");
 		$("#form-index").submit();
 	});
 	
@@ -272,7 +272,7 @@ $(function(){
                                 <li class="account-item">
                                     <div class="clearfix">
                                         <div class="fl">银行卡已添加<span class="c-blue">${tradeAccoListSize}</span>张</div>
-                                        <a class="link fr" href="${staticDomain}/bankcard/addBankCard.htm">+新卡</a>
+                                        <a class="link fr" href="${staticDomain}/bankcard/addBankCard1.htm">+新卡</a>
                                         <a class="link fr" href="${staticDomain}/setting/settingCard.htm">查看全部</a>
                                     </div>
                                 </li>

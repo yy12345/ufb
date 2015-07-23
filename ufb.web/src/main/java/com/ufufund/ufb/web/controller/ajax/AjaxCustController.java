@@ -39,9 +39,9 @@ public class AjaxCustController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "ajaxbankcard/addBankCardAuth", method = RequestMethod.GET)
+	@RequestMapping(value = "ajaxbankcard/addBankCardAjax", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String,String> addBankCardAuth(BankCardVo bankCardVo, Model model){
+	public Map<String,String> addBankCardAjax(BankCardVo bankCardVo, Model model){
 
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try{

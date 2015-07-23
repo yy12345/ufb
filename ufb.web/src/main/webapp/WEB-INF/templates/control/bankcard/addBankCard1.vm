@@ -37,10 +37,10 @@ $(function(){
 	//}
 	#end
 	
-	$("#btn-addBankCardInit").on("click",function(){
+	$("#btn-addBankCard2").on("click",function(){
 		//check #register-org #mobileno
 		#if(${hftTradeAccoListSize}!=0)
-			$("#form-addBankCard").attr("action", "../bankcard/addBankCardInit.htm");
+			$("#form-addBankCard").attr("action", "../bankcard/addBankCard2.htm");
 			$("#form-addBankCard").submit();
 			return false;
 		//}
@@ -70,7 +70,7 @@ $(function(){
 			$("ul li.error:eq(0) input[type=text]").focus();
 			$("ul li.error:eq(0) input[type=password]").focus();
 		}else{
-			$("#form-addBankCard").attr("action", "../bankcard/addBankCardInit.htm");
+			$("#form-addBankCard").attr("action", "../bankcard/addBankCard2.htm");
 			$("#form-addBankCard").submit();
 		}
 	});
@@ -113,7 +113,7 @@ $(function(){
 					为了更好的提供金融服务，您需要填写真实身份信息。<br>
 					我们会严格保密您的隐私信息。</p>
                 </div>
-				<form id="form-addBankCard" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardPage.htm">
+				<form id="form-addBankCard" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCard1.htm">
 					<input id="bankno" name="bankno" type="hidden" value="$!{BankCardVo.bankno}">
 					<input id="bankacco" name="bankacco" type="hidden" value="$!{BankCardVo.bankacco}">
 					<input id="bankmobile" name="bankmobile" type="hidden" value="$!{BankCardVo.bankmobile}">
@@ -194,7 +194,7 @@ $(function(){
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_tradePwd2}</span>
                             </li>
                             <li>
-								<input id="btn-addBankCardInit" class="input-button ok" type="button" value="下一步">
+								<input id="btn-addBankCard2" class="input-button ok" type="button" value="下一步">
                             </li>
                         </ul>
                     </div>

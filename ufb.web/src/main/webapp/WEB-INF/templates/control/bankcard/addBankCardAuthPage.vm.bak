@@ -22,7 +22,7 @@ $(function(){
 		// 提交按钮有效
 	#else
 		// 提交按钮无效
-		$("#btn-addBankCardChk").attr("disabled","disabled");
+		$("#btn-addBankCard3").attr("disabled","disabled");
 	#end
 
 	if($("#openaccount").val()=="Y"){
@@ -39,12 +39,12 @@ $(function(){
 	// 上一页
 	$("#btn-addBankCard").on("click",function(){
 		//check #register-org #mobileno
-		$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCard.htm");
-		$("#form-addBankCardAuth").submit();
+		$("#form-addBankCard2").attr("action", "../bankcard/addBankCard1.htm");
+		$("#form-addBankCard2").submit();
 	});
 	
 	// 验证码
-	$("#btn-addBankCardAuth").on("click",function(){
+	$("#btn-addBankCardAjax").on("click",function(){
 	
 		/**
 		if(!check_organization($("#organization"))){
@@ -79,12 +79,12 @@ $(function(){
 		$(".panel ul li").removeClass("error").removeClass("ok");
 		
 		// 获取验证码按钮无效并倒计时 
-		$("#btn-addBankCardAuth").attr("disabled","disabled");
-		$("#btn-addBankCardAuth").addClass("off");
+		$("#btn-addBankCardAjax").attr("disabled","disabled");
+		$("#btn-addBankCardAjax").addClass("off");
 					
         $.ajax({
      		type: "GET",
-    		url: "../ajaxbankcard/addBankCardAuth.htm",
+    		url: "../ajaxbankcard/addBankCardAjax.htm",
     		data: {
 				bankNo: $("#bankNo").val(),
     			bankAcnm: $("#bankAcnm").val(),
@@ -97,13 +97,13 @@ $(function(){
                 if (b.errCode == "0000") {
 					$("#otherserial").val(b.otherserial);
 					// 提交按钮有效 
-					$("#btn-addBankCardChk").removeAttr("disabled");
-					$("#btn-addBankCardChk").removeClass("off");
+					$("#btn-addBankCard3").removeAttr("disabled");
+					$("#btn-addBankCard3").removeClass("off");
 					alert("手机验证码已发送");
                 } else {
 					// 获取验证码按钮有效并取消倒计时 
-            		$("#btn-addBankCardAuth").removeAttr("disabled");
-            		$("#btn-addBankCardAuth").removeClass("off");
+            		$("#btn-addBankCardAjax").removeAttr("disabled");
+            		$("#btn-addBankCardAjax").removeClass("off");
 				
                   	var errCode = b.errCode;
 					var errMsg = b.errMsg;
@@ -137,21 +137,21 @@ $(function(){
         });
 	});
 	
-	$("#btn-addBankCardChk").on("click",function(){
+	$("#btn-addBankCard3").on("click",function(){
 		//check #register-org #mobileno
 		var errLen = $("ul li.error").length;
 		if(errLen>0){
 			$("ul li.error:eq(0) input[type=text]").focus();
 			$("ul li.error:eq(0) input[type=password]").focus();
 		}else{
-			$("#form-addBankCardAuth").attr("action", "../bankcard/addBankCardChk.htm");
-		$("#form-addBankCardAuth").submit();
+			$("#form-addBankCard2").attr("action", "../bankcard/addBankCard3.htm");
+		$("#form-addBankCard2").submit();
 		}
 	});
 	
 	$("#btn-logout").on("click",function(){
-		$("#form-addBankCardAuth").attr("action", "../cust/logout.htm");
-		$("#form-addBankCardAuth").submit();
+		$("#form-addBankCard2").attr("action", "../cust/logout.htm");
+		$("#form-addBankCard2").submit();
 	});
 	
 });
@@ -185,7 +185,7 @@ $(function(){
 					非快捷银行开户，需跳往银行网银开户<br>
                     <span class="mark">企业网银开户即将上线</span></p>
                 </div>
-                <form id="form-addBankCardAuth" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCardAuth.htm">
+                <form id="form-addBankCard2" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCard2.htm">
 				<input id="custNo" name="custNo" type="hidden" value="$!{BankCardVo.custNo}">
 				<input id="bankNo" name="bankNo" type="hidden" value="$!{BankCardVo.bankNo}">	
 				<input id="tradePwd" name="tradePwd" type="hidden" value="$!{BankCardVo.tradePwd}">
@@ -290,12 +290,12 @@ $(function(){
                                 <span class="form-title">手机验证码</span>
 								<input style="width:95px" id="msgcode" name="msgcode" class="ipt-phoneCode input-text" type="text" value="$!{BankCardVo.msgcode}">
                                 <span class="tips-normal">6位验证码</span>
-                                <input id="btn-addBankCardAuth" class="input-button" type="button" value="获取验证码">
+                                <input id="btn-addBankCard2" class="input-button" type="button" value="获取验证码">
                                 <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>
                             </li>
                             <li>
 								<input id="btn-addBankCard" class="input-button" type="button" value="上一步">
-                                <input id="btn-addBankCardChk" class="input-button 
+                                <input id="btn-addBankCard3" class="input-button 
 									 #if($errMsg_msgcode)
 										ok
 									 #elseif($errMsg)
