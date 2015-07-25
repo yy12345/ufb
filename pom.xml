@@ -137,7 +137,10 @@
         <repository>
             <id>snapshots</id>
             <name>archiva Repo -- snapshots</name>
-            <url>http://172.16.8.10:9090/nexus/content/repositories/snapshots/</url>
+             <url>http://172.16.8.10:9090/nexus/content/repositories/snapshots/</url>
+            <!-- 
+             <url>http://localhost:8080/nexus/content/groups/public/</url>
+             -->
         </repository>
     </distributionManagement>
     
