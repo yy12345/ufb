@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class UploadAction {
 	private static final Logger LOG = LoggerFactory.getLogger(UploadAction.class);
 	
-	private String upload_path;
+	private String upload_path = "/Users/goodrich/Downloads/";
 	
 	@RequestMapping(value="upload/upload")
 	public @ResponseBody String uploadPic(
@@ -110,7 +110,7 @@ public class UploadAction {
 	 * @return
 	 */
 	private String changeDateToPath(){
-		SimpleDateFormat sdf= new SimpleDateFormat("yyyymmdd");
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyymmdd24hhmmss");
 		String nowDate = sdf.format(new Date());
 		
 		if(nowDate != null){

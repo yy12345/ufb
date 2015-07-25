@@ -53,7 +53,7 @@
     </div>
     
     <div id="body">
-		<form id="form" class="common-form"  method="post" action="${staticDomain}/org/openAccoStep2.htm">
+		<form id="form" enctype="multipart/form-data" class="common-form"  method="post" action="${staticDomain}/org/openAccoStep2.htm">
 		<input id="orgnm" name="orgnm" type="hidden" value="$!{BankCardVo.orgnm}">
     	<input id="orgbusiness" name="orgbusiness" type="hidden" value="$!{BankCardVo.orgbusiness}">
     	<input id="orgprovinceno" name="orgprovinceno" type="hidden" value="$!{BankCardVo.orgprovinceno}">
@@ -189,6 +189,7 @@
     		url : '../upload/upload.htm',
     		//flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
     		//silverlight_xap_url : 'js/Moxie.xap', //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+			multi_selection: false,
 			filters : {
     			max_file_size : '3mb',
     			mime_types: [
