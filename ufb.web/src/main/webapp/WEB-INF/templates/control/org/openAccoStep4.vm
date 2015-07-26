@@ -75,12 +75,13 @@
         </div>
 		</form>
 	</div>
+</div>
 <script type="text/javascript">
-$(function(){
-	$('.select').selectMenu();
-	$('.inputText').inputText();
-	$('#card1,#card2').cardFormat('####,####,####,####,###');//营业执照
-})
+//$(function(){
+	//$('.select').selectMenu();
+	//$('.inputText').inputText();
+	//$('#card1,#card2').cardFormat('####,####,####,####,###');//营业执照
+//});
 </script>
 </body>
 </html>

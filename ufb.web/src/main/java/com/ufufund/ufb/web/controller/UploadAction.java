@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class UploadAction {
 	private static final Logger LOG = LoggerFactory.getLogger(UploadAction.class);
 	
-	private String upload_path = "/Users/goodrich/Downloads/";
+	private String upload_path = "src/main/webapp/images/";
 	
 	@RequestMapping(value="upload/upload")
 	public @ResponseBody String uploadPic(
@@ -45,7 +45,7 @@ public class UploadAction {
 	        	 String str = (String) iter.next(); 
 	        	 List<MultipartFile> fileList =  map.get(str);  
 	        	 for(MultipartFile multipartFile : fileList) {  
-	        		 marshallResult(multipartFile,request,resp);
+	        		 return marshallResult(multipartFile,request,resp);
 	        	 }
 	        	 LOG.info("file name===="+str);
 	        }
@@ -64,19 +64,25 @@ public class UploadAction {
 		
 		OutputStream os = null;
 		InputStream is = null;
+		String pathfilename = null;
+		String changeDateToPath = null;
 		
 		try{
 //			String path = request.getSession().getServletContext().getRealPath("/upload")+changeDateToPath(); 
-			String path = upload_path+changeDateToPath(); 
+			changeDateToPath = changeDateToPath();
+			String path = upload_path+changeDateToPath; //Users/goodrich/Downloads/20150726/120001/
+			
 //			String fileName = file.getOriginalFilename();  
-	        String fileName = new Date().getTime()+".jpg";  
-	        LOG.info("path==="+path);  
+	        String fileName = new Date().getTime()+".jpg"; // 1437881637490.jpg
+	        changeDateToPath = changeDateToPath + fileName;
 	        File targetFile = new File(path);  
 	        if(!targetFile.exists()){  
 	            targetFile.mkdirs();  
 	        }  
 	        
-	        targetFile = new File(path+"/"+fileName);
+	        pathfilename = path+"/"+fileName;
+	        LOG.info("path==="+pathfilename);  
+	        targetFile = new File(pathfilename);
 	        
 	        os = new FileOutputStream(targetFile);
 	        is = file.getInputStream();
@@ -89,7 +95,8 @@ public class UploadAction {
 	        	 os.flush();
 	        }
 	        
-	        resp.put("data", "/upload"+changeDateToPath()+fileName);
+	        //resp.put("data", "/upload"+changeDateToPath()+fileName);
+	        resp.put("data",changeDateToPath);
 		}catch(Exception e){
 			LOG.error("upload pic find exception", e);
 			throw e;
@@ -102,7 +109,7 @@ public class UploadAction {
 		}
 		
 		//return JSONUtil.toJSONString(resp);
-		return "test";
+		return changeDateToPath;
 	}
 	
 	/**
@@ -110,11 +117,15 @@ public class UploadAction {
 	 * @return
 	 */
 	private String changeDateToPath(){
-		SimpleDateFormat sdf= new SimpleDateFormat("yyyymmdd24hhmmss");
-		String nowDate = sdf.format(new Date());
+		Date date = new Date();
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMdd");
+		String dir1 = sdf.format(date);
+		sdf= new SimpleDateFormat("HHmmss");
+		String dir2 = sdf.format(date);
 		
-		if(nowDate != null){
-			return "/"+nowDate.replace("-", "/")+"/";
+		if(dir1 != null && dir2 != null){
+			//return "/"+nowDate.replace("-", "/")+"/";
+			return "/"+dir1+"/"+dir2+"/";
 		}
 		
 		return null;
