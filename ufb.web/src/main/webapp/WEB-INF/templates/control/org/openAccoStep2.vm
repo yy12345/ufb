@@ -87,9 +87,11 @@
     	        <span class="v1_1">经办人授权委托书</span>
     	        <div class="x1">
     	            <label class="inputFile y1">
-						<input id="browse" type="file" accept="image/*">
-						<img name="img1" id="img1" src="" style="width:180px;height:120px"/>
-						<p>民非企业登记证/营业执照</p>
+						<input id="uploader1" type="file" accept="image/*">
+						#if(!${PicInfo.imgpath1})
+						<p id="upp1">民非企业登记证/营业执照</p>
+						#end
+						<img id="upimg1" src="${staticDomain}/images/${PicInfo.imgpath1}" style="width:180px;height:120px"/>
 					</label>
     	            <div class="y2">
     	                <p>◆ 下须与营业执照、银行对公账户的开户名称一致，</a></p>
@@ -97,28 +99,52 @@
     	            </div>
     	        </div>
     	        <div class="x1">
-    	            <label class="inputFile y1"><input type="file" accept="image/*"><p>组织机构代码证</p></label>
+    	            <label class="inputFile y1">
+						<input id="uploader2" type="file" accept="image/*">
+						#if(!${PicInfo.imgpath2})
+						<p id="upp2">组织机构代码证</p>
+						#end
+						<img id="upimg2" src="${staticDomain}/images/${PicInfo.imgpath2}" style="width:180px;height:120px"/>
+					</label>
     	            <div class="y2">
     	                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</a></p>
     	                <p>&emsp;信息审核成功后，名称不可修改。</p>
     	            </div>
     	        </div>
     	        <div class="x1">
-    	            <label class="inputFile y1"><input type="file" accept="image/*"><p>税务登记证</p></label>
+    	            <label class="inputFile y1">
+						<input id="uploader3" type="file" accept="image/*">
+						#if(!${PicInfo.imgpath3})
+						<p id="upp3">税务登记证</p>
+						#end
+						<img id="upimg3" src="${staticDomain}/images/${PicInfo.imgpath3}" style="width:180px;height:120px"/>
+					</label>
     	            <div class="y2">
     	                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</a></p>
     	                <p>&emsp;信息审核成功后，名称不可修改。</p>
     	            </div>
     	        </div>
     	        <div class="x1">
-    	            <label class="inputFile y1"><input type="file" accept="image/*"><p>银行开户证明/开户许可证</p></label>
+    	            <label class="inputFile y1">
+						<input id="uploader4" type="file" accept="image/*">
+						#if(!${PicInfo.imgpath4})
+						<p id="upp4">银行开户证明/开户许可证</p>
+						#end
+						<img id="upimg4" src="${staticDomain}/images/${PicInfo.imgpath4}" style="width:180px;height:120px"/>
+					</label>
     	            <div class="y2">
     	                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
     	                <p>&emsp; 信息审核成功后，名称不可修改。</p>
     	            </div>
     	        </div>
     	        <div class="x1">
-    	            <label class="inputFile y1"><input type="file" accept="image/*"><p>办学许可证</p></label>
+    	            <label class="inputFile y1">
+						<input id="uploader5" type="file" accept="image/*">
+						#if(!${PicInfo.imgpath5})
+						<p id="upp5">办学许可证</p>
+						#end
+						<img id="upimg5" src="${staticDomain}/images/${PicInfo.imgpath5}" style="width:180px;height:120px"/>
+					</label>
     	            <div class="y2">
     	                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
     	                <p>&emsp;  信息审核成功后，名称不可修改。</p>
@@ -128,8 +154,20 @@
 			<div class="v1">
 		        <span class="v1_1">举办人/法人身份证</span>
 		        <div class="x1">
-		            <label class="inputFile y1 y5"><input type="file" accept="image/*"><p>身份证 正面</p></label>
-		           	<label class="inputFile y1 y3"><input type="file" accept="image/*"><p>身份证 正面</p></label>
+		            <label class="inputFile y1 y5">
+						<input id="uploader6" type="file" accept="image/*">
+						#if(!${PicInfo.imgpath6})
+						<p id="upp6">身份证 正面</p>
+						#end
+						<img id="upimg6" src="${staticDomain}/images/${PicInfo.imgpath6}" style="width:180px;height:120px"/>
+					</label>
+		           	<label class="inputFile y1 y3">
+						<input id="uploader7" type="file" accept="image/*">
+						#if(!${PicInfo.imgpath7})
+						<p id="upp3">身份证 反面</p>
+						#end
+						<img id="upimg7" src="${staticDomain}/images/${PicInfo.imgpath7}" style="width:180px;height:120px"/>
+					</label>
 		            <div class="y4">
 		                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
 		                <p>&emsp;信息审核成功后，名称不可修改。</p>
@@ -139,8 +177,20 @@
 			<div class="v1">
 		        <span class="v1_1">经办人身份证</span>
 		        <div class="x1">
-		            <label class="inputFile y1 y5"><input type="file" accept="image/*"><p>身份证 正面</p></label>
-		            <label class="inputFile y1 y3"><input type="file" accept="image/*"><p>身份证 正面</p></label>
+		            <label class="inputFile y1 y5">
+						<input id="uploader8" type="file" accept="image/*">
+						#if(!${PicInfo.imgpath8})
+						<p id="upp8">身份证 正面</p>
+						#end
+						<img id="upimg8" src="${staticDomain}/images/${PicInfo.imgpath8}" style="width:180px;height:120px"/>
+					</label>
+		            <label class="inputFile y1 y3">
+						<input id="uploader9" type="file" accept="image/*">
+						#if(!${PicInfo.imgpath9})
+						<p id="upp9">身份证 反面</p>
+						#end
+						<img id="upimg9" src="${staticDomain}/images/${PicInfo.imgpath9}" style="width:180px;height:120px"/>
+					</label>
 		            <div class="y4">
 		                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
 		                <p>&emsp;信息审核成功后，名称不可修改。</p>
@@ -148,13 +198,7 @@
 		        </div>
                  <div class="x2"><a href="#" class="">上一步</a><a href="#" class="btnA">下一步</a></div>
 		    </div>
-			
-			
-			
         </div>	
-		
-		
-		
     </div>
 	
 	
@@ -175,66 +219,8 @@ $(function(){
     	});
 		
 		
-		var uploader = new plupload.Uploader({ 
-			//实例化一个plupload上传对象
-    		browse_button : 'browse',
-    		url : '../upload/upload.htm',
-    		//flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
-    		//silverlight_xap_url : 'js/Moxie.xap', //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
-			multi_selection: false,
-			filters : {
-    			max_file_size : '3mb',
-    			mime_types: [
-    				{title : "Image files", extensions : "jpg,gif,png"}
-    			]
-    		},
-    	});
-    	uploader.init(); //初始化
-    
-    	//绑定文件添加进队列事件
-    	uploader.bind('FilesAdded',function(uploader,files){
-    		for(var i = 0, len = files.length; i<len; i++){
-    			var file_name = files[i].name; //文件名
-    			//构造html来更新UI
-    			//var html = '<li id="file-' + files[i].id +'"><p class="file-name">' + file_name + '</p><p class="progress"></p></li>';
-    			//$(html).appendTo('#file-list');
-				uploader.start();
-    		}
-    	});
-    
-    	//绑定文件上传进度事件
-    	uploader.bind('UploadProgress',function(uploader,file){
-    		//$('#file-'+file.id+' .progress').css('width',file.percent + '%');//控制进度条
-    	});
-		
-		uploader.bind('FileUploaded',function(uploader,file,responseObject){
-    		var status = responseObject.status;
-			var response = jQuery.parseJSON(responseObject.response);
-			if(status == '200'){
-				//$('#picValue1').val(response.data); 
-				//$('#pickfiles1').css({"height":"130px","width":"150px"}).attr('src',response.data);	
-				$('#img1').attr('src','${staticDomain}/images/' + response);	
-				// 更新图片信息
-				//updatePicInfo("BackPhoto", response.data);
-				//hideLoader();
-			}
-			if(status == '200'){
-				//$('#picValue1').val(response.data); 
-				//$('#pickfiles1').css({"height":"130px","width":"150px"}).attr('src',response.data);	
-				$('#img1').attr('src','${staticDomain}/images/' + response);	
-				
-				// 更新图片信息
-				//updatePicInfo("BackPhoto", response.data);
-				//hideLoader();
-			}
-    	});
-		
-    	//上传按钮
-    	$('#upload-btn').click(function(){
-    		uploader.start(); //开始上传
-    	});
  });
 </script>
-	
+<script src="${staticDomain}/public/js/upload.js"></script>
 </body>
 </html>

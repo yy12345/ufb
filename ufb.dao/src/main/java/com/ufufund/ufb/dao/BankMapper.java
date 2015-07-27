@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ufufund.ufb.common.dao.BaseDao;
 import com.ufufund.ufb.model.db.Bankcardinfo;
+import com.ufufund.ufb.model.db.PicInfo;
 
 public interface BankMapper extends BaseDao {
 
@@ -18,5 +19,9 @@ public interface BankMapper extends BaseDao {
 	public void unbindBankCard(@Param("custno")String custno, @Param("bankacco")String bankacco, @Param("state")String state);
 	
 	public String getBankcardinfoSequence();
+	
+	public void updatePicInfo(PicInfo picinfo);
+	public void insertPicInfo(PicInfo picinfo);
+	public PicInfo getPicInfo(PicInfo picinfo);
 	
 }

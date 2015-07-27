@@ -5,6 +5,7 @@ import java.util.List;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.Bankcardinfo;
+import com.ufufund.ufb.model.db.PicInfo;
 
 public interface BankCardManager {
 
@@ -33,4 +34,8 @@ public interface BankCardManager {
 	public OpenAccountAction openAccoStep1(OpenAccountAction openAccountAction) throws BizException;
 	public OpenAccountAction openAccoStep2(OpenAccountAction openAccountAction) throws BizException;
 	public OpenAccountAction openAccoStep3(OpenAccountAction openAccountAction) throws BizException;
+	
+	public void updatePicInfo(PicInfo picInfo) throws BizException;
+	public void insertPicInfo(PicInfo picInfo) throws BizException;
+	public PicInfo getPicInfo(PicInfo picInfo) throws BizException;
 }

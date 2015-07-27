@@ -121,4 +121,122 @@
 	]]>
 	</select>
 	
+	<select id="getPicInfo" parameterType="com.ufufund.ufb.model.db.PicInfo"
+		resultType="com.ufufund.ufb.model.db.PicInfo">
+		SELECT
+			*
+		FROM
+			picinfo
+		WHERE
+			CUSTNO = #{custno,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updatePicInfo" parameterType="com.ufufund.ufb.model.db.PicInfo">
+		UPDATE picinfo T1
+			SET 
+			<if test="imgpath1 != null and imgpath1 !=''" >
+			T1.imgpath1 = #{imgpath1,jdbcType=VARCHAR},
+			</if>
+			<if test="imgpath2 != null and imgpath2 !=''" >
+			T1.imgpath2 = #{imgpath2,jdbcType=VARCHAR},
+			</if>
+			<if test="imgpath3 != null and imgpath3 !=''" >
+			T1.imgpath3 = #{imgpath3,jdbcType=VARCHAR},
+			</if>
+			<if test="imgpath4 != null and imgpath4 !=''" >
+			T1.imgpath4 = #{imgpath4,jdbcType=VARCHAR},
+			</if>
+			<if test="imgpath5 != null and imgpath5 !=''" >
+			T1.imgpath5 = #{imgpath5,jdbcType=VARCHAR},
+			</if>
+			<if test="imgpath6 != null and imgpath6 !=''" >
+			T1.imgpath6 = #{imgpath6,jdbcType=VARCHAR},
+			</if>
+			<if test="imgpath7 != null and imgpath7 !=''" >
+			T1.imgpath7 = #{imgpath7,jdbcType=VARCHAR},
+			</if>
+			<if test="imgpath8 != null and imgpath8 !=''" >
+			T1.imgpath8 = #{imgpath8,jdbcType=VARCHAR},
+			</if>
+			<if test="imgpath9 != null and imgpath9 !=''" >
+			T1.imgpath9 = #{imgpath9,jdbcType=VARCHAR},
+			</if>
+			<if test="imgpath10 != null and imgpath10 !=''" >
+			T1.imgpath10 = #{imgpath10,jdbcType=VARCHAR},
+			</if>
+			<if test="imgpath11 != null and imgpath11 !=''" >
+			T1.imgpath11 = #{imgpath11,jdbcType=VARCHAR},
+			</if>
+			<if test="imgpath12 != null and imgpath12 !=''" >
+			T1.imgpath12 = #{imgpath12,jdbcType=VARCHAR},
+			</if>
+			updatetime = sysdate()
+	     WHERE 
+	     	T1.fundcorpno = "01"
+	     	AND T1.LEVEL = "1"
+	     	And T1.custno = #{custno,jdbcType=VARCHAR}
+	</update>
+	
+	<insert id="insertPicInfo" parameterType="com.ufufund.ufb.model.db.PicInfo">
+		insert into picinfo (
+			custno,
+			fundcorpno,
+			level,
+			imgtype1,
+			imgpath1,
+			imgtype2,
+			imgpath2,
+			imgtype3,
+			imgpath3,
+			imgtype4,
+			imgpath4,
+			imgtype5,
+			imgpath5,
+			imgtype6,
+			imgpath6,
+			imgtype7,
+			imgpath7,
+			imgtype8,
+			imgpath8,
+			imgtype9,
+			imgpath9,
+			imgtype10,
+			imgpath10,
+			imgtype11,
+			imgpath11,
+			imgtype12,
+			imgpath12,
+			updatetime)
+		values (
+			#{custno,jdbcType=VARCHAR},
+			"01",
+			"1",
+			#{imgtype1,jdbcType=VARCHAR},
+			#{imgpath1,jdbcType=VARCHAR},
+			#{imgtype2,jdbcType=VARCHAR},
+			#{imgpath2,jdbcType=VARCHAR},
+			#{imgtype3,jdbcType=VARCHAR},
+			#{imgpath3,jdbcType=VARCHAR},
+			#{imgtype4,jdbcType=VARCHAR},
+			#{imgpath4,jdbcType=VARCHAR},
+			#{imgtype5,jdbcType=VARCHAR},
+			#{imgpath5,jdbcType=VARCHAR},
+			#{imgtype6,jdbcType=VARCHAR},
+			#{imgpath6,jdbcType=VARCHAR},
+			#{imgtype7,jdbcType=VARCHAR},
+			#{imgpath7,jdbcType=VARCHAR},
+			#{imgtype8,jdbcType=VARCHAR},
+			#{imgpath8,jdbcType=VARCHAR},
+			#{imgtype9,jdbcType=VARCHAR},
+			#{imgpath9,jdbcType=VARCHAR},
+			#{imgtype10,jdbcType=VARCHAR},
+			#{imgpath10,jdbcType=VARCHAR},
+			#{imgtype11,jdbcType=VARCHAR},
+			#{imgpath11,jdbcType=VARCHAR},
+			#{imgtype12,jdbcType=VARCHAR},
+			#{imgpath12,jdbcType=VARCHAR},
+			sysdate()
+	    )
+	</insert>
+	
 </mapper>

@@ -26,6 +26,7 @@ import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
+import com.ufufund.ufb.model.db.PicInfo;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
@@ -67,6 +68,27 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	private TradeNotesMapper tradeNotesMapper;
 	@Autowired
 	private WorkDayManager workDayManager;
+	
+	
+	@Override
+	public PicInfo getPicInfo(PicInfo picinfo) throws BizException {
+		return bankCardMapper.getPicInfo(picinfo);
+	}
+	
+	@Override
+	public void insertPicInfo(PicInfo picinfo) throws BizException {
+		bankCardMapper.insertPicInfo(picinfo);
+	}
+	
+	@Override
+	public void updatePicInfo(PicInfo picinfo) throws BizException {
+		PicInfo check = bankCardMapper.getPicInfo(picinfo);
+		if(null == check){
+			bankCardMapper.insertPicInfo(picinfo);
+		}else{
+			bankCardMapper.updatePicInfo(picinfo);
+		}
+	}
 	
 	@Override
 	public List<Bankcardinfo> getBankcardinfoList(String custno){

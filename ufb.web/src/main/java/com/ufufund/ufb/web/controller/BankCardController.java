@@ -21,6 +21,7 @@ import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankBaseInfo;
+import com.ufufund.ufb.model.db.PicInfo;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
@@ -111,9 +112,14 @@ public class BankCardController {
 				openAccountAction.setOpenaccoflag(false);
 			}
 			
+			
 			bankCardManager.openAccoStep2(openAccountAction);
-
 			model.addAttribute("BankCardVo", bankCardVo);
+
+			PicInfo picInfo = new PicInfo();
+			picInfo.setCustno(s_custinfo.getCustno());
+			picInfo = bankCardManager.getPicInfo(picInfo);
+			model.addAttribute("PicInfo", picInfo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());
