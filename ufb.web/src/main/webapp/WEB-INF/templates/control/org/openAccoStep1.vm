@@ -74,7 +74,10 @@
 						<tr>
 							<td>机构名称</td>
 							<td><label class="inputText"><input name="orgnm" type="text" value="${BankCardVo.orgnm}"></label></td>
-							<td>须与营业执照、银行对公账户的开户名称一致，信息审核成功后，名称不可修改。</td>
+							#if(${errMsg_ORGNM})
+							<td><div class="formErr">错误提示：${errMsg_ORGNM}</div></td>
+							#end
+							<td#if(${errMsg_ORGNM}) style="display:none" #end>须与营业执照、银行对公账户的开户名称一致，信息审核成功后，名称不可修改。</td>
 						</tr>
 						<tr>
 							<td>营业执照号</td>
@@ -124,10 +127,20 @@
 							<td><label class="inputText"><input name="invnm" type="text" value="${BankCardVo.invnm}"></label></td>
 							<td><label class="checkbox"><input type="checkbox">与营业执照中注册地址相同</label></td>
 						</tr>
-						<tr>
+						<tr class="reg-tr">
 							<td>身份证号</td>
-							<td><label class="cardFormat" id="card2"><input name="idno" type="text" value="${BankCardVo.idno}"></label></td>
-							<td>若为临时身份证，请输入临时身份证号</td>
+							<td>
+								<label class="cardFormat" id="card2">
+									<input id="idno" class="ipt-idCard" name="idno" type="text" value="${BankCardVo.idno}">
+								</label>
+							</td>
+							<td id="errMsg_idno" style="display:
+								#if(${errMsg_idno}) true #else none #end">
+								<div class="tips-check 
+									#if(${errMsg_idno}) formErr #end">错误提示：${errMsg_idno}</div>
+							</td>
+							<td id="tipMsg_idno" style="display:
+								#if(${errMsg_idno}) none #else true #end">若为临时身份证，请输入临时身份证号。</td>
 						</tr>
 						<tr>
 							<td>手机</td>
@@ -183,8 +196,12 @@
 		</form>
     </div>
 </div>
+
+<script src="${staticDomain}/public/js/load.js"></script>
+<script src="${staticDomain}/public/js/register.js"></script>
 <script type="text/javascript">
     $(function(){
+	
     	//$('.checkbox').checkbox();
     	//$('.select').selectMenu();
     	//$('#card1').cardFormat('####,####,####,####,###');//营业执照

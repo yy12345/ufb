@@ -122,7 +122,35 @@ public class BankCardController {
 			model.addAttribute("PicInfo", picInfo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
+			String ems = e.getOtherInfo();
+			System.out.println(ems);
+			
+			if(ems.equals(BisConst.Register.ORGNM)){
+				model.addAttribute("errMsg_orgnm", e.getMessage());
+			}else
+			if(ems.equals(BisConst.Register.ORGBUSINESS)){
+				model.addAttribute("errMsg_orgbusiness", e.getMessage());
+			}else
+			if(ems.equals(BisConst.Register.CUSTNO)){
+				model.addAttribute("errMsg_custno", e.getMessage());
+			}else
+			if(ems.equals(BisConst.Register.INVNM)){
+				model.addAttribute("errMsg_invnm", e.getMessage());
+			}else
+			if(ems.equals(BisConst.Register.IDNO)){
+				model.addAttribute("errMsg_idno", e.getMessage());
+			}else
+			if(ems.equals(BisConst.Register.RERPNM)){
+				model.addAttribute("errMsg_rerpnm", e.getMessage());
+			}else
+			if(ems.equals(BisConst.Register.RERPIDNO)){
+				model.addAttribute("errMsg_rerpidno", e.getMessage());
+			}else{
+				model.addAttribute("errMsg", e.getMessage());
+			}
 			model.addAttribute("errMsg", e.getMessage());
+			
+			model.addAttribute("BankCardVo", bankCardVo);
 			return "org/openAccoStep1";
 		}
 		return "org/openAccoStep2"; // 图
