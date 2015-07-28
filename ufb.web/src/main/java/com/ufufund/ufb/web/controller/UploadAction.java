@@ -45,17 +45,20 @@ public class UploadAction {
 									HttpServletRequest request,
 									HttpServletResponse response) throws Exception {
 		String imgtype = request.getParameter("imgtype");
+		LOG.info("file imgtype===="+imgtype);
 		String file = null;
 		Map<String, String> resp = new HashMap<String, String>();
 
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			
+			LOG.info("file s_custinfo===="+s_custinfo);
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 	        MultiValueMap<String, MultipartFile> map = multipartRequest.getMultiFileMap();  
 	        
+	        
 	        Iterator<String> iter = map.keySet().iterator(); 
 	        while(iter.hasNext()) {  
+	        	 LOG.info("file iterhasNext");
 	        	 String str = (String) iter.next(); 
 	        	 List<MultipartFile> fileList =  map.get(str);  
 	        	 for(MultipartFile multipartFile : fileList) {  
