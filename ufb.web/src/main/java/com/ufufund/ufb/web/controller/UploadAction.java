@@ -35,8 +35,6 @@ import com.ufufund.ufb.web.util.UserHelper;
 public class UploadAction {
 	private static final Logger LOG = LoggerFactory.getLogger(UploadAction.class);
 	
-	private String UPLOADPATH = "src/main/webapp/images/";
-	
 	@Autowired
 	private BankCardManager bankCardManager;
 	
@@ -134,17 +132,22 @@ public class UploadAction {
 		OutputStream os = null;
 		InputStream is = null;
 		String floder = null;
-		String fileName = s_custinfo + '_' + new Date().getTime()+".jpg"; // 1437881637490.jpg
+		String fileName = new Date().getTime()+".jpg"; // 1437881637490.jpg
 		try{
+			//LOG.info("test1====================" + request.getSession().getServletContext().getRealPath("images"));
+			//LOG.info("test2====================" + request.getSession().getServletContext().getRealPath("webapp"));
+			//LOG.info("test3====================" + request.getSession().getServletContext().getRealPath("src"));
 			floder = changeDateToPath(); // /20150726/
-	        
-	        File targetFloder = new File(UPLOADPATH + floder);  // src/main/webapp/images/20150726/
-	        if(!targetFloder.exists()){  
+			String uploadpath = request.getSession().getServletContext().getRealPath("images");
+			LOG.info("floder==="+uploadpath + floder);
+	        File targetFloder = new File(uploadpath + floder);  // src/main/webapp/images/20150726/
+	        if(!targetFloder.exists()){ 
+	        	LOG.info("floder===mkdirs");
 	        	targetFloder.mkdirs();  
 	        }  
 	        
-	        LOG.info("path==="+UPLOADPATH + floder + fileName);  
-	        File targetFile = new File(UPLOADPATH + floder + fileName); // src/main/webapp/images/20150726/1437881637490.jpg
+	        LOG.info("path==="+uploadpath + floder + fileName);  
+	        File targetFile = new File(uploadpath + floder + fileName); // src/main/webapp/images/20150726/1437881637490.jpg
 	        os = new FileOutputStream(targetFile);
 	        is = file.getInputStream();
 	        //保存
@@ -184,7 +187,7 @@ public class UploadAction {
 		
 		if(dir1 != null && dir2 != null){
 			// return "/"+dir1+"/"+dir2+"/";
-			return "/"+dir1+"/";
+			return ""+dir1+"/";
 		}
 		
 		return null;
