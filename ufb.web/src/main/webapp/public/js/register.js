@@ -315,7 +315,7 @@ var check_business = function (ipt) {//营业执照注册号
 var check_bankAcnm = function (ipt) {//经办人姓名
 	var value = ipt.val();
 	if (isNull(value)) {
-		return showTips(ipt, "经办人姓名不能为空");
+		return showTips(ipt, "姓名不能为空");
 	}
 	return showTips(ipt, 0)
 }
@@ -402,3 +402,27 @@ $("body").on("blur", ".ipt-loginUsername", function () {
 $("body").on("blur", ".ipt-loginPassword", function () {
     check_null($(this), "登录密码不能为空");
 });
+
+$("body").on("blur", ".ipt-orgnm",  function() {
+	check_organization($(this));
+});
+$("body").on("blur", ".ipt-orgbusiness",  function() {
+	check_business($(this));
+});
+$("body").on("blur", ".ipt-invnm",  function() {
+	check_bankAcnm($(this));
+});
+$("body").on("blur", ".ipt-idno", function() {
+    check_id($(this));
+});
+$("body").on("blur", ".ipt-mobile", function() {
+    check_mobile($(this));
+});
+$("body").on("blur", ".ipt-rerpnm",  function() {
+	check_bankAcnm($(this));
+});
+$("body").on("blur", ".ipt-rerpidno", function() {
+    check_id($(this));
+});
+
+
