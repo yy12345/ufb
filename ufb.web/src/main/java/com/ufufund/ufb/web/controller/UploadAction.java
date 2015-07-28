@@ -187,7 +187,7 @@ public class UploadAction {
 		
 		if(dir1 != null && dir2 != null){
 			// return "/"+dir1+"/"+dir2+"/";
-			return ""+dir1+"/";
+			return "/"+dir1+"/";
 		}
 		
 		return null;
