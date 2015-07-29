@@ -17,16 +17,37 @@ function updatePicInfo(imgtype, imgpath) {
         }
 	});
 }
-		
+
+function uploaderErr(index){
+	$("#uptext" + index).show();
+	$("#upimg" + index).hide().attr("load","0");
+}	
+function uploaderSuccess(index,response){
+	$("#uptext" + index).hide();
+	$("#upimg" + index).show().attr("src","../images/" + response).attr("load","1");
+	updatePicInfo("uploader" + index, response);
+}				
+function uploaderErrHandler(err,index){
+	uploaderErr(index)
+	var code = err.code;
+	if(code == '-600'){
+		alert("文件尺寸过大（大小不超过1M）。");
+	}else{
+		alert("上传文件发生错误。");
+	}
+	//alert(err.code);
+	//alert(err.file);
+	//alert(err.message);
+}
 var uploader1 = new plupload.Uploader({
 	runtimes : 'html5,flash,gears,browserplus,silverlight,html4',
-	browse_button : 'uploader1', 
+	browse_button : 'uploader01', 
 	url : '../upload/upload.htm',
 	flash_swf_url : '../static/js/Moxie.swf',
 	silverlight_xap_url : '../static/js/Moxie.xap',
 	multi_selection: false,
 	filters : {
-		max_file_size : '3mb',
+		max_file_size : '1mb',
 		mime_types: [
 			{title : "Image files", extensions : "jpg,jpeg,bmp,gif,png"}
 		]
@@ -35,11 +56,7 @@ var uploader1 = new plupload.Uploader({
 		PostInit: function() {
 		},
 		FilesAdded: function(up, files) {
-			// showLoader();
 			up.start();
-			//for(var i = 0, len = files.length; i<len; i++){
-    		//	var file_name = files[i].name; //文件名
-    		//}
 		},
 		UploadProgress: function(up, file) {
 		},
@@ -47,41 +64,26 @@ var uploader1 = new plupload.Uploader({
 			var status = responseObject.status;
 			var response = jQuery.parseJSON(responseObject.response);
 			if(status == '200'){
-				// TODO 抽象包装
-				$("#upp1").hide();
-				$('#upimg1').show().attr('src','../images/' + response);	
-				// TODO 结束
-				// 更9新图片信息
-				updatePicInfo("uploader01", response);
-				// hideLoader();
+				uploaderSuccess("01",response);
 			}else{
-				// TODO 抽象包装
-				$("#upp1").show();
-				$('#upimg1').hidden();
-				// TODO 结束
+				uploaderErr("01");
 			}
 		},
 		Error: function(up, err) {
-			// TODO 抽象包装
-			$("#upp1").show();
-			$('#upimg1').hidden();
-			// TODO 结束
-			//alert(err.code);
-			//alert(err.file);
-			//alert(err.message);
+			uploaderErrHandler(err,"01");
 		}
 	}
 });
 	
 var uploader2 = new plupload.Uploader({
 	runtimes : 'html5,flash,gears,browserplus,silverlight,html4',
-	browse_button : 'uploader2', 
+	browse_button : 'uploader02', 
 	url : '../upload/upload.htm',
 	flash_swf_url : '../static/js/Moxie.swf',
 	silverlight_xap_url : '../static/js/Moxie.xap',
 	multi_selection: false,
 	filters : {
-		max_file_size : '3mb',
+		max_file_size : '1mb',
 		mime_types: [
 			{title : "Image files", extensions : "jpg,jpeg,bmp,gif,png"}
 		]
@@ -90,11 +92,7 @@ var uploader2 = new plupload.Uploader({
 		PostInit: function() {
 		},
 		FilesAdded: function(up, files) {
-			// showLoader();
 			up.start();
-			//for(var i = 0, len = files.length; i<len; i++){
-    		//	var file_name = files[i].name; //文件名
-    		//}
 		},
 		UploadProgress: function(up, file) {
 		},
@@ -102,41 +100,26 @@ var uploader2 = new plupload.Uploader({
 			var status = responseObject.status;
 			var response = jQuery.parseJSON(responseObject.response);
 			if(status == '200'){
-				// TODO 抽象包装
-				$("#upp2").hide();
-				$('#upimg2').show().attr('src','../images/' + response);	
-				// TODO 结束
-				// 更9新图片信息
-				updatePicInfo("uploader02", response);
-				// hideLoader();
+				uploaderSuccess("02",response);
 			}else{
-				// TODO 抽象包装
-				$("#upp2").show();
-				$('#upimg2').hidden();
-				// TODO 结束
+				uploaderErr("02");
 			}
 		},
 		Error: function(up, err) {
-			// TODO 抽象包装
-			$("#upp2").show();
-			$('#upimg2').hidden();
-			// TODO 结束
-			//alert(err.code);
-			//alert(err.file);
-			//alert(err.message);
+			uploaderErrHandler(err,"02");
 		}
 	}
 });
 
 var uploader3 = new plupload.Uploader({
 	runtimes : 'html5,flash,gears,browserplus,silverlight,html4',
-	browse_button : 'uploader3', 
+	browse_button : 'uploader03', 
 	url : '../upload/upload.htm',
 	flash_swf_url : '../static/js/Moxie.swf',
 	silverlight_xap_url : '../static/js/Moxie.xap',
 	multi_selection: false,
 	filters : {
-		max_file_size : '3mb',
+		max_file_size : '1mb',
 		mime_types: [
 			{title : "Image files", extensions : "jpg,jpeg,bmp,gif,png"}
 		]
@@ -145,11 +128,7 @@ var uploader3 = new plupload.Uploader({
 		PostInit: function() {
 		},
 		FilesAdded: function(up, files) {
-			// showLoader();
 			up.start();
-			//for(var i = 0, len = files.length; i<len; i++){
-    		//	var file_name = files[i].name; //文件名
-    		//}
 		},
 		UploadProgress: function(up, file) {
 		},
@@ -157,41 +136,26 @@ var uploader3 = new plupload.Uploader({
 			var status = responseObject.status;
 			var response = jQuery.parseJSON(responseObject.response);
 			if(status == '200'){
-				// TODO 抽象包装
-				$("#upp3").hide();
-				$('#upimg3').show().attr('src','../images/' + response);	
-				// TODO 结束
-				// 更9新图片信息
-				updatePicInfo("uploader03", response);
-				// hideLoader();
+				uploaderSuccess("03",response);
 			}else{
-				// TODO 抽象包装
-				$("#upp3").show();
-				$('#upimg3').hidden();
-				// TODO 结束
+				uploaderErr("03");
 			}
 		},
 		Error: function(up, err) {
-			// TODO 抽象包装
-			$("#upp3").show();
-			$('#upimg3').hidden();
-			// TODO 结束
-			//alert(err.code);
-			//alert(err.file);
-			//alert(err.message);
+			uploaderErrHandler(err,"03");
 		}
 	}
 });
 
 var uploader4 = new plupload.Uploader({
 	runtimes : 'html5,flash,gears,browserplus,silverlight,html4',
-	browse_button : 'uploader4', 
+	browse_button : 'uploader04', 
 	url : '../upload/upload.htm',
 	flash_swf_url : '../static/js/Moxie.swf',
 	silverlight_xap_url : '../static/js/Moxie.xap',
 	multi_selection: false,
 	filters : {
-		max_file_size : '3mb',
+		max_file_size : '1mb',
 		mime_types: [
 			{title : "Image files", extensions : "jpg,jpeg,bmp,gif,png"}
 		]
@@ -200,11 +164,7 @@ var uploader4 = new plupload.Uploader({
 		PostInit: function() {
 		},
 		FilesAdded: function(up, files) {
-			// showLoader();
 			up.start();
-			//for(var i = 0, len = files.length; i<len; i++){
-    		//	var file_name = files[i].name; //文件名
-    		//}
 		},
 		UploadProgress: function(up, file) {
 		},
@@ -212,41 +172,26 @@ var uploader4 = new plupload.Uploader({
 			var status = responseObject.status;
 			var response = jQuery.parseJSON(responseObject.response);
 			if(status == '200'){
-				// TODO 抽象包装
-				$("#upp4").hide();
-				$('#upimg4').show().attr('src','../images/' + response);	
-				// TODO 结束
-				// 更9新图片信息
-				updatePicInfo("uploader04", response);
-				// hideLoader();
+				uploaderSuccess("04",response);
 			}else{
-				// TODO 抽象包装
-				$("#upp4").show();
-				$('#upimg4').hidden();
-				// TODO 结束
+				uploaderErr("04");
 			}
 		},
 		Error: function(up, err) {
-			// TODO 抽象包装
-			$("#upp4").show();
-			$('#upimg4').hidden();
-			// TODO 结束
-			//alert(err.code);
-			//alert(err.file);
-			//alert(err.message);
+			uploaderErrHandler(err,"04");
 		}
 	}
 });
 
 var uploader5 = new plupload.Uploader({
 	runtimes : 'html5,flash,gears,browserplus,silverlight,html4',
-	browse_button : 'uploader5', 
+	browse_button : 'uploader05', 
 	url : '../upload/upload.htm',
 	flash_swf_url : '../static/js/Moxie.swf',
 	silverlight_xap_url : '../static/js/Moxie.xap',
 	multi_selection: false,
 	filters : {
-		max_file_size : '3mb',
+		max_file_size : '1mb',
 		mime_types: [
 			{title : "Image files", extensions : "jpg,jpeg,bmp,gif,png"}
 		]
@@ -255,11 +200,7 @@ var uploader5 = new plupload.Uploader({
 		PostInit: function() {
 		},
 		FilesAdded: function(up, files) {
-			// showLoader();
 			up.start();
-			//for(var i = 0, len = files.length; i<len; i++){
-    		//	var file_name = files[i].name; //文件名
-    		//}
 		},
 		UploadProgress: function(up, file) {
 		},
@@ -267,41 +208,26 @@ var uploader5 = new plupload.Uploader({
 			var status = responseObject.status;
 			var response = jQuery.parseJSON(responseObject.response);
 			if(status == '200'){
-				// TODO 抽象包装
-				$("#upp5").hide();
-				$('#upimg5').show().attr('src','../images/' + response);	
-				// TODO 结束
-				// 更9新图片信息
-				updatePicInfo("uploader05", response);
-				// hideLoader();
+				uploaderSuccess("05",response);
 			}else{
-				// TODO 抽象包装
-				$("#upp5").show();
-				$('#upimg5').hidden();
-				// TODO 结束
+				uploaderErr("05");
 			}
 		},
 		Error: function(up, err) {
-			// TODO 抽象包装
-			$("#upp5").show();
-			$('#upimg5').hidden();
-			// TODO 结束
-			//alert(err.code);
-			//alert(err.file);
-			//alert(err.message);
+			uploaderErrHandler(err,"05");
 		}
 	}
 });
 
 var uploader6 = new plupload.Uploader({
 	runtimes : 'html5,flash,gears,browserplus,silverlight,html4',
-	browse_button : 'uploader6', 
+	browse_button : 'uploader06', 
 	url : '../upload/upload.htm',
 	flash_swf_url : '../static/js/Moxie.swf',
 	silverlight_xap_url : '../static/js/Moxie.xap',
 	multi_selection: false,
 	filters : {
-		max_file_size : '3mb',
+		max_file_size : '1mb',
 		mime_types: [
 			{title : "Image files", extensions : "jpg,jpeg,bmp,gif,png"}
 		]
@@ -310,11 +236,7 @@ var uploader6 = new plupload.Uploader({
 		PostInit: function() {
 		},
 		FilesAdded: function(up, files) {
-			// showLoader();
 			up.start();
-			//for(var i = 0, len = files.length; i<len; i++){
-    		//	var file_name = files[i].name; //文件名
-    		//}
 		},
 		UploadProgress: function(up, file) {
 		},
@@ -322,41 +244,26 @@ var uploader6 = new plupload.Uploader({
 			var status = responseObject.status;
 			var response = jQuery.parseJSON(responseObject.response);
 			if(status == '200'){
-				// TODO 抽象包装
-				$("#upp6").hide();
-				$('#upimg6').show().attr('src','../images/' + response);	
-				// TODO 结束
-				// 更9新图片信息
-				updatePicInfo("uploader06", response);
-				// hideLoader();
+				uploaderSuccess("06",response);
 			}else{
-				// TODO 抽象包装
-				$("#upp6").show();
-				$('#upimg6').hidden();
-				// TODO 结束
+				uploaderErr("06");
 			}
 		},
 		Error: function(up, err) {
-			// TODO 抽象包装
-			$("#upp6").show();
-			$('#upimg6').hidden();
-			// TODO 结束
-			//alert(err.code);
-			//alert(err.file);
-			//alert(err.message);
+			uploaderErrHandler(err,"06");
 		}
 	}
 });
 
 var uploader7 = new plupload.Uploader({
 	runtimes : 'html5,flash,gears,browserplus,silverlight,html4',
-	browse_button : 'uploader7', 
+	browse_button : 'uploader07', 
 	url : '../upload/upload.htm',
 	flash_swf_url : '../static/js/Moxie.swf',
 	silverlight_xap_url : '../static/js/Moxie.xap',
 	multi_selection: false,
 	filters : {
-		max_file_size : '3mb',
+		max_file_size : '1mb',
 		mime_types: [
 			{title : "Image files", extensions : "jpg,jpeg,bmp,gif,png"}
 		]
@@ -365,11 +272,7 @@ var uploader7 = new plupload.Uploader({
 		PostInit: function() {
 		},
 		FilesAdded: function(up, files) {
-			// showLoader();
 			up.start();
-			//for(var i = 0, len = files.length; i<len; i++){
-    		//	var file_name = files[i].name; //文件名
-    		//}
 		},
 		UploadProgress: function(up, file) {
 		},
@@ -377,41 +280,26 @@ var uploader7 = new plupload.Uploader({
 			var status = responseObject.status;
 			var response = jQuery.parseJSON(responseObject.response);
 			if(status == '200'){
-				// TODO 抽象包装
-				$("#upp7").hide();
-				$('#upimg7').show().attr('src','../images/' + response);	
-				// TODO 结束
-				// 更9新图片信息
-				updatePicInfo("uploader07", response);
-				// hideLoader();
+				uploaderSuccess("07",response);
 			}else{
-				// TODO 抽象包装
-				$("#upp7").show();
-				$('#upimg7').hidden();
-				// TODO 结束
+				uploaderErr("07");
 			}
 		},
 		Error: function(up, err) {
-			// TODO 抽象包装
-			$("#upp7").show();
-			$('#upimg7').hidden();
-			// TODO 结束
-			//alert(err.code);
-			//alert(err.file);
-			//alert(err.message);
+			uploaderErrHandler(err,"07");
 		}
 	}
 });
 
 var uploader8 = new plupload.Uploader({
 	runtimes : 'html5,flash,gears,browserplus,silverlight,html4',
-	browse_button : 'uploader8', 
+	browse_button : 'uploader08', 
 	url : '../upload/upload.htm',
 	flash_swf_url : '../static/js/Moxie.swf',
 	silverlight_xap_url : '../static/js/Moxie.xap',
 	multi_selection: false,
 	filters : {
-		max_file_size : '3mb',
+		max_file_size : '1mb',
 		mime_types: [
 			{title : "Image files", extensions : "jpg,jpeg,bmp,gif,png"}
 		]
@@ -420,11 +308,7 @@ var uploader8 = new plupload.Uploader({
 		PostInit: function() {
 		},
 		FilesAdded: function(up, files) {
-			// showLoader();
 			up.start();
-			//for(var i = 0, len = files.length; i<len; i++){
-    		//	var file_name = files[i].name; //文件名
-    		//}
 		},
 		UploadProgress: function(up, file) {
 		},
@@ -432,41 +316,26 @@ var uploader8 = new plupload.Uploader({
 			var status = responseObject.status;
 			var response = jQuery.parseJSON(responseObject.response);
 			if(status == '200'){
-				// TODO 抽象包装
-				$("#upp8").hide();
-				$('#upimg8').show().attr('src','../images/' + response);	
-				// TODO 结束
-				// 更9新图片信息
-				updatePicInfo("uploader08", response);
-				// hideLoader();
+				uploaderSuccess("08",response);
 			}else{
-				// TODO 抽象包装
-				$("#upp8").show();
-				$('#upimg8').hidden();
-				// TODO 结束
+				uploaderErr("08");
 			}
 		},
 		Error: function(up, err) {
-			// TODO 抽象包装
-			$("#upp8").show();
-			$('#upimg8').hidden();
-			// TODO 结束
-			//alert(err.code);
-			//alert(err.file);
-			//alert(err.message);
+			uploaderErrHandler(err,"08");
 		}
 	}
 });
 
 var uploader9 = new plupload.Uploader({
 	runtimes : 'html5,flash,gears,browserplus,silverlight,html4',
-	browse_button : 'uploader9', 
+	browse_button : 'uploader09', 
 	url : '../upload/upload.htm',
 	flash_swf_url : '../static/js/Moxie.swf',
 	silverlight_xap_url : '../static/js/Moxie.xap',
 	multi_selection: false,
 	filters : {
-		max_file_size : '3mb',
+		max_file_size : '1mb',
 		mime_types: [
 			{title : "Image files", extensions : "jpg,jpeg,bmp,gif,png"}
 		]
@@ -475,11 +344,7 @@ var uploader9 = new plupload.Uploader({
 		PostInit: function() {
 		},
 		FilesAdded: function(up, files) {
-			// showLoader();
 			up.start();
-			//for(var i = 0, len = files.length; i<len; i++){
-    		//	var file_name = files[i].name; //文件名
-    		//}
 		},
 		UploadProgress: function(up, file) {
 		},
@@ -487,28 +352,13 @@ var uploader9 = new plupload.Uploader({
 			var status = responseObject.status;
 			var response = jQuery.parseJSON(responseObject.response);
 			if(status == '200'){
-				// TODO 抽象包装
-				$("#upp9").hide();
-				$('#upimg9').show().attr('src','../images/' + response);	
-				// TODO 结束
-				// 更9新图片信息
-				updatePicInfo("uploader09", response);
-				// hideLoader();
+				uploaderSuccess("09",response);
 			}else{
-				// TODO 抽象包装
-				$("#upp9").show();
-				$('#upimg9').hidden();
-				// TODO 结束
+				uploaderErr("09");
 			}
 		},
 		Error: function(up, err) {
-			// TODO 抽象包装
-			$("#upp9").show();
-			$('#upimg9').hidden();
-			// TODO 结束
-			//alert(err.code);
-			//alert(err.file);
-			//alert(err.message);
+			uploaderErrHandler(err,"09");
 		}
 	}
 });

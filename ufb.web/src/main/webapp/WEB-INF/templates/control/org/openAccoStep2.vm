@@ -87,11 +87,11 @@
     	        <span class="v1_1">经办人授权委托书</span>
     	        <div class="x1">
     	            <label class="inputFile y1">
-						<input id="uploader1" type="file" accept="image/*">
+						<input id="uploader01" type="file" accept="image/*">
 						#if(!${PicInfo.imgpath1})
-						<p id="upp1">民非企业登记证/营业执照</p>
+						<p id="uptext01">民非企业登记证/营业执照</p>
 						#end
-						<img id="upimg1" src="${staticDomain}/images/${PicInfo.imgpath1}" style="width:180px;height:120px"/>
+						<img id="upimg01" load="#if(!${PicInfo.imgpath1}) 0#else 1#end" src="${staticDomain}/images/${PicInfo.imgpath1}" style="width:180px;height:120px"/>
 					</label>
     	            <div class="y2">
     	                <p>◆ 下须与营业执照、银行对公账户的开户名称一致，</a></p>
@@ -100,11 +100,11 @@
     	        </div>
     	        <div class="x1">
     	            <label class="inputFile y1">
-						<input id="uploader2" type="file" accept="image/*">
+						<input id="uploader02" type="file" accept="image/*">
 						#if(!${PicInfo.imgpath2})
-						<p id="upp2">组织机构代码证</p>
+						<p id="uptext02">组织机构代码证</p>
 						#end
-						<img id="upimg2" src="${staticDomain}/images/${PicInfo.imgpath2}" style="width:180px;height:120px"/>
+						<img id="upimg02" load="#if(!${PicInfo.imgpath2}) 0#else 1#end" src="${staticDomain}/images/${PicInfo.imgpath2}" style="width:180px;height:120px"/>
 					</label>
     	            <div class="y2">
     	                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</a></p>
@@ -113,11 +113,11 @@
     	        </div>
     	        <div class="x1">
     	            <label class="inputFile y1">
-						<input id="uploader3" type="file" accept="image/*">
+						<input id="uploader03" type="file" accept="image/*">
 						#if(!${PicInfo.imgpath3})
-						<p id="upp3">税务登记证</p>
+						<p id="uptext03">税务登记证</p>
 						#end
-						<img id="upimg3" src="${staticDomain}/images/${PicInfo.imgpath3}" style="width:180px;height:120px"/>
+						<img id="upimg03" load="#if(!${PicInfo.imgpath3}) 0#else 1#end" src="${staticDomain}/images/${PicInfo.imgpath3}" style="width:180px;height:120px"/>
 					</label>
     	            <div class="y2">
     	                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</a></p>
@@ -126,11 +126,11 @@
     	        </div>
     	        <div class="x1">
     	            <label class="inputFile y1">
-						<input id="uploader4" type="file" accept="image/*">
+						<input id="uploader04" type="file" accept="image/*">
 						#if(!${PicInfo.imgpath4})
-						<p id="upp4">银行开户证明/开户许可证</p>
+						<p id="uptext04">银行开户证明/开户许可证</p>
 						#end
-						<img id="upimg4" src="${staticDomain}/images/${PicInfo.imgpath4}" style="width:180px;height:120px"/>
+						<img id="upimg04" load="#if(!${PicInfo.imgpath4}) 0#else 1#end" src="${staticDomain}/images/${PicInfo.imgpath4}" style="width:180px;height:120px"/>
 					</label>
     	            <div class="y2">
     	                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
@@ -139,11 +139,11 @@
     	        </div>
     	        <div class="x1">
     	            <label class="inputFile y1">
-						<input id="uploader5" type="file" accept="image/*">
+						<input id="uploader05" type="file" accept="image/*">
 						#if(!${PicInfo.imgpath5})
-						<p id="upp5">办学许可证</p>
+						<p id="uptext05">办学许可证</p>
 						#end
-						<img id="upimg5" src="${staticDomain}/images/${PicInfo.imgpath5}" style="width:180px;height:120px"/>
+						<img id="upimg05" load="#if(!${PicInfo.imgpath5}) 0#else 1#end" src="${staticDomain}/images/${PicInfo.imgpath5}" style="width:180px;height:120px"/>
 					</label>
     	            <div class="y2">
     	                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
@@ -155,18 +155,18 @@
 		        <span class="v1_1">举办人/法人身份证</span>
 		        <div class="x1">
 		            <label class="inputFile y1 y5">
-						<input id="uploader6" type="file" accept="image/*">
+						<input id="uploader06" type="file" accept="image/*">
 						#if(!${PicInfo.imgpath6})
-						<p id="upp6">身份证 正面</p>
+						<p id="uptext06">身份证 正面</p>
 						#end
-						<img id="upimg6" src="${staticDomain}/images/${PicInfo.imgpath6}" style="width:180px;height:120px"/>
+						<img id="upimg06" load="#if(!${PicInfo.imgpath6}) 0#else 1#end" src="${staticDomain}/images/${PicInfo.imgpath6}" style="width:180px;height:120px"/>
 					</label>
 		           	<label class="inputFile y1 y3">
-						<input id="uploader7" type="file" accept="image/*">
+						<input id="uploader07" type="file" accept="image/*">
 						#if(!${PicInfo.imgpath7})
-						<p id="upp3">身份证 反面</p>
+						<p id="uptext07">身份证 反面</p>
 						#end
-						<img id="upimg7" src="${staticDomain}/images/${PicInfo.imgpath7}" style="width:180px;height:120px"/>
+						<img id="upimg07" load="#if(!${PicInfo.imgpath7}) 0#else 1#end" src="${staticDomain}/images/${PicInfo.imgpath7}" style="width:180px;height:120px"/>
 					</label>
 		            <div class="y4">
 		                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
@@ -178,18 +178,18 @@
 		        <span class="v1_1">经办人身份证</span>
 		        <div class="x1">
 		            <label class="inputFile y1 y5">
-						<input id="uploader8" type="file" accept="image/*">
+						<input id="uploader08" type="file" accept="image/*">
 						#if(!${PicInfo.imgpath8})
-						<p id="upp8">身份证 正面</p>
+						<p id="uptext08">身份证 正面</p>
 						#end
-						<img id="upimg8" src="${staticDomain}/images/${PicInfo.imgpath8}" style="width:180px;height:120px"/>
+						<img id="upimg08" load="#if(!${PicInfo.imgpath8}) 0#else 1#end" src="${staticDomain}/images/${PicInfo.imgpath8}" style="width:180px;height:120px"/>
 					</label>
 		            <label class="inputFile y1 y3">
-						<input id="uploader9" type="file" accept="image/*">
+						<input id="uploader09" type="file" accept="image/*">
 						#if(!${PicInfo.imgpath9})
-						<p id="upp9">身份证 反面</p>
+						<p id="uptext09">身份证 反面</p>
 						#end
-						<img id="upimg9" src="${staticDomain}/images/${PicInfo.imgpath9}" style="width:180px;height:120px"/>
+						<img id="upimg09" load="#if(!${PicInfo.imgpath9}) 0#else 1#end" src="${staticDomain}/images/${PicInfo.imgpath9}" style="width:180px;height:120px"/>
 					</label>
 		            <div class="y4">
 		                <p>◆ 须与营业执照、银行对公账户的开户名称一致，</p>
@@ -214,6 +214,12 @@ $(function(){
         });
 		
 		$(".btnA").on("click",function(){
+			$("img").each(function(){
+				if($(this).attr("load") == 0){
+					alert("您提交的材料［" + $(this).parents(".v1").find(".v1_1").text() + "］不齐全，请确认，谢谢！");
+					return false;
+				};
+			});
     		$("#form").attr("action", "../org/openAccoStep3.htm");
     		$("#form").submit();
     	});

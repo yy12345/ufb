@@ -60,7 +60,7 @@ public class BankCardController {
 			bankCardVo.setOrgcityno("001");
 			bankCardVo.setOrgadd("测试幼儿园1地址");
 			bankCardVo.setInvnm("测试账号1");
-			bankCardVo.setIdno("110101198808088150");
+			bankCardVo.setIdno("11010119880808837X");
 			bankCardVo.setTelno("12345678");
 			bankCardVo.setEmailadd("12345678@qq.com");
 			bankCardVo.setRerpnm(bankCardVo.getInvnm());
