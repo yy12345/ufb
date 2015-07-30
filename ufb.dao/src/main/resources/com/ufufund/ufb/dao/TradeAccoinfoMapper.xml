@@ -68,15 +68,12 @@
 	
 	<select id="isTradeaccoinfoBind" parameterType="com.ufufund.ufb.model.action.cust.OpenAccountAction" resultType="java.lang.String">
 		SELECT
-			tradeaccoinfo.ACCOID
+			count(tradeaccoinfo.ACCOID)
 		FROM
 			tradeaccoinfo, bankcardinfo
 		WHERE 
 			tradeaccoinfo.BANKSERIALID = bankcardinfo.SERIALID
 			AND tradeaccoinfo.TRADEACCOST &lt;&gt; 'F'
-  		<if test="custno != null and custno !=''" >
-  		 	AND tradeaccoinfo.CUSTNO = #{custno,jdbcType=VARCHAR}
-  		</if>
   		<if test="fundcorpno != null and fundcorpno !=''" >
   			AND tradeaccoinfo.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR}
   		</if>

@@ -214,14 +214,18 @@ $(function(){
         });
 		
 		$(".btnA").on("click",function(){
+			var check = true;
 			$("img").each(function(){
 				if($(this).attr("load") == 0){
+					//check = false;
 					alert("您提交的材料［" + $(this).parents(".v1").find(".v1_1").text() + "］不齐全，请确认，谢谢！");
 					return false;
 				};
 			});
-    		$("#form").attr("action", "../org/openAccoStep3.htm");
-    		$("#form").submit();
+			if(check){
+	    		$("#form").attr("action", "../org/openAccoStep3.htm");
+    			$("#form").submit();
+			}
     	});
 		
 		

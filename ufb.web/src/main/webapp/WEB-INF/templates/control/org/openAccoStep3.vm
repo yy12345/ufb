@@ -18,7 +18,7 @@
         <div class="container">
             <a href="#" class="logo"></a>
 			<div class="nav">
-				<a href="#">我的幼富通</a>
+				<a href="../cust/session.htm" class="active">我的幼富通</a>
 				<a href="#">学费通</a>
 				<a href="#"  class="active">幼富宝</a>
 				<a href="#">短期理财</a>
@@ -50,27 +50,45 @@
 					<li>4 开户完成 </li>
 				</ul>
 			<div class="a4 mt20">
-            	<div class="b4">此处填写的对公银行账户，将设为默认的机构理财账户。</div>
+				<a href="../cust/session.htm" class="active">我的幼富通</a>
+				#if(${errMsg}) 
+				<div class="b4">机构开户失败：${errMsg}</div>
+				#else 
+				<div class="b4">此处填写的对公银行账户，将设为默认的机构理财账户。</div>
+				#end
+            	
 				<div class="b3">
 					<table>
-						<tr>
+						<tr class="reg-tr">
 							<td>*银行户名</td>
-							<td><label class="inputText"><input type="text" name="bankacnm" value="${BankCardVo.bankacnm}"></label></td>
-							<td>跟组织机构代码证上的机构名称一致（基本户、一般户均可），<a href="javascript:$('.pop').box({title:'无对公账户如何填写？'});">对公账户填写指引</a> </td>
+							<td><label class="inputText"><input class="ipt-bankacnm" maxlength="24" name="bankacnm" type="text" value="$!{BankCardVo.bankacnm}"></label></td>
+							<td id="errMsg_bankacnm" style="display:
+								#if(${errMsg_bankacnm}) true #else none #end">
+								<div class="tips-check 
+									#if(${errMsg_bankacnm}) formErr #end">错误提示：${errMsg_bankacnm}</div>
+							</td>
+							<td id="tipMsg_bankacnm" style="display:
+								#if(${errMsg_bankacnm}) none #else true #end">跟组织机构代码证上的机构名称一致（基本户、一般户均可），<a href="javascript:$('.pop').box({title:'无对公账户如何填写？'});">对公账户填写指引</a>
+							</td>
 						</tr>
-						<tr>
+						<tr class="reg-tr">
 							<td>*开户银行</td>
 							<td>
                             	<select name="bankno" class="select" value="${BankCardVo.bankno}">
-                                    <option value="001">招商银行</option>
-                                    <option value="002">建设银行</option>
-                                    <option value="003">农业银行</option>
-                                    <option value="004">工商银行</option>
+                                    <option value="002">工商银行</option>
+                                    <option value="004">中国银行</option>
+                                    <option value="005">建设银行</option>
+                                    <option value="007">招商银行</option>
+									<option value="008">光大银行</option>
+									<option value="012">华夏银行</option>
+									<option value="014">民生银行</option>
+									<option value="920">平安银行</option>
+									<option value="934">邮储银行</option>
                                 </select>
                             </td>
 							<td>须与<a href="#">银行账户证明文件</a>一致</td>
 						</tr>
-						<tr>
+						<tr class="reg-tr">
 							<td>地址</td>
 							<td>
 								<select name="bankprovinceno" class="select" value="${BankCardVo.bankprovinceno}">
@@ -88,35 +106,70 @@
                                 </select>
 							</td>
 						</tr>
-						<tr>
+						<tr class="reg-tr">
 							<td>*支行网点</td>
-							<td><label class="inputText"><input name="bankadd" type="text" value="${BankCardVo.bankadd}"></label></td>
-							<td>须与<a href="#">银行账户证明文件</a>一致</td>
+							<td><label class="inputText"><input class="ipt-bankadd" maxlength="24" name="bankadd" type="text" value="$!{BankCardVo.bankadd}"></label></td>
+							<td id="errMsg_bankadd" style="display:
+								#if(${errMsg_bankadd}) true #else none #end">
+								<div class="tips-check 
+									#if(${errMsg_bankadd}) formErr #end">错误提示：${errMsg_bankadd}</div>
+							</td>
+							<td id="tipMsg_bankadd" style="display:
+								#if(${errMsg_bankadd}) none #else true #end">须与<a href="#">银行账户证明文件</a>一致
+							</td>
 						</tr>
-						<tr>
+						<tr class="reg-tr">
 							<td>*银行账号</td>
-							<td><label class="cardFormat" id="card1"><input name="bankacco" type="text" value="${BankCardVo.bankacco}"></label></td>
-							<td>请务必正确填写，填错会造成打款失败</td>
+							<td><label class="cardFormat" id="card1"><input class="ipt-bankacco" maxlength="24" name="bankacco" type="text" value="$!{BankCardVo.bankacco}"></label></td>
+							<td id="errMsg_bankacco" style="display:
+								#if(${errMsg_bankacco}) true #else none #end">
+								<div class="tips-check 
+									#if(${errMsg_bankacco}) formErr #end">错误提示：${errMsg_bankacco}</div>
+							</td>
+							<td id="tipMsg_bankacco" style="display:
+								#if(${errMsg_bankacco}) none #else true #end">请务必正确填写，填错会造成打款失败
+							</td>
 						</tr>
-                        <tr>
+						<tr class="reg-tr">
 							<td>*重复银行账号</td>
-							<td><label class="cardFormat" id="card2"><input name="bankacco2" type="text" value="${BankCardVo.bankacco2}"></label></td>
-							<td><div class="formSuc"></div></td>
+							<td><label class="cardFormat" id="card2"><input class="ipt-bankacco2" maxlength="24" name="bankacco2" type="text" value="$!{BankCardVo.bankacco2}"></label></td>
+							<td id="errMsg_bankacco2" style="display:
+								#if(${errMsg_bankacco2}) true #else none #end">
+								<div class="tips-check 
+									#if(${errMsg_bankacco2}) formErr #end">错误提示：${errMsg_bankacco2}</div>
+							</td>
+							<td id="tipMsg_bankacco2" style="display:
+								#if(${errMsg_bankacco2}) none #else true #end">
+							</td>
 						</tr>
 					</table>
 				</div>
 				<div class="b4">为确保资金安全，请设定幼富通管理账户交易密码：</div>
                 <div class="b3">
 					<table>
-						<tr>
+						<tr class="reg-tr">
 							<td>设置交易密码</td>
-							<td><label class="inputText"><input name="tradepwd" type="password" value="${BankCardVo.tradepwd}"><!--<b>六位数字密码</b>--></label></td>
-							<td>交易密码为使用幼富通内相关资金交易的数字密码，不可与登录密码相同！</td>
+							<td><label class="inputText"><input class="ipt-tradepwd" maxlength="6" name="tradepwd" type="password" value="$!{BankCardVo.tradepwd}"></label></td>
+							<td id="errMsg_tradepwd" style="display:
+								#if(${errMsg_tradepwd}) true #else none #end">
+								<div class="tips-check 
+									#if(${errMsg_tradepwd}) formErr #end">错误提示：${errMsg_tradepwd}</div>
+							</td>
+							<td id="tipMsg_tradepwd" style="display:
+								#if(${errMsg_tradepwd}) none #else true #end">交易密码为使用幼富通内相关资金交易的数字密码，不可与登录密码相同！
+							</td>
 						</tr>
-						<tr>
+						<tr class="reg-tr">
 							<td>确认交易密码</td>
-							<td><label class="inputText"><input name="tradepwd2" type="password" value="${BankCardVo.tradepwd2}"></label></td>
-							<td></td>
+							<td><label class="inputText"><input class="ipt-tradepwd2" maxlength="6" name="tradepwd2" type="password2" value="$!{BankCardVo.tradepwd2}"></label></td>
+							<td id="errMsg_tradepwd2" style="display:
+								#if(${errMsg_tradepwd2}) true #else none #end">
+								<div class="tips-check 
+									#if(${errMsg_tradepwd2}) formErr #end">错误提示：${errMsg_tradepwd2}</div>
+							</td>
+							<td id="tipMsg_tradepwd2" style="display:
+								#if(${errMsg_tradepwd2}) none #else true #end">交易密码为使用幼富通内相关资金交易的数字密码，不可与登录密码相同！
+							</td>
 						</tr>
 					</table>
 				</div>
@@ -151,13 +204,38 @@
     <div class="a6"><a href="javascript:;" class="btnC closebox">我知道了</a></div>
 </div>
 </div>
+
+<script src="${staticDomain}/public/js/load.js"></script>
+<script src="${staticDomain}/public/js/register.js"></script>
 <script type="text/javascript">
 $(function(){
 	$(".btnA").on("click",function(){
-	alert(1);
-    		$("#form").attr("action", "../org/openAccoStep4.htm");
-    		$("#form").submit();
-    	});
+		var errLen = $(".formErr").length;
+    	if(errLen>0){
+    		$(".formErr:eq(0)").focus();
+    		return false;
+    	}
+    	if(!check_bankacnm($(".ipt-bankacnm"))){
+    		return false;
+    	}
+		if(!check_bankadd($(".ipt-bankadd"))){
+    		return false;
+    	}
+		if(!check_bankacco($(".ipt-bankacco"))){
+    		return false;
+    	}
+		if(!check_bankacco2($(".ipt-bankacco2"))){
+    		return false;
+    	}
+		if(!check_pwd1($(".ipt-tradepwd"))){
+    		return false;
+    	}
+		if(!check_tradepwd2($(".ipt-tradepwd2"))){
+    		return false;
+    	}
+		$("#form").attr("action", "../org/openAccoStep4.htm");
+		$("#form").submit();
+	});
 })
 </script>
 </body>

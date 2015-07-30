@@ -14,7 +14,7 @@ public interface TradeAccoinfoMapper {
 	
 	public void insterTradeaccoinfo(Tradeaccoinfo tradeaccoinfo);
 	
-	public String isTradeaccoinfoBind(OpenAccountAction openAccountAction);
+	public int isTradeaccoinfoBind(OpenAccountAction openAccountAction);
 	
 	public List<TradeAccoinfoOfMore> getBankCardWithTradeAccoList();
 

@@ -159,6 +159,14 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// 银行基本信息验证
 		bankCardManagerValidator.validator(openAccountAction, "OrgBankBase");
 		
+		// 是否已绑卡
+		openAccountAction.setBankacco(openAccountAction.getBankacco().trim());
+		if(0 != tradeAccoinfoMapper.isTradeaccoinfoBind(openAccountAction)){
+			throw new BizException(openAccountAction.getProcessId(), 
+					ErrorInfo.ALREADY_BIND, 
+					BisConst.Register.BANKACCO);
+		}
+		
 		// 执行开户交易
 		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
 		OpenAccountOrgRequest request = bankCardManagerHelper.toOpenAccountOrgRequest(openAccountAction);
@@ -286,7 +294,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		
 		// 是否已绑卡
 		openAccountAction.setBankacco(openAccountAction.getBankacco().trim());
-		if(null != tradeAccoinfoMapper.isTradeaccoinfoBind(openAccountAction)){
+		if(0 != tradeAccoinfoMapper.isTradeaccoinfoBind(openAccountAction)){
 			throw new BizException(openAccountAction.getProcessId(), 
 					ErrorInfo.ALREADY_BIND, 
 					BisConst.Register.BANKACCO);

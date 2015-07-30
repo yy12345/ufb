@@ -18,11 +18,13 @@ import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankBaseInfo;
 import com.ufufund.ufb.model.db.PicInfo;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
+import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
@@ -85,6 +87,13 @@ public class BankCardController {
 	@RequestMapping(value="org/openAccoStep2")
 	public String openAccoStep2(BankCardVo bankCardVo, Model model){
 		try{
+			
+			if("Y".equals(UserHelper.getAddBankCardStatus())){
+				// 此开户流程已结束
+				ServletHolder.forward("/cust/session.htm");
+				return "cust/indexPage";
+			}
+			
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
@@ -123,8 +132,6 @@ public class BankCardController {
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			String ems = e.getOtherInfo();
-			System.out.println(ems);
-			
 			if(ems.equals(BisConst.Register.ORGNM)){
 				model.addAttribute("errMsg_orgnm", e.getMessage());
 			}else
@@ -164,13 +171,21 @@ public class BankCardController {
 	@RequestMapping(value="org/openAccoStep3")
 	public String openAccoStep3(BankCardVo bankCardVo, Model model){
 		try{
+			
+			if("Y".equals(UserHelper.getAddBankCardStatus())){
+				// 此开户流程已结束
+				ServletHolder.forward("/cust/session.htm");
+				return "cust/indexPage";
+			}
+			
+			
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setCustno(s_custinfo.getCustno());
 			
 			// for test
 			bankCardVo.setBankacnm("xxx幼儿园");
-			bankCardVo.setBankno("002");
+			bankCardVo.setBankno("920");
 			bankCardVo.setBankcityno("001");
 			bankCardVo.setBankprovinceno("002");
 			bankCardVo.setBankadd("支行网点");
@@ -197,7 +212,6 @@ public class BankCardController {
 	@RequestMapping(value="org/openAccoStep4" , method=RequestMethod.POST)
 	public String openAccoStep4(BankCardVo bankCardVo, Model model){
 		try{
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			
 			if("Y".equals(UserHelper.getAddBankCardStatus())){
 				// 此开户流程已结束
@@ -205,6 +219,7 @@ public class BankCardController {
 				return "cust/indexPage";
 			}
 			
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
 			openAccountAction.setCustno(s_custinfo.getCustno());
@@ -265,40 +280,34 @@ public class BankCardController {
 			}
 			model.addAttribute("bankList", bankBaseList);
 			
-			//验证码
 			LOG.error(e.getErrmsg(), e);
 			String ems = e.getOtherInfo();
-			
-			if(BisConst.Register.BANKACNM.equals(ems)){
-				model.addAttribute("errMsg_bankAcnm", e.getMessage());
-			}else 
-			if(BisConst.Register.BANKNO.equals(ems)){
-				model.addAttribute("errMsg_bankNo", e.getMessage());
+			if(ems.equals(BisConst.Register.BANKACNM)){
+				model.addAttribute("errMsg_bankacnm", e.getMessage());
 			}else
-			if(BisConst.Register.BANKIDNO.equals(ems) 
-				|| BisConst.Register.IDNO.equals(ems)){
-				model.addAttribute("errMsg_bankIdno", e.getMessage());
+			if(ems.equals(BisConst.Register.BANKNO)){
+				model.addAttribute("errMsg_bankno", e.getMessage());
 			}else
-			if(BisConst.Register.BANKACCO.equals(ems)){
-				model.addAttribute("errMsg_bankAcco", e.getMessage());
+			if(ems.equals(BisConst.Register.BANKADD)){
+				model.addAttribute("errMsg_bankadd", e.getMessage());
 			}else
-			if(BisConst.Register.MOBILE.equals(ems)
-				|| BisConst.Register.BANKMOBILE.equals(ems)){
-				model.addAttribute("errMsg_bankMobile", e.getMessage());
+			if(ems.equals(BisConst.Register.BANKACCO)){
+				model.addAttribute("errMsg_bankacco", e.getMessage());
 			}else
-			if(BisConst.Register.BANKMOBILEMSGCODE.equals(ems) 
-				|| "对方序列号".equals(ems)){
-				if("对方序列号".equals(ems)){
-					model.addAttribute("errMsg_msgcode", "手机验证码无效！");
-				}else{
-					model.addAttribute("errMsg_msgcode", e.getMessage());
-				}
+			if(ems.equals(BisConst.Register.BANKACCO2)){
+				model.addAttribute("errMsg_bankacco2", e.getMessage());
+			}else
+			if(ems.equals(BisConst.Register.TRADEPWD)){
+				model.addAttribute("errMsg_tradepwd", e.getMessage());
+			}else
+			if(ems.equals(BisConst.Register.TRADEPWD2)){
+				model.addAttribute("errMsg_tradepwd2", e.getMessage());
 			}else{
 				model.addAttribute("errMsg", e.getMessage());
 			}
 			
 			model.addAttribute("BankCardVo", bankCardVo);
-			return "bankcard/openAccoStep3";
+			return "org/openAccoStep3";
 		}
 		return "org/openAccoStep4"; // 成功
 	}
@@ -349,6 +358,12 @@ public class BankCardController {
 	public String addBankCard2(BankCardVo bankCardVo, Model model){
 		
 		try{
+			if("Y".equals(UserHelper.getAddBankCardStatus())){
+				// 此开户流程已结束
+				ServletHolder.forward("/cust/session.htm");
+				return "cust/indexPage";
+			}
+			
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
@@ -437,7 +452,6 @@ public class BankCardController {
 	 */
 	@RequestMapping(value="bankcard/addBankCard3" , method=RequestMethod.POST)
 	public String addBankCard3(BankCardVo bankCardVo, Model model){
-		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		
 		bankCardVo.setBankidtp("0"); // 身份证绑卡
 		
@@ -449,6 +463,7 @@ public class BankCardController {
 				return "cust/indexPage";
 			}
 			
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			/** 开户所属基金单位 **/
 			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);

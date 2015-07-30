@@ -122,6 +122,7 @@
 								必须为真实办公或经营地址、办学地址
 							</td>
 						</tr>
+						<!--
 						<tr>
 							<td></td>
 							<td>
@@ -129,6 +130,7 @@
 							</td>
 							<td></td>
 						</tr>
+						-->
 					</table>
 				</div>
 				<div class="b1">
@@ -238,7 +240,7 @@
 						<tr>
 							<td></td>
 							<td>
-								<label class="checkbox"><input type="checkbox" checked="checked">我已阅读并同意</label><a href="#">《幼富通用户注册协议》</a>
+								<label class="<!--checkbox-->"><input id="checkbox2" type="checkbox">我已阅读并同意</label><a href="#">《幼富通用户注册协议》</a>
 							</td>
 							<td></td>
 						</tr>
@@ -271,6 +273,11 @@
         		$(".formErr:eq(0)").focus();
         		return false;
         	}
+			if($("#checkbox2").attr("checked") == "checked"){
+			}else{
+				alert("您还未阅读并同意《幼富通用户注册协议》噢！");
+				return false;
+			}
         	if(!check_organization($(".ipt-orgnm"))){
         		return false;
         	}

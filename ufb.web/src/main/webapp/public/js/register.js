@@ -281,6 +281,47 @@ var check_pwd1 = function (ipt) {//验证密码
     }
     return showTips(ipt, 0);
 }
+
+var check_tradepwd2 = function (ipt) {//验证重复密码
+	var _form = ipt.parents("form");
+
+    var _valuePassword1 = _form.find(".ipt-tradepwd").val();
+    var _valuePassword2 = ipt.val();
+    if (_valuePassword2 == "") {
+        return showTips(ipt, "确认交易密码不能为空");
+    }
+    if (_valuePassword1 != _valuePassword2) {
+        return showTips(ipt, "两次交易密码输入不一致");
+    }
+    return showTips(ipt, 0);
+}
+
+var check_bankacco = function (ipt) {//验证银行账号
+    var value = ipt.val();
+    if (isNull(value)) {
+        return showTips(ipt, "银行账号不能为空");
+    }
+    var regex = /^\d{5,21}\d*$/;
+    if (!regex.test($.trim(value))) {
+        return showTips(ipt, "银行账号格式错误");
+    }
+    
+    return showTips(ipt, 0)
+}
+
+var check_bankacco2 = function (ipt) {//验证重复银行账号
+	var _form = ipt.parents("form");
+
+    var _valueBankacco1 = _form.find(".ipt-bankacco").val();
+    var _valueBankacco2 = ipt.val();
+    if (_valueBankacco2 == "") {
+        return showTips(ipt, "重复银行账号不能为空");
+    }
+    if (_valueBankacco1 != _valueBankacco2) {
+        return showTips(ipt, "两次银行账号输入不一致");
+    }
+    return showTips(ipt, 0);
+}
  
 var check_mobile = function (ipt) {//验证手机号
     var value = ipt.val();
@@ -319,7 +360,20 @@ var check_bankAcnm = function (ipt) {//经办人姓名
 	}
 	return showTips(ipt, 0)
 }
-
+var check_bankacnm = function (ipt) {//银行户名
+	var value = ipt.val();
+	if (isNull(value)) {
+		return showTips(ipt, "银行户名不能为空");
+	}
+	return showTips(ipt, 0)
+}
+var check_bankadd = function (ipt) {//支行网点
+	var value = ipt.val();
+	if (isNull(value)) {
+		return showTips(ipt, "支行网点不能为空");
+	}
+	return showTips(ipt, 0)
+}
 
 var check_bankCard = function (ipt) {//验证银行卡
     var value = ipt.val();
@@ -402,7 +456,7 @@ $("body").on("blur", ".ipt-loginUsername", function () {
 $("body").on("blur", ".ipt-loginPassword", function () {
     check_null($(this), "登录密码不能为空");
 });
-
+//
 $("body").on("blur", ".ipt-orgnm",  function() {
 	check_organization($(this));
 });
@@ -424,5 +478,25 @@ $("body").on("blur", ".ipt-rerpnm",  function() {
 $("body").on("blur", ".ipt-rerpidno", function() {
     check_id($(this));
 });
+//
+$("body").on("blur", ".ipt-bankacnm",  function() {
+	check_bankacnm($(this));
+});
+$("body").on("blur", ".ipt-bankadd",  function() {
+	check_bankadd($(this));
+});
+$("body").on("blur", ".ipt-bankacco",  function() {
+    check_bankacco($(this));
+});
+$("body").on("blur", ".ipt-bankacco2",  function() {
+    check_bankacco2($(this));
+});
+$("body").on("blur", ".ipt-tradepwd",  function() {
+    check_pwd1($(this));
+});
+$("body").on("blur", ".ipt-tradepwd2",  function() {
+    check_tradepwd2($(this));
+});
+
 
 
