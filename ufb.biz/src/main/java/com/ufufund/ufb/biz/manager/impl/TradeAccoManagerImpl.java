@@ -23,7 +23,7 @@ public class TradeAccoManagerImpl implements TradeAccoManager{
 		tradeaccosts.add("N"); // 
 		
 		List<String> levels = new ArrayList<String>();
-		levels.add("0"); // 
+		levels.add("1"); // 
 		levels.add("2"); // 
 		return tradeAccoinfoMapper.getTradeAccoList(custno, null, levels, tradeaccosts);
 	}

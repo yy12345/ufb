@@ -307,8 +307,16 @@ public class SettingController {
 			List<String> tradeaccosts = new ArrayList<String>();
 			tradeaccosts.add("Y"); // 
 			tradeaccosts.add("N"); // 
+			
+			List<String> levels = new ArrayList<String>();
+			if("0".equals(s_custinfo.getInvtp())){
+				levels.add("0"); // 
+			}else{
+				levels.add("1"); // 
+				levels.add("2"); // 
+			}
 			List<TradeAccoinfoOfMore> tradeAccoList_Y = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, null, tradeaccosts);
+					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, levels, tradeaccosts);
 			if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
 				// 获取用户总资产
 				Assets assets = queryManager.queryAssets(tradeAccoList_Y, null);
@@ -327,7 +335,7 @@ public class SettingController {
 			tradeaccosts.add("C"); // 
 			tradeaccosts.add("F"); // 
 			List<TradeAccoinfoOfMore> tradeAccoList_N = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, null, tradeaccosts);
+					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, levels, tradeaccosts);
 			if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
 				model.addAttribute("cardList_N", tradeAccoList_N);
 			} else {

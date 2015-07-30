@@ -53,6 +53,12 @@ $(function(){
 		if(!check_id($("#bankidno"))){
 			return false;
 		}
+		if(!check_bankCard($("#bankacco"))){
+			return false;
+		}
+		if(!check_mobile($("#bankmobile"))){
+			return false;
+		}
 		
 		var errLen = $("ul li.error").not("#errMsg_msgcode").length;
 		if(errLen>0){
