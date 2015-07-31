@@ -147,7 +147,11 @@ public class TradeManagerHelper {
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.BuyApply);
+		if("1".equals(vo.getLevel())){
+			request.setBusinType(Constant.HftBusiType.BuyApply);
+		}else{
+			request.setBusinType(Constant.HftBusiType.BuyApplyOrg);
+		}
 		request.setApplicationNo(vo.getSerialno());
 		request.setTransactionAccountID(vo.getTradeacco());
 		request.setFundCode(vo.getFundcode());
@@ -229,7 +233,13 @@ public class TradeManagerHelper {
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.Redeem);
+
+		if("1".equals(vo.getLevel())){
+			request.setBusinType(Constant.HftBusiType.RedeemOrg);
+		}else{
+			request.setBusinType(Constant.HftBusiType.Redeem);
+		}
+		
 		request.setApplicationNo(vo.getSerialno());
 		request.setTransactionAccountID(vo.getTradeacco());
 		request.setFundCode(vo.getFundcode());
@@ -311,7 +321,13 @@ public class TradeManagerHelper {
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
-		request.setBusinType(Constant.HftBusiType.RealRedeem);
+		
+		if("1".equals(vo.getLevel())){
+			request.setBusinType(Constant.HftBusiType.RealRedeemOrg);
+		}else{
+			request.setBusinType(Constant.HftBusiType.RealRedeem);
+		}
+		
 		request.setApplicationNo(vo.getSerialno());
 		request.setTransactionAccountID(vo.getTradeacco());
 		request.setFundCode(vo.getFundcode());

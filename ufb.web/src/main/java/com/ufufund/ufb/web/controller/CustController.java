@@ -344,7 +344,7 @@ public class CustController {
 				model.addAttribute("hft_family_trade_size", "0");
 			}
 		}else if("1".equals(custinfoVo.getInvtp())){
-			// 机构
+			// 经办人
 			if(null != hft_operator_trade && hft_operator_trade.size() > 0){
 				// 海富通资产显示
 				Assets htfAssets = queryManager.queryAssets(hft_operator_trade, BasicFundinfo.YFB.getFundCode());
@@ -363,7 +363,7 @@ public class CustController {
 				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
 				model.addAttribute("hft_operator_trade_size", "0");
 			}
-			// 经办人
+			// 机构
 			if(null != hft_organization_trade && hft_organization_trade.size() > 0){
 				// 海富通资产显示
 				Assets htfAssets = queryManager.queryAssets(hft_organization_trade, BasicFundinfo.YFB.getFundCode());

@@ -10,6 +10,17 @@ public class RedeemVo extends TradeRequest implements Serializable{
 		private String bankid;
 	// 交易密码
 	private String tradePwd;
+	
+	private String level;
+	
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
 
 	public String getTradePwd() {
 		return tradePwd;

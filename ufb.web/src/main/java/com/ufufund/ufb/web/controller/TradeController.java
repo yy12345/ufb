@@ -40,6 +40,9 @@ public class TradeController {
 	
 	private static final String PAGE_PAY_INDEX = "trade/pay_index.htm";
 	private static final String PAGE_CASH_INDEX = "trade/cash_index.htm";
+	
+	private static final String PAGE_ORG_PAY_INDEX = "trade/orgPayIndex.htm";
+	private static final String PAGE_ORG_CASH_INDEX = "trade/orgCashIndex.htm";
 
 	@Autowired
 	private TradeManager tradeManager;
@@ -97,6 +100,48 @@ public class TradeController {
 		return "trade/pay_index";
 	}
 	
+	@RequestMapping(value="trade/orgPayIndex")
+	public String orgPayIndex(ApplyVo vo, Model model){
+		
+		try{
+			String custno = UserHelper.getCustno();
+			// 获取交易账户列表
+			List<String> tradeaccosts = new ArrayList<String>();
+			tradeaccosts.add("Y"); // 
+			tradeaccosts.add("N"); // 
+			
+			List<String> levels = new ArrayList<String>();
+			levels.add("1"); 
+			
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
+					custno, 
+					Constant.HftSysConfig.HftFundCorpno, 
+					levels,
+					tradeaccosts);
+			
+			// 获取工作日信息等
+			Today today = workDayManager.getSysDayInfo();
+			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
+			String profitArriveDay = DateUtil.getNextDay(nextWorkDay, 1);
+			
+			if(null != tradeAccoList && tradeAccoList.size() > 0){
+				model.addAttribute("curCard", tradeAccoList.get(0));
+				model.addAttribute("cardList", tradeAccoList);
+			}
+			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+		
+		}catch(UserException ue){
+			LOG.warn(ue.getMessage(), ue);
+			model.addAttribute("errorMsg", ue.getMessage());
+			model.addAttribute("returnUrl", PAGE_ORG_PAY_INDEX);
+			return "error/user_error";
+		}
+		
+		return "trade/orgPayIndex";
+	}
+	
 	@RequestMapping(value="trade/pay_result")
 	public String buyApply(ApplyVo vo, Model model){
 		
@@ -120,13 +165,50 @@ public class TradeController {
 		return "trade/pay_result";
 	}
 	
+	@RequestMapping(value="trade/orgPayResult")
+	public String orgPayResult(ApplyVo vo, Model model){
+		
+		try{
+			String custno = UserHelper.getCustno();
+			vo.setCustno(custno);
+			vo.setFundcode(BasicFundinfo.YFB.getFundCode());
+			vo.setFee(new BigDecimal("0.00"));
+			vo.setShareclass(BasicFundinfo.YFB.getShareClass());
+			vo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
+			vo.setLevel("1");
+			tradeManager.buyApply(vo);
+			
+		}catch(UserException ue){
+			LOG.warn(ue.getMessage(), ue);
+			model.addAttribute("errorMsg", ue.getMessage());
+			model.addAttribute("returnUrl", PAGE_ORG_PAY_INDEX);
+			return "error/user_error";
+		}
+		
+		return "trade/pay_result";
+	}
+	
 	@RequestMapping(value="trade/cash_index")
 	public String redeemIndex(RedeemVo vo, Model model){
 		
 		try{
 			String custno = UserHelper.getCustno();
 			// 获取交易账户列表
-			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+			
+			// 获取交易账户列表
+			List<String> tradeaccosts = new ArrayList<String>();
+			tradeaccosts.add("Y"); // 
+			tradeaccosts.add("N"); // 
+			
+			List<String> levels = new ArrayList<String>();
+			levels.add("0"); 
+			levels.add("2"); 
+			
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
+					custno, 
+					Constant.HftSysConfig.HftFundCorpno, 
+					levels,
+					tradeaccosts);
 			// 获取用户总资产
 			Assets assets = queryManager.queryAssets(tradeAccoList, BasicFundinfo.YFB.getFundCode());
 			// 获取工作日信息等
@@ -163,6 +245,62 @@ public class TradeController {
 		return "trade/cash_index";
 	}
 	
+	@RequestMapping(value="trade/orgCashIndex")
+	public String orgCashIndex(RedeemVo vo, Model model){
+		
+		try{
+			String custno = UserHelper.getCustno();
+			// 获取交易账户列表
+			
+			// 获取交易账户列表
+			List<String> tradeaccosts = new ArrayList<String>();
+			tradeaccosts.add("Y"); // 
+			tradeaccosts.add("N"); // 
+			
+			List<String> levels = new ArrayList<String>();
+			levels.add("1"); 
+			
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
+					custno, 
+					Constant.HftSysConfig.HftFundCorpno, 
+					levels,
+					tradeaccosts);
+			// 获取用户总资产
+			Assets assets = queryManager.queryAssets(tradeAccoList, BasicFundinfo.YFB.getFundCode());
+			// 获取工作日信息等
+			Today today = workDayManager.getSysDayInfo();
+			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
+			
+			
+			model.addAttribute("total", assets.getTotal()); // 总资产
+			model.addAttribute("available", assets.getAvailable()); //可用资产
+			model.addAttribute("frozen", assets.getFrozen()); // 冻结资产
+			model.addAttribute("totalDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));
+			model.addAttribute("availableDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
+			model.addAttribute("frozenDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));
+			
+			BigDecimal cardAvailable = assets.getAccoList().get(0).getAvailable();
+			BigDecimal cardRealAvailable = assets.getAccoList().get(0).getRealavailable();
+			model.addAttribute("cardAvailable", cardAvailable);
+			model.addAttribute("cardAvailableDisplay", NumberUtils.DF_CASH_CONMMA.format(cardAvailable));
+			model.addAttribute("cardRealAvailable", cardRealAvailable);
+			model.addAttribute("cardRealAvailableDisplay", NumberUtils.DF_CASH_CONMMA.format(cardRealAvailable));
+			
+			model.addAttribute("card", assets.getAccoList().get(0));
+			model.addAttribute("cardList", assets.getAccoList());
+			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			
+		}catch(UserException ue){
+			LOG.warn(ue.getMessage(), ue);
+			model.addAttribute("errorMsg", ue.getMessage());
+			model.addAttribute("returnUrl", PAGE_ORG_CASH_INDEX);
+			return "error/user_error";
+		}
+		
+		return "trade/orgCashIndex";
+	}
+	
 	@RequestMapping(value="trade/cash_result")
 	public String redeemApply(RedeemVo vo, Model model){
 		
@@ -189,6 +327,38 @@ public class TradeController {
 			LOG.warn(ue.getMessage(), ue);
 			model.addAttribute("errorMsg", ue.getMessage());
 			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
+			return "error/user_error";
+		}
+		return "trade/cash_result";
+	}
+	
+	@RequestMapping(value="trade/orgCashResult")
+	public String orgCashResult(RedeemVo vo, Model model){
+		
+		try{
+			String custno = UserHelper.getCustno();
+			
+			vo.setCustno(custno);
+			vo.setFundcode(BasicFundinfo.YFB.getFundCode());
+			vo.setFee(new BigDecimal("0.00"));
+			vo.setShareclass(BasicFundinfo.YFB.getShareClass());
+			vo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
+			vo.setLevel("1");
+			
+			if("023".equals(vo.getApkind())){
+				tradeManager.redeem(vo);
+			}else if("024".equals(vo.getApkind())){
+				tradeManager.realRedeem(vo);
+			}else{
+				throw new SysException("异常交易！");
+			}
+			
+			model.addAttribute("APKIND", vo.getApkind());
+			
+		}catch(UserException ue){
+			LOG.warn(ue.getMessage(), ue);
+			model.addAttribute("errorMsg", ue.getMessage());
+			model.addAttribute("returnUrl", PAGE_ORG_CASH_INDEX);
 			return "error/user_error";
 		}
 		return "trade/cash_result";

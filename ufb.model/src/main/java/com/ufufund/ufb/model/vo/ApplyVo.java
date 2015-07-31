@@ -13,6 +13,16 @@ public class ApplyVo extends TradeRequest implements Serializable{
 	private String bankno;
 	// 银行卡id
 	private String bankid;
+	
+	private String level;
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
 
 	public String getTradePwd() {
 		return tradePwd;
