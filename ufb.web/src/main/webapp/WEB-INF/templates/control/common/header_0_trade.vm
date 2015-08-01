@@ -1,29 +1,59 @@
-<div class="header">
-    <div class="inner clearfix rel">
-        <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+<div id="header">
+	#if ($S_CUSTINFO)
+	<div class="topNav">
+		<div class="container">
+			<div class="b1">
+			#if(${S_CUSTINFO.invtp} == "0")
+			<a href="#">机构版</a>
+			<a href="#" class="active">家庭版</a>
+			#end
+			#if(${S_CUSTINFO.invtp} == "1")
+			<a href="#" class="active">机构版</a>
+			<a href="#">家庭版</a>
+			#end
+			</div>
+			<div class="b2">
+				<span>
+					#if ($S_CUSTINFO.invnm)
+            			$!{S_CUSTINFO.invnm}
+                    #elseif ($S_CUSTINFO.mobileno)
+            			#set($tailStr=$S_CUSTINFO.mobileno)
+            			#set($start=$tailStr.substring(0,3))
+            			#set($end=$tailStr.substring(7,11))
+            			$start****$end
+            		#else
+						游客
+            		#end
+				</span><a href="#"></a>
+			</div>
+		</div>
+	</div>
+    <div class="container">
+        <a href="${staticDomain}/home/index.htm" class="logo"></a>
 		<div class="nav">
-        	#if ($S_CUSTINFO)
-        	<a href="${staticDomain}/home/index.htm">首页</a>|<a class="current"
-        	href="${staticDomain}/cust/session.htm">资产总览</a>|<a
-        	href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
-        	href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
-        	href="javascript:;"><i class="trans icon"></i>
-        		#if ($S_CUSTINFO.invnm)
-        			$!{S_CUSTINFO.invnm}
-                #elseif ($S_CUSTINFO.mobileno)
-        			#set($tailStr=$S_CUSTINFO.mobileno)
-        			#set($start=$tailStr.substring(0,3))
-        			#set($end=$tailStr.substring(7,11))
-        			$start****$end
-        		#else
-        		#end
-        	<a href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span>
-        	#else
-        	<a href="${staticDomain}/home/index.htm">登录</a>|<a class="current"
-        	href="${staticDomain}/register/index.htm">注册</a>|<a 
-        	href="javascript:;">资产总览</a>|<a class="last"  
-        	href="${staticDomain}/help/helpNotice.htm">帮助中心</a>
-        	#end
-        </div>
+			<a href="${staticDomain}/cust/session.htm">我的幼富通</a>
+			<a href="#" onclick="alert('建设中，敬请期待。。。')">学费通</a>
+			<a href="${staticDomain}/cust/session.htm" class="active">幼富宝</a>
+			<a href="#" onclick="alert('建设中，敬请期待。。。')">幼富盈</a>
+			<a href="#" onclick="alert('建设中，敬请期待。。。')">幼富贷</a>
+		</div>
     </div>
-</div>	
+	#else
+	<div class="topNav">
+		<div class="container">
+			<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+			<div class="b2"><a href="${staticDomain}/home/index.htm" class="c1" id="login">登录</a></div>
+		</div>
+	</div>
+    <div class="container">
+        <a href="${staticDomain}/home/index.htm" class="logo"></a>
+		<div class="nav">
+			<a href="#">我的幼富通</a>
+			<a href="#">学费通</a>
+			<a href="#">幼富通</a>
+			<a href="#">短期理财</a>
+			<a href="#">幼富贷</a>
+		</div>
+    </div>
+	#end
+</div>

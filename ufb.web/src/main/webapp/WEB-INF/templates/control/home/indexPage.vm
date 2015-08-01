@@ -56,60 +56,67 @@
     </div>
 </div>
 <div class="index container" id="index">
-    <div class="header">
-        <div class="inner clearfix rel">
-            <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+	<div id="header">
+		#if ($S_CUSTINFO)
+		<div class="topNav">
+			<div class="container">
+    			<div class="b1">
+    			#if(${S_CUSTINFO.invtp} == "0")
+    			<a href="#">机构版</a>
+    			<a href="#" class="active">家庭版</a>
+    			#end
+    			#if(${S_CUSTINFO.invtp} == "1")
+    			<a href="#" class="active">机构版</a>
+    			<a href="#">家庭版</a>
+    			#end
+    			</div>
+    			<div class="b2">
+    				<span>
+    					#if ($S_CUSTINFO.invnm)
+                			$!{S_CUSTINFO.invnm}
+                        #elseif ($S_CUSTINFO.mobileno)
+                			#set($tailStr=$S_CUSTINFO.mobileno)
+                			#set($start=$tailStr.substring(0,3))
+                			#set($end=$tailStr.substring(7,11))
+                			$start****$end
+                		#else
+    						游客
+                		#end
+    				</span><a href="${staticDomain}/setting/settingAccount.htm"></a>
+    			</div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
 			<div class="nav">
-				#if ($S_CUSTINFO)
-				<a class="current" href="${staticDomain}/home/index.htm">首页</a>|<a 
-				href="${staticDomain}/cust/session.htm">资产总览</a>|<a
-				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
-				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
-    			href="javascript:;"><i class="trans icon"></i>
-					#if ($S_CUSTINFO.invnm)
-						$!{S_CUSTINFO.invnm}
-                    #elseif ($S_CUSTINFO.mobileno)
-						#set($tailStr=$S_CUSTINFO.mobileno)
-						#set($start=$tailStr.substring(0,3))
-						#set($end=$tailStr.substring(7,11))
-						$start****$end
-					#else
-					#end
-				<a href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span>
-				#else
-				<a class="trigger-loginBox" href="javascript:;">登录</a>|<a
-				href="${staticDomain}/register/index.htm">注册</a>|<a 
-				href="javascript:;" class="trigger-loginBox" >资产总览</a>|<a class="last" 
-				href="${staticDomain}/help/helpNotice.htm">帮助中心</a>
-				#end
+				<a href="${staticDomain}/cust/session.htm">我的幼富通</a>
+    			<a href="#" onclick="alert('建设中，敬请期待。。。')">学费通</a>
+    			<a href="${staticDomain}/cust/session.htm">幼富宝</a>
+    			<a href="#" onclick="alert('建设中，敬请期待。。。')">幼富盈</a>
+    			<a href="#" onclick="alert('建设中，敬请期待。。。')">幼富贷</a>
 			</div>
         </div>
+		#else
+		<div class="topNav">
+			<div class="container">
+				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+		        <div class="b3"><a href="javascript:;">登录</a>丨<a href="javascript:;">注册</a></div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="#">我的幼富通</a>
+				<a href="#">学费通</a>
+				<a href="#">幼富通</a>
+				<a href="#">短期理财</a>
+				<a href="#">幼富贷</a>
+			</div>
+        </div>	
+		#end	
     </div>
     <div class="body">
-        <div class="kv"><!--
-            <div class="inner">
-                <div class="login">
-                    <div class="login-tabs tabs clearfix">
-                        <a class="tab tab-family fl on" href="javascript:;">家庭注册</a>
-                        <a class="tab tab-org fl" href="javascript:;">幼教机构注册</a>
-                    </div>
-                    <div class="login-panels">
-                        <div class="panel">
-                            <form class="login-form">
-                                <ul>
-                                    <li><a class="link-register" href="javascript:;">免费注册</a></li>
-                                    <li class="input-wrap"><input type="text" class="input-text"></li>
-                                    <li><input type="password" class="input-text"></li>
-                                    <li class="clearfix"><span class="fl">验证码</span><a class="link-find fr" href="javascript:;">忘记密码?</a></li>
-                                    <li><input type="text" class="input-code"></li>
-                                    <li><input type="submit" class="input-button" value="立即登录"> </li>
-                                </ul>
-                            </form>
-                        </div>
-                        <div class="panel"></div>
-                    </div>
-                </div>
-            </div>-->
+        <div class="kv">
             <div class="camera_wrap" id="index_kv">
                 <div data-src="${staticDomain}/images/banner1.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>
                 <div data-src="${staticDomain}/images/banner2.jpg" data-link="http://www.wenjuan.com/s/nuyA7v/" data-target="_blank"></div>

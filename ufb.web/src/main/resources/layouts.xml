@@ -28,6 +28,10 @@
         <pattern>trade/*.vm</pattern>
     </layout>
     
+    <layout page="layout/default_bankcard.vm">
+        <pattern>bankcard/*.vm</pattern>
+    </layout>
+    
     <layout page="layout/public_cust.vm">
         <pattern>cust/*.vm</pattern>
     </layout>

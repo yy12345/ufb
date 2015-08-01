@@ -1,104 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--
 <title>幼富通 - 开户流程</title>
--->
-<script>
-$(function(){
-	//页面初始化
-	$("form input[type=text],input[type=password]").each(function () {
-        var _this = $(this);
-		if(_this.val()!="") {
-            _this.siblings(".tips-normal").hide();
-        }
-    });
-	#if(${hftTradeAccoListSize}!=0)
-		//$("#orgnm").attr("readonly","readonly");
-		//$("#orgbusiness").attr("readonly","readonly");
-		//$("#bankAcnm").attr("readonly","readonly");
-		//$("#bankIdno").attr("readonly","readonly");
-		//$("#tradepwd").attr("readonly","readonly");
-		//$("#tradepwd2").attr("readonly","readonly");
-		
-		//$("#orgnm").css("background-color","#ddd");
-		//$("#business").css("background-color","#ddd");
-		//$("#bankacnm").css("background-color","#ddd");
-		//$("#bankidno").css("background-color","#ddd");
-		//$("#tradepwd").css("background-color","#ddd");
-		//$("#tradepwd2").css("background-color","#ddd");
-		
-		//$("#organization").unbind("blur");
-		//$("#business").unbind("blur");
-		//$("#bankAcnm").unbind("blur");
-		//$("#bankIdno").unbind("blur");
-		//$("#tradepwd").unbind("blur");
-		//$("#tradepwd2").unbind("blur");
-	//}
-	#end
-	
-	$("#btn-addBankCard2").on("click",function(){
-		//check #register-org #mobileno
-		#if(${hftTradeAccoListSize}!=0)
-			$("#form-addBankCard").attr("action", "../bankcard/addBankCard2.htm");
-			$("#form-addBankCard").submit();
-			return false;
-		//}
-		#end
-		#if(${CustinfoVo.level} != 0)
-		if(!check_organization($("#orgnm"))){
-			return false;
-		}
-		if(!check_business($("#orgbusiness"))){
-			return false;
-		}
-		#end
-		if(!check_bankAcnm($("#bankacnm"))){
-			return false;
-		}
-		if(!check_id($("#bankidno"))){
-			return false;
-		}
-		if(!check_pwd1($("#tradepwd"))){
-			return false;
-		}
-		if(!check_pwd2($("#tradepwd2"))){
-			return false;
-		}
-		var errLen = $("ul li.error").length;
-		if(errLen>0){
-			$("ul li.error:eq(0) input[type=text]").focus();
-			$("ul li.error:eq(0) input[type=password]").focus();
-		}else{
-			$("#form-addBankCard").attr("action", "../bankcard/addBankCard2.htm");
-			$("#form-addBankCard").submit();
-		}
-	});
-});
-</script>
+
 </head>
 <body>
 <div class="container">
-    <div class="header">
-        <div class="inner clearfix rel">
-            <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
-            <div class="nav"><a 
-				href="${staticDomain}/home/index.htm">首页</a>|<a class="current" 
-				href="${staticDomain}/cust/session.htm">资产总览</a>|<a 
-				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
-				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
-				href="javascript:;"><i class="trans icon"></i>#if ($CustinfoVo.invnm)
-                	    $!{CustinfoVo.invnm}
-                	#else
-                	    #set($tailStr=$CustinfoVo.mobileno)
-						#set($start=$tailStr.substring(0,3))
-						#set($end=$tailStr.substring(7,11))
-						$start****$end
-                	#end<a 
-				href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span>
-			</div>
-        </div>
-    </div>
+    
     <div class="body">
         <div class="inner container-find">
             <div class="find-tabs tabs-step1 clearfix">
@@ -202,64 +110,81 @@ $(function(){
             </div>
         </div>
     </div>
-    <div class="footer footer-all">
-        <div class="inner clearfix">
-            <div class="qa fl">
-                <h2 class="title">常见问题</h2>
-                <ul class="list">
-                    <li><a href="helpQA.html#q1">什么是机构理财专户？</a></li>
-                    <li><a href="helpQA.html#q2">什么是幼富宝？</a></li>
-                    <li><a href="helpQA.html#q3">购买幼富宝有什么好处？</a></li>
-                </ul>
-            </div>
-            <div class="notice fl">
-                <h2 class="title">理财机构须知</h2>
-                <ul class="list">
-                    <li><a href="helpNotice.html#n1">幼教机构如何注册幼富通？</a></li>
-                    <li><a href="helpNotice.html#n2">如何购买幼富通的机构理财产品？</a></li>
-                    <li><a href="helpNotice.html#n3">机构理财的交易安全有什么保障？</a></li>
-                    <li><a href="helpNotice.html#n4">如何联系我们？</a></li>
-                </ul>
-            </div>
-            <div class="about fl">
-                <h2 class="title">关于幼富通</h2>
-                <ul class="list">
-                    <li>微信服务号：UFUfund</li>
-                    <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                    <li>海富通产品：400-8840-099</li>
-                </ul>
-            </div>
-            <div class="copyright fr">
-                <h2 class="title"><img src="../images/logo_78x26.png"></h2>
-                <ul class="list">
-                    <li>幼富通版权所有 &copy;2014</li>
-                    <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="footer footer-simple">
-        <div class="inner clearfix">
-            <div class="logo fl">
-                <img src="../images/logo_130x55.png">
-            </div>
-            <div class="info fl">
-                <ul class="list">
-                    <li>微信服务号：UFUfund</li>
-                    <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                    <li>海富通产品：400-8840-099</li>
-                </ul>
-            </div>
-            <div class="copyright fr">
-                <ul class="list">
-                    <li>幼富通版权所有 &copy;2014</li>
-                    <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    
 </div>
 <script src="${staticDomain}/js/scripts/load.js"></script>
 <script src="${staticDomain}/js/scripts/register.js"></script>
+<script>
+$(function(){
+	//页面初始化
+	$("form input[type=text],input[type=password]").each(function () {
+        var _this = $(this);
+		if(_this.val()!="") {
+            _this.siblings(".tips-normal").hide();
+        }
+    });
+	#if(${hftTradeAccoListSize}!=0)
+		//$("#orgnm").attr("readonly","readonly");
+		//$("#orgbusiness").attr("readonly","readonly");
+		//$("#bankAcnm").attr("readonly","readonly");
+		//$("#bankIdno").attr("readonly","readonly");
+		//$("#tradepwd").attr("readonly","readonly");
+		//$("#tradepwd2").attr("readonly","readonly");
+		
+		//$("#orgnm").css("background-color","#ddd");
+		//$("#business").css("background-color","#ddd");
+		//$("#bankacnm").css("background-color","#ddd");
+		//$("#bankidno").css("background-color","#ddd");
+		//$("#tradepwd").css("background-color","#ddd");
+		//$("#tradepwd2").css("background-color","#ddd");
+		
+		//$("#organization").unbind("blur");
+		//$("#business").unbind("blur");
+		//$("#bankAcnm").unbind("blur");
+		//$("#bankIdno").unbind("blur");
+		//$("#tradepwd").unbind("blur");
+		//$("#tradepwd2").unbind("blur");
+	//}
+	#end
+	
+	$("#btn-addBankCard2").on("click",function(){
+		//check #register-org #mobileno
+		#if(${hftTradeAccoListSize}!=0)
+			$("#form-addBankCard").attr("action", "../bankcard/addBankCard2.htm");
+			$("#form-addBankCard").submit();
+			return false;
+		//}
+		#end
+		#if(${CustinfoVo.level} != 0)
+		if(!check_organization($("#orgnm"))){
+			return false;
+		}
+		if(!check_business($("#orgbusiness"))){
+			return false;
+		}
+		#end
+		if(!check_bankAcnm($("#bankacnm"))){
+			return false;
+		}
+		if(!check_id($("#bankidno"))){
+			return false;
+		}
+		if(!check_pwd1($("#tradepwd"))){
+			return false;
+		}
+		if(!check_pwd2($("#tradepwd2"))){
+			return false;
+		}
+		var errLen = $("ul li.error").length;
+		if(errLen>0){
+			$("ul li.error:eq(0) input[type=text]").focus();
+			$("ul li.error:eq(0) input[type=password]").focus();
+		}else{
+			$("#form-addBankCard").attr("action", "../bankcard/addBankCard2.htm");
+			$("#form-addBankCard").submit();
+		}
+	});
+});
+</script>
 </body>
 </html>

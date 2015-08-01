@@ -11,7 +11,7 @@ $("body").on("click", ".alert-close", function () {
     var $this = $(this);
     var $con = $this.parents(".alert-con");
     console.log($con);
-    $con.remove();
+    $con.hide();
 });
 var errorBox = function (errorTitle, errorText) {//错误框
     var errorBox=$("<div class='error-box'>" +
@@ -124,12 +124,45 @@ $(function () {
     $("body").on("click", ".trigger-loginBox", function () {
        alertBox(".box-login");
     });
-    // errorBox("系统错误","报错内容<br>报错内容<br>报错内容<br>");
-    
-	$("form input[type=text],input[type=password]").each(function () {
+
+    //errorBox("系统错误","报错内容<br>报错内容<br>报错内容<br>");
+    $("form input[type=text],input[type=password]").each(function () {
         var _this = $(this);
 		if(_this.val()!="") {
             _this.siblings(".tips-normal").hide();
         }
+    });
+});
+
+
+$(function(){
+     //“登陆框”切换
+    
+    $(".tab-family").click(function(){
+         $(this).addClass("on").siblings().removeClass("on");
+         $(".tab-family i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
+         $(".panel01").addClass("panelShow").siblings().removeClass("panelShow");
+    });
+    
+     $(".tab-org").click(function(){
+         $(this).addClass("on").siblings().removeClass("on");
+         $(this).find("i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
+         $(".panel02").addClass("panelShow").siblings().removeClass("panelShow");
+    });
+    
+    //"自动充值、自动取现"切换
+    $(".content-autoFund .autoFund-title span:first-child").click(function(){
+         $(this).addClass("on").siblings().removeClass("on");
+         $(this).find("i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
+         $(".FundList01").addClass("FundList").siblings().removeClass("FundList");
+    });
+     $(".content-autoFund .autoFund-title span:last-child").click(function(){
+         $(this).addClass("on").siblings().removeClass("on");
+         $(this).find("i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
+         $(".FundList02").addClass("FundList").siblings().removeClass("FundList");
+    });
+    
+    $(".topNav .b3 a").click(function(){
+        $(".alert-con").show();
     });
 });

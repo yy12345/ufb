@@ -39,13 +39,13 @@
 			</div>
 		</div>
         <div class="container">
-            <a href="#" class="logo"></a>
+            <a href="${staticDomain}/home/index.htm" class="logo"></a>
 			<div class="nav">
-				<a href="#" class="active">我的幼富通</a>
-				<a href="#">学费通</a>
-				<a href="#">幼富宝</a>
-				<a href="#">短期理财</a>
-				<a href="#">幼富贷</a>
+				<a href="${staticDomain}/cust/session.htm" class="active">我的幼富通</a>
+    			<a href="#" onclick="alert('建设中，敬请期待。。。')">学费通</a>
+    			<a href="${staticDomain}/cust/session.htm">幼富宝</a>
+    			<a href="#" onclick="alert('建设中，敬请期待。。。')">幼富盈</a>
+    			<a href="#" onclick="alert('建设中，敬请期待。。。')">幼富贷</a>
 			</div>
         </div>
     </div>

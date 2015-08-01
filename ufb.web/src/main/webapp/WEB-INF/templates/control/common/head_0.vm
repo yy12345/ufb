@@ -1,8 +1,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    #if("$!{title}"=="")
-	    <title>幼富通 </title>
+	#if("$!{title}"=="")
+	    <title>幼富通</title>
 	#else
 	    $!{title}
 	#end
@@ -12,8 +11,8 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="${staticDomain}/js/libs/html5.js"></script>
     <![endif]-->
-	
-    <script type='text/javascript' src='${staticDomain}/js/libs/jquery.min.js'></script>
+	<script type='text/javascript' src='${staticDomain}/js/libs/jquery.min.js'></script>
     <script type='text/javascript' src='${staticDomain}/js/libs/jquery.mobile.customized.min.js'></script>
     <script type='text/javascript' src='${staticDomain}/js/libs/jquery.easing.1.3.js'></script>
+	<script type='text/javascript' src='${staticDomain}/js/libs/camera.min.js'></script>
 </head>

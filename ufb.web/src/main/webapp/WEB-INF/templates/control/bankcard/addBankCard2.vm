@@ -1,9 +1,141 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--
 <title>幼富通 - 开户流程</title>
--->
+
+</head>
+<body>
+
+<div class="container">
+   
+    <div class="body">
+        <div class="inner container-find">
+            <div class="find-tabs tabs-step2 clearfix">
+                <a class="tab fl" href="javascript:;">1-验证身份</a>
+                <a class="tab fl on" href="javascript:;">2-银行卡绑定</a>
+                <a class="tab fl" href="javascript:;">3-开户结果</a>
+            </div>
+            <div class="find-panels">
+            	<div class="tips tips-float">
+                	<p>提示信息：</p>
+                    <p><span class="mark">所有银行卡仅支持借记卡，需事先开通网银</span><br>
+					快捷银行开户，是通过银行卡号加手机验证码即可开户<br>
+					非快捷银行开户，需跳往银行网银开户<br>
+                    <span class="mark">企业网银开户即将上线</span></p>
+                </div>
+                <form id="form-addBankCard2" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCard2.htm">
+				<input id="bankno" name="bankno" type="hidden" value="$!{BankCardVo.bankno}">	
+				<input id="tradepwd" name="tradepwd" type="hidden" value="$!{BankCardVo.tradepwd}">
+				<input id="tradepwd2" name="tradepwd2" type="hidden" value="$!{BankCardVo.tradepwd2}">
+				<input id="orgnm" name="orgnm" type="hidden" value="$!{BankCardVo.orgnm}">
+				<input id="orgbusiness" name="orgbusiness" type="hidden" value="$!{BankCardVo.orgbusiness}">
+				<input id="invtp" name="invtp" type="hidden" value="$!{BankCardVo.invtp}">
+				<input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
+                    <div class="panel">
+                        <ul>
+							#if($errMsg)
+							<li id="errMsg" class="error">
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg}</span>
+                            </li>
+                            #end
+							
+                            #if($errMsg_bankNo)
+								<li id="errMsg_bankNo" class="ok clearfix error">
+							#else
+								<li id="errMsg_bankNo" class="ok clearfix">
+                            #end
+                                <span class="form-title">银行选择</span>
+								<div class="input-select">
+                                    <div class="bank bank-current">
+                                        <img src="${staticDomain}/images/bank_${BankCardVo.bankno}.png">
+                                    </div>
+                                    <div class="input-options">
+                                        <div class="bank-list clearfix">
+        									#foreach($bank in $bankList)
+											<a bankno="${bank.bankno}" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_${bank.bankno}.png"></a>
+        									#end
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="tips-normal"></span>
+								<span class="tips-check"><i class="icon"></i>$!{errMsg_bankNo}</span>
+                            </li>
+                            <li id="errMsg_bankAcnm"
+                            #if($errMsg_bankAcnm)
+                            class="error"
+                            #end
+                            >
+                                <span class="form-title">经办人姓名</span>
+								<input id="bankacnm" name="bankacnm" class="ipt-bankAcnm input-text" maxlength="28" type="text" value="$!{BankCardVo.bankacnm}">
+                                <span class="tips-normal">经办人姓名</span>
+								<span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcnm}</span>
+                            </li>
+                            <li id="errMsg_bankIdno"
+                            #if($errMsg_bankIdno)
+                            class="error"
+                            #end
+                            >
+                                <span class="form-title">身份证号</span>
+                                <input id="bankidno" name="bankidno" class="ipt-idCard input-text" maxlength="18"  type="text" value="$!{BankCardVo.bankidno}">
+								<span class="tips-normal">身份证号</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankIdno}</span>
+                            </li>
+                            <li id="errMsg_bankAcco"
+                            #if($errMsg_bankAcco)
+                            class="error"
+                            #end
+                            >
+                                <span class="form-title">银行卡号</span>
+                                <input id="bankacco" name="bankacco" class="ipt-bankCard input-text" maxlength="21" type="text" value="$!{BankCardVo.bankacco}">
+                                <span class="tips-normal">银行卡号</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcco}</span>
+                            </li>
+                            <li id="errMsg_bankMobile"
+                            #if($errMsg_bankMobile)
+                            class="error"
+                            #end
+                            >
+                                <span class="form-title">银行预留手机号</span>
+								<input id="bankmobile" name="bankmobile" class="ipt-phoneNum input-text" maxlength="11" type="text" value="$!{BankCardVo.bankmobile}">
+                                <span class="tips-normal">银行预留手机号</span>
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankMobile}</span>
+                            </li>
+                            <li id="errMsg_msgcode"
+                            #if($errMsg_msgcode)
+                            class="error"
+                            #end
+                            >
+                                <span class="form-title">手机验证码</span>
+								<input style="width:95px" id="mobileautocode" name="mobileautocode" class="ipt-phoneCode input-text" maxlength="6" type="text" value="$!{BankCardVo.mobileautocode}">
+                                <span class="tips-normal">6位验证码</span>
+                                <input id="btn-addBankCardAjax" class="input-button" type="button" value="获取验证码">
+                                <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>
+                            </li>
+                            <li>
+								#if(${hftTradeAccoListSize}==0)
+								<input id="btn-addBankCard1" class="input-button" type="button" value="上一步">
+								#end
+                                <input id="btn-addBankCard3" class="input-button 
+									 #if($errMsg_msgcode)
+										ok
+									 #elseif($errMsg)
+										ok
+									 #else
+										off
+									 #end
+									" type="button" value="提&nbsp;交">
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+<script src="${staticDomain}/js/scripts/register.js"></script>
 <script>
 $(function(){
 
@@ -172,212 +304,5 @@ $(function(){
 	});
 });
 </script>
-</head>
-<body>
-
-<div class="container">
-    <div class="header">
-        <div class="inner clearfix rel">
-            <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
-			<div class="nav"><a 
-				href="${staticDomain}/home/index.htm">首页</a>|<a class="current" 
-				href="${staticDomain}/cust/session.htm">资产总览</a>|<a 
-				href="${staticDomain}/setting/settingAccount.htm">账户管理</a>|<a 
-				href="${staticDomain}/help/helpNotice.htm">帮助中心</a><span class="member" 
-				href="javascript:;"><i class="trans icon"></i>#if ($CustinfoVo.invnm)
-                	    $!{CustinfoVo.invnm}
-                	#else
-                	    #set($tailStr=$CustinfoVo.mobileno)
-						#set($start=$tailStr.substring(0,3))
-						#set($end=$tailStr.substring(7,11))
-						$start****$end
-                	#end<a 
-				href="${staticDomain}/cust/logout.htm" class="trans out">安全退出</a></span>
-			</div>
-        </div>
-    </div>
-    <div class="body">
-        <div class="inner container-find">
-            <div class="find-tabs tabs-step2 clearfix">
-                <a class="tab fl" href="javascript:;">1-验证身份</a>
-                <a class="tab fl on" href="javascript:;">2-银行卡绑定</a>
-                <a class="tab fl" href="javascript:;">3-开户结果</a>
-            </div>
-            <div class="find-panels">
-            	<div class="tips tips-float">
-                	<p>提示信息：</p>
-                    <p><span class="mark">所有银行卡仅支持借记卡，需事先开通网银</span><br>
-					快捷银行开户，是通过银行卡号加手机验证码即可开户<br>
-					非快捷银行开户，需跳往银行网银开户<br>
-                    <span class="mark">企业网银开户即将上线</span></p>
-                </div>
-                <form id="form-addBankCard2" class="common-form"  method="post" action="${staticDomain}/bankcard/addBankCard2.htm">
-				<input id="bankno" name="bankno" type="hidden" value="$!{BankCardVo.bankno}">	
-				<input id="tradepwd" name="tradepwd" type="hidden" value="$!{BankCardVo.tradepwd}">
-				<input id="tradepwd2" name="tradepwd2" type="hidden" value="$!{BankCardVo.tradepwd2}">
-				<input id="orgnm" name="orgnm" type="hidden" value="$!{BankCardVo.orgnm}">
-				<input id="orgbusiness" name="orgbusiness" type="hidden" value="$!{BankCardVo.orgbusiness}">
-				<input id="invtp" name="invtp" type="hidden" value="$!{BankCardVo.invtp}">
-				<input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
-                    <div class="panel">
-                        <ul>
-							#if($errMsg)
-							<li id="errMsg" class="error">
-                                <span class="tips-check"><i class="icon"></i>$!{errMsg}</span>
-                            </li>
-                            #end
-							
-                            #if($errMsg_bankNo)
-								<li id="errMsg_bankNo" class="ok clearfix error">
-							#else
-								<li id="errMsg_bankNo" class="ok clearfix">
-                            #end
-                                <span class="form-title">银行选择</span>
-								<div class="input-select">
-                                    <div class="bank bank-current">
-                                        <img src="${staticDomain}/images/bank_${BankCardVo.bankno}.png">
-                                    </div>
-                                    <div class="input-options">
-                                        <div class="bank-list clearfix">
-        									#foreach($bank in $bankList)
-											<a bankno="${bank.bankno}" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_${bank.bankno}.png"></a>
-        									#end
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="tips-normal"></span>
-								<span class="tips-check"><i class="icon"></i>$!{errMsg_bankNo}</span>
-                            </li>
-                            <li id="errMsg_bankAcnm"
-                            #if($errMsg_bankAcnm)
-                            class="error"
-                            #end
-                            >
-                                <span class="form-title">经办人姓名</span>
-								<input id="bankacnm" name="bankacnm" class="ipt-bankAcnm input-text" maxlength="28" type="text" value="$!{BankCardVo.bankacnm}">
-                                <span class="tips-normal">经办人姓名</span>
-								<span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcnm}</span>
-                            </li>
-                            <li id="errMsg_bankIdno"
-                            #if($errMsg_bankIdno)
-                            class="error"
-                            #end
-                            >
-                                <span class="form-title">身份证号</span>
-                                <input id="bankidno" name="bankidno" class="ipt-idCard input-text" maxlength="18"  type="text" value="$!{BankCardVo.bankidno}">
-								<span class="tips-normal">身份证号</span>
-                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankIdno}</span>
-                            </li>
-                            <li id="errMsg_bankAcco"
-                            #if($errMsg_bankAcco)
-                            class="error"
-                            #end
-                            >
-                                <span class="form-title">银行卡号</span>
-                                <input id="bankacco" name="bankacco" class="ipt-bankCard input-text" maxlength="21" type="text" value="$!{BankCardVo.bankacco}">
-                                <span class="tips-normal">银行卡号</span>
-                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankAcco}</span>
-                            </li>
-                            <li id="errMsg_bankMobile"
-                            #if($errMsg_bankMobile)
-                            class="error"
-                            #end
-                            >
-                                <span class="form-title">银行预留手机号</span>
-								<input id="bankmobile" name="bankmobile" class="ipt-phoneNum input-text" maxlength="11" type="text" value="$!{BankCardVo.bankmobile}">
-                                <span class="tips-normal">银行预留手机号</span>
-                                <span class="tips-check"><i class="icon"></i>$!{errMsg_bankMobile}</span>
-                            </li>
-                            <li id="errMsg_msgcode"
-                            #if($errMsg_msgcode)
-                            class="error"
-                            #end
-                            >
-                                <span class="form-title">手机验证码</span>
-								<input style="width:95px" id="mobileautocode" name="mobileautocode" class="ipt-phoneCode input-text" maxlength="6" type="text" value="$!{BankCardVo.mobileautocode}">
-                                <span class="tips-normal">6位验证码</span>
-                                <input id="btn-addBankCardAjax" class="input-button" type="button" value="获取验证码">
-                                <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>
-                            </li>
-                            <li>
-								#if(${hftTradeAccoListSize}==0)
-								<input id="btn-addBankCard1" class="input-button" type="button" value="上一步">
-								#end
-                                <input id="btn-addBankCard3" class="input-button 
-									 #if($errMsg_msgcode)
-										ok
-									 #elseif($errMsg)
-										ok
-									 #else
-										off
-									 #end
-									" type="button" value="提&nbsp;交">
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="footer footer-all">
-        <div class="inner clearfix">
-            <div class="qa fl">
-                <h2 class="title">常见问题</h2>
-                <ul class="list">
-                    <li><a href="helpQA.html#q1">什么是机构理财专户？</a></li>
-                    <li><a href="helpQA.html#q2">什么是幼富宝？</a></li>
-                    <li><a href="helpQA.html#q3">购买幼富宝有什么好处？</a></li>
-                </ul>
-            </div>
-            <div class="notice fl">
-                <h2 class="title">理财机构须知</h2>
-                <ul class="list">
-                    <li><a href="helpNotice.html#n1">幼教机构如何注册幼富通？</a></li>
-                    <li><a href="helpNotice.html#n2">如何购买幼富通的机构理财产品？</a></li>
-                    <li><a href="helpNotice.html#n3">机构理财的交易安全有什么保障？</a></li>
-                    <li><a href="helpNotice.html#n4">如何联系我们？</a></li>
-                </ul>
-            </div>
-            <div class="about fl">
-                <h2 class="title">关于幼富通</h2>
-                <ul class="list">
-                    <li>微信服务号：UFUfund</li>
-                    <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                    <li>海富通产品：400-8840-099</li>
-                </ul>
-            </div>
-            <div class="copyright fr">
-                <h2 class="title"><img src="../images/logo_78x26.png"></h2>
-                <ul class="list">
-                    <li>幼富通版权所有 &copy;2014</li>
-                    <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="footer footer-simple">
-        <div class="inner clearfix">
-            <div class="logo fl">
-                <img src="../images/logo_130x55.png">
-            </div>
-            <div class="info fl">
-                <ul class="list">
-                    <li>微信服务号：UFUfund</li>
-                    <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                    <li>海富通产品：400-8840-099</li>
-                </ul>
-            </div>
-            <div class="copyright fr">
-                <ul class="list">
-                    <li>幼富通版权所有 &copy;2014</li>
-                    <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-</div>
-<script src="${staticDomain}/js/scripts/load.js"></script>
-<script src="${staticDomain}/js/scripts/register.js"></script>
 </body>
 </html>
