@@ -138,17 +138,29 @@ $(function () {
 $(function(){
      //“登陆框”切换
     
-    $(".tab-family").click(function(){
-         $(this).addClass("on").siblings().removeClass("on");
-         $(".tab-family i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
-         $(".panel01").addClass("panelShow").siblings().removeClass("panelShow");
-    });
+    //$(".tab-family").click(function(){
+    //     $(this).addClass("on").siblings().removeClass("on");
+    //     $(".tab-family i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
+    //     $(".panel01").addClass("panelShow").siblings().removeClass("panelShow");
+    //});
     
-     $(".tab-org").click(function(){
-         $(this).addClass("on").siblings().removeClass("on");
-         $(this).find("i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
-         $(".panel02").addClass("panelShow").siblings().removeClass("panelShow");
-    });
+    //$(".tab-org").click(function(){
+    //    $(this).addClass("on").siblings().removeClass("on");
+    //    $(this).find("i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
+    //    $(".panel02").addClass("panelShow").siblings().removeClass("panelShow");
+    //});
+    
+    $(".tab-family").click(function(){
+		$(this).addClass("on").siblings().removeClass("on");
+     	$(".tab-family i").addClass("loginTri");
+     	$(".panel01").addClass("panelShow").siblings().removeClass("panelShow");
+        });
+        
+    $(".tab-org").click(function(){
+		$(this).addClass("on").siblings().removeClass("on");
+		$(".tab-org i").addClass("loginTri");
+		$(".panel02").addClass("panelShow").siblings().removeClass("panelShow");
+	});
     
     //"自动充值、自动取现"切换
     $(".content-autoFund .autoFund-title span:first-child").click(function(){

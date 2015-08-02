@@ -7,12 +7,13 @@
 <div class="alert-box box-login">
     <div class="login">
         <div class="login-tabs tabs clearfix">
-            <a class="tab tab-family fl on" href="javascript:;">家庭登录</a>
-            <a class="tab tab-org fl" href="javascript:;">幼教机构登录</a>
+            <a class="tab tab-family fl on" href="javascript:;"><i class="loginTri"></i>家庭登录</a>
+            <a class="tab tab-org fl" href="javascript:;"><i></i>幼教机构登录</a>
         </div>
         <div class="login-panels">
-            <div class="panel">
+            <div class="panel01 panelShow">
 				<form id="form-login" class="common-form login-form" method="post" action="${staticDomain}/home/index.htm">
+					<input type="hidden" id="invtp" name="invtp" value="$!{CustinfoVo.invtp}">
                     <ul>
                         <li class="clearfix">
 							<label class="fl">登录账号</label>
@@ -46,12 +47,52 @@
 								<span class="tips-check"><i class="icon"></i>验证提示</span>
 						</li>
                         <li>
-							<input onclick="login()" id="btn-login" type="button" class="input-button" value="立即登录">
+							<input id="btn-familyLogin" type="button" class="input-button" value="立即登录">
 						</li>
                     </ul>
                 </form>
             </div>
-            <div class="panel"></div>
+            <div class="panel02">
+				<form id="org-login" class="common-form login-form" method="post" action="${staticDomain}/home/index.htm">
+					<input type="hidden" id="invtp" name="invtp" value="$!{CustinfoVo.invtp}">
+                    <ul>
+                        <li class="clearfix">
+							<label class="fl">登录账号</label>
+							<a class="fr" href="${staticDomain}/register/index.htm">免费注册</a>
+						</li>
+                        <li
+                        #if($errMsg_mobileno)
+                        class="error"
+                        #end
+                        >
+							<input type="text" id="ipt-loginUsername" name="mobileno" value="$!{CustinfoVo.mobileno}" class="ipt-loginUsername input-text">
+							<span class="tips-check"><i class="icon"></i>$!{errMsg_mobileno}</span>
+						</li>
+                        <li class="clearfix">
+							<label class="fl">登录密码</label>
+							<a class="fr" href="findPasswordStep1.html">忘记密码</a>
+						</li>
+                        <li 
+                        #if($errMsg_pswpwd)
+                        class="error"
+                        #end
+                        >
+							<input type="password" id="ipt-loginPassword" name="loginpwd" value="$!{CustinfoVo.loginpwd}" class="ipt-loginPassword input-text">
+							<span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd}</span>
+						</li>
+                        <li class="clearfix">
+							<label class="fl">验证码：[测试请填0000]</label>
+						</li>
+                        <li>
+							<input type="text" class="ipt-code input-code" value="0000">
+								<span class="tips-check"><i class="icon"></i>验证提示</span>
+						</li>
+                        <li>
+							<input onclick="" id="btn-orgLogin" type="button" class="input-button" value="立即登录">
+						</li>
+                    </ul>
+                </form>
+			</div>
         </div>
     </div>
 </div>
@@ -100,7 +141,7 @@
 		<div class="topNav">
 			<div class="container">
 				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
-		        <div class="b3"><a href="javascript:;">登录</a>丨<a href="javascript:;">注册</a></div>
+		        <div class="b3"><a href="javascript:;">登录</a>丨<a href="${staticDomain}/register/index.htm">注册</a></div>
 			</div>
 		</div>
         <div class="container">
@@ -211,21 +252,52 @@
 <script src="${staticDomain}/js/scripts/load.js"></script>
 <script src="${staticDomain}/js/scripts/register.js"></script>
 <script>
-	var login = function () {
-		if(!check_null($("#ipt-loginUsername"), "登录名不能为空")){
-			return false;
-		}
-		if(!check_null($("#ipt-loginPassword"), "登录密码不能为空")){
-			return false;
-		}
-		$("#form-login").attr("action", "../cust/login.htm");
-		$("#form-login").submit();
-	};
+	
 	$(function(){
 		#if ($S_CUSTINFO)
 		#else
 			alertBox(".box-login");
 		#end
+
+		if($("#invtp").val()=="1"){
+			$(".tab-org").addClass("on").siblings().removeClass("on");
+  			$(".tab-org i").addClass("loginTri");
+   			$(".panel02").addClass("panelShow").siblings().removeClass("panelShow");
+		}else{
+			$(".tab-family").addClass("on").siblings().removeClass("on");
+  			$(".tab-family i").addClass("loginTri");
+   			$(".panel01").addClass("panelShow").siblings().removeClass("panelShow");
+		}
+
+		$("#btn-familyLogin,#btn-orgLogin").click(function(){
+			var form = $(this).parents("form");
+			var id = form.attr("id");
+			if(id.indexOf("org")>-1){
+				form.find("#invtp").val("1");
+			}else{
+				form.find("#invtp").val("0");
+			}
+    		if(!check_null(form.find("#ipt-loginUsername"), "登录名不能为空")){
+    			return false;
+    		}
+    		if(!check_null(form.find("#ipt-loginPassword"), "登录密码不能为空")){
+    			return false;
+    		}
+    		form.attr("action", "../cust/login.htm");
+    		form.submit();
+    	});
+
+		$(".tab-family").click(function(){
+			$(this).addClass("on").siblings().removeClass("on");
+         	$(".tab-family i").addClass("loginTri");
+         	$(".panel01").addClass("panelShow").siblings().removeClass("panelShow");
+            });
+            
+        $(".tab-org").click(function(){
+			$(this).addClass("on").siblings().removeClass("on");
+  			$(".tab-org i").addClass("loginTri");
+   			$(".panel02").addClass("panelShow").siblings().removeClass("panelShow");
+		});
 	});
 </script>
 </body>

@@ -213,8 +213,8 @@ $(function(){
     <div class="body">
         <div class="inner container-register">
             <div class="register-tabs tabs clearfix">
-                <a class="tab tab-family fl" href="javascript:;"><span class="trans">家庭注册</span></a>
-                <a class="tab tab-org fl on" href="javascript:;"><span class="trans">幼教机构注册</span></a>
+                <a class="tab tab-family fl" href="javascript:;"><span class="trans"><i class="loginTri"></i>家庭注册</span></a>
+                <a class="tab tab-org fl on" href="javascript:;"><span class="trans"><i class="loginTri"></i>幼教机构注册</span></a>
             </div>
             <div class="register-panels panels">
                 <div class="panel panel-family slide-out">
