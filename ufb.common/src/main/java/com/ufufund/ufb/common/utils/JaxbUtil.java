@@ -15,8 +15,32 @@ import javax.xml.bind.Unmarshaller;
 @SuppressWarnings("rawtypes")
 public class JaxbUtil {
 
-	public static final boolean JAXB_FORMATTED_OUTPUT = true;
-	public static final String JAXB_ENCODING = "utf-8";
+	public static final boolean JAXB_FORMATTED_OUTPUT = false;
+//	public static final String CHARSET = "utf-8";
+	
+//	/**
+//	 * 将对象转化为xml
+//	 * @param obj 
+//	 * @param clazzes
+//	 * @return
+//	 */
+//	public static String toXml(Object obj, Class... clazzes) {  
+//        String result = null;  
+//        try {  
+//            JAXBContext context = JAXBContext.newInstance(clazzes);  
+//            Marshaller marshaller = context.createMarshaller();  
+//            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, JAXB_FORMATTED_OUTPUT);  
+//            marshaller.setProperty(Marshaller.JAXB_ENCODING, CHARSET);  
+//  
+//            StringWriter writer = new StringWriter();  
+//            marshaller.marshal(obj, writer);  
+//            result = writer.toString();  
+//        } catch (Exception e) {  
+//            e.printStackTrace();  
+//        }  
+//  
+//        return result;  
+//    }  
 	
 	/**
 	 * 将对象转化为xml
@@ -24,13 +48,13 @@ public class JaxbUtil {
 	 * @param clazzes
 	 * @return
 	 */
-	public static String toXml(Object obj, Class... clazzes) {  
+	public static String toXml(Object obj, String charset, Class... clazzes) {  
         String result = null;  
         try {  
             JAXBContext context = JAXBContext.newInstance(clazzes);  
             Marshaller marshaller = context.createMarshaller();  
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, JAXB_FORMATTED_OUTPUT);  
-            marshaller.setProperty(Marshaller.JAXB_ENCODING, JAXB_ENCODING);  
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, charset);  
   
             StringWriter writer = new StringWriter();  
             marshaller.marshal(obj, writer);  

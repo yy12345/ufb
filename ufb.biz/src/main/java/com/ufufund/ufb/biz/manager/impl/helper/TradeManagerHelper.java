@@ -10,15 +10,15 @@ import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.TradeStatus;
-import com.ufufund.ufb.model.hft.BuyApplyRequest;
-import com.ufufund.ufb.model.hft.BuyApplyResponse;
-import com.ufufund.ufb.model.hft.CancelResponse;
-import com.ufufund.ufb.model.hft.RealRedeemRequest;
-import com.ufufund.ufb.model.hft.RealRedeemResponse;
-import com.ufufund.ufb.model.hft.RedeemRequest;
-import com.ufufund.ufb.model.hft.RedeemResponse;
-import com.ufufund.ufb.model.hft.SubApplyRequest;
-import com.ufufund.ufb.model.hft.SubApplyResponse;
+import com.ufufund.ufb.model.hftfund.BuyApplyRequest;
+import com.ufufund.ufb.model.hftfund.BuyApplyResponse;
+import com.ufufund.ufb.model.hftfund.CancelResponse;
+import com.ufufund.ufb.model.hftfund.RealRedeemRequest;
+import com.ufufund.ufb.model.hftfund.RealRedeemResponse;
+import com.ufufund.ufb.model.hftfund.RedeemRequest;
+import com.ufufund.ufb.model.hftfund.RedeemResponse;
+import com.ufufund.ufb.model.hftfund.SubApplyRequest;
+import com.ufufund.ufb.model.hftfund.SubApplyResponse;
 import com.ufufund.ufb.model.vo.ApplyVo;
 import com.ufufund.ufb.model.vo.CancelVo;
 import com.ufufund.ufb.model.vo.RedeemVo;
@@ -391,9 +391,9 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public com.ufufund.ufb.model.hft.CancelRequest toCancelRequest(CancelVo vo){
-		com.ufufund.ufb.model.hft.CancelRequest cancelRequest = 
-				new com.ufufund.ufb.model.hft.CancelRequest();
+	public com.ufufund.ufb.model.hftfund.CancelRequest toCancelRequest(CancelVo vo){
+		com.ufufund.ufb.model.hftfund.CancelRequest cancelRequest = 
+				new com.ufufund.ufb.model.hftfund.CancelRequest();
 		
 		cancelRequest.setVersion(Constant.HftSysConfig.Version);
 		cancelRequest.setMerchantId(Constant.HftSysConfig.MerchantId);

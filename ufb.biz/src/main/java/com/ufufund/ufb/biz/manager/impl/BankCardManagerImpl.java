@@ -32,16 +32,16 @@ import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.TableName;
-import com.ufufund.ufb.model.hft.BankAuthRequest;
-import com.ufufund.ufb.model.hft.BankAuthResponse;
-import com.ufufund.ufb.model.hft.BankVeriRequest;
-import com.ufufund.ufb.model.hft.BankVeriResponse;
-import com.ufufund.ufb.model.hft.OpenAccountOrgRequest;
-import com.ufufund.ufb.model.hft.OpenAccountOrgResponse;
-import com.ufufund.ufb.model.hft.OpenAccountRequest;
-import com.ufufund.ufb.model.hft.OpenAccountResponse;
+import com.ufufund.ufb.model.hftfund.BankAuthRequest;
+import com.ufufund.ufb.model.hftfund.BankAuthResponse;
+import com.ufufund.ufb.model.hftfund.BankVeriRequest;
+import com.ufufund.ufb.model.hftfund.BankVeriResponse;
+import com.ufufund.ufb.model.hftfund.OpenAccountOrgRequest;
+import com.ufufund.ufb.model.hftfund.OpenAccountOrgResponse;
+import com.ufufund.ufb.model.hftfund.OpenAccountRequest;
+import com.ufufund.ufb.model.hftfund.OpenAccountResponse;
 import com.ufufund.ufb.model.vo.Today;
-import com.ufufund.ufb.remote.HftCustService;
+import com.ufufund.ufb.remote.hftfund.HftCustService;
 
 @Service
 public class BankCardManagerImpl extends ImplCommon implements BankCardManager{

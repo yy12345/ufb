@@ -19,7 +19,7 @@ import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.TradeAccoVo;
-import com.ufufund.ufb.remote.HftQueryService;
+import com.ufufund.ufb.remote.hftfund.HftQueryService;
 
 @Service
 public class QueryManagerImpl implements QueryManager{

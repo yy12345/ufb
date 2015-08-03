@@ -54,6 +54,11 @@
 			<artifactId>httpmime</artifactId>
 			<version>4.4</version>
 		</dependency> 
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.4</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
@@ -77,8 +82,7 @@
 					</configuration>
 					<executions>
 						<execution>
-							<id>compile</id>
-							<phase>compile</phase>
+							<phase>package</phase>
 							<goals>
 								<goal>autoconfig</goal>
 							</goals>
