@@ -71,7 +71,9 @@ public class ChinapayServiceTest {
 		tDetail.setACCOUNT_NO("4462270332418000");
 		tDetail.setACCOUNT_NAME("栾望水");
 		tDetail.setAMOUNT(10000);
-		tDetail.setRECKON_ACCOUNT(RECKON_ACCOUNT);
+		tDetail.setRECKON_ACCOUNT(RECKON_ACCOUNT);   // 清分账户，根据需要填写
+		tDetail.setPROVINCE("湖南");		// 省份，根据需要填写
+		tDetail.setCITY("长沙");			// 城市，根据需要填写
 		tDetailList.add(tDetail);
 		
 		tDetail = new TransDetail();
@@ -80,7 +82,7 @@ public class ChinapayServiceTest {
 		tDetail.setACCOUNT_NO("44622848008122690");
 		tDetail.setACCOUNT_NAME("栾望水");
 		tDetail.setAMOUNT(20000);
-//		tDetail.setRECKON_ACCOUNT("002");
+		tDetail.setRECKON_ACCOUNT("002");
 		tDetailList.add(tDetail);
 		
 		Response response = chinapayService
@@ -199,7 +201,7 @@ public class ChinapayServiceTest {
 	public void queryTrans(){
 		
 		QueryTrans queryTrans = new QueryTrans();
-		queryTrans.setQUERY_SN("1438327580649");
+		queryTrans.setQUERY_SN("1438590163530");
 		queryTrans.setQUERY_REMARK("幼富宝代收付查询");
 		
 		Response response = chinapayService.queryTrans(queryTrans);

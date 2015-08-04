@@ -17,12 +17,11 @@ public class TransDetail {
 	private String ID;
 	private String TEL;
 	
-	
 	// 代收付字段
+	private String ACCOUNT_PROP;	// 账号属性：0-对私；1-对公；可不填，默认为对私。
 	private Integer SN;
 	private Integer AMOUNT;
-	private String RECKON_ACCOUNT; // 清分账户
-	private String ACCOUNT_PROP;  // 账号属性：0-对私；1-对公；可不填，默认0。
-	private String PROVINCE;
-	private String CITY;
+	private String RECKON_ACCOUNT;	// 清分账户，根据需要填写
+	private String PROVINCE;		// 省份，根据需要填写
+	private String CITY;			// 城市，根据需要填写
 }
