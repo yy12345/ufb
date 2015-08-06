@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+#parse("control/common/head_0.vm")
+<body>	
+<div id="container" class="container help">
+#parse("control/common/header_0_common.vm")
+$body
+#parse("control/common/footer_1.vm")
+</div>
+$!{script}
+</body>
+</html>

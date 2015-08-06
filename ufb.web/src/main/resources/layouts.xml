@@ -24,6 +24,10 @@
         <pattern>setting/*.vm</pattern>
     </layout>
     
+     <layout page="layout/default_help.vm">
+        <pattern>help/*.vm</pattern>
+    </layout>
+    
     <layout page="layout/default_trade.vm">
         <pattern>trade/*.vm</pattern>
     </layout>

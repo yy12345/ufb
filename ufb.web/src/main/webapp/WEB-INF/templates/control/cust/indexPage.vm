@@ -29,11 +29,11 @@
                 			$start****$end
                 		#else
 						#end
-						</span><a href="${staticDomain}/setting/settingAccount.htm"></a>
+						</span><a href="${staticDomain}/setting/settingAccount.htm"></a><i id="logout">退出</i>
 					#end
 					
 					#if(!${S_CUSTINFO})
-						<a href="javascript:;" class="c1" id="login">登录</a>
+						<a href="javascript:;" class="c1" id="login">登录</a>丨<a href="${staticDomain}/register/index.htm">注册</a></div>
 					#end
 				</div>
 			</div>
@@ -228,7 +228,9 @@
                 </tr>
                 <tr>
                     <td><label class="inputText"><input type="text" style="width:218px"></label></td>
+						<!--
                     <td><img src="public/images/12.png"></td>
+					-->
                 </tr>
                 <tr><td colspan="2"><label class="btnD mt20"><input type="submit">立即登陆</label></td></tr>
             </table>
@@ -254,7 +256,9 @@
                 </tr>
                 <tr>
                     <td><label class="inputText"><input type="text" style="width:218px"></label></td>
+						<!--
                     <td><img src="public/images/12.png"></td>
+					-->
                 </tr>
                 <tr><td colspan="2"><label class="btnD mt20"><input type="submit">立即登陆</label></td></tr>
             </table>
@@ -281,6 +285,10 @@ $(function(){
 	$(".btn-query").on("click",function(){
 		$("#form").attr("action", "../trade/query_index.htm");
 		$("#form").submit();
+	});
+	$("#logout").on("click",function(){
+		$("form").attr("action", "../cust/logout.htm");
+		$("form").submit();
 	});
 })
 </script>

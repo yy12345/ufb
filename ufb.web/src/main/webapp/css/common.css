@@ -593,6 +593,9 @@ a.link-underline {
 	font-size: 14px;
 	line-height: 36px;
 }
+.common-form li p a{
+    color:#29abe2;
+}
 .common-form li .form-title {
 	position: absolute;
 	top: 50%;
@@ -927,6 +930,9 @@ a.link-underline {
 	margin-left: -180px;
 	padding: 50px 0 0 70px;
 	background: url("../images/icon.png") no-repeat -154px -110px;
+}
+.form-done.form-mt{
+    margin-top:-200px;
 }
 .form-done .title {
 	margin-top: 0;
@@ -1741,7 +1747,6 @@ a.link-underline {
 .setting .password-tabs .btn {
 	margin-right: 30px;
 }
-
 .setting .password-tabs .btn.on,
 .setting .password-tabs .btn:hover {
 	color: #ffffff;
@@ -1981,6 +1986,16 @@ a.link-underline {
 	margin-right:5px;
 	vertical-align:middle;
 }
+.topNav .b2 i{
+    display:inline-block;
+    line-height:28px;
+    vertical-align: middle;
+    color:#29abe2;
+    margin:0 0 0 10px;
+    font-style: normal;
+    cursor: pointer;
+}
+
 .topNav .b2 a{
 	width:12px;
 	height:28px;
