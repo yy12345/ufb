@@ -123,7 +123,7 @@
                 		#else
     						游客
                 		#end
-    				</span><a href="${staticDomain}/setting/settingAccount.htm"></a>
+					</span><a href="${staticDomain}/setting/settingAccount.htm"></a><i id="logout">退出</i>
     			</div>
 			</div>
 		</div>
@@ -298,6 +298,11 @@
   			$(".tab-org i").addClass("loginTri");
    			$(".panel02").addClass("panelShow").siblings().removeClass("panelShow");
 		});
+		
+		$("#logout").on("click",function(){
+    		$("form").attr("action", "../cust/logout.htm");
+    		$("form").submit();
+    	});
 	});
 </script>
 </body>

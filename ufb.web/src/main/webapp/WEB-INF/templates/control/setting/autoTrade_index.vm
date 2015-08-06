@@ -40,21 +40,27 @@ $(function(){
 		
         <div class="inner clearfix">
             <div class="title">
-                <h2 class="title-main">帮助中心</h2>
+                <h2 class="title-main">自动理财设置</h2>
             </div>
-            <div class="side side-nav fl">
-				 <ul>
-    				<li><a href="${staticDomain}/setting/settingAccount.htm">账户信息</a></li>
-                    <li><a href="${staticDomain}/setting/settingPassword.htm">密码设置</a></li>
-                    <li><a href="${staticDomain}/setting/settingCard.htm">银行卡管理</a></li>
-                    <li><a class="current" href="${staticDomain}/setting/autoTrade_index.htm">自动充值计划</a></li>
-                </ul>
-            </div>
-            <div class="main fr">
+            <div class="main" style="width:960px;margin-bottom:20px">
                 <div class="setting-content content-autoFund">
+					 <div class="autoFund-title">
+						<span class="on">自动充值计划<i class="loginTri"></i></span>
+						<span class="">自动取现计划<i class=""></i></span>
+					 </div>
+                    <!-- 自动充值-->
+                    <div class="FundList01 FundList">
+                       <div class="item-title">进行中<a href="${staticDomain}/setting/autoTrade_add.htm" class="link">添加自动充值计划</a>
+					</div>
+					   
+					   
+					<!--
                     <div class="autoFund-title">自动充值计划</div>
                     <div class="item-title">进行中<a href="${staticDomain}/setting/autoTrade_add.htm" class="link">添加自动充值计划</a></div>
+					-->
+					
                     <ul class="autoFund-list">
+						#if($LIST.size()!=0)
 						#foreach($autotrade in $LIST)
                         <li class="autoFund-item">
                             <div class="item-table">
@@ -121,11 +127,8 @@ $(function(){
                             <div class="item-tips">*充值日遇节假日将顺延至下个基金工作日</div>
                         </li>
 						#end
-                    </ul>
-					<!--
-                    <div class="item-title">已终止</div>
-                    <ul class="autoFund-list">
-                        <li class="autoFund-item">
+						#else
+							<li class="autoFund-item">
                             <div class="item-table">
                                 <table width="100%">
                                     <tr>
@@ -138,53 +141,19 @@ $(function(){
                                         <th>备注</th>
                                         <th width="60">
                                             <div class="item-do">
-                                                <a href="javascript:;" class="do-title">删除</a>
+                                                <span class="do-title">操作</span>
                                             </div>
                                         </th>
                                     </tr>
                                     <tr>
-                                        <td>2015-05-12</td>
-                                        <td>10,000</td>
-                                        <td>每月12日</td>
-                                        <td>6月12日</td>
-                                        <td>招商银行 9527</td>
-                                        <td>收费理财</td>
-                                        <td></td>
+                                        <td colspan="7"><div class="no-result" style="width:588px">您最近没有充值记录哦</div></td>
                                     </tr>
                                 </table>
                             </div>
+                            <div class="item-tips">*充值日遇节假日将顺延至下个基金工作日</div>
                         </li>
-                        <li class="autoFund-item">
-                            <div class="item-table">
-                                <table width="100%">
-                                    <tr>
-                                        <th class="item-name" width="78" rowspan="2">幼富宝</th>
-                                        <th>设置时间</th>
-                                        <th>金额（元）</th>
-                                        <th>充值周期</th>
-                                        <th>下次充值日</th>
-                                        <th>银行卡</th>
-                                        <th>备注</th>
-                                        <th width="60">
-                                            <div class="item-do">
-                                                <a href="javascript:;" class="do-title">删除</a>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td>2015-05-12</td>
-                                        <td>10,000</td>
-                                        <td>每月12日</td>
-                                        <td>6月12日</td>
-                                        <td>招商银行 9527</td>
-                                        <td>收费理财</td>
-                                        <td></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </li>
+						#end
                     </ul>
-					-->
                 </div>
             </div>
         </div>

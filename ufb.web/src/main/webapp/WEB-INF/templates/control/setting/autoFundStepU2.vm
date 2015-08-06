@@ -32,7 +32,7 @@ $(function(){
 <body>
 <div class="body">
     <div class="inner container-step">
-        <div class="step-title clearfix">修改自动充值计划<a class="link link-underline fr" href="${staticDomain}/setting/autoTrade_index.htm">&lt;&lt;自动充值设置</a></div>
+        <div class="step-title clearfix">修改自动充值计划<a class="link link-underline fr" href="${staticDomain}/setting/autoTrade_index.htm">&lt;&lt;自动充值计划</a></div>
         <div class="step-tabs tabs-step2 clearfix">
             <a class="tab fl" href="javascript:;">自动充值（修改）</a>
             <a class="tab fl on" href="javascript:;">预览自动充值计划（修改）</a>
