@@ -683,7 +683,6 @@ img{vertical-align:top;}
 	color:#fff;
 	margin-right:5px;
 	vertical-align:middle;
-	cursor: pointer;
 }
 .topNav .b2 a{
 	width:12px;
@@ -693,15 +692,6 @@ img{vertical-align:top;}
 	background:url(../images/3.png) no-repeat 0 50%;
 	vertical-align:middle;
 }
-.topNav .b2 i{
-    display:inline-block;
-    line-height:28px;
-    vertical-align: middle;
-    color:#29abe2;
-    margin:0 0 0 10px;
-    font-style: normal;
-    cursor: pointer;
-}
 .topNav .b2 a.c1{
 	width:auto;
 	height:28px;
@@ -710,22 +700,6 @@ img{vertical-align:top;}
 	vertical-align:middle;
 	background:none;
 	line-height:28px;
-}
-
-.topNav .b3{
-    margin-left:500px;
-    text-align:right;
-    font-size:12px;
-    color:#fff;
-    line-height:28px;
-}
-.topNav .b3 a{
-    color:#fff;
-    display:inline-block;
-    margin:0 5px;
-}
-.topNav .b3 a:hover{
-    color:#cb3849;
 }
 .copyright{text-align:center;color:#ccc;padding:10px;}
 .logo{

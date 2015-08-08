@@ -625,6 +625,42 @@ a.link-underline {
 	font-family: "microsoft yahei";
 	color: #808080;
 }
+.common-form .form-pw{
+    border:1px solid #ddd;
+    width:210px;
+    height:34px;
+    background:#fff;
+}
+.common-form .form-pw input{
+    width:9px;
+    border:none;
+    margin-right:-3px;
+    margin-top:-5px;  
+    outline:none;
+    border-right:1px solid #ddd;
+/*    outline:1px solid #ddd;*/
+}
+.common-form .form-pw input:last-child{
+    border-right:none;
+}
+/*
+.common-form .form-pw input:hover , .common-form .form-pw input:active{
+    outline:none;
+}
+*/
+.common-form .forgetMM{
+    position:absolute;
+    left:350px;
+    top:10px;
+    color:#2f8fbf;
+}
+.common-form .forgetMM:hover{
+    color:#cb3849;
+}
+.common-form .mmtips{
+    font-size:12px;
+    margin:-20px 0;
+}
 .common-form li input.input-checkbox {
 	margin-right: 6px;
 	vertical-align: middle;
