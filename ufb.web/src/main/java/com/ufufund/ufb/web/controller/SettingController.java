@@ -334,6 +334,7 @@ public class SettingController {
 			tradeaccosts = new ArrayList<String>();
 			tradeaccosts.add("C"); // 
 			tradeaccosts.add("F"); // 
+			//tradeaccosts.add("N"); // 
 			List<TradeAccoinfoOfMore> tradeAccoList_N = 
 					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, levels, tradeaccosts);
 			if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
@@ -364,7 +365,7 @@ public class SettingController {
 					ServletHolder.getRequest().getParameter("bankacco"), 
 					"Y");
 			
-//			ServletHolder.forward("/setting/settingCard.htm");
+			ServletHolder.forward("/setting/settingCard.htm");
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/settingCard";
@@ -373,7 +374,7 @@ public class SettingController {
 	}
 	
 	@RequestMapping(value="setting/settingUnbindCard")
-	public String setUnbindCard(String bankacco, String tradeacco, Model model){
+	public String setUnbindCard(String serialid, String tradeacco, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
 			// 短信验证
@@ -392,8 +393,8 @@ public class SettingController {
 			}
 			bankCardManager.unbindBankCard(
 					s_custinfo.getCustno(), 
-					ServletHolder.getRequest().getParameter("bankacco"), 
-					"N");
+					ServletHolder.getRequest().getParameter("serialid"), 
+					"C");
 			
 			ServletHolder.forward("/setting/settingCard.htm");
 		}catch (BizException e){
@@ -412,13 +413,13 @@ public class SettingController {
 	}
 	
 	@RequestMapping(value="setting/settingActiveCard")
-	public String setActiveCard(String bankacco, Model model){
+	public String setActiveCard(String serialid, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			// 短信验证
 			bankCardManager.unbindBankCard(
 					s_custinfo.getCustno(), 
-					ServletHolder.getRequest().getParameter("bankacco"), 
+					ServletHolder.getRequest().getParameter("serialid"), 
 					"Y");
 			
 			ServletHolder.forward("/setting/settingCard.htm");

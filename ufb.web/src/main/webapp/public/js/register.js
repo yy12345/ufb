@@ -126,21 +126,9 @@ var check_autoDat = function (ipt) {//充值时间
 
 
 
-var check_id_back = function (ipt) {//验证身份证号
-    var value = ipt.val();
-    if (isNull(value)) {
-        return showTips(ipt, "身份证不能为空");
-    }
-    var regex = /^((11|12|13|14|15|21|22|23|31|32|33|34|35|36|37|41|42|43|44|45|46|50|51|52|53|54|61|62|63|64|65|71|81|82|91)\d{4})((((19|20)(([02468][048])|([13579][26]))0229))|((20[0-9][0-9])|(19[0-9][0-9]))((((0[1-9])|(1[0-2]))((0[1-9])|(1\d)|(2[0-8])))|((((0[1,3-9])|(1[0-2]))(29|30))|(((0[13578])|(1[02]))31))))((\d{3}(x|X))|(\d{4}))$/;
-    if (!regex.test(value)) {
-        return showTips(ipt, "格式错误，请输入正确的身份证号");
-    }
-    return showTips(ipt, 0);
-}
-
-
-
 var check_id = function (ipt) {
+	return showTips(ipt, 0);
+
 	var value = ipt.val();
 	if(value == "") {  
 		return showTips(ipt, "输入身份证号码不能为空!");
@@ -202,7 +190,9 @@ var check_id = function (ipt) {
         if(nowYear - parseInt(birth)<15 || nowYear - parseInt(birth)>100) {
         	return showTips(ipt, "输入身份证号码不格式正确!");
         }  
-        return (true);  
+		
+		return showTips(ipt, 0);
+        //return (true);  
     }  
        
     var Wi = new Array(7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2,1);  

@@ -42,9 +42,9 @@ public class BankCardManagerValidator {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.IDNO);
 			}
 			// 身份证号码
-			if (!RegexUtil.isIdCardNo(action.getIdno())) {
-				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDNO);
-			}
+//			if (!RegexUtil.isIdCardNo(action.getIdno())) {
+//				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDNO);
+//			}
 			
 			// 家庭、经办人
 			if (!custManager.isTradePwdSet(action.getCustno())) {
@@ -96,10 +96,10 @@ public class BankCardManagerValidator {
 				//银行证件号码
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDNO);
 			}
-			if (!RegexUtil.isIdCardNo(action.getBankidno())) {
-				//银行证件号码 isIdCardNo
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDNO);
-			}
+//			if (!RegexUtil.isIdCardNo(action.getBankidno())) {
+//				//银行证件号码 isIdCardNo
+//				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDNO);
+//			}
 			if (RegexUtil.isNull(action.getBankacco())) {
 				//银行卡号
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACCO);

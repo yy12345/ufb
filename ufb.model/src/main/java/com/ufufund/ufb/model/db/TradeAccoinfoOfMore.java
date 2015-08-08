@@ -12,6 +12,7 @@ public class TradeAccoinfoOfMore extends PrintableModel  implements Serializable
 	private String tradeacco;
 	private String tradeaccost;
 	private String fundcorpno;
+	private String level;
 	
 	/** bankcardinfo表属性 **/
 	private String serialid;
@@ -65,6 +66,12 @@ public class TradeAccoinfoOfMore extends PrintableModel  implements Serializable
 	}
 	public void setFrozen(BigDecimal frozen) {
 		this.frozen = frozen;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
 	}
 	public String getSerialid() {
 		return serialid;

@@ -8,6 +8,9 @@
 $(function(){
 
 	$(".set-main").on("click", function(){
+		if(!confirm("您确定要将你的银行卡设置为主卡吗？")){
+				return false;
+			}
 		$("#bankacco").val($(this).attr("bankacco"));
 		$("#form-settingCard").attr("action", "../setting/settingMainCard.htm");
 		$("#form-settingCard").submit();
@@ -21,16 +24,23 @@ $(function(){
 		   	alert("对不起，您的银行卡有资金交易，暂时不能解绑！");
 			return false;
 		}else{
-			alert("您确定要解绑你的银行卡吗？");
-			$("#bankacco").val($(this).attr("bankacco"));
-			$("#tradeacco").val($(this).attr("tradeacco"));
+			if(!confirm("您确定要解绑你的银行卡吗？")){
+				return false;
+			}
+			//$("#bankacco").val($(this).attr("bankacco"));
+			$("#serialid").val($(this).attr("serialid"));
+			//$("#tradeacco").val($(this).attr("tradeacco"));
 			$("#form-settingCard").attr("action", "../setting/settingUnbindCard.htm");
 			$("#form-settingCard").submit();
 		}
 	});
 	
 	$(".set-active").on("click", function(){
-		$("#bankacco").val($(this).attr("bankacco"));
+		if(!confirm("您确定要激活你的银行卡吗？")){
+			return false;
+		}
+		//$("#bankacco").val($(this).attr("bankacco"));
+		$("#serialid").val($(this).attr("serialid"));
 		$("#form-settingCard").attr("action", "../setting/settingActiveCard.htm");
 		$("#form-settingCard").submit();
 	});
@@ -43,6 +53,7 @@ $(function(){
     	<form id="form-settingCard" action="${ufbDomain}/setting/settingCard.htm" method="post">
     	##${refreshTools.genInputHtml()}
     	<input id="bankacco" name="bankacco" value="${bankacco}" type="hidden"/>
+		<input id="serialid" name="serialid" value="${serialid}" type="hidden"/>
 		<input id="tradeacco" name="tradeacco" value="${tradeacco}" type="hidden"/>
         <div class="inner clearfix">
             <div class="title">
@@ -53,8 +64,8 @@ $(function(){
     				<li><a href="${staticDomain}/setting/settingAccount.htm">账户信息</a></li>
                     <li><a href="${staticDomain}/setting/settingPassword.htm">密码设置</a></li>
                     <li><a class="current" href="${staticDomain}/setting/settingCard.htm">银行卡管理</a></li>
-                    <li><a href="${staticDomain}/setting/autoTrade_index.htm">自动理财设置</a></li>
-                </ul>
+                    <li><a href="${staticDomain}/help/helpNotice.htm">帮助</a></li>
+				</ul>
             </div>
             <div class="main fr">
                 <div class="setting-content content-card">
@@ -77,17 +88,23 @@ $(function(){
     							<span>尾号：$tailStr.substring($start,$end)</span>
     						</div>
                             <div class="card-setting">
-    							#if($!{card.mainflag}!="Y")
-    							<a bankacco="${card.bankacco}" class="set-main" 
-    								href="#">设为主卡</a>
-    							#end
-    							<a bankacco="${card.bankacco}" class="set-unbind" href="#"
-									tradeacco="${card.tradeacco}"
-									total="${card.total}"
-									available="${card.available}"
-									realavailable="${card.realavailable}"
-									frozen="${card.frozen}"
-									>解绑</a>
+								#if($!{card.level}=="1")
+    								<a class="" 
+        								href="#"><font style="color:red">对公账户</font></a>
+								#else
+        							#if($!{card.mainflag}!="Y")
+        							<a bankacco="${card.bankacco}" class="set-main" 
+        								href="#">设为主卡</a>
+        							#end
+        							<a bankacco="${card.bankacco}" class="set-unbind" href="#"
+    									serialid="${card.serialid}"
+    									level="${card.level}"
+    									total="${card.total}"
+    									available="${card.available}"
+    									realavailable="${card.realavailable}"
+    									frozen="${card.frozen}"
+    									>解绑</a>
+								#end
     						</div>
                         </li>
     					#end
@@ -105,11 +122,19 @@ $(function(){
     							<span>尾号：$tailStr.substring($start,$end)</span>
     						</div>
                             <div class="card-setting">
-								#if(${card.tradeaccost}=="C")
-    							<a bankacco="${card.bankacco}" class="set-active" href="#">激活</a>
-								#end
-								#if(${card.tradeaccost}=="F")
-    							<a bankacco="${card.bankacco}" href="${staticDomain}/bankcard/addBankCard1.htm?bankAcco=$tailStr">再次绑卡</a>
+								#if($!{card.level}=="1")
+    								<a class="" 
+                                        href="#"><font style="color:red">对公账户</font></a>
+								#else
+    								#if(${card.tradeaccost}=="C")
+        							<a bankacco="${card.bankacco}" serialid="${card.serialid}" class="set-active" href="#">激活</a>
+    								#end
+    								#if(${card.tradeaccost}=="N")
+        							<a bankacco="${card.bankacco}" serialid="${card.serialid}" class="set-active" href="#">激活</a>
+    								#end
+    								#if(${card.tradeaccost}=="F")
+        							<a bankacco="${card.bankacco}" serialid="${card.serialid}" href="${staticDomain}/bankcard/addBankCard1.htm?bankAcco=$tailStr">再次绑卡</a>
+    								#end
 								#end
     						</div>
                         </li>

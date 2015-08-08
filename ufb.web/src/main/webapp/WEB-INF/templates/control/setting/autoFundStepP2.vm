@@ -92,7 +92,7 @@ $(function(){
                         </li>
                         <li>
                             <span class="form-title">交易密码</span>
-                            <input id="tradepwd" name="tradepwd" class="ipt-password1 input-text" maxlength="20"  type="password" value="1q2w3e">
+                            <input id="tradepwd" name="tradepwd" class="ipt-password1 input-text" maxlength="20"  type="password" value="">
                             <a class="find" href="${staticDomain}/setting/settingPassword.htm">忘记密码?</a>
 							<span class="tips-normal">请填写交易密码</span>
                             <span id="tradePwdTips" class="tips-check"><i class="icon"></i>验证提示</span>

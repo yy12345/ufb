@@ -1985,6 +1985,7 @@ a.link-underline {
 	color:#fff;
 	margin-right:5px;
 	vertical-align:middle;
+	cursor: pointer;
 }
 .topNav .b2 i{
     display:inline-block;

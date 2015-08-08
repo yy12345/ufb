@@ -20,7 +20,7 @@
 			<div class="nav">
 				<a href="../cust/session.htm" class="active">我的幼富通</a>
 				<a href="#">学费通</a>
-				<a href="#"  class="active">幼富宝</a>
+				<a href="#">幼富宝</a>
 				<a href="#">短期理财</a>
 				<a href="#">幼富贷</a>
 			</div>
@@ -50,7 +50,6 @@
 					<li>4 开户完成 </li>
 				</ul>
 			<div class="a4 mt20">
-				<a href="../cust/session.htm" class="active">我的幼富通</a>
 				#if(${errMsg}) 
 				<div class="b4">机构开户失败：${errMsg}</div>
 				#else 

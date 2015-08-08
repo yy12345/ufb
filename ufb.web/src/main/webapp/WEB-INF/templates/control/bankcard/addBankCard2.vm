@@ -213,7 +213,6 @@ $(function(){
 		// 获取验证码按钮无效并倒计时 
 		$("#btn-addBankCardAjax").attr("disabled","disabled");
 		$("#btn-addBankCardAjax").addClass("off");
-					
         $.ajax({
      		type: "GET",
     		url: "../ajaxbankcard/addBankCardAjax.ajax",

@@ -74,9 +74,9 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		if (RegexUtil.isNull(idno)) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.IDNO);
 		}
-		if (!RegexUtil.isIdCardNo(idno)) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDNO);
-		}
+//		if (!RegexUtil.isIdCardNo(idno)) {
+//			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDNO);
+//		}
 		Custinfo custinfo = new Custinfo();
 		custinfo.setIdno(idno.trim());
 		custinfo = custinfoMapper.getCustinfo(custinfo);

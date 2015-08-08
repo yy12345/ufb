@@ -683,6 +683,7 @@ img{vertical-align:top;}
 	color:#fff;
 	margin-right:5px;
 	vertical-align:middle;
+	cursor: pointer;
 }
 .topNav .b2 a{
 	width:12px;

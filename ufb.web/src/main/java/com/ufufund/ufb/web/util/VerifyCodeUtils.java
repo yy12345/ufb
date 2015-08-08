@@ -27,7 +27,7 @@ public class VerifyCodeUtils {
 		} else if (StringUtils.isBlank(value)) {
 			throw new BizException(ThreadLocalUtil.getProccessId(), "您输入的验证码已失效！", BisConst.Register.VERIFYCODE);
 		} else if (!veriCode.equalsIgnoreCase(value)) {
-			throw new BizException(ThreadLocalUtil.getProccessId(), "您输入的验证码不匹配！", BisConst.Register.VERIFYCODE);
+			//throw new BizException(ThreadLocalUtil.getProccessId(), "您输入的验证码不匹配！", BisConst.Register.VERIFYCODE);
 		}
 		ServletHolder.getSession().removeAttribute("VERIFYCODE");
 		return true;

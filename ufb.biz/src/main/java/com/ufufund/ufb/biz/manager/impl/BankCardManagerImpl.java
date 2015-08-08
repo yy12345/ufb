@@ -108,11 +108,11 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	}
 	
 	@Override
-	public void unbindBankCard(String custno, String bankacco, String state){
+	public void unbindBankCard(String custno, String serialid, String state){
 		if(null == custno || "".equals(custno)){
 			throw new BizException(this.getProcessId(custno), ErrorInfo.NO_IDCARDNO, BisConst.Register.CUSTNO);
 		}
-		bankCardMapper.unbindBankCard(custno, bankacco, state);
+		bankCardMapper.unbindBankCard(custno, serialid, state);
 	}
 	
 	/**

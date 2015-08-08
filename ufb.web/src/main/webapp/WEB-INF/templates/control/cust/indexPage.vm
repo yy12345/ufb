@@ -50,7 +50,7 @@
         </div>
     </div>
     
-    <div id="body">
+    <div id="body" style="background:url('') ;">
 		<form id="form" method="post" action="${staticDomain}/cust/index.htm">
         <div class="container">
 			<div class="a1">幼富宝</div>
@@ -289,6 +289,9 @@ $(function(){
 	$("#logout").on("click",function(){
 		$("form").attr("action", "../cust/logout.htm");
 		$("form").submit();
+	});
+	$(".b2>span").on("click",function(){
+		window.location.href = "${staticDomain}/setting/settingAccount.htm";
 	});
 })
 </script>

@@ -60,7 +60,10 @@
 <script>
 $(function(){
 	$("#logout").on("click",function(){
-		window.location.href = "${ufbDomain}/cust/logout.htm";
+		window.location.href = "${staticDomain}/cust/logout.htm";
+	});
+	$(".b2>span").on("click",function(){
+		window.location.href = "${staticDomain}/setting/settingAccount.htm";
 	});
 });
 </script>

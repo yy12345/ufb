@@ -91,6 +91,7 @@
 			t.TRADEACCO,
 			t.FUNDCORPNO,
 			t.TRADEACCOST,
+			t.LEVEL,
 			b.SERIALID,
 			b.CUSTNO,
 			b.BANKNO,
@@ -135,6 +136,7 @@
 		select
 			t.TRADEACCO,
 			t.FUNDCORPNO,
+			t.LEVEL,
 			b.SERIALID,
 			b.CUSTNO,
 			b.BANKNO,
