@@ -37,6 +37,9 @@ public class CustManagerHelper {
 	public Custinfo toOpenAccountOrgAction(OpenAccountAction openAccountAction){
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(openAccountAction.getCustno());
+		if(openAccountAction.isOpenaccoflag()){
+			
+		}
 		custinfo.setInvnm(openAccountAction.getInvnm());
 		custinfo.setIdno(openAccountAction.getIdno());
 		custinfo.setTradepwd(EncryptUtil.md5(openAccountAction.getTradepwd()));

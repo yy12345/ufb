@@ -104,6 +104,7 @@ public class CustManagerValidator {
 			throw new BizException(action.getProcessId(), ErrorInfo.FREEZE_USER, BisConst.Register.CUSTNO);
 		}
 		
+		// 经办人已开户，不要
 		if(!action.isOpenaccoflag()){
 			if (custManager.isIdnoRegister(action.getIdno())) {
 				// 经办人idno

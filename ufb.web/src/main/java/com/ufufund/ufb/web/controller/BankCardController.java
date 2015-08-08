@@ -69,6 +69,12 @@ public class BankCardController {
 			bankCardVo.setRerpidno(bankCardVo.getIdno());
 			// test end
 			
+			if(s_custinfo.getIdno() !=null && s_custinfo.getInvnm() != null){
+				bankCardVo.setInvnm(s_custinfo.getInvnm());
+				bankCardVo.setIdno(s_custinfo.getIdno());
+			}else{
+			}
+			
 			UserHelper.setAddBankCardStatus("N");
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
@@ -262,8 +268,11 @@ public class BankCardController {
 			bankCardManager.openAccountOrg(openAccountAction);
 			
 			UserHelper.setAddBankCardStatus("Y");
-			s_custinfo.setInvnm(bankCardVo.getInvnm());
-			s_custinfo.setIdno(bankCardVo.getIdno());
+			// 经办人已开户，不要
+			if(!openAccountAction.isOpenaccoflag()){
+				s_custinfo.setInvnm(bankCardVo.getInvnm());
+				s_custinfo.setIdno(bankCardVo.getIdno());
+			}
 			UserHelper.saveCustinfoVo(s_custinfo);
 			
 			model.addAttribute("BankCardVo", bankCardVo);

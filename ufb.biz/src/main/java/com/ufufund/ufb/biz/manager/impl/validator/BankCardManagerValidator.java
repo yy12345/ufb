@@ -136,18 +136,22 @@ public class BankCardManagerValidator {
 			if (RegexUtil.isNull(action.getCustno())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.CUSTNO);
 			}
-			// 用户名
-			if (RegexUtil.isNull(action.getInvnm())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.INVNM);
+			// 经办人已开户，不用交验
+			if(!action.isOpenaccoflag()){
+				// 用户名
+				if (RegexUtil.isNull(action.getInvnm())) {
+					throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.INVNM);
+				}
+				// 证件号码
+				if (RegexUtil.isNull(action.getIdno())) {
+					throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.IDNO);
+				}
+				// 身份证号码
+				if (!RegexUtil.isIdCardNo(action.getIdno())) {
+					throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDNO);
+				}
 			}
-			// 证件号码
-			if (RegexUtil.isNull(action.getIdno())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.IDNO);
-			}
-			// 身份证号码
-			if (!RegexUtil.isIdCardNo(action.getIdno())) {
-				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.IDNO);
-			}
+			
 			// 法人姓名
 			if (RegexUtil.isNull(action.getRerpnm())) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.RERPNM);

@@ -148,7 +148,15 @@
 					<table>
 						<tr class="reg-tr">
 							<td>设置交易密码</td>
-							<td><label class="inputText"><input class="ipt-tradepwd" maxlength="6" name="tradepwd" type="password" value="$!{BankCardVo.tradepwd}"></label></td>
+							<td>
+								<label class="inputText">
+									#if(${S_CUSTINFO.invnm})
+									<input class="ipt-tradepwd" maxlength="12" name="tradepwd" type="password" value="$!{BankCardVo.tradepwd}" readonly style="background-color:#ddd">
+									#else
+									<input class="ipt-tradepwd" maxlength="12" name="tradepwd" type="password" value="$!{BankCardVo.tradepwd}">
+									#end
+								</label>
+							</td>
 							<td id="errMsg_tradepwd" style="display:
 								#if(${errMsg_tradepwd}) true #else none #end">
 								<div class="tips-check 
@@ -160,7 +168,15 @@
 						</tr>
 						<tr class="reg-tr">
 							<td>确认交易密码</td>
-							<td><label class="inputText"><input class="ipt-tradepwd2" maxlength="6" name="tradepwd2" type="password2" value="$!{BankCardVo.tradepwd2}"></label></td>
+							<td>
+								<label class="inputText">
+									#if(${S_CUSTINFO.invnm})
+									<input class="ipt-tradepwd2" maxlength="12" name="tradepwd2" type="password" value="$!{BankCardVo.tradepwd2}" readonly style="background-color:#ddd">
+									#else
+									<input class="ipt-tradepwd2" maxlength="12" name="tradepwd2" type="password" value="$!{BankCardVo.tradepwd2}">
+									#end
+								</label>
+							</td>
 							<td id="errMsg_tradepwd2" style="display:
 								#if(${errMsg_tradepwd2}) true #else none #end">
 								<div class="tips-check 

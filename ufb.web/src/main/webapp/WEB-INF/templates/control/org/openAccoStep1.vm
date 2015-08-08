@@ -73,7 +73,9 @@
 					<table>
 						<tr class="reg-tr">
 							<td>机构名称</td>
-							<td><label class="inputText"><input class="ipt-orgnm" maxlength="24" name="orgnm" type="text" value="${BankCardVo.orgnm}"></label></td>
+							<td>
+								<label class="inputText"><input class="ipt-orgnm" maxlength="24" name="orgnm" type="text" value="${BankCardVo.orgnm}"
+									style="background-color:#ddd" readonly></label></td>
 							<td id="errMsg_orgnm" style="display:
 								#if(${errMsg_orgnm}) true #else none #end">
 								<div class="tips-check 
@@ -85,7 +87,8 @@
 						</tr>
 						<tr class="reg-tr">
 							<td>营业执照号</td>
-							<td><label class="cardFormat" id="card1"><input class="ipt-orgbusiness" maxlength="24" name="orgbusiness" type="text" value="${BankCardVo.orgbusiness}"></label></td>
+							<td><label class="cardFormat" id="card1"><input class="ipt-orgbusiness" maxlength="24" name="orgbusiness" type="text" value="${BankCardVo.orgbusiness}"
+								style="background-color:#ddd" readonly></label></td>
 							<td id="errMsg_orgbusiness" style="display:
 								#if(${errMsg_orgbusiness}) true #else none #end">
 								<div class="tips-check 
@@ -137,8 +140,13 @@
 					<table>
 						<tr class="reg-tr">
 							<td>授权经办人姓名</td>
-							<td><label class="inputText">
+							<td>
+								<label class="inputText">
+									#if(${S_CUSTINFO.invnm})
+									<input class="ipt-invnm" maxlength="12" style="background-color:#ddd"  name="invnm" type="text" value="${BankCardVo.invnm}"></label>
+									#else
 									<input class="ipt-invnm" maxlength="12" name="invnm" type="text" value="${BankCardVo.invnm}"></label>
+									#end
 							</td>
 							<td id="errMsg_invnm" style="display:
 								#if(${errMsg_invnm}) true #else none #end">
@@ -153,7 +161,11 @@
 							<td>身份证号</td>
 							<td>
 								<label class="cardFormat" id="card2">
+									#if(${S_CUSTINFO.idno})
+									<input id="idno" class="ipt-idno" style="background-color:#ddd" readonly maxlength="18" name="idno" type="text" value="${BankCardVo.idno}">
+									#else
 									<input id="idno" class="ipt-idno" maxlength="18" name="idno" type="text" value="${BankCardVo.idno}">
+									#end
 								</label>
 							</td>
 							<td id="errMsg_idno" style="display:
@@ -169,7 +181,8 @@
 							<td>手机</td>
 							<td>
 								<label class="inputText">
-									<input class="ipt-mobile" maxlength="11" name="mobile" type="text" value="${BankCardVo.mobile}">
+									<input class="ipt-mobile" maxlength="11" name="mobile" type="text" value="${BankCardVo.mobile}"
+										style="background-color:#ddd" readonly>
 								</label>
 							</td>
 							<td id="errMsg_mobile" style="display:
