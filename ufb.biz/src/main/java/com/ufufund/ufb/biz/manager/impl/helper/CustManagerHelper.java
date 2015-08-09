@@ -37,14 +37,23 @@ public class CustManagerHelper {
 	public Custinfo toOpenAccountOrgAction(OpenAccountAction openAccountAction){
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(openAccountAction.getCustno());
-		if(openAccountAction.isOpenaccoflag()){
-			
+		if(!openAccountAction.isOpenaccoflag()){
+			custinfo.setInvnm(openAccountAction.getInvnm());
+			custinfo.setIdno(openAccountAction.getIdno());
+			custinfo.setTradepwd(EncryptUtil.md5(openAccountAction.getTradepwd()));
+			custinfo.setInvtp(Invtp.ORGANIZATION.getValue());
+			custinfo.setIdtp(openAccountAction.getBankidtp());
 		}
-		custinfo.setInvnm(openAccountAction.getInvnm());
-		custinfo.setIdno(openAccountAction.getIdno());
-		custinfo.setTradepwd(EncryptUtil.md5(openAccountAction.getTradepwd()));
-		custinfo.setInvtp(Invtp.ORGANIZATION.getValue());
-		custinfo.setIdtp(openAccountAction.getBankidtp());
+		
+		custinfo.setTelno(openAccountAction.getTelno());
+		custinfo.setEmailadd(openAccountAction.getEmailadd());
+		custinfo.setOrgprovinceno(openAccountAction.getOrgprovinceno());
+		custinfo.setOrgcityno(openAccountAction.getOrgcityno());
+		custinfo.setOrgadd(openAccountAction.getOrgadd());
+		custinfo.setRerpidtp(openAccountAction.getRerpidtp());
+		custinfo.setRerpidno(openAccountAction.getRerpidno());
+		custinfo.setRerpnm(openAccountAction.getRerpnm());
+		
 		return custinfo;
 	}
 }

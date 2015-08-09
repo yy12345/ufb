@@ -181,7 +181,8 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		custinfo.setCustno(openAccountAction.getCustno());
 		custinfo.setInvtp(Invtp.ORGANIZATION.getValue());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
-		if(custinfo.getTradepwd() == null){
+		
+		//if(custinfo.getTradepwd() == null){
 		    custinfo = custManagerHelper.toOpenAccountOrgAction(openAccountAction);
 			custinfoMapper.updateCustinfo(custinfo);
 			Changerecordinfo changerecordinfo2 = new Changerecordinfo();
@@ -192,7 +193,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 			changerecordinfo2.setRefserialno(openAccountAction.getSerialno());
 			// **** 变更表
 			tradeNotesMapper.insterChangerecordinfo(changerecordinfo2);	
-		}
+		//}
 		
 		// 检查此银行卡是否已有记录
 		Bankcardinfo bankcardinfodef = null;

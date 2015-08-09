@@ -212,6 +212,27 @@
 			<if test="tradepwd != null">
 	       	  ,T1.TRADEPWD = #{tradepwd,jdbcType=VARCHAR}
 	       	</if>
+	       	<if test="orgprovinceno != null">
+	       	  ,T1.ORGPROVINCENO = #{orgprovinceno,jdbcType=VARCHAR}
+	       	</if>
+	       	<if test="orgcityno != null">
+	       	  ,T1.ORGCITYNO = #{orgcityno,jdbcType=VARCHAR}
+	       	</if>
+	       	<if test="orgadd != null">
+	       	  ,T1.ORGADD = #{orgadd,jdbcType=VARCHAR}
+	       	</if>
+	       	<if test="rerpidtp != null">
+	       	  ,T1.RERPIDTP = #{rerpidtp,jdbcType=VARCHAR}
+	       	</if>
+	       	<if test="rerpidno != null">
+	       	  ,T1.RERPIDNO = #{rerpidno,jdbcType=VARCHAR}
+	       	</if>
+	       	<if test="rerpnm != null">
+	       	  ,T1.RERPNM = #{rerpnm,jdbcType=VARCHAR}
+	       	</if>
+	       	<if test="telno != null">
+	       	  ,T1.TELNO = #{telno,jdbcType=VARCHAR}
+	       	</if>
 	     WHERE T1.custno = #{custno,jdbcType=VARCHAR}
 	</update>
    

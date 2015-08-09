@@ -58,8 +58,8 @@ public class BankCardController {
 			bankCardVo.setOrgbusiness(s_custinfo.getOrgbusiness()); 
 			
 			// for test
-			bankCardVo.setOrgprovinceno("001");
-			bankCardVo.setOrgcityno("001");
+			bankCardVo.setOrgprovinceno("上海市");
+			bankCardVo.setOrgcityno("上海市");
 			bankCardVo.setOrgadd("测试幼儿园1地址");
 			bankCardVo.setInvnm("测试账号1");
 			bankCardVo.setIdno("11010119880808837X");
@@ -248,6 +248,7 @@ public class BankCardController {
 			openAccountAction.setMobile(bankCardVo.getMobile());
 			openAccountAction.setTelno(bankCardVo.getTelno());
 			openAccountAction.setEmailadd(bankCardVo.getEmailadd());
+			openAccountAction.setRerpidtp("1");
 			openAccountAction.setRerpidno(bankCardVo.getRerpidno());
 			openAccountAction.setRerpnm(bankCardVo.getRerpnm());
 			

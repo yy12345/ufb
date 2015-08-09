@@ -99,21 +99,88 @@
 							</td>
 						</tr>
 						<tr class="reg-tr">
-							<td>实际办学/经营地址</td>
+							<td>办学地址</td>
 							<td>
-								<select name="orgprovinceno" class="select" value="${BankCardVo.orgprovinceno}">
-                                    <option>省份</option>
-                                    <option>浙江省</option>
-                                    <option>福建省</option>
-                                    <option>安徽省</option>
-                                </select>
+								<div class="selectmenu" style="z-index: 1000; width: 222px; margin-right: 0px;">					
+									<select id="orgprovinceno" class="select" name="orgprovinceno" value="${BankCardVo.orgprovinceno}">
+                                        <option>省份</option>
+                                        <option>浙江省</option>
+                                        <option>福建省</option>
+                                        <option>安徽省</option>
+                                    </select>					
+								<div class="title">						
+									<div class="text">省份</div>						
+									<div class="ico"></div>					
+								</div>					
+								<ul class="list" style="display: none; top: 36px;">
+									<li>省份</li>
+									<li>浙江省</li>
+									<li>福建省</li>
+									<li>安徽省</li>
+								</ul>				
+								</div>
 							</td>
+							<td id="errMsg_orgprovinceno" style="display:
+								#if(${errMsg_orgprovinceno}) true #else none #end">
+								<div class="tips-check 
+									#if(${errMsg_orgprovinceno}) formErr #end">错误提示：${errMsg_orgprovinceno}</div>
+							</td>
+							<td id="tipMsg_orgprovinceno" style="display:
+								#if(${errMsg_orgprovinceno}) none #else true #end">
+							</td>
+							<!--
 							<td>
+								<div class="selectmenu" style="z-index: 999; width: 222px; margin-right: 0px;">					
+									<select id="orgcityno" class="select" name="orgcityno" value="${BankCardVo.orgcityno}">
+                                        <option>城市</option>
+                                        <option>北京市</option>
+                                        <option>上海市</option>
+									</select>					
+									<div class="title">						
+										<div class="text">城市</div>						
+										<div class="ico"></div>					
+									</div>					
+									<ul class="list" style="display: none;">
+										<li>城市</li>
+										<li>北京市</li>
+										<li>上海市</li>
+									</ul>				
+								</div>
 								<select name="orgcityno" class="select" value="${BankCardVo.orgcityno}">
                                     <option>城市</option>
                                     <option>北京市</option>
                                     <option>上海市</option>
                                 </select>
+							</td>
+							-->
+						</tr>
+						<tr class="reg-tr">
+							<td></td>
+							<td>
+								<div class="selectmenu" style="z-index: 999; width: 222px; margin-right: 0px;">					
+									<select id="orgcityno" class="select" name="orgcityno" value="${BankCardVo.orgcityno}">
+                                        <option>城市</option>
+                                        <option>北京市</option>
+                                        <option>上海市</option>
+									</select>					
+									<div class="title">						
+										<div class="text">城市</div>						
+										<div class="ico"></div>					
+									</div>					
+									<ul class="list" style="display: none;">
+										<li>城市</li>
+										<li>北京市</li>
+										<li>上海市</li>
+									</ul>				
+								</div>
+							</td>
+							<td id="errMsg_orgcityno" style="display:
+								#if(${errMsg_orgcityno}) true #else none #end">
+								<div class="tips-check 
+									#if(${errMsg_orgcityno}) formErr #end">错误提示：${errMsg_orgcityno}</div>
+							</td>
+							<td id="tipMsg_orgcityno" style="display:
+								#if(${errMsg_orgcityno}) none #else true #end">
 							</td>
 						</tr>
 						<tr class="reg-tr">
@@ -272,7 +339,7 @@
     $(function(){
 	
     	//$('.checkbox').checkbox();
-    	//$('.select').selectMenu();
+    	$('.select').selectMenu();
     	//$('#card1').cardFormat('####,####,####,####,###');//营业执照
     	//$('#card2,#card3').cardFormat('###,###,####,####,####');//身份证
 	
@@ -291,6 +358,9 @@
 				alert("您还未阅读并同意《幼富通用户注册协议》噢！");
 				return false;
 			}
+			//if(!check_orgprovinceno($("#orgprovinceno"))){
+        	//	return false;
+        	//}
         	if(!check_organization($(".ipt-orgnm"))){
         		return false;
         	}
