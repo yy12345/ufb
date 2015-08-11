@@ -3,7 +3,8 @@
 	$.fn.selectMenu = function(options) {
 		var defaults = {
 			refresh: false,
-			change: $.noop
+			change: $.noop,
+			blur:$.noop
 		};
 		var sets = $.extend(defaults, options || {});
 		$(this).each(function(i,d){
@@ -14,7 +15,7 @@
 			});
 			if(!sets.refresh && !$(this).next().hasClass("title")){
 				$(this).wrap('\
-					<div class="selectmenu">\
+					<div class="selectmenu" tabindex="0">\
 					</div>\
 				');
 				$(this).after('\
@@ -39,6 +40,9 @@
 				that.find(".ico").removeClass("active");
 				that.find(".list").hide();
 			});
+			that.unbind("blur").on("blur",function(){
+				sets.blur($(this).find('select'));
+			})
 			that.unbind("click").on("click",function(event){
 				event.stopPropagation();
 				thatAll.find(".list").hide();		
@@ -59,9 +63,6 @@
 				}else{
 					that.find(".list").css({top:that.height()});
 				}
-			});
-			that.find(".list").unbind("mousewheel").mousewheel(function(event, delta) {
-				event.stopPropagation();
 			});
 			$(document).unbind("click").on("click",function(){
 				thatAll.find(".ico").removeClass("active");
