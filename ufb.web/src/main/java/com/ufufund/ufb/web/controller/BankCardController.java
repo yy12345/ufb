@@ -392,8 +392,8 @@ public class BankCardController {
 				bankCardVo.setBankacnm(s_custinfo.getInvnm());
 				bankCardVo.setBankidtp(s_custinfo.getIdtp());
 				bankCardVo.setBankidno(s_custinfo.getIdno());
-				bankCardVo.setTradepwd(s_custinfo.getTradepwd());
-				bankCardVo.setTradepwd2(s_custinfo.getTradepwd2());
+				//bankCardVo.setTradepwd(s_custinfo.getTradepwd());
+				//bankCardVo.setTradepwd2(s_custinfo.getTradepwd2());
 			}else{
 				// 新开户
 				bankCardVo.setOpenaccoflag(false);

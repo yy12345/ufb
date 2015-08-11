@@ -355,11 +355,22 @@ var check_orgprovinceno = function (ipt) {//省份
 	if (isNull(value)) {
 		return showTips(ipt, "请选择省份");
 	}
-	if (value="省份") {
+	if (value=="省份") {
 		return showTips(ipt, "请选择省份");
 	}
 	return showTips(ipt, 0)
 }
+var check_orgcityno = function (ipt) {//省份
+	var value = ipt.val();
+	if (isNull(value)) {
+		return showTips(ipt, "请选择城市");
+	}
+	if (value=="城市") {
+		return showTips(ipt, "请选择城市");
+	}
+	return showTips(ipt, 0)
+}
+
 var check_bankacnm = function (ipt) {//银行户名
 	var value = ipt.val();
 	if (isNull(value)) {
@@ -500,7 +511,4 @@ $("body").on("blur", ".ipt-tradepwd2",  function() {
 $("body").on("blur", "#orgprovinceno",  function() {
     check_orgprovinceno($(this));
 });
-
-
-
 
