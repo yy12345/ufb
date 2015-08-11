@@ -11,4 +11,11 @@
   	<select id="getSerialNO" resultType="java.lang.String">
 		select getSequence('FDACFINALRESULT_SEQ')
    	</select>
+   	
+   	
+    <select id="getGradeid" resultType="java.lang.String">
+		select getSequence('71_SEQ')
+   	</select>
+   	
+   	
 </mapper>

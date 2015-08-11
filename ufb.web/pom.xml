@@ -152,6 +152,11 @@
 					<target>1.6</target>
 					<encoding>UTF-8</encoding>
 					<compilerArgument>-XDignore.symbol.file</compilerArgument>
+					  <compilerArguments>
+                             <verbose />
+                              <bootclasspath>${java.home}/lib/rt.jar</bootclasspath>
+                        </compilerArguments>  
+                      
 				</configuration>
 			</plugin>
 		</plugins>

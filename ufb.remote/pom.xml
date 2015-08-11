@@ -59,6 +59,10 @@
 					<encoding>UTF-8</encoding>
 					<!-- <compilerArgument>-proc:only</compilerArgument> -->
 					<compilerArgument>-XDignore.symbol.file</compilerArgument>
+					  <compilerArguments>
+                             <verbose />
+                              <bootclasspath>${java.home}/lib/rt.jar</bootclasspath>
+                        </compilerArguments>  
 				</configuration>
 			</plugin>
 		</plugins>

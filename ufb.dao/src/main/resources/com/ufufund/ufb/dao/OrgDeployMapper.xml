@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.OrgDeployMapper">
+    
+
+  	<update id="mergeOrgGradeInfo" parameterType="com.ufufund.ufb.model.db.Orggrade">
+		 INSERT INTO org_grade  (
+			  org_id,
+			  grade_id,
+			  grade_name,
+			  start_date,
+			  end_date,
+			  
+			  isopen,
+			  term1_id,
+			  t1_start_date,
+			  t1_end_date,
+			  t1_isopen,
+			  
+			  term2_id,
+			  t2_start_date,
+			  t2_end_date,
+			  t2_isopen,
+			  create_no,
+			  
+			  create_time,
+			) 
+			VALUES
+			(
+			#{orgid,jdbcType=VARCHAR},
+			#{gradeid,jdbcType=VARCHAR},
+			#{gradename,jdbcType=VARCHAR},
+			#{startdate,jdbcType=VARCHAR},
+			#{enddate,jdbcType=VARCHAR},
+			
+			#{isopen,jdbcType=VARCHAR},
+			#{term1id,jdbcType=VARCHAR},
+			#{t1startdate,jdbcType=VARCHAR},
+			#{t1enddate,jdbcType=VARCHAR},
+			#{t1isopen,jdbcType=VARCHAR},
+			
+			#{term2id,jdbcType=VARCHAR},
+			#{t2startdate,jdbcType=VARCHAR},
+			#{t2enddate,jdbcType=VARCHAR},
+			#{t2isopen,jdbcType=VARCHAR},
+			#{createno,jdbcType=VARCHAR},
+			sysdate()
+			) ON DUPLICATE KEY UPDATE 
+			update_no = #{update_no,jdbcType=VARCHAR},
+			update_time = sysdate()
+			<if test="gradename != null and gradename !=''" >
+			,grade_name = #{gradename,jdbcType=VARCHAR} 
+			</if>
+			<if test="startdate != null and startdate !=''" >
+			,start_date = #{startdate,jdbcType=VARCHAR} 
+			</if>
+			<if test="enddate != null and enddate !=''" >
+			,end_date = #{enddate,jdbcType=VARCHAR} 
+			</if>
+			
+			<if test="isopen != null and isopen !=''" >
+			,isopen = #{isopen,jdbcType=VARCHAR} 
+			</if>
+			<if test="term1id != null and term1id !=''" >
+			,term1_id = #{term1id,jdbcType=VARCHAR} 
+			</if>
+			<if test="t1startdate != null and t1startdate !=''" >
+			,t1_start_date = #{t1startdate,jdbcType=VARCHAR} 
+			</if>
+			<if test="t1enddate != null and t1enddate !=''" >
+			,t1_end_date = #{t1enddate,jdbcType=VARCHAR} 
+			</if>
+			<if test="t1isopen != null and t1isopen !=''" >
+			,t1_isopen = #{t1isopen,jdbcType=VARCHAR} 
+			</if>
+			
+			<if test="term2id != null and term2id !=''" >
+			,term2_id = #{term2id,jdbcType=VARCHAR} 
+			</if>
+			<if test="t2startdate != null and t2startdate !=''" >
+			,t2_start_date = #{t2startdate,jdbcType=VARCHAR} 
+			</if>
+			<if test="t2enddate != null and t2enddate !=''" >
+			,t2_end_date = #{t2enddate,jdbcType=VARCHAR} 
+			</if>
+			<if test="t2isopen != null and t2isopen !=''" >
+			,t2_isopen = #{t2isopen,jdbcType=VARCHAR} 
+			</if>		
+	</update>
+   
+  
+
+   <select id="getOrgGradeInfo" parameterType="com.ufufund.ufb.model.db.Orggrade" resultType="com.ufufund.ufb.model.db.Orggrade">
+		SELECT
+			  a.org_id,
+		      a.grade_id,
+		      a.grade_name,
+		      a.start_date,
+		      a.end_date,
+		      a.isopen,
+		      a.term1_id,
+		      a.t1_start_date,
+		      a.t1_end_date,
+		      a.t1_isopen,
+		      a.term2_id,
+		      a.t2_start_date,
+		      a.t2_end_date,
+		      a.t2_isopen
+		FROM  org_grade a
+		WHERE a.org_id #{orgid,jdbcType=VARCHAR} 
+		<if test="isopen != null and isopen !=''" >
+		AND a.isopen = #{isopen,jdbcType=VARCHAR} 
+		</if>
+  	</select>
+  	
+  	<select id="getOrgchargeinfo" parameterType="com.ufufund.ufb.model.db.Orgchargeinfo" resultType="com.ufufund.ufb.model.db.Orgchargeinfo">
+		SELECT
+		a.org_id,
+		a.charge_id,
+		a.charge_type,
+		a.charge_name,
+		a.charge_amount,
+		a.cycle,
+		a.cycle_type,
+		a.is_delete,
+		a.create_no,
+		a.update_no
+		FROM org_charge_info a
+		WHERE 
+		WHERE a.org_id #{orgid,jdbcType=VARCHAR} 
+		AND a.is_delete &lt;&gt; 'C'
+		<if test="chargeid != null and chargeid !=''" >
+		AND a.charge_id = #{chargeid,jdbcType=VARCHAR} AND
+		</if>
+	    ORDER BY a.charge_id DESC
+  	</select>
+   
+   
+     <insert id="createOrgchargeinfo" parameterType="com.ufufund.ufb.model.db.Orgchargeinfo">
+  	 <![CDATA[
+	 		INSERT INTO org_charge_info (
+				org_id,
+				charge_type,
+				charge_name,
+				charge_amount,
+				cycle,
+				
+				cycle_type,
+				is_delete,
+				create_no,
+				create_time
+			  )
+		VALUES (
+			#{orgid,jdbcType=VARCHAR},
+			#{chargetype,jdbcType=VARCHAR},
+			#{chargename,jdbcType=VARCHAR},
+			#{chargeamount,jdbcType=VARCHAR},
+			#{cycle,jdbcType=VARCHAR},
+			
+			#{cycletype,jdbcType=VARCHAR},
+			#{isdelete,jdbcType=VARCHAR},
+			#{createno,jdbcType=VARCHAR},
+			sysdate()
+			)
+	 ]]>
+  	</insert>
+  	
+  	<update id="updateOrgchargeinfo" parameterType="com.ufufund.ufb.model.db.Orgchargeinfo">
+		UPDATE org_charge_info a
+	       SET a.update_time = sysdate()
+	       	   a.update_no = #{updateno,jdbcType=VARCHAR}	
+	       	
+	       	<if test="chargetype != null">
+	       	  ,a.charge_type = #{chargetype,jdbcType=VARCHAR}
+	       	</if>
+			<if test="chargename != null">
+	       	  ,a.charge_name = #{chargename,jdbcType=VARCHAR}
+	       	</if>
+	        <if test="chargeamount != null">
+	       	  ,a.charge_amount = #{chargeamount,jdbcType=VARCHAR}
+	       	</if>
+			<if test="cycle != null">
+	       	  ,a.cycle = #{cycle,jdbcType=VARCHAR}
+	       	</if>
+	       	
+	        <if test="cycletype != null">
+	       	  ,a.cycle_type = #{cycletype,jdbcType=VARCHAR}
+	       	</if>
+			<if test="isdelete != null">
+	       	  ,a.is_delete = #{isdelete,jdbcType=VARCHAR}
+	       	</if>   	
+	     WHERE a.org_id = #{orgid,jdbcType=VARCHAR}
+	     AND  a.charge_id = #{chargeid,jdbcType=VARCHAR}
+	</update>
+  	
+</mapper>
+
