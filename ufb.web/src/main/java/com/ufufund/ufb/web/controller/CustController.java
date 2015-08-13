@@ -467,6 +467,94 @@ public class CustController {
 		return "cust/indexPage";
 	}
 	
+	
+	/**
+	 * 幼富宝
+	 * @param custinfoVo
+	 * @param model
+	 * @return
+	 * @throws IOException 
+	 * 20150813
+	 */
+	@RequestMapping(value = "cust/custUfb")
+	public String custUFB(CustinfoVo custinfoVo, Model model) throws IOException {
+		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			if(null != s_custinfo){
+				
+				/** 货基信息显示 **/
+				// 海富通
+				FundInfo hftFundInfo = new FundInfo();
+				hftFundInfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+				hftFundInfo.setFundcode(BasicFundinfo.YFB.getFundCode());
+			//	model.addAttribute("FUNDINFOVO", this.getFundInfo(hftFundInfo));
+				model.addAttribute("hftFundInfo", this.getFundInfo(hftFundInfo));
+				// 银联
+				FundInfo cpFundInfo = new FundInfo();
+				cpFundInfo.setFundcorpno(null);
+				cpFundInfo.setFundcode(null);
+				model.addAttribute("cpFundInfo", null);
+				
+				/** NAV **/
+				// 海富通
+				FundNav hftFundNav = new FundNav();
+				hftFundNav.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+				hftFundNav.setFundcode(BasicFundinfo.YFB.getFundCode());
+				List<FundNav> hftNavList = queryManager.qryFundNavList(hftFundNav);
+				//model.addAttribute("navList", hftNavList);
+				model.addAttribute("hftNavList", hftNavList);
+				if(null != hftNavList && hftNavList.size() >0){
+					FundNav curHtfFundNav = hftNavList.get(0);
+					//model.addAttribute("NAV", curFundNav);
+					model.addAttribute("curHtfFundNav", curHtfFundNav);
+				}
+				// 银联
+				FundNav cpFundNav = new FundNav();
+				hftFundNav.setFundcorpno(null);
+				hftFundNav.setFundcode(null);
+				List<FundNav> cpNavList = queryManager.qryFundNavList(cpFundNav);
+				model.addAttribute("cpNavList", cpNavList);
+				if(null != cpNavList && cpNavList.size() >0){
+					FundNav curCpFundNav = cpNavList.get(0);
+					model.addAttribute("curCpFundNav", curCpFundNav);
+				}
+
+				/** 资产 **/
+				this.setModel(s_custinfo, model);
+				/**资产明细**/
+				List<String> apkinds = new ArrayList<String>();
+				apkinds.add("000");
+				apkinds.add("022");
+				apkinds.add("023");
+				apkinds.add("024");
+				List<String> states = new ArrayList<String>();
+				states.add("Y"); // 
+				states.add("F"); // 
+				states.add("I");
+				List<TradeRequest> Tradelist = queryManager.qryTradeList(
+						s_custinfo.getCustno(), 
+						apkinds,
+						states,
+						null, 
+						null,
+						0, 
+						10
+						);
+				model.addAttribute("Tradelist", Tradelist);
+			}else{
+				 
+				ServletHolder.getResponse().sendRedirect("/ufb/home/index.htm");
+				return null;
+			}
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("CustinfoVo", custinfoVo);
+			return "home/indexPage";
+		}
+		return "cust/custUfb";
+	}
+	
+	
 	private CustinfoVo convertCustInfo2Vo(Custinfo custinfo){
 		if(null == custinfo){
 			return null;

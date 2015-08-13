@@ -66,4 +66,43 @@ public interface BisConst {
 		public static final String AUTOVOL = "用户编号";
 		public static final String STATE = "用户编号";
 	}
+	
+	
+	public static interface Orggrade{
+		
+		public static final String ORGID = "机构ID";
+		public static final String GRADE_NAME = "学年名";
+		public static final String START_DATE = "开始日期";
+		public static final String END_DATE = "结束日期";
+		public static final String TERM_ID = "学期号码";
+
+		  
+		
+		public static final String CHARGE_TYPE = "计费类型";
+		public static final String CHARGE_NAME = "计费名称";
+		public static final String CHARGE_AMOUNT = "默认金额";
+		public static final String CYCLE = "计费周期";
+		public static final String CREATE_NO = "操作者";
+		public static final String CHARGE_ID = "费用主键";
+		
+//		public static final String CUSTNO = "用户编号";
+//		public static final String APKIND = "用户编号";
+//		public static final String TYPE = "用户编号";
+//		public static final String CYCLE = "用户编号";
+//		public static final String DAT = "用户编号";
+//		public static final String FROMBANKSERIALID = "用户编号";
+//		public static final String TOFUNDCODE = "用户编号";
+//		public static final String TOFUNDCORPNO = "用户编号";
+//		public static final String TOCHARGETYPE = "用户编号";
+//		
+//		public static final String TOBANKSERIALID = "用户编号";
+//		public static final String FROMFUNDCODE = "用户编号";
+//		public static final String FROMFUNDCORPNO = "用户编号";
+//		public static final String FROMCHARGETYPE = "用户编号";
+//		
+//		public static final String AUTOAMT = "用户编号";
+//		public static final String AUTOVOL = "用户编号";
+//		public static final String STATE = "用户编号";
+//	
+		}
 }

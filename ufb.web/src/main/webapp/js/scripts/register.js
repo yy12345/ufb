@@ -28,7 +28,7 @@ function rtrim(a) {
 }
 
 function isNull(a) {
-    return a == null || a == undefined || $.trim(a).length == 0
+    //return a == null || a == undefined || $.trim(a).length == 0
 }
 
 function isNotNull(a) {
@@ -36,12 +36,12 @@ function isNotNull(a) {
 }
 /* error mod */
 var showErrorInfo = function (wrap, errText) {
-    wrap.find(".tips-check").html("<i class='icon'></i>" + errText);
+    wrap.find(".tips-check").html("<i class='icon'></i>" + errText).addClass("formErr").show();
     wrap.removeClass("ok");
     wrap.addClass("error");
 }
 var showOkInfo = function (wrap) {
-    wrap.find(".tips-check").html("<i class='icon'></i>");
+    wrap.find(".tips-check").html("<i class='icon'></i>&nbsp;");
     wrap.removeClass("error");
     wrap.addClass("ok");
 }
@@ -125,6 +125,7 @@ var check_autoDat = function (ipt) {//充值时间
 
 
 var check_id_back = function (ipt) {//验证身份证号
+alert(1);
     var value = ipt.val();
     if (isNull(value)) {
         return showTips(ipt, "身份证不能为空");
@@ -139,6 +140,14 @@ var check_id_back = function (ipt) {//验证身份证号
 
 
 var check_id = function (ipt) {
+	// TODO
+	
+	
+	//test
+	
+	
+	return showTips(ipt, 0);  
+	
 	var value = ipt.val();
 	if(value == "") {  
 		return showTips(ipt, "输入身份证号码不能为空!");
@@ -200,7 +209,7 @@ var check_id = function (ipt) {
         if(nowYear - parseInt(birth)<15 || nowYear - parseInt(birth)>100) {
         	return showTips(ipt, "输入身份证号码不格式正确!");
         }  
-        return (true);  
+        return showTips(ipt, 0);
     }  
        
     var Wi = new Array(7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2,1);  

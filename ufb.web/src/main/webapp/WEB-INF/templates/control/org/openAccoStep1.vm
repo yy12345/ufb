@@ -347,24 +347,67 @@
             $(".u2 .v2").hide();
         });
 		
+		var check_orgprovinceno2 = function (data) {//省份
+        	if (isNull(data)) {
+        		return showTips($("#orgprovinceno"), "请选择省份");
+        	}
+        	if (data=="省份") {
+        		return showTips($("#orgprovinceno"), "请选择省份");
+        	}
+        	return showTips($("#orgprovinceno"), 0)
+        }
+		
+		var check_orgcityno2 = function (data) {//省份
+        	if (isNull(data)) {
+        		return showTips($("#orgcityno"), "请选择城市");
+        	}
+        	if (data=="城市") {
+        		return showTips($("#orgcityno"), "请选择城市");
+        	}
+        	return showTips($("#orgcityno"), 0)
+        }
+		
+		//调用方法:
+        $("#orgprovinceno").selectMenu({change:function(data){
+				if(!check_orgprovinceno2(data)){
+            		return false;
+            	}
+        	}
+			//,blur:function(obj){
+        	//}
+		});
+        $("#orgcityno").selectMenu({change:function(data){
+				if(!check_orgcityno2(data)){
+            		return false;
+            	}
+        	}
+			//,blur:function(obj){
+        	//}
+		});
+		
 		$(".btnA").on("click",function(){
         	var errLen = $(".formErr").length;
         	if(errLen>0){
         		$(".formErr:eq(0)").focus();
         		return false;
         	}
+			
 			if($("#checkbox2").attr("checked") == "checked"){
 			}else{
 				alert("您还未阅读并同意《幼富通用户注册协议》噢！");
 				return false;
 			}
-			//if(!check_orgprovinceno($("#orgprovinceno"))){
-        	//	return false;
-        	//}
+			
         	if(!check_organization($(".ipt-orgnm"))){
         		return false;
         	}
         	if(!check_business($(".ipt-orgbusiness"))){
+        		return false;
+        	}
+			if(!check_orgprovinceno($("#orgprovinceno"))){
+        		return false;
+        	}
+			if(!check_orgcityno($("#orgcityno"))){
         		return false;
         	}
         	if(!check_bankAcnm($(".ipt-invnm"))){
@@ -382,6 +425,7 @@
         	if(!check_id($(".ipt-rerpidno"))){
         		return false;
         	}
+			
         	$("#form").attr("action", "../org/openAccoStep2.htm");
         	$("#form").submit();
         });

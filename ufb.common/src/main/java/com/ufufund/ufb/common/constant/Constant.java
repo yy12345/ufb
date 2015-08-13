@@ -46,7 +46,14 @@ public interface Constant {
 		// public final static String DICTIONARY$HFTAPKIND = "HFTAPKIND";
 	}
 
-	
+	public static interface Orggrade {
+
+		public final static String ISOPEN$N = "N";
+		public final static String ISOPEN$Y= "Y";
+		public final static String ISOPEN$C = "C";
+		
+		public final static String ISDELETE$Y= "Y";
+	}
 	/*
 	 * 客户
 	 */

@@ -28,7 +28,9 @@ public class CustManagerHelper {
 		custinfo.setCustno(openAccountAction.getCustno());
 		custinfo.setInvnm(openAccountAction.getInvnm());
 		custinfo.setIdno(openAccountAction.getIdno());
-		custinfo.setTradepwd(EncryptUtil.md5(openAccountAction.getTradepwd()));
+		if(!openAccountAction.isOpenaccoflag()){
+			custinfo.setTradepwd(EncryptUtil.md5(openAccountAction.getTradepwd()));
+		}
 		custinfo.setInvtp(Invtp.PERSONAL.getValue());
 		custinfo.setIdtp(openAccountAction.getBankidtp());
 		return custinfo;

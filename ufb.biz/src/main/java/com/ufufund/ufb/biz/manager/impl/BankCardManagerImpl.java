@@ -129,7 +129,8 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @return
 	 */
 	public OpenAccountAction openAccoStep2(OpenAccountAction openAccountAction) throws BizException {
-		String processId = this.getProcessId(openAccountAction);
+		//String processId = 
+				this.getProcessId(openAccountAction);
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
 		bankCardManagerValidator.validator(openAccountAction, "OrgBase");
 		// 用户注册、冻结、已开户验证

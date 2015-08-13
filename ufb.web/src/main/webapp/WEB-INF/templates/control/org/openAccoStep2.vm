@@ -56,7 +56,7 @@
 	<form id="form" enctype="multipart/form-data" class="common-form"  method="post" action="${staticDomain}/org/openAccoStep2.htm">
 	<input id="orgnm" name="orgnm" type="hidden" value="$!{BankCardVo.orgnm}"/>
 	<input id="orgbusiness" name="orgbusiness" type="hidden" value="$!{BankCardVo.orgbusiness}"/>
-	<input id="orgprovinceno" name="orgprovinceno" type="hidden" value="$!{BankCardVo.orgprovinceno}"/>
+	<input id="orgprovinceno" name="orgprovinceno" type="text" value="$!{BankCardVo.orgprovinceno}" style="color:#000">
 	<input id="orgcityno" name="orgcityno" type="hidden" value="$!{BankCardVo.orgcityno}"/>
 	<input id="orgadd" name="orgadd" type="hidden" value="$!{BankCardVo.orgadd}"/>
 	<input id="invnm" name="invnm" type="hidden" value="$!{BankCardVo.invnm}"/>
@@ -196,7 +196,7 @@
 		                <p>&emsp;信息审核成功后，名称不可修改。</p>
 		            </div>
 		        </div>
-                 <div class="x2"><a href="#" class="">上一步</a><a href="#" class="btnA">下一步</a></div>
+                 <div class="x2"><a href="#" id="pre" class="btnA">上一步</a><a id="next" href="#" class="btnA">下一步</a></div>
 		    </div>
         </div>	
     </div>
@@ -213,7 +213,7 @@ $(function(){
             $(".u2 .v2").hide();
         });
 		
-		$(".btnA").on("click",function(){
+		$("#next").on("click",function(){
 			var check = true;
 			$("img").each(function(){
 				if($(this).attr("load") == 0){
@@ -226,6 +226,10 @@ $(function(){
 	    		$("#form").attr("action", "../org/openAccoStep3.htm");
     			$("#form").submit();
 			}
+    	});
+		$("#pre").on("click",function(){
+	    	$("#form").attr("action", "../org/openAccoStep1.htm");
+    		$("#form").submit();
     	});
 		
 		

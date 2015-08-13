@@ -6,15 +6,16 @@
 		<artifactId>ufb.parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>ufb-remote</artifactId>
 	<groupId>com.ufufund.ufb</groupId>
 	<packaging>jar</packaging>
 	<name>${project.artifactId}</name>
 	<description>幼富宝 remote module</description>
 	<version>${ufb.version}</version>
-	
+
 	<dependencies>
+	
 		<dependency>
 			<artifactId>ufb-common</artifactId>
 			<groupId>com.ufufund.ufb</groupId>
@@ -24,7 +25,7 @@
 			<artifactId>ufb-model</artifactId>
 			<groupId>com.ufufund.ufb</groupId>
 			<version>${ufb.version}</version>
-		</dependency> 
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
@@ -47,8 +48,27 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>fakepath</groupId>
+			<artifactId>gnete-bc</artifactId>
+			<version>139</version>
+		</dependency>
+		<dependency>
+			<groupId>com.gnete.cps.security</groupId>
+			<artifactId>gente-pinblock</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.gnete.security</groupId>
+			<artifactId>gnete-security</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle.bcprovider</groupId>
+			<artifactId>bcprovider</artifactId>
+			<version>1.45.0</version>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -59,6 +79,10 @@
 					<encoding>UTF-8</encoding>
 					<!-- <compilerArgument>-proc:only</compilerArgument> -->
 					<compilerArgument>-XDignore.symbol.file</compilerArgument>
+					  <compilerArguments>
+                             <verbose />
+                              <bootclasspath>${java.home}/lib/rt.jar</bootclasspath>
+                        </compilerArguments>  
 				</configuration>
 			</plugin>
 		</plugins>
