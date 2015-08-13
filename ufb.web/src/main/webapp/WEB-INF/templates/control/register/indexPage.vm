@@ -87,6 +87,7 @@ $(function(){
 	});
 
 	// 经办人手机短信
+	var countDown;
 	$("#register-org #btn-getMsgCode").on("click",function(){
 		if(!check_mobile($("#register-org #mobileno"))){
 			return false;
