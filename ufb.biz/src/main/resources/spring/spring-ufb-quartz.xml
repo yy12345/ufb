@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<!-- Job类  -->
+	<!-- 在对应的bean上通过spring的Service注解定义 -->
+	
+	<!-- jobDetail类 -->
+	<bean id="testJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	    <!--false表示等上一个任务执行完后再开启新的任务
+	    <property name="group" value="job_work"/>
+	    <property name="name" value="job_work_name"/>
+	    <property name="concurrent" value="false"/> -->
+	    <property name="targetObject">
+	        <ref bean="testJob"/>
+	    </property>
+	    <property name="targetMethod">
+	        <value>run</value>
+	    </property>
+	</bean>
+	
+	<!--  调度触发器 -->
+	<bean id="testTrigger"
+	      class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	    <property name="jobDetail">
+	        <ref bean="testJobDetail" />
+	    </property>
+	    <property name="cronExpression">
+	        <value>0 */1 * * * ?</value>
+	    </property>
+	</bean>
+	
+	<!-- 调度工厂 -->
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	    <property name="triggers">
+	        <list>
+	        	<ref bean="testTrigger"/> 
+	        </list>
+	    </property>
+	</bean>
+	
+</beans>
