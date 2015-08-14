@@ -5,7 +5,7 @@
 <div class="container">
 #parse("control/common/header_0_trade.vm")
 $body
-#parse("control/common/footer_0.vm")
+#parse("control/common/footer_1.vm")
 </div>
 $!{script}
 </body>

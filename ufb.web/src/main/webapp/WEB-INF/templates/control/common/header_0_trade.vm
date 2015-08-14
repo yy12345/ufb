@@ -33,7 +33,7 @@
 		<div class="nav">
 			<a href="${staticDomain}/cust/session.htm">我的幼富通</a>
 			<a href="#" onclick="alert('建设中，敬请期待。。。')">学费通</a>
-			<a href="${staticDomain}/cust/session.htm" class="active">幼富宝</a>
+			<a href="${staticDomain}/ufb/indexPage.htm" class="active">幼富宝</a>
 			<a href="#" onclick="alert('建设中，敬请期待。。。')">幼富盈</a>
 			<a href="#" onclick="alert('建设中，敬请期待。。。')">幼富贷</a>
 		</div>
