@@ -476,7 +476,7 @@ public class CustController {
 	 * @throws IOException 
 	 * 20150813
 	 */
-	@RequestMapping(value = "cust/custUfb")
+	@RequestMapping(value = "ufb/indexPage")
 	public String custUFB(CustinfoVo custinfoVo, Model model) throws IOException {
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -531,15 +531,8 @@ public class CustController {
 				states.add("Y"); // 
 				states.add("F"); // 
 				states.add("I");
-				List<TradeRequest> Tradelist = queryManager.qryTradeList(
-						s_custinfo.getCustno(), 
-						apkinds,
-						states,
-						null, 
-						null,
-						0, 
-						10
-						);
+				List<TradeRequest> Tradelist = queryManager.qryTradeList(s_custinfo.getCustno(), 
+						apkinds,states,null, null,0, 10);
 				model.addAttribute("Tradelist", Tradelist);
 			}else{
 				 
@@ -551,7 +544,7 @@ public class CustController {
 			model.addAttribute("CustinfoVo", custinfoVo);
 			return "home/indexPage";
 		}
-		return "cust/custUfb";
+		return "ufb/indexPage";
 	}
 	
 	

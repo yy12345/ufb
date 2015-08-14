@@ -1,0 +1,360 @@
+<!doctype html>
+<html>
+<head>
+
+</head>
+<body>
+<div id="page">
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1">
+					#if(${S_CUSTINFO.invtp} == "0")
+					<a href="#" >机构版</a>
+					<a href="#" class="active">家庭版</a>
+					#end
+					#if(${S_CUSTINFO.invtp} == "1")
+					<a href="#" class="active">机构版</a>
+					<a href="#">家庭版</a>
+					#end
+				</div>
+				<div class="b2">
+				#if(${S_CUSTINFO})
+						<span>
+						#if (${S_CUSTINFO.invnm})
+                			${S_CUSTINFO.invnm}
+                        #elseif ($S_CUSTINFO.mobileno)
+                			#set($tailStr=$S_CUSTINFO.mobileno)
+                			#set($start=$tailStr.substring(0,3))
+                			#set($end=$tailStr.substring(7,11))
+                			$start****$end
+                		#else
+						#end
+						</span><a href="${staticDomain}/setting/settingAccount.htm"></a><i id="logout">退出</i>
+					#end
+					
+					#if(!${S_CUSTINFO})
+						<a href="javascript:;" class="c1" id="login">登录</a>丨<a href="${staticDomain}/register/index.htm">注册</a></div>
+					#end
+				</div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="${staticDomain}/home/index.htm" class="logo"></a>
+			<div class="nav">
+				<a href="${staticDomain}/cust/session.htm">我的幼富通</a>
+				<a href="#">学费通</a>
+				<a href="${staticDomain}/cust/custUfb.htm" class="active">幼富宝</a>
+				<a href="#">幼富盈</a>
+				<a href="#">幼富贷</a>
+			</div>
+        </div>
+    </div>
+    
+    <div id="body">
+        <div class="container">
+			<div class="a1">幼富宝</div>
+			<div class="a2">
+				<div class="b1">
+					#if(${S_CUSTINFO.invtp} == "1")
+					#if(${hft_organization_trade_size} != 0)
+					<div class="c1">
+						机构对公账户<div class="trip"><div>幼教机构在银行合法开立的对公账户<b></b></div></div>
+					</div>
+					<div class="c2">
+						<table>
+							<tr>
+								<th>资产总额（元）</th>
+								<th>昨日收益</th>
+								<th>累计收益（元）</th>
+							</tr>
+							<tr>
+								<td>${org_hftTotalBalanceDisplay}</td>
+								<td>${org_hftFunddayincome}</td>
+								<td>${org_hftTotalincome}</td>
+							</tr>
+						</table>
+					</div>
+					<div class="c3">
+						<div class="d1">
+							<a href="${staticDomain}/trade/orgPayIndex.htm" class="btnA mr20">充值</a>
+							<a href="${staticDomain}/trade/orgCashIndex.htm" class="btnB">取现</a>
+						</div>
+						<div class="d2"><a href="#">自动理财设置</a><div class="trip"><div>可设定固定期限或固定金额的申购或赎回<b></b></div></div></div>
+					</div>
+					#end	
+					#end
+				</div>
+				<div class="b2">
+					#if(${S_CUSTINFO.invtp} == "1")
+    					#if(${hft_operator_trade_size} != 0)
+					<div class="c1">
+							理财银行卡账号<div class="trip"><div>仅可绑定授权经办人的银行卡进行快捷理财<b></b></div></div>
+						<div class="d1">
+							银行卡已添加<span class="cBlue">${hft_operator_trade_size}</span>张
+							<a href="${staticDomain}/setting/settingCard.htm">查看全部</a>
+							<a href="${staticDomain}/bankcard/addBankCard1.htm">+新卡</a>
+						</div>
+					</div>
+					<div class="c2">
+						<table>
+							<tr>
+								<th>资产总额（元）</th>
+								<th>昨日收益</th>
+								<th>累计收益（元）</th>
+							</tr>
+							<tr>
+								<td>${hftTotalBalanceDisplay}</td>
+    							<td>${hftFunddayincome}</td>
+    							<td>${hftTotalincome}</td>
+							</tr>
+						</table>
+					</div>
+					<div class="c3">
+						<div class="d1">
+							<a href="${staticDomain}/trade/orgPayIndex.htm" class="btnA mr20">充值</a>
+							<a href="${staticDomain}/trade/orgCashIndex.htm" class="btnB">取现</a>
+						</div>
+						<div class="d2"><a href="#">自动理财设置</a><div class="trip"><div>可设定固定期限或固定金额的申购或赎回<b></b></div></div></div>
+					</div>
+						#else
+							<div style="height:200px;background-color:#fff;margin-top:10px">
+        						<div style="padding-top:100px;padding-left:180px">
+									<a id="btn-openAccount4opr" href="#" >开办经办人理财账户</a>
+        						</div>
+        					</div>
+						#end
+					#end
+					#if(${S_CUSTINFO.invtp} == "0")
+    					#if(${hft_family_trade_size} != 0)
+								<div class="c1">
+    						理财银行卡账号<div class="trip"><div>仅可绑定授权经办人的银行卡进行快捷理财<b></b></div></div>
+    						<div class="d1">
+    							银行卡已添加<span class="cBlue">${hft_family_trade_size}</span>张
+    							<a href="${staticDomain}/setting/settingCard.htm">查看全部</a>
+    							<a href="${staticDomain}/bankcard/addBankCard1.htm">+新卡</a>
+    						</div>
+    					</div>
+    					<div class="c2">
+    						<table>
+    							<tr>
+    								<th>资产总额（元）</th>
+    								<th>昨日收益</th>
+    								<th>累计收益（元）</th>
+    							</tr>
+    							<tr>
+    								<td>${hftTotalBalanceDisplay}</td>
+    								<td>${hftFunddayincome}</td>
+    								<td>${hftTotalincome}</td>
+    							</tr>
+    						</table>
+    					</div>
+    					<div class="c3">
+    						<div class="d1">
+    							<a href="${staticDomain}/trade/pay_index.htm" class="btnA mr20">充值</a>
+    							<a href="${staticDomain}/trade/cash_index.htm" class="btnB">取现</a>
+    						</div>
+    						<div class="d2"><a href="${staticDomain}/setting/autoTrade_index.htm">自动理财设置</a>
+    						<div class="trip"><div>可设定固定期限或固定金额的申购或赎回<b></b></div></div></div>
+    					</div>
+						#else
+							<div style="height:200px;background-color:#fff;margin-top:10px">
+        						<div style="padding-top:100px;padding-left:180px">
+									<a id="btn-openAccount4family" href="#" >开办家庭理财账户</a>
+        						</div>
+        					</div>
+						#end
+					#end
+					
+				</div>
+			</div>
+			
+			
+			
+			<div class="a3 mt15 mb30">
+				<div class="b1">
+					<div class="c1">资金明细<a href="#">查看更多</a></div>
+					<div class="c2">
+						<table>
+							<tr>
+								<th>时间</th>
+								<th>交易类型</th>
+								<th>金额</th>
+								<th>交易状态</th>
+								<th>银行</th>
+								<th>操作</th>
+							</tr>
+		                    	#foreach($tradeRequest in $Tradelist)
+                                    <tr>
+                                        <td class="tc">
+											#set($appdate=${tradeRequest.appdate})
+											$appdate.substring(0,4)/$appdate.substring(4,6)/$appdate.substring(6,8)
+											#set($apptime=${tradeRequest.apptime})
+											$apptime.substring(0,2):$apptime.substring(2,4)
+										</td>
+                                        <td class="tc">
+    									#if(${tradeRequest.apkind}=="022")
+    										充值
+    									#elseif(${tradeRequest.apkind}=="023")
+    										取现
+    									#elseif(${tradeRequest.apkind}=="024")
+    										快取
+    									#end
+    									</td>
+                                        <td class="tr">
+    									#if(${tradeRequest.appamt})
+    										+${tradeRequest.appamt}
+    									#else
+    										-${tradeRequest.appvol}
+    									#end
+    									</td>
+                                        <td class="tc">
+    									#if(${tradeRequest.state}=="I")
+    										处理中
+										#elseif(${tradeRequest.state}=="F")	
+											失败
+    									#else	
+    										成功
+    									#end
+    									</td>
+                                        <td class="tc">
+    									#set($tailStr=${tradeRequest.bankacco})
+    									#set($start=$tailStr.length() - 4)
+    									#set($end=$tailStr.length())
+    									${tradeRequest.banknm}（尾号$tailStr.substring($start,$end)）	
+    									</td>
+                                        <td class="tc">
+											<a serialno="${tradeRequest.serialno}" class="link" href="javascript:;">查看</a>
+										</td>
+                                    </tr>
+    								#end
+						</table>
+					</div>
+				</div>
+				<div class="b2">
+					<div class="c1">收益看板</div>
+					<div class="c2 tabs">
+						<div class="tabsNav"><a href="#">7日年化收益率（%）</a><a href="#">万份收益（元）${hftFundInfo.income}</a></div>
+						<div class="tabsCon" href="javascript:;">日年化收益率</div>
+						<div class="tabsCon" href="javascript:;">万份收益</div>
+					  <div class="panels chart-panels">
+                         <div id="chart-syl" class="panel slide-in" style="width: 100%; height: 150px"></div>
+						 <div id="chart-sy" class="panel slide-out" style="width: 100%; height: 150px"></div>
+                      </div>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+<div class="footer footer-simple">
+    <div class="inner clearfix">
+        <div class="logo fl">
+            <img src="../images/logo_130x55.png">
+        </div>
+        <div class="info fl">
+            <ul class="list">
+                <li>微信服务号：UFUfund</li>
+                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                <li>海富通产品：400-8840-099</li>
+            </ul>
+        </div>
+        <div class="copyright fr">
+            <ul class="list">
+                <li>幼富通版权所有 ©2014</li>
+                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	$("#btn-openAccount4opr").on("click",function(){
+		$("#form").attr("action", "../bankcard/addBankCard1.htm");
+		$("#form").submit();
+	});
+	$("#btn-openAccount4family").on("click",function(){
+		$("#form").attr("action", "../bankcard/addBankCard1.htm");
+		$("#form").submit();
+	});
+
+});
+</script>
+<script type='text/javascript' src='${staticDomain}/js/libs/highcharts.js'></script>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+<script>
+
+$(function(){
+	$('.tabs').tabs();
+   $('#chart-syl').highcharts({
+            chart: {
+            },
+            title: {
+                text: null
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: [
+				'05/25', '05/26', '05/27', '05/28', '05/29', '05/30','05/31'
+				]
+            },
+            yAxis: {
+                title: {
+                    text: null
+                }
+            },
+            tooltip: {
+                enabled: false
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: '',
+                data: 
+				[
+				1.22, 1.22, 1.30, 1.25, 1.26, 1.26, 1.28
+				]
+            }]
+        });
+        $('#chart-sy').highcharts({
+            title: {
+                text: null
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: ['05/25', '05/26', '05/27', '05/28', '05/29', '05/30','05/31']
+
+            },
+            yAxis: {
+                title: {
+                    text: null
+                }
+            },
+            tooltip: {
+                enabled: false
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: '',
+                data: [1.22, 1.22, 1.30, 1.25, 1.26, 1.26, 2.28]
+            }]
+        });
+ 
+		$(".tabsCon").each(function(i){
+			if($(this).attr("style")=="display: block;"){
+				$(this).siblings('.panels').find('.panel').hide();
+				$(this).siblings('.panels').find('.panel').eq(i).show();
+			}
+		})
+})
+</script>
+</body>
+</html>
