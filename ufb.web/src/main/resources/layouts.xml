@@ -39,6 +39,9 @@
     <layout page="layout/public_cust.vm">
         <pattern>cust/*.vm</pattern>
     </layout>
+     <layout page="layout/public_ufb.vm">
+        <pattern>ufb/*.vm</pattern>
+    </layout>
     
     <layout page="layout/public_cust.vm">
         <pattern>org/*.vm</pattern>

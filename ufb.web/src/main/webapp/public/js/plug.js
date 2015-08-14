@@ -234,6 +234,7 @@
 		var sets = $.extend(defaults, options || {});
 		$(this).each(function(i,d){
 			$(this).find('.tabsCon').eq(sets.active-1).show();
+		 	$(this).find('.panels').find('.panel').eq(sets.active-1).show();
 			$(this).find('.tabsNav a').eq(sets.active-1).addClass('active');
 			$(this).find('.tabsNav a').each(function(i,id){
 				$(this).on('click',function(){
@@ -241,6 +242,8 @@
 					$(this).addClass('active');
 					$(this).parent().parent().find('.tabsCon').hide();
 					$(this).parent().parent().find('.tabsCon').eq(i).show();
+					$(this).parent().parent().find('.panels').find('.panel').hide();
+					$(this).parent().parent().find('.panels').find('.panel').eq(i).show();
 				})
 			})
 		});

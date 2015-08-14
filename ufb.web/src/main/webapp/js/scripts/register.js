@@ -180,7 +180,7 @@ var check_id = function (ipt) {
        		case '10':  
        		case '12':  
             	if(day>31) {  
-            		return showTips(ipt, "输入身份证号码不格式正确!");
+            		return showTips(ipt, "输入身份证号码格式不正确!");
             	}  
             	break;  
        		case '04':  
@@ -188,26 +188,26 @@ var check_id = function (ipt) {
        		case '09':  
        		case '11':  
        			if(day>30) {  
-       				return showTips(ipt, "输入身份证号码不格式正确!");
+       				return showTips(ipt, "输入身份证号码格式不正确!");
        			}  
        			break;  
        		case '02':  
        			if((birth % 4 == 0 && birth % 100 != 0) || birth % 400 == 0) {  
        				if(day>29) {  
-                		return showTips(ipt, "输入身份证号码不格式正确!");
+                		return showTips(ipt, "输入身份证号码格式不正确!");
        				}  
        			} else {  
                  	if(day>28) {  
-                 		return showTips(ipt, "输入身份证号码不格式正确!");
+                 		return showTips(ipt, "输入身份证号码格式不正确!");
                  	}  
        			}  
        			break;  
        		default:  
-       			return showTips(ipt, "输入身份证号码不格式正确!");
+       			return showTips(ipt, "输入身份证号码格式不正确!");
         }  
         var nowYear = new Date().getYear();  
         if(nowYear - parseInt(birth)<15 || nowYear - parseInt(birth)>100) {
-        	return showTips(ipt, "输入身份证号码不格式正确!");
+        	return showTips(ipt, "输入身份证号码格式不正确!");
         }  
         return showTips(ipt, 0);
     }  
@@ -219,7 +219,7 @@ var check_id = function (ipt) {
        
     for (i = 0; i < 17; ++i) {  
     	if ( value.charAt(i) < '0' || value.charAt(i) > '9' ) {  
-    		return showTips(ipt, "输入身份证号码不格式正确!");
+    		return showTips(ipt, "输入身份证号码格式不正确!");
         }  
         else {  
         	nNum = value.charAt(i) - '0';  
@@ -229,7 +229,7 @@ var check_id = function (ipt) {
     if( value.charAt(17) == 'X' || value.charAt(17) == 'x') {  
     	lSum += 10*Wi[17];  
     } else if ( value.charAt(17) < '0' || value.charAt(17) > '9' ) {  
-    	return showTips(ipt, "输入身份证号码不格式正确!");
+    	return showTips(ipt, "输入身份证号码格式不正确!");
     } else {  
         lSum += ( value.charAt(17) - '0' ) * Wi[17];  
     } 
@@ -237,7 +237,7 @@ var check_id = function (ipt) {
     if ((lSum % 11) == 1) {  
     	return showTips(ipt, 0);
     } else {  
-    	return showTips(ipt, "输入身份证号码不格式正确!");
+    	return showTips(ipt, "输入身份证号码格式不正确!");
 	}  
 }
 
