@@ -39,6 +39,31 @@
 			<artifactId>spring-context-support</artifactId>
 		</dependency>
 		<dependency>
+		  <groupId>com.gnete</groupId>
+		  <artifactId>gnete-bc</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.gnete</groupId>
+		  <artifactId>gnete-pinblock</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.gnete</groupId>
+		  <artifactId>gnete-security</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.bouncycastle</groupId>
+		  <artifactId>bcprovider</artifactId>
+		  <version>1.45.0</version>
+		</dependency>
+		<dependency>
+		  <groupId>com.bcloud</groupId>
+		  <artifactId>bcloud-msg-http</artifactId>
+		  <version>1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
@@ -47,26 +72,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>fakepath</groupId>
-			<artifactId>gnete-bc</artifactId>
-			<version>139</version>
-		</dependency>
-		<dependency>
-			<groupId>com.gnete.cps.security</groupId>
-			<artifactId>gente-pinblock</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.gnete.security</groupId>
-			<artifactId>gnete-security</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.bouncycastle.bcprovider</groupId>
-			<artifactId>bcprovider</artifactId>
-			<version>1.45.0</version>
 		</dependency>
 	</dependencies>
 	<build>
