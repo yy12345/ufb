@@ -19,6 +19,7 @@
 
     <!-- enable component scanning (beware that this does not enable mapper scanning!) -->
     <context:component-scan base-package="com.ufufund.ufb.biz.manager.impl" />
+    <context:component-scan base-package="com.ufufund.ufb.biz.manager.op.impl" />
     <!-- enable autowire -->
     <context:annotation-config />
     <!-- enable transaction demarcation with annotations -->
@@ -31,4 +32,5 @@
 
 	<import resource="classpath*:/spring/spring-ufb-remote.xml"/>
     <import resource="classpath*:/spring/spring-ufb-dao.xml"/>
+    <import resource="classpath*:/spring/spring-ufb-quartz.xml"/>
 </beans>
