@@ -120,8 +120,8 @@
 					</div>
 					<div class="c3">
 						<div class="d1">
-							<a href="${staticDomain}/trade/orgPayIndex.htm" class="btnA mr20">充值</a>
-							<a href="${staticDomain}/trade/orgCashIndex.htm" class="btnB">取现</a>
+							<a href="${staticDomain}/trade/pay_index.htm" class="btnA mr20">充值</a>
+							<a href="${staticDomain}/trade/cash_index.htm" class="btnB">取现</a>
 						</div>
 						<div class="d2"><a href="${staticDomain}/setting/autoTrade_index.htm">自动理财设置</a><div class="trip"><div>可设定固定期限或固定金额的申购或赎回<b></b></div></div></div>
 					</div>
