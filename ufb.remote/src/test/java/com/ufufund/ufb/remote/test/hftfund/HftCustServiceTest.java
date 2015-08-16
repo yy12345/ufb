@@ -73,20 +73,20 @@ public class HftCustServiceTest {
 	}
 	
 	
-//	@Test
+	@Test
 	public void testOpenAccount(){
 		OpenAccountRequest request = new OpenAccountRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.OpenAccount);
-		request.setApplicationNo("20150410CC0003");
+		request.setApplicationNo("20150410CC0006");
 		request.setClearingAgencyCode("012");
 		request.setAcctNameOfInvestorInClearingAgency("张帆女");
-		request.setAcctNoOfInvestorInClearingAgency("6230201111200000");
+		request.setAcctNoOfInvestorInClearingAgency("6230201111200002");
 		request.setInvestorName("平心香");
 		request.setCertificateType("0");
-		request.setCertificateNo("210304198503040045");
+		request.setCertificateNo("632522198706178128");
 		request.setCertValidDate("20181022");
 		request.setEmailAddress("15211827360@163.com");
 		request.setMobileTelNo("15211827360");
@@ -100,22 +100,22 @@ public class HftCustServiceTest {
 		LOG.debug("返回对象:"+response.toString());
 	}
 	
-	@Test
+//	@Test
 	public void testOpenAccountOrg(){
 		OpenAccountOrgRequest request = new OpenAccountOrgRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.OpenAccountOrg);
-		request.setApplicationNo("20150609CC0001");
+		request.setApplicationNo("20150806CC0003");
 		request.setClearingAgencyCode("012");
 		request.setAcctNameOfInvestorInClearingAgency("孙桥小学");
-		request.setAcctNoOfInvestorInClearingAgency("6230201120021000");
-		request.setProvince("320");
-		request.setCity("581");
+		request.setAcctNoOfInvestorInClearingAgency("6230201120021011");
+//		request.setProvince("32");
+//		request.setCity("0581");
 		request.setInvestorName("孙桥小学");
 		request.setCertificateType("0");
-		request.setCertificateNo("66251638X");
+		request.setCertificateNo("66251619X");
 		request.setCertValidDate("20181022");
 		request.setEmailAddress("15211827361@163.com");
 		request.setMobileTelNo("15211827361");
@@ -133,6 +133,6 @@ public class HftCustServiceTest {
 		request.setInstTranCertValidDate("20180512");
 		
 		OpenAccountOrgResponse response = hftCustService.openAccountOrg(request);
-//		LOG.debug("返回对象:"+response.toString());
 	}
+	
 }

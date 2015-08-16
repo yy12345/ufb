@@ -6,21 +6,25 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class OpenAccountOrgResponse extends AbstractResponse{
 
+	private String AppSheetSerialNo;
 	private String TransactionAccountID;
 
+	public String getAppSheetSerialNo() {
+		return AppSheetSerialNo;
+	}
+	public void setAppSheetSerialNo(String appSheetSerialNo) {
+		AppSheetSerialNo = appSheetSerialNo;
+	}
 	public String getTransactionAccountID() {
 		return TransactionAccountID;
 	}
-
 	public void setTransactionAccountID(String transactionAccountID) {
 		TransactionAccountID = transactionAccountID;
 	}
-
 	@Override
 	public String toString() {
-		return "OpenAccountOrgResponse [TransactionAccountID="
-				+ TransactionAccountID + ", toString()=" + super.toString()
-				+ "]";
+		return "OpenAccountOrgResponse [AppSheetSerialNo=" + AppSheetSerialNo + ", TransactionAccountID="
+				+ TransactionAccountID + ", toString()=" + super.toString() + "]";
 	}
 
 	

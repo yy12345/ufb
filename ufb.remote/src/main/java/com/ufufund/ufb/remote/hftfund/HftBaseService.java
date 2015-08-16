@@ -31,10 +31,10 @@ public class HftBaseService {
 	// http交易的编码
 	private static final String ENCODING = "utf-8";
 	
-	@Value("${hft_requestUrl}")
+	@Value("${ufb.hftfund.requestUrl}")
 	private String requestUrl;
 	
-	@Value("${hft_signKey}")
+	@Value("${ufb.hftfund.signKey}")
 	private String signKey;
 
 	/**

@@ -30,7 +30,7 @@ public class HftQueryServiceTest {
 	 * @param request
 	 * @return
 	 */
-	@Test
+//	@Test
 	public void transQuery() {
 		TransQueryRequest request = new TransQueryRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
@@ -38,7 +38,7 @@ public class HftQueryServiceTest {
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.TransQuery);
 		request.setApplicationNo("20150522QQ0001");
-		request.setTransactionAccountID("226000006703");
+		request.setTransactionAccountID("226000010483");
 //		request.setAppSheetSerialNo("cccc0000111");
 		request.setPageNo("1");
 		request.setPageSize("10");
@@ -53,7 +53,7 @@ public class HftQueryServiceTest {
 	 * @param request
 	 * @return
 	 */
-//	@Test
+	@Test
 	public void balanceQuery() {
 		BalanceQueryRequest request = new BalanceQueryRequest();
 		
@@ -61,15 +61,14 @@ public class HftQueryServiceTest {
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
 		request.setDistributorCode(Constant.HftSysConfig.DistributorCode);
 		request.setBusinType(Constant.HftBusiType.BalanceQuery);
-		request.setApplicationNo("201505210QQ0001");
-		request.setTransactionAccountID("226000006703");
-		request.setFundCode(BasicFundinfo.YFB.getFundCode());
+		request.setApplicationNo("20150810QQ0001");
+		request.setTransactionAccountID("226000010483");
+		request.setFundCode("025020");
 		request.setPageNo("1");
 		request.setPageSize("10");
 		request.setShareClass("0");
 
 		BalanceQueryResponse response = hftQueryService.balanceQuery(request);
-		LOG.debug("返回对象:" + response.toString());
 		
 	}
 }
