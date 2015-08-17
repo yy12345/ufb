@@ -105,7 +105,10 @@ $(function () {
         var _select = $(".input-select");
         //ADD BY GH
         var _this_bankno = $(this).attr("bankno");
-        $("#bankno").val(_this_bankno);
+        if(_this_bankno!=null || _this_bankno!=""){
+       	}else{
+        	$("#bankno").val(_this_bankno);
+        }
         _select.removeClass("open").find(".bank-current").html(_this.html());
     });
     $(".input-options .card-list").on("click", ".card", function () {

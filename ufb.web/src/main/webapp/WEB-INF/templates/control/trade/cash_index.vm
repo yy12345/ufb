@@ -68,7 +68,7 @@
                             <div class="input-options">
                                 <div class="card-list clearfix">
 									#foreach($c in $cardList)
-                                    <a class="card" href="javascript:;"
+                                    <a class="card card-select" href="javascript:;"
 										cardTradeacco="${c.tradeacco}" cardAvailable="${c.available}" cardRealAvailable="${c.realavailable}">
 										#set($tailStr=$c.bankacco)
 										#set($start=$tailStr.length() - 4)
@@ -182,7 +182,7 @@
 		});
 		
 		// 点击银行卡
-		$(".card").on("click", function(){
+		$(".card.card-select").on("click", function(){
 			$("#tradeacco").val($(this).attr("cardTradeacco"));
 			$("#cardAvailable").val($(this).attr("cardAvailable"));
 			$("#cardAvailableDisplay").html(formatCurrency2($(this).attr("cardAvailable")));

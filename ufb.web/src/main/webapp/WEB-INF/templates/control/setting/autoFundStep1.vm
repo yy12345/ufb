@@ -21,7 +21,7 @@ $(function(){
 	});
 	
 	// 点击银行卡
-	$(".card").on("click", function(){
+	$(".card.card-select").on("click", function(){
 		$("#frombankserialid").val($(this).attr("serialid"));
 		$("#frombankno").val($(this).attr("frombankno"));
 		$("#frombanktail").val($(this).attr("frombanktail"));
@@ -78,7 +78,7 @@ $(function(){
 											#set($tailStr=$card.bankacco)
     										#set($start=$tailStr.length() - 4)
     										#set($end=$tailStr.length())
-                                        <a class="card" href="javascript:;" 
+                                        <a class="card card-select" href="javascript:;" 
     										serialid="${card.serialid}"
 											frombankno="${card.bankno}"
 											frombanktail="$tailStr.substring($start,$end)"
