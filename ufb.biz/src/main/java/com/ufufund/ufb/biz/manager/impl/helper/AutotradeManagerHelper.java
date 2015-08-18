@@ -92,6 +92,11 @@ public  class AutotradeManagerHelper {
 		applyVo.setFundcorpno(vo.getTofundcorpno());
 		applyVo.setShareclass(vo.getTochargetype());
 		applyVo.setAppamt(vo.getAutoamt());
+		
+		// for quartz
+		applyVo.setApkind("51");
+		applyVo.setTradeacco(vo.getTotradeacco());
+		applyVo.setReferno(vo.getAutoid());
 		//applyVo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
 		return applyVo;
 	}
@@ -105,6 +110,11 @@ public  class AutotradeManagerHelper {
 		redeemVo.setFundcorpno(vo.getFromfundcorpno());
 		redeemVo.setShareclass(vo.getFromchargetype());
 		redeemVo.setAppvol(vo.getAutovol());
+		
+		// for quartz
+		redeemVo.setApkind("52");
+		redeemVo.setTradeacco(vo.getFromtradeacco());
+		
 		//applyVo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
 		return redeemVo;
 	}

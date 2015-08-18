@@ -20,7 +20,7 @@
 			#{jobstatus,jdbcType=VARCHAR},
 			#{starttime,jdbcType=VARCHAR},
 			#{endtime,jdbcType=VARCHAR},
-			#{workdate,jdbcType=VARCHAR},
+			#{workdate,jdbcType=VARCHAR}
 			)
 	 ]]>
   	</insert>

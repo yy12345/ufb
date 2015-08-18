@@ -66,14 +66,17 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 				throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 			} else if (jobcontral.getJobstatus().equals(Constant.Jobcontral.STATUS$X)) {
 				throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
-			}
+			} 
 		}else{
 			jobcontral = newjobcontral;
 		}
+		
 		jobcontral.setJobstatus(Constant.Jobcontral.STATUS$I);
+		
 		if (jobcontral.getStarttime() == null || "".equals(jobcontral.getStarttime())) {
 			jobcontral.setStarttime(workDayManager.getSysTime());
 		}
+		
 		if(n==0){
 			n = jobcontralMapper.insertJobcontral(jobcontral);	
 		}else{
@@ -95,6 +98,7 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 		 * 任务发起，可重构，太多次调用连接池
 		 */
 		String nextdate = "";
+		int count = 0;
 		for (Autotrade listAutotrade : list) {
 			/*
 			 * 获取状态 break 如果状态为已经停止，退出任务
@@ -111,33 +115,40 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 				/*
 				 * 写交易流水
 				 */
-				this.insertFdacfinalresult(listAutotrade, autotrade.getTradetype() + "5");
 				try {
-					if (listAutotrade.getTradetype().equals(AutoTradeType.AUTORECHARGE)) {
+					if (listAutotrade.getTradetype().equals(AutoTradeType.AUTORECHARGE.value())) {
 						ApplyVo vo = AutotradeManagerHelper.toApplyVo(listAutotrade);
 						tradeManager.buyApply(vo);
-					} else if (listAutotrade.getTradetype().equals(AutoTradeType.AUTOWITHDRAWAL)) {
+						n = 1;
+					} else if (listAutotrade.getTradetype().equals(AutoTradeType.AUTOWITHDRAWAL.value())) {
 						RedeemVo vo = AutotradeManagerHelper.toRedeemVo(listAutotrade);
 						tradeManager.realRedeem(vo);
+						n = 1;
 					}
 				} catch (Exception e) {
 					log.debug(processId + listAutotrade.getAutoid() + "自动任务失败 !");
 					log.error(processId + listAutotrade.getAutoid() + "自动任务失败 !",e);
 				}
+				
+				/*
+				 * 插入流水
+				 */
+				if(n == 1){
+					count ++;
+					// 根据返回更新流水状态
+					nextdate = autotradeManager.getNextdate(Constant.Autotrade.CYCLE$MM, listAutotrade.getDat());
+					listAutotrade.setLastdate(workDate);
+					listAutotrade.setNextdate(nextdate);
+					autotradeMapper.updateAutotrade(listAutotrade);
+					
+					this.insertFdacfinalresult(listAutotrade, autotrade.getTradetype() + "5");
+				}
 			}
-			/*
-			 * 根据返回更新流水状态
-			 */
-			nextdate = autotradeManager.getNextdate(listAutotrade.getCycle(), listAutotrade.getDat());
-			listAutotrade.setLastdate(workDate);
-			listAutotrade.setNextdate(nextdate);
-			autotradeMapper.updateAutotrade(listAutotrade);
-
 		}
 		/*
 		 * 更新任务状态为已完成
 		 */
-		log.debug(processId + " 自动任务 " + tradetype.toString() +" 结束 " + workDate);
+		log.debug(processId + " 自动任务 [" + tradetype.toString() +"] 结束 " + workDate + " 执行计划 " + count + " 条");
 		if(!SysoutCommon.JOB_STATUS.equals(Constant.Jobcontral.STATUS$P)){
 			jobcontral.setEndtime(workDayManager.getSysTime());
 			jobcontral.setJobstatus(Constant.Jobcontral.STATUS$X);

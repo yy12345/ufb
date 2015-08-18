@@ -648,12 +648,13 @@ public class SettingController {
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 //			model.addAttribute("SessionVo", s_custinfo);
+			model.addAttribute("AutoTradeVo", autotradeVo);
 			return "setting/autoFundStepU2";
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
 //			model.addAttribute("SessionVo", UserHelper.getCustinfoVo());
 			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", "setting/autoTrade_add.htm");
+			model.addAttribute("returnUrl", "setting/autoTrade_index.htm");
 			return "error/user_error";
 		}
 		return "setting/autoFundStepU3";

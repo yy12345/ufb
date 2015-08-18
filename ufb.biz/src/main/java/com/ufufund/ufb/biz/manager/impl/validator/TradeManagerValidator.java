@@ -42,8 +42,12 @@ public class TradeManagerValidator {
 		
 		/** 业务规则校验 **/ 
 		// 验证交易密码
-		if(!userModuleValidator.checkTradePwd(vo.getCustno(), vo.getTradePwd())){
-			throw new UserException("交易密码错误！");
+		if("51".equals(vo.getApkind())){
+			
+		}else{
+			if(!userModuleValidator.checkTradePwd(vo.getCustno(), vo.getTradePwd())){
+				throw new UserException("交易密码错误！");
+			}
 		}
 	}
 	
@@ -70,8 +74,12 @@ public class TradeManagerValidator {
 		paramCheck4Redeem(vo);
 		/** 业务规则校验 **/ 
 		// 验证交易密码
-		if(!userModuleValidator.checkTradePwd(vo.getCustno(), vo.getTradePwd())){
-			throw new UserException("交易密码错误！");
+		if("52".equals(vo.getApkind())){
+			
+		}else{
+			if(!userModuleValidator.checkTradePwd(vo.getCustno(), vo.getTradePwd())){
+				throw new UserException("交易密码错误！");
+			}
 		}
 	}
 	

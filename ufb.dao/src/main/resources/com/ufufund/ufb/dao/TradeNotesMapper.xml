@@ -54,7 +54,9 @@
 		    
   			APPVOL,
   			ACKAMT,	
-  			ACKVOL
+  			ACKVOL,
+  			AUTOID,
+  			ORSERIALNO
   			
 		    )
 		values (
@@ -84,7 +86,9 @@
 			
 			#{appvol,jdbcType=VARCHAR},
 			#{ackamt,jdbcType=VARCHAR},
-			#{ackvol,jdbcType=VARCHAR}
+			#{ackvol,jdbcType=VARCHAR},
+			#{autoid,jdbcType=VARCHAR},
+			#{orserialno,jdbcType=VARCHAR}
 			)
 	 ]]>
   	</insert>
