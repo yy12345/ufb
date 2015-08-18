@@ -63,9 +63,9 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 			n = 1;
 			log.debug(processId + " 任务状态记录  : "  + jobcontral.toString());
 			if (jobcontral.getJobstatus().equals(Constant.Jobcontral.STATUS$I)) {
-				throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+				//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 			} else if (jobcontral.getJobstatus().equals(Constant.Jobcontral.STATUS$X)) {
-				throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+				//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 			} 
 		}else{
 			jobcontral = newjobcontral;

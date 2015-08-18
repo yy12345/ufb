@@ -96,6 +96,7 @@ public  class AutotradeManagerHelper {
 		// for quartz
 		applyVo.setApkind("51");
 		applyVo.setTradeacco(vo.getTotradeacco());
+		applyVo.setReferno(vo.getAutoid());
 		//applyVo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
 		return applyVo;
 	}
