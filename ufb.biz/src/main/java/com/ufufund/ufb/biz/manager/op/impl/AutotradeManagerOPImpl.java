@@ -63,9 +63,9 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 			n = 1;
 			log.debug(processId + " 任务状态记录  : "  + jobcontral.toString());
 			if (jobcontral.getJobstatus().equals(Constant.Jobcontral.STATUS$I)) {
-				//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+				throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 			} else if (jobcontral.getJobstatus().equals(Constant.Jobcontral.STATUS$X)) {
-				//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+				throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 			} 
 		}else{
 			jobcontral = newjobcontral;
@@ -98,6 +98,7 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 		 * 任务发起，可重构，太多次调用连接池
 		 */
 		String nextdate = "";
+		int count = 0;
 		for (Autotrade listAutotrade : list) {
 			/*
 			 * 获取状态 break 如果状态为已经停止，退出任务
@@ -133,6 +134,7 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 				 * 插入流水
 				 */
 				if(n == 1){
+					count ++;
 					// 根据返回更新流水状态
 					nextdate = autotradeManager.getNextdate(Constant.Autotrade.CYCLE$MM, listAutotrade.getDat());
 					listAutotrade.setLastdate(workDate);
@@ -146,7 +148,7 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 		/*
 		 * 更新任务状态为已完成
 		 */
-		log.debug(processId + " 自动任务 " + tradetype.toString() +" 结束 " + workDate);
+		log.debug(processId + " 自动任务 [" + tradetype.toString() +"] 结束 " + workDate + " 执行计划 " + count + " 条");
 		if(!SysoutCommon.JOB_STATUS.equals(Constant.Jobcontral.STATUS$P)){
 			jobcontral.setEndtime(workDayManager.getSysTime());
 			jobcontral.setJobstatus(Constant.Jobcontral.STATUS$X);

@@ -78,10 +78,10 @@ $(function(){
 											</span>
 											幼富宝
 										</th>
-                                        <th>设置时间</th>
-                                        <th>金额（元）</th>
                                         <th>充值周期</th>
                                         <th>下次充值日</th>
+                                        <th>设置时间</th>
+                                        <th>金额（元）</th>
                                         <th>银行卡</th>
                                         <th>备注</th>
                                         <th width="60">
@@ -96,11 +96,6 @@ $(function(){
                                     </tr>
                                     <tr>
                                         <td>
-										#set($updatetime=$!{autotrade.updatetime})
-										$!updatetime.substring(0,10)
-										</td>
-                                        <td>${autotrade.autoamt}</td>
-                                        <td>
 										#if("MM"==$!{autotrade.cycle})
 											每月$!{autotrade.dat}日
 										#end
@@ -113,6 +108,11 @@ $(function(){
 											#set($nextdate=$nextdate_yyyy+"-"+$nextdate_mm+"-"+$nextdate_dd)
 											$nextdate
 										</td>
+                                        <td>
+										#set($updatetime=$!{autotrade.updatetime})
+										$!updatetime.substring(0,10)
+										</td>
+                                        <td>${autotrade.autoamt}</td>
                                         <td>
 										#set($tailStr=$!{autotrade.frombankacco})
         								#set($start=$tailStr.length() - 4)

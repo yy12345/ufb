@@ -104,17 +104,20 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		dbautotrade.setAutoid(action.getAutoid());
 		List<Autotrade> list = autotradeMapper.getAutotradeList(dbautotrade);
 		if(list.isEmpty()||list.size()!=1){
-			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+			throw new UserException("您的自动充值计划修改无效，您可通过自动充值计划列表确认！");
+			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		dbautotrade = list.get(0);
 		// 暂停/终止/交易状态的交易不能修改，请先恢复
 		if(!Constant.Autotrade.STATE$N.equals(dbautotrade.getState())){
-			throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
+			throw new UserException("您的自动充值计划修改失败，（暂停/终止）状态的自动充值计划不能修改！");
+			//throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
 		}
 		// 扣款日当日不能修改
 		String workdate = workDayManager.getCurrentWorkDay();
 		if(dbautotrade.getNextdate().equals(workdate)){
-			throw new BizException(processId, ErrorInfo.AUTO_NEXTDAY_ISWORKDAY); 
+			throw new UserException("您的自动充值计划修改失败，当前工作日的自动充值计划不能修改！");
+			//throw new BizException(processId, ErrorInfo.AUTO_NEXTDAY_ISWORKDAY); 
 		}
 		
 		/*
@@ -131,7 +134,8 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		/** 更新 **/
 		int n = autotradeMapper.updateAutotrade(autotrade);
 		if(n!=1){
-			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+			throw new UserException("您的自动充值计划修改无效，您可通过自动充值计划列表确认！");
+			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		
 		/** 记录交易流水 **/
@@ -156,7 +160,8 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		dbautotrade.setAutoid(action.getAutoid());
 		List<Autotrade> list = autotradeMapper.getAutotradeList(dbautotrade);
 		if(list.isEmpty()||list.size()!=1){
-			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+			throw new UserException("您的自动充值计划修改无效，您可通过自动充值计划列表确认！");
+			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		//state  P-暂停 ,C 终止 删除 ,N 恢复
 		String apkind = "";
@@ -165,27 +170,30 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 			// N状态-〉P暂停、C终止
 			if(!Constant.Autotrade.STATE$P.equals(action.getState())
 					&& !Constant.Autotrade.STATE$C.equals(action.getState()) ){
-				throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
-//				throw new UserException("交易密码错误！");
+				//throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
+				throw new UserException("您的自动充值计划修改失败，非正常业务范围！");
 			}
 			apkind = dbautotrade.getTradetype()+"2";
 		}else if(Constant.Autotrade.STATE$P.equals(dbautotrade.getState())){
 			// P暂停-> N状态、C终止
 			if(!Constant.Autotrade.STATE$N.equals(action.getState())
 					&& !Constant.Autotrade.STATE$C.equals(action.getState())){
-				throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
+				//throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
+				throw new UserException("您的自动充值计划修改失败，非正常业务范围！");
 			}
 			apkind = dbautotrade.getTradetype()+"3";
 		}else if(Constant.Autotrade.STATE$C.equals(dbautotrade.getState())){
 			// C终止-〉
-			throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
+			throw new UserException("您的自动充值计划修改失败，非正常业务范围！");
+			//throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
 		}else{
 			apkind = dbautotrade.getTradetype()+"4";
 		}
 		// 扣款日当日不能修改
 		String workdate = workDayManager.getCurrentWorkDay();
 		if(dbautotrade.getNextdate().equals(workdate)){
-			throw new BizException(processId, ErrorInfo.AUTO_NEXTDAY_ISWORKDAY); 
+			//throw new BizException(processId, ErrorInfo.AUTO_NEXTDAY_ISWORKDAY); 
+			throw new UserException("您的自动充值计划修改失败，当前工作日的自动充值计划不能修改！");
 		}
 		
 		/** 数据包装 **/
@@ -194,7 +202,8 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		dbautotrade.setState(action.getState());
 		int n = autotradeMapper.updateAutotrade(dbautotrade);
 		if(n!=1){
-			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+			throw new UserException("您的自动充值计划修改无效，您可通过自动充值计划列表确认！");
+			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		this.insertFdacfinalresult(dbautotrade,apkind);
 	}
