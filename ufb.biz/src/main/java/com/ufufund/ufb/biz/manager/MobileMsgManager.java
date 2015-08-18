@@ -16,5 +16,5 @@ public interface MobileMsgManager {
 	 * @param content
 	 * @return 短信记录流水id
 	 */
-	public String sendMessageByMobile(String mobile, String content);
+	public String sendMobile(String mobile, String content);
 }

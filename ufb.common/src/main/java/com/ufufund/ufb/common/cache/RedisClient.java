@@ -6,7 +6,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 public class RedisClient {
 
-	private static JedisPool pool = new JedisPool(new JedisPoolConfig(),"127.0.0.1");
+	private static JedisPool pool = new JedisPool(new JedisPoolConfig(),"139.196.26.14");
 	
 	public static Jedis getJedis(){
 		return pool.getResource();
@@ -16,11 +16,4 @@ public class RedisClient {
 		jedis.close();
 	}  
 	
-	public static void main(String args[]){
-		Jedis jedis = RedisClient.getJedis();
-		
-		String a = jedis.get("d");
-		
-		System.out.println(a);
-	}
 }

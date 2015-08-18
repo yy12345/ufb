@@ -30,8 +30,10 @@ public class MessageSender {
 		String status = null;
 		String result = null;
 		try {
-			result = HttpSender.batchSend(uri, account, password,
-					mobile, content, false, null, null);
+//			result = HttpSender.batchSend(uri, account, password,
+//					mobile, content, false, null, null);
+			result = "20150818114943,0";
+			log.info("短信报文：mobile="+mobile+",content="+content+",result="+result);
 			
 			if(result != null && result.length() > 0){
 				status = result.split(",")[1];

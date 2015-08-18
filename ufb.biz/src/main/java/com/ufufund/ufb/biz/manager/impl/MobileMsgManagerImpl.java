@@ -54,7 +54,7 @@ public class MobileMsgManagerImpl implements MobileMsgManager{
 	} 
 	
 	@Override
-	public String sendMessageByMobile(String mobile, String content){
+	public String sendMobile(String mobile, String content){
 		
 		String status = send(mobile, content);
 		
