@@ -36,7 +36,7 @@
             </div>
             <div class="find-panels">
                 <div class="panel">
-                    <div class="form-done" style="background:url("../images/icon.png") no-repeat -104px -110px">
+                    <div class="form-done" style="background:url("../images/icon.png") no-repeat -154px -110px">
                         <div class="title" style="margin-top:0;background:transparent">${message_content0}</div>
 						<div class="title" style="margin-top:0;background:transparent;font-size:16px;">${message_content1}</div>
 						#if(${message_url})

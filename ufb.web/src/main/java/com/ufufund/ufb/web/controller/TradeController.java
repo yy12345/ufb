@@ -95,7 +95,7 @@ public class TradeController {
 			//model.addAttribute("errorMsg", ue.getMessage());
 			//model.addAttribute("returnUrl", PAGE_PAY_INDEX);
 			
-			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_title", "充值结果");
 			model.addAttribute("message_url", PAGE_PAY_INDEX);
 			model.addAttribute("message_content0", "充值失败!");
 			model.addAttribute("message_content1", ue.getMessage());
@@ -145,7 +145,7 @@ public class TradeController {
 			//model.addAttribute("errorMsg", ue.getMessage());
 			//model.addAttribute("returnUrl", PAGE_ORG_PAY_INDEX);
 			
-			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_title", "充值结果");
 			model.addAttribute("message_url", PAGE_ORG_PAY_INDEX);
 			model.addAttribute("message_content0", "充值失败!");
 			model.addAttribute("message_content1", ue.getMessage());
@@ -172,10 +172,18 @@ public class TradeController {
 			
 			tradeManager.buyApply(vo);
 			
+			Today today = workDayManager.getSysDayInfo();
+			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
+			String profitArriveDay = DateUtil.getNextDay(nextWorkDay, 1);
+			
+			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
 			
-			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_title", "充值结果");
 			model.addAttribute("message_url", PAGE_PAY_INDEX);
 			model.addAttribute("message_content0", "充值失败!");
 			model.addAttribute("message_content1", ue.getMessage());
@@ -202,10 +210,18 @@ public class TradeController {
 			vo.setLevel("1");
 			tradeManager.buyApply(vo);
 			
+			Today today = workDayManager.getSysDayInfo();
+			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
+			String profitArriveDay = DateUtil.getNextDay(nextWorkDay, 1);
+			
+			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
 			
-			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_title", "充值结果");
 			model.addAttribute("message_url", PAGE_ORG_PAY_INDEX);
 			model.addAttribute("message_content0", "充值失败!");
 			model.addAttribute("message_content1", ue.getMessage());
@@ -269,7 +285,7 @@ public class TradeController {
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
 			
-			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_title", "取现结果");
 			model.addAttribute("message_url", PAGE_CASH_INDEX);
 			model.addAttribute("message_content0", "取现失败!");
 			model.addAttribute("message_content1", ue.getMessage());
@@ -332,7 +348,7 @@ public class TradeController {
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
 			
-			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_title", "取现结果");
 			model.addAttribute("message_url", PAGE_ORG_CASH_INDEX);
 			model.addAttribute("message_content0", "取现失败!");
 			model.addAttribute("message_content1", ue.getMessage());
@@ -358,20 +374,30 @@ public class TradeController {
 			vo.setShareclass(BasicFundinfo.YFB.getShareClass());
 			vo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
 			
+			Today today = null;
+			String nextWorkDay = null;
 			if("023".equals(vo.getApkind())){
 				tradeManager.redeem(vo);
+				today = workDayManager.getSysDayInfo();
+				nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
+				
 			}else if("024".equals(vo.getApkind())){
 				tradeManager.realRedeem(vo);
+				today = workDayManager.getSysDayInfo();
+				nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
 			}else{
 				throw new SysException("异常交易！");
 			}
+			
+			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			
 			model.addAttribute("APKIND", vo.getApkind());
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
 			
-			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_title", "取现结果");
 			model.addAttribute("message_url", PAGE_CASH_INDEX);
 			model.addAttribute("message_content0", "取现失败!");
 			model.addAttribute("message_content1", ue.getMessage());
@@ -397,20 +423,30 @@ public class TradeController {
 			vo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
 			vo.setLevel("1");
 			
+			Today today = null;
+			String nextWorkDay = null;
 			if("023".equals(vo.getApkind())){
 				tradeManager.redeem(vo);
+				today = workDayManager.getSysDayInfo();
+				nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
 			}else if("024".equals(vo.getApkind())){
 				tradeManager.realRedeem(vo);
+				today = workDayManager.getSysDayInfo();
+				nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
 			}else{
 				throw new SysException("异常交易！");
 			}
+			
+			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
+			
 			
 			model.addAttribute("APKIND", vo.getApkind());
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
 			
-			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_title", "取现结果");
 			model.addAttribute("message_url", PAGE_ORG_CASH_INDEX);
 			model.addAttribute("message_content0", "取现失败!");
 			model.addAttribute("message_content1", ue.getMessage());

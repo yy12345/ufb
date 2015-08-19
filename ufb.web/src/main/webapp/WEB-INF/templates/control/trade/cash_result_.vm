@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>幼富通 - 充值中心</title>
+</head>
+<body>
+<div class="body">
+    <div class="inner clearfix">
+        <div class="title clearfix">
+            <h2 class="title-main fl">资产总览 | 取现</h2>
+        </div>
+        <div class="form-payInto">
+			<div style="text-align: center; padding-top: 100px; padding-bottom: 100px;">
+            	#if(${APKIND} == "023")
+            	<h1>取现成功！</h1>
+            	<p>您的取现已成功，资金将于第二个工作日下午17点前，到达您的银行卡中，可通过交易查询查询记录状态。
+            	   <a href="${staticDomain}/cust/session.htm">立即查询</a>
+            	</p>
+            	#elseif(${APKIND} == "024")
+            	<h1>快速取现成功！</h1>
+            	<p>您的快速取现已成功，资金稍后将到达您的银行卡中，可通过交易查询查询记录状态。
+            	   <a href="${staticDomain}/cust/session.htm">立即查询</a>
+            	</p>
+            	#end
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/js/scripts/load.js"></script>
+</body>
+</html>
