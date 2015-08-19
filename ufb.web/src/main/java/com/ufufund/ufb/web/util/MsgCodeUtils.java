@@ -4,24 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.ufufund.ufb.biz.exception.BizException;
-import com.ufufund.ufb.common.constant.BisConst;
-import com.ufufund.ufb.common.utils.ThreadLocalUtil;
-import com.ufufund.ufb.model.enums.ErrorInfo;
+import com.ufufund.ufb.biz.manager.MobileMsgManager;
+import com.ufufund.ufb.common.constant.Constant.MsgTemplate;
+import com.ufufund.ufb.common.exception.SysException;
+import com.ufufund.ufb.common.exception.UserException;
+import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.web.filter.ServletHolder;
 
 /**
  * 短信动态码工具类
- * 
- * @author ayis 2015-03-14
+ * @author ayis
+ * 2015-03-14
  */
 public class MsgCodeUtils {
-	private static final Logger LOG = LoggerFactory
-			.getLogger(MsgCodeUtils.class);
+	private static final Logger LOG = LoggerFactory.getLogger(MsgCodeUtils.class);
+	
+	private static MobileMsgManager mobileMsgManager;
 
 	// 时间段内最大发送次数
 	private static final int MAX_COUNT = 5;
@@ -36,15 +39,11 @@ public class MsgCodeUtils {
 	 * 发送短信动态码<br/>
 	 * 控制规则： 1.每两次发送时间间隔控制：<code>SECONDS</code> 2.时间段内发送次数控制：在
 	 * <code>MINUTES</code>内，最多<code>MAX_COUNT</code>次
-	 * 
-	 * @param template
-	 *            短信模版
+	 * @param template 短信模版
 	 */
-	
 	public static void sendMsg(String template, String mobileNo) {
 
 		long now = System.currentTimeMillis();
-
 		MsgCode msgCode = (MsgCode) ServletHolder.getSession()
 				.getAttribute("MSGCODE");
 		if (msgCode != null) {
@@ -55,10 +54,7 @@ public class MsgCodeUtils {
 			
 			if (now - last <= SECONDS * 1000) {
 				long t = SECONDS - ((now-last)/1000);
-				throw new BizException(
-						null, 
-						SECONDS + "秒之内只能发送一次，请稍后[" + t + "秒]再试！",
-						BisConst.Register.MOBILE);
+				throw new UserException(SECONDS + "秒之内只能发送一次，请稍后[" + t + "]秒再试！");
 			}
 			/** 判断时间段内，发送次数 **/
 			for (int i = 0; i < timeList.size();) {
@@ -69,10 +65,7 @@ public class MsgCodeUtils {
 				}
 			}
 			if (timeList.size() >= MAX_COUNT) {
-				throw new BizException(
-						null,
-						MINUTES + "分钟之内只能发送" + MAX_COUNT + "次，请稍后再试！",
-						BisConst.Register.MOBILE);
+				throw new UserException(MINUTES + "分钟之内只能发送" + MAX_COUNT + "次，请稍后再试！");
 			}
 		} else {
 			// session中不存在
@@ -94,10 +87,15 @@ public class MsgCodeUtils {
 				+ msgCode.getTimeList());
 
 		// 调用短信接口，发送短信
-		// code after the message interface was provided.
-
+		MobileMsgManager mobileMsgManager = getMobileMsgManager();
+		if(!("0J001".equals(template) || "0Y001".equals(template))){
+			throw new SysException("短信模板不正确！");
+		} 
+		String content = String.format(MsgTemplate.templateMap.get(template), msgCode.getMsgCode());
+		mobileMsgManager.sendMobile(mobileNo, content);
 	}
-
+	
+	
 	/**
 	 * 检验短信验证码：严格一次检验有效
 	 * @param compare
@@ -119,21 +117,17 @@ public class MsgCodeUtils {
 		
 		MsgCode msgCode = (MsgCode) ServletHolder.getSession().getAttribute("MSGCODE");
 		if (null == compare || StringUtils.isBlank(compare)) {
-			throw new BizException(ThreadLocalUtil.getProccessId(),
-					ErrorInfo.NECESSARY_EMPTY, "手机验证码");
+			throw new UserException("手机验证码为空！");
 		} else if (null == msgCode || StringUtils.isBlank(msgCode.getMsgCode())) {
-			throw new BizException(ThreadLocalUtil.getProccessId(),
-					"您的手机验证码已失效，请重新发送！", "手机验证码");
+			throw new UserException("您的手机验证码已失效，请重新发送！");
 		} else if (!msgCode.getMsgCode().equals(compare) || !msgCode.getMobileNo().equals(mobileNo) ) {
-			throw new BizException(ThreadLocalUtil.getProccessId(),
-					"您输入的手机验证码不匹配，请重新发送！", "手机验证码");
+			throw new UserException("您输入的手机验证码不匹配，请重新发送！", "手机验证码");
 		} else {
 			long now = System.currentTimeMillis();
 			if (now
 					- msgCode.getTimeList().get(
 							msgCode.getTimeList().size() - 1) > ACTIVE_TIME * 60 * 1000) {
-				throw new BizException(ThreadLocalUtil.getProccessId(),
-						"您的手机验证码已失效，请重新发送！", "手机验证码");
+				throw new UserException("您的手机验证码已失效，请重新发送！");
 			}
 		}
 		if(strictly){
@@ -177,5 +171,14 @@ public class MsgCodeUtils {
 		public List<Long> getTimeList() {
 			return timeList;
 		}
+	}
+	
+	private static MobileMsgManager getMobileMsgManager(){
+		if(mobileMsgManager == null){
+			WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(ServletHolder.getRequest()
+					.getSession().getServletContext());
+			mobileMsgManager = applicationContext.getBean(MobileMsgManager.class);
+		}
+		return mobileMsgManager;
 	}
 }

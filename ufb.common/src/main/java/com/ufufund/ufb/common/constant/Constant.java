@@ -1,5 +1,8 @@
 package com.ufufund.ufb.common.constant;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public interface Constant {
 	
 	/*
@@ -111,5 +114,16 @@ public interface Constant {
 		public static final String BalanceQuery = "staticShareQuery";
 		public static final String uploadedNotify = "docUploadedNotify";
 	}
+	
+	public static class MsgTemplate{
+		public static Map<String,String> templateMap = new HashMap<String,String>();
+		static{
+			templateMap.put("0J001", "亲爱的家长，您的验证码为：%s，5分钟内有效。");
+			templateMap.put("0Y001", "亲爱的园长，您的验证码为：%s，5分钟内有效。");
+			// 暂时测试编码2个，其它见文档。
+		}
+	}
+	
+	
 
 }

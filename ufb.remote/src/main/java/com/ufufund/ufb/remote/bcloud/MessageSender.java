@@ -42,7 +42,6 @@ public class MessageSender {
 			log.error(e.getMessage(), e);
 			throw new SysException("短信发送异常！");
 		}
-		log.info("msgsend:mobile="+mobile+",status="+status+",content="+content);
 		if(!"0".equals(status)){
 			throw new SysException("短信发送失败！");
 		}
