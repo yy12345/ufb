@@ -475,7 +475,8 @@ public class CustController {
 	 * @return
 	 * @throws IOException 
 	 * 20150813
-	 */
+	 * CustinfoVo   Custinfo
+	 */   
 	@RequestMapping(value = "ufb/indexPage")
 	public String custUFB(CustinfoVo custinfoVo, Model model) throws IOException {
 		try{
@@ -532,7 +533,7 @@ public class CustController {
 				states.add("F"); // 
 				states.add("I");
 				List<TradeRequest> Tradelist = queryManager.qryTradeList(s_custinfo.getCustno(), 
-						apkinds,states,null, null,0, 10);
+						apkinds,states,null, null,0, 4);
 				model.addAttribute("Tradelist", Tradelist);
 			}else{
 				 
