@@ -8,6 +8,26 @@
 $(function(){
 
 	$("#container").removeClass("setting");
+	
+	var check_pwd1 = function (ipt) {
+		var value = ipt.val();
+        if (value == "") {
+        	showTips(ipt, "密码不能为空");
+			return false;
+        }
+        var regex1 = /\s+/;
+        if (regex1.test(value)) {
+            showTips(ipt, "密码中不允许有空格");
+			return false;
+        }
+		
+		showTips(ipt, 0);
+		return true;
+	}
+	
+	$("#tradePwd").on("blur", function() {
+		check_pwd1($("#tradePwd"));
+    });
 
 	// 表单提交时，验证	
 	$("#next-step").on("click", function(){
@@ -95,7 +115,7 @@ $(function(){
                         </li>
                         <li>
                             <span class="form-title">交易密码</span>
-                            <input id="tradepwd" name="tradepwd" class="ipt-password1 input-text" maxlength="20"  type="password" value="">
+                            <input id="tradepwd" name="tradepwd" class="input-text" maxlength="20"  type="password" value="">
                             <a class="find" href="${staticDomain}/setting/settingPassword.htm">忘记密码?</a>
 							<span class="tips-normal">请填写交易密码</span>
                             <span id="tradePwdTips" class="tips-check"><i class="icon"></i>验证提示</span>

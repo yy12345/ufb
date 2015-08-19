@@ -29,7 +29,8 @@ public class SysException extends RuntimeException{
 	}
 
 	public String getMessage() {
-		return code+"-"+super.getMessage();
+		//return code+"-"+super.getMessage();
+		return super.getMessage();
 	}
 	
 	

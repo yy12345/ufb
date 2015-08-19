@@ -78,7 +78,8 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		/** 插入 **/
 		int n = autotradeMapper.insertAutotrade(autotrade);
 		if(n!=1){
-			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+			throw new UserException("您可通过自动充值计划列表确认！");
+			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		
 		/** 记录交易流水 **/
@@ -104,19 +105,19 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		dbautotrade.setAutoid(action.getAutoid());
 		List<Autotrade> list = autotradeMapper.getAutotradeList(dbautotrade);
 		if(list.isEmpty()||list.size()!=1){
-			throw new UserException("您的自动充值计划修改无效，您可通过自动充值计划列表确认！");
+			throw new UserException("您可通过自动充值计划列表确认！");
 			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		dbautotrade = list.get(0);
 		// 暂停/终止/交易状态的交易不能修改，请先恢复
 		if(!Constant.Autotrade.STATE$N.equals(dbautotrade.getState())){
-			throw new UserException("您的自动充值计划修改失败，（暂停/终止）状态的自动充值计划不能修改！");
+			throw new UserException("（暂停/终止）状态的自动充值计划不能修改！");
 			//throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
 		}
 		// 扣款日当日不能修改
 		String workdate = workDayManager.getCurrentWorkDay();
 		if(dbautotrade.getNextdate().equals(workdate)){
-			throw new UserException("您的自动充值计划修改失败，当前工作日的自动充值计划不能修改！");
+			throw new UserException("当前工作日的自动充值计划不能修改！");
 			//throw new BizException(processId, ErrorInfo.AUTO_NEXTDAY_ISWORKDAY); 
 		}
 		
@@ -134,7 +135,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		/** 更新 **/
 		int n = autotradeMapper.updateAutotrade(autotrade);
 		if(n!=1){
-			throw new UserException("您的自动充值计划修改无效，您可通过自动充值计划列表确认！");
+			throw new UserException("您可通过自动充值计划列表确认！");
 			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		
@@ -160,7 +161,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		dbautotrade.setAutoid(action.getAutoid());
 		List<Autotrade> list = autotradeMapper.getAutotradeList(dbautotrade);
 		if(list.isEmpty()||list.size()!=1){
-			throw new UserException("您的自动充值计划修改无效，您可通过自动充值计划列表确认！");
+			throw new UserException("您可通过自动充值计划列表确认！");
 			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		//state  P-暂停 ,C 终止 删除 ,N 恢复
@@ -193,7 +194,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		String workdate = workDayManager.getCurrentWorkDay();
 		if(dbautotrade.getNextdate().equals(workdate)){
 			//throw new BizException(processId, ErrorInfo.AUTO_NEXTDAY_ISWORKDAY); 
-			throw new UserException("您的自动充值计划修改失败，当前工作日的自动充值计划不能修改！");
+			throw new UserException("当前工作日的自动充值计划不能修改！");
 		}
 		
 		/** 数据包装 **/
@@ -202,7 +203,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		dbautotrade.setState(action.getState());
 		int n = autotradeMapper.updateAutotrade(dbautotrade);
 		if(n!=1){
-			throw new UserException("您的自动充值计划修改无效，您可通过自动充值计划列表确认！");
+			throw new UserException("您可通过自动充值计划列表确认！");
 			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		this.insertFdacfinalresult(dbautotrade,apkind);

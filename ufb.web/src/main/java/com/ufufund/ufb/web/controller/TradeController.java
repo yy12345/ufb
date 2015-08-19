@@ -58,7 +58,7 @@ public class TradeController {
 	
 	
 	@RequestMapping(value="trade/pay_index")
-	public String buyIndex(ApplyVo vo, Model model){
+	public String payIndex(ApplyVo vo, Model model){
 		
 		try{
 			String custno = UserHelper.getCustno();
@@ -92,8 +92,16 @@ public class TradeController {
 		
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", PAGE_PAY_INDEX);
+			//model.addAttribute("errorMsg", ue.getMessage());
+			//model.addAttribute("returnUrl", PAGE_PAY_INDEX);
+			
+			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_url", PAGE_PAY_INDEX);
+			model.addAttribute("message_content0", "充值失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			model.addAttribute("message_content2", "返回");
+			model.addAttribute("message_content3", "温馨提示：");
+			model.addAttribute("message_content4", "您的充值，提交失败，您可通过资金明细列表确认，如有问题请联系幼富通客服热线。");
 			return "error/user_error";
 		}
 		
@@ -134,8 +142,17 @@ public class TradeController {
 		
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", PAGE_ORG_PAY_INDEX);
+			//model.addAttribute("errorMsg", ue.getMessage());
+			//model.addAttribute("returnUrl", PAGE_ORG_PAY_INDEX);
+			
+			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_url", PAGE_ORG_PAY_INDEX);
+			model.addAttribute("message_content0", "充值失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			model.addAttribute("message_content2", "返回");
+			model.addAttribute("message_content3", "温馨提示：");
+			model.addAttribute("message_content4", "您的充值，提交失败，您可通过资金明细列表确认，如有问题请联系幼富通客服热线。");
+			
 			return "error/user_error";
 		}
 		
@@ -143,7 +160,7 @@ public class TradeController {
 	}
 	
 	@RequestMapping(value="trade/pay_result")
-	public String buyApply(ApplyVo vo, Model model){
+	public String payResult(ApplyVo vo, Model model){
 		
 		try{
 			String custno = UserHelper.getCustno();
@@ -157,8 +174,15 @@ public class TradeController {
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", PAGE_PAY_INDEX);
+			
+			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_url", PAGE_PAY_INDEX);
+			model.addAttribute("message_content0", "充值失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			model.addAttribute("message_content2", "返回");
+			model.addAttribute("message_content3", "温馨提示：");
+			model.addAttribute("message_content4", "您的充值，提交失败，您可通过资金明细列表确认，如有问题请联系幼富通客服热线。");
+			
 			return "error/user_error";
 		}
 		
@@ -180,8 +204,15 @@ public class TradeController {
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", PAGE_ORG_PAY_INDEX);
+			
+			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_url", PAGE_ORG_PAY_INDEX);
+			model.addAttribute("message_content0", "充值失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			model.addAttribute("message_content2", "返回");
+			model.addAttribute("message_content3", "温馨提示：");
+			model.addAttribute("message_content4", "您的充值，提交失败，您可通过资金明细列表确认，如有问题请联系幼富通客服热线。");
+			
 			return "error/user_error";
 		}
 		
@@ -189,7 +220,7 @@ public class TradeController {
 	}
 	
 	@RequestMapping(value="trade/cash_index")
-	public String redeemIndex(RedeemVo vo, Model model){
+	public String cashIndex(RedeemVo vo, Model model){
 		
 		try{
 			String custno = UserHelper.getCustno();
@@ -237,8 +268,15 @@ public class TradeController {
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
+			
+			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_url", PAGE_CASH_INDEX);
+			model.addAttribute("message_content0", "取现失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			model.addAttribute("message_content2", "返回");
+			model.addAttribute("message_content3", "温馨提示：");
+			model.addAttribute("message_content4", "您的取现，提交失败，您可通过资金明细列表确认，如有问题请联系幼富通客服热线。");
+			
 			return "error/user_error";
 		}
 		
@@ -293,8 +331,15 @@ public class TradeController {
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", PAGE_ORG_CASH_INDEX);
+			
+			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_url", PAGE_ORG_CASH_INDEX);
+			model.addAttribute("message_content0", "取现失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			model.addAttribute("message_content2", "返回");
+			model.addAttribute("message_content3", "温馨提示：");
+			model.addAttribute("message_content4", "您的取现，提交失败，您可通过资金明细列表确认，如有问题请联系幼富通客服热线。");
+			
 			return "error/user_error";
 		}
 		
@@ -302,7 +347,7 @@ public class TradeController {
 	}
 	
 	@RequestMapping(value="trade/cash_result")
-	public String redeemApply(RedeemVo vo, Model model){
+	public String cashResult(RedeemVo vo, Model model){
 		
 		try{
 			String custno = UserHelper.getCustno();
@@ -325,8 +370,15 @@ public class TradeController {
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
+			
+			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_url", PAGE_CASH_INDEX);
+			model.addAttribute("message_content0", "取现失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			model.addAttribute("message_content2", "返回");
+			model.addAttribute("message_content3", "温馨提示：");
+			model.addAttribute("message_content4", "您的取现，提交失败，您可通过资金明细列表确认，如有问题请联系幼富通客服热线。");
+			
 			return "error/user_error";
 		}
 		return "trade/cash_result";
@@ -357,8 +409,15 @@ public class TradeController {
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", PAGE_ORG_CASH_INDEX);
+			
+			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_url", PAGE_ORG_CASH_INDEX);
+			model.addAttribute("message_content0", "取现失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			model.addAttribute("message_content2", "返回");
+			model.addAttribute("message_content3", "温馨提示：");
+			model.addAttribute("message_content4", "您的取现，提交失败，您可通过资金明细列表确认，如有问题请联系幼富通客服热线。");
+			
 			return "error/user_error";
 		}
 		return "trade/cash_result";

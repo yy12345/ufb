@@ -32,16 +32,19 @@
             </div>
 -->
            <div class="title clearfix" style="margin-top:0;">
-                <h2 class="title-main fl">${message}</h2>
+                <h2 class="title-main fl">${message_title}</h2>
             </div>
             <div class="find-panels">
                 <div class="panel">
-                    <div class="form-done">
-                        <div class="title" style="margin-top:0;background:transparent">交易密码错误！</div>
-                        <a class="btn" href="javascript:;">返回</a>
+                    <div class="form-done" style="background:url("../images/icon.png") no-repeat -104px -110px">
+                        <div class="title" style="margin-top:0;background:transparent">${message_content0}</div>
+						<div class="title" style="margin-top:0;background:transparent;font-size:16px;">${message_content1}</div>
+						#if(${message_url})
+                        <a class="btn" href="${ufbDomain}/${message_url}">${message_content2}</a>
+						#end
                         <div class="tips">
-                        	<p>温馨提示：</p>
-							<p>你的交易申请提交失败，请确认密码后重新操作，或联系幼富通客服热线</p>
+                        	<p>${message_content3}</p>
+							<p>${message_content4}</p>
                         </div>
                     </div>
                 </div>
