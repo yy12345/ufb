@@ -39,11 +39,16 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 	private SequenceMapper sequenceMapper;
 	
 	@Override
+	/**
+	 * 获取学期学年信息
+	 */
 	public Orggrade getOrgGradeInfo(String orgId) throws BizException {
 		String processId = this.getProcessId(orgId);
 		if (RegexUtil.isNull(orgId)) {
+			// 机构ID
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.ORGID);
 		}
+		
 		Orggrade org = new Orggrade();
 		org.setOrgid(orgId);
 		org.setIsopen(Constant.Orggrade.ISOPEN$Y);
@@ -53,7 +58,6 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 
 	@Override
 	public void saveOrgGrade(SaveOrgGradeAction action) throws BizException {
-		//String processId = 
 		this.getProcessId(action);
 		orgDeployValidator.validator(action);
 		Orggrade retOrg = this.getOrgGradeInfo(action.getOrgid());

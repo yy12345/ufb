@@ -5,37 +5,39 @@
 <mapper namespace="com.ufufund.ufb.dao.OrgDeployMapper">
     
 
-  	<update id="mergeOrgGradeInfo" parameterType="com.ufufund.ufb.model.db.Orggrade">
-		 INSERT INTO org_grade  (
-			  org_id,
-			  grade_id,
-			  grade_name,
-			  start_date,
-			  end_date,
+    <update id="mergeOrgGradeInfo" parameterType="com.ufufund.ufb.model.db.Orggrade">
+		INSERT INTO org_grade  (
+			org_id,
+			grade_id,
+			grade_name,
+			start_date,
+			end_date,
+			isopen,
 			  
-			  isopen,
-			  term1_id,
-			  t1_start_date,
-			  t1_end_date,
-			  t1_isopen,
+			term1_id,
+			t1_start_date,
+			t1_end_date,
+			t1_isopen,
 			  
-			  term2_id,
-			  t2_start_date,
-			  t2_end_date,
-			  t2_isopen,
-			  create_no,
+			term2_id,
+			t2_start_date,
+			t2_end_date,
+			t2_isopen,
 			  
-			  create_time,
-			) 
-			VALUES
-			(
+			create_no,
+			update_no,
+			create_time,
+			update_time
+		) 
+		VALUES
+		(
 			#{orgid,jdbcType=VARCHAR},
 			#{gradeid,jdbcType=VARCHAR},
 			#{gradename,jdbcType=VARCHAR},
 			#{startdate,jdbcType=VARCHAR},
 			#{enddate,jdbcType=VARCHAR},
-			
 			#{isopen,jdbcType=VARCHAR},
+			
 			#{term1id,jdbcType=VARCHAR},
 			#{t1startdate,jdbcType=VARCHAR},
 			#{t1enddate,jdbcType=VARCHAR},
@@ -45,11 +47,19 @@
 			#{t2startdate,jdbcType=VARCHAR},
 			#{t2enddate,jdbcType=VARCHAR},
 			#{t2isopen,jdbcType=VARCHAR},
+			
 			#{createno,jdbcType=VARCHAR},
+			#{updateno,jdbcType=VARCHAR},
+			sysdate(),
 			sysdate()
-			) ON DUPLICATE KEY UPDATE 
-			update_no = #{update_no,jdbcType=VARCHAR},
+		) ON DUPLICATE KEY UPDATE 
+			create_no = #{createno,jdbcType=VARCHAR},
+			create_time = sysdate(),
+			update_no = #{updateno,jdbcType=VARCHAR},
 			update_time = sysdate()
+			<if test="orgid != null and orgid !=''" >
+			,org_id = #{orgid,jdbcType=VARCHAR} 
+			</if>
 			<if test="gradename != null and gradename !=''" >
 			,grade_name = #{gradename,jdbcType=VARCHAR} 
 			</if>
@@ -59,10 +69,10 @@
 			<if test="enddate != null and enddate !=''" >
 			,end_date = #{enddate,jdbcType=VARCHAR} 
 			</if>
-			
 			<if test="isopen != null and isopen !=''" >
 			,isopen = #{isopen,jdbcType=VARCHAR} 
 			</if>
+			
 			<if test="term1id != null and term1id !=''" >
 			,term1_id = #{term1id,jdbcType=VARCHAR} 
 			</if>
@@ -90,30 +100,36 @@
 			</if>		
 	</update>
    
-  
 
-   <select id="getOrgGradeInfo" parameterType="com.ufufund.ufb.model.db.Orggrade" resultType="com.ufufund.ufb.model.db.Orggrade">
+	<select id="getOrgGradeInfo" parameterType="com.ufufund.ufb.model.db.Orggrade" resultType="com.ufufund.ufb.model.db.Orggrade">
 		SELECT
-			  a.org_id,
-		      a.grade_id,
-		      a.grade_name,
-		      a.start_date,
-		      a.end_date,
-		      a.isopen,
-		      a.term1_id,
-		      a.t1_start_date,
-		      a.t1_end_date,
-		      a.t1_isopen,
-		      a.term2_id,
-		      a.t2_start_date,
-		      a.t2_end_date,
-		      a.t2_isopen
-		FROM  org_grade a
-		WHERE a.org_id #{orgid,jdbcType=VARCHAR} 
+			a.org_id as orgid,
+		    a.grade_id as gradeid,
+		    a.grade_name as gradename,
+		    a.start_date as startdate,
+		    a.end_date as enddate,
+		    a.isopen as isopen,
+		      
+		    a.term1_id as term1id,
+		    a.t1_start_date as t1startdate,
+		    a.t1_end_date as t1enddate,
+		    a.t1_isopen as t1isopen,
+		      
+		    a.term2_id as term2id,
+		    a.t2_start_date as t2startdate,
+		    a.t2_end_date as t2enddate,
+		    a.t2_isopen as t2isopen,
+		      
+		    a.createno as createno,
+		    a.updateno as updateno
+		FROM
+			org_grade a
+		WHERE 
+		a.org_id #{orgid,jdbcType=VARCHAR} 
 		<if test="isopen != null and isopen !=''" >
 		AND a.isopen = #{isopen,jdbcType=VARCHAR} 
 		</if>
-  	</select>
+    </select>
   	
   	<select id="getOrgchargeinfo" parameterType="com.ufufund.ufb.model.db.Orgchargeinfo" resultType="com.ufufund.ufb.model.db.Orgchargeinfo">
 		SELECT
