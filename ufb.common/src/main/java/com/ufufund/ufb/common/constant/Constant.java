@@ -118,9 +118,21 @@ public interface Constant {
 	public static class MsgTemplate{
 		public static Map<String,String> templateMap = new HashMap<String,String>();
 		static{
-			templateMap.put("0J001", "亲爱的家长，您的验证码为：%s，5分钟内有效。");
-			templateMap.put("0Y001", "亲爱的园长，您的验证码为：%s，5分钟内有效。");
-			// 暂时测试编码2个，其它见文档。
+			/** 短信的业务场景，参照短信模板文档 **/ 
+			// 家长短信
+			templateMap.put("0J001", "本次短信验证码%s，请于5分钟内输入验证，谢谢。");
+			templateMap.put("0J004", "亲爱的%s小朋友家长，%s（机构名）计划收取%s（收费名称）共计%s元，每月自动扣费日%s(日期），请登录幼富通www.ufufund.com确认缴费。");
+			templateMap.put("0J005", "亲爱的%s小朋友家长，%s（机构名）计划收取%s（收费名称）共计%s元，扣费日%s(日期），请登录幼富通www.ufufund.com确认缴费。");
+			templateMap.put("0J006", "亲爱的%s小朋友家长，%s（机构名）计划收取%s（收费名称）共计%s元，每月自动扣费日%s(日期），请登录幼富通www.ufufund.com确认缴费。");
+			templateMap.put("0J007", "幼富宝为你定期转出s%元至%s（银行名）银行卡（尾号%s），预计%s（日期）到账可自动扣缴%s（收费名称），请确保卡内余额充足。");
+			templateMap.put("0J008", "亲爱的家长，已成功向%s（幼教机构）支付%s（计划）%s元，请登录幼富通www.ufufund.com查看收费明细。");
+			templateMap.put("0J009", "亲爱的家长，你已收到%s（机构名）退回%s（退费名称）%s元。请登录幼富通www.ufufund.com查看退费明细。");
+			// 幼儿园短信
+			templateMap.put("0Y001", "本次短信验证码%s，请于5分钟内输入验证，谢谢。");
+			templateMap.put("0Y002", "%s（机构名）你的开户申请审核已通过。欢迎登录幼富通www.ufufund.com，使用相关幼教金融服务。");
+			templateMap.put("0Y003", "%s（机构名）计划收取%s（收费名称）共计%s元，每月自动扣费日%s(日期），已通知%s位家长。请登录幼富通www.ufufund.com跟踪缴费状态。");
+			templateMap.put("0Y004", "%s（机构名）计划收取%s（收费名称）共计%s元，扣费日%s(日期），已通知%s位家长。请登录幼富通www.ufufund.com跟踪家长缴费状态。");
+			templateMap.put("0Y005", "%s（机构名）计划收取%s（收费名称）共计%s元，今日系统扣费成功%s笔，失败%s笔。请登录幼富通www.ufufund.com跟踪家长缴费状态。");
 		}
 	}
 	
