@@ -436,7 +436,10 @@ public class SettingController {
 		try{
 			// 获取自动充值计划列表
 			List<Autotrade> list = autotradeManager.getAutotradeList(s_custinfo.getCustno());
+			// 获取自动取现计划列表
+			List<Autotrade> cashlist = autotradeManager.getCashtradeList(s_custinfo.getCustno());
 			model.addAttribute("LIST", list);
+			model.addAttribute("CASHLIST", cashlist);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "setting/autoTrade_index";
@@ -609,10 +612,6 @@ public class SettingController {
 			// 跳转确认页
 			model.addAttribute("AutoTradeVo", autotradeVo);
 		}catch (BizException e){
-//			LOG.error(e.getErrmsg(), e);
-//			model.addAttribute("SessionVo", s_custinfo);
-//			return "setting/autoFundStepU1";
-			
 			model.addAttribute("errorMsg", e.getMessage());
 			model.addAttribute("returnUrl", "setting/autoTrade_index.htm");
 			return "error/user_error";
@@ -778,4 +777,283 @@ public class SettingController {
 		return "setting/autoFundStepP3";
 	}
 	
+	
+	/**
+	 * 20150819 自动取现
+	 * 添加取现第一步
+	 */
+	@RequestMapping(value="setting/autoCash_add")
+	public String autoCashAdd(AutotradeVo autotradevo,Model model){
+		CustinfoVo custinfo=UserHelper.getCustinfoVo();
+		try{
+		String custno=custinfo.getCustno();
+		List<TradeAccoinfoOfMore> tradelist=tradeAccoManager.getTradeAccoList(custno);
+		if(tradelist!=null&&tradelist.size()>0){
+			model.addAttribute("curCard", tradelist.get(0));
+			model.addAttribute("tradeCardList", tradelist);
+		}
+		//返回修改
+		String tobankserialid = autotradevo.getTobankserialid();
+		if(null != tobankserialid && tobankserialid.length() > 0){
+			// autotradeVo.getTofundcorpno()
+			TradeAccoinfoOfMore tradeAccoinfoOfMore = 
+					tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, tobankserialid);
+			model.addAttribute("curCard", tradeAccoinfoOfMore);
+		}
+		
+		}catch(BizException e){
+			LOG.error(e.getErrmsg(),e);
+			return "setting/autoTrade_index";
+		}
+		model.addAttribute("AutoTradeVo", autotradevo);
+		return "setting/autoCashStep1";
+	}
+	/**
+	 * 添加取现第二步
+	 */
+	@RequestMapping(value="setting/autoCash_preview")
+	public String autoCashPreview(AutotradeVo autotradeVo ,Model model){
+		CustinfoVo custinfovo= UserHelper.getCustinfoVo();
+		try{
+		String custno=custinfovo.getCustno();
+		autotradeVo.setCustno(custno);
+		autotradeVo.setFromfundcorpno(Constant.HftSysConfig.HftFundCorpno);
+		autotradeVo.setFromfundcode(BasicFundinfo.YFB.getFundCode());
+		autotradeVo.setFromchargetype("A");
+		
+		autotradeVo.setCycle("MM");
+		String nextdate=autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
+		autotradeVo.setNextdate(nextdate);
+		model.addAttribute("AutoTradeVo", autotradeVo);
+		}catch(BizException e){
+			LOG.error(e.getErrmsg(),e);
+			return "setting/autoCash_add";
+		}
+		return "setting/autoCashStep2";
+	}
+	/**
+	 * 取现第三步
+	 */
+	@RequestMapping(value="setting/autoCash_result")
+	public String autoCashResult(AutotradeVo autotradeVo,Model model){
+		
+		CustinfoVo custinfoVo=UserHelper.getCustinfoVo();
+		try{
+			AddAutotradeAction action = new AddAutotradeAction();
+			// 用户信息
+			action.setCustno(custinfoVo.getCustno());
+			//action.setFrombankserialid(autotradeVo.getFrombankserialid());
+			action.setFromfundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			action.setFromfundcode(BasicFundinfo.YFB.getFundCode());
+			action.setFromchargetype("A");
+			action.setTobankacco(autotradeVo.getTobankacco());
+			action.setTobankserialid(autotradeVo.getTobankserialid());
+			// 交易类型
+			action.setTradetype(AutoTradeType.AUTOWITHDRAWAL);
+			// 取现周期
+			action.setType("E");
+			action.setCycle("MM");
+			action.setDat(autotradeVo.getDat());
+			action.setNextdate(autotradeVo.getNextdate());
+			// 取现金额
+			action.setAutovol(autotradeVo.getAutovol());
+			//action.setAutoamt(autotradeVo.getAutoamt());
+			// 备注
+			action.setSummary(autotradeVo.getSummary());
+			// 交易密码
+			action.setTradepwd(autotradeVo.getTradepwd());
+			
+			autotradeManager.addAutotrade(action);
+		}catch(BizException e){
+			LOG.error(e.getErrmsg(),e);
+			return "setting/autoCash_add";
+		}
+		return "setting/autoCashStep3";
+	}
+	/**
+	 * 自动取现修改
+	 */
+	@RequestMapping(value="setting/autoCash_update")
+	public String autoCashUpdate(AutotradeVo autotradeVo, Model model){
+		try{
+			String custno = UserHelper.getCustno();
+			// 获取交易账户列表
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno);
+			
+			if(null != tradeAccoList && tradeAccoList.size() > 0){
+				model.addAttribute("cardList", tradeAccoList);
+			}
+			
+			String tobankserialid = autotradeVo.getTobankserialid();
+			if(null != tobankserialid && tobankserialid.length() > 0){
+				TradeAccoinfoOfMore tradeAccoinfoOfMore = 
+						tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, tobankserialid);
+				model.addAttribute("curCard", tradeAccoinfoOfMore);
+			}
+			
+			if("u2".equals(autotradeVo.getStep())){
+				model.addAttribute("AutoTradeVo", autotradeVo);
+			}else{
+				Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
+				model.addAttribute("AutoTradeVo", autotrade);
+			}
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			return "setting/autoTrade_index";
+		}
+		return "setting/autoCashStepU1";
+	}
+	@RequestMapping(value="setting/autoCashUpdate_preview")
+	public String autoCashUpdate_preview(AutotradeVo autotradeVo, Model model){
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+		try{
+			// 用户信息
+			autotradeVo.setCustno(s_custinfo.getCustno());
+			// 货币信息
+			autotradeVo.setFromfundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			autotradeVo.setFromfundcode(BasicFundinfo.YFB.getFundCode());
+			autotradeVo.setFromchargetype("A");
+			// 充值周期
+			autotradeVo.setCycle("MM");
+			String nextdate = autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
+			autotradeVo.setNextdate(nextdate);
+			
+			// 跳转确认页
+			model.addAttribute("AutoTradeVo", autotradeVo);
+		}catch (BizException e){
+			model.addAttribute("errorMsg", e.getMessage());
+			model.addAttribute("returnUrl", "setting/autoTrade_index.htm");
+			return "error/user_error";
+		}
+		return "setting/autoCashStepU2";
+	}
+	
+	@RequestMapping(value="setting/autoCashUpdate_result")
+	public String autoCashUpdate_result(AutotradeVo autotradeVo, Model model){
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+		try{
+			ModifyAutotradeAction action = new ModifyAutotradeAction();
+			// autoid
+			action.setAutoid(autotradeVo.getAutoid());
+			// 用户信息
+			action.setCustno(s_custinfo.getCustno());
+			// 银行卡
+			action.setTobankserialid(autotradeVo.getTobankserialid());	
+			// 货币信息
+			action.setFromfundcorpno(autotradeVo.getFromfundcorpno());
+			action.setFromfundcode(autotradeVo.getFromfundcode());
+			action.setFromchargetype("A");
+			// 交易类型
+			action.setTradetype(AutoTradeType.AUTOWITHDRAWAL);
+			// 充值周期
+			action.setType("E");
+			action.setCycle("MM");
+			action.setDat(autotradeVo.getDat());
+			action.setNextdate(autotradeVo.getNextdate());
+			// 充值金额
+			action.setAutovol(autotradeVo.getAutovol());
+			// 备注
+			action.setSummary(autotradeVo.getSummary());
+			// 交易密码
+			action.setTradepwd(autotradeVo.getTradepwd());
+			
+			autotradeManager.modifyAutotrade(action);
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("AutoTradeVo", autotradeVo);
+			return "setting/autoCashStepU2";
+		}catch(UserException ue){
+			LOG.warn(ue.getMessage(), ue);
+			
+			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_url", "setting/autoTrade_index.htm");
+			model.addAttribute("message_content0", "修改自动取现计划失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			model.addAttribute("message_content2", "返回自动取现计划");
+			model.addAttribute("message_content3", "温馨提示：");
+			model.addAttribute("message_content4", "您的自动取现计划，提交失败，您可通过自动取现计划列表确认，如有问题请联系幼富通客服热线。");
+			return "error/user_error";
+		}
+		return "setting/autoCashStepU3";
+	}
+	/**
+	 * 自动取现的暂停状态的修改
+	 */
+
+	@RequestMapping(value="setting/autoCash_pause")
+	public String autoCashPause(AutotradeVo autotradeVo, Model model){
+		try{
+			String custno = UserHelper.getCustno();
+			
+			String tobankserialid = autotradeVo.getTobankserialid();
+			if(null != tobankserialid && tobankserialid.length() > 0){
+				TradeAccoinfoOfMore tradeAccoinfoOfMore = 
+						tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, tobankserialid);
+				model.addAttribute("curCard", tradeAccoinfoOfMore);
+			}
+			
+			if("u2".equals(autotradeVo.getStep())){
+				model.addAttribute("AutoTradeVo", autotradeVo);
+			}else{
+				Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
+				model.addAttribute("AutoTradeVo", autotrade);
+			}
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			return "setting/autoTrade_index";
+		}
+		return "setting/autoCashStepP1";
+	}
+	
+	@RequestMapping(value="setting/autoCashPause_preview")
+	public String autoCashPause_preview(AutotradeVo autotradeVo, Model model){
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+		try{
+			// 用户信息
+			autotradeVo.setCustno(s_custinfo.getCustno());
+			// 货币信息
+			autotradeVo.setFromfundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			autotradeVo.setFromfundcode(BasicFundinfo.YFB.getFundCode());
+			autotradeVo.setFromchargetype("A");
+			
+			// 跳转确认页
+			model.addAttribute("AutoTradeVo", autotradeVo);
+		}catch (BizException e){
+			model.addAttribute("errorMsg", e.getMessage());
+			model.addAttribute("returnUrl", "setting/autoTrade_index.htm");
+			return "error/user_error";
+		}
+		return "setting/autoCashStepP2";
+	}
+	
+	@RequestMapping(value="setting/autoCashPause_result")
+	public String autoCashPauseResult(AutotradeVo autotradeVo, Model model){
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+		try{
+			ChangeAutoStateAction action = new ChangeAutoStateAction();
+			
+			action.setCustno(s_custinfo.getCustno());
+			action.setAutoid(autotradeVo.getAutoid());
+			action.setState(Constant.Autotrade.STATE$P);
+			action.setTradepwd(autotradeVo.getTradepwd());
+			autotradeManager.changestatus(action);
+		}catch (BizException e){
+			model.addAttribute("errorMsg", e.getMessage());
+			model.addAttribute("returnUrl", "setting/autoTrade_index.htm");
+			return "error/user_error";
+			
+		}catch(UserException ue){
+			LOG.warn(ue.getMessage(), ue);
+			
+			model.addAttribute("message_title", "错误信息");
+			model.addAttribute("message_url", "setting/autoTrade_index.htm");
+			model.addAttribute("message_content0", "暂停自动取现计划失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			model.addAttribute("message_content2", "返回自动取现计划");
+			model.addAttribute("message_content3", "温馨提示：");
+			model.addAttribute("message_content4", "您的自动取现计划，提交失败，您可通过自动取现计划列表确认，如有问题请联系幼富通客服热线。");
+			return "error/user_error";
+		}
+		return "setting/autoCashStepP3";
+	}
 }

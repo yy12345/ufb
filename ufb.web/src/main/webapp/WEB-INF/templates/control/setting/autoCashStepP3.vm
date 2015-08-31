@@ -14,16 +14,16 @@ $(function(){
 <div class="body">
     <div class="inner container-step">
 		<form id="form-autoTrade-result" class="common-form" action="${ufbDomain}/setting/autoTradePause_result.htm" method="post">
-        <div class="step-title clearfix">暂停自动充值计划<a class="link link-underline fr" href="${staticDomain}/setting/autoTrade_index.htm">&lt;&lt;自动充值计划</a></div>
+        <div class="step-title clearfix">暂停自动取现计划<a class="link link-underline fr" href="${staticDomain}/setting/autoTrade_index.htm">&lt;&lt;自动取现计划</a></div>
         <div class="step-tabs tabs-step3 clearfix">
-            <a class="tab fl" href="javascript:;">自动充值（暂停）</a>
-            <a class="tab fl" href="javascript:;">预览自动充值计划（暂停）</a>
+            <a class="tab fl" href="javascript:;">自动取现（暂停）</a>
+            <a class="tab fl" href="javascript:;">预览自动取现计划（暂停）</a>
             <a class="tab fl on" href="javascript:;">开通结果（暂停）</a>
         </div>
         <div class="step-panels">
             <div class="panel">
                 <div class="form-done">
-                    <div class="title">你的自动充值计划已暂停</div>
+                    <div class="title">你的自动取现计划已暂停</div>
                     <div class="text">
 						<!--
                         <table width="300">
@@ -42,7 +42,7 @@ $(function(){
                         </table>
 						-->
                     </div>
-                    <a class="btn" href="${staticDomain}/setting/autoTrade_index.htm">查看自动充值计划</a>
+                    <a class="btn" href="${staticDomain}/setting/autoTrade_index.htm">查看自动取现计划</a>
                 </div>
             </div>
         </div>

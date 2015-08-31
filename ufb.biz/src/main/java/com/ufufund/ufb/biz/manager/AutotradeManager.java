@@ -65,5 +65,13 @@ public interface AutotradeManager { // extends CustInterface{
 	 * @return
 	 */
 	public Autotrade getAutotrade(String autoid) throws BizException;
+	
+	
+	/**
+	 * 获取取现信息
+	 * @param String
+	 * @return 
+	 */
+	public List<Autotrade> getCashtradeList(String custno) throws BizException;
 
 }

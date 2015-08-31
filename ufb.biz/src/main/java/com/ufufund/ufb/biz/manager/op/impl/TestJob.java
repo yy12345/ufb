@@ -24,5 +24,12 @@ public class TestJob {
 		log.info("自动充值引擎启动...");
 		Today today = workDayManager.getSysDayInfo();
 		autotradeManagerOP.startAutotrade(AutoTradeType.AUTORECHARGE, today.getWorkday());
+		//autotradeManagerOP.startAutotrade(AutoTradeType.AUTOWITHDRAWAL, today.getWorkday());
+	}
+	public void cashRun(){
+		
+		log.info("自动取现引擎启动...");
+		Today today = workDayManager.getSysDayInfo();
+		autotradeManagerOP.startAutotrade(AutoTradeType.AUTOWITHDRAWAL, today.getWorkday());
 	}
 }

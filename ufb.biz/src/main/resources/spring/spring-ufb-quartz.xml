@@ -11,8 +11,8 @@
 	<bean id="testJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 	    <!--false表示等上一个任务执行完后再开启新的任务
 	    <property name="group" value="job_work"/>
-	    <property name="name" value="job_work_name"/>
-	    <property name="concurrent" value="false"/> -->
+	    <property name="name" value="job_work_name"/> -->
+	    <property name="concurrent" value="false"/>
 	    <property name="targetObject">
 	        <ref bean="testJob"/>
 	    </property>
@@ -20,12 +20,29 @@
 	        <value>run</value>
 	    </property>
 	</bean>
-	
+	<bean id="testJobDetailcash" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<property name="concurrent" value="false"/>
+	    <property name="targetObject">
+	        <ref bean="testJob"/>
+	    </property>
+	    <property name="targetMethod">
+	        <value>cashRun</value>
+	    </property>
+	</bean>
 	<!--  调度触发器 -->
 	<bean id="testTrigger"
 	      class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 	    <property name="jobDetail">
 	        <ref bean="testJobDetail" />
+	    </property>
+	    <property name="cronExpression">
+	        <value>0 */1 * * * ?</value>
+	    </property>
+	</bean>
+	<bean id="testTriggerCash"
+	      class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	    <property name="jobDetail">
+	        <ref bean="testJobDetailcash" />
 	    </property>
 	    <property name="cronExpression">
 	        <value>0 */1 * * * ?</value>
@@ -37,6 +54,7 @@
 	    <property name="triggers">
 	        <list>
 	        	<ref bean="testTrigger"/> 
+	        	<ref bean="testTriggerCash"/> 
 	        </list>
 	    </property>
 	</bean>
