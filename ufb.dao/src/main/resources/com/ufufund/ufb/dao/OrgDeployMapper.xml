@@ -120,12 +120,12 @@
 		    a.t2_end_date as t2enddate,
 		    a.t2_isopen as t2isopen,
 		      
-		    a.createno as createno,
-		    a.updateno as updateno
+		    a.create_no as createno,
+		    a.update_no as updateno
 		FROM
 			org_grade a
 		WHERE 
-		a.org_id #{orgid,jdbcType=VARCHAR} 
+		a.org_id =  #{orgid,jdbcType=VARCHAR} 
 		<if test="isopen != null and isopen !=''" >
 		AND a.isopen = #{isopen,jdbcType=VARCHAR} 
 		</if>
@@ -185,31 +185,28 @@
   	
   	<update id="updateOrgchargeinfo" parameterType="com.ufufund.ufb.model.db.Orgchargeinfo">
 		UPDATE org_charge_info a
-	       SET a.update_time = sysdate()
-	       	   a.update_no = #{updateno,jdbcType=VARCHAR}	
-	       	
+	       SET a.update_time = sysdate(),	       	
 	       	<if test="chargetype != null">
-	       	  ,a.charge_type = #{chargetype,jdbcType=VARCHAR}
+	       	  a.charge_type = #{chargetype,jdbcType=VARCHAR},
 	       	</if>
 			<if test="chargename != null">
-	       	  ,a.charge_name = #{chargename,jdbcType=VARCHAR}
+	       	  a.charge_name = #{chargename,jdbcType=VARCHAR},
 	       	</if>
 	        <if test="chargeamount != null">
-	       	  ,a.charge_amount = #{chargeamount,jdbcType=VARCHAR}
+	       	  a.charge_amount = #{chargeamount,jdbcType=VARCHAR},
 	       	</if>
 			<if test="cycle != null">
-	       	  ,a.cycle = #{cycle,jdbcType=VARCHAR}
+	       	  a.cycle = #{cycle,jdbcType=VARCHAR},
 	       	</if>
-	       	
 	        <if test="cycletype != null">
-	       	  ,a.cycle_type = #{cycletype,jdbcType=VARCHAR}
+	       	  a.cycle_type = #{cycletype,jdbcType=VARCHAR},
 	       	</if>
 			<if test="isdelete != null">
-	       	  ,a.is_delete = #{isdelete,jdbcType=VARCHAR}
+	       	  a.is_delete = #{isdelete,jdbcType=VARCHAR},
 	       	</if>   	
+	       	  a.update_no = #{updateno,jdbcType=VARCHAR}
 	     WHERE a.org_id = #{orgid,jdbcType=VARCHAR}
-	     AND  a.charge_id = #{chargeid,jdbcType=VARCHAR}
-	</update>
-  	
+	     AND  a.charge_id = #{chargeid,jdbcType=BIGINT}  
+	 </update>
 </mapper>
 

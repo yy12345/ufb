@@ -39,9 +39,10 @@ public interface OrgDeploy {
 	public void startTerm(String orgId) throws BizException;
 	
 	/*
-	 * 结束学年
+	 * 结束学期
 	 */
 	public void closeTerm(String orgId) throws BizException;
+	
 	
 	
 	

@@ -17,7 +17,7 @@ public class Orgchargeinfo extends PrintableModel implements Serializable {
 	private String chargename;//	varchar	30	名称
 	private String chargeamount;//	number	16,2	默认金额
 	private String cycle;//	char	1	计费周期 学年/学期/每月
-	private String cycletype;//	char	1	单次/月固定  (学年,学期-单次，月-月固定)
+	private String cycletype;//	char	1	单次/月固定  (学年,学期-单次，月-月固定) S/M
 	private String isdelete;//	char	1	是否删除
 	private String createno;//	char	24	创建人 客户号
 	//createtime	timestamp		创建时间

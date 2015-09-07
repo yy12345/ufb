@@ -1,5 +1,6 @@
 package com.ufufund.trade.ufb.biz.manager.test;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,12 +14,13 @@ import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
+import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.enums.Level;
 
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = { "classpath:spring/spring-ufb-biz.xml" })
-//@TransactionConfiguration(defaultRollback = false)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:spring/spring-ufb-biz.xml" })
+@TransactionConfiguration(defaultRollback = false)
 public class CustManagerTest {
 	
 	@Autowired
@@ -38,7 +40,8 @@ public class CustManagerTest {
 	//@Test
 	public void testrisMobileRegister(){
 		
-		custManager.isMobileRegister("1111");
+		custManager.isMobileRegister("13611111111");
+		
 	}
 
 	
@@ -126,15 +129,15 @@ public class CustManagerTest {
 	
 	
 	
-//	//@Test
-//	public void testgetCustinfo(){
-//		Custinfo custinfo = new Custinfo();
-//		custinfo.setMobileno("13611686341");
-//		custinfo = custinfoMapper.getCustinfo(custinfo);
-//		boolean s =areaManager.isMobileRegister("13611686341");
-//		System.out.println("----------1"+custinfo.toString());
-//		System.out.println("----------2"+ s);
-//	}
+	//@Test
+	public void testgetCustinfo(){
+		Custinfo custinfo = new Custinfo();
+		custinfo.setMobileno("13611686341");
+		custinfo = custinfoMapper.getCustinfo(custinfo);
+		boolean s = custManager.isMobileRegister("13611686341");
+		System.out.println("----------1"+custinfo.toString());
+		System.out.println("----------2"+ s);
+	}
 	
 //	//@Test
 //	public void testgetInsterCustinfo(){
