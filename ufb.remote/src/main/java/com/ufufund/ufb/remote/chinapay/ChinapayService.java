@@ -29,16 +29,17 @@ public class ChinapayService {
 	private static final String ENCODING = "gbk";
 	
 	private String requestUrl = "http://59.41.103.98:333/gzdsf/ProcessServlet";
-	private String downUrl = "http://59.41.103.98:333/gzdsf/GetSettFile.do";
 	private String username = "operator";
 	private String userpass = "operator";
 	private String merchantId = "001053110000001";
 	private String publicKey = "E:/workspace/ufufund/cert/gzdsf.cer";
 	private String privateKey = "E:/workspace/ufufund/cert/ORA@TEST1.pfx";
 	private String privateKeyPwd = "123456";
+	private String downUrl = "http://59.41.103.98:333/gzdsf/GetSettFile.do";
 	private String settleFileDir = "E:/workspace/ufufund/cp_data/";
 	
 	private static final String TRX_CODE_100009 = "100009";  // 账户验证
+	private static final String TRX_CODE_300004 = "300004";  // 代付白名单（商户签约）
 	private static final String TRX_CODE_100001 = "100001";  // 批量代收
 	private static final String TRX_CODE_100002 = "100002";  // 批量代付
 	private static final String TRX_CODE_100004 = "100004";  // 实时代收
@@ -70,6 +71,42 @@ public class ChinapayService {
 		// body/sum
 		TransSum tSum = new TransSum();
 		tSum.setMERCHANT_ID(merchantId);
+		reqBody.setTRANS_SUM(tSum);
+		
+		// body/details
+		List<TransDetail> tDetailList = new ArrayList<TransDetail>();
+		tDetailList.add(tDetail);
+		reqBody.setTRANS_DETAIL(tDetailList);
+		req.setBODY(reqBody);
+		
+		return send(req);
+	}
+	
+	/**
+	 * 代付签约接口
+	 * @param serialno
+	 * @param tDetail
+	 * @return
+	 */
+	public Response paySign(String serialno, TransDetail tDetail){
+		Request req = new Request();
+		RequestBody reqBody = new RequestBody();
+		RequestInfo reqInfo = new RequestInfo();
+		
+		// info
+		reqInfo.setTRX_CODE(TRX_CODE_300004);
+		reqInfo.setVERSION("04");
+		reqInfo.setDATA_TYPE("2");
+		reqInfo.setUSER_NAME(username);
+		reqInfo.setUSER_PASS(userpass);
+		reqInfo.setREQ_SN(serialno);
+		reqInfo.setSIGNED_MSG("");
+		req.setINFO(reqInfo);
+		
+		// body/sum
+		TransSum tSum = new TransSum();
+		tSum.setMERCHANT_ID(merchantId);
+		tSum.setTOTAL_ITEM(1);
 		reqBody.setTRANS_SUM(tSum);
 		
 		// body/details

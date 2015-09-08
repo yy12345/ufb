@@ -58,6 +58,25 @@ public class ChinapayServiceTest {
 	}
 	
 	/**
+	 * 代付签约
+	 */
+//	@Test
+	public void paySign(){
+		
+		TransDetail tDetail = new TransDetail();
+		
+		tDetail.setSF_TYPE("F");
+		tDetail.setBANK_CODE("105");
+		tDetail.setACCOUNT_NO("6227001823260036733");
+		tDetail.setACCOUNT_NAME("吴小龄");
+		
+		Response response = chinapayService
+				.paySign(String.valueOf(System.currentTimeMillis()), tDetail);
+		
+		log.info(response.toString());
+	}
+	
+	/**
 	 * 批量代收测试
 	 */
 //	@Test
