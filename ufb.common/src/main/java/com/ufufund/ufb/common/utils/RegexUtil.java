@@ -279,9 +279,9 @@ public class RegexUtil {
 	     * @return
 	     * @author jiqinlin
 	     */
-//	    public final static boolean isDigits(String str) {
-//	        return match(str, "^[0-9]*$");
-//	    }
+	    public final static boolean isDigits(String str) {
+	        return match(str, "^[0-9]*$");
+	    }
     
     
     

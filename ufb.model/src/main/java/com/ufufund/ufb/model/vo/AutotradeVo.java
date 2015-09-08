@@ -40,6 +40,10 @@ public class AutotradeVo implements Serializable {
 	private String toaccoid;
 	private String totradeacco;
 	private String tochargetype;
+	 
+	private String tobankno;
+	private String tobanktail;
+	private BigDecimal autovol;//份额
 	
 	private String lastdate;// char(8) default null comment '最近扣款日期',
 	private String nextdate;// char(8) default null comment '下一扣款日期',
@@ -260,6 +264,33 @@ public class AutotradeVo implements Serializable {
 
 	public void setTochargetype(String tochargetype) {
 		this.tochargetype = tochargetype;
+	}
+	
+	
+	
+	
+	
+	public String getTobankno() {
+		return tobankno;
+	}
+	
+	public void setTobankno(String tobankno) {
+		this.tobankno = tobankno;
+	}
+	public String getTobanktail() {
+		return tobanktail;
+	}
+	
+	public void setTobanktail(String tobanktail) {
+		this.tobanktail = tobanktail;
+	}
+
+	public BigDecimal getAutovol() {
+		return autovol;
+	}
+	
+	public void setAutovol(BigDecimal autovol) {
+		this.autovol = autovol;
 	}
 
 	@Override

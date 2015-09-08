@@ -29,6 +29,38 @@ $(function(){
 		$("#form-autoTrade-index").attr("action", "../setting/autoTrade_pause.htm");
 		$("#form-autoTrade-index").submit();
 	});
+	//取现修改和暂停
+		$(".cash").on("click", function(){
+		$("#autoid").val($(this).attr("autoid"));
+		$("#tobankserialid").val($(this).attr("tobankserialid"));
+		
+		$("#form-autoTrade-index").attr("action", "../setting/autoCash_update.htm");
+		$("#form-autoTrade-index").submit();
+	});
+	
+	$(".pause").on("click", function(){
+		$("#autoid").val($(this).attr("autoid"));
+		$("#tobankserialid").val($(this).attr("tobankserialid"));
+		
+		$("#form-autoTrade-index").attr("action", "../setting/autoCash_pause.htm");
+		$("#form-autoTrade-index").submit();
+	});
+	$(".addcash").on("click",function(){
+		var count=$(".pause").length;
+		if(count>=3){
+		$(".addcash").attr("href","javascript:void(0);");
+		alert("自动取现任务最多为3个");
+		return;
+		}
+	});
+	$(".trade").on("click",function(){
+		var count=$(".tradepause").length;
+		if(count>=3){
+		$(".trade").attr("href","javascript:void(0);");
+		alert("自动取值任务最多为3个");
+		return;
+		}
+		});
 });
 </script>
 </head>
@@ -37,6 +69,7 @@ $(function(){
 		<form id="form-autoTrade-index" action="${ufbDomain}/setting/autoTrade_index.htm" method="post">
 		<input id="autoid" name="autoid" value="" type="hidden"/>
 		<input id="frombankserialid" name="frombankserialid" value="" type="hidden"/>
+		<input id="tobankserialid" name="tobankserialid" value="" type="hidden"/>
 		
         <div class="inner clearfix">
             <div class="title">
@@ -50,7 +83,7 @@ $(function(){
 					 </div>
                     <!-- 自动充值-->
                     <div class="FundList01 FundList">
-                       <div class="item-title">进行中<a href="${staticDomain}/setting/autoTrade_add.htm" class="link">添加自动充值计划</a>
+                       <div class="item-title">进行中<a href="${staticDomain}/setting/autoTrade_add.htm" class="link trade">添加自动充值计划</a>
 					</div>
 					   
 					   
@@ -89,7 +122,7 @@ $(function(){
                                                 <span class="do-title">操作</span>
                                                 <ul class="do-list">
                                                     <li><a class="link btn-autoTrade-update" frombankserialid="${autotrade.frombankserialid}" autoid="${autotrade.autoid}" href="javascript:;">修改</a></li>
-													<li><a class="link btn-autoTrade-pause" frombankserialid="${autotrade.frombankserialid}" autoid="${autotrade.autoid}" href="javascript:;">暂停</a></li>
+													<li><a class="link btn-autoTrade-pause tradepause" frombankserialid="${autotrade.frombankserialid}" autoid="${autotrade.autoid}" href="javascript:;">暂停</a></li>
                                                 </ul>
                                             </div>
                                         </th>
@@ -151,6 +184,107 @@ $(function(){
                                 </table>
                             </div>
                             <div class="item-tips">*充值日遇节假日将顺延至下个基金工作日</div>
+                        </li>
+						#end
+                    </ul>
+					</div>
+					<!-- 自动取现-->
+                    <div class="FundList02">
+                       <div class="item-title">进行中<a href="${staticDomain}/setting/autoCash_add.htm" class="link addcash">添加自动取现计划</a>
+					</div>
+
+                    <ul class="autoFund-list">
+						#if($CASHLIST.size()!=0)
+						#foreach($cashtrade in $CASHLIST)
+                        <li class="autoFund-item">
+                            <div class="item-table">
+                                <table width="100%">
+                                    <tr>
+                                        <th class="item-name" width="78" rowspan="2">
+											<span class="item-type">
+											#if("P"==$!{cashtrade.state})
+												已暂停
+											#elseif("N"==$!{cashtrade.state})
+												进行中
+											#else
+												未知状态
+											#end
+											</span>
+											幼富宝
+										</th>
+                                        <th>取现周期</th>
+                                        <th>下次取现日</th>
+                                        <th>设置时间</th>
+                                        <th>金额（元）</th>
+                                        <th>银行卡</th>
+                                        <th>备注</th>
+                                        <th width="60">
+                                            <div class="item-do">
+                                                <span class="do-title">操作</span>
+                                                <ul class="do-list">
+                                                    <li><a class="link btn-autoTrade-update cash" tobankserialid="${cashtrade.tobankserialid}" autoid="${cashtrade.autoid}" href="javascript:;">修改</a></li>
+													<li><a class="link btn-autoTrade-pause pause" tobankserialid="${cashtrade.tobankserialid}" autoid="${cashtrade.autoid}" href="javascript:;">暂停</a></li>
+                                                </ul>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+										#if("MM"==$!{cashtrade.cycle})
+											每月$!{cashtrade.dat}日
+										#end
+										</td>
+                                        <td>
+											#set($nextdate=$!{cashtrade.nextdate})
+                    						#set($nextdate_yyyy=$nextdate.substring(0,4))
+                    						#set($nextdate_mm=$nextdate.substring(4,6))
+                							#set($nextdate_dd=$nextdate.substring(6,8))
+											#set($nextdate=$nextdate_yyyy+"-"+$nextdate_mm+"-"+$nextdate_dd)
+											$nextdate
+										</td>
+                                        <td>
+										#set($updatetime=$!{cashtrade.updatetime})
+										$!updatetime.substring(0,10)
+										</td>
+                                        <td>${cashtrade.autovol}</td>
+                                        <td>
+										#set($tailStr=$!{cashtrade.tobankacco})
+        								#set($start=$tailStr.length() - 4)
+        								#set($end=$tailStr.length())
+        								${cashtrade.tobanknm}[尾号$tailStr.substring($start,$end)]	
+										</td>
+                                        <td>${cashtrade.summary}</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="item-tips">*取现日遇节假日将提前至上个基金工作日</div>
+                        </li>
+						#end
+						#else
+							<li class="autoFund-item">
+                            <div class="item-table">
+                                <table width="100%">
+                                    <tr>
+                                        <th class="item-name" width="78" rowspan="2">幼富宝</th>
+                                        <th>取现周期</th>
+                                        <th>下次取现日</th>
+                                        <th>设置时间</th>
+                                        <th>金额（元）</th>
+                                        <th>银行卡</th>
+                                        <th>备注</th>
+                                        <th width="60">
+                                            <div class="item-do">
+                                                <span class="do-title">操作</span>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7"><div class="no-result" style="width:588px">您最近没有取现记录哦</div></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="item-tips">*取现日遇节假日将提前至上个基金工作日</div>
                         </li>
 						#end
                     </ul>

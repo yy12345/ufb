@@ -151,7 +151,9 @@
 			<if test="tochargetype != null">
 	       	  ,T1.TO_CHARGETYPE = #{tochargetype,jdbcType=VARCHAR}
 	       	</if>
-	       	
+	       	<if test="tobankacco != null">
+	       	  ,T1.TO_BANKACCO = #{tobankacco,jdbcType=VARCHAR}
+	       	</if>
 	       	<if test="autoamt != null">
 	       	  ,T1.AUTOAMT = #{autoamt,jdbcType=DECIMAL}
 	       	</if>
@@ -196,6 +198,7 @@
 			t.TO_BANKSERIALID AS TOBANKSERIALID,
 			t.TO_BANKACCO AS TOBANKACCO,
 			BS1.BANKNM AS TOBANKNM,
+			
 			t.TO_ACCOID AS TOACCOID,
 			t.TO_TRADEACCO TOTRADEACCO,
 			t.AUTOAMT,

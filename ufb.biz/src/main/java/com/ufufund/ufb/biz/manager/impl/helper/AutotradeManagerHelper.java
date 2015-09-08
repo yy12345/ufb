@@ -45,6 +45,8 @@ public  class AutotradeManagerHelper {
 			reaction.setFromchargetype(action.getFromchargetype());// char(1) default null comment '源A：前收费 B：后收费',
 			// 份额
 			reaction.setAutovol(action.getAutovol());// decimal(16,2) default null comment '份额',
+			// 金额
+			reaction.setAutoamt(action.getAutoamt());// decimal(16,2) default null comment '金额',
 		}
 		
 		//private String state;// char(1) default null comment 'N:正常 C：删除 P：暂停  ',

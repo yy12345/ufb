@@ -71,7 +71,7 @@ public class AutoTradeManagerValidator {
 			if (RegexUtil.isNull(action.getTobankserialid())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.TOBANKSERIALID);
 			}
-			if (RegexUtil.isAmt(action.getAutovol())) {
+			if (!RegexUtil.isAmt(action.getAutovol())) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.AutoTrade.AUTOVOL);
 			}
 		}
