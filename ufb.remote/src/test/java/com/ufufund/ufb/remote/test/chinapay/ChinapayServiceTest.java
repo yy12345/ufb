@@ -65,7 +65,7 @@ public class ChinapayServiceTest {
 		
 		TransDetail tDetail = new TransDetail();
 		
-		tDetail.setSF_TYPE("F");
+		//tDetail.setSF_TYPE("F");
 		tDetail.setBANK_CODE("105");
 		tDetail.setACCOUNT_NO("6227001823260036733");
 		tDetail.setACCOUNT_NAME("吴小龄");

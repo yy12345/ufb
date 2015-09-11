@@ -133,22 +133,21 @@
   	
   	<select id="getOrgchargeinfo" parameterType="com.ufufund.ufb.model.db.Orgchargeinfo" resultType="com.ufufund.ufb.model.db.Orgchargeinfo">
 		SELECT
-		a.org_id,
-		a.charge_id,
-		a.charge_type,
-		a.charge_name,
-		a.charge_amount,
-		a.cycle,
-		a.cycle_type,
-		a.is_delete,
-		a.create_no,
-		a.update_no
-		FROM org_charge_info a
-		WHERE 
-		WHERE a.org_id #{orgid,jdbcType=VARCHAR} 
+			a.org_id as orgid,
+			a.charge_id as chargeid,
+			a.charge_type as chargetype,
+			a.charge_name as chargename,
+			a.charge_amount as chargeamount,
+			a.cycle,
+			a.cycle_type as cycletype,
+			a.is_delete as isdelete,
+			a.create_no as createno,
+			a.update_no as updateno
+		FROM org_charge_info a 
+		WHERE a.org_id = #{orgid,jdbcType=VARCHAR} 
 		AND a.is_delete &lt;&gt; 'C'
 		<if test="chargeid != null and chargeid !=''" >
-		AND a.charge_id = #{chargeid,jdbcType=VARCHAR} AND
+			AND a.charge_id = #{chargeid,jdbcType=VARCHAR} AND
 		</if>
 	    ORDER BY a.charge_id DESC
   	</select>

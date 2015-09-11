@@ -1,5 +1,7 @@
 package com.ufufund.trade.ufb.biz.manager.test;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import com.ufufund.ufb.model.action.org.CreateOrgchargeinfoAction;
 import com.ufufund.ufb.model.action.org.SaveOrgGradeAction;
 import com.ufufund.ufb.model.action.org.SavetermAction;
 import com.ufufund.ufb.model.action.org.UpdateOrgchargeinfoAction;
+import com.ufufund.ufb.model.db.Orgchargeinfo;
 import com.ufufund.ufb.model.db.Orggrade;
 
 
@@ -100,7 +103,7 @@ public class OrgManagerTest {
 				
 	}
 	
-	@Test
+	//@Test
 	public void updateOrgchargeinfo(){
 		UpdateOrgchargeinfoAction action = new UpdateOrgchargeinfoAction();
 		action.setOrgid("or12515");
@@ -112,6 +115,15 @@ public class OrgManagerTest {
 		action.setCreateno("bbb");
 		orgDeploy.updateOrgchargeinfo(action);
 				
+	}
+	
+	//@Test
+	public void getOrgchargeinfo(){
+		List<Orgchargeinfo>  list = orgDeploy.getOrgchargeinfo("or12515");
+		System.out.println("---------"+list.size());
+		for(Orgchargeinfo orgchargeinfo:list){
+			System.out.println(orgchargeinfo.toString());
+		}
 	}
 //	/*
 //	 * 
