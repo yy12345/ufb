@@ -31,6 +31,6 @@ public interface CustinfoMapper extends BaseDao {
 	
 	public void updateCustinfo(Custinfo custinfo);
 	
-	public String  getCustinfoSequence();
+	//public String  getCustinfoSequence();
 	
 }

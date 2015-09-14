@@ -56,6 +56,10 @@ public interface Constant {
 		public final static String ISOPEN$C = "C";
 		
 		public final static String ISDELETE$Y= "Y";
+		
+		
+		public final static String CYCLE_TYPE$E= "E";
+		//public final static String ISDELETE$Y= "Y";
 	}
 	/*
 	 * 客户

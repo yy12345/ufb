@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.CustManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
@@ -39,6 +40,8 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	private CustinfoMapper custinfoMapper;
 	@Autowired
 	private TradeNotesMapper tradeNotesMapper;
+	@Autowired
+	private SequenceManager sequenceManager;
 	
 	/**
 	 * 查询手机号是否注册
@@ -126,7 +129,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		
 		// 插入客户信息表
 		Custinfo custinfo = custManagerHelper.toCustinfo(registerAction);
-		custinfo.setCustno(custinfoMapper.getCustinfoSequence());
+		custinfo.setCustno(sequenceManager.getCustinfoSequence());
 		
 		// 注册
 		custinfoMapper.insertCustinfo(custinfo);
@@ -251,7 +254,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 * @throws BizException
 	 */
 	private void insterSerialno(Custinfo custinfo, String apkind) throws BizException {
-		String seq = tradeNotesMapper.getFdacfinalresultSeq();
+		String seq = sequenceManager.getFdacfinalresultSeq();
 		/*
 		 * 插入流水表
 		 */

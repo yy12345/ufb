@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.AutotradeManager;
+import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.AutotradeManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.AutoTradeManagerValidator;
@@ -49,6 +50,9 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	private TradeAccoinfoMapper tradeAccoinfoMapper;
 	@Autowired
 	private TradeNotesMapper tradeNotesMapper;
+	@Autowired
+	private SequenceManager sequenceManager;
+	
 	
 	@Override
 	public void addAutotrade(AddAutotradeAction action) throws BizException {
@@ -63,7 +67,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		}
 		
 		/** 序列号 **/
-		String seq = autotradeMapper.getAutotradeSequence();
+		String seq = sequenceManager.getAutotradeSequence();
 		if(RegexUtil.isNull(action.getAutoname())){
 			action.setAutoname(seq);
 		}
@@ -318,7 +322,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 
 	private void insertFdacfinalresult(Autotrade autotrade,String apkind) {
 		Fdacfinalresult fdacfinalresult = AutotradeManagerHelper.toFdacfinalresult(autotrade);
-		fdacfinalresult.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		fdacfinalresult.setSerialno(sequenceManager.getFdacfinalresultSeq());
 		fdacfinalresult.setApkind(apkind);
 		Today today = workDayManager.getSysDayInfo();
 		fdacfinalresult.setWorkdate(today.getWorkday());

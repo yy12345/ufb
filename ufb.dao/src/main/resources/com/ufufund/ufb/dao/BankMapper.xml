@@ -128,12 +128,7 @@
 	     	AND LEVEL &lt;&gt; '1'
 	</update>
 
-	<select id="getBankcardinfoSequence" parameterType="java.lang.String"
-		resultType="java.lang.String">
-	<![CDATA[
-		select getSequence('BANKCARDINFO_SEQ')
-	]]>
-	</select>
+	
 	
 	<select id="getPicInfo" parameterType="com.ufufund.ufb.model.db.PicInfo"
 		resultType="com.ufufund.ufb.model.db.PicInfo">

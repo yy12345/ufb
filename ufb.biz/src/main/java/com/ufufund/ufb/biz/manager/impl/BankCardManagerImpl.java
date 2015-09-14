@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankCardManager;
+import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.BankCardManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.helper.CustManagerHelper;
@@ -68,7 +69,8 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	private TradeNotesMapper tradeNotesMapper;
 	@Autowired
 	private WorkDayManager workDayManager;
-	
+	@Autowired
+	private SequenceManager sequenceManager;
 	
 	@Override
 	public PicInfo getPicInfo(PicInfo picinfo) throws BizException {
@@ -169,7 +171,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		}
 		
 		// 执行开户交易
-		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		openAccountAction.setSerialno(sequenceManager.getFdacfinalresultSeq());
 		OpenAccountOrgRequest request = bankCardManagerHelper.toOpenAccountOrgRequest(openAccountAction);
 		OpenAccountOrgResponse response = hftCustService.openAccountOrg(request);
 		
@@ -212,7 +214,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// 如果此银行卡没有记录，添加银行卡
 		if(bankcardinfodef==null){
 			bankcardinfodef = bankCardManagerHelper.toBankcardinfo(openAccountAction);
-			String bankSeq = bankCardMapper.getBankcardinfoSequence();
+			String bankSeq = sequenceManager.getBankcardinfoSequence();
 			bankcardinfodef.setSerialid(bankSeq);
 			bankcardinfodef.setState("Y");
 			// **** 添加银行卡
@@ -303,8 +305,8 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		}
 		
 		// 生成流水号
-		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-		openAccountAction.setAccoreqserial(tradeNotesMapper.getAccoreqSerialSeq());
+		openAccountAction.setSerialno(sequenceManager.getFdacfinalresultSeq());
+		openAccountAction.setAccoreqserial(sequenceManager.getAccoreqSerialSeq());
 		
 		// 执行鉴权交易
 		BankAuthRequest request = bankCardManagerHelper.toBankAuthRequest(openAccountAction);
@@ -328,7 +330,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
 		// 执行银行验证交易
-		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		openAccountAction.setSerialno(sequenceManager.getFdacfinalresultSeq());
 		BankVeriRequest request = bankCardManagerHelper.toBankVeriRequest(openAccountAction);
 		BankVeriResponse response = hftCustService.bankVeri(request);
 		
@@ -357,7 +359,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
 		// 执行开户交易
-		openAccountAction.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		openAccountAction.setSerialno(sequenceManager.getFdacfinalresultSeq());
 		OpenAccountRequest request = bankCardManagerHelper.toOpenAccountRequest(openAccountAction);
 		OpenAccountResponse response = hftCustService.openAccount(request);
 		
@@ -395,7 +397,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		}
 		if(bankcardinfodef==null){
 			bankcardinfodef = bankCardManagerHelper.toBankcardinfo(openAccountAction);
-			String bankSeq = bankCardMapper.getBankcardinfoSequence();
+			String bankSeq = sequenceManager.getBankcardinfoSequence();
 			bankcardinfodef.setSerialid(bankSeq);
 			bankcardinfodef.setState("Y");
 			bankCardMapper.insterBankcardinfo(bankcardinfodef);

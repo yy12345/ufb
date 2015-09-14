@@ -49,9 +49,9 @@ public class AotoTradeManagerTest {
 	 * 测试getAutotradeSequence
 	 */
 	//Test
-	public void testrisMobileRegister(){
-		System.out.println("autotradeMapper.getAutotradeSequence :" + autotradeMapper.getAutotradeSequence());
-	}
+//	public void testrisMobileRegister(){
+//		System.out.println("autotradeMapper.getAutotradeSequence :" + autotradeMapper.getAutotradeSequence());
+//	}
 	
 	
 	/*

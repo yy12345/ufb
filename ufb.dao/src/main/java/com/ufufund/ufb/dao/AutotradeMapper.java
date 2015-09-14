@@ -28,7 +28,7 @@ public interface AutotradeMapper extends BaseDao {
 //	
 //	public void updateCustinfo(Custinfo custinfo);
 	
-	public String  getAutotradeSequence();
+	//public String  getAutotradeSequence();
 	
 	public int insertAutotrade(Autotrade autotrade);
 	

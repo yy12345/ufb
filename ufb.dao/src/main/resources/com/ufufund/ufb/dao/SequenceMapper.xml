@@ -4,18 +4,13 @@
 
 <mapper namespace="com.ufufund.ufb.dao.SequenceMapper">
 
-	<select id="getCustNo" resultType="java.lang.String">
-		select getSequence('CUSTINFO_SEQ')
-   	</select>
-	
-  	<select id="getSerialNO" resultType="java.lang.String">
-		select getSequence('FDACFINALRESULT_SEQ')
-   	</select>
+
    	
    	
-    <select id="getGradeid" resultType="java.lang.String">
-		select getSequence('71_SEQ')
+    <select id="getSequence" parameterType="java.lang.String" resultType="java.lang.String">
+		select getSequenceString(#{sequenceNo,jdbcType=VARCHAR},#{sequenceLen,jdbcType=INTEGER},#{type,jdbcType=VARCHAR})
    	</select>
    	
+   
    	
 </mapper>

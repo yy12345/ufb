@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.AutotradeManager;
+import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.ImplCommon;
@@ -48,6 +49,9 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 
 	@Autowired
 	private JobcontralMapper jobcontralMapper;
+	
+	@Autowired
+	private SequenceManager sequenceManager;
 
 	@Override
 	public void startAutotrade(AutoTradeType tradetype, String workDate) throws BizException {
@@ -182,7 +186,7 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 
 	private void insertFdacfinalresult(Autotrade autotrade, String apkind) {
 		Fdacfinalresult fdacfinalresult = AutotradeManagerHelper.toFdacfinalresult(autotrade);
-		fdacfinalresult.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
+		fdacfinalresult.setSerialno(sequenceManager.getFdacfinalresultSeq());
 		fdacfinalresult.setApkind(apkind);
 		Today today = workDayManager.getSysDayInfo();
 		fdacfinalresult.setWorkdate(today.getWorkday());

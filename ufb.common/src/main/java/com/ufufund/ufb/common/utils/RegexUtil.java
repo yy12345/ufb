@@ -249,16 +249,16 @@ public class RegexUtil {
 //        return match(str, "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
 //    }
 //    
-//    /**
-//     * 匹配非负整数（正整数+0）
-//     * 
-//     * @param str
-//     * @return
-//     * @author jiqinlin
-//     */
-//    public final static boolean isInteger(String str) {
-//        return match(str, "^[+]?\\d+$");
-//    }
+    /**
+     * 匹配非负整数（正整数+0）
+     * 
+     * @param str
+     * @return
+     * @author jiqinlin
+     */
+    public final static boolean isInteger(String str) {
+        return match(str, "^[+]?\\d+$");
+    }
 //    
 //    /**
 //     * 判断数值类型，包括整数和浮点数

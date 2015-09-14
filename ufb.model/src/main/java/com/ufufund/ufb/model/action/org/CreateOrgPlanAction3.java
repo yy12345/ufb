@@ -1,22 +1,15 @@
-package com.ufufund.ufb.model.db;
+package com.ufufund.ufb.model.action.org;
 
-import java.io.Serializable;
+import com.ufufund.ufb.model.action.CommonAction;
 
-import com.ufufund.ufb.model.action.PrintableModel;
+public class CreateOrgPlanAction3 extends CommonAction {
 
-public class Orggplandetailcharge extends PrintableModel implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String planid;//	char	24	主键
-	private String detailid;//	char	24	主键
+	
 	private String chargeid;//	char	24	主键
 	private String chargetype;//	char	1	计费类型
 	private String chargename;//	varchar	30	名称
 	private String chargeamount;//	number	16,2	默认金额
-	private String cycle;//	char	1	计费周期 学年/学期/
+	private String cycle;//	char	1	计费周期 学年/学期/每月
 	
 	public String getChargeid() {
 		return chargeid;
@@ -48,17 +41,7 @@ public class Orggplandetailcharge extends PrintableModel implements Serializable
 	public void setCycle(String cycle) {
 		this.cycle = cycle;
 	}
-	public String getDetailid() {
-		return detailid;
-	}
-	public void setDetailid(String detailid) {
-		this.detailid = detailid;
-	}
-	public String getPlanid() {
-		return planid;
-	}
-	public void setPlanid(String planid) {
-		this.planid = planid;
-	}
-
+	  
+	  
+	  
 }

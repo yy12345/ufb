@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
-import com.ufufund.ufb.dao.SequenceMapper;
+import com.ufufund.ufb.biz.manager.SequenceManager;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,7 +18,7 @@ public class OrgDeployTest {
 	
 
 	@Autowired
-	private SequenceMapper sequenceMapper;
+	private SequenceManager sequenceMapper;
 	
 //	@Autowired
 //	private AutotradeMapper autotradeMapper;
@@ -43,7 +43,10 @@ public class OrgDeployTest {
 	public void testrisMobileRegister(){
 		System.out.println("autotradeMapper.getGradeid :" + sequenceMapper.getGradeid());
 	}
-	
+	@Test
+	public void testsgetPlanDetailid(){
+		System.out.println("autotradeMapper.getPlanDetailid :" + sequenceMapper.getPlanDetailid());
+	}
 	
 //	/*
 //	 * 

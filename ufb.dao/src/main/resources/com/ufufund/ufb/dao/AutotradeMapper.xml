@@ -4,12 +4,7 @@
 
 <mapper namespace="com.ufufund.ufb.dao.AutotradeMapper">
     
-   <select id="getAutotradeSequence" parameterType="java.lang.String" resultType="java.lang.String">
-	<![CDATA[
-		select getSequence('AUTOTRADE_SEQ')
-	]]>
-   </select>
-	
+ 
 	
 	<insert id="insertAutotrade" parameterType="com.ufufund.ufb.model.db.Autotrade">
   	 <![CDATA[

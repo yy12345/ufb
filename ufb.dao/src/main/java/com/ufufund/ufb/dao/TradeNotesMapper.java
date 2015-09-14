@@ -10,9 +10,9 @@ public interface TradeNotesMapper extends BaseDao {
 	
 	public void insterFdacfinalresult(Fdacfinalresult fdacfinalresult);
 	
-	public String getFdacfinalresultSeq();
+//	public String getFdacfinalresultSeq();
 	
 //	public DateInfo getDateInfo();
 	
-	public String getAccoreqSerialSeq();
+//	public String getAccoreqSerialSeq();
 }

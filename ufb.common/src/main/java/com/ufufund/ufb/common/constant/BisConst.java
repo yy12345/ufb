@@ -85,6 +85,19 @@ public interface BisConst {
 		public static final String CREATE_NO = "操作者";
 		public static final String CHARGE_ID = "费用主键";
 		
+		public static final String GRADE_ID = "学年ID";
+		public static final String PLAN_NAME = "计划名";
+		public static final String PLAN_TYPE = "费用类型";
+		public static final String CYCLE_TYPE = "类型";
+		public static final String TYPE = "其他类型";
+		
+		public static final String ACKDAT = "确认日";
+		public static final String DAT = "扣款日";
+		public static final String REPLAN_ID = "退费原计划号";
+		
+		public static final String STUDENT_ID = "学生ID";
+//		public static final String PLAN_ID = "计划ID";
+		
 //		public static final String CUSTNO = "用户编号";
 //		public static final String APKIND = "用户编号";
 //		public static final String TYPE = "用户编号";

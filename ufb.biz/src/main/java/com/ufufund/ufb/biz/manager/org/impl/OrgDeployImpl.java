@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.ImplCommon;
 import com.ufufund.ufb.biz.manager.org.OrgDeploy;
@@ -15,9 +16,8 @@ import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.OrgDeployMapper;
-import com.ufufund.ufb.dao.SequenceMapper;
-import com.ufufund.ufb.model.action.org.SaveOrgGradeAction;
 import com.ufufund.ufb.model.action.org.CreateOrgchargeinfoAction;
+import com.ufufund.ufb.model.action.org.SaveOrgGradeAction;
 import com.ufufund.ufb.model.action.org.SavetermAction;
 import com.ufufund.ufb.model.action.org.UpdateOrgchargeinfoAction;
 import com.ufufund.ufb.model.db.Orgchargeinfo;
@@ -38,7 +38,7 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 //	private OrgDeployHelper orgDeployHelper;
 	
 	@Autowired
-	private SequenceMapper sequenceMapper;
+	private SequenceManager sequenceManager;
 	
 	@Autowired
 	private WorkDayManager workDayManager;
@@ -83,7 +83,7 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 		Orggrade retOrg = this.getOrgGradeOpen(action.getOrgid());
 		String gradeid = "";
 		if(retOrg==null){
-			gradeid = sequenceMapper.getGradeid();
+			gradeid = sequenceManager.getGradeid();
 			retOrg = new Orggrade();
 			retOrg.setOrgid(action.getOrgid());
 			retOrg.setIsopen(Constant.Orggrade.ISOPEN$Y);
@@ -177,7 +177,7 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 			retOrg.setT2isopen(Constant.Orggrade.ISOPEN$C);
 			retOrg.setIsopen(Constant.Orggrade.ISOPEN$C);
 			
-			String gradeid = sequenceMapper.getGradeid();
+			String gradeid = sequenceManager.getGradeid();
 			Orggrade org = new Orggrade();
 			org.setOrgid(orgId);
 			org.setIsopen(Constant.Orggrade.ISOPEN$Y);

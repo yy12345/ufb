@@ -236,11 +236,7 @@
 	     WHERE T1.custno = #{custno,jdbcType=VARCHAR}
 	</update>
    
-   <select id="getCustinfoSequence" parameterType="java.lang.String" resultType="java.lang.String">
-	<![CDATA[
-		select getSequence('CUSTINFO_SEQ')
-	]]>
-   </select>
+ 
 	
 </mapper>
 
