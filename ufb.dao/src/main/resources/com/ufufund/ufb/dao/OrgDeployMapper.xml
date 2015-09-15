@@ -276,6 +276,7 @@
     <insert id="insertOrggplandetailList"  parameterType="java.util.List">  
         insert into 
         org_plan_datail(
+               org_id,
            	  detail_id,
 			  plan_id,
 			  student_id,
@@ -286,6 +287,7 @@
         values 
     	<foreach collection="list" item="item" index="index" separator=",">
          (
+         #{item.orgid,jdbcType=VARCHAR},
          #{item.detailid,jdbcType=VARCHAR},
          #{item.planid,jdbcType=VARCHAR},
          #{item.studentid,jdbcType=VARCHAR},
@@ -299,6 +301,7 @@
      <insert id="insertOrggplandetailchargeList"  parameterType="java.util.List">  
         insert into 
         org_plan_datail_charge(
+              org_id,
            	   plan_id,
 			  detail_id,
 			  charge_id,
@@ -311,6 +314,7 @@
         values 
     	<foreach collection="list" item="item" index="index" separator=",">
          (
+         #{item.orgid,jdbcType=VARCHAR},
          #{item.planid,jdbcType=VARCHAR},
          #{item.detailid,jdbcType=VARCHAR},
         

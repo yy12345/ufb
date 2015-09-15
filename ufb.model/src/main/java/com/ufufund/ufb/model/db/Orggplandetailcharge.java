@@ -10,6 +10,7 @@ public class Orggplandetailcharge extends PrintableModel implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String orgid;// char(24) NOT NULL COMMENT '机构ID',
 	private String planid;//	char	24	主键
 	private String detailid;//	char	24	主键
 	private String chargeid;//	char	24	主键
@@ -59,6 +60,12 @@ public class Orggplandetailcharge extends PrintableModel implements Serializable
 	}
 	public void setPlanid(String planid) {
 		this.planid = planid;
+	}
+	public String getOrgid() {
+		return orgid;
+	}
+	public void setOrgid(String orgid) {
+		this.orgid = orgid;
 	}
 
 }

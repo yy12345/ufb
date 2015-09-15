@@ -152,17 +152,19 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 				orggplandetailcharge = OrgPlanHelper.converntOrggplandetailcharge(action3);
 				orggplandetailcharge.setDetailid(detailid);
 				orggplandetailcharge.setPlanid(planid);
+				orggplandetailcharge.setOrgid(action.getOrgid());
 				//System.out.println();
 				payappamount = payappamount.add(new BigDecimal(orggplandetailcharge.getChargeamount()));
 				plandetailchargeList.add(orggplandetailcharge);
 			}
 			orggplandetail = new Orggplandetail();
+			orggplandetail.setOrgid(action.getOrgid());
 			orggplandetail.setPlanid(planid);
 			orggplandetail.setStudentid(action2.getStudentid());
 			orggplandetail.setDetailid(detailid);
 			orggplandetail.setPaydiscount(action2.getDiscount());
 			orggplandetail.setPayappamount(payappamount.toString());
-			payackamount = payappamount.subtract(new BigDecimal(orggplandetailcharge.getChargeamount()));
+			payackamount = payappamount.subtract(new BigDecimal(orggplandetail.getPaydiscount()));
 			orggplandetail.setPayackamount(payackamount.toString());
 			plandetailList.add(orggplandetail);
 		}

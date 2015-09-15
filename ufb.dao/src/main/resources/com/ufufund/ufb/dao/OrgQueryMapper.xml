@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.OrgQueryMapper">
+    
+
+    
+
+	<select id="getQueryOrggplan" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.action.org.QueryOrggplan">
+			SELECT
+			    a.org_id as orgid,
+			    a.plan_id as planid,
+			    a.grade_id as gradeid,
+			    a.term_id as termid,
+			    a.group_id as groupid ,
+			    a.plan_name as planname ,
+			    a.plan_type as plantype,
+			    a.cycle_type as cycletype,
+			    a.type as type, 
+			    a.ackdat as ackdat,
+			    a.dat as dat ,
+			    a.paydate as paydate,
+			    a.stats as stats,
+			    a.replan_id asreplanid ,
+			    a.remark1 as remark1 ,
+			    a.remark2 as remark2,
+			    a.create_no as  createno,
+			    b.totalappamount,
+			    b.totaldiscount,
+			    b.totalackamount,
+			    b.allnum,
+			    b.yespaynum,
+			    b.nopaynum,
+			    b.yespayamount,
+			    b.nopayamount
+			FROM org_plan a,
+			    (SELECT
+			          b.plan_id,
+			          b.org_id,
+			          SUM(b.pay_app_amount) AS totalappamount,
+			          SUM(b.pay_discount) AS totaldiscount,
+			          SUM(b.pay_ack_amount) AS totalackamount,
+			          SUM(1) AS allnum,
+			          SUM(IF(IFNULL(b.is_pay ,'F')='Y',1,0)) AS yespaynum,
+			          SUM(IF(IFNULL(b.is_pay ,'F')='Y',0,1)) AS nopaynum,
+			          SUM(IF(IFNULL(b.is_pay ,'F')='Y',b.pay_ack_amount,0)) AS yespayamount,
+			          SUM(IF(IFNULL(b.is_pay ,'F')='Y',0,b.pay_ack_amount)) AS nopayamount  
+			    FROM org_plan_datail b,
+			         org_plan c
+			    where c.plan_id = b.plan_id
+			    and  b.org_id = c.org_id
+			    and  c.stats  &lt;&gt;  'C' 
+			    and  b.org_id = #{orgid,jdbcType=VARCHAR} 
+			    GROUP BY  b.org_id,b.plan_id ) b
+			where a.plan_id = b.plan_id    
+			and   a.org_id = b.org_id        
+    		and   a.org_id = #{orgid,jdbcType=VARCHAR} 
+    </select>
+  	
+  	
+    
+</mapper>
+

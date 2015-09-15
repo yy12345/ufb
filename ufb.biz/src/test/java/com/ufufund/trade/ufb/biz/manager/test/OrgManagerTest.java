@@ -225,14 +225,15 @@ public class OrgManagerTest {
 		orggplan.setCreateno("Createno");
 		CreateOrgPlanAction2 studentid1 = new CreateOrgPlanAction2();
 		studentid1.setStudentid("Studentid1");
+		studentid1.setDiscount("200");
 		CreateOrgPlanAction2 studentid2 = new CreateOrgPlanAction2();
 		studentid2.setStudentid("Studentid2");
-		
+		studentid2.setDiscount("300");
 		CreateOrgPlanAction3  studentid1Charge =  new CreateOrgPlanAction3();
 		studentid1Charge.setChargeid("1");
 		studentid1Charge.setChargetype("B");
 		studentid1Charge.setChargename("xx1费");
-		studentid1Charge.setChargeamount("1121.00");
+		studentid1Charge.setChargeamount("1921.00");
 		studentid1Charge.setCycle("E");
 		studentid1.getChargeList().add(studentid1Charge);
 		
@@ -240,14 +241,14 @@ public class OrgManagerTest {
 		studentid2Charge1.setChargeid("2");
 		studentid2Charge1.setChargetype("C");
 		studentid2Charge1.setChargename("xx2费");
-		studentid2Charge1.setChargeamount("1222.00");
+		studentid2Charge1.setChargeamount("1922.00");
 		studentid2Charge1.setCycle("M");
 		studentid2.getChargeList().add(studentid2Charge1);
 		CreateOrgPlanAction3  studentid2Charge2 =  new CreateOrgPlanAction3();
 		studentid2Charge2.setChargeid("3");
 		studentid2Charge2.setChargetype("D");
 		studentid2Charge2.setChargename("xx3费");
-		studentid2Charge2.setChargeamount("1333.00");
+		studentid2Charge2.setChargeamount("1833.00");
 		studentid2Charge2.setCycle("S");
 		studentid2.getChargeList().add(studentid2Charge2);
 		

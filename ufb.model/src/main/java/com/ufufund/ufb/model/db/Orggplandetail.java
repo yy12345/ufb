@@ -10,13 +10,13 @@ public class Orggplandetail extends PrintableModel implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private String orgid;// char(24) NOT NULL COMMENT '机构ID',
 	private String detailid;// char(24) DEFAULT NULL,
 	private String planid;// char(24) DEFAULT NULL COMMENT '计划ID',
 	private String studentid;// char(24) DEFAULT NULL COMMENT '学生ID',
-	private String payappamount;// decimal(16,2) DEFAULT NULL COMMENT '应缴金额',
-	private String paydiscount;// decimal(16,2) DEFAULT NULL COMMENT '折扣金额',
-	private String payackamount;// decimal(16,2) DEFAULT NULL COMMENT '实缴金额'
+	private String payappamount="0";// decimal(16,2) DEFAULT NULL COMMENT '应缴金额',
+	private String paydiscount="0";// decimal(16,2) DEFAULT NULL COMMENT '折扣金额',
+	private String payackamount="0";// decimal(16,2) DEFAULT NULL COMMENT '实缴金额'
 
 	public String getDetailid() {
 		return detailid;
@@ -64,6 +64,14 @@ public class Orggplandetail extends PrintableModel implements Serializable {
 
 	public void setPayackamount(String payackamount) {
 		this.payackamount = payackamount;
+	}
+
+	public String getOrgid() {
+		return orgid;
+	}
+
+	public void setOrgid(String orgid) {
+		this.orgid = orgid;
 	}
 
 }
