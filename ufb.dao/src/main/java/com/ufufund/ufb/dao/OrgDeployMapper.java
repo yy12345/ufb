@@ -44,4 +44,6 @@ public interface OrgDeployMapper extends BaseDao {
 	public int insertOrggplandetailList(List<Orggplandetail> orggplandetailList);
 	public int insertOrggplandetailchargeList(List<Orggplandetailcharge> orggplandetailchargeList);
 	
+	public List<Orggplan> getOrggplan(Orggplan orggplan);
+	
 }

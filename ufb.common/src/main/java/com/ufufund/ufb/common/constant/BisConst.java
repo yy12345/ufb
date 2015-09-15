@@ -96,7 +96,8 @@ public interface BisConst {
 		public static final String REPLAN_ID = "退费原计划号";
 		
 		public static final String STUDENT_ID = "学生ID";
-//		public static final String PLAN_ID = "计划ID";
+		public static final String PLAN_ID = "计划ID";
+		public static final String PAY_DATE = "默认扣款日";
 		
 //		public static final String CUSTNO = "用户编号";
 //		public static final String APKIND = "用户编号";

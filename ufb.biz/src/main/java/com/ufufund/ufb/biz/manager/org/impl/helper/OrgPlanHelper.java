@@ -21,8 +21,7 @@ public class OrgPlanHelper {
 		orggplan.setType(action.getType());
 		orggplan.setAckdat(action.getAckdat());
 		orggplan.setDat(action.getDat());
-//		orggplan.setLastdate(String lastdate);
-//		orggplan.setNextdate(String nextdate);
+		orggplan.setPaydate(action.getPaydate());
 //		orggplan.setStats(String stats);
 //		
 		orggplan.setReplanid(action.getReplanid());
@@ -38,7 +37,7 @@ public class OrgPlanHelper {
 		orggplandetailcharge.setChargeid(action.getChargeid());
 		orggplandetailcharge.setChargetype(action.getChargetype());
 		orggplandetailcharge.setChargename(action.getChargename());
-		orggplandetailcharge.setChargeamount(action.getChargename());
+		orggplandetailcharge.setChargeamount(action.getChargeamount());
 		orggplandetailcharge.setCycle(action.getCycle());
 		return orggplandetailcharge;
 	}

@@ -8,6 +8,8 @@
 	<!-- 在对应的bean上通过spring的Service注解定义 -->
 	
 	<!-- jobDetail类 -->
+	
+	
 	<bean id="testJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 	    <!--false表示等上一个任务执行完后再开启新的任务
 	    <property name="group" value="job_work"/>

@@ -47,12 +47,12 @@ public class OrgPlanValidator {
 		if (RegexUtil.isNull(action.getAckdat())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.ACKDAT);
 		}
-		if (RegexUtil.isNull(action.getDat())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.DAT);
+		if (RegexUtil.isNull(action.getPaydate())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.PAY_DATE);
 		}
-		if (RegexUtil.isInteger(action.getDat())) {
-			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Orggrade.DAT);
-		}
+//		if (RegexUtil.isInteger(action.getDat())) {
+//			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Orggrade.PAY_DATE);
+//		}
 		if ("R".equals(action.getPlantype())) {
 			if (RegexUtil.isNull(action.getReplanid())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.REPLAN_ID);

@@ -223,23 +223,23 @@
     
     <insert id="insertOrggplan" parameterType="com.ufufund.ufb.model.db.Orggplan">
   	 <![CDATA[
-	 		INSERT INTO org_charge_info (
-				     org_id,
+	 		INSERT INTO org_plan (
+				    org_id,
 			        plan_id,
 			        grade_id,
 			        term_id,
-			        plan_name,
+			        group_id,
 			        
+			        plan_name,
 			        plan_type,
 			        cycle_type,
 			        type,
 			        ackdat,
-			        dat,
 			        
-			        lastdate,
-			        nextdate,
+			        dat,
+			        paydate,
 			        stats,
-			        replan_id,
+			        replan_id,			    
 			        remark1,
 			        
 			        remark2,
@@ -251,16 +251,16 @@
 			#{planid,jdbcType=VARCHAR},
 			#{gradeid,jdbcType=VARCHAR},
 			#{termid,jdbcType=VARCHAR},
-			#{planname,jdbcType=VARCHAR},
-			
+			#{groupid,jdbcType=VARCHAR},
+				
+			#{planname,jdbcType=VARCHAR},			
 			#{plantype,jdbcType=VARCHAR},
 			#{cycletype,jdbcType=VARCHAR},
 			#{type,jdbcType=VARCHAR},
 			#{ackdat,jdbcType=VARCHAR},
-			#{dat,jdbcType=VARCHAR},
 			
-			#{lastdate,jdbcType=VARCHAR},
-			#{nextdate,jdbcType=VARCHAR},
+			#{dat,jdbcType=VARCHAR},	
+			#{paydate,jdbcType=VARCHAR},
 			#{stats,jdbcType=VARCHAR},
 			#{replanid,jdbcType=VARCHAR},
 			#{remark1,jdbcType=VARCHAR},
@@ -322,6 +322,36 @@
          )
        </foreach>
     </insert>
+    
+    
+    <select id="getOrggplan" parameterType="com.ufufund.ufb.model.db.Orggplan" resultType="com.ufufund.ufb.model.db.Orggplan">
+		SELECT
+			org_plan.org_id as orgid,
+			org_plan.plan_id as planid,
+			org_plan.grade_id as gradeid,
+			org_plan.term_id as termid,
+			org_plan.group_id as groupid,
+			org_plan.plan_name as planname,
+			org_plan.plan_type as plantype,
+			org_plan.cycle_type as cycletype,
+			org_plan.type as type,
+			org_plan.ackdat as ackdat,
+			org_plan.dat as dat,
+			org_plan.paydate,
+			org_plan.stats,
+			org_plan.replan_id as replanid,
+			org_plan.remark1,
+			org_plan.remark2,
+			org_plan.create_no as createno
+		FROM
+			org_plan
+		WHERE 
+		    org_plan.org_id =  #{orgid,jdbcType=VARCHAR} 
+		AND org_plan.stats  &lt;&gt; 'C'
+		<if test="planid != null and planid !=''" >
+			AND org_plan.plan_id = #{planid,jdbcType=VARCHAR} 
+		</if>
+    </select>
     
 </mapper>
 

@@ -21,104 +21,138 @@ import com.ufufund.ufb.dao.OrgDeployMapper;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction2;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction3;
+import com.ufufund.ufb.model.action.org.UpdateOrgPlanAction1;
 import com.ufufund.ufb.model.db.Orggplan;
 import com.ufufund.ufb.model.db.Orggplandetail;
 import com.ufufund.ufb.model.db.Orggplandetailcharge;
 import com.ufufund.ufb.model.enums.ErrorInfo;
-
 
 @Service
 public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 
 	@Autowired
 	private OrgPlanValidator orgPlanValidator;
-	
+
 	@Autowired
 	private SequenceManager sequenceManager;
-	
+
 	@Autowired
 	private WorkDayManager workDayManager;
-	
+
 	@Autowired
 	private OrgDeployMapper orgDeployMapper;
-	
-	
+
+	// @Autowired
+	// private AutotradeManager autotradeManager;
+
 	@Override
 	public void createOrgPlanAction1(CreateOrgPlanAction1 action) throws BizException {
 		// TODO Auto-generated method stub
-		String processId = 	this.getProcessId(action);
+		String processId = this.getProcessId(action);
 		orgPlanValidator.validator(action);
-		if(Constant.Orggrade.CYCLE_TYPE$E.equals(action.getCycletype())){
+		if (Constant.Orggrade.CYCLE_TYPE$E.equals(action.getCycletype())) {
 			if (RegexUtil.isNull(action.getType())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.TYPE);
 			}
+			if (RegexUtil.isNull(action.getDat())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.DAT);
+			}
+			if (!RegexUtil.isInteger(action.getDat())) {
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Orggrade.PAY_DATE);
+			}
 			int dat = Integer.parseInt(action.getDat());
-			if(dat<=0||dat>=31){
+			if (dat <= 0 || dat >= 31) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Orggrade.DAT);
 			}
-		}else{
-			if(action.getDat().length()!=8){
-				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Orggrade.DAT);
-			}		
-			int sysdate =  Integer.parseInt(workDayManager.getSysTime().substring(0,8));
-			if(Integer.parseInt(action.getDat())<=sysdate){
-				throw new BizException(processId, ErrorInfo.ORG_DATE_WRONG, BisConst.Orggrade.DAT);
-			}
-			
 		}
-	}
+		if (action.getPaydate().length() != 8) {
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Orggrade.PAY_DATE);
+		}
+		int sysdate = Integer.parseInt(workDayManager.getSysTime().substring(0, 8));
+		if (Integer.parseInt(action.getPaydate()) <= sysdate) {
+			throw new BizException(processId, ErrorInfo.ORG_DATE_WRONG, BisConst.Orggrade.PAY_DATE);
+		}
 
+	}
 
 	@Override
 	public void createOrgPlanAction2(CreateOrgPlanAction1 action) throws BizException {
-		String processId = 	this.getProcessId(action);
+		String processId = this.getProcessId(action);
 		this.createOrgPlanAction1(action);
-		log.debug(processId + " 新建收费计划学生数 ：" +action.getStudentList().size());
-		if(action.getStudentList().size()==0){
+		log.debug(processId + " 收费计划学生数 ：" + action.getStudentList().size());
+		this.validator(action, processId);
+		String planid = sequenceManager.getPlanid();
+		String groupid = planid;
+		this.saveAction(action, planid, groupid,  processId);
+	}
+
+	@Override
+	public void updateOrgPlanAction2(UpdateOrgPlanAction1 action) throws BizException {
+		// TODO Auto-generated method stub
+		String processId = this.getProcessId(action);
+		this.createOrgPlanAction1(action);
+		this.validator(action, processId);
+		if (RegexUtil.isNull(action.getPlanid())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.PLAN_ID);
+		}
+		Orggplan orggplan = new Orggplan();
+		orggplan.setOrgid(action.getOrgid());
+		orggplan.setPlanid(action.getPlanid());
+		List<Orggplan> list =  orgDeployMapper.getOrggplan(orggplan);
+		log.debug(processId + " List<Orggplan> ：" + list.size());
+		if(list.size()!=1){
+			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+		}
+		orggplan = (Orggplan) list.get(0);
+		if("C".equals(orggplan.getStats())){
+			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+		}
+		String planid = action.getPlanid();
+		orgDeployMapper.deleteOrggplan(planid);
+		orgDeployMapper.deleteOrggplandetail(planid);
+		orgDeployMapper.deleteOrggplandetailcharge(planid);
+		this.saveAction(action, planid, orggplan.getGroupid() ,processId);
+
+	}
+
+	private void validator(CreateOrgPlanAction1 action, String processId) throws BizException {
+		if (action.getStudentList().size() == 0) {
 			throw new BizException(processId, ErrorInfo.ORG_NO_STUDENTS);
 		}
-		for(CreateOrgPlanAction2 action2 : action.getStudentList()){
+		for (CreateOrgPlanAction2 action2 : action.getStudentList()) {
 			if (RegexUtil.isNull(action2.getStudentid())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.STUDENT_ID);
 			}
-			if(action2.getChargeList().size()==0){
+			if (action2.getChargeList().size() == 0) {
 				throw new BizException(processId, ErrorInfo.ORG_NO_CHARGE);
 			}
-			for(CreateOrgPlanAction3 action3 : action2.getChargeList()){
+			for (CreateOrgPlanAction3 action3 : action2.getChargeList()) {
 				orgPlanValidator.validator(action3);
 			}
 		}
-		String planid = "";
-		if(action.getPlanid()!=null&&!"".equals(action.getPlanid())){
-			orgDeployMapper.deleteOrggplan(planid);
-			orgDeployMapper.deleteOrggplandetail(planid);
-			orgDeployMapper.deleteOrggplandetailcharge(planid);
-		}else{
-			planid = sequenceManager.getPlanid();
-		}
+	}
+
+	private void saveAction(CreateOrgPlanAction1 action, String planid, String groupid, String processId) {
 		Orggplan orggplan = OrgPlanHelper.converntOrggplan(action);
 		orggplan.setPlanid(planid);
-		if(Constant.Orggrade.CYCLE_TYPE$E.equals(action.getCycletype())){
-			orggplan.setNextdate("-");
-		}else{
-			orggplan.setNextdate(action.getDat());
-		}
+		orggplan.setPaydate(action.getPaydate());
 		orggplan.setStats("N");
-		
+		orggplan.setGroupid(groupid);
 		List<Orggplandetail> plandetailList = new ArrayList<Orggplandetail>();
-		List<Orggplandetailcharge> plandetailchargeList = new ArrayList<Orggplandetailcharge>(); 
+		List<Orggplandetailcharge> plandetailchargeList = new ArrayList<Orggplandetailcharge>();
 		Orggplandetail orggplandetail = null;
 		Orggplandetailcharge orggplandetailcharge = null;
-		String detailid ="";
+		String detailid = "";
 		BigDecimal payappamount = BigDecimal.ZERO;
 		BigDecimal payackamount = BigDecimal.ZERO;
-		for(CreateOrgPlanAction2 action2 : action.getStudentList()){
+		for (CreateOrgPlanAction2 action2 : action.getStudentList()) {
 			detailid = sequenceManager.getPlanDetailid();
 			payappamount = BigDecimal.ZERO;
-			for(CreateOrgPlanAction3 action3 : action2.getChargeList()){
+			for (CreateOrgPlanAction3 action3 : action2.getChargeList()) {
 				orggplandetailcharge = OrgPlanHelper.converntOrggplandetailcharge(action3);
 				orggplandetailcharge.setDetailid(detailid);
 				orggplandetailcharge.setPlanid(planid);
+				//System.out.println();
 				payappamount = payappamount.add(new BigDecimal(orggplandetailcharge.getChargeamount()));
 				plandetailchargeList.add(orggplandetailcharge);
 			}
@@ -130,17 +164,13 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 			orggplandetail.setPayappamount(payappamount.toString());
 			payackamount = payappamount.subtract(new BigDecimal(orggplandetailcharge.getChargeamount()));
 			orggplandetail.setPayackamount(payackamount.toString());
-			plandetailList.add(orggplandetail);	
+			plandetailList.add(orggplandetail);
 		}
+		log.debug(processId + " List<plandetailList> ：" + plandetailList.size());
+		log.debug(processId + " List<plandetailchargeList> ：" + plandetailchargeList.size());
 		orgDeployMapper.insertOrggplan(orggplan);
 		orgDeployMapper.insertOrggplandetailList(plandetailList);
 		orgDeployMapper.insertOrggplandetailchargeList(plandetailchargeList);
 	}
-	
-	
-//	public static void main(String[] args) {
-//		BigDecimal payappamount = new BigDecimal("100");
-//		BigDecimal payackamount = new BigDecimal("20");
-//		System.out.println(payappamount.subtract(payackamount));
-//	}
+
 }
