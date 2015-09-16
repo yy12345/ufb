@@ -11,7 +11,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.org.OrgQueryManager;
-import com.ufufund.ufb.model.action.org.QueryOrggplan;
+import com.ufufund.ufb.model.vo.QueryOrggplan;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

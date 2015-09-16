@@ -7,7 +7,7 @@
 
     
 
-	<select id="getQueryOrggplan" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.action.org.QueryOrggplan">
+	<select id="getQueryOrggplan" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrggplan">
 			SELECT
 			    a.org_id as orgid,
 			    a.plan_id as planid,
@@ -58,7 +58,40 @@
     		and   a.org_id = #{orgid,jdbcType=VARCHAR} 
     </select>
   	
-  	
+  	<select id="getQueryOrggplandetail" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrggplandetail">
+			SELECT
+			a.org_id as orgid,
+			a.detail_id as detailid ,
+			a.plan_id as planid,
+			a.student_id as studentid,
+			a.pay_app_amount as payappamount,
+			a.pay_discount as paydiscount,
+			a.pay_ack_amount as payackamount,
+			a.is_pay as ispay,
+			a.pay_custno as paycustno,
+			a.pay_date as paydate 
+			FROM
+			org_plan_datail a
+			where a.plan_id = #{planid,jdbcType=VARCHAR}      
+    		and a.org_id = #{orgid,jdbcType=VARCHAR} 
+    </select>
     
+    
+    <select id="getQueryOrggplandetailcharge" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrggplandetailcharge">
+			SELECT
+			a.org_id as orgid,
+			a.plan_id as planid,
+			a.detail_id as detailid,
+			a.charge_id as chargeid,
+			a.charge_type as chargetype,
+			a.charge_name as chargename,
+			a.charge_amount as chargeamount,
+			a.cycle
+			FROM
+			org_plan_datail_charge a
+			where a.plan_id = #{planid,jdbcType=VARCHAR}      
+    		and a.org_id = #{orgid,jdbcType=VARCHAR} 
+    		and a.detail_id = #{detailid,jdbcType=VARCHAR} 
+    </select>
 </mapper>
 

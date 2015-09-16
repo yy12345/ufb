@@ -1,4 +1,4 @@
-package com.ufufund.ufb.model.action.org;
+package com.ufufund.ufb.model.vo;
 
 import java.io.Serializable;
 
