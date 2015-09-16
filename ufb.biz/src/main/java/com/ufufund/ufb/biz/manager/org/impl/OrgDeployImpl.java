@@ -27,21 +27,21 @@ import com.ufufund.ufb.model.enums.ErrorInfo;
 @Service
 public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 
-	
 	@Autowired
 	private OrgDeployMapper orgDeployMapper;
-	
+
 	@Autowired
 	private OrgDeployValidator orgDeployValidator;
-	
-//	@Autowired
-//	private OrgDeployHelper orgDeployHelper;
-	
+
+	// @Autowired
+	// private OrgDeployHelper orgDeployHelper;
+
 	@Autowired
 	private SequenceManager sequenceManager;
-	
+
 	@Autowired
 	private WorkDayManager workDayManager;
+
 	/**
 	 * 获取学期学年信息
 	 */
@@ -51,45 +51,45 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 		if (RegexUtil.isNull(orgId)) {
 			// 机构ID
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.ORGID);
-		}		
+		}
 		Orggrade retOrg = this.getOrgGradeOpen(orgId);
-		if(retOrg==null){
+		if (retOrg == null) {
 			retOrg = new Orggrade();
 			retOrg.setOrgid(orgId);
 			retOrg.setIsopen(Constant.Orggrade.ISOPEN$Y);
-			String systime =  workDayManager.getSysTime();
-			String year = systime.substring(0,4);
+			String systime = workDayManager.getSysTime();
+			String year = systime.substring(0, 4);
 			retOrg.setGradename(year);
-			retOrg.setStartdate(year+"0901");
-			retOrg.setEnddate((Integer.parseInt(year)+1)+"0630");
-			retOrg.setT1startdate(year+"0901");
-			retOrg.setT2enddate((Integer.parseInt(year)+1)+"0630");
+			retOrg.setStartdate(year + "0901");
+			retOrg.setEnddate((Integer.parseInt(year) + 1) + "0630");
+			retOrg.setT1startdate(year + "0901");
+			retOrg.setT2enddate((Integer.parseInt(year) + 1) + "0630");
 		}
 		return retOrg;
 	}
-	
-	private Orggrade getOrgGradeOpen(String orgId){
+
+	private Orggrade getOrgGradeOpen(String orgId) {
 		Orggrade org = new Orggrade();
 		org.setOrgid(orgId);
 		org.setIsopen(Constant.Orggrade.ISOPEN$Y);
 		Orggrade retOrg = orgDeployMapper.getOrgGradeInfo(org);
 		return retOrg;
 	}
-	
+
 	@Override
 	public void saveOrgGrade(SaveOrgGradeAction action) throws BizException {
 		this.getProcessId(action);
 		orgDeployValidator.validator(action);
 		Orggrade retOrg = this.getOrgGradeOpen(action.getOrgid());
 		String gradeid = "";
-		if(retOrg==null){
+		if (retOrg == null) {
 			gradeid = sequenceManager.getGradeid();
 			retOrg = new Orggrade();
 			retOrg.setOrgid(action.getOrgid());
 			retOrg.setIsopen(Constant.Orggrade.ISOPEN$Y);
 			retOrg.setGradeid(gradeid);
-			retOrg.setTerm1id(gradeid+"A");
-			retOrg.setTerm2id(gradeid+"B");
+			retOrg.setTerm1id(gradeid + "A");
+			retOrg.setTerm2id(gradeid + "B");
 			retOrg.setT1isopen(Constant.Orggrade.ISOPEN$Y);
 			retOrg.setT2isopen(Constant.Orggrade.ISOPEN$N);
 		}
@@ -111,22 +111,22 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 	public void saveterm2(SavetermAction action) throws BizException {
 		this.saveterm(action, "T2");
 	}
-	
-	private void saveterm(SavetermAction action,String type) throws BizException {
+
+	private void saveterm(SavetermAction action, String type) throws BizException {
 		String processId = this.getProcessId(action);
 		orgDeployValidator.validator(action);
 		Orggrade retOrg = this.getOrgGradeOpen(action.getOrgid());
-		if (retOrg==null) {
+		if (retOrg == null) {
 			throw new BizException(processId, ErrorInfo.ORG_MUST_SAVE_GRADE);
 		}
-		if("T1".equals(type)){
-			if(Constant.Orggrade.ISOPEN$C.equals(retOrg.getT1isopen())){
+		if ("T1".equals(type)) {
+			if (Constant.Orggrade.ISOPEN$C.equals(retOrg.getT1isopen())) {
 				throw new BizException(processId, ErrorInfo.ORG_TERM_IS_CLOSE);
 			}
 			retOrg.setT1startdate(action.getStartdate());
 			retOrg.setT1enddate(action.getEnddate());
-		}else{
-			if(Constant.Orggrade.ISOPEN$C.equals(retOrg.getT2isopen())){
+		} else {
+			if (Constant.Orggrade.ISOPEN$C.equals(retOrg.getT2isopen())) {
 				throw new BizException(processId, ErrorInfo.ORG_TERM_IS_CLOSE);
 			}
 			retOrg.setT2startdate(action.getStartdate());
@@ -134,7 +134,7 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 		}
 		retOrg.setUpdateno(action.getOrgid());
 		orgDeployMapper.mergeOrgGradeInfo(retOrg);
-		
+
 	}
 
 	@Override
@@ -143,16 +143,15 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 		if (RegexUtil.isNull(orgId)) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.ORGID);
 		}
-		Orggrade retOrg =  this.getOrgGradeOpen(orgId);
+		Orggrade retOrg = this.getOrgGradeOpen(orgId);
 		if (retOrg == null || retOrg.equals("")) {
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
-		if(Constant.Orggrade.ISOPEN$N.equals(retOrg.getT1isopen())){
+		if (Constant.Orggrade.ISOPEN$N.equals(retOrg.getT1isopen())) {
 			retOrg.setT1isopen(Constant.Orggrade.ISOPEN$Y);
-		} else if(Constant.Orggrade.ISOPEN$C.equals(retOrg.getT1isopen())&&
-				Constant.Orggrade.ISOPEN$N.equals(retOrg.getT2isopen())){
+		} else if (Constant.Orggrade.ISOPEN$C.equals(retOrg.getT1isopen()) && Constant.Orggrade.ISOPEN$N.equals(retOrg.getT2isopen())) {
 			retOrg.setT2isopen(Constant.Orggrade.ISOPEN$Y);
-		} else{
+		} else {
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		retOrg.setUpdateno(orgId);
@@ -165,47 +164,46 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 		if (RegexUtil.isNull(orgId)) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.ORGID);
 		}
-		Orggrade retOrg =  this.getOrgGradeOpen(orgId);
+		Orggrade retOrg = this.getOrgGradeOpen(orgId);
 		if (retOrg == null || retOrg.equals("")) {
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
-		if(Constant.Orggrade.ISOPEN$Y.equals(retOrg.getT1isopen())){
+		if (Constant.Orggrade.ISOPEN$Y.equals(retOrg.getT1isopen())) {
 			retOrg.setT1isopen(Constant.Orggrade.ISOPEN$C);
 			retOrg.setT2isopen(Constant.Orggrade.ISOPEN$Y);
-		} else if(Constant.Orggrade.ISOPEN$C.equals(retOrg.getT1isopen())&&
-				Constant.Orggrade.ISOPEN$Y.equals(retOrg.getT2isopen())){
+		} else if (Constant.Orggrade.ISOPEN$C.equals(retOrg.getT1isopen()) && Constant.Orggrade.ISOPEN$Y.equals(retOrg.getT2isopen())) {
 			retOrg.setT2isopen(Constant.Orggrade.ISOPEN$C);
 			retOrg.setIsopen(Constant.Orggrade.ISOPEN$C);
-			
+			/*
+			 * 生成新的学年
+			 */
 			String gradeid = sequenceManager.getGradeid();
 			Orggrade org = new Orggrade();
 			org.setOrgid(orgId);
 			org.setIsopen(Constant.Orggrade.ISOPEN$Y);
 			org.setGradeid(gradeid);
-			org.setTerm1id(gradeid+"A");
-			org.setTerm2id(gradeid+"B");
+			org.setTerm1id(gradeid + "A");
+			org.setTerm2id(gradeid + "B");
 			org.setT1isopen(Constant.Orggrade.ISOPEN$Y);
 			org.setT2isopen(Constant.Orggrade.ISOPEN$N);
 			if (RegexUtil.isDigits(retOrg.getGradename())) {
-				org.setGradename((Integer.parseInt(retOrg.getGradename())+1)+"");
+				org.setGradename((Integer.parseInt(retOrg.getGradename()) + 1) + "");
 			}
-			String systime =  workDayManager.getSysTime();
-			String year = systime.substring(0,4);
-			org.setStartdate(year+"0901");
-			org.setEnddate((Integer.parseInt(year)+1)+"0630");
-			org.setT1startdate(year+"0901");
-			org.setT2enddate((Integer.parseInt(year)+1)+"0630");
+			String systime = workDayManager.getSysTime();
+			String year = systime.substring(0, 4);
+			org.setStartdate(year + "0901");
+			org.setEnddate((Integer.parseInt(year) + 1) + "0630");
+			org.setT1startdate(year + "0901");
+			org.setT2enddate((Integer.parseInt(year) + 1) + "0630");
 			org.setCreateno(orgId);
 			orgDeployMapper.mergeOrgGradeInfo(org);
-		} else{
+		} else {
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		retOrg.setUpdateno(orgId);
 		orgDeployMapper.mergeOrgGradeInfo(retOrg);
 	}
 
-	
-	
 	@Override
 	public List<Orgchargeinfo> getOrgchargeinfo(String orgId) throws BizException {
 		String processId = this.getProcessId(orgId);
@@ -224,29 +222,31 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 		String processId = this.getProcessId(action);
 		orgDeployValidator.validator(action);
 		Orgchargeinfo orgchargeinfo = OrgDeployHelper.converntOrgchargeinfo(action);
-		if("M".equals(action.getCycle())){
+		if ("M".equals(action.getCycle())) {
 			orgchargeinfo.setCycletype("M");
-		}else{
+		} else {
 			orgchargeinfo.setCycletype("S");
 		}
 		orgchargeinfo.setIsdelete("N");
 		int n = orgDeployMapper.createOrgchargeinfo(orgchargeinfo);
-		log.debug(processId + " 创建费用成功 "  + n);
+		log.debug(processId + " 创建费用成功 " + n);
 	}
 
 	@Override
 	public void updateOrgchargeinfo(UpdateOrgchargeinfoAction action) throws BizException {
 		String processId = this.getProcessId(action);
 		orgDeployValidator.validator(action);
+		if (RegexUtil.isNull(action.getChargeid())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.CHARGE_ID);
+		}
 		Orgchargeinfo orgchargeinfo = OrgDeployHelper.converntOrgchargeinfo(action);
-		if("M".equals(action.getCycle())){
+		if ("M".equals(action.getCycle())) {
 			orgchargeinfo.setCycletype("M");
-		}else{
+		} else {
 			orgchargeinfo.setCycletype("S");
 		}
 		int n = orgDeployMapper.updateOrgchargeinfo(orgchargeinfo);
-		log.debug(processId + " 更新费用成功 "  + n);
+		log.debug(processId + " 更新费用成功 " + n);
 	}
 
-	
 }

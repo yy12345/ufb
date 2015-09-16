@@ -6,7 +6,7 @@ public class CreateOrgPlanAction3 extends CommonAction {
 
 	
 	private String chargeid;//	char	24	主键
-	private String chargetype;//	char	1	计费类型
+	private String chargetype;//	char	2	计费类型
 	private String chargename;//	varchar	30	名称
 	private String chargeamount;//	number	16,2	默认金额
 	private String cycle;//	char	1	计费周期 学年/学期/每月

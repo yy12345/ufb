@@ -3,7 +3,6 @@ package com.ufufund.ufb.biz.manager.org;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.UpdateOrgPlanAction1;
-import com.ufufund.ufb.model.action.org.UpdateOrgchargeinfoAction;
 
 
 public interface OrgPlanManager { 

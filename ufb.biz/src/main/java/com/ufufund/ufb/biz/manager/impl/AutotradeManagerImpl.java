@@ -56,7 +56,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	
 	@Override
 	public void addAutotrade(AddAutotradeAction action) throws BizException {
-		String processId = this.getProcessId(action);
+		this.getProcessId(action);
 		
 		/** 业务规则校验 **/ 
 		autoTradeManagerValidator.validator(action);
@@ -99,7 +99,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	
 	@Override
 	public void modifyAutotrade(ModifyAutotradeAction action) throws BizException {
-		String processId = this.getProcessId(action);
+		this.getProcessId(action);
 		
 		/** 业务验证 **/
 		autoTradeManagerValidator.validatorModify(action);
@@ -184,7 +184,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	
 	@Override
 	public void changestatus(ChangeAutoStateAction action) throws BizException {
-		String processId = this.getProcessId(action);
+		this.getProcessId(action);
 		
 		/** 业务验证 **/
 		autoTradeManagerValidator.validator(action);

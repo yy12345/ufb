@@ -27,8 +27,6 @@ import com.ufufund.ufb.model.vo.ApplyVo;
 import com.ufufund.ufb.model.vo.RedeemVo;
 import com.ufufund.ufb.model.vo.Today;
 
-import ch.qos.logback.classic.Logger;
-
 @Service
 public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManagerOP {
 

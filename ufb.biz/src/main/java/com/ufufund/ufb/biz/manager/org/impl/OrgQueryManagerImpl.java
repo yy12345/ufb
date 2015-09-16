@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.manager.impl.ImplCommon;
 import com.ufufund.ufb.biz.manager.org.OrgQueryManager;
-import com.ufufund.ufb.dao.OrgDeployMapper;
 import com.ufufund.ufb.dao.OrgQueryMapper;
 import com.ufufund.ufb.model.action.org.QueryOrggplan;
-import com.ufufund.ufb.model.db.Orggplan;
 
 
 @Service

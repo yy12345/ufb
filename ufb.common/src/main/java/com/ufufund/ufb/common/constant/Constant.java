@@ -58,7 +58,7 @@ public interface Constant {
 		public final static String ISDELETE$Y= "Y";
 		
 		
-		public final static String CYCLE_TYPE$E= "E";
+		public final static String CYCLE_TYPE$M= "M";
 		//public final static String ISDELETE$Y= "Y";
 	}
 	/*

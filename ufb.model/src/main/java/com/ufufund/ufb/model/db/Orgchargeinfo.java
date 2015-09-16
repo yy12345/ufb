@@ -13,12 +13,12 @@ public class Orgchargeinfo extends PrintableModel implements Serializable {
 	
 	private String orgid;//	char	24	机构ID
 	private String chargeid;//	char	24	主键
-	private String chargetype;//	char	1	计费类型
+	private String chargetype;//	char	2 计费类型   用字典表
 	private String chargename;//	varchar	30	名称
 	private String chargeamount;//	number	16,2	默认金额
-	private String cycle;//	char	1	计费周期 学年/学期/每月
-	private String cycletype;//	char	1	单次/月固定  (学年,学期-单次，月-月固定) S/M
-	private String isdelete;//	char	1	是否删除
+	private String cycle;//	char	1	         计费周期    Y- 学年 T- 学期  M-每月
+	private String cycletype;//	char	1	周期  S-单次 M-多次（月固定）
+	private String isdelete;//	char	1	是否删除 N-未删除 C-已删除
 	private String createno;//	char	24	创建人 客户号
 	//createtime	timestamp		创建时间
 	private String updateno;//	char	24	最近修改 客户号

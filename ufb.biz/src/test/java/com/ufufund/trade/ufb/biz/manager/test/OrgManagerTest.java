@@ -161,14 +161,14 @@ public class OrgManagerTest {
 		orggplandetail.setPayappamount("5000");
 		orggplandetail.setPayackamount("3000");
 		orggplandetailList.add(orggplandetail);	
-		orggplandetail = new Orggplandetail();
-		orggplandetail.setPlanid("1");
-		orggplandetail.setStudentid("2");
-		orggplandetail.setDetailid("3");
-		orggplandetail.setPaydiscount("4000");
-		orggplandetail.setPayappamount("9000");
-		orggplandetail.setPayackamount("5000");
-		orggplandetailList.add(orggplandetail);	
+//		orggplandetail = new Orggplandetail();
+//		orggplandetail.setPlanid("1");
+//		orggplandetail.setStudentid("2");
+//		orggplandetail.setDetailid("3");
+//		orggplandetail.setPaydiscount("4000");
+//		orggplandetail.setPayappamount("9000");
+//		orggplandetail.setPayackamount("5000");
+//		orggplandetailList.add(orggplandetail);	
 		orgDeployMapper.insertOrggplandetailList(orggplandetailList);
 	}
 	
@@ -206,7 +206,7 @@ public class OrgManagerTest {
 		System.out.println(orggplan.toString());
 	}
 	
-	@Test
+	//@Test
 	public void createOrgPlanAction2() {
 		CreateOrgPlanAction1 orggplan = new CreateOrgPlanAction1();
 		orggplan.setOrgid("101");

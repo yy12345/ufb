@@ -50,7 +50,7 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		// TODO Auto-generated method stub
 		String processId = this.getProcessId(action);
 		orgPlanValidator.validator(action);
-		if (Constant.Orggrade.CYCLE_TYPE$E.equals(action.getCycletype())) {
+		if (Constant.Orggrade.CYCLE_TYPE$M.equals(action.getCycletype())) {
 			if (RegexUtil.isNull(action.getType())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.TYPE);
 			}
