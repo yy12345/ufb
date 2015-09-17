@@ -27,6 +27,8 @@
     
     <logger name="org.mybatis" level="WARN"/> 
     
+    <logger name="org.quartz" level="WARN"/>
+    
     <logger name="java.sql" level="WARN"/> 
     
     <logger name="com.ufufund.mvc" level="WARN"/> 

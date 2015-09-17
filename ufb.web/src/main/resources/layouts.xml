@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<layouts defaultdir="/WEB-INF/ftl-layouts/">
+<layouts defaultdir="/WEB-INF/layouts/">
 
 	<excludes>
 		<!-- host匹配 -->
@@ -45,6 +45,10 @@
     
     <layout page="layout/public_cust.vm">
         <pattern>org/*.vm</pattern>
+    </layout>
+    
+    <layout page="layout/default_school.vm">
+        <pattern>school/*.vm</pattern>
     </layout>
     
     <layout page="layout/default.vm" default="true">

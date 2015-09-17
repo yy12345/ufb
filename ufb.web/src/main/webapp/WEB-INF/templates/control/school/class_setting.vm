@@ -1,0 +1,382 @@
+<div class="body">
+	<!--开始 body内容替换区域-->
+	<section class="loadbody">
+		<div class="container">
+			<div class="boxC">
+				<div class="itemD">
+                	<div class="a1">年级/班级设置</div>
+                </div>
+			</div>
+			<div class="boxB">
+				<div class="itemI">
+					<div class="a1">请对你的所有班级设置进行确认，以便准确地通过学费通完成收费并进行学生档案管理。</div>
+					<div class="a2 normal">
+						<div class="b1">常规班级</div>
+						<div class="b2">
+							<div class="c1 cl">
+								<div class="d1">大班</div>
+								<div class="d2" cno="0" style="display:none;"></div>
+								#foreach($c in $list_4)
+								<div class="d2" cno="${c.cno}">
+									<div class="e1">
+										<span>${c.name}</span><b cid="${c.cid}" style="display:none;"></b>
+									</div>
+								</div>
+								#end
+								<div class="d2" cno="6" style="display:none;"></div>
+								<div class="d3" typeid="4"></div>
+							</div>
+							<div class="c1 cl">
+								<div class="d1">中班</div>
+								<div class="d2" cno="0" style="display:none;"></div>
+								#foreach($c in $list_3)
+								<div class="d2" cno="${c.cno}">
+									<div class="e1">
+										<span>${c.name}</span><b cid="${c.cid}" style="display:none;"></b>
+									</div>
+								</div>
+								#end
+								<div class="d2" cno="6" style="display:none;"></div>
+								<div class="d3" typeid="3"></div>
+							</div>
+							<div class="c1 cl">
+								<div class="d1">小班</div>
+								<div class="d2" cno="0" style="display:none;"></div>
+								#foreach($c in $list_2)
+								<div class="d2" cno="${c.cno}">
+									<div class="e1">
+										<span>${c.name}</span><b cid="${c.cid}" style="display:none;"></b>
+									</div>
+								</div>
+								#end
+								<div class="d2" cno="6" style="display:none;"></div>
+								<div class="d3" typeid="2"></div>
+							</div>
+							<div class="c1 cl">
+								<div class="d1">拖班</div>
+								<div class="d2" cno="0" style="display:none;"></div>
+								#foreach($c in $list_1)
+								<div class="d2" cno="${c.cno}">
+									<div class="e1">
+										<span>${c.name}</span><b cid="${c.cid}" style="display:none;"></b>
+									</div>
+								</div>
+								#end
+								<div class="d2" cno="6" style="display:none;"></div>
+								<div class="d3" typeid="1"></div>
+							</div>
+						</div>
+					</div>
+					<div class="a2 other">
+						<div class="b1">其它班级</div>
+						<div class="b2">
+							#foreach($t in $otherTypes)
+							<div class="c1 cl">
+								<div class="d1">
+									<div class="e1">
+										<span>${t.name}</span>
+										<b typeid="${t.id}" style="display:none;"></b>
+									</div>
+								</div>
+								#foreach($c in ${t.clazzList})
+								<div class="d2">
+									<div class="e1">
+										<span>${c.name}</span>
+										<b cid="${c.cid}" style="display:none;"></b>
+									</div>
+								</div>
+								#end
+								<div class="d3" typeid="${t.id}"></div>
+							</div>
+							#end
+							<div class="c2"><a href="javascript:;" id="classOtherNew">+新增班级类型</a></div>
+						</div>
+					</div>
+					<div class="ctrl"><a href="recordsManagement.html" class="btnB">确 定</a></div>
+				</div>
+			</div>
+		</div>
+		<!--开始 本页面JS-->
+		<script type="text/javascript">
+		$('nav a:eq(1)').addClass('active');
+		$('.itemI .e1 span').limit(6);
+		$('.inputText').inputText();
+		
+		var clazz_prefix = ['托','小','中','大'];
+		var clazz_cno = ['一','二','三','四','五'];
+		//  添加子班级-后台
+		function addClazz(typeid, name, cno){
+			var cid; 
+			$.ajax({
+				type: "POST",
+				url: '${ufbDomain}/school/class_add.ajax',
+				data:'typeid='+typeid+'&name='+name+'&cno='+cno,
+				async:false,
+				success: function(data){
+					var json = $.parseJSON(data);
+					if(json.errCode=='0000'){
+						cid = json.cid;
+						$.alert({title:'已添加子班级！'});
+					}else{
+						$.alert({title:json.errMsg});
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					$.alert({title:'系统出现异常！'});
+				}
+			});
+			return cid;
+		}
+		// 删除子班级-后台
+		function removeClazz(cid){
+			var result;
+			$.ajax({
+				type: "POST",
+				url: '${ufbDomain}/school/class_remove.ajax',
+				data:'cid='+cid,
+				async:false,
+				success: function(data){
+					var json = $.parseJSON(data);
+					if(json.errCode=='0000'){
+						result = '0000';
+						$.alert({title:'已删除子班级！'});
+					}else{
+						$.alert({title:json.errMsg});
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					$.alert({title:'系统出现异常！'});
+				}
+			});
+			return result;
+		}
+		// 删除子班级样式定义
+		$('.itemI .d2').mouseover(function(){
+			$(this).find("b").show();
+		}).mouseout(function(){
+			$(this).find("b").hide();
+		});
+		//删除子班级事件定义
+		$('.itemI').on('click','.d2 .e1 b',function(){
+			var result = removeClazz($(this).attr('cid'));
+			if(result == '0000'){
+				$(this).closest('.d2').remove();
+			}
+		})
+		// 添加子班级后的处理
+		function afterClazzAdd(obj){
+			// 样式定义
+			obj.mouseover(function(){
+				$(this).find("b").show();
+			}).mouseout(function(){
+				$(this).find("b").hide();
+			});
+			// 事件定义
+			obj.find("b").on('click', function(){
+				var result = removeClazz($(this).attr('cid'));
+				if(result == '0000'){
+					$(this).closest('.d2').remove();
+				}
+			});
+		}
+		//添加普通子班级
+		$('.itemI').on('click','.normal .d3',function(){
+			var num = $(this).closest('.c1').find('.d2').length;
+			if(num >= 5+2){
+				$.alert({title:'只能添加5个子班级！'});
+				return false;
+			}
+			var name,cno,cid,typeid=$(this).attr('typeid');
+			$(this).closest('.c1').find('.d2').each(function(){
+				var cno_1 = $(this).attr('cno');
+				var cno_2 = $(this).next().attr('cno');
+				if(cno_2 - cno_1 > 1){
+					cno = cno_1,cno++;
+					name = clazz_prefix[typeid-1]+clazz_cno[cno-1]+'班';
+					// 添加子班级后台数据-同步
+					cid = addClazz(typeid, name, cno);
+					if(cid == undefined){return false;}
+					// 添加子班级-页面
+					var obj = $('<div class="d2" cno='+cno+'>\
+					   	<div class="e1"><span>'+name+'</span><b cid='+cid+' style="display:none;"></b></div>\
+					</div>');
+					obj.insertAfter($(this));
+					afterClazzAdd(obj);
+					return false;
+				}
+			});
+		});
+		//添加其它子班级
+		$('.itemI').on('click','.other .d3',function(){
+			var that = $(this);
+			
+			var editNum = $('.other').find('input').length;
+			if(editNum > 0){
+				$('.other').find('input').focus();
+				return false;
+			}
+			var num = that.closest('.c1').find('.d2').length;
+			if(num >= 5){
+				$.alert({title:'只能添加5个子班级！'});
+				return false;
+			}
+			
+			// 添加编辑区域
+			$('<div class="d2"><label class="inputText"><input type="text"><b style="display: block;">请填写班级名</b></label></div>\
+			   <div class="d2" style="display:none;">\
+					<div class="e1"><span></span><b cid="" style="display:none;"></b></div>\
+			   </div>').insertBefore(that);
+			that.prev().prev().find('.inputText').inputText();
+			// 编辑后响应事件
+			that.prev().prev().find('input').blur(function(){
+				var typeid=that.attr('typeid');
+				var name = $(this).val(),cno=0;
+				
+				if($.trim(name) == ''){
+					that.prev().prev().remove();
+					that.prev().remove();
+					return false;
+				}
+				// 添加子班级
+				var cid = addClazz(typeid, name, cno);
+				if(cid == undefined){return false;}
+				// 页面展示
+				that.prev().find('span').html(name);
+				that.prev().find('b').attr('cid', cid);
+				that.prev().prev().remove();
+				that.prev().show();
+				afterClazzAdd(that.prev());
+			});
+		});
+		
+		
+		//  添加班级类型-后台
+		function addClazzType(name){
+			var id; 
+			$.ajax({
+				type: "POST",
+				url: '${ufbDomain}/school/classtype_add.ajax',
+				data:'name='+name,
+				async:false,
+				success: function(data){
+					var json = $.parseJSON(data);
+					if(json.errCode=='0000'){
+						id = json.id;
+						$.alert({title:'已添加子班级！'});
+					}else{
+						$.alert({title:json.errMsg});
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					$.alert({title:'系统出现异常！'});
+				}
+			});
+			return id;
+		}
+		// 删除班级类型-后台
+		function removeClazzType(id){
+			var result;
+			$.ajax({
+				type: "POST",
+				url: '${ufbDomain}/school/classtype_remove.ajax',
+				data:'id='+id,
+				async:false,
+				success: function(data){
+					var json = $.parseJSON(data);
+					if(json.errCode=='0000'){
+						result = '0000';
+						$.alert({title:'已删除子班级！'});
+					}else{
+						$.alert({title:json.errMsg});
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					$.alert({title:'系统出现异常！'});
+				}
+			});
+			return result;
+		}
+		// 删除班级类型样式定义
+		$('.itemI .other .d1').mouseover(function(){
+			$(this).find("b").show();
+		}).mouseout(function(){
+			$(this).find("b").hide();
+		});
+		//删除班级类型事件定义
+		$('.itemI').on('click','.other .d1 .e1 b',function(){
+			var num = $(this).closest('.c1').find('.d2').length;
+			if(num > 0){
+				$.alert({title:'有子班级，不能删除！'});
+				return false;
+			}
+			var result = removeClazzType($(this).attr('typeid'));
+			if(result == '0000'){
+				$(this).closest('.d1').next().remove();
+				$(this).closest('.d1').remove();
+			}
+		})
+		// 添加班级类型后的处理
+		function afterClazzTypeAdd(obj){
+			// 样式定义
+			obj.mouseover(function(){
+				$(this).find("b").show();
+			}).mouseout(function(){
+				$(this).find("b").hide();
+			});
+			// 事件定义
+			obj.find("b").on('click', function(){
+				var num = $(this).closest('.c1').find('.d2').length;
+				if(num > 0){
+					$.alert({title:'有子班级，不能删除！'});
+					return false;
+				}
+				var result = removeClazzType($(this).attr('typeid'));
+				if(result == '0000'){
+					$(this).closest('.d1').next().remove();
+					$(this).closest('.d1').remove();
+				}
+			});
+		}
+		// 新增班级类型
+		$('#classOtherNew').on('click',function(){
+			var that = $(this).parent();
+			
+			var editNum = $('.other').find('input').length;
+			if(editNum > 0){
+				$('.other').find('input').focus();
+				return false;
+			}
+			// 添加编辑区域
+			$('<div class="c1 cl">\
+					<div class="d1"><label class="inputText"><input type="text"><b>请填写班级类型名</b></label></div>\
+				</div>\
+				<div class="c1 cl" style="display:none;">\
+					<div class="d1"><div class="e1"><span></span><b typeid="" style="display:none;"></b></div></div>\
+					<div class="d3" typeid=""></div>\
+				</div>').insertBefore(that);
+			that.prev().prev().find('.inputText').inputText();
+			// 编辑后的事件响应
+			that.prev().prev().find('input').blur(function(){
+				var name = $(this).val();
+				
+				if($.trim(name) == ''){
+					that.prev().prev().remove();
+					that.prev().remove();
+					return false;
+				}
+				// 添加班级类型
+				var id = addClazzType(name);
+				if(id == undefined){return false;}
+				// 页面展示
+				that.prev().find('span').html(name);
+				that.prev().find('b').attr('typeid', id);
+				that.prev().find('.d3').attr('typeid', id);
+				that.prev().prev().remove();
+				that.prev().show();
+				afterClazzTypeAdd(that.prev().find('.d1'));
+			});
+		})
+		</script>
+	</section>
+	<!--结束 body内容替换区域-->
+</div>
