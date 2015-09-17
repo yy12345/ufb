@@ -86,7 +86,8 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 		}else{
 			n = jobcontralMapper.updateJobcontral(jobcontral);
 		}
-		SysoutCommon.JOB_STATUS = Constant.Jobcontral.STATUS$N;
+		SysoutCommon.JOBSTATUS_MAP.put(tradetype.toString(), Constant.Jobcontral.STATUS$N);
+		//SysoutCommon.JOB_STATUS = Constant.Jobcontral.STATUS$N;
 		// if(n!=1){
 		// throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		// }
@@ -107,7 +108,7 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 			/*
 			 * 获取状态 break 如果状态为已经停止，退出任务
 			 */
-			if (SysoutCommon.JOB_STATUS.equals(Constant.Jobcontral.STATUS$P)) {
+			if (SysoutCommon.JOBSTATUS_MAP.get(tradetype.toString()).equals(Constant.Jobcontral.STATUS$P)) {
 				log.debug(processId + " 状态被修改，停止任务  : "  + workDayManager.getSysTime());
 				break;
 			}
@@ -153,7 +154,7 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 		 * 更新任务状态为已完成
 		 */
 		log.debug(processId + " 自动任务 [" + tradetype.toString() +"] 结束 " + workDate + " 执行计划 " + count + " 条");
-		if(!SysoutCommon.JOB_STATUS.equals(Constant.Jobcontral.STATUS$P)){
+		if(!SysoutCommon.JOBSTATUS_MAP.get(tradetype.toString()).equals(Constant.Jobcontral.STATUS$P)){
 			jobcontral.setEndtime(workDayManager.getSysTime());
 			jobcontral.setJobstatus(Constant.Jobcontral.STATUS$X);
 			n = jobcontralMapper.updateJobcontral(jobcontral);
@@ -177,7 +178,8 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 			}
 		}
 		jobcontral.setJobstatus(Constant.Jobcontral.STATUS$P);
-		SysoutCommon.JOB_STATUS = Constant.Jobcontral.STATUS$P;
+		SysoutCommon.JOBSTATUS_MAP.put(tradetype.toString(), Constant.Jobcontral.STATUS$P);
+//		SysoutCommon.JOB_STATUS = Constant.Jobcontral.STATUS$P;
 		int n = jobcontralMapper.updateJobcontral(jobcontral);
 		log.debug(processId + " 自动任务结束成功 "  + n);
 	}

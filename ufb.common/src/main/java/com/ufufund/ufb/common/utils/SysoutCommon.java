@@ -3,6 +3,8 @@ package com.ufufund.ufb.common.utils;
 
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 
 
@@ -17,7 +19,7 @@ import java.lang.reflect.Field;
 public class SysoutCommon {
 	
 	
-	public static String JOB_STATUS = "N";
+	public static Map<String,String> JOBSTATUS_MAP = new HashMap<String,String>();
 	
 //	private static final Logger logger = Logger.getLogger(ValidatorMgr.class);
 //	
