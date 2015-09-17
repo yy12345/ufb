@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.ClazzMapper">
+	
+	<select id="get" parameterType="String" resultType="Clazz">
+    	select * from clazz where cid = #{cid, jdbcType=VARCHAR}
+    </select>
+    
+    <insert id="add" parameterType="Clazz">
+		insert into clazz values(
+			#{cid,jdbcType=VARCHAR},
+			#{orgid,jdbcType=VARCHAR},
+			#{typeid,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			#{cno,jdbcType=VARCHAR},
+			now()
+		)
+    </insert>
+    
+    <delete id="remove" parameterType="String">
+    	delete from clazz where cid = #{cid,jdbcType=VARCHAR}
+    </delete>
+    
+    <update id="update" parameterType="Clazz">
+    	update clazz set typeid = #{typeid, jdbcType=VARCHAR}
+    	where cid = #{cid, jdbcType=VARCHAR}
+    </update>
+    
+    <select id="getList" parameterType="Clazz" resultType="Clazz">
+    	select * from clazz where 
+    		orgid = #{orgid, jdbcType=VARCHAR}
+    		<if test="typeid != null">
+    			and typeid = #{typeid, jdbcType=VARCHAR}
+    		</if>
+    	order by typeid, cno 
+    </select>
+    
+    <select id="getCount" parameterType="Clazz" resultType="int">
+    	select count(*) from clazz where 1 = 1
+    	<if test="orgid != null">
+    		and orgid = #{orgid, jdbcType=VARCHAR}
+    	</if>
+    	<if test="typeid != null">
+    		and typeid = #{typeid, jdbcType=VARCHAR}
+    	</if>
+    </select>
+</mapper>

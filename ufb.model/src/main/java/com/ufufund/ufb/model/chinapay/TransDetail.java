@@ -24,4 +24,11 @@ public class TransDetail {
 	private String RECKON_ACCOUNT;	// 清分账户，根据需要填写
 	private String PROVINCE;		// 省份，根据需要填写
 	private String CITY;			// 城市，根据需要填写
+	
+	// 代付签约字段
+	private String E_USER_CODE;
+	private String CUST_USERID;
+	private String OPER_TYPE;
+	private String SF_TYPE;
+	
 }
