@@ -2,15 +2,15 @@ package com.ufufund.ufb.biz.manager.org.impl.helper;
 
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction3;
-import com.ufufund.ufb.model.db.Orggplan;
-import com.ufufund.ufb.model.db.Orggplandetailcharge;
+import com.ufufund.ufb.model.db.Orgplan;
+import com.ufufund.ufb.model.db.Orgplandetailcharge;
 
 
 
 public class OrgPlanHelper {
 	
-	public static Orggplan converntOrggplan(CreateOrgPlanAction1 action){
-		Orggplan orggplan = new Orggplan();
+	public static Orgplan converntOrggplan(CreateOrgPlanAction1 action){
+		Orgplan orggplan = new Orgplan();
 		orggplan.setOrgid(action.getOrgid());
 		//orggplan.setPlanid(String planid);
 		orggplan.setGradeid(action.getGradeid());
@@ -32,8 +32,8 @@ public class OrgPlanHelper {
 		return orggplan;
 	}
 	
-	public static Orggplandetailcharge converntOrggplandetailcharge(CreateOrgPlanAction3 action){
-		Orggplandetailcharge orggplandetailcharge = new Orggplandetailcharge();
+	public static Orgplandetailcharge converntOrggplandetailcharge(CreateOrgPlanAction3 action){
+		Orgplandetailcharge orggplandetailcharge = new Orgplandetailcharge();
 		orggplandetailcharge.setChargeid(action.getChargeid());
 		orggplandetailcharge.setChargetype(action.getChargetype());
 		orggplandetailcharge.setChargename(action.getChargename());

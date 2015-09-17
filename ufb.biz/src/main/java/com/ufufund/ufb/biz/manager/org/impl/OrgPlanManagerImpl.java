@@ -22,9 +22,9 @@ import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction2;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction3;
 import com.ufufund.ufb.model.action.org.UpdateOrgPlanAction1;
-import com.ufufund.ufb.model.db.Orggplan;
-import com.ufufund.ufb.model.db.Orggplandetail;
-import com.ufufund.ufb.model.db.Orggplandetailcharge;
+import com.ufufund.ufb.model.db.Orgplan;
+import com.ufufund.ufb.model.db.Orgplandetail;
+import com.ufufund.ufb.model.db.Orgplandetailcharge;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 
 @Service
@@ -95,22 +95,22 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		if (RegexUtil.isNull(action.getPlanid())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Orggrade.PLAN_ID);
 		}
-		Orggplan orggplan = new Orggplan();
+		Orgplan orggplan = new Orgplan();
 		orggplan.setOrgid(action.getOrgid());
 		orggplan.setPlanid(action.getPlanid());
-		List<Orggplan> list =  orgDeployMapper.getOrggplan(orggplan);
+		List<Orgplan> list =  orgDeployMapper.getOrgplan(orggplan);
 		log.debug(processId + " List<Orggplan> ：" + list.size());
 		if(list.size()!=1){
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
-		orggplan = (Orggplan) list.get(0);
+		orggplan = (Orgplan) list.get(0);
 		if("C".equals(orggplan.getStats())){
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		String planid = action.getPlanid();
-		orgDeployMapper.deleteOrggplan(planid);
-		orgDeployMapper.deleteOrggplandetail(planid);
-		orgDeployMapper.deleteOrggplandetailcharge(planid);
+		orgDeployMapper.deleteOrgplan(planid);
+		orgDeployMapper.deleteOrgplandetail(planid);
+		orgDeployMapper.deleteOrgplandetailcharge(planid);
 		this.saveAction(action, planid, orggplan.getGroupid() ,processId);
 
 	}
@@ -133,15 +133,15 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 	}
 
 	private void saveAction(CreateOrgPlanAction1 action, String planid, String groupid, String processId) {
-		Orggplan orggplan = OrgPlanHelper.converntOrggplan(action);
+		Orgplan orggplan = OrgPlanHelper.converntOrggplan(action);
 		orggplan.setPlanid(planid);
 		orggplan.setPaydate(action.getPaydate());
 		orggplan.setStats("N");
 		orggplan.setGroupid(groupid);
-		List<Orggplandetail> plandetailList = new ArrayList<Orggplandetail>();
-		List<Orggplandetailcharge> plandetailchargeList = new ArrayList<Orggplandetailcharge>();
-		Orggplandetail orggplandetail = null;
-		Orggplandetailcharge orggplandetailcharge = null;
+		List<Orgplandetail> plandetailList = new ArrayList<Orgplandetail>();
+		List<Orgplandetailcharge> plandetailchargeList = new ArrayList<Orgplandetailcharge>();
+		Orgplandetail orggplandetail = null;
+		Orgplandetailcharge orggplandetailcharge = null;
 		String detailid = "";
 		BigDecimal payappamount = BigDecimal.ZERO;
 		BigDecimal payackamount = BigDecimal.ZERO;
@@ -157,7 +157,7 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 				payappamount = payappamount.add(new BigDecimal(orggplandetailcharge.getChargeamount()));
 				plandetailchargeList.add(orggplandetailcharge);
 			}
-			orggplandetail = new Orggplandetail();
+			orggplandetail = new Orgplandetail();
 			orggplandetail.setOrgid(action.getOrgid());
 			orggplandetail.setPlanid(planid);
 			orggplandetail.setStudentid(action2.getStudentid());
@@ -170,9 +170,9 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		}
 		log.debug(processId + " List<plandetailList> ：" + plandetailList.size());
 		log.debug(processId + " List<plandetailchargeList> ：" + plandetailchargeList.size());
-		orgDeployMapper.insertOrggplan(orggplan);
-		orgDeployMapper.insertOrggplandetailList(plandetailList);
-		orgDeployMapper.insertOrggplandetailchargeList(plandetailchargeList);
+		orgDeployMapper.insertOrgplan(orggplan);
+		orgDeployMapper.insertOrgplandetailList(plandetailList);
+		orgDeployMapper.insertOrgplandetailchargeList(plandetailchargeList);
 	}
 
 }

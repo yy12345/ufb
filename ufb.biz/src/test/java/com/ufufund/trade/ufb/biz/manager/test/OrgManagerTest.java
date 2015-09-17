@@ -21,9 +21,9 @@ import com.ufufund.ufb.model.action.org.SaveOrgGradeAction;
 import com.ufufund.ufb.model.action.org.SavetermAction;
 import com.ufufund.ufb.model.action.org.UpdateOrgchargeinfoAction;
 import com.ufufund.ufb.model.db.Orgchargeinfo;
-import com.ufufund.ufb.model.db.Orggplan;
-import com.ufufund.ufb.model.db.Orggplandetail;
-import com.ufufund.ufb.model.db.Orggplandetailcharge;
+import com.ufufund.ufb.model.db.Orgplan;
+import com.ufufund.ufb.model.db.Orgplandetail;
+import com.ufufund.ufb.model.db.Orgplandetailcharge;
 import com.ufufund.ufb.model.db.Orggrade;
 
 
@@ -128,7 +128,7 @@ public class OrgManagerTest {
 	
 	//@Test
 	public void insertOrggplan(){
-		Orggplan orggplan = new Orggplan();
+		Orgplan orggplan = new Orgplan();
 		orggplan.setOrgid("a");
 		orggplan.setPlanid("b");
 		orggplan.setGradeid("c");
@@ -147,13 +147,13 @@ public class OrgManagerTest {
 		orggplan.setRemark2("6");
 		orggplan.setCreateno("7");
 		orggplan.setUpdateno("8");
-		orgDeployMapper.insertOrggplan(orggplan);	
+		orgDeployMapper.insertOrgplan(orggplan);	
 	}
 	
 	//@Test
 	public void insertOrggplandetailList(){
-		List<Orggplandetail> orggplandetailList =  new ArrayList<Orggplandetail>();
-		Orggplandetail orggplandetail = new Orggplandetail();
+		List<Orgplandetail> orggplandetailList =  new ArrayList<Orgplandetail>();
+		Orgplandetail orggplandetail = new Orgplandetail();
 		orggplandetail.setPlanid("b");
 		orggplandetail.setStudentid("c");
 		orggplandetail.setDetailid("e");
@@ -169,13 +169,13 @@ public class OrgManagerTest {
 //		orggplandetail.setPayappamount("9000");
 //		orggplandetail.setPayackamount("5000");
 //		orggplandetailList.add(orggplandetail);	
-		orgDeployMapper.insertOrggplandetailList(orggplandetailList);
+		orgDeployMapper.insertOrgplandetailList(orggplandetailList);
 	}
 	
 	//@Test
 	public void insertOrggplandetailchargeList(){
-		List<Orggplandetailcharge> plandetailchargeList = new ArrayList<Orggplandetailcharge>(); 
-		Orggplandetailcharge orggplandetailcharge = new Orggplandetailcharge();
+		List<Orgplandetailcharge> plandetailchargeList = new ArrayList<Orgplandetailcharge>(); 
+		Orgplandetailcharge orggplandetailcharge = new Orgplandetailcharge();
 		orggplandetailcharge.setChargeid("9");
 		orggplandetailcharge.setChargetype("b");
 		orggplandetailcharge.setChargename("c");
@@ -184,7 +184,7 @@ public class OrgManagerTest {
 		orggplandetailcharge.setDetailid("f");
 		orggplandetailcharge.setPlanid("g");
 		plandetailchargeList.add(orggplandetailcharge);
-		orggplandetailcharge = new Orggplandetailcharge();
+		orggplandetailcharge = new Orgplandetailcharge();
 		orggplandetailcharge.setChargeid("8");
 		orggplandetailcharge.setChargetype("2");
 		orggplandetailcharge.setChargename("3");
@@ -193,16 +193,16 @@ public class OrgManagerTest {
 		orggplandetailcharge.setDetailid("6");
 		orggplandetailcharge.setPlanid("7");
 		plandetailchargeList.add(orggplandetailcharge);
-		orgDeployMapper.insertOrggplandetailchargeList(plandetailchargeList);
+		orgDeployMapper.insertOrgplandetailchargeList(plandetailchargeList);
 	}
 	
 	//@Test
 	public void getOrggplan(){
-		Orggplan orggplan = new Orggplan();
+		Orgplan orggplan = new Orgplan();
 		orggplan.setOrgid("a");
 		//orggplan.setPlanid("b");
-		List<Orggplan> list =  orgDeployMapper.getOrggplan(orggplan);
-		orggplan = (Orggplan) list.get(0);
+		List<Orgplan> list =  orgDeployMapper.getOrgplan(orggplan);
+		orggplan = (Orgplan) list.get(0);
 		System.out.println(orggplan.toString());
 	}
 	

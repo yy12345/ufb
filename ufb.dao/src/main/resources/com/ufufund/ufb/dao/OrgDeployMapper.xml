@@ -210,18 +210,18 @@
 	 
 	 
 	 
-	<delete id="deleteOrggplan"  parameterType="java.lang.String">
+	<delete id="deleteOrgplan"  parameterType="java.lang.String">
         delete from org_plan where plan_id=#{planid,jdbcType=VARCHAR}
     </delete>
-    <delete id="deleteOrggplandetail"  parameterType="java.lang.String">
+    <delete id="deleteOrgplandetail"  parameterType="java.lang.String">
         delete from org_plan_datail where plan_id=#{planid,jdbcType=VARCHAR}
     </delete>
-    <delete id="deleteOrggplandetailcharge"  parameterType="java.lang.String">
+    <delete id="deleteOrgplandetailcharge"  parameterType="java.lang.String">
         delete from org_plan_datail_charge where plan_id=#{planid,jdbcType=VARCHAR}
     </delete>
     
     
-    <insert id="insertOrggplan" parameterType="com.ufufund.ufb.model.db.Orggplan">
+    <insert id="insertOrgplan" parameterType="com.ufufund.ufb.model.db.Orgplan">
   	 <![CDATA[
 	 		INSERT INTO org_plan (
 				    org_id,
@@ -273,7 +273,7 @@
 	 ]]>
   	</insert>
     
-    <insert id="insertOrggplandetailList"  parameterType="java.util.List">  
+    <insert id="insertOrgplandetailList"  parameterType="java.util.List">  
         insert into 
         org_plan_datail(
                org_id,
@@ -298,7 +298,7 @@
        </foreach>
     </insert>
     
-     <insert id="insertOrggplandetailchargeList"  parameterType="java.util.List">  
+     <insert id="insertOrgplandetailchargeList"  parameterType="java.util.List">  
         insert into 
         org_plan_datail_charge(
               org_id,
@@ -328,7 +328,7 @@
     </insert>
     
     
-    <select id="getOrggplan" parameterType="com.ufufund.ufb.model.db.Orggplan" resultType="com.ufufund.ufb.model.db.Orggplan">
+    <select id="getOrgplan" parameterType="com.ufufund.ufb.model.db.Orgplan" resultType="com.ufufund.ufb.model.db.Orgplan">
 		SELECT
 			org_plan.org_id as orgid,
 			org_plan.plan_id as planid,

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.ufufund.ufb.model.action.PrintableModel;
 
-public class QueryOrggplandetail extends PrintableModel implements Serializable {
+public class QueryCustplandetail extends PrintableModel implements Serializable {
 
 	/**
 	 * 

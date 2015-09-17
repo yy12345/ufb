@@ -1,10 +1,10 @@
-package com.ufufund.ufb.model.db;
+package com.ufufund.ufb.model.vo;
 
 import java.io.Serializable;
 
 import com.ufufund.ufb.model.action.PrintableModel;
 
-public class Orggplan extends PrintableModel implements Serializable {
+public class QueryOrgplan extends PrintableModel implements Serializable {
 
 	/**
 	 * 
@@ -17,16 +17,15 @@ public class Orggplan extends PrintableModel implements Serializable {
 	private String planid;// char(24) NOT NULL COMMENT '计划ID',
 	private String gradeid;// char(24) NOT NULL COMMENT '学年ID',
 	private String termid;// varchar(25) DEFAULT NULL COMMENT '学期ID',
-	private String groupid; //varchar(25) DEFAULT NULL COMMENT '月代扣组ID',
+	private String groupid; //varchar(25) DEFAULT NULL COMMENT '学期ID',
 	
 	private String planname;// varchar(50) NOT NULL COMMENT '计划名',
 	private String plantype;// char(1) DEFAULT NULL COMMENT '费用类型 F 固定、T 临时、R 退费',
-	private String cycletype;// char(1) DEFAULT NULL COMMENT '类型 S单次，M多次',
-	private String type;// char(2) DEFAULT NULL COMMENT '其他类型 AT-月代扣按学期 AW-月代扣按学年  cycletype多次必填',
-	private String ackdat;// char(2) DEFAULT NULL COMMENT '确认日期',
-	
-	private String dat;// char(2) DEFAULT NULL COMMENT '扣款日 cycletype多次必填',
-	private String paydate;// varchar(8) DEFAULT NULL COMMENT '默认扣款日期',
+	private String cycletype;// char(1) DEFAULT NULL COMMENT '类型 S单次，E多次',
+	private String type;// char(2) DEFAULT NULL COMMENT '其他类型 AT-月代扣按学期 AW-月代扣按学年 ',
+	private String ackdat;// char(2) DEFAULT NULL COMMENT '确认日',
+	private String dat;// char(2) DEFAULT NULL COMMENT '扣款日',
+	private String paydate;// varchar(8) DEFAULT NULL COMMENT '下一扣款日',
 	private String stats;// char(1) DEFAULT NULL,
 	private String replanid;// varchar(24) DEFAULT NULL COMMENT '退费原计划号',
 	private String remark1;// varchar(100) DEFAULT NULL,
@@ -34,7 +33,15 @@ public class Orggplan extends PrintableModel implements Serializable {
 	private String remark2;// varchar(100) DEFAULT NULL,
 	private String createno;// char(24) DEFAULT NULL,
 	// private String createtime;//timestamp NULL DEFAULT NULL ON UPDATE CURRENTTIMESTAMP,
-	private String updateno;// char(24) DEFAULT NULL,
+	
+	private String totalappamount;// 总应缴金额
+	private String totaldiscount;//总折扣金额
+	private String totalackamount;// 总应缴实际金额
+	private String allnum;//  总应缴人数
+	private String yespaynum;// 已缴人数
+	private String nopaynum;// 未缴人数
+	private String yespayamount;// 实际已缴总金额
+	private String nopayamount;//  实际待缴总金额
 	
 	public void setOrgid(String orgid) {
 		this.orgid = orgid;
@@ -87,9 +94,7 @@ public class Orggplan extends PrintableModel implements Serializable {
 	public void setCreateno(String createno) {
 		this.createno = createno;
 	}
-	public void setUpdateno(String updateno) {
-		this.updateno = updateno;
-	}
+
 	public String getOrgid() {
 		return orgid;
 	}
@@ -141,9 +146,7 @@ public class Orggplan extends PrintableModel implements Serializable {
 	public String getCreateno() {
 		return createno;
 	}
-	public String getUpdateno() {
-		return updateno;
-	}
+	
 	public String getPaydate() {
 		return paydate;
 	}
@@ -156,8 +159,54 @@ public class Orggplan extends PrintableModel implements Serializable {
 	public void setGroupid(String groupid) {
 		this.groupid = groupid;
 	}
+	public String getTotalappamount() {
+		return totalappamount;
+	}
+	public void setTotalappamount(String totalappamount) {
+		this.totalappamount = totalappamount;
+	}
+	public String getTotaldiscount() {
+		return totaldiscount;
+	}
+	public void setTotaldiscount(String totaldiscount) {
+		this.totaldiscount = totaldiscount;
+	}
+	public String getTotalackamount() {
+		return totalackamount;
+	}
+	public void setTotalackamount(String totalackamount) {
+		this.totalackamount = totalackamount;
+	}
+	public String getAllnum() {
+		return allnum;
+	}
+	public void setAllnum(String allnum) {
+		this.allnum = allnum;
+	}
+	public String getYespaynum() {
+		return yespaynum;
+	}
+	public void setYespaynum(String yespaynum) {
+		this.yespaynum = yespaynum;
+	}
+	public String getNopaynum() {
+		return nopaynum;
+	}
+	public void setNopaynum(String nopaynum) {
+		this.nopaynum = nopaynum;
+	}
+	public String getYespayamount() {
+		return yespayamount;
+	}
+	public void setYespayamount(String yespayamount) {
+		this.yespayamount = yespayamount;
+	}
+	public String getNopayamount() {
+		return nopayamount;
+	}
+	public void setNopayamount(String nopayamount) {
+		this.nopayamount = nopayamount;
+	}
 
-	// private String updatetime;//timestamp NULL DEFAULT NULL ON UPDATE CURRENTTIMESTAMP
-	
 
 }

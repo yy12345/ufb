@@ -7,7 +7,7 @@
 
     
 
-	<select id="getQueryOrggplan" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrggplan">
+	<select id="getQueryOrgplan" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrgplan">
 			SELECT
 			    a.org_id as orgid,
 			    a.plan_id as planid,
@@ -58,7 +58,7 @@
     		and   a.org_id = #{orgid,jdbcType=VARCHAR} 
     </select>
   	
-  	<select id="getQueryOrggplandetail" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrggplandetail">
+  	<select id="getQueryOrgplandetail" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrgplandetail">
 			SELECT
 			a.org_id as orgid,
 			a.detail_id as detailid ,
@@ -77,7 +77,7 @@
     </select>
     
     
-    <select id="getQueryOrggplandetailcharge" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrggplandetailcharge">
+    <select id="getQueryOrgplandetailcharge" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrgplandetailcharge">
 			SELECT
 			a.org_id as orgid,
 			a.plan_id as planid,
@@ -93,5 +93,100 @@
     		and a.org_id = #{orgid,jdbcType=VARCHAR} 
     		and a.detail_id = #{detailid,jdbcType=VARCHAR} 
     </select>
+    
+    
+    
+    <select id="getQueryOrgPayInfo" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrgPayInfo">
+			SELECT
+			        
+			          SUM(IF(c.plan_type='R',0,b.pay_app_amount)) AS gtotalappamount,
+			          SUM(IF(c.plan_type='R',0,b.pay_discount)) AS gtotaldiscount,
+			          SUM(IF(c.plan_type='R',0,b.pay_ack_amount)) AS gtotalackamount,
+			          SUM(IF(c.plan_type='R',0,1)) AS gallnum,
+			          SUM(IF(c.plan_type='R',0, (IF(IFNULL(b.is_pay ,'F')='Y',1,0)))) AS gyespaynum,
+			          SUM(IF(c.plan_type='R',0, (IF(IFNULL(b.is_pay ,'F')='Y',0,1)))) AS gnopaynum,
+			          SUM(IF(c.plan_type='R',0, (IF(IFNULL(b.is_pay ,'F')='Y',b.pay_ack_amount,0)))) AS gyespayamount,
+			          SUM(IF(c.plan_type='R',0, (IF(IFNULL(b.is_pay ,'F')='Y',0,b.pay_ack_amount)))) AS gnopayamount,
+					  SUM(IF(c.plan_type='R',b.pay_app_amount,0)) AS rtotalappamount,
+			          SUM(IF(c.plan_type='R',b.pay_discount,0)) AS rtotaldiscount,
+			          SUM(IF(c.plan_type='R',b.pay_ack_amount,0)) AS rtotalackamount,
+			          SUM(IF(c.plan_type='R',1,0)) AS rallnum,
+			          SUM(IF(c.plan_type='R', (IF(IFNULL(b.is_pay ,'F')='Y',1,0)),0)) AS ryespaynum,
+			          SUM(IF(c.plan_type='R', (IF(IFNULL(b.is_pay ,'F')='Y',0,1)),0)) AS rnopaynum,
+			          SUM(IF(c.plan_type='R', (IF(IFNULL(b.is_pay ,'F')='Y',b.pay_ack_amount,0)),0)) AS ryespayamount,
+			          SUM(IF(c.plan_type='R', (IF(IFNULL(b.is_pay ,'F')='Y',0,b.pay_ack_amount)),0)) AS rnopayamount
+			    FROM org_plan_datail b,
+			         org_plan c
+			    where c.plan_id = b.plan_id
+			    and  b.org_id = c.org_id
+			    and  c.stats  &lt;&gt;  'C' 
+			    and  b.org_id = #{orgid,jdbcType=VARCHAR}
+			    <if test="type == 'GRADE'">
+	       	  		and c.grade_id = #{parameter,jdbcType=VARCHAR}
+	       		</if>
+			    <if test="type == 'TERM'">
+	       	  		and  c.term_id = #{parameter,jdbcType=VARCHAR}
+	       		</if>
+			     <if test="type == 'MONTH'">
+	       	  		and  left(c.paydate,6) = #{parameter,jdbcType=VARCHAR}
+	       		</if>
+			    GROUP BY  b.org_id
+    </select>
+    
+     <select id="getQueryCustPayInfo" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryCustPayInfo">
+			SELECT
+			        
+			          SUM(IF(c.plan_type='R',0,b.pay_app_amount)) AS gtotalappamount,
+			          SUM(IF(c.plan_type='R',0,b.pay_discount)) AS gtotaldiscount,
+			          SUM(IF(c.plan_type='R',0,b.pay_ack_amount)) AS gtotalackamount,
+			          SUM(IF(c.plan_type='R',0,1)) AS gallnum,
+			          SUM(IF(c.plan_type='R',0, (IF(IFNULL(b.is_pay ,'F')='Y',1,0)))) AS gyespaynum,
+			          SUM(IF(c.plan_type='R',0, (IF(IFNULL(b.is_pay ,'F')='Y',0,1)))) AS gnopaynum,
+			          SUM(IF(c.plan_type='R',0, (IF(IFNULL(b.is_pay ,'F')='Y',b.pay_ack_amount,0)))) AS gyespayamount,
+			          SUM(IF(c.plan_type='R',0, (IF(IFNULL(b.is_pay ,'F')='Y',0,b.pay_ack_amount)))) AS gnopayamount,
+					  SUM(IF(c.plan_type='R',b.pay_app_amount,0)) AS rtotalappamount,
+			          SUM(IF(c.plan_type='R',b.pay_discount,0)) AS rtotaldiscount,
+			          SUM(IF(c.plan_type='R',b.pay_ack_amount,0)) AS rtotalackamount,
+			          SUM(IF(c.plan_type='R',1,0)) AS rallnum,
+			          SUM(IF(c.plan_type='R', (IF(IFNULL(b.is_pay ,'F')='Y',1,0)),0)) AS ryespaynum,
+			          SUM(IF(c.plan_type='R', (IF(IFNULL(b.is_pay ,'F')='Y',0,1)),0)) AS rnopaynum,
+			          SUM(IF(c.plan_type='R', (IF(IFNULL(b.is_pay ,'F')='Y',b.pay_ack_amount,0)),0)) AS ryespayamount,
+			          SUM(IF(c.plan_type='R', (IF(IFNULL(b.is_pay ,'F')='Y',0,b.pay_ack_amount)),0)) AS rnopayamount
+			    FROM org_plan_datail b,
+			         org_plan c,
+			         student d
+			    where c.plan_id = b.plan_id
+			    and  b.org_id = c.org_id
+			    and  c.stats  &lt;&gt;  'C'
+			    and  d.sid = b.student_id 
+			    and  d.p_custno = #{custno,jdbcType=VARCHAR} 
+			    <if test="type == 'NOPAY'">
+	       	  		and b.is_pay = 'F'
+	       		</if>
+			    GROUP BY  d.p_custno
+    </select>
+    
+    
+    <select id="getQueryCustplandetail" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryCustplandetail">
+			SELECT
+			a.org_id as orgid,
+			a.detail_id as detailid ,
+			a.plan_id as planid,
+			a.student_id as studentid,
+			a.pay_app_amount as payappamount,
+			a.pay_discount as paydiscount,
+			a.pay_ack_amount as payackamount,
+			a.is_pay as ispay,
+			a.pay_custno as paycustno,
+			date_format(a.pay_date,'%Y%m%d%H%i%s')  as paydate 
+			FROM
+			student b,
+			org_plan_datail a
+			where b.sid = a.student_id
+			and b.p_custno  = #{custno,jdbcType=VARCHAR} 
+			order by a.pay_date  desc
+    </select>
+    
+    
 </mapper>
 

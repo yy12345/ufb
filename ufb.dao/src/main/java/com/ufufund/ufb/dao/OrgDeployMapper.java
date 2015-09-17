@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.ufufund.ufb.common.dao.BaseDao;
 import com.ufufund.ufb.model.db.Orgchargeinfo;
-import com.ufufund.ufb.model.db.Orggplan;
-import com.ufufund.ufb.model.db.Orggplandetail;
-import com.ufufund.ufb.model.db.Orggplandetailcharge;
+import com.ufufund.ufb.model.db.Orgplan;
+import com.ufufund.ufb.model.db.Orgplandetail;
+import com.ufufund.ufb.model.db.Orgplandetailcharge;
 import com.ufufund.ufb.model.db.Orggrade;
 
 
@@ -37,13 +37,13 @@ public interface OrgDeployMapper extends BaseDao {
 	public int updateOrgchargeinfo(Orgchargeinfo orgchargeinfo);
 	
 	
-	public int deleteOrggplan(String planid);
-	public int deleteOrggplandetail(String planid);
-	public int deleteOrggplandetailcharge(String planid);
-	public int insertOrggplan(Orggplan orggplan);
-	public int insertOrggplandetailList(List<Orggplandetail> orggplandetailList);
-	public int insertOrggplandetailchargeList(List<Orggplandetailcharge> orggplandetailchargeList);
+	public int deleteOrgplan(String planid);
+	public int deleteOrgplandetail(String planid);
+	public int deleteOrgplandetailcharge(String planid);
+	public int insertOrgplan(Orgplan orggplan);
+	public int insertOrgplandetailList(List<Orgplandetail> orggplandetailList);
+	public int insertOrgplandetailchargeList(List<Orgplandetailcharge> orggplandetailchargeList);
 	
-	public List<Orggplan> getOrggplan(Orggplan orggplan);
+	public List<Orgplan> getOrgplan(Orgplan orggplan);
 	
 }
