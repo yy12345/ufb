@@ -35,8 +35,8 @@ public class SchoolManagerImpl implements SchoolManager{
 	 * @param orgid
 	 * @return
 	 */
-	public List<Clazz> getClazzList(String orgid){
-		return clazzMapper.getList(orgid);
+	public List<Clazz> getClazzList(Clazz clazz){
+		return clazzMapper.getList(clazz);
 	}
 
 	/**

@@ -19,7 +19,7 @@ public interface ClazzMapper {
 	
 	int update(Clazz clazz);
 	
-	List<Clazz> getList(String cid);
+	List<Clazz> getList(Clazz clazz);
 	
 	int getCount(Clazz clazz);
 }

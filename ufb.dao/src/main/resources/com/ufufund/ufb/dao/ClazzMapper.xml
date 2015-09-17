@@ -28,8 +28,12 @@
     	where cid = #{cid, jdbcType=VARCHAR}
     </update>
     
-    <select id="getList" parameterType="String" resultType="Clazz">
-    	select * from clazz where orgid = #{orgid, jdbcType=VARCHAR}
+    <select id="getList" parameterType="Clazz" resultType="Clazz">
+    	select * from clazz where 
+    		orgid = #{orgid, jdbcType=VARCHAR}
+    		<if test="typeid != null">
+    			and typeid = #{typeid, jdbcType=VARCHAR}
+    		</if>
     	order by typeid, cno 
     </select>
     

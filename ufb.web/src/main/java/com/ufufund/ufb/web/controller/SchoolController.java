@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,74 @@ public class SchoolController {
 	@Autowired
 	private SchoolManager schoolManager;
 	
+	/**
+	 * 异步查询机构自定义班级类型的列表
+	 * （同步方式，可直接调用对应manager层）
+	 * 备注：使用get方式请求
+	 * @return
+	 */
+	@RequestMapping(value="classtype_list", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> clazztypeList(){
+		
+		String orgid = "1";
+		
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try{
+			List<ClazzType> otherTypes = schoolManager.getClazzTypeList(orgid);
+			
+			resultMap.put("errCode", "0000");
+			resultMap.put("otherTypes", otherTypes);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 异步获取班级列表：（同步方式，可直接调用对应manager层）
+	 * 1.typeid参数不传，获取机构下的所有班级列表
+	 * 2.typeid传入，获取机构的对应typeid下的班级列表
+	 * 备注：使用get方式请求
+	 * @param typeid
+	 * @return
+	 */
+	@RequestMapping(value="class_list", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> clazzList(String typeid){
+		
+		String orgid = "1";
+		
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try{
+			Clazz clazz = new Clazz();
+			clazz.setOrgid(orgid);
+			// 若类型非空，根据班级类型查询
+			if(!StringUtils.isBlank(typeid)){
+				clazz.setTypeid(typeid);
+			}
+			List<Clazz> clazzList = schoolManager.getClazzList(clazz);
+			
+			resultMap.put("errCode", "0000");
+			resultMap.put("clazzList", clazzList);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
+	
 	
 	@RequestMapping(value="class_setting", method=RequestMethod.GET)
 	public String classSetting(String orgid, Model model){
@@ -44,7 +113,9 @@ public class SchoolController {
 		
 		try{
 			List<ClazzType> otherTypes = schoolManager.getClazzTypeList(orgid);
-			List<Clazz> allList = schoolManager.getClazzList(orgid);
+			Clazz clazz = new Clazz();
+			clazz.setOrgid(orgid);
+			List<Clazz> allList = schoolManager.getClazzList(clazz);
 			
 			// 普通班级：托、小、中、大班
 			List<Clazz> list_1 = filterClazz(allList, Constant.ClazzTypeNormal.type_1);

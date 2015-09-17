@@ -33,7 +33,7 @@ public interface SchoolManager {
 	 * @param orgid
 	 * @return
 	 */
-	List<Clazz> getClazzList(String orgid);
+	List<Clazz> getClazzList(Clazz clazz);
 	
 	/**
 	 * 添加班级
