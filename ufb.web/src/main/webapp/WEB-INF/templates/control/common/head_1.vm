@@ -1,0 +1,30 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+	#if("$!{title}"=="")
+	    <title>幼富通</title>
+	#else
+	    $!{title}
+	#end
+    <!-- 老蔡head添加 -->
+    <meta name="keywords" content="幼富通">
+	<meta name="description" content="幼富通，幼教金融一站通">
+	<link rel="shortcut icon" href="${staticDomain}/public/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="${staticDomain}/public/css/style.css">
+	<link rel="stylesheet" href="${staticDomain}/public/css/jquery.jscrollpane.css">
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.js"></script>
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.easing.js"></script>
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.bxslider.min.js"></script>
+	<script type="text/javascript" src="${staticDomain}/public/js/dotimeout.js"></script>
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.scrollTo.js"></script>
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.form.js"></script>
+	<script type="text/javascript" src="${staticDomain}/public/js/plug.js"></script><!--自定义插件-->
+	<script type="text/javascript" src="${staticDomain}/public/js/global.js"></script><!--全局设置-->
+	<!--日期控件 开始-->
+	<link rel="stylesheet" href="${staticDomain}/public/css/jquery-ui.css" type="text/css">
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.ui.datepicker.js"></script>
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.ui.datepicker-zh-CN.js"></script>
+	<!--日期控件 结束-->
+</head>

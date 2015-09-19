@@ -140,12 +140,4 @@ public interface Constant {
 		}
 	}
 	
-	/** 普通班级类型 **/
-	public interface ClazzTypeNormal{
-		String type_1 = "1";
-		String type_2 = "2";
-		String type_3 = "3";
-		String type_4 = "4";
-	}
-
 }

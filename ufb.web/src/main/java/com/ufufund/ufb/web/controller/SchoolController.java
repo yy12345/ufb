@@ -19,6 +19,7 @@ import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.model.db.Clazz;
 import com.ufufund.ufb.model.db.ClazzType;
+import com.ufufund.ufb.model.enums.NormalClazzType;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,28 +34,42 @@ import lombok.extern.slf4j.Slf4j;
 public class SchoolController {
 	
 	private static final String CLASS_INDEX = "";
+	private static final String STUDENT_INDEX = "";
 	
 	@Autowired
 	private SchoolManager schoolManager;
 	
 	/**
-	 * 异步查询机构自定义班级类型的列表
-	 * （同步方式，可直接调用对应manager层）
+	 * 异步查询机构班级类型的列表（同步方式，可直接调用对应manager层）
+	 * 1.mode参数不传，查询所有班级类型
+	 * 2.mode=1，只查询自定义班级类型
 	 * 备注：使用get方式请求
 	 * @return
 	 */
 	@RequestMapping(value="classtype_list", method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String,Object> clazztypeList(){
+	public Map<String,Object> clazztypeList(String mode){
 		
 		String orgid = "1";
 		
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		try{
+			// 机构下，所有班级类型
+			List<ClazzType> allTypes = new ArrayList<ClazzType>();
+			// 普通班级
+			List<ClazzType> normalTypes = NormalClazzType.getList(orgid);
+			// 机构自定义班级类型
 			List<ClazzType> otherTypes = schoolManager.getClazzTypeList(orgid);
 			
+			allTypes.addAll(normalTypes);
+			allTypes.addAll(otherTypes);
+			
 			resultMap.put("errCode", "0000");
-			resultMap.put("otherTypes", otherTypes);
+			if("1".equals(mode)){  // 只查询自定义班级类型
+				resultMap.put("otherTypes", otherTypes);
+			}else{  // 默认，查询所有班级类型
+				resultMap.put("allTypes", allTypes);
+			}
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			resultMap.put("errCode", ue.getCode());
@@ -107,9 +122,9 @@ public class SchoolController {
 	
 	
 	@RequestMapping(value="class_setting", method=RequestMethod.GET)
-	public String classSetting(String orgid, Model model){
+	public String classSetting(Model model){
 		
-		orgid = "1";
+		String orgid = "1";
 		
 		try{
 			List<ClazzType> otherTypes = schoolManager.getClazzTypeList(orgid);
@@ -118,10 +133,10 @@ public class SchoolController {
 			List<Clazz> allList = schoolManager.getClazzList(clazz);
 			
 			// 普通班级：托、小、中、大班
-			List<Clazz> list_1 = filterClazz(allList, Constant.ClazzTypeNormal.type_1);
-			List<Clazz> list_2 = filterClazz(allList, Constant.ClazzTypeNormal.type_2);
-			List<Clazz> list_3 = filterClazz(allList, Constant.ClazzTypeNormal.type_3);
-			List<Clazz> list_4 = filterClazz(allList, Constant.ClazzTypeNormal.type_4);
+			List<Clazz> list_1 = filterClazz(allList, NormalClazzType.TB.getId());
+			List<Clazz> list_2 = filterClazz(allList, NormalClazzType.XB.getId());
+			List<Clazz> list_3 = filterClazz(allList, NormalClazzType.ZB.getId());
+			List<Clazz> list_4 = filterClazz(allList, NormalClazzType.DB.getId());
 			
 			// 机构自定义班级
 			for(ClazzType ct : otherTypes){
@@ -237,6 +252,71 @@ public class SchoolController {
 		return resultMap;
 	}
 	
+	
+	@RequestMapping(value="student_manager", method=RequestMethod.GET)
+	public String studentManager(Model model){
+		
+		String orgid = "1";
+		try{
+			// 机构下，所有班级类型
+			List<ClazzType> allTypes = new ArrayList<ClazzType>();
+			List<ClazzType> normalTypes = NormalClazzType.getList(orgid);
+			List<ClazzType> otherTypes = schoolManager.getClazzTypeList(orgid);
+			allTypes.addAll(normalTypes);
+			allTypes.addAll(otherTypes);
+			
+			// 机构下，所有班级列表
+			Clazz clazz = new Clazz();
+			clazz.setOrgid(orgid);
+			List<Clazz> clazzList = schoolManager.getClazzList(clazz);
+			
+			model.addAttribute("allTypes", allTypes);
+			model.addAttribute("clazzList", clazzList);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			
+			model.addAttribute("message_title", "学生档案管理");
+			model.addAttribute("message_url", STUDENT_INDEX);
+			model.addAttribute("message_content0", "操作失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			return "error/user_error";
+		}
+		
+		return "school/student_manager";
+	}
+	
+	@RequestMapping(value="student_import", method=RequestMethod.GET)
+	public String studentImport(Model model){
+		
+		String orgid = "1";
+		try{
+			// 机构下，所有班级类型
+			List<ClazzType> allTypes = new ArrayList<ClazzType>();
+			List<ClazzType> normalTypes = NormalClazzType.getList(orgid);
+			List<ClazzType> otherTypes = schoolManager.getClazzTypeList(orgid);
+			allTypes.addAll(normalTypes);
+			allTypes.addAll(otherTypes);
+			
+			// 机构下，所有班级列表
+			Clazz clazz = new Clazz();
+			clazz.setOrgid(orgid);
+			List<Clazz> clazzList = schoolManager.getClazzList(clazz);
+			
+			model.addAttribute("allTypes", allTypes);
+			model.addAttribute("clazzList", clazzList);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			
+			model.addAttribute("message_title", "学生档案管理");
+			model.addAttribute("message_url", STUDENT_INDEX);
+			model.addAttribute("message_content0", "操作失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			return "error/user_error";
+		}
+		
+		return "school/student_import";
+	}
+	
 	/**
 	 * 根据类型过滤出不同类型的班级
 	 * @param allList 所有班级
@@ -252,4 +332,5 @@ public class SchoolController {
 		}
 		return list;
 	}
+	
 }
