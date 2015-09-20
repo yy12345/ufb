@@ -109,7 +109,7 @@ public class RegexUtil {
 	  * @author jiqinlin
 	  */
 	 public final static boolean isMobile(String text){
-	     if(text.length()!=11) return false;
+	     if(text == null || text.length() != 11) return false;
 	     return match(text, "^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\\d{8})$");
 	     
 	     //return true;

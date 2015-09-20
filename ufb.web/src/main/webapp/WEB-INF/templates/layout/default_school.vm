@@ -2,10 +2,14 @@
 <html>
 #parse("control/common/head_1.vm")
 <body>	
-<div class="container center">
-#parse("control/common/header_0_trade.vm")
-$body
-#parse("control/common/footer_1.vm")
+<div class="page">
+<div class="main">
+	<section class="loadmain">
+	#parse("control/common/header_1.vm")
+	$body
+	</section>
+</div>
+#parse("control/common/slider_1.vm")
 </div>
 $!{script}
 </body>

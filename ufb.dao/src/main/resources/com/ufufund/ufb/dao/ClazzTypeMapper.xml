@@ -4,6 +4,10 @@
 
 <mapper namespace="com.ufufund.ufb.dao.ClazzTypeMapper">
 	
+	<select id="get" parameterType="String" resultType="ClazzType">
+    	select * from clazztype where id = #{id, jdbcType=VARCHAR}
+    </select>
+	
 	<insert id="add" parameterType="ClazzType">
 		insert into clazztype values(
 			#{id,jdbcType=VARCHAR},

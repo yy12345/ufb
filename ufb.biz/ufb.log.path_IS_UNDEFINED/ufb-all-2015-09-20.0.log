@@ -1,0 +1,39 @@
+2015-09-20 20:43:48,196 ERROR [main] o.s.test.context.TestContextManager [TestContextManager.java : 314] Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@4dfa3a9d] to prepare test instance [com.ufufund.trade.ufb.biz.util.test.StudentExcelUtilTest@6eebc39e]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.CacheAwareContextLoaderDelegate.loadContext(CacheAwareContextLoaderDelegate.java:99) ~[spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.test.context.TestContext.getApplicationContext(TestContext.java:122) ~[spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.injectDependencies(DependencyInjectionTestExecutionListener.java:109) ~[spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.test.context.support.DependencyInjectionTestExecutionListener.prepareTestInstance(DependencyInjectionTestExecutionListener.java:75) ~[spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:312) ~[spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:211) [spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:288) [spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:284) [spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:231) [spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:88) [spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53) [junit-4.11.jar:na]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:71) [spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309) [junit-4.11.jar:na]
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:174) [spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:na]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:na]
+Caused by: java.lang.IllegalArgumentException: Cannot load an ApplicationContext with a NULL 'contextLoader'. Consider annotating your test class with @ContextConfiguration or @ContextHierarchy.
+	at org.springframework.util.Assert.notNull(Assert.java:112) ~[spring-core-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.test.context.CacheAwareContextLoaderDelegate.loadContextInternal(CacheAwareContextLoaderDelegate.java:57) ~[spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.test.context.CacheAwareContextLoaderDelegate.loadContext(CacheAwareContextLoaderDelegate.java:91) ~[spring-test-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	... 25 common frames omitted
+2015-09-20 20:44:27,720 INFO [main] c.u.t.u.b.u.t.StudentExcelUtilTest [StudentExcelUtilTest.java : 15] namecom.ufufund.ufb.biz.util.StudentExcelUtil
+2015-09-20 20:44:41,152 INFO [main] c.u.t.u.b.u.t.StudentExcelUtilTest [StudentExcelUtilTest.java : 15] namecom.ufufund.ufb.biz.util.StudentExcelUtil
+2015-09-20 20:46:11,533 INFO [main] c.u.t.u.b.u.t.StudentExcelUtilTest [StudentExcelUtilTest.java : 17] name-学生档案-.xlsx
+2015-09-20 20:46:59,053 INFO [main] c.u.t.u.b.u.t.StudentExcelUtilTest [StudentExcelUtilTest.java : 17] name-学生档案-.xlsx
+2015-09-20 23:46:40,631 INFO [main] c.u.t.u.b.u.t.StudentExcelUtilTest [StudentExcelUtilTest.java : 23] str=1442764000623
+2015-09-20 23:47:10,723 INFO [main] c.u.t.u.b.u.t.StudentExcelUtilTest [StudentExcelUtilTest.java : 23] str=1442764030720

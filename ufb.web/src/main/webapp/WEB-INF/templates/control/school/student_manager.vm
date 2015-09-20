@@ -7,6 +7,8 @@
                 	<div class="a1">学生档案管理</div>
                 </div>
 			</div>
+			<input id="type_id" type="hidden" value="0">
+			<input id="type_name" type="hidden" value="全部">
 			<div class="boxB">
 				<div class="itemH">
                 	<div class="a1 cl">
@@ -21,117 +23,44 @@
                         </div>
                         <div class="b3"><a href="${ufbDomain}/school/class_setting.htm">年级/班级设置</a></div>
                     </div>
-                    <div class="a1">
-                    	<div class="b1">&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    	<div class="b2" id="clazz_list_1">
-                    		#foreach($c in $clazzList)
-                    		<span>${c.name}&nbsp;&nbsp;</span>
-                    		#end
-                    	</div>
-                    </div>
                     <div class="a2">
-                    	<label class="inputText"><input type="text"><b>搜索学生姓名</b></label><a href="javascript:;" class="btnA">查 询</a>
+                    	<div class="b1">包含班级</div>
+                    	<div class="b2" id="clazzList">
+                    		##foreach($c in $clazzList)
+                    		<span>全部&nbsp;&nbsp;</span>
+                    		##end
+                    	</div>
                     </div>
 					<div class="a3">
 						<div class="b1 cl">
 							<a href="javascript:;" class="c3">+新档案</a>
-							<a href="javascript:;" class="c1">批量导入</a>
-							<a href="javascript:;" class="c1 active">调班</a>
+							<a href="javascript:;" class="c1 active">批量导入</a>
+							<a href="javascript:;" class="c1">调班</a>
 						</div>
 						<div class="b2">
-							<div class="c1 tabCon">
-                            	<div class="d1">下载：<a href="模版.xlsx" target="_blank">档案模版</a></div>
+							<div class="c1 tabCon active">
+                            	<div class="d1">下载：<a id="downTemplate" href="javascript:void(0);">档案模版</a></div>
                                 <div class="d2">
-                                	<form action="action/template.html" enctype="multipart/form-data" id="formTemplate">
+                                	<form id="uploadForm" enctype="multipart/form-data">
                                         <span>仅支持学费通模板文件导入</span>
-                                        <label class="inputFile"><input type="file" accept="application/msexcel" name="templateFile" id="templateUpload"><b>选择文件（Excel）</b></label>
+                                        <label class="inputFile">
+	                                        <input id="uploadFile" name="file" type="file">
+	                                        <b>选择文件（Excel）</b>
+                                        </label>
+                                        <input id="uploadBtn" type="button" value="确定">
                                     </form>
                                 </div>
 							</div>
-							<div class="cl c2 tabCon active">
-								<div class="d1"><label class="checkbox"><input type="checkbox" id="classSelAll">全选</label></div>
-								<div class="d2">
-									<div class="e1">已选择<span id="studentNum">0</span>个学生，进入</div>
-									<select class="select" name="class" id="class">
-										<option disabled>大班</option>
-										<option>大一班</option>
-										<option>大二班</option>
-										<option>大三班</option>
-										<option disabled>中班</option>
-										<option>中一班</option>
-										<option>中二班</option>
-										<option>中三班</option>
-										<option disabled>小班</option>
-										<option>小一班</option>
-										<option>小二班</option>
-										<option>小三班</option>
-										<option disabled>拖班</option>
-										<option>拖一班</option>
-										<option>拖二班</option>
-										<option>拖三班</option>
-									</select>
-									<a href="javascript:;" class="btnB" id="classChange">确认调班</a>
-								</div>
-							</div>
 						</div>
 					</div>
-                    <form action="action/studentChangeClass.html" id="formClass">
-					<div class="target">
-						<section class="loadtarget">
-							<div class="a4">
-                            	<div class="b1 cl">
-                                	<div class="c1"><label class="checkbox"><input type="checkbox" name="classTop[]" value="大一班">大一班</label><span class="d1">12</span><span>人</span></div>
-                                    <div class="c2" data-href="class.html?classSubID=大一班"></div>
-                                </div>
-                                <div class="b2"></div>
-							</div>
-                            <div class="a4">
-                            	<div class="b1 cl">
-                                	<div class="c1"><label class="checkbox"><input type="checkbox" name="classTop[]" value="大二班">大二班</label><span class="d1">50</span><span>人</span></div>
-                                    <div class="c2" data-href="class.html?classSubID=大二班"></div>
-                                </div>
-                                <div class="b2"></div>
-							</div>
-                            <div class="a4">
-                            	<div class="b1 cl">
-                                	<div class="c1"><label class="checkbox"><input type="checkbox" name="classTop[]" value="大三班">大三班</label><span class="d1">32</span><span>人</span></div>
-                                    <div class="c2" data-href="class.html?classSubID=大三班"></div>
-                                </div>
-                                <div class="b2"></div>
-							</div>
-                            <script type="text/javascript">
-							//checkbox
-							$('.checkbox').checkbox();
-                            </script>
-						</section>
-					</div>
-                    </form>
                 </div>
 			</div>
 		</div>
 		<!--开始 本页面JS-->
 		<script type="text/javascript">
-			//alert(1);
 			$('nav a:eq(1)').addClass('active');
 		
-			//班级选择
-			/*$('.itemH .a1 .b2 .c1').on('mouseenter',function(){
-				var that = $(this);
-				$.delay({complete:function(){
-					$('.itemH .a1 .b2 .c1>div').hide();
-					$('.itemH .a1 .b2 .c1').css('z-index',1);
-					that.css('z-index',2);
-					that.find('div').show();
-				}});
-			})
-			$('.itemH .a1 .b2 .c1').on('mouseleave',function(){
-				var that = $(this);
-				$.delay({complete:function(){
-					that.find('div').hide();
-				}});
-			})*/
-			
-			//班级类型选择
+			//班级类型切换
 			$('.itemH .a1 .b2 .c1 a').on('click',function(e){
 				// 样式控制
 				e.preventDefault();
@@ -140,17 +69,17 @@
 				$(this).closest('.c1').addClass('active').siblings().removeClass('active');
 				
 				// 获取后台班级数据-typeid
-				var typeid = $(this).attr('typeid');
-				var clazzList;
+				var result,clazzList=[],typeid = $(this).attr('typeid');
 				$.ajax({
 					type: 'GET',
 					url: '${ufbDomain}/school/class_list.ajax',
-					data:'typeid='+typeid,
+					data:'typeid='+(typeid=='0'?'':typeid),
 					async:false,
 					success: function(data){
 						var json = $.parseJSON(data);
 						if(json.errCode=='0000'){
 							clazzList = json.clazzList;
+							result = '0000';
 						}else{
 							$.alert({title:json.errMsg});
 						}
@@ -160,113 +89,65 @@
 					}
 				});
 				
-				if(clazzList == undefined){
+				// 数据交互处理
+				if(result != '0000'){
 					return false;
 				}
-				
-			})
-			$('.inputText').inputText();
-			//end
-			
-			//查询按钮
-			$('.itemH .a2 .btnA').on('click',function(e){
-				e.preventDefault();
-				$.loadPage($('.itemH .a1 .b2 .c1 a.active').attr('href')+'?name='+$('.itemH .a2 input').val(),'target');
-			})
-			//end
-			
-			$('.itemH .a3 .b1 .c1').on('click',function(){//批量导入，调班切换
-				$(this).addClass('active').siblings().removeClass('active');
-				$('.itemH .a3 .b2 .tabCon').eq($(this).index()-1).show().siblings().hide();
-			});
-				
-			$('.select').selectMenu();	
-				
-			$('.itemH').on('click','.a4 .b1 .c2',function(){//查看班级详情
-				if($(this).hasClass('active')){
-					$(this).removeClass('active');
-					$(this).closest('.b1').next().hide();
+				var c,html = '';
+				if(typeid == '0'){
+					html = '<span>全部&nbsp;&nbsp;</span>';
 				}else{
-					$(this).addClass('active');
-					$(this).closest('.b1').next().show();
-					if($(this).closest('.b1').next().children().length==0){
-						JH.load.add($(this).attr('data-href'),$(this).closest('.b1').next());
+					for(var i=0; i < clazzList.length; i++){
+						c = clazzList[i];
+						html += '<span>'+c.name+'&nbsp;&nbsp;</span>';
 					}
 				}
+				$('#clazzList').html(html);
+				$('#type_id').val(typeid);
+				$('#type_name').val($(this).html());
+			})
+			
+			// 下载档案模板
+			$('#downTemplate').on('click', function(){
+				var typeid = $('#type_id').val();
+				var type_name = $('#type_name').val();
+				$.confirm({
+					title:'您将下载【'+type_name+'】类型的班级模板',
+					complete:function(){
+						var url = '${ufbDomain}/school/student_downTemplate.htm?typeid='+typeid;
+						window.open(url, '_blank', '');
+					}
+				});
 			});
 			
-			
-			$('.itemH').on('click','#classSelAll',function(){//班级全选
-				if($(this).attr('checked')){
-					$('.itemH .b1 .c1 .checkbox').checkbox({checked:true});
-					$('.itemH .b2 .checkbox').checkbox({checked:true});
-					var num = 0;
-					$('.itemH .b1 .c1 .d1').each(function(i,d){
-						num += parseInt($(this).text());
-					})
-					$('#studentNum').text(num);
+			// 上传档案模板
+			$('#uploadBtn').on('click',function(){
+				var filename = $('#uploadFile').val();
+				if(filename == ''){
+					$.alert({title:'请选择要上传的文件！'});
+					return false;
 				}else{
-					$('.itemH .b1 .c1 .checkbox').checkbox({checked:false});
-					$('.itemH .b2 .checkbox').checkbox({checked:false});
-					$('#studentNum').text(0);
+					$.alert({title:'正在导入，请稍等...'});
 				}
-			})
-			
-			$('.itemH').on('click','.a4 .b1 .c1 .checkbox input',function(){//学生全选
-				if($(this).attr('checked')){
-					$(this).closest('.a4').find('.b2 .checkbox').checkbox({checked:true});
-				}else{
-					$(this).closest('.a4').find('.b2 .checkbox').checkbox({checked:false});
-				}
-				var num = 0;
-				$('.itemH .a4 .b1 .c1 .checkbox.active').next('.d1').each(function(i,d){
-					num += parseInt($(this).text());
-				})
-				$('#studentNum').text(num);
-			})
-			
-			$('.itemH').on('click','.a4 .b2 .checkbox input',function(){//学生单个选择
-				$('#studentNum').text($('.itemH .a4 .b2 .checkbox input:checked').length);
-			})
-			
-			$('#classChange').on('click',function(){//调班 action/studentChangeClass.html 返回 {"state":"success"}|{"state":"error"}
-				if($('.itemH .a4 .checkbox input:checked').length>0){
-					var className = $('#class').val();
-					$('#formClass').ajaxSubmit({
-						data: {
-							'class': className
-						},
-						success: function(data){
-							var json = $.parseJSON(data);
-							//$.alert({title:data});
-							if(json.state=='success'){
-								$.alert({title:'调班成功！'});
-								$.loadPage($('.itemH .a1 .b2 .c1 a.active').attr('href'),'target');//新增成功后刷新页面。
-								$('#studentNum').text(0);
-								$('#classSelAll').parent().checkbox({active:false});
-							}else if(json.state=='error'){
-								$.alert({title:'调班失败，请重试！'});
-							}
-						}
-					});
-				}else{
-					$.alert({title:'您还未选择学生！'});
-				}
-			})
-			
-			$('#templateUpload').on('change',function(){//导入模版
-				$.alert({title:'正在导入，请稍等...'});
-				$('#formTemplate').ajaxSubmit({
+				$('#uploadForm').ajaxSubmit({
+					url:'${ufbDomain}/school/student_upload.ajax',
+					type:'POST',
+					resetForm:true,
+					clearForm:true,
 					success: function(data){
 						var json = $.parseJSON(data);
-						if(json.state=='success'){
+						if(json.errCode=='0000'){
 							$.alert({title:'导入成功！'});
-						}else if(json.state=='error'){
-							$.alert({title:'导入失败，请重试！'});
+						}else{
+							$.alert({title:json.errMsg,time:5});
 						}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						$.alert({title:'系统出现异常！'});
 					}
 				});
 			})
+			
 		</script>
 		<!--结束 本页面JS-->
 	</section>

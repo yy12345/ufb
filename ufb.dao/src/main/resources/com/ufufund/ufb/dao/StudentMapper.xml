@@ -117,20 +117,20 @@
 			lastupdate
     	) values
     	<foreach item="item" collection="list" separator="," open="" close="" index="">  
-	    	(#{sid             ,jdbcType=VARCHAR},     
-			#{cid             ,jdbcType=VARCHAR},     
-			#{sno             ,jdbcType=VARCHAR},     
-			#{name            ,jdbcType=VARCHAR},     
-			#{birthday        ,jdbcType=VARCHAR},     
-			#{sex             ,jdbcType=VARCHAR},     
-			#{f_type          ,jdbcType=VARCHAR},     
-			#{p1_name         ,jdbcType=VARCHAR},     
-			#{p1_mobile       ,jdbcType=VARCHAR},     
-			#{p1_mail         ,jdbcType=VARCHAR},    
+	    	(#{item.sid      ,jdbcType=VARCHAR},     
+			#{item.cid      ,jdbcType=VARCHAR},     
+			#{item.sno      ,jdbcType=VARCHAR},     
+			#{item.name     ,jdbcType=VARCHAR},     
+			#{item.birthday ,jdbcType=VARCHAR},     
+			#{item.sex      ,jdbcType=VARCHAR},     
+			#{item.f_type   ,jdbcType=VARCHAR},     
+			#{item.p1_name  ,jdbcType=VARCHAR},     
+			#{item.p1_mobile,jdbcType=VARCHAR},     
+			#{item.p1_mail  ,jdbcType=VARCHAR},    
 			'1',     
 			'1', 
 			'1',
-			now())  
+			now())
 	    </foreach>
     </insert>
     

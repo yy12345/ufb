@@ -5,7 +5,6 @@
 	#else
 	    $!{title}
 	#end
-    <!-- 老蔡head添加 -->
     <meta name="keywords" content="幼富通">
 	<meta name="description" content="幼富通，幼教金融一站通">
 	<link rel="shortcut icon" href="${staticDomain}/public/favicon.ico" type="image/x-icon">

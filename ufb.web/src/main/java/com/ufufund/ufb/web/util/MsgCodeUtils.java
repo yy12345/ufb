@@ -88,10 +88,7 @@ public class MsgCodeUtils {
 
 		// 调用短信接口，发送短信
 		MobileMsgManager mobileMsgManager = getMobileMsgManager();
-		if(!("0J001".equals(template) || "0Y001".equals(template))){
-			throw new SysException("短信模板不正确！");
-		} 
-		String content = String.format(MsgTemplate.templateMap.get(template), msgCode.getMsgCode());
+		String content = String.format(MsgTemplate.templateMap.get("0J001"), msgCode.getMsgCode());
 		mobileMsgManager.sendMobile(mobileNo, content);
 	}
 	

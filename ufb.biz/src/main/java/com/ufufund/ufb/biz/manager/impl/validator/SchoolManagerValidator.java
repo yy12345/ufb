@@ -25,6 +25,7 @@ public class SchoolManagerValidator {
 		}
 		
 		Clazz c = new Clazz();
+		c.setOrgid(clazz.getOrgid());
 		c.setTypeid(clazz.getTypeid());
 		if(clazzMapper.getCount(c) >= 5){
 			throw new UserException("只能添加5个子班级！");
@@ -38,5 +39,9 @@ public class SchoolManagerValidator {
 				|| StringUtils.isBlank(ct.getName())){
 			throw new UserException("输入参数为空！");
 		}
+	}
+	
+	public void validateImportStudentExcel(String clazzId){
+		// code ...
 	}
 }

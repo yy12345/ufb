@@ -45,5 +45,6 @@
     	<if test="typeid != null">
     		and typeid = #{typeid, jdbcType=VARCHAR}
     	</if>
+    	order by orgid, typeid
     </select>
 </mapper>

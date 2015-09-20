@@ -1,25 +1,33 @@
 package com.ufufund.ufb.web.controller;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ufufund.ufb.biz.manager.SchoolManager;
-import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
+import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.model.db.Clazz;
 import com.ufufund.ufb.model.db.ClazzType;
 import com.ufufund.ufb.model.enums.NormalClazzType;
+import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,6 +44,10 @@ public class SchoolController {
 	private static final String CLASS_INDEX = "";
 	private static final String STUDENT_INDEX = "";
 	
+	@Value("${ufb.school.excel_download_dir}")
+	private String excel_download_dir;
+	@Value("${ufb.school.excel_upload_dir}")
+	private String excel_upload_dir;
 	@Autowired
 	private SchoolManager schoolManager;
 	
@@ -50,7 +62,7 @@ public class SchoolController {
 	@ResponseBody
 	public Map<String,Object> clazztypeList(String mode){
 		
-		String orgid = "1";
+		String orgid = UserHelper.getCustno();
 		
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		try{
@@ -93,10 +105,9 @@ public class SchoolController {
 	@RequestMapping(value="class_list", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> clazzList(String typeid){
-		
-		String orgid = "1";
-		
 		Map<String,Object> resultMap = new HashMap<String,Object>();
+		
+		String orgid = UserHelper.getCustno();
 		try{
 			Clazz clazz = new Clazz();
 			clazz.setOrgid(orgid);
@@ -124,8 +135,7 @@ public class SchoolController {
 	@RequestMapping(value="class_setting", method=RequestMethod.GET)
 	public String classSetting(Model model){
 		
-		String orgid = "1";
-		
+		String orgid = UserHelper.getCustno();
 		try{
 			List<ClazzType> otherTypes = schoolManager.getClazzTypeList(orgid);
 			Clazz clazz = new Clazz();
@@ -165,10 +175,9 @@ public class SchoolController {
 	@RequestMapping(value="class_add", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,String> addClazz(Clazz clazz){
-		
-		String orgid = "1";
-		
 		Map<String,String> resultMap = new HashMap<String,String>();
+		
+		String orgid = UserHelper.getCustno();
 		try{
 			clazz.setCid(SequenceUtil.getSerial());
 			clazz.setOrgid(orgid);
@@ -210,10 +219,9 @@ public class SchoolController {
 	@RequestMapping(value="classtype_add", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,String> addClazzType(ClazzType ct){
-		
-		String orgid = "1";
-		
 		Map<String,String> resultMap = new HashMap<String,String>();
+		
+		String orgid = UserHelper.getCustno();
 		try{
 			ct.setId(SequenceUtil.getSerial());
 			ct.setOrgid(orgid);
@@ -252,11 +260,10 @@ public class SchoolController {
 		return resultMap;
 	}
 	
-	
 	@RequestMapping(value="student_manager", method=RequestMethod.GET)
 	public String studentManager(Model model){
 		
-		String orgid = "1";
+		String orgid = UserHelper.getCustno();
 		try{
 			// 机构下，所有班级类型
 			List<ClazzType> allTypes = new ArrayList<ClazzType>();
@@ -285,25 +292,14 @@ public class SchoolController {
 		return "school/student_manager";
 	}
 	
-	@RequestMapping(value="student_import", method=RequestMethod.GET)
-	public String studentImport(Model model){
+	@RequestMapping(value="student_downTemplate", method=RequestMethod.GET)
+	public String studentDownTemplate(String typeid, Model model)
+			throws UnsupportedEncodingException{
 		
-		String orgid = "1";
+		String downFilename = "";
+		String orgid = UserHelper.getCustno();
 		try{
-			// 机构下，所有班级类型
-			List<ClazzType> allTypes = new ArrayList<ClazzType>();
-			List<ClazzType> normalTypes = NormalClazzType.getList(orgid);
-			List<ClazzType> otherTypes = schoolManager.getClazzTypeList(orgid);
-			allTypes.addAll(normalTypes);
-			allTypes.addAll(otherTypes);
-			
-			// 机构下，所有班级列表
-			Clazz clazz = new Clazz();
-			clazz.setOrgid(orgid);
-			List<Clazz> clazzList = schoolManager.getClazzList(clazz);
-			
-			model.addAttribute("allTypes", allTypes);
-			model.addAttribute("clazzList", clazzList);
+			downFilename = schoolManager.genStudentTemplate(orgid, typeid);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			
@@ -314,8 +310,41 @@ public class SchoolController {
 			return "error/user_error";
 		}
 		
-		return "school/student_import";
+		downFilename = URLEncoder.encode(downFilename, "utf-8");
+		return "redirect:/excel/"+downFilename;
 	}
+	
+	@RequestMapping(value = "student_upload", method=RequestMethod.POST) 
+	@ResponseBody
+    public Map<String,String> studentUpload(@RequestParam("file") MultipartFile file) {  
+		Map<String,String> resultMap = new HashMap<String,String>();
+		
+		String orgid = UserHelper.getCustno();
+		try{
+			
+			String fileName = DateUtil.format(new Date(), DateUtil.DATE_PATTERN_1) + "-" 
+					+ orgid + "-" + String.valueOf(System.currentTimeMillis()).substring(8);
+	        File targetFile = new File(excel_upload_dir, fileName);  
+	        if(!targetFile.exists()){  
+	            targetFile.mkdirs();  
+	        }  
+	        // 保存  
+	        file.transferTo(targetFile);
+	        // 解析数据
+	        schoolManager.importStudentExcel(targetFile.getAbsolutePath());
+	        
+	        resultMap.put("errCode", "0000");
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+    }
 	
 	/**
 	 * 根据类型过滤出不同类型的班级
