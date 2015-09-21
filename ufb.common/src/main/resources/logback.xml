@@ -7,9 +7,9 @@
 
 	<!-- 按日滚动日志 -->
     <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${ufb.log.path}/ufb-all.log</file>
+        <file>/usr/local/resin4.0/log/ufb-all.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${ufb.log.path}/ufb-all-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/usr/local/resin4.0/log/ufb-all-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>20</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -33,7 +33,7 @@
     
     <logger name="com.ufufund.mvc" level="WARN"/> 
 
-    <root level="DEBUG">
+    <root level="info">
     	<appender-ref ref="STDOUT"/>
         <appender-ref ref="ROLLING"/>
     </root>

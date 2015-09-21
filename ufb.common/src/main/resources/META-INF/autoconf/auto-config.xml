@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <group>
-        <property name="ufb.log.path" description="日志目录" defaultValue="/usr/local/resin-pro4/log"/>
-        <property name="ufb.log.level" description="日志级别" defaultValue="debug"/>
+        <property name="ufb.log.path" description="日志目录" defaultValue="/usr/local/resin4.0/log"/>
+        <property name="ufb.log.level" description="日志级别" defaultValue="info"/>
     </group>
     <script>
         <generate template="logback.xml"/>
