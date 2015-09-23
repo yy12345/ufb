@@ -1,9 +1,11 @@
 package com.ufufund.ufb.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ufufund.ufb.model.db.Clazz;
 import com.ufufund.ufb.model.db.Student;
 
 public interface StudentMapper {
@@ -16,12 +18,13 @@ public interface StudentMapper {
 	
 	int remove(String sid);
 	
-	int addBatch(List<Student> studentList);
-	
-	int adjustClazz(@Param("oldCid")String oldCid, @Param("newCid")String newCid, 
-			@Param("sidList")List<String> sidList);
-	
 	int removeByClazz(String cid);
 	
+	int addBatch(List<Student> studentList);
+	
+	int adjustClazz(@Param("c")Clazz newClazz, @Param("sidList")List<String> sidList);
+	
 	int getCountByClazz(String cid);
+	
+	List<Student> getListByClazz(String cid);
 }

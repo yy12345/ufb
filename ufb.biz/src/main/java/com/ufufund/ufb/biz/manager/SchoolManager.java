@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ufufund.ufb.model.db.Clazz;
 import com.ufufund.ufb.model.db.ClazzType;
+import com.ufufund.ufb.model.db.Student;
 
 public interface SchoolManager {
 	
@@ -60,6 +61,13 @@ public interface SchoolManager {
 	int removeClazz(String cid);
 	
 	/**
+	 * 获取指定班级的学生数量
+	 * @param clazzList 要查询的班级列表
+	 * @return
+	 */
+	void getClazzSize(List<Clazz> clazzList);
+	
+	/**
 	 * 生成学生档案模板
 	 * @param orgid 机构id
 	 * @param typeid 班级类型id
@@ -70,6 +78,14 @@ public interface SchoolManager {
 	/**
 	 * 导入学生档案数据
 	 * @param filePath
+	 * @return 导入班级的typeid；全部班级，则为<code>0</code>
 	 */
-	void importStudentExcel(String filePath);
+	String importStudentExcel(String filePath);
+	
+	/**
+	 * 查询班级下的学生列表
+	 * @param clazzId
+	 * @return
+	 */
+	List<Student> getStudentList(String cid);
 }

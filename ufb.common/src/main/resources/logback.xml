@@ -33,7 +33,7 @@
     
     <logger name="com.ufufund.mvc" level="WARN"/> 
 
-    <root level="info">
+    <root level="DEBUG">
     	<appender-ref ref="STDOUT"/>
         <appender-ref ref="ROLLING"/>
     </root>

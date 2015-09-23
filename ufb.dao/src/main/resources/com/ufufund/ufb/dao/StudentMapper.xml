@@ -11,7 +11,8 @@
     <insert id="add" parameterType="Student">
 		insert into Student values(
 			#{sid             ,jdbcType=VARCHAR},     
-			#{cid             ,jdbcType=VARCHAR},     
+			#{cid             ,jdbcType=VARCHAR}, 
+			#{cname           ,jdbcType=VARCHAR},     
 			#{sno             ,jdbcType=VARCHAR},     
 			#{name            ,jdbcType=VARCHAR},     
 			#{birthday        ,jdbcType=VARCHAR},     
@@ -98,11 +99,16 @@
     <delete id="remove" parameterType="String">
     	delete from Student where sid = #{sid,jdbcType=VARCHAR}
     </delete>
+     
+    <delete id="removeByClazz" parameterType="String">
+    	delete from Student where cid = #{cid,jdbcType=VARCHAR}
+    </delete>
     
     <insert id="addBatch" parameterType="Student">
     	insert into Student (
     		sid      ,
 			cid      ,
+			cname    ,
 			sno      ,
 			name     ,
 			birthday ,
@@ -118,7 +124,8 @@
     	) values
     	<foreach item="item" collection="list" separator="," open="" close="" index="">  
 	    	(#{item.sid      ,jdbcType=VARCHAR},     
-			#{item.cid      ,jdbcType=VARCHAR},     
+			#{item.cid      ,jdbcType=VARCHAR}, 
+			#{item.cname    ,jdbcType=VARCHAR},    
 			#{item.sno      ,jdbcType=VARCHAR},     
 			#{item.name     ,jdbcType=VARCHAR},     
 			#{item.birthday ,jdbcType=VARCHAR},     
@@ -135,18 +142,20 @@
     </insert>
     
     <update id="adjustClazz">
-    	update Student set cid = #{newCid,jdbcType=VARCHAR}
-    	where cid = #{oldCid,jdbcType=VARCHAR} and 
+    	update Student set 
+    		cid = #{c.cid,jdbcType=VARCHAR} ,
+    		cname = #{c.name,jdbcType=VARCHAR} 
+    	where sid in
     	<foreach item="item" collection="list" separator="," open="(" close=")" index="">  
 	      #{item,jdbcType=VARCHAR}  
 	    </foreach>
     </update>
-    
-    <delete id="removeByClazz" parameterType="String">
-    	delete from Student where cid = #{cid,jdbcType=VARCHAR}
-    </delete>
-    
+   
     <select id="getCountByClazz" parameterType="String" resultType="int">
     	select count(*) from Student where cid = #{cid, jdbcType=VARCHAR}
+    </select>
+    
+    <select id="getListByClazz" parameterType="String" resultType="Student">
+    	select * from Student where cid = #{cid, jdbcType=VARCHAR}	
     </select>
 </mapper>

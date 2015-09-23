@@ -14,6 +14,10 @@
         <pattern>error/404.vm</pattern>
         <pattern>error/500.vm</pattern>
         <pattern>error/*</pattern>
+    </layout>
+    
+    <layout page="layout/blank.vm">
+        <pattern>school/student_list.vm</pattern>
     </layout> 
 	
     <layout page="layout/default_register.vm">

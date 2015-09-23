@@ -1,0 +1,37 @@
+<table width="100%;" class="tableA">
+    <tr>
+        <th></th>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>班级</th>
+        <th>性别</th>
+        <th>出生日期</th>
+        <th>家庭类型</th>
+        <th>家长手机</th>
+        <th>家长邮箱</th>
+        <th>操作</th>
+    </tr>
+    #foreach($s in $students)
+    <tr>
+        <td><label class="checkbox"><input type="checkbox" name="student[]" value="0"></label></td>
+        <td>${s.sno}</td>
+        <td>${s.name}</td>
+        <td>${s.cname}</td>
+        <td>${s.sex}</td>
+        <td>${s.birthday}</td>
+        <td>${s.f_type}</td>
+        <td>${s.p1_mobile}</td>
+        <td>${s.p1_mail}</td>
+        <td><a href="javascript:;">查看</a></td>
+    </tr>
+    #end
+</table>
+<script type="text/javascript">
+//表格隔行变色
+$('.tableA').each(function(i,d){
+	$(this).find('tr:even td').css('background-color','#eaf4f8');
+	$(this).find('tr:odd td').css('background-color','#fff');
+})
+//checkbox
+//$('.checkbox').checkbox();
+</script>

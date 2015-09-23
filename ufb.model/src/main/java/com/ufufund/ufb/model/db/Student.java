@@ -7,6 +7,7 @@ public class Student {
 
 	private String sid;
 	private String cid;
+	private String cname;
 	private String sno;
 	private String name;
 	private String sex;
@@ -46,4 +47,8 @@ public class Student {
 	private String care_type       ;
 	private String meal_type       ;
 	private String lastupdate;
+	// 展示属性
+	private String sexDisplay; 
+	private String birthdayDisplay;
+	private String f_typeDisplay;
 }

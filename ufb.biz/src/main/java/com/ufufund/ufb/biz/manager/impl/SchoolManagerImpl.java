@@ -1,10 +1,13 @@
 package com.ufufund.ufb.biz.manager.impl;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +17,6 @@ import com.ufufund.ufb.biz.manager.impl.validator.SchoolManagerValidator;
 import com.ufufund.ufb.biz.util.StudentExcelUtil;
 import com.ufufund.ufb.common.exception.SysException;
 import com.ufufund.ufb.common.exception.UserException;
-import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.dao.ClazzMapper;
 import com.ufufund.ufb.dao.ClazzTypeMapper;
 import com.ufufund.ufb.dao.StudentMapper;
@@ -52,7 +54,7 @@ public class SchoolManagerImpl implements SchoolManager{
 	public String getClazzTypeName(String typeid){
 		
 		String typeName = null;
-		if(typeid == null || "0".equals(typeid)){
+		if(StringUtils.isBlank(typeid) || "0".equals(typeid)){
 			typeName = "全部";
 		}else if(NormalClazzType.TB.getId().equals(typeid)){
 			typeName = NormalClazzType.TB.getName();
@@ -69,39 +71,6 @@ public class SchoolManagerImpl implements SchoolManager{
 		}
 		
 		return typeName;
-	}
-	
-	/**
-	 * 获取机构下的所有班级
-	 * @param orgid
-	 * @return
-	 */
-	public List<Clazz> getClazzList(Clazz clazz){
-		return clazzMapper.getList(clazz);
-	}
-
-	/**
-	 * 添加班级
-	 * @param clazz
-	 * @return
-	 */
-	public int addClazz(Clazz clazz){
-		smValidator.validateAddClazz(clazz);
-		return clazzMapper.add(clazz);
-	}
-	
-	/**
-	 * 删除班级
-	 * @param cid
-	 * @return
-	 */
-	public int removeClazz(String cid){
-		
-		int n = studentMapper.getCountByClazz(cid);
-		if(n > 0){
-			throw new UserException("班级下有学生档案记录，不能删除！");
-		}
-		return clazzMapper.remove(cid);
 	}
 	
 	/**
@@ -138,6 +107,53 @@ public class SchoolManagerImpl implements SchoolManager{
 	}
 	
 	/**
+	 * 获取机构下的所有班级
+	 * @param orgid
+	 * @return
+	 */
+	public List<Clazz> getClazzList(Clazz clazz){
+		return clazzMapper.getList(clazz);
+	}
+
+	/**
+	 * 添加班级
+	 * @param clazz
+	 * @return
+	 */
+	public int addClazz(Clazz clazz){
+		smValidator.validateAddClazz(clazz);
+		return clazzMapper.add(clazz);
+	}
+	
+	/**
+	 * 删除班级
+	 * @param cid
+	 * @return
+	 */
+	public int removeClazz(String cid){
+		
+		int n = studentMapper.getCountByClazz(cid);
+		if(n > 0){
+			throw new UserException("班级下有学生档案记录，不能删除！");
+		}
+		return clazzMapper.remove(cid);
+	}
+	
+	/**
+	 * 获取指定班级的学生数量
+	 * @param clazzList 要查询的班级列表
+	 * @return
+	 */
+	public void getClazzSize(List<Clazz> clazzList){
+		int size = 0;
+		for(Clazz c : clazzList){
+			size = studentMapper.getCountByClazz(c.getCid());
+			c.setSize(size);
+		}
+	}
+	
+	
+	/**
 	 * 生成学生档案模板
 	 * @param orgid 机构id
 	 * @param typeid 班级类型id
@@ -151,42 +167,59 @@ public class SchoolManagerImpl implements SchoolManager{
 		
 		Clazz clazz = new Clazz();
 		clazz.setOrgid(orgid);
-		if(!"0".equals(typeid)){
+		if(!StringUtils.isBlank(typeid) && !"0".equals(typeid)){
 			clazz.setTypeid(typeid);
 		}
 		List<Clazz> clazzList = clazzMapper.getList(clazz);
 		
-		try {
-			downFilename = StudentExcelUtil.getTemplateName(custinfo.getInvnm(), typeName);
-			StudentExcelUtil.createFromTemplate(downFilename, clazzList);
-		} catch (IOException e) {
-			log.error(e.getMessage(), e);
-			throw new SysException("生成excel错误：orgid="+orgid+",typeid="+typeid+","+e.getMessage());
-		}
+		downFilename = StudentExcelUtil.getTemplateName(custinfo.getInvnm(), typeName);
+		StudentExcelUtil.createFromTemplate(downFilename, clazzList);
+		
 		return downFilename;
 	}
 	
 	/**
 	 * 导入学生档案数据
 	 * @param filePath
+	 * @return 导入班级的typeid；全部班级，则为<code>0</code>
 	 */
-	public void importStudentExcel(String filePath){
-		try {
-			Map<String, List<Student>> resultMap = StudentExcelUtil.readFromExcel(filePath);
-			for(Entry<String, List<Student>> entry : resultMap.entrySet()){
-				String clazzId = entry.getKey();
-				List<Student> students = entry.getValue();
-				// 检测班级是否可全量导入
-				smValidator.validateImportStudentExcel(clazzId);
-				// 导入学生档案数据
-				studentMapper.removeByClazz(clazzId);
-				studentMapper.addBatch(students);
-			}
-		} catch (IOException e) {
-			log.error(e.getMessage(), e);
-			throw new SysException("导入excel错误：filePath="+filePath+","+e.getMessage());
+	public String importStudentExcel(String filePath){
+		
+		String typeid = null;
+		Set<String> typeidSet = new HashSet<String>();
+		
+		Map<String, List<Student>> resultMap = StudentExcelUtil.readFromExcel(filePath);
+		for(Entry<String, List<Student>> entry : resultMap.entrySet()){
+			String clazzId = entry.getKey();
+			List<Student> students = entry.getValue();
+			// 检测班级是否可全量导入
+			smValidator.validateImportStudentExcel(clazzId, students);
+			// 导入学生档案数据
+			studentMapper.removeByClazz(clazzId);
+			studentMapper.addBatch(students);
+			
+			// 识别导入班级的typeid，后续优化...
+			typeidSet.add(clazzMapper.get(clazzId).getTypeid());
 		}
 		
+		// 识别导入班级的typeid，后续优化...
+		if(typeidSet.size() > 1){
+			typeid = "0";
+		}else if(typeidSet.size() == 1){
+			typeid = typeidSet.iterator().next();
+		}
+		
+		return typeid;
+	}
+	
+	
+	/**
+	 * 查询班级下的学生列表
+	 * @param clazzId
+	 * @return
+	 */
+	public List<Student> getStudentList(String cid){
+		return studentMapper.getListByClazz(cid);
 	}
 	
 }

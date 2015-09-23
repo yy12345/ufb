@@ -1,5 +1,7 @@
 package com.ufufund.ufb.biz.manager.impl.validator;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +10,7 @@ import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.dao.ClazzMapper;
 import com.ufufund.ufb.model.db.Clazz;
 import com.ufufund.ufb.model.db.ClazzType;
+import com.ufufund.ufb.model.db.Student;
 
 @Service
 public class SchoolManagerValidator {
@@ -41,7 +44,9 @@ public class SchoolManagerValidator {
 		}
 	}
 	
-	public void validateImportStudentExcel(String clazzId){
+	public void validateImportStudentExcel(String clazzId, List<Student> students){
+		// 1.检测clazzId，班级是否能全量删除
+		// 2.检测students数据是否为空
 		// code ...
 	}
 }

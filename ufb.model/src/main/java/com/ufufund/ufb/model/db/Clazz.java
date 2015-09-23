@@ -16,4 +16,6 @@ public class Clazz {
 	private String name;
 	private String cno;
 	private String createtime;
+	// 非持久化属性
+	private int size;   // 班级学生数量
 }

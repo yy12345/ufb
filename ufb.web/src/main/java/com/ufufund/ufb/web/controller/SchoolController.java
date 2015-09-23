@@ -26,7 +26,9 @@ import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.model.db.Clazz;
 import com.ufufund.ufb.model.db.ClazzType;
+import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.enums.NormalClazzType;
+import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -96,7 +98,7 @@ public class SchoolController {
 	
 	/**
 	 * 异步获取班级列表：（同步方式，可直接调用对应manager层）
-	 * 1.typeid参数不传，获取机构下的所有班级列表
+	 * 1.typeid参数不传或typeid=0，获取机构下的所有班级列表
 	 * 2.typeid传入，获取机构的对应typeid下的班级列表
 	 * 备注：使用get方式请求
 	 * @param typeid
@@ -111,8 +113,8 @@ public class SchoolController {
 		try{
 			Clazz clazz = new Clazz();
 			clazz.setOrgid(orgid);
-			// 若类型非空，根据班级类型查询
-			if(!StringUtils.isBlank(typeid)){
+			// 是否根据typeid查询
+			if(!StringUtils.isBlank(typeid) && !"0".equals(typeid)){
 				clazz.setTypeid(typeid);
 			}
 			List<Clazz> clazzList = schoolManager.getClazzList(clazz);
@@ -261,9 +263,12 @@ public class SchoolController {
 	}
 	
 	@RequestMapping(value="student_manager", method=RequestMethod.GET)
-	public String studentManager(Model model){
+	public String studentManager(String typeid, Model model){
 		
 		String orgid = UserHelper.getCustno();
+		if(StringUtils.isBlank(typeid)){
+			typeid = "0";  // 0-全部类型
+		}
 		try{
 			// 机构下，所有班级类型
 			List<ClazzType> allTypes = new ArrayList<ClazzType>();
@@ -275,10 +280,17 @@ public class SchoolController {
 			// 机构下，所有班级列表
 			Clazz clazz = new Clazz();
 			clazz.setOrgid(orgid);
+			// 是否根据typeid查询
+			if(!"0".equals(typeid)){
+				clazz.setTypeid(typeid);
+			}
 			List<Clazz> clazzList = schoolManager.getClazzList(clazz);
+			// 获取班级学生数量
+			schoolManager.getClazzSize(clazzList);
 			
 			model.addAttribute("allTypes", allTypes);
 			model.addAttribute("clazzList", clazzList);
+			model.addAttribute("typeid", typeid);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			
@@ -290,6 +302,29 @@ public class SchoolController {
 		}
 		
 		return "school/student_manager";
+	}
+	
+	/**
+	 * 查询班级的学生列表
+	 * @param cid 班级id
+	 * @return
+	 */
+	@RequestMapping(value="student_list", method=RequestMethod.GET)
+	public String studentList(String cid, Model model){
+		try{
+			List<Student> students = schoolManager.getStudentList(cid);
+			model.addAttribute("students", students);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			
+			model.addAttribute("message_title", "班级管理");
+			model.addAttribute("message_url", CLASS_INDEX);
+			model.addAttribute("message_content0", "操作失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			return "error/user_error";
+		}
+		
+		return "school/student_list";
 	}
 	
 	@RequestMapping(value="student_downTemplate", method=RequestMethod.GET)
@@ -331,9 +366,10 @@ public class SchoolController {
 	        // 保存  
 	        file.transferTo(targetFile);
 	        // 解析数据
-	        schoolManager.importStudentExcel(targetFile.getAbsolutePath());
+	        String typeid = schoolManager.importStudentExcel(targetFile.getAbsolutePath());
 	        
 	        resultMap.put("errCode", "0000");
+	        resultMap.put("typeid", typeid);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			resultMap.put("errCode", ue.getCode());
@@ -345,6 +381,7 @@ public class SchoolController {
 		}
 		return resultMap;
     }
+	
 	
 	/**
 	 * 根据类型过滤出不同类型的班级

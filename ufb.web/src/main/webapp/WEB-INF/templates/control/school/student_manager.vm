@@ -7,29 +7,19 @@
                 	<div class="a1">学生档案管理</div>
                 </div>
 			</div>
-			<input id="type_id" type="hidden" value="0">
-			<input id="type_name" type="hidden" value="全部">
 			<div class="boxB">
 				<div class="itemH">
                 	<div class="a1 cl">
                     	<div class="b1">班级选择</div>
                         <div class="b2">
-                        	<div class="c1 active"><a typeid="0" href="javascript:void(0)" class="active">全部</a></div>
+                        	<div class='c1 #if("${typeid}" == "0")active#end'><a typeid="0" href="${ufbDomain}/school/student_manager.htm">全部</a></div>
                             #foreach($ct in $allTypes)
-                            <div class="c1">
-                            	<a typeid="${ct.id}" href="javascript:void(0)">${ct.name}</a>
+                            <div class='c1 #if("${typeid}" == "${ct.id}")active#end'>
+                            	<a typeid="${ct.id}" href="${ufbDomain}/school/student_manager.htm?typeid=${ct.id}">${ct.name}</a>
                             </div>
                             #end
                         </div>
                         <div class="b3"><a href="${ufbDomain}/school/class_setting.htm">年级/班级设置</a></div>
-                    </div>
-                    <div class="a2">
-                    	<div class="b1">包含班级</div>
-                    	<div class="b2" id="clazzList">
-                    		##foreach($c in $clazzList)
-                    		<span>全部&nbsp;&nbsp;</span>
-                    		##end
-                    	</div>
                     </div>
 					<div class="a3">
 						<div class="b1 cl">
@@ -53,64 +43,33 @@
 							</div>
 						</div>
 					</div>
+					<div class="listStu">
+						#foreach($c in $clazzList)
+						<div class="a4">
+			            	<div class="b1 cl">
+			                	<div class="c1">
+				                	<label class="checkbox"><input type="checkbox">${c.name}</label>
+				                	<span class="d1">${c.size}</span><span>人</span>
+			                	</div>
+			                    <div class="c2" data-href="${ufbDomain}/school/student_list.htm?cid=${c.cid}"></div>
+			                </div>
+			                <div class="b2"></div>
+						</div>
+						#end
+					</div>
+					<!-- listStu end  -->
                 </div>
 			</div>
 		</div>
+		
 		<!--开始 本页面JS-->
 		<script type="text/javascript">
 			$('nav a:eq(1)').addClass('active');
 		
-			//班级类型切换
-			$('.itemH .a1 .b2 .c1 a').on('click',function(e){
-				// 样式控制
-				e.preventDefault();
-				$('.itemH .a1 .b2 .c1 a').removeClass('active');
-				$(this).addClass('active');
-				$(this).closest('.c1').addClass('active').siblings().removeClass('active');
-				
-				// 获取后台班级数据-typeid
-				var result,clazzList=[],typeid = $(this).attr('typeid');
-				$.ajax({
-					type: 'GET',
-					url: '${ufbDomain}/school/class_list.ajax',
-					data:'typeid='+(typeid=='0'?'':typeid),
-					async:false,
-					success: function(data){
-						var json = $.parseJSON(data);
-						if(json.errCode=='0000'){
-							clazzList = json.clazzList;
-							result = '0000';
-						}else{
-							$.alert({title:json.errMsg});
-						}
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown) {
-						$.alert({title:'系统出现异常！'});
-					}
-				});
-				
-				// 数据交互处理
-				if(result != '0000'){
-					return false;
-				}
-				var c,html = '';
-				if(typeid == '0'){
-					html = '<span>全部&nbsp;&nbsp;</span>';
-				}else{
-					for(var i=0; i < clazzList.length; i++){
-						c = clazzList[i];
-						html += '<span>'+c.name+'&nbsp;&nbsp;</span>';
-					}
-				}
-				$('#clazzList').html(html);
-				$('#type_id').val(typeid);
-				$('#type_name').val($(this).html());
-			})
-			
 			// 下载档案模板
 			$('#downTemplate').on('click', function(){
-				var typeid = $('#type_id').val();
-				var type_name = $('#type_name').val();
+				var typeid = $('.itemH .a1 .b2 .c1').filter('.active').find('a').attr('typeid');
+				var type_name = $('.itemH .a1 .b2 .c1').filter('.active').find('a').html();
 				$.confirm({
 					title:'您将下载【'+type_name+'】类型的班级模板',
 					complete:function(){
@@ -137,7 +96,9 @@
 					success: function(data){
 						var json = $.parseJSON(data);
 						if(json.errCode=='0000'){
-							$.alert({title:'导入成功！'});
+							$.alert({title:'导入成功！',time:2});
+							location.href = '${ufbDomain}/school/student_manager.htm?typeid='+json.typeid;
+							return;
 						}else{
 							$.alert({title:json.errMsg,time:5});
 						}
@@ -148,6 +109,19 @@
 				});
 			})
 			
+			// 展开、隐藏班级详细
+			$('.itemH').on('click','.a4 .b1 .c2',function(){
+				if($(this).hasClass('active')){
+					$(this).removeClass('active');
+					$(this).closest('.b1').next().hide();
+				}else{
+					$(this).addClass('active');
+					$(this).closest('.b1').next().show();
+					if($(this).closest('.b1').next().children().length==0){
+						JH.load.add($(this).attr('data-href'),$(this).closest('.b1').next());
+					}
+				}
+			});
 		</script>
 		<!--结束 本页面JS-->
 	</section>

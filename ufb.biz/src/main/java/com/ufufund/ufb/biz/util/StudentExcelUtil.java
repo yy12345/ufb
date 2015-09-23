@@ -2,7 +2,6 @@ package com.ufufund.ufb.biz.util;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -95,41 +94,44 @@ public class StudentExcelUtil {
 	 * @param templateName
 	 * @throws IOException
 	 */
-	public static void createFromTemplate(String destFilename, List<Clazz> clazzList)
-			throws IOException {
-		
-		XSSFWorkbook workBook = new XSSFWorkbook(new FileInputStream(new File(excel_template_file)));
-		XSSFSheet sheet = null;
-		for(int i=0; i < clazzList.size(); i++){
-			Clazz clazz = clazzList.get(i);
-			if(i == 0){
-				sheet = workBook.getSheetAt(0);
-			}else{
-				sheet = workBook.cloneSheet(0);
+	public static void createFromTemplate(String destFilename, List<Clazz> clazzList){
+		try {
+			XSSFWorkbook workBook = new XSSFWorkbook(new FileInputStream(new File(excel_template_file)));
+			XSSFSheet sheet = null;
+			for(int i=0; i < clazzList.size(); i++){
+				Clazz clazz = clazzList.get(i);
+				if(i == 0){
+					sheet = workBook.getSheetAt(0);
+				}else{
+					sheet = workBook.cloneSheet(0);
+				}
+				// 班级名、及id数据填充
+				workBook.setSheetName(i, clazz.getName());
+				sheet.getRow(max_num+3).getCell(0).setCellValue(clazz.getCid());
+				// 第一列班级名数据填充
+				for(int j = 2; j < max_num+2; j++){
+					sheet.getRow(j).getCell(0).setCellValue(clazz.getName());
+				}
+				// 表单tab页颜色
+				String colorKey = "other";
+				if(clazz.getTypeid().length() == 1){
+					colorKey = clazz.getTypeid();
+				}
+				sheet.setTabColor(colorMap.get(colorKey).getIndex());
 			}
-			// 班级名、及id数据填充
-			workBook.setSheetName(i, clazz.getName());
-			sheet.getRow(max_num+3).getCell(0).setCellValue(clazz.getCid());
-			// 第一列班级名数据填充
-			for(int j = 2; j < max_num+2; j++){
-				sheet.getRow(j).getCell(0).setCellValue(clazz.getName());
-			}
-			// 表单tab页颜色
-			String colorKey = "other";
-			if(clazz.getTypeid().length() == 1){
-				colorKey = clazz.getTypeid();
-			}
-			sheet.setTabColor(colorMap.get(colorKey).getIndex());
+			
+			workBook.lockStructure();
+			workBook.setWorkbookPassword(password, HashAlgorithm.sha1);
+			
+			// 文档保存到输出流
+			FileOutputStream os = new FileOutputStream(excel_download_dir+destFilename);
+			workBook.write(os);
+			os.close();
+			workBook.close();
+		} catch (IOException e) {
+			log.error(e.getMessage(), e);
+			throw new SysException("生成excel错误：filename="+destFilename+","+e.getMessage());
 		}
-		
-		workBook.lockStructure();
-		workBook.setWorkbookPassword(password, HashAlgorithm.sha1);
-		
-		// 文档保存到输出流
-		FileOutputStream os = new FileOutputStream(excel_download_dir+destFilename);
-		workBook.write(os);
-		os.close();
-		workBook.close();
 		log.info("生成excel成功："+excel_download_dir+destFilename);
 	}
 	
@@ -140,21 +142,24 @@ public class StudentExcelUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static Map<String, List<Student>> readFromExcel(String filePath)
-			throws IOException {
+	public static Map<String, List<Student>> readFromExcel(String filePath) {
 		Map<String, List<Student>> resultMap = new HashMap<String, List<Student>>();
-		
-		Workbook workBook = new XSSFWorkbook(new FileInputStream(new File(filePath)));
-		int n = workBook.getNumberOfSheets();
-		for(int i = 0; i < n; i++){
-			Sheet sheet = workBook.getSheetAt(i);
-			// 逐个解析班级对象
-			String clazzId = sheet.getRow(max_num+3).getCell(0).getStringCellValue();
-			if(!StringUtils.isBlank(clazzId)){
-				resultMap.put(clazzId, parseClazz(sheet));
+		try {
+			Workbook workBook = new XSSFWorkbook(new FileInputStream(new File(filePath)));
+			int n = workBook.getNumberOfSheets();
+			for(int i = 0; i < n; i++){
+				Sheet sheet = workBook.getSheetAt(i);
+				// 逐个解析班级对象
+				String clazzId = sheet.getRow(max_num+3).getCell(0).getStringCellValue();
+				if(!StringUtils.isBlank(clazzId)){
+					resultMap.put(clazzId, parseClazz(sheet));
+				}
 			}
+			workBook.close();
+		} catch (IOException e) {
+			log.error(e.getMessage(), e);
+			throw new SysException("读取excel错误：filePath="+filePath+","+e.getMessage());
 		}
-		workBook.close();
 		log.info("读取excel成功：clazz_num="+resultMap.size()+",filePath="+filePath);
 		return resultMap;
 	}
@@ -180,7 +185,11 @@ public class StudentExcelUtil {
 			return null;
 		}
 		// 读取数据
+		String clazzName = sheet.getSheetName();
 		Student s = new Student();
+		s.setSid(SequenceUtil.getSerial());
+		s.setCid(sheet.getRow(max_num+3).getCell(0).getStringCellValue());
+		s.setCname(clazzName);
 		s.setSno(r.getCell(1)==null?null:r.getCell(1).getStringCellValue());
 		s.setName(r.getCell(2)==null?null:r.getCell(2).getStringCellValue());
 		s.setSex(r.getCell(3)==null?null:getSexValue(r.getCell(3).getStringCellValue()));
@@ -189,10 +198,6 @@ public class StudentExcelUtil {
 		s.setP1_name(r.getCell(6)==null?null:r.getCell(6).getStringCellValue());
 		s.setP1_mobile(r.getCell(7)==null?null:r.getCell(7).getStringCellValue());
 		s.setP1_mail(r.getCell(8)==null?null:r.getCell(8).getStringCellValue());
-		// 学生、班级id等
-		s.setSid(SequenceUtil.getSerial());
-		s.setCid(sheet.getRow(max_num+3).getCell(0).getStringCellValue());
-		String clazzName = sheet.getSheetName();
 		
 		// 检验数据
 		if(!StringUtils.isBlank(s.getSno()) && s.getSno().length() > 12){
@@ -245,65 +250,12 @@ public class StudentExcelUtil {
 		if(birthday == null){
 			return null;
 		}else{
-			return DateUtil.format(birthday, DateUtil.DATE_PATTERN_1);
+			return DateUtil.format(birthday, DateUtil.DATE_PATTERN_2);
 		}
 	}
 	
 	private static String getFamilyType(String value){
 		return FamilyTypeEnum.getKeyByValue(value);
-	}
-	
-	
-	public static void main(String args[]){
-		
-		String orgname = "孙桥幼儿园";
-		String typeName = "全部";
-		List<Clazz> clazzList = new ArrayList<Clazz>();
-		Clazz c11 = new Clazz();
-		c11.setCid("00011");
-		c11.setName("大一班");
-		c11.setTypeid("01");
-		Clazz c12 = new Clazz();
-		c12.setCid("00012");
-		c12.setName("大二班");
-		c12.setTypeid("01");
-		Clazz c2 = new Clazz();
-		c2.setCid("00021");
-		c2.setName("中一班");
-		c2.setTypeid("02");
-		Clazz c3 = new Clazz();
-		c3.setCid("00031");
-		c3.setName("小一班");
-		c3.setTypeid("03");
-		Clazz c4 = new Clazz();
-		c4.setCid("00041");
-		c4.setName("托一班");
-		c4.setTypeid("04");
-		Clazz c5 = new Clazz();
-		c5.setCid("00051");
-		c5.setName("兴趣班");
-		c5.setTypeid("05");
-		clazzList.add(c11);
-		clazzList.add(c12);
-		clazzList.add(c2);
-		clazzList.add(c3);
-		clazzList.add(c4);
-		clazzList.add(c5);
-		
-		try {
-			String destFileName = getTemplateName(orgname, typeName);
-			createFromTemplate(destFileName, clazzList);
-			
-//			String templateName = "学生档案摸版.xlsx";
-//			Workbook workbook = new XSSFWorkbook(new FileInputStream(new File(documentDir+templateName)));
-//			Map<String, List<Student>> map = readFromExcel(workbook);
-//			System.out.println(map);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 	}
 	
 }

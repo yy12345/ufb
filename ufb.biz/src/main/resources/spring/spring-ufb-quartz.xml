@@ -55,8 +55,10 @@
 	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 	    <property name="triggers">
 	        <list>
+	        	<!-- 
 	        	<ref bean="testTrigger"/> 
 	        	<ref bean="testTriggerCash"/> 
+	        	 -->
 	        </list>
 	    </property>
 	</bean>
