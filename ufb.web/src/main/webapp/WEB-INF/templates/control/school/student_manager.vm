@@ -34,10 +34,9 @@
                                 	<form id="uploadForm" enctype="multipart/form-data">
                                         <span>仅支持学费通模板文件导入</span>
                                         <label class="inputFile">
-	                                        <input id="uploadFile" name="file" type="file">
+	                                        <input id="uploadFile" name="file" type="file" accept="application/msexcel">
 	                                        <b>选择文件（Excel）</b>
                                         </label>
-                                        <input id="uploadBtn" type="button" value="确定">
                                     </form>
                                 </div>
 							</div>
@@ -80,7 +79,7 @@
 			});
 			
 			// 上传档案模板
-			$('#uploadBtn').on('click',function(){
+			$('#uploadFile').on('change',function(){
 				var filename = $('#uploadFile').val();
 				if(filename == ''){
 					$.alert({title:'请选择要上传的文件！'});
@@ -88,6 +87,7 @@
 				}else{
 					$.alert({title:'正在导入，请稍等...'});
 				}
+				
 				$('#uploadForm').ajaxSubmit({
 					url:'${ufbDomain}/school/student_upload.ajax',
 					type:'POST',
