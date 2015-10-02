@@ -59,6 +59,20 @@ public class CusterController {
 	}
 	
 	/**
+	 * 注册页
+	 * @param custinfoVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="family/register1")
+	public String getRegistPage(CustinfoVo custinfoVo, Model model){
+		// 清除Session
+		UserHelper.removeCustinfoVo();
+		
+		return "family/register1";
+	}
+	
+	/**
 	 * 登录
 	 * @param custinfoVo
 	 * @param model
