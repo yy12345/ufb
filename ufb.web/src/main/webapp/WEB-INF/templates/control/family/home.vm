@@ -13,188 +13,207 @@
         <div class="container">
             <a href="#" class="logo"></a>
 			<div class="nav">
-                                <a href="#">首页</a>
-				<a href="#" class="active">幼富宝</a>
+                <a href="${staticDomain}/family/home.htm" class="active">首页</a>
+				<a href="#">幼富宝</a>
 				<a href="#">缴费明细</a>
 				<a href="#">帮助中心</a>
 			</div>
         </div>
     </div>
+	<!-- header end -->
     <div class="body">
-        <div class="profile">
-                <div class="a1">
-                        <div class="ImgScroll b3">
-                           <ul id="marquee">
-                           <li><div class="bg01"><img src="${staticDomain}/static/family/images/img_01.png" alt=""></div></li>
-                           <li><div class="bg02"><img src="${staticDomain}/static/family/images/img_02.png" alt=""></div></li>
-                           <li><div class="bg03"><img src="${staticDomain}/static/family/images/img_03.png" alt=""></div></li>
-                           </ul>
-                       </div>
-                  
-                   <div class="profileBox">
-                        <div class="b2">
-                            <div class="loginForm">
-                               <h2>登录幼富通</h2>
-                                <div class="wrongTips">
-                                   <span></span>您输入的验证码错误<b></b>
-                               </div>
-                               <form class="vote"action="" method="post">
-                                <ul>
-                                    <li class="li01"><img src="${staticDomain}/static/family/images/img_08.png"><input type="text" placeholder="邮箱/手机号/用户名"></li>
-                                    <li class="li02"><img src="${staticDomain}/static/family/images/img_09.png"><input type="passwords"></li>
-                                    <li class="li03"><img src="${staticDomain}/static/family/images/img_10.png"><input type="text"><span class="yanZ"><img src="${staticDomain}/static/family/images/img_11.png"></span></li>
+		<div class="profile">
+			<div class="a1">
+				<div class="ImgScroll b3">
+					<ul id="marquee">
+						<li><div class="bg01"><img src="${staticDomain}/static/family/images/img_01.png" alt=""></div></li>
+						<li><div class="bg02"><img src="${staticDomain}/static/family/images/img_02.png" alt=""></div></li>
+						<li><div class="bg03"><img src="${staticDomain}/static/family/images/img_03.png" alt=""></div></li>
+                    </ul>
+				</div>
+				<div class="profileBox">
+					<div class="b2">
+						<div class="loginForm">
+							<h2>登录幼富通</h2>
+							<div class="wrongTips" style="display:none;">
+								<span></span>您输入的验证码错误<b></b>
+							</div>
+							<!--
+							<form class="vote" action="" method="post">
+							<form id="form-login" class="common-form login-form" method="post" action="${staticDomain}/home/index.htm">
+							-->
+							<form id="form-login" class="vote" method="post" action="${staticDomain}/family/home.htm">
+								<input type="hidden" id="invtp" name="invtp" value="$!{CustinfoVo.invtp}">
+								<ul>
+									<li class="li01"><img src="${staticDomain}/static/family/images/img_08.png">
+										<input id="ipt-loginUsername" name="mobileno" value="$!{CustinfoVo.mobileno}" class="ipt-loginUsername" type="text" placeholder="邮箱/手机号/用户名">
+									</li>
+									<li class="li02"><img src="${staticDomain}/static/family/images/img_09.png">
+										<input id="ipt-loginPassword" name="loginpwd" value="$!{CustinfoVo.loginpwd}" class="ipt-loginPassword" type="password" >
+									</li>
+                                    <li class="li03"><img src="${staticDomain}/static/family/images/img_10.png">
+										<input id="ipt-code" name="verifycode" class="ipt-code" value="$!{CustinfoVo.verifycode}" type="text" >
+										<span class="yanZ tips-check"><img src="${staticDomain}/static/family/images/img_11.png"></span>
+										<!--
+										<span class="tips-check"><i class="icon"></i>验证提示</span>
+										<span class="yanZ"><img src="${staticDomain}/static/family/images/img_11.png"></span>
+										-->
+									</li>
 <!--
                                     <li class="tips">
                                         <div class="tipsErr"><span></span>验证错误</div>
                                     </li>
 -->
-                                    <li class="li04"><a href="">立即登录</a></li>
+                                    <li class="li04">
+										<a id="btn-familyLogin" type="button" class="input-button" href="#">立即登录</a>
+										<!--
+										<input id="btn-familyLogin" type="button" class="input-button" value="立即登录">
+										-->
+									</li>
                                     <li class="li05"><a href="createAccount_01.html" class="freeRegistered">免费注册</a><a href="findPasswordStep1.html" class="fogetPassword">忘记密码？</a></li>
                                 </ul>
-                                </form>
-                            </div>
-                        </div>
-                   </div>    
-                </div>
-                <div class="a2">
-                     <div class="profileBox">
-                        <div class="b1">
-                            <h2>自动缴费、方便快捷</h2>
-                            <p>宝宝的各类学费杂费，1次确认，自动缴款，<br>
-                            操作省心、查询随心</p>
-                        </div>
-                        <div class="b2">
-                            <img src="${staticDomain}/static/family/images/img_04.png" alt="">
-                        </div>
-                    </div>    
-                </div>
-                <div class="a3">
-                    <div class="profileBox">   
-                        <div class="b1">
-                            <img src="${staticDomain}/static/family/images/img_05.png" alt="">
-                        </div>
-                        <div class="b2">
-                            <h2>天天赚钱<br>
-                                超银行活期10-15倍</h2>
-                            <p>熊妈妈去年每个月都请假跑去幼儿园缴学费，1年下来缴了2万元。<br>
-                            今年听了牛妈妈推荐，选择将2万元一次性充值到幼富宝自动缴费。<br>
-                            1年学费缴清，账户里居然还多了不少钱。<br>
+                            </form>
+						</div>
+                    </div>
+				</div>    
+            </div>
+            <div class="a2">
+				<div class="profileBox">
+					<div class="b1">
+						<h2>自动缴费、方便快捷</h2>
+						<p>宝宝的各类学费杂费，1次确认，自动缴款，<br>操作省心、查询随心</p>
+                    </div>
+                    <div class="b2">
+						<img src="${staticDomain}/static/family/images/img_04.png" alt="">
+                  	</div>
+				</div>    
+			</div>
+			<div class="a3">
+				<div class="profileBox">   
+					<div class="b1">
+						<img src="${staticDomain}/static/family/images/img_05.png" alt="">
+                	</div>
+					<div class="b2">
+						<h2>天天赚钱<br>
+							超银行活期10-15倍</h2>
+                        <p>熊妈妈去年每个月都请假跑去幼儿园缴学费，1年下来缴了2万元。<br>
+							今年听了牛妈妈推荐，选择将2万元一次性充值到幼富宝自动缴费。<br>
+							1年学费缴清，账户里居然还多了不少钱。<br>
                             秋天就要升大班了，正好给宝宝买套新衣服、新书包，开开心心上学去！</p>
-                        </div>
-                     </div>    
-                </div>
-                <div class="a4">
-                    <div class="profileBox">   
-                        <div class="b1">
-                            <h2>安全保障</h2>
-                            <p>缴费、退费，中国银联全程护航<br>
-                            资金、信息，6重安全防火墙</p>
-                        </div>
-                        <div class="b2">
-                            <img src="images/img_06.png" alt="">
-                        </div>
-                    </div>    
-                </div>
-                <div class="a5">
-                    <div class="profileBox" id="boxTab"> 
-                       <div id="bx-pager">
-                          <a data-slide-index="0" href="javascript:;" class="active">缴费<i></i></a>
-                          <a data-slide-index="1" href="javascript:;">安全<i></i></a>
-                          <a data-slide-index="2" href="javascript:;">收益<i></i></a>
-                          <a data-slide-index="3" href="javascript:;">充值取现<i></i></a>
-                       </div>  
-                       <ul class="bxslider">
-                           <li>
-                               <dl>
-                                   <dt>什么是幼富宝？</dt>
-                                   <dd>幼富宝是幼富通专为幼儿家庭打造的余额增值服务。把准备分期缴纳学费的家庭资金，一次性充值到幼富宝，即购买了由海富通基金提供的货币基金，获得每日稳健收益及分红，同时能够自动进行缴付学费。</dd>
-                               </dl>
-                               <dl>
-                                   <dt>存入幼富宝的资金如何实现自动缴费？</dt>
-                                   <dd>家长若选择使用幼富宝账户进行缴费，系统将根据收费机构具体缴费通知的类型和金额，在每月固定日期从幼富宝余额中自动取现并用于支付学费款项。</dd>
-                               </dl>
-                               <dl>
-                                   <dt>什么是“月代扣”缴费？</dt>
-                                   <dd>当收费机构发起了带有“月代扣”标签的收费通知，家长一次性确认后，系统将每月定期（通常为25日）从绑定的银行账户中扣除固定金额用于支付下月费用。家长可随时登录幼富通网站、微信或查收短信了解缴费结果。</dd>
-                               </dl>
-                                <dl>
-                                   <dt>“月代扣”暂停与变更</dt>
-                                   <dd>月代扣模式，一经家长确认后将持续到您的孩子离园。寒暑假等将根据收费机构的具体要求暂停扣款；通常月代扣模式均用于每月固定金额的收费项目如学费伙食费等，不会频繁变更。若出现金额变更，收费机构将重新发起收费通知，需要家长重新确认并以新的金额逐月扣款。</dd>
-                               </dl>
-                               <dl>
-                                   <dt>家长确认幼儿园收费账单后，何时缴费？</dt>
-                                   <dd>通常每月20日前必须确认收费机构发出的收费通知，账务系统将在每月25日统一扣缴各类固定或临时性费用并支付退费。</dd>
-                               </dl>
-                               <div class="help"><a href="helpFee.html">帮助中心</a></div>
-                           </li>
-                           <li>
-                               <dl>
-                                   <dt>幼富宝对接货币基金</dt>
-                                   <dd>幼富宝主要对接的是业绩优良的货币基金。货币型基金是一种开放式基金，资产主要投资于国债、央行票据、银行定期存单、同业存款等安全性高、收益稳定的有价证券。2014年国内货币基金7日年化收益率平均约为4.3%。</dd>
-                               </dl>
-                               <dl>
-                                   <dt>幼富宝特性与现金相似</dt>
-                                   <dd>幼富宝还具有随时快速申购赎回、资金快速到账、全程0费用、收益免税、红利自动再投产生复利收益、通常收益超过银行活期利率10-15倍等优势，能够很好地满足家庭闲置资金增效的需求。</dd>
-                               </dl>
-                               <dl>
-                                   <dt>幼富宝（货币基金）的资产管理人值得托付</dt>
-                                   <dd>海富通基金为国内少数拥有全牌照的资产管理公司，由海通证券（中方股东）和法国巴黎投资（外方股东）合资建立，主要业务范围包括公募基金，企业年金，专户，社保，及海外业务，总管理资产超过1000亿人民币元 （截止2014年12月31日），是国内唯一获得国际评级机构惠誉‘最高标准（中国）’ 评级的资产管理人。</dd>
-                               </dl>
-                               <dl>
-                                   <dt>如何确保每月自动扣款的资金安全？</dt>
-                                   <dd>由中国银联全程进行账户安全审验及资金支付服务，为收费机构与家庭提供多重数据安全保护</dd>
-                               </dl>
-                               <div class="help"><a href="helpFee.html">帮助中心</a></div>
-                           </li>
-                           <li>
-                               <dl>
-                                   <dt>什么时候能看到收益到账？</dt>
-                                   <dd>转入资金在基金公司确认份额的第2天可以看到收益。*如遇国家法定假期，基金公司不进行份额确认，以实际收益时间为准。</dd>
-                               </dl>
-                               <dl>
-                                   <dt>每天的收益是怎么计算的？</dt>
-                                   <dd>当日收益=（幼富宝已确认份额的资金/10000 ）X 每万份收益。假设您已确认份额的资金为12000元，当天的每万份收益为1.3元，代入计算公式，您当日的收益为：1.56元。</dd>
-                               </dl>
-                               <dl>
-                                   <dt>幼富宝的收益结算有什么规则？</dt>
-                                   <dd>幼富宝的收益每日结算，每天下午15:00左右前一天的收益到账。您缴费或转出到银行卡的那部分资金，当天没有收益。</dd>
-                               </dl>
-                               <div class="help"><a href="helpFee.html">帮助中心</a></div>
-                           </li>
-                           <li>
-                               <dl>
-                                   <dt>幼富宝充值支持哪些银行？</dt>
-                                   <dd>幼富宝目前支持中国银行、工商银行、建设银行、招商银行、邮政储蓄、光大银行、民生银行、中信银行、华夏银行、平安银行十家银行。（农业银行、浦发银行、兴业银行、广发银行、交通银行五家银行可进行自动缴费，但无法充值幼富宝）</dd>
-                               </dl>
-                               <dl>
-                                   <dt>幼富宝转入有金额限制吗？</dt>
-                                   <dd>用借记卡快捷转入幼富宝时不同银行额度不同,以收银台提示限额为准。</dd>
-                               </dl>
-                               <dl>
-                                   <dt>我可以用借记卡网银方式给幼富宝转钱吗？</dt>
-                                   <dd>不支持，请您使用借记卡快捷支付方式。</dd>
-                               </dl>
-                               <dl>
-                                   <dt>幼富宝转出至银行卡到账时间？</dt>
-                                   <dd>15：00前转出，下一工作日到账。15：00后转出，在转出日之后第二个工作日到账。</dd>
-                               </dl>
-                               <dl>
-                                   <dt>幼富宝转出当天有收益吗？</dt>
-                                   <dd>幼富宝转出到银行卡当日起至到账日不再产生收益。</dd>
-                               </dl>
-                               <div class="help"><a href="helpFee.html">帮助中心</a></div> 
-                           </li>
-                           <li></li>
-                           <li></li>
-                        </ul>
-                    </div>    
-                </div>
-           
-            
-        </div>
-    </div>
+                    </div>
+                </div>    
+            </div>
+            <div class="a4">
+                <div class="profileBox">   
+                    <div class="b1">
+                        <h2>安全保障</h2>
+                        <p>缴费、退费，中国银联全程护航<br>
+                        资金、信息，6重安全防火墙</p>
+                    </div>
+                    <div class="b2">
+                        <img src="${staticDomain}/static/family/images/img_06.png" alt="">
+                    </div>
+                </div>    
+            </div>
+            <div class="a5">
+                <div class="profileBox" id="boxTab"> 
+                   <div id="bx-pager">
+                      <a data-slide-index="0" href="javascript:;" class="active">缴费<i></i></a>
+                      <a data-slide-index="1" href="javascript:;">安全<i></i></a>
+                      <a data-slide-index="2" href="javascript:;">收益<i></i></a>
+                      <a data-slide-index="3" href="javascript:;">充值取现<i></i></a>
+                   </div>  
+                   <ul class="bxslider">
+                       <li>
+                           <dl>
+                               <dt>什么是幼富宝？</dt>
+                               <dd>幼富宝是幼富通专为幼儿家庭打造的余额增值服务。把准备分期缴纳学费的家庭资金，一次性充值到幼富宝，即购买了由海富通基金提供的货币基金，获得每日稳健收益及分红，同时能够自动进行缴付学费。</dd>
+                           </dl>
+                           <dl>
+                               <dt>存入幼富宝的资金如何实现自动缴费？</dt>
+                               <dd>家长若选择使用幼富宝账户进行缴费，系统将根据收费机构具体缴费通知的类型和金额，在每月固定日期从幼富宝余额中自动取现并用于支付学费款项。</dd>
+                           </dl>
+                           <dl>
+                               <dt>什么是“月代扣”缴费？</dt>
+                               <dd>当收费机构发起了带有“月代扣”标签的收费通知，家长一次性确认后，系统将每月定期（通常为25日）从绑定的银行账户中扣除固定金额用于支付下月费用。家长可随时登录幼富通网站、微信或查收短信了解缴费结果。</dd>
+                           </dl>
+                            <dl>
+                               <dt>“月代扣”暂停与变更</dt>
+                               <dd>月代扣模式，一经家长确认后将持续到您的孩子离园。寒暑假等将根据收费机构的具体要求暂停扣款；通常月代扣模式均用于每月固定金额的收费项目如学费伙食费等，不会频繁变更。若出现金额变更，收费机构将重新发起收费通知，需要家长重新确认并以新的金额逐月扣款。</dd>
+                           </dl>
+                           <dl>
+                               <dt>家长确认幼儿园收费账单后，何时缴费？</dt>
+                               <dd>通常每月20日前必须确认收费机构发出的收费通知，账务系统将在每月25日统一扣缴各类固定或临时性费用并支付退费。</dd>
+                           </dl>
+                           <div class="help"><a href="helpFee.html">帮助中心</a></div>
+                       </li>
+                       <li>
+                           <dl>
+                               <dt>幼富宝对接货币基金</dt>
+                               <dd>幼富宝主要对接的是业绩优良的货币基金。货币型基金是一种开放式基金，资产主要投资于国债、央行票据、银行定期存单、同业存款等安全性高、收益稳定的有价证券。2014年国内货币基金7日年化收益率平均约为4.3%。</dd>
+                           </dl>
+                           <dl>
+                               <dt>幼富宝特性与现金相似</dt>
+                               <dd>幼富宝还具有随时快速申购赎回、资金快速到账、全程0费用、收益免税、红利自动再投产生复利收益、通常收益超过银行活期利率10-15倍等优势，能够很好地满足家庭闲置资金增效的需求。</dd>
+                           </dl>
+                           <dl>
+                               <dt>幼富宝（货币基金）的资产管理人值得托付</dt>
+                               <dd>海富通基金为国内少数拥有全牌照的资产管理公司，由海通证券（中方股东）和法国巴黎投资（外方股东）合资建立，主要业务范围包括公募基金，企业年金，专户，社保，及海外业务，总管理资产超过1000亿人民币元 （截止2014年12月31日），是国内唯一获得国际评级机构惠誉‘最高标准（中国）’ 评级的资产管理人。</dd>
+                           </dl>
+                           <dl>
+                               <dt>如何确保每月自动扣款的资金安全？</dt>
+                               <dd>由中国银联全程进行账户安全审验及资金支付服务，为收费机构与家庭提供多重数据安全保护</dd>
+                           </dl>
+                           <div class="help"><a href="helpFee.html">帮助中心</a></div>
+                       </li>
+                       <li>
+                           <dl>
+                               <dt>什么时候能看到收益到账？</dt>
+                               <dd>转入资金在基金公司确认份额的第2天可以看到收益。*如遇国家法定假期，基金公司不进行份额确认，以实际收益时间为准。</dd>
+                           </dl>
+                           <dl>
+                               <dt>每天的收益是怎么计算的？</dt>
+                               <dd>当日收益=（幼富宝已确认份额的资金/10000 ）X 每万份收益。假设您已确认份额的资金为12000元，当天的每万份收益为1.3元，代入计算公式，您当日的收益为：1.56元。</dd>
+                           </dl>
+                           <dl>
+                               <dt>幼富宝的收益结算有什么规则？</dt>
+                               <dd>幼富宝的收益每日结算，每天下午15:00左右前一天的收益到账。您缴费或转出到银行卡的那部分资金，当天没有收益。</dd>
+                           </dl>
+                           <div class="help"><a href="helpFee.html">帮助中心</a></div>
+                       </li>
+                       <li>
+                           <dl>
+                               <dt>幼富宝充值支持哪些银行？</dt>
+                               <dd>幼富宝目前支持中国银行、工商银行、建设银行、招商银行、邮政储蓄、光大银行、民生银行、中信银行、华夏银行、平安银行十家银行。（农业银行、浦发银行、兴业银行、广发银行、交通银行五家银行可进行自动缴费，但无法充值幼富宝）</dd>
+                           </dl>
+                           <dl>
+                               <dt>幼富宝转入有金额限制吗？</dt>
+                               <dd>用借记卡快捷转入幼富宝时不同银行额度不同,以收银台提示限额为准。</dd>
+                           </dl>
+                           <dl>
+                               <dt>我可以用借记卡网银方式给幼富宝转钱吗？</dt>
+                               <dd>不支持，请您使用借记卡快捷支付方式。</dd>
+                           </dl>
+                           <dl>
+                               <dt>幼富宝转出至银行卡到账时间？</dt>
+                               <dd>15：00前转出，下一工作日到账。15：00后转出，在转出日之后第二个工作日到账。</dd>
+                           </dl>
+                           <dl>
+                               <dt>幼富宝转出当天有收益吗？</dt>
+                               <dd>幼富宝转出到银行卡当日起至到账日不再产生收益。</dd>
+                           </dl>
+                           <div class="help"><a href="helpFee.html">帮助中心</a></div> 
+                       </li>
+                       <li></li>
+                       <li></li>
+                    </ul>
+                </div>    
+            </div>
+		</div>
+	</div>
+	<!-- body end -->
 </div>
-
+<!-- containerBox end -->
 <!--footer-->
 <div class="MainFoot">
   <div class="inner">
@@ -221,29 +240,60 @@
      <div class="code"><img src="${staticDomain}/static/family/images/img_20.png" alt=""></div>
   </div>
 </div>
-<div class="LowFoot">
-    <div class="inner">
-        <div class="contentFoot">
-            幼富通版权所有 ©2014 沪ICP备14054347号
-        </div>
-    </div>
-</div>
+<script type='text/javascript' src='${staticDomain}/static/family/libs/camera.min.js'></script>
+<script src="${staticDomain}/static/family/scripts/register.js"></script>
 
 <script type="text/javascript">
   $(function(){ 
-     $('#marquee').bxSlider({ 
+    $('#marquee').bxSlider({ 
       displaySlideQty:1,//显示li的个数 
       moveSlideQty: 1,//移动li的个数  
       captions: true,//自动控制 
       auto: true, 
       controls: true//隐藏左右按钮 
-     }); 
-     
+    }); 
       
     $('.bxslider').bxSlider({
       pagerCustom: '#bx-pager',
         controls: false
     });  
+	
+	#if($errMsg)
+    	showErrorInfo2("$!{errMsg}");
+ 	#end
+	
+	$("body").on("blur", ".ipt-loginUsername", function () {
+    	check_null2($(this), "请输入登录账号");
+    });
+    $("body").on("blur", ".ipt-loginPassword", function () {
+        check_null2($(this), "请输入登录密码");
+    });
+    $("body").on("blur", ".ipt-code", function() {
+		check_null2($(this), "请输入验证码");
+    });
+	
+	$("#btn-familyLogin").click(function(){
+		var errLen = $(".wrongTipsErr").length;
+		if(errLen>0){
+			return false;
+		}else{
+		
+		}
+		
+		var form = $(this).parents("form");
+		if(!check_null2(form.find("#ipt-loginUsername"), "请输入登录账号")){
+			return false;
+		}
+		if(!check_null2(form.find("#ipt-loginPassword"), "请输入登录密码")){
+			return false;
+		}
+		if(!check_null2(form.find("#ipt-code"), "请输入验证码")){
+			return false;
+		}
+		
+		form.attr("action", "../family/login.htm");
+		form.submit();
+	});
 });
 
     
