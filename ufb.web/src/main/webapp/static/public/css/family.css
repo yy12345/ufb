@@ -1,0 +1,1510 @@
+/* Start common */
+.myright-top .num-red:hover , .myright-down .assets:hover , .hoverLine:hover {
+    text-decoration:underline;
+}
+.inline-block{
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+.num-color{
+    color: #cb3849;
+}
+.num-red{
+    color: #cb3849;
+}
+.num-green{
+    color: #1ea939;
+}
+.num-blue{
+    color: #2f8fbf;
+}
+.f14{
+    font-size: 14px;
+}
+.btn {
+    font-family: Tohoma, Helvetica,Arial,'Microsoft Yahei',SimHei,STXihei, serif;
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    overflow: hidden;
+    border: 0 none;
+    font-weight: 500;
+    outline: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    -moz-apprearance: none;
+    color: #fff;
+}
+.btn-white,.btn-white:focus{
+    width:98px;
+    height:38px;
+    line-height:38px;
+    color:#cb3849;
+    background-color:#fff;
+    border:1px solid #cb3849;
+}
+.btn-white:hover{
+    color:#fff;
+    background-color:#cb3849;
+}
+.btn-red{
+    width:98px;
+    height:38px;
+    line-height:38px;
+    color:#fff;
+    background-color:#cb3849;
+}
+.btn-red.btnBigR{
+    height:50px;
+    line-height:50px;
+    -webkit-border-radius:0 2px 2px 0;
+    -moz-border-radius:0 2px 2px 0;
+    border-radius:0 2px 2px 0;
+    margin-right:-4px;
+    margin-top:-3px;
+}
+.btn-red:hover{
+    background-color:#ba3145;
+}
+
+.checkbox{
+    cursor: pointer;
+    background: url(../../images/tuition-icons.png) -10px -72px no-repeat;
+    font-size: 14px;
+}
+.checkbox.active {
+    background: url(../../images/tuition-icons.png) -10px -105px no-repeat;
+}
+.magtb{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.magb{
+    margin-bottom: 30px;
+}
+/* End common */
+/* Start familyPayIndex.html */
+.a1-right{
+    float: right;
+    line-height: 22px;
+    font-size: 12px;
+    color: #666;
+}
+.a1-rightfont{
+    font-size: 12px;
+    color: #666;
+}
+.familyPayIndex .addMargin{
+    margin-left: 2em;
+    margin-right: 2em;
+}
+.familyPayIndex  .mgleft{
+    margin-left: 2em;
+}
+.familyPayIndex .account {
+    border: 1px solid #e6e6e5;
+    padding: 0 15px 15px 15px;
+    height: 220px;
+    background-color: #fff;
+    color: #666;
+}
+.familyPayIndex .account .top {
+    border-bottom: 2px solid #29abe2;
+    line-height: 45px;
+    height: 40px;
+}
+.familyPayIndex .day-yield{
+    margin-left: 2em;
+    margin-right: 3.5em;
+}
+.familyPayIndex .part-yield{
+    margin-left: 2em;
+}
+.familyPayIndex .account .down {
+    clear: both
+}
+.familyPayIndex .account .down ul{
+    width: 100%;
+}
+.familyPayIndex .account .down ul li{
+    float: left;
+    border-right: 1px solid #f3f3f1;
+    margin: 38px 0;
+    padding: 10px 62px;
+}
+.familyPayIndex .account .down .font{
+    font-size: 18px;
+    margin-top: 44px;
+}
+.familyPayIndex .account .down .font-red{
+    color: #cb3849;
+}
+.familyPayIndex .account .down .other{
+    margin-top: 30px;
+}
+.familyPayIndex .account .down .other a{
+    text-decoration: underline;
+}
+.familyPayIndex .account .down .assets{
+    margin-right: 68px;
+}
+.familyPayIndex .tuition {
+    border: 1px solid #E6E6E5;
+    background: #fff;
+    padding: 43px 0 32px;
+    overflow: hidden;
+    font-family: microsoft yahei;
+    color: #666;
+}
+.familyPayIndex .tuition .part{
+    border-left: 1px solid #F3F3F1;
+    padding: 0px 64px;
+    float: left;
+    position:relative;
+}
+.familyPayIndex .tuition .part-left{
+    margin-top: -28px;
+    padding-left: 14px;
+    border-left: none;
+}
+.familyPayIndex .tuition .part .num{
+    font-size: 20px;
+    color: #333;
+    display: block;
+    margin-top: 20px;
+}
+.familyPayIndex .tuition .part .itemp1{
+    color: #333;
+}
+.familyPayIndex .tuition .part .itemp2{
+    margin-top: 14px;
+    margin-bottom: 20px;
+}
+.familyPayIndex .tuition .part .itemp3{
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+.familyPayIndex .tuition .part .itemp4{
+
+}
+.familyPayIndex .tuition .part .itemp5{
+    margin-top: 20px;
+}
+.familyPayIndex .tuition .part .addred{
+    color: #cb3849;
+}
+.familyPayIndex .tuition .part .show-more{
+    margin-right: 60px;
+}
+.familyPayIndex .tuition .part .mgtop {
+    margin-top: 40px;
+}
+.familyPayIndex .tuition .part .calculator {
+    position: absolute;
+    display: block;
+    right: 46px;
+    top: 0px;
+    width: 14px;
+    height: 16px;
+    background: url("../../images/tuition-icons.png") -10px -127px no-repeat;
+}
+.familyPayIndex .a1-notitle{
+    line-height:22px;
+    height: 22px;
+    margin:9px 0;
+}
+/* End familyPayIndex.html */
+/* Start familyPayNotice.html */
+.notice-title{
+    height: 38px;
+    line-height: 38px;
+    background-color: #2f8fbf;
+    text-indent: 1em;
+    color: #fff;
+    margin-top: 30px;
+    font-size: 16px;
+}
+.notice-content{
+    margin-top: 30px;
+    margin-bottom: 100px;
+    background-color: #fff;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.control-group {
+    margin-bottom: 2em;
+    font-size:14px;
+}
+.control-group input[type=text],
+.control-group input[type=password] {
+    vertical-align: middle;
+    padding: 0 10px;
+    border: solid 1px #ccc;
+    outline: medium none;
+    font-family: arial;
+    font-weight: 400;
+    font-size: 14px;
+    color: #666;
+    width: 100px;
+    height: 34px;
+    line-height: 34px;
+    cursor: pointer
+}
+.control-group input[type=text]:focus,
+.control-group input[type=password]:focus {
+    border: solid 1px #2f8fbf;
+}
+.control-group .form-lbl {
+    display: inline-block;
+    padding-right: 2.5em;
+    width:5em;
+    text-align: right;
+    vertical-align: middle;
+}
+.control-group .on{
+    color: #fff;
+    background-color: #2f8fbf;
+    padding: 2px 4px;
+}
+.control-group .select{
+    color: #0061ca;
+}
+.control-group .mgright{
+    margin-right: 3em;
+}
+.control-group p span{
+    cursor: pointer;
+}
+.control-group .history{
+    margin-right: 1em;
+}
+.middel-wire{
+    margin:0 10px;
+    font-style: normal;
+}
+.all-top{
+    border-bottom: 2px solid #dedede;
+    padding: 16px;
+    height: 22px;
+    position: relative;
+}
+.all-top .all-top-right{
+    position: absolute;
+    right: 17px;
+    top: 8px;
+}
+.all-top .sum-money{
+    color: #cb3849;
+    font-size: 16px;
+    margin-right: 2em;
+}
+.item{
+    padding:8px 16px;
+}
+.itemAll .fix-content{
+    cursor:pointer;
+}
+.fix-content .mgtop10 .checkbox{
+    *+line-height:18px;
+    *+height:18px;
+}
+.itemAll .fix-content:hover{
+    outline:1px solid #2f8fbf;
+}
+.fix-content{
+    height: 50px;
+    background-color: #f7f7f7;
+    padding: 30px 10px;
+/*    margin-top: 10px;*/
+}
+.fix-content ul{
+}
+
+.fix-content ul li{
+    float: left;
+}
+.fix-content ul li.width1{
+    width: 30px;
+}
+.fix-content ul li.width2{
+    width: 320px;
+    padding:1px 0;
+}
+.fix-content ul li.width3{
+    width: 220px;
+}
+.fix-content ul li.width4{
+    width: 220px;
+}
+.fix-content .project{
+    font-size: 16px;
+    color: #2f8fbf;
+    margin-bottom: 15px;
+}
+.fix-content .mgtop{
+    margin-top: 20px;
+}
+.fix-content .mgtop10{
+    margin-top: 10px;
+}
+span.tip{
+    border: 1px solid #2f8fbf;
+    color: #2f8fbf;
+    padding: 0 2px;
+    margin-left: 8px;
+    font-size: 14px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    *+margin-top:2px;
+}
+.hr{
+    border-top: 1px solid #dedede;
+    margin-top: 30px;
+}
+.fix-content ul li i.item-select{
+    margin-right: 11px;
+}
+/* End familyPayNotice.html */
+/* Start familyPayHistory.html */
+.familyPayHistory .history-top {
+    border-bottom: 2px solid #dedede;
+    height: 34px;
+    width: 927px;
+    margin: 10px auto;
+}
+.familyPayHistory .pay-success{
+    border: 1px solid #cacaca;
+    padding: 10px;
+    height: 20px;
+    line-height: 20px;
+    width: 90px;
+    text-align: center;
+    font-size: 14px;
+}
+.familyPayHistory .pay-success-v2{
+    border: none;
+}
+.familyPayHistory .fix-content ul li.width2 {
+    padding-left: 10px;
+}
+.familyPayHistory .item .text-indent{
+    padding-left: 20px;
+}
+/* End familyPayHistory.html */
+/* Start familyPayAffirm.html */
+.advertise{
+    background-color: #fbb03b;
+    width: 100%;
+    height: 70px;
+    text-align: center;
+    color: #fff;
+    padding-top: 10px;
+    position: relative;
+}
+.advertise h1{
+    font-size: 30px;
+}
+.advertise p{
+    line-height: 30px;
+}
+.advertise .advertise-close{
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    color: #fff;
+    border: none;
+    outline: none;
+    background-color: #fbb03b;
+}
+.select-account{
+    background-color: #fff;
+    padding: 12px 10px;
+    height: 200px;
+}
+.select-account-top{
+    border-bottom: 1px solid #2f8fbf;
+    padding: 8px 0;
+    height: 20px;
+    line-height: 20px;
+}
+.select-account-top h3{
+    display: inline-block;
+    font-size: 16px;
+}
+.select-account-body{
+    padding: 35px 4px 140px;
+    font-size: 14px;
+    color: #666;
+}
+.select-account-body .li1{
+    float: left;
+    width: 10%;
+    text-align: right;
+    margin-top: 2px;
+    margin-right: 1em;
+}
+.select-account-body .li2{
+    float: left;
+    width: 80%;
+}
+.select-account-body .li2 .costpay{
+    margin-bottom: 25px;
+    position:relative;
+}
+.select-account-body .li2 .costpay .cost-type {
+    margin-left: 18px;
+    margin-right: 43px;
+    cursor: pointer;
+}
+.select-account-body .payMoney{
+    position:absolute;
+    right:0;
+    top:0;
+    display:none;
+}
+/*
+.select-account-body .li3{
+    float: right;
+}
+.select-account-body .li3 .paymoney{
+    font-size: 16px;
+    margin-left: 10px;
+}*/
+i.imitate-radio{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    background: url("../../images/tuition-icons.png") no-repeat -10px -230px;
+}
+i.imitate-radio.check{
+    background: url("../../images/tuition-icons.png") no-repeat -10px -211px;
+}
+.affirm-content{
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 20px 10px;
+    color: #666;
+}
+.affirm-content h3{
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+.affirm-content table{
+    width: 100%;
+}
+.affirm-content table tr{
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+}
+.affirm-content table tr:nth-child(odd){
+    background-color: #eaf4f8;
+}
+.affirm-content table tr th{
+    text-align: center;
+    background-color: #d5e9f2;
+    border: 1px solid #fff;
+}
+.affirm-content table tr td{
+    text-align: center;
+    border: 1px solid #fff;
+}
+.affirm-organiz{
+    background-color: #fff;
+    margin-top: 20px;
+    margin-bottom: 60px;
+    padding: 20px 10px;
+}
+.affirm-organiz-top{
+    border-bottom: 1px solid #2f8fbf;
+    padding: 8px 0;
+}
+.affirm-organiz-top h3{
+    font-size: 16px;
+}
+.affirm-organiz-body{
+    position: relative;
+    width: 100%;
+    padding-top: 30px;
+}
+.affirm-organiz-body .organiz-group{
+    margin-bottom: 1em;
+    font-size: 14px;
+}
+.affirm-organiz-body .organiz-group label{
+    display: inline-block;
+    padding-right: 2.5em;
+    width: 10em;
+    text-align: right;
+    vertical-align: middle;
+    color: #666;
+}
+.affirm-organiz-body .organiz-group p{
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+.affirm-organiz-body .logoimg {
+    position: absolute;
+    right: 5px;
+    top: 30px;
+    background-color: #eaf4f8;
+    width: 270px;
+    height: 170px;
+    line-height: 170px;
+    text-align: center;
+}
+.affirm-organiz-form{
+    margin-top: 4em;
+    color: #666;
+}
+.affirm-organiz .affirm-organiz-form .tradepw{
+    width: 190px;
+}
+.affirm-organiz-form .forgetpw{
+    margin-left: 1.5em;
+}
+.affirm-organiz-form .control-review{
+    padding-left: 178px;
+    margin-bottom: 20px;
+}
+.affirm-organiz-form .control-review p{
+    line-height: 18px;
+    height: 18px;
+}
+/* End familyPayAffirm.html */
+/* Start familyMyAccount.html */
+.familyMyAccount .myaccount-top{
+    height: 42px;
+    line-height: 42px;
+}
+.familyMyAccount .myaccount-top .addMargin{
+    margin-left: 2em;
+    margin-right: 2em;
+}
+.familyMyAccount .myaccount-top a:hover{
+    text-decoration: underline;
+}
+.familyMyAccount .myaccount{
+    border: 1px solid #e6e6e5;
+    height: 215px;
+    background-color: #fff;
+    color: #666;
+    clear: both;
+}
+.familyMyAccount .myaccount .myleft{
+    width: 36%;
+    height: 215px;
+    padding-left: 20px;
+}
+.familyMyAccount .btn-pay{
+    margin-left: 90px;
+    vertical-align: text-bottom;
+}
+.familyMyAccount .myaccount .myright{
+    height: 215px;
+    padding-left: 30px;
+    border-left: 1px solid #e6e6e5;
+}
+.familyMyAccount .myright .myright-top{
+    border-bottom: 1px solid #e6e6e5;
+    height: 38px;
+    line-height: 38px;
+    margin-bottom: 20px;
+    margin-right: 12px;
+}
+.myright-top p.fr{
+    position:relative;
+    padding-left:20px;
+    height:38px;
+}
+i.bothno-icon{
+    background: url("../../images/tuition-icons.png") -10px -303px no-repeat;
+    display: inline-block;
+    width: 16px;
+    height: 12px;
+    position:absolute;
+    top:50%;
+    left:0;
+    margin:-6px 0 0 0;
+}
+i.question{
+    background: url("../../images/tuition-icons.png") -10px -319px no-repeat;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-left: 6px;
+    vertical-align: top;
+    cursor: pointer;
+}
+.familyMyAccount .myright .myright-down{
+    margin-top: 48px;
+}
+.familyMyAccount .myright .myright-down ul li{
+    float: left;
+    width: 135px;
+}
+.familyMyAccount .myright .myright-down ul li.mli2{
+    border-right: 1px solid #f2f2f0;
+    width: 110px;
+}
+.familyMyAccount .myright .myright-down ul li.mli3{
+    margin-left: 28px;
+}
+.familyMyAccount .myright .myright-down ul li .font{
+    font-size: 18px;
+}
+.familyMyAccount .question-content{
+    position: absolute;
+    left: -6px;
+    top: -8px;
+    height: 70px;
+    padding: 10px 11px;
+    line-height: 17px;
+    background: url("../../images/question-bg.png") no-repeat;
+}
+.familyMyAccount .every-account{
+    border: 1px solid #e6e6e5;
+    margin-top: 20px;
+    background-color: #fff;
+    color: #666;
+    clear: both;
+    margin-bottom:100px;
+}
+.familyMyAccount .organization{
+    background-color: #eaeaea;
+    height: 40px;
+    line-height: 40px;
+}
+.familyMyAccount .organization p a{
+    margin-left: 32px;
+    *+padding-left:32px;
+    height: 40px;
+    line-height: 40px;
+    color: #666;
+    position: relative;
+    display:inline-block;
+    *display:inline;
+    zoom:1;
+}
+.familyMyAccount .organization p a.on {
+    color: #29aae1;
+}
+.familyMyAccount .organization .add-organiz {
+    margin-right: 26px;
+}
+i.up-arrow{
+    position: absolute;
+    background: url("../../images/tuition-icons.png") -10px -337px no-repeat;
+    width: 12px;
+    height: 8px;
+    display: inline-block;
+    left:50%;
+    margin-left:-6px;
+    bottom:0;
+    display:none;
+}
+.familyMyAccount .student{
+    height: 90px;
+    border-bottom: 1px solid #e6e6e5;
+}
+.familyMyAccount .exchange{
+    display:none;
+}
+.familyMyAccount .student ul{
+    width: 100%;
+}
+.familyMyAccount .student ul li{
+    float: left;
+}
+.familyMyAccount .student ul li.sli1{
+    width: 38%;
+    margin-left: 30px;
+}
+.familyMyAccount .student ul li.sli1 p{
+    font-size: 22px;
+    font-weight: bold;
+    height: 90px;
+    line-height: 90px;
+}
+.familyMyAccount .student ul li.sli2{
+    width: 28%;
+}
+.familyMyAccount .student ul li.sli2 .sli2-p1{
+    margin-top: 18px;
+    margin-bottom: 14px;
+}
+.familyMyAccount .student ul li.sli2 .sli2-p2{
+    color: #cb3849;
+    font-size: 24px;
+    font-weight: bold;
+}
+.familyMyAccount .student ul li.sli3{
+    width: 14.5%;
+}
+.familyMyAccount .student ul li.sli3 .sli3-p1{
+    margin-top: 18px;
+    margin-bottom: 14px;
+}
+.familyMyAccount .student ul li.sli3 .sli3-p2{
+    color: #1ea939;
+    font-size: 22px;
+}
+.familyMyAccount .student ul li.sli4{
+    height: 90px;
+    line-height: 90px;
+    margin-right: 30px;
+}
+.familyMyAccount .pay-detail{
+    padding: 5px 20px 100px 20px;
+}
+.familyMyAccount .pay-detail h3{
+    margin: 15px auto;
+    font-size: 14px;
+    color: #333;
+}
+.familyMyAccount .pay-detail table{
+    width: 100%;
+}
+.familyMyAccount .pay-detail table tr{
+    border-bottom: 1px solid #f8f8f8;
+}
+.familyMyAccount .pay-detail table tr th{
+    background-color: #f8f8f8;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+}
+.familyMyAccount .pay-detail table tr td{
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+/* End familyMyAccount.html */
+
+
+
+/***********************09-18  by Tracy    start  ************************************/
+.noneC{
+    color:#808080!important;
+    cursor:context-menu;
+}
+.noneC:hover{
+    text-decoration: none!important;
+}
+.familyMyAccount .btn-grey{
+    background:#808080;
+    margin-left:175px;
+}
+i.bothno-grey{
+    background:url(../images/img_01.png) no-repeat;
+}
+i.questionGrey{
+    background:url(../images/img_02.png) no-repeat;
+}
+i.up-arrow-grey{
+    background:url(../images/img_03.png) no-repeat;
+    bottom:-1px;
+}
+.btn-grey2{
+    border:1px solid #989898;
+    color:#808080;
+    cursor:context-menu;
+}
+.btn-grey2:hover{
+    background:none;
+    color:#808080;
+}
+
+/*banner*/
+/*AddThree.html*/
+.addAdv{
+    width:100%;
+    height:260px;
+    background:url(../images/img_68.jpg) no-repeat center;
+    font-family: microsoft yahei;
+    padding-top:40px;
+}
+.addAdv .advTitle.advBox{
+    padding-left:150px;
+    width:810px;
+}
+.addAdv .advTitle h1{
+    font-size:40px;
+    color:#ca3849;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+.addAdv .advTitle p{
+    font-size:14px;
+    color:#808080;
+    line-height:20px;
+    margin-bottom:40px;
+}
+.addAdv .advTitle .Advbtn{
+    display:block;
+    width:150px;
+    height:40px;
+    text-align:center;
+    line-height:40px;
+    background:#c83849;
+    color:#fff;
+    font-size:14px;
+}
+.Verification .advBtn input{
+    width:170px;
+    height:34px;
+    height:36px\9;
+    line-height:36px\9;
+    position:absolute;
+    left:0;
+    top:20px;
+    padding:1px 5px;
+    color:#333;
+    font-family: microsoft yahei;
+    font-size:14px;
+}
+.Verification .advBtn .inputMid{
+    width:136px;
+    color:#ec1c24;
+}
+.Verification .advBtn .inputSm{
+    width:76px;
+    color:#ec1c24;
+    left:155px;
+}
+.Verification .advBtn p{
+    font-size:14px;
+    color:#808080;
+    position:absolute;
+    top:-5px;
+    left:0;
+}
+.Verification .advBtn p span.parentN{
+    margin-left:120px;
+}
+.Verification .advBtn{
+    position:relative;
+    width:235px;
+    padding-left:190px;
+    padding-top:20px;
+}
+.Verification .advBtn .more{
+    position:absolute;
+    bottom:3px;
+    left:270px;
+    color:#fff;
+    font-size:12px;
+    display:inline-block;
+}
+.Verification .advBtn .Advbtn{
+    width:70px;
+}
+.Verification .advBtn.advMag{
+    padding-left:250px;
+}
+
+/**/
+.addAdv2{
+    width:100%;
+    height:265px;
+    background:url(../images/img_69.jpg) no-repeat center;
+    font-family: microsoft yahei;
+    padding-top:35px;
+}
+.addAdv2 .advBox{
+    width:960px;
+    height:160px;
+    background:rgba(255,255,255,.9);
+    background:#fff\9;
+    padding:35px 0 ;
+    margin:0 auto;
+}
+.addAdv2 .advBox .div01{
+    width:290px;
+    height:160px;
+    border-right:1px solid #ebebea;
+    padding-left:35px;
+    float:left;
+}
+.addAdv2 .advBox .div01 h2{
+    font-size:35px;
+    color:#ca3849;
+    margin-bottom:5px;
+}
+.addAdv2 .advBox .div01 p{
+    font-size:10px;
+    color:#808080;
+}
+.addAdv2 .advBox .div01 a.btn{
+    width:225px;
+    height:35px;
+    text-align:center;
+    line-height:35px;
+    font-size:14px;
+    color:#fff;
+    background:#c73849;
+    margin-top:35px;
+    display:block;
+}
+.addAdv2 .advBox .div02{
+    width:230px;
+    height:160px;
+    border-right:1px solid #ebebea;
+    float:left;
+}
+.addAdv2 .advBox .div02 ul{
+    padding:12px 0;
+}
+.addAdv2 .advBox .div02 li{
+    padding-left:115px;
+    height:20px;
+    position:relative;
+    font-size:14px;
+    color:#808080;
+    line-height:20px;
+}
+.addAdv2 .advBox .div02 li span{
+    position:absolute;
+    top:0;
+    left:0;
+    width:110px;
+    text-align:right;
+}
+.addAdv2 .advBox .div03{
+    float:left;
+    font-size:14px;
+    color:#808080;
+    line-height:18px;
+    width:400px;
+}
+.addAdv2 .advBox .div03  ul{
+    padding:12px 0;
+}
+.addAdv2 .advBox .div03 li{
+    position:relative;
+    padding-left:170px;
+    height:20px;
+    line-height:20px;
+/*    margin-bottom:8px;*/
+}
+.addAdv2 .advBox .div03 span{
+    position:absolute;
+    width:160px;
+    left:0;
+    top:0;
+    text-align:right;
+}
+.addAdv2 .advBox .fontBold{
+    font-weight:bold!important;
+    color:#000!important;
+}
+.addAdv2 .advBox label{
+    cursor:none;
+}
+
+/*弹出层样式*/
+.bgBox{
+    position:fixed;
+	top:0;left:0;
+	width:100%;height:100%;
+	background:#000;
+	z-index:1000;
+	-webkit-opacity:0.9;
+	-moz-opacity:0.9;
+	-ms-opacity:0.9;
+	opacity:0.9;
+	filter:alpha(opacity=90);
+    display:none;
+}
+
+.layerpop{
+     width: 720px; 
+    height: 540px;
+    margin-left: -360px; 
+    margin-top: -270px; 
+    display: block;
+    position:fixed;
+	left:50%;
+	top:50%;
+	background:#fff;
+	z-index:2000;
+    display:none;
+}
+.layerTitle{
+	height:59px;
+	line-height:70px;
+	text-align:left;
+	font-size:20px;
+	color:#4d4d4d;
+    font-weight:bold;
+	margin:0 35px;
+	border-bottom:2px solid #29ABE2;
+}
+.layerpop .content{
+    width: 650px; 
+    height: 430px; 
+    margin: 20px 35px; 
+    overflow-y:auto;
+    padding: 0px; 
+    display: block;
+}
+.layerpop .content h4{
+    font-weight:bold;
+    font-size:12px;
+    color:#4d4d4d;
+    margin-bottom:20px;
+}
+.layerpop .close{
+    background:url(../images/15.png) no-repeat;
+    display:block;
+    width:25px;
+    height:25px;
+    position:absolute;
+    top:0;
+    right:-50px;
+    cursor:pointer;
+}
+.layerpop .content p{
+    color:#666;
+    line-height:1.5;
+    margin-bottom:20px;
+    font-size:12px;
+}
+.layerpop .content .btnKnow{
+	display:block;
+	width:100px;
+	height:30px;line-height:30px;
+	font-size:14px;
+	color:#fff;
+	text-align:center;
+	cursor:pointer;
+	vertical-align:middle;
+	background:#B4B4B5;
+	cursor:pointer;
+    margin:0 auto 30px;
+}
+.layerpop .content .btnKnow:hover{background:#ba3145;}
+/*scroll美化*/
+.mCustomScrollBox{
+    width:auto;
+    padding-right:45px;
+}
+.mCS-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+    background:#2f8fbf!important;
+}
+.mCSB_scrollTools .mCSB_draggerRail{
+    width:2px!important;
+}
+
+.fontP #ufbFast , .fontP #uftName{
+    font-size:12px;
+    color:#999;
+}
+
+/*图片弹层*/
+/*弹层-银行账户证明*/
+.layerNotice{
+    width:767px;
+    height:551px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin:-275px 0 0 -384px;
+    z-index:1000;
+    display:none;
+}
+.layerNotice:after{
+    position:relative;
+    clear:both;
+    overflow: hidden;
+}
+.layerNotice .close{
+    position:absolute;
+	right:-60px;
+    top:10px;
+	background:url(../images/15.png) no-repeat;
+	width:51px;
+    height:51px;
+	cursor:pointer;
+    z-index:1000;
+}
+/*弹层  收取学费*/
+.layerNotice .charge{
+    width:760px;
+    overflow:hidden;
+    background:#fff;
+    position:absolute;
+    left:50%;
+    margin-left:-380px;
+}
+.layerNotice .chargeBox{
+    margin:40px;
+}
+.layerNotice .topCharge{
+    border-bottom:2px solid #dfdfdf;
+    padding-bottom:15px;
+}
+.layerNotice .topCharge .anniversary , .layerNotice .topCharge .chargeName{
+    color:#4d4d4d;
+}
+.layerNotice .topCharge dl{
+    width:50%;
+    float:left;
+    height:35px;
+    line-height:35px;
+    font-size:14px;
+}
+.layerNotice .topCharge dt, .layerNotice .topCharge dd{
+    float:left;
+}
+.layerNotice .topCharge .Chargetit{
+    color:#888;
+    font-size:14px;
+    margin-right:45px;
+    
+}
+.layerNotice .topCharge .chargeTime{
+    font-size:18px;
+    color:#2f8fbf
+}
+.affirm-content.chargeM{
+    padding:0;
+    margin:60px 0 60px;
+}
+.affirm-content.chargeM table tr td{
+    color:#595757;
+}
+.affirm-content.chargeM table tr th{
+    color:#888;
+}
+.chargeM .totalRefund{
+    text-align:right;
+    margin:0 0 50px;
+    height:24px;
+    line-height:24px;
+}
+.chargeM .totalRefund .total , .chargeM .totalRefund .Refund{
+    float:right;
+}
+.chargeM .totalRefund .total{
+    font-size:14px;
+    color:#888;
+    margin-right:20px;
+}
+.chargeM .totalRefund .Refund label{
+    color:#1ea939;
+}
+.chargeM .totalRefund .Refund {
+    font-size:20px;
+    color:#888;
+}
+.affirm-content.chargeM table{
+    margin-bottom:65px;
+}
+.chargeM .totalRefund .total span{
+    color:#ca3849
+}
+.chargeM .Remarks{
+    padding-left:95px;
+    position:relative;
+}
+.chargeM .Remarks span{
+    position:absolute;
+    left:0;
+    display:block;
+    height:35px;
+    line-height:35px;
+    font-size:14px;
+    color:#595757;
+    margin-left:35px;
+}
+.chargeM .Remarks input{
+    width:200px;
+    height:33px;
+    border:1px solid #ebebeb;
+    font-size:12px;
+    color:#b3b3b3;
+    font-family:microsoft yahei; 
+    padding:0 10px;
+}
+.chargeM .Remarks .remarkBtn{
+    margin-top:30px;
+}
+.chargeM .Remarks a{
+    width:98px;
+    height:33px;
+    border:1px solid #ca3849;
+    text-align:center;
+    line-height:33px;
+    font-size:14px;
+    display:inline-block;
+    *display:inline;
+    zoom:1;
+}
+.chargeM .Remarks a.btn01{
+    color:#ca3849;
+    background:#fff;
+    margin-right:25px;
+}
+.chargeM .Remarks a.btn02{
+    color:#fff;
+    background:#ca3849;
+}
+.selectmenu.selectSm{
+    width:110px!important;
+}
+.clearfix{
+    clear:both;
+    content: '';
+    overflow:hidden;
+}
+.showNow{
+    display:block!important;
+}
+
+
+/*弹层*/
+.popup-box {
+    position: absolute;
+    overflow-y: scroll;
+    width: 100%;
+    height: 1100px;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    display: none;
+}
+.popup-box .close {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 2;
+    background: url(../../public/images/13.png) no-repeat;
+    cursor: pointer;
+}
+.popup-box .bg {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    -webkit-opacity: 0.9;
+    -moz-opacity: 0.9;
+    -ms-opacity: 0.9;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+}
+.popup-box .content {
+    width: 680px;
+    height: auto;
+    overflow: visible;
+    top:0;
+    left: 50%;
+    position: absolute;
+    z-index: 3;
+    margin-left: -340px;
+    margin-top: 95px;
+    background: #fff;
+}
+.popup-box .sum-right{
+    margin-right: 5em;
+}
+.popup-box .sum-right .control-group{
+    margin-bottom: 1em;
+}
+.popup-box .sum-right .control-group .form-lbl{
+    width: 8em;
+    padding-right: 2em;
+}
+.popup-box .sum-bottom{
+    clear: both;
+    margin-bottom: 50px;
+    margin-left: 50px;
+}
+.popup-box .sum-bottom .control-btn{
+    margin-left: 109px;
+}
+
+.popup-box .textinput{
+    vertical-align: middle;
+    padding: 0 10px;
+    border: solid 1px #ccc;
+    outline: medium none;
+    font-family: arial;
+    font-weight: 400;
+    font-size: 14px;
+    color: #666;
+    width: 56px;
+    height: 34px;
+    line-height: 34px;
+    cursor: pointer
+}
+.popup-box .selectmenu .select {
+    width: 90px;
+}
+.popup-box .popbox-save{
+    border: 1px solid #cb3849;
+    color: #cb3849;
+    padding: 6px 15px;
+}
+.popup-box .newadd{
+    margin-top: 20px;
+    padding-left: 20px;
+}
+.popup-box .newadd a{
+    margin-right: 28px;
+}
+.popup-box .content-body{
+    width: 600px;
+    margin: 40px auto 20px;
+}
+.popup-box .print-title{
+    border-bottom: 2px solid #2f8fbf;
+    padding-bottom: 12px;
+    font-size: 24px;
+    font-weight: bold;
+}
+.popup-box .print-call{
+    margin-top: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2f8fbf;
+}
+.popup-box .print-call span{
+    color: #333;
+}
+.popup-box .content-body .print-info table{
+    width: 100%;
+}
+.popup-box .content-body .print-info table tr{
+    height: 24px;
+    line-height: 24px;
+}
+.popup-box .content-body .content-middle{
+    height: 345px;
+    width: 100%;
+    margin: 20px auto;
+}
+.popup-box .content-middle-left{
+    width: 40%;
+    margin-top: 20px;
+}
+.popup-box .content-middle-right{
+    width: 56%;
+}
+.popup-box .content-middle-right h4{
+    margin-bottom: 6px;
+}
+.popup-box hr{
+    border-bottom: 1px dashed #666;
+    border-top:none ;
+}
+
+.popup-box .content-body .content-middle-right table{
+    width: 100%;
+}
+.popup-box .content-body .content-middle-right table tr{
+    height: 24px;
+    line-height: 24px;
+}
+.popup-box .content-body .content-middle-right table th{
+    text-align: center;
+    color: #666;
+    border: 1px solid #ccc;
+}
+.popup-box .content-body .content-middle-right table td{
+    text-align: center;
+    border: 1px solid #ccc;
+}
+.popup-box .content-body .content-pennlt{
+    position: relative;
+    padding-top: 20px;
+}
+.popup-box .content-body .content-pennlt .control-group{
+    margin-bottom: 1em;
+}
+.popup-box .content-body .content-pennlt label{
+    width: 7em;
+    text-align: left;
+    padding-right: 1.5em;
+}
+.popup-box .content-body .content-pennlt .pennlt-right{
+    position: absolute;
+    right: 0px;
+    top: 40px;
+}
+.popup-box .content-body .content-pennlt .pennlt-right-img{
+    height: 100px;
+    width: 200px;
+    background-color: #e6e6e6;
+}
+.popup-box .content-bottom{
+    background-color: #2f8fbf;
+    position: relative;
+    color: #fff;
+    padding: 30px 30px 30px 40px;
+}
+.popup-box .content-bottom .weixin{
+    position: absolute;
+    right: 22px;
+    top: 22px;
+    display: block;
+    background: url("../../images/weixin.png") no-repeat;
+    height: 138px;
+    width: 100px;
+    background-size: 100px 138px;
+}
+.popup-box .content-bottom h2{
+    font-size: 18px;
+}
+.popup-box .bottom-btn{
+    width: 680px;
+    height: 70px;
+    position: absolute;
+    left:50%;
+    margin-left:-340px;    
+    bottom: -100px;
+    *bottom: -130px;
+    z-index: 2;
+    background:#fff;
+    padding-top:30px;
+}
+.popup-box .bottom-btn .btmBtn{
+   text-align:center;
+}
+.popup-box .bottom-btn a{
+    margin-right: 25px;
+}
+
+
+
+
+/***********************09-18  by Tracy    end  ************************************/
+
+
+
+
+
+
+

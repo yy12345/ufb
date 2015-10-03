@@ -150,7 +150,7 @@ public class CusterController {
 			model.addAttribute("CustinfoVo", custinfoVo);
 			return "family/home";
 		}
-		return "cust/indexPage";
+		return "family/account";
 	}
 	
 	private CustinfoVo convertCustInfo2Vo(Custinfo custinfo){
