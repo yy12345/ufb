@@ -1,0 +1,471 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>幼富通</title>
+<meta name="keywords" content="幼富通">
+<meta name="description" content="幼富通">
+<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="./public/css/style.css">
+<link rel="stylesheet" href="./public/css/family.css">
+<link rel="stylesheet" href="./public/css/jquery.mCustomScrollbar.css">
+    <style>
+    /*本页面的覆盖样式*/
+        .select-account-v2{
+            background-color: transparent;
+        }
+        .select-account-body .li3-v2{
+            float: left;
+            margin-left: 150px;
+            width:300px;
+            margin-top:5px;
+        }
+        .select-account-body .li3-v2 p{
+            margin:10px 0;
+        }
+        .select-account-body .paymoney{
+            font-size: 18px;
+            font-weight: bold;
+            margin-left:3px;
+        }
+        .li2 p .cost-type {
+            margin-right: 43px;
+            cursor: pointer;
+        }
+        .grades-item-title{
+            clear: both;
+            background-color: #f6f6f6;
+            width: 100%;
+            margin: 15px auto 4px auto;
+            height: 42px;
+            line-height: 42px;
+            color: #333;
+            box-shadow: 3px 3px 3px #d5d5d5;
+            position: relative;
+            margin-left: -2px;
+            cursor: pointer;
+        }
+        .grades-item-title .reduce{
+            position: absolute;
+            top: 1px;
+            right: 20px;
+            display: block;
+            color: #666;
+            font-size: 22px;
+        }
+        .grades-item-title label{
+            margin-left: 6px;
+            font-size: 16px;
+            padding-left: 2em;
+        }
+        .affirm-organiz{
+            margin-bottom: 0px;
+            border:1px solid #e6e6e5;
+        }
+        .affirm-organiz-form{
+            margin-bottom: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="page">
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1"><a href="#">机构版</a><a href="#" class="active">家庭版</a></div>
+				<div class="b2"><!--<a href="javascript:;" class="c1" id="login">登录</a>--><span>柔软的大牛</span><a href="#"></a></div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="#">我的账户</a>
+				<a href="#" class="active">幼富宝</a>
+				<a href="#">缴费明细</a>
+				<a href="#">帮助中心</a>
+			</div>
+        </div>
+    </div>
+    
+    <div id="body">
+        <div class="container familyPayAffirm">
+            <div class="advertise">
+                   <h1>充值幼富宝，理财、缴费两不误！</h1>
+                   <p>超活期10-15倍稳健收益；随存随取；安全保障；每月自动缴学费！</p>
+                   <button type="button" class="advertise-close">&times;</button>
+            </div>
+            <div class="a1" style="margin: 16px 0;height: 22px">
+                <h1 class="fl">确认缴费</h1>
+                <div class="fr f14">
+                    已选<span>3</span>条收费通知，总计： <span class="num-color">2800</span> 元
+                </div>
+            </div>
+             <div class="select-account select-account-v2">
+                 <div class="select-account-top">
+                     <h3 class="fl">选择付费账户</h3>
+                     <a href="../UFB/settingCard.html" class="fr f14 hoverLine">管理银行卡</a>
+                 </div>
+                 <div class="select-account-body">
+                     <ul>
+                         <li class="li1">使用</li>
+                         <li class="li2">
+                             <div class="costpay"><label class="cost-type"><input type="radio" name="paybank" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span>42250元</span>
+                             <div class="payMoney showNow">支付<span class="num-color paymoney">2800元</span></div>
+                             </div>
+                             <div class="costpay"><label class="cost-type"><input type="radio" name="paybank" style="display: none;"/><i class="imitate-radio"></i>招商银行 尾号[5338]</label><span>储蓄卡</span><i class="middel-wire">|</i><span class="num-blue">快捷</span>
+                             <div class="payMoney">支付<span class="num-color paymoney">2800元</span></div>
+                             </div>
+                             <div class="costpay"><label class="cost-type"><input type="radio" name="paybank" style="display: none;"/><i class="imitate-radio"></i>工商银行 尾号[5338]</label><span>储蓄卡</span><i class="middel-wire">|</i><span class="num-blue">快捷</span>
+                             <div class="payMoney">支付<span class="num-color paymoney">2800元</span></div>
+                             </div>
+                         </li>
+                         <li class="li3 li3-v2">
+                             
+                             <!--<p><span class="num-color">余额不足，</span>请预先充值</p>-->
+                         </li>
+                     </ul>
+                 </div>
+             </div>
+            <div class="affirm-organiz">
+                <div class="affirm-organiz-top">
+                    <h3>确认收费机构</h3>
+                </div>
+                <div class="affirm-organiz-body">
+                       <div class="organiz-group">
+                           <label>收费机构名称</label>
+                           <p>海富幼儿园</p>
+                       </div>
+                       <div class="organiz-group">
+                           <label>营业执照号</label>
+                           <p>123456789</p>
+                       </div>
+                       <div class="organiz-group">
+                           <label>地址</label>
+                           <p>上海市浦东新区峨山路999弄11号</p>
+                       </div>
+                       <div class="organiz-group">
+                           <label>开户银行</label>
+                           <p>招商银行上海市分行世纪大道支行</p>
+                       </div>
+                       <div class="organiz-group">
+                           <label>银行账号</label>
+                           <p>2333344556678890</p>
+                       </div>
+                       <div class="organiz-group">
+                           <label>咨询电话</label>
+                           <p>021-32322323</p>
+                       </div>
+
+                       <div class="logoimg">
+                           幼儿园LOGO图片
+                           <!--<img src="" alt=""/>-->
+                       </div>
+                        <div class="affirm-content">
+                            <div class="grades-item-title">
+                                <label>缴费明细</label>
+                                <i class="reduce">+</i>
+                            </div>
+                            <table  style="display: none;">
+                                <tr>
+                                    <th width="20%">缴费交易号</th>
+                                    <th width="30%">收费名称</th>
+                                    <th width="18%">收费方式</th>
+                                    <th width="18%">姓名</th>
+                                    <th width="16%">应收金额(元)</th>
+                                </tr>
+                                <tr>
+                                    <td>SV2015050501000100</td>
+                                    <td>2015年09月 代扣收费01</td>
+                                    <td><span class="tip">单笔</span></td>
+                                    <td>张一宝</td>
+                                    <td class="num-color">1920</td>
+                                </tr>
+                                <tr>
+                                    <td>SV2015050501000100</td>
+                                    <td>15年9月钢琴班</td>
+                                    <td><span class="tip">月代扣</span></td>
+                                    <td>张一宝</td>
+                                    <td class="num-color">1920</td>
+                                </tr>
+                                <tr>
+                                    <td>SV2015050501000100</td>
+                                    <td>10月奥数班报名费</td>
+                                    <td><span class="tip">单笔</span></td>
+                                    <td>张二宝</td>
+                                    <td class="num-color">1920</td>
+                                </tr>
+                                <tr>
+                                    <td>SV2015050501000100</td>
+                                    <td>10月奥数班报名费</td>
+                                    <td><span class="tip">月代扣</span></td>
+                                    <td>张二宝</td>
+                                    <td class="num-color">1920</td>
+                                </tr>
+                            </table>
+                        </div>
+                </div>
+            </div><!--end of affirm-organiz-->
+
+            <div class="affirm-organiz">
+                <div class="affirm-organiz-top">
+                    <h3>确认收费机构</h3>
+                </div>
+                <div class="affirm-organiz-body">
+                    <div class="organiz-group">
+                        <label>收费机构名称</label>
+                        <p>海富幼儿园二园</p>
+                    </div>
+                    <div class="organiz-group">
+                        <label>营业执照号</label>
+                        <p>123456789</p>
+                    </div>
+                    <div class="organiz-group">
+                        <label>地址</label>
+                        <p>上海市浦东新区峨山路999弄11号</p>
+                    </div>
+                    <div class="organiz-group">
+                        <label>开户银行</label>
+                        <p>招商银行上海市分行世纪大道支行</p>
+                    </div>
+                    <div class="organiz-group">
+                        <label>银行账号</label>
+                        <p>2333344556678890</p>
+                    </div>
+                    <div class="organiz-group">
+                        <label>咨询电话</label>
+                        <p>021-32322323</p>
+                    </div>
+
+                    <div class="logoimg">
+                        幼儿园LOGO图片
+                        <!--<img src="" alt=""/>-->
+                    </div>
+                    <div class="affirm-content">
+                        <div class="grades-item-title">
+                            <label>缴费明细</label>
+                            <i class="reduce">+</i>
+                        </div>
+                        <table style="display: none;">
+                            <tr>
+                                <th width="20%">缴费交易号</th>
+                                <th width="30%">收费名称</th>
+                                <th width="18%">收费方式</th>
+                                <th width="18%">姓名</th>
+                                <th width="16%">应收金额(元)</th>
+                            </tr>
+                            <tr>
+                                <td>SV2015050501000100</td>
+                                <td>2015年09月 代扣收费01</td>
+                                <td><span class="tip">单笔</span></td>
+                                <td>张一宝</td>
+                                <td class="num-color">1920</td>
+                            </tr>
+                            <tr>
+                                <td>SV2015050501000100</td>
+                                <td>15年9月钢琴班</td>
+                                <td><span class="tip">月代扣</span></td>
+                                <td>张一宝</td>
+                                <td class="num-color">1920</td>
+                            </tr>
+                            <tr>
+                                <td>SV2015050501000100</td>
+                                <td>10月奥数班报名费</td>
+                                <td><span class="tip">单笔</span></td>
+                                <td>张二宝</td>
+                                <td class="num-color">1920</td>
+                            </tr>
+                            <tr>
+                                <td>SV2015050501000100</td>
+                                <td>10月奥数班报名费</td>
+                                <td><span class="tip">月代扣</span></td>
+                                <td>张二宝</td>
+                                <td class="num-color">1920</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div><!--end of affirm-organiz-->
+
+            <div class="affirm-organiz-form">
+                <form action="">
+                    <div class="control-group" style="margin-top: 2em;margin-bottom: 1em;">
+                        <label class="form-lbl" style="width:10em;">请输入交易密码</label>
+                        <input type="password" class="tradepw" placeholder="6位数字密码" maxlength="6" style="width: 190px;"/>
+                        <a href="javascript:;" class="forgetpw hoverLine">忘记密码？</a>
+                    </div>
+                    <div class="control-review">
+                        <p>幼富通是专注为幼教机构提供金融服务的互联网平台。</p>
+                        <p>中国银联为您的幼儿提供安全、稳定、便捷的缴费服务，请放心使用。</p>
+                    </div>
+                    <div class="control-review" style="margin-top: 50px">
+                        <p>点击确认表示同意<a href="javascript:;" id="xftService">《学费通服务协议》</a>、<a href="javascript:;" id="ufbAuto">《幼富宝定时取现服务协议》</a></p>
+                    </div>
+                    <div class="control-review">
+                        <a href="familyPaySuccess.html""javascript:;" class="btn btn-red">确 认</a>
+                    </div>
+                </form>
+            </div><!--end of affirm-organiz-form-->
+        </div><!--end of container-->
+    </div><!--end of body-->
+</div><!--end of page-->
+<div class="footer footer-simple">
+    <div class="inner clearfix">
+        <div class="logo fl">
+            <img src="images/logo_130x55.png">
+        </div>
+        <div class="info fl">
+            <ul class="list">
+                <li>微信服务号：UFUfund</li>
+                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                <li>海富通产品：400-8840-099</li>
+            </ul>
+        </div>
+        <div class="copyright fr">
+            <ul class="list">
+                <li>幼富通版权所有 ©2014</li>
+                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!--弹层-->
+<div class="bgBox"></div>	
+<!--《学费通服务协议》-->
+<div class="layerpop" id="xft">	
+    <b class="close"></b>
+    <div class="layerTitle">《学费通服务协议》</div>
+	<div id="content_1" class="content content_scroll">
+               <h4>《学费通服务协议》</h4>
+                <p>此处内容通过富文本编辑器进行编辑发布<br>
+                    个体工商户无组织机构代码（仅支持个体工商户）<br>
+                    目前仅支持中国大陆企业；<br>
+                    注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
+                <p>此处内容通过富文本编辑器进行编辑发布<br>
+                个体工商户无组织机构代码（仅支持个体工商户）<br>
+                目前仅支持中国大陆企业；<br>
+                注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
+                <h4>幼富宝服务协议</h4>
+                <p>此处内容通过富文本编辑器进行编辑发布<br>
+                个体工商户无组织机构代码（仅支持个体工商户）<br>
+                目前仅支持中国大陆企业；<br>
+                注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
+                <p>对公账户填写（个体工商户）<br>
+                若个体工商户无对公账户，可填写营业执照上法人的个人银行卡号。<br>
+                温馨提示：仅限个体工商户，填写个人银行卡号时需与营业执照上法人保持一致。</p>
+                <p>对公账户填写（政府类型）<br>
+                若政府类型若没有对公账号，可以在“机构开户银行”、“机构银行账号”栏填写“无”。</p>
+        <a href="javascript:;" class="btnKnow closebox">我知道了</a>
+    </div>
+</div> 
+
+<!--《幼富宝定时取现协议》-->
+<div class="layerpop" id="ufb">	
+    <b class="close"></b>
+    <div class="layerTitle">《幼富宝定时取现协议》</div>
+	<div id="content_1" class="content content_scroll">
+               <h4>《幼富宝定时取现协议》</h4>
+                <p>此处内容通过富文本编辑器进行编辑发布<br>
+                    个体工商户无组织机构代码（仅支持个体工商户）<br>
+                    目前仅支持中国大陆企业；<br>
+                    注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
+                <p>此处内容通过富文本编辑器进行编辑发布<br>
+                个体工商户无组织机构代码（仅支持个体工商户）<br>
+                目前仅支持中国大陆企业；<br>
+                注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
+                <h4>幼富宝服务协议</h4>
+                <p>此处内容通过富文本编辑器进行编辑发布<br>
+                个体工商户无组织机构代码（仅支持个体工商户）<br>
+                目前仅支持中国大陆企业；<br>
+                注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
+                <p>对公账户填写（个体工商户）<br>
+                若个体工商户无对公账户，可填写营业执照上法人的个人银行卡号。<br>
+                温馨提示：仅限个体工商户，填写个人银行卡号时需与营业执照上法人保持一致。</p>
+                <p>对公账户填写（政府类型）<br>
+                若政府类型若没有对公账号，可以在“机构开户银行”、“机构银行账号”栏填写“无”。</p>
+        <a href="javascript:;" class="btnKnow closebox">我知道了</a>
+    </div>
+</div> 
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="./public/js/jquery.js"></script>
+<script type="text/javascript" src="./libs/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="public/js/jquery.mCustomScrollbar.concat.min.js"></script> 
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>  <!--scroll美化-->
+<script type="text/javascript">
+    $(function(){
+        /*关闭广告*/
+        $(".advertise-close").on("click", function () {
+            $(this).parent(".advertise").hide();
+        });
+        /* radio 模拟点击事件 */
+        $(".li2 .costpay label").on("click",function(){
+            $(this).parents(".li2").find("input[type='radio']").attr("checked",false);
+            $(this).parents(".li2").find("i").removeClass("check");
+            $(this).children("input[type='radio']").attr("checked",true);
+            $(this).children("i").addClass("check");
+            $(this).parent().find(".payMoney").addClass("showNow")
+                .parent().siblings().find(".payMoney").removeClass("showNow");
+//            alert("12");
+        });
+        /* 点击具体班级的头部（灰色条）收放事件 */
+        $(".grades-item-title").on("click",function(){
+            var thisReduce = $(this).children(".reduce");
+            var nextTable = $(this).next("table");
+            if(thisReduce.text() == "+"){
+                nextTable.show();
+                thisReduce.text("-");
+            }
+            else{
+                nextTable.hide();
+                thisReduce.text("+");
+            }
+        });
+        
+        /*点击弹层出现消失*/
+        //        ①
+       $("#xftService").click(function(){
+           $(".bgBox , #xft").fadeIn();       
+       });
+       $("#xft .close , .btnKnow").click(function(){
+           $(".bgBox , #xft").fadeOut();       
+       });
+//        ②
+        $("#ufbAuto").click(function(){
+           $(".bgBox , #ufb").fadeIn();       
+       });
+       $("#ufb .close , .btnKnow").click(function(){
+           $(".bgBox , #ufb").fadeOut();       
+       });
+    })
+</script>
+<!--滚动条美化-->
+<script>
+    (function($){
+        $(window).load(function(){
+            $(".content_scroll").mCustomScrollbar({
+                theme:"dark", //主题颜色
+                scrollButtons:{
+                    enable:true //是否使用上下滚动按钮
+                },
+                autoHideScrollbar: false, //是否自动隐藏滚动条
+                scrollInertia :0,//滚动延迟
+                horizontalScroll : false//水平滚动条
+
+            });
+
+        });
+
+    })(jQuery);
+</script>
+
+</body>
+</html>

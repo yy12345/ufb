@@ -1,6 +1,9 @@
 package com.ufufund.uft.web.controller;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,6 +18,7 @@ import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.FundManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
+import com.ufufund.ufb.biz.manager.org.OrgQueryManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.NumberUtils;
@@ -27,6 +31,8 @@ import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
 //import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.model.vo.QueryCustplandetail;
+import com.ufufund.ufb.model.vo.QueryOrgStudent;
 import com.ufufund.ufb.web.util.UserHelper;
 
 @Controller
@@ -41,6 +47,8 @@ public class CusterController {
 	private TradeAccoManager tradeAccoManager;
 	@Autowired
 	private FundManager fundManager;
+	@Autowired
+	private OrgQueryManager orgQueryManager;
 	/**
 	 * 首页、广告页
 	 * @param model
@@ -101,11 +109,12 @@ public class CusterController {
 			hftFundInfo.setFundcode(BasicFundinfo.YFB.getFundCode());
 			//model.addAttribute("FUNDINFOVO", this.getFundInfo(htfFundInfo));
 			model.addAttribute("hftFundInfo", fundManager.getFundInfo(hftFundInfo));
-			// 银联
-			FundInfo cpFundInfo = new FundInfo();
-			cpFundInfo.setFundcorpno(null);
-			cpFundInfo.setFundcode(null);
-			model.addAttribute("cpFundInfo", null);
+			
+//			// 银联
+//			FundInfo cpFundInfo = new FundInfo();
+//			cpFundInfo.setFundcorpno(null);
+//			cpFundInfo.setFundcode(null);
+//			model.addAttribute("cpFundInfo", null);
 			
 			/** NAV **/
 			// 海富通
@@ -120,16 +129,77 @@ public class CusterController {
 				//model.addAttribute("NAV", curFundNav);
 				model.addAttribute("curHtfFundNav", curHtfFundNav);
 			}
-			// 银联
-			FundNav cpFundNav = new FundNav();
-			hftFundNav.setFundcorpno(null);
-			hftFundNav.setFundcode(null);
-			List<FundNav> cpNavList = queryManager.qryFundNavList(cpFundNav);
-			model.addAttribute("cpNavList", cpNavList);
-			if(null != cpNavList && cpNavList.size() >0){
-				FundNav curCpFundNav = cpNavList.get(0);
-				model.addAttribute("curCpFundNav", curCpFundNav);
+//			// 银联
+//			FundNav cpFundNav = new FundNav();
+//			hftFundNav.setFundcorpno(null);
+//			hftFundNav.setFundcode(null);
+//			List<FundNav> cpNavList = queryManager.qryFundNavList(cpFundNav);
+//			model.addAttribute("cpNavList", cpNavList);
+//			if(null != cpNavList && cpNavList.size() >0){
+//				FundNav curCpFundNav = cpNavList.get(0);
+//				model.addAttribute("curCpFundNav", curCpFundNav);
+//			}
+			
+			// LOG.info("CusterController==.loginIn==orgQueryManager.getQueryOrgByCustno custno = " + custinfoVo.getCustno());
+			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(custinfoVo.getCustno());
+			List<QueryOrgStudent> studentlist = null;
+			List<QueryCustplandetail> planlist = null;
+			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
+			if(orglist != null && orglist.size() > 0){
+				int count = 1;
+				for(QueryOrgStudent org: orglist){
+					
+					String orgid = org.getOrgid();
+					String custno = custinfoVo.getCustno();
+					
+					LOG.info("CusterController==.loginIn==orgQueryManager.getQueryStudentByOrgid "
+							+ "orgid = " + orgid
+							+ ",custno = " +custno);
+					
+
+					studentlist = orgQueryManager.getQueryStudentByOrgid(orgid, custno);
+					model.addAttribute("studentlist" + count, studentlist);
+					
+					// 个人用户查询收费计划详情
+					planlist = orgQueryManager.getQueryCustplandetail(custno, orgid);
+					model.addAttribute("planlist" + count, planlist);
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+					String curmonth = sdf.format(new Date());
+					
+					for(QueryCustplandetail plan:planlist){
+						
+						String plandate = plan.getPlandate();
+						String planmonth = "";
+						if(null != plandate){
+							planmonth = plandate.substring(0, 7);
+						}
+						
+						if(planmonth.equals(curmonth)){
+							String planmonthamtStr = plan.getPayappamount();
+							BigDecimal planmonthamt = BigDecimal.ZERO;
+							if(null != planmonthamt){
+								planmonthamt = new BigDecimal(planmonthamtStr);
+							}
+							totalplanmonthamt = totalplanmonthamt.add(planmonthamt);
+						}
+					}
+					
+					
+					
+					
+					count = count + 1;
+				}
+				
+				model.addAttribute("orglist", orglist);
+				model.addAttribute("totalplanmonthamt", totalplanmonthamt);
+				
 			}
+			
+			
+			
+			
+		
 
 			/** 资产 **/
 			// 保存主帐户至session
@@ -152,6 +222,22 @@ public class CusterController {
 		}
 		return "family/account";
 	}
+	
+	@RequestMapping(value = "family/payNotice")
+	public String payNotice(CustinfoVo custinfoVo, Model model) {
+		
+		try{
+			
+		
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			return "family/home";
+		}
+		return "family/payNotice";
+	}
+	
 	
 	private CustinfoVo convertCustInfo2Vo(Custinfo custinfo){
 		if(null == custinfo){

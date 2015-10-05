@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+<body>
+<div id="page">
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1"><a href="#">机构版</a><a href="#" class="active">家庭版</a></div>
+				<div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="#">我的账户</a>
+				<a href="#" class="active">幼富宝</a>
+				<a href="#">缴费明细</a>
+				<a href="#">帮助中心</a>
+			</div>
+        </div>
+    </div>
+    
+    <div id="body">
+        <div class="container familyPayNotice">
+                <div class="notice-title">
+                    <h4>收费通知</h4>
+                </div>
+                <div class="all-top all-top-v2">
+                    <label class="checkbox cb-allselect"><input type="checkbox"/>全选</label>
+                    <div class="fr all-top-right">
+                        已选<strong class="num-color">3</strong>条通知，总计（元）：<strong class="sum-money">5700</strong>
+                        <a href="familyPayAffirm.html" class="btn btn-red" style="margin-right: 28px;">缴 费</a>
+                    </div>
+                </div>
+            <!--中远一号幼儿园-->
+                <div class="notice-content">
+                    <div class="item-title">
+                        <label class="checkbox"><input type="checkbox"/>中远一号幼儿园</label>
+                    </div>
+                    <div class="item">
+                        <div class="fix-content">
+                            <ul>
+                                <li class="width1">
+                                    <label class="checkbox"><input type="checkbox"/></label>
+                                </li>
+                                <li class="width2">
+                                    <p class="project">2015年09月学费<span class="tip">月代扣</span></p>
+                                    <p>缴费交易号：  <span>SV201505050100010001</span></p>
+                                </li>
+                                <li class="width3">
+                                    <p class="">张小宝 </p>
+                                    <p class="mgtop">海富幼儿园一分园</p>
+                                </li>
+                                <li class="width4">
+                                    <p>应收金额(元) ：  <span class="num-color f14">1900 </span>
+                                    <p class="mgtop">确认截止日：  <span>2015-08-25</span></p>
+                                </li>
+                                <li>
+                                    <a href="#" class="btn btn-white">缴&nbsp;费</a>
+                                    <!--<a href="#" class="btn btn-white">欠&nbsp;费</a>-->
+                                    <!--<a href="#" class="btn btn-white">欠费补缴</a>-->
+                                    <!--<a href="#" class="btn btn-white">等待扣款</a>-->
+                                    <p class="f14 mgtop10"><label class="checkbox"><input type="checkbox"/>自动扣费</label></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="fix-content">
+                            <ul>
+                                <li class="width1">
+                                    <label class="checkbox"><input type="checkbox"/></label>
+                                </li>
+                                <li class="width2">
+                                    <p class="project">15年9月钢琴班<span class="tip">单笔</span></p>
+                                    <p>缴费交易号：  <span>SV201505050100010001</span></p>
+                                </li>
+                                <li class="width3">
+                                    <p class="">张小宝 </p>
+                                    <p class="mgtop">海富幼儿园一分园</p>
+                                </li>
+                                <li class="width4">
+                                    <p>应收金额(元) ：  <span class="num-color f14">1900 </span>
+                                    <p class="mgtop">确认截止日：  <span>2015-08-25</span></p>
+                                </li>
+                                <li>
+                                    <a href="#" class="btn btn-white">缴 费</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!--end of item-->
+
+                </div><!--end of notice-content-->
+            <!--中远一号幼儿园-->
+               <div class="notice-content">
+                <div class="item-title">
+                    <label class="checkbox"><input type="checkbox"/>中远一号幼儿园</label>
+                </div>
+                <div class="item">
+                    <div class="fix-content">
+                        <ul>
+                            <li class="width1">
+                                <label class="checkbox"><input type="checkbox"/></label>
+                            </li>
+                            <li class="width2">
+                                <p class="project">2015年09月学费<span class="tip">月代扣</span></p>
+                                <p>缴费交易号：  <span>SV201505050100010001</span></p>
+                            </li>
+                            <li class="width3">
+                                <p class="">张小宝 </p>
+                                <p class="mgtop">海富幼儿园一分园</p>
+                            </li>
+                            <li class="width4">
+                                <p>应收金额(元) ：  <span class="num-color f14">1900 </span>
+                                <p class="mgtop">确认截止日：  <span>2015-08-25</span></p>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-white">缴&nbsp;费</a>
+                                <!--<a href="#" class="btn btn-white">欠&nbsp;费</a>-->
+                                <!--<a href="#" class="btn btn-white">欠费补缴</a>-->
+                                <!--<a href="#" class="btn btn-white">等待扣款</a>-->
+                                <p class="f14 mgtop10"><label class="checkbox"><input type="checkbox"/>自动扣费</label></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="fix-content">
+                        <ul>
+                            <li class="width1">
+                                <label class="checkbox"><input type="checkbox"/></label>
+                            </li>
+                            <li class="width2">
+                                <p class="project">15年9月钢琴班<span class="tip">单笔</span></p>
+                                <p>缴费交易号：  <span>SV201505050100010001</span></p>
+                            </li>
+                            <li class="width3">
+                                <p class="">张小宝 </p>
+                                <p class="mgtop">海富幼儿园一分园</p>
+                            </li>
+                            <li class="width4">
+                                <p>应收金额(元) ：  <span class="num-color f14">1900 </span>
+                                <p class="mgtop">确认截止日：  <span>2015-08-25</span></p>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-white">缴 费</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div><!--end of item-->
+
+            </div><!--end of notice-content-->
+        </div><!--end of container-->
+        <br/>
+    </div><!--end of body-->
+</div><!--end of page-->
+<div class="bottom-fix">
+    <div class="bottom-fix-body allselect">
+        <div class="fl">
+            <label class="checkbox cb-allselect"><input type="checkbox"/>全选</label>
+        </div>
+        <div class="fr">
+            <p>已选<strong class="num-red">3</strong>条通知，总计（元）：<strong class="num-red">5700</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#" class="btn btn-red btnBigR">缴费</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="footer footer-simple">
+    <div class="inner clearfix">
+        <div class="logo fl">
+            <img src="${staticDomain}/static/familypay/images/logo_130x55.png">
+        </div>
+        <div class="info fl">
+            <ul class="list">
+                <li>微信服务号：UFUfund</li>
+                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                <li>海富通产品：400-8840-099</li>
+            </ul>
+        </div>
+        <div class="copyright fr">
+            <ul class="list">
+                <li>幼富通版权所有 ©2014</li>
+                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="${staticDomain}/static/public/js/jquery.js"></script>
+<script type="text/javascript" src="${staticDomain}/static/public/js/plug.js"></script><!--自定义插件-->
+<script type="text/javascript" src="${staticDomain}/static/familypay/libs/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".checkbox").checkbox();
+
+        $(".control-group .p-eg span").on("click",function(){
+            $(this).addClass("on").siblings("span").removeClass("on");
+        });
+        $(".control-group .name span").on("click",function(){
+            $(this).addClass("select").siblings("span").removeClass("select");
+        });
+        /* 点击底部全选事件 */
+        $(".cb-allselect").on("click",function(){
+            var thisattr =  $(this).children("input:[type='checkbox']").attr("checked");
+            var allcblabels = $(".checkbox");
+            var allcb =  $("input:[type='checkbox']");
+
+            if( thisattr == "checked") {
+                allcblabels.addClass("active");
+                allcb.attr("checked", true);
+            }
+            else{
+                allcblabels.removeClass("active");
+                allcb.attr("checked", false);
+            }
+        });
+        $(".item-title .checkbox").on("click",function(ev){
+            ev.stopPropagation();
+            var thisattr = $(this).children("input:[type='checkbox']").attr("checked");
+            var checkedlabel = $(this).parents(".notice-content").find(".width1").children(".checkbox");
+            var checkeds = checkedlabel.children("input:[type='checkbox']");
+            if( thisattr == "checked"){
+                checkedlabel.addClass("active");
+                checkeds.attr("checked",true);
+            }else{
+                checkedlabel.removeClass("active");
+                checkeds.attr("checked",false);
+            }
+        });
+//        底部缴费总结
+        $(window).scroll(function(){
+		
+		if(parseInt($('.bottom-fix').offset().top) >= parseInt($('.footer').offset().top)){
+			$('.bottom-fix').css({'position':'static','margin-bottom':100});
+		}
+		if( $(window).scrollTop() < parseInt($('.footer').offset().top)-100-$(window).height()){
+			$('.bottom-fix').css({'position':'fixed','margin-bottom':0});
+		}
+	});
+    })
+</script>
+</body>
+</html>

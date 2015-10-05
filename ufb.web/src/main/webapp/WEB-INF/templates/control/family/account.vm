@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 <body>
 <div id="page">
     <div id="header">
@@ -34,9 +33,9 @@
 			<div class="myaccount">
                     <div class="myleft fl">
                           <p class="magtb">本月共<strong class="num-red">3</strong>个缴费通知，总计（元）</p>
-                          <p class="magtb"><strong class="num-red" style="font-size: 45px;">3,700</strong>
-                              <a href="familyPayNotice.html""javascript:;" class="btn btn-red btn-pay">缴费</a></p>
-                          <p><a href="familyPayHistory.html" class="hoverLine">历史明细</a></p>
+                          <p class="magtb"><strong class="num-red" style="font-size: 45px;">$totalplanmonthamt</strong>
+                              <a href="${staticDomain}/family/payNotice.htm""javascript:;" class="btn btn-red btn-pay">缴费</a></p>
+                          <p><a href="${staticDomain}/setting/settingAccount.htm/familyPayHistory.html" class="hoverLine">历史明细</a></p>
                     </div>
                     <div class="myright fl">
                         <div class="myright-top">
@@ -70,7 +69,26 @@
 
             <div class="every-account">
                   <div class="organization">
-                      <p class="fl"><a href="javascript:;" class="on">海富通第一幼儿园<i class="up-arrow showNow"></i></a><a href="javascript:;">海富通第二幼儿园<i class="up-arrow"></i></a></p>
+                      <p class="fl">
+						<!--
+						private String orgid;//
+                    	private String orgnm;//
+                    	private String classid;//
+                    	private String classßnm;//
+                    	private String studentid;//
+                    	private String studentnm;//
+                    	private String custno;//
+                    	private String custnm;//
+						-->
+	
+						#foreach($org in $orglist)
+    						#if($!{velocityCount}==1)
+    						<a href="javascript:;" class="on">$org.orgnm<i class="up-arrow showNow"></i></a>
+    						#else
+    						<a href="javascript:;" class="on">$org.orgnm<i class="up-arrow"></i></a>	
+    						#end
+						#end
+					  </p>
                       <a href="#" class="fr add-organiz hoverLine">+新收费机构</a>
                   </div>
                   <div><!--切换-->
@@ -78,12 +96,16 @@
                        <div class="exchange showNow" id="change01"> 
                           <div class="student">
                               <ul>
-                                  <li class="sli1"><p>学生：张一宝、 张二宝</p></li>
+                                  <li class="sli1"><p>学生：
+										#foreach($student in $studentlist1)
+										$student.studentnm
+										#end
+								  </p></li>
                                   <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">1</strong>个缴费通知，总计（元）</p><p class="sli2-p2">2600</p></li>
                                   <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">+156</p></li>
                                   <li class="sli4"><a href="" class="btn btn-white">缴费</a></li>
                               </ul>
-    </div>
+						  </div>
                           <div class="pay-detail">
                           <h3>缴费通知明细</h3>
                           <table>
@@ -93,18 +115,27 @@
                                   <th>收费机构</th>
                                   <th>费用类型</th>
                                   <th>应收金额（元）</th>
-                                  <th>确认时间</th>
+                                  <th>截止日期</th>
+								  <th>缴费日期</th>
                                   <th>缴费状态</th>
                               </tr>
+							  
+							  #foreach($plan1 in $planlist1)
                               <tr>
-                                  <td>SV2015050501000100</td>
-                                  <td>张一宝</td>
-                                  <td>海富通第一幼儿园</td>
+                                  <td>$plan1.planid</td>
+                                  <td>$plan1.studentnm</td>
+                                  <td>$plan1.orgnm</td>
                                   <td>2015年6月话剧<span class="tip">月代扣</span></td>
-                                  <td class="num-green">+13600</td>
-                                  <td>2015-03-04</td>
-                                  <td>等待缴费</td>
+                                  <td class="num-green">$plan1.payappamount</td>
+                                  <td>$!{plan1.paydate}</td>
+								  <td>$!{plan1.plandate}</td>
+                                  <td>$!{plan1.ispay}</td>
                               </tr>
+							  #end
+							  <!--
+							  	detailid ,
+                    			paydiscount,
+                    			payackamount,
                               <tr>
                                   <td>SV2015050501000100</td>
                                   <td>张二宝</td>
@@ -132,6 +163,7 @@
                                   <td>2015-03-04</td>
                                   <td>等待缴费</td>
                               </tr>
+							  -->
                           </table>
                       </div>
                       </div>
@@ -139,12 +171,17 @@
                        <div class="exchange" id="change02"> 
                           <div class="student">
                               <ul>
-                                  <li class="sli1"><p>学生：张一宝</p></li>
+                                  <li class="sli1">
+									<p>学生：
+										#foreach($student in $studentlist2)
+										$student.studentnm
+										#end
+									</p></li>
                                   <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">1</strong>个缴费通知，总计（元）</p><p class="sli2-p2">2600</p></li>
                                   <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">+156</p></li>
                                   <li class="sli4"><a href="" class="btn btn-white">缴费</a></li>
                               </ul>
-    </div>
+						  </div>
                           <div class="pay-detail">
                           <h3>缴费通知明细</h3>
                           <table>
@@ -154,18 +191,22 @@
                                   <th>收费机构</th>
                                   <th>费用类型</th>
                                   <th>应收金额（元）</th>
-                                  <th>确认时间</th>
+                                  <th>截止日期</th>
+								  <th>缴费日期</th>
                                   <th>缴费状态</th>
                               </tr>
+                              #foreach($plan2 in $planlist2)
                               <tr>
-                                  <td>SV2015050501000100</td>
-                                  <td>张一宝</td>
-                                  <td>海富通第一幼儿园</td>
+                                  <td>$plan2.planid</td>
+                                  <td>$plan2.studentnm</td>
+                                  <td>$plan2.orgnm</td>
                                   <td>2015年6月话剧<span class="tip">月代扣</span></td>
-                                  <td class="num-green">+13600</td>
-                                  <td>2015-03-04</td>
-                                  <td>等待缴费</td>
+                                  <td class="num-green">$plan2.payappamount</td>
+                                  <td>$!{plan2.paydate}</td>
+								  <td>$!{plan2.plandate}</td>
+                                  <td>$!{plan2.ispay}</td>
                               </tr>
+							  #end
                           </table>
                       </div>
                       </div>
