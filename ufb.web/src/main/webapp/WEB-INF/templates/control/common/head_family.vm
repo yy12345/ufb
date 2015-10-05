@@ -1,0 +1,15 @@
+<head>
+<meta charset="utf-8">
+#if("$!{title}"=="")
+    <title>幼富通</title>
+#else
+    $!{title}
+#end
+<meta name="keywords" content="幼富通">
+<meta name="description" content="幼富通">
+<link rel="shortcut icon" href="${staticDomain}/static/favicon.ico" type="image/x-icon">
+	
+<link rel="stylesheet" href="${staticDomain}/static/public/css/style.css">
+<link rel="stylesheet" href="${staticDomain}/static/public/css/family.css">
+
+</head>
