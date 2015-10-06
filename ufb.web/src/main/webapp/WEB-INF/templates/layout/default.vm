@@ -3,6 +3,7 @@
 #parse("control/common/head_0.vm")
 <body>
 $body
+#parse("control/common/footer_0.vm")
 $!{script}
 </body>
 </html>

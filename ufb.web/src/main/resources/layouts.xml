@@ -55,6 +55,12 @@
         <pattern>school/*.vm</pattern>
     </layout>
     
+    <layout page="layout/family.vm" default="true">
+        <pattern>family/account.vm</pattern>
+    </layout>
+     <layout page="layout/family.vm" default="true">
+        <pattern>family/payNotice.vm</pattern>
+    </layout>
     <layout page="layout/default.vm" default="true">
         <pattern>**/*.vm</pattern>
     </layout>

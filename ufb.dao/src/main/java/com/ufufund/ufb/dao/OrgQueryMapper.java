@@ -8,6 +8,7 @@ import com.ufufund.ufb.common.dao.BaseDao;
 import com.ufufund.ufb.model.vo.QueryCustPayInfo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgPayInfo;
+import com.ufufund.ufb.model.vo.QueryOrgStudent;
 import com.ufufund.ufb.model.vo.QueryOrgplan;
 import com.ufufund.ufb.model.vo.QueryOrgplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgplandetailcharge;
@@ -15,6 +16,17 @@ import com.ufufund.ufb.model.vo.QueryOrgplandetailcharge;
 
 public interface OrgQueryMapper extends BaseDao {
 	
+	
+	public List<QueryOrgStudent> getQueryOrgByCustno(
+			@Param("custno")String custno
+			);
+	public List<QueryOrgStudent> getQueryStudentByOrgid(
+			@Param("orgid")String orgid,
+			@Param("custno")String custno
+			);
+	public List<QueryOrgStudent> getQueryStudentByCustno(
+			@Param("custno")String custno
+			);
 	
 
 	public List<QueryOrgplan> getQueryOrgplan(@Param("orgid")String orgid);
@@ -52,6 +64,6 @@ public interface OrgQueryMapper extends BaseDao {
 	
 	public List<QueryCustplandetail> getQueryCustplandetail(
 			@Param("custno")String custno,
-			@Param("type")String type
+			@Param("orgid")String orgid
 			);
 }

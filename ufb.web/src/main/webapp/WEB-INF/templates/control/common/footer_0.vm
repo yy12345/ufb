@@ -1,3 +1,4 @@
+<!--
 <div class="footer footer-all">
     <div class="inner clearfix">
         <div class="qa fl">
@@ -55,4 +56,12 @@
         </div>
     </div>
 </div>
+-->
 
+<div class="LowFoot">
+    <div class="inner">
+        <div class="contentFoot">
+            幼富通版权所有 ©2014 沪ICP备14054347号
+        </div>
+    </div>
+</div>

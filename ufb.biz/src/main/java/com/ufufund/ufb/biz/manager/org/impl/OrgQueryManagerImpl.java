@@ -11,6 +11,7 @@ import com.ufufund.ufb.dao.OrgQueryMapper;
 import com.ufufund.ufb.model.vo.QueryCustPayInfo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgPayInfo;
+import com.ufufund.ufb.model.vo.QueryOrgStudent;
 import com.ufufund.ufb.model.vo.QueryOrgplan;
 import com.ufufund.ufb.model.vo.QueryOrgplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgplandetailcharge;
@@ -21,6 +22,27 @@ public class OrgQueryManagerImpl extends ImplCommon implements OrgQueryManager {
 
 	@Autowired
 	private OrgQueryMapper orgQueryMapper;
+	
+	/*
+	 * 
+	 */
+	public List<QueryOrgStudent> getQueryOrgByCustno(String custno){
+		return orgQueryMapper.getQueryOrgByCustno(custno);
+	}
+	
+	/*
+	 * 
+	 */
+	public List<QueryOrgStudent> getQueryStudentByCustno(String custno){
+		return null;
+	}
+	
+	/*
+	 * 
+	 */
+	public List<QueryOrgStudent> getQueryStudentByOrgid(String orgid, String custno){
+		return orgQueryMapper.getQueryStudentByOrgid(orgid, custno);
+	}
 	
 	@Override
 	public List<QueryOrgplan> getQueryOrgplan(String orgid) {
@@ -71,9 +93,9 @@ public class OrgQueryManagerImpl extends ImplCommon implements OrgQueryManager {
 	}
 
 	@Override
-	public List<QueryCustplandetail> getQueryCustplandetail(String custno) {
+	public List<QueryCustplandetail> getQueryCustplandetail(String custno, String orgid) {
 		// TODO Auto-generated method stub
-		return orgQueryMapper.getQueryCustplandetail(custno, "ALL");
+		return orgQueryMapper.getQueryCustplandetail(custno, orgid);
 	}
 
 	

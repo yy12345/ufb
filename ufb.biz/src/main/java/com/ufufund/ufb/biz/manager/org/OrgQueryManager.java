@@ -5,13 +5,29 @@ import java.util.List;
 import com.ufufund.ufb.model.vo.QueryCustPayInfo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgPayInfo;
+import com.ufufund.ufb.model.vo.QueryOrgStudent;
 import com.ufufund.ufb.model.vo.QueryOrgplan;
 import com.ufufund.ufb.model.vo.QueryOrgplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgplandetailcharge;
 
 
 
-public interface OrgQueryManager { 
+public interface OrgQueryManager {
+	
+	/*
+	 * 
+	 */
+	public List<QueryOrgStudent> getQueryOrgByCustno(String custno);
+	
+	/*
+	 * 
+	 */
+	public List<QueryOrgStudent> getQueryStudentByCustno(String custno);
+	
+	/*
+	 * 
+	 */
+	public List<QueryOrgStudent> getQueryStudentByOrgid(String custno, String orgid);
 	
 	
 	/*
@@ -75,5 +91,5 @@ public interface OrgQueryManager {
 	/*
 	 * 个人用户查询收费计划详情
 	 */
-	public List<QueryCustplandetail> getQueryCustplandetail(String custno);
+	public List<QueryCustplandetail> getQueryCustplandetail(String custno, String orgid);
 }

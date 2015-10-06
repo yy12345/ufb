@@ -23,6 +23,7 @@
 	<!-- enable component scanning (beware that this does not enable mapper scanning!) -->  
 	<context:component-scan base-package="com.ufufund.mvc.exception.handler" />  
     <context:component-scan base-package="com.ufufund.ufb.web.controller" />
+    <context:component-scan base-package="com.ufufund.uft.web.controller" />
 
 	<!-- 避免IE执行AJAX时,返回JSON出现下载文件   -->  
     <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  
@@ -74,8 +75,8 @@
 		<!-- 公共变量 --> 
 		<property name="attributesMap">
 			<map>
-				<entry key="ufbDomain" value="http://localhost:8080/ufb"/>
-				<entry key="staticDomain" value="http://localhost:8080/ufb"/>
+				<entry key="ufbDomain" value="http://localhost:8088/ufb"/>
+				<entry key="staticDomain" value="http://localhost:8088/ufb"/>
 			</map>
 		</property>
 	</bean>
@@ -99,12 +100,13 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**/*.htm" />
 			<mvc:exclude-mapping path="/cust/*.htm" />
+			<mvc:exclude-mapping path="/family/*.htm" />
 			<mvc:exclude-mapping path="/home/*.htm" />
 			<mvc:exclude-mapping path="/register/*.htm" />
 			<mvc:exclude-mapping path="/error/*.htm" />
 			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.LoginInterceptor">
 				<property name="loginUrl">
-					<value>http://localhost:8080/ufb/home/index.htm</value>
+					<value>http://localhost:8088/ufb/home/index.htm</value>
 				</property>
 			</bean>
 		</mvc:interceptor>
@@ -112,7 +114,7 @@
 			<mvc:mapping path="/trade/*.htm" />
 			<bean id="hftTradeInterceptor" class="com.ufufund.ufb.web.interceptor.HftTradeInterceptor">
 				<property name="redirectUrl">
-					<value>http://localhost:8080/ufb/cust/session.htm</value>
+					<value>http://localhost:8088/ufb/cust/session.htm</value>
 				</property>
 			</bean>
 		</mvc:interceptor>

@@ -3,8 +3,49 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ufufund.ufb.dao.OrgQueryMapper">
-    
 
+	<select id="getQueryOrgByCustno" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrgStudent">
+			SELECT
+				DISTINCT
+				T.CUSTNO AS orgid,
+				T.INVNM AS orgnm
+			FROM 
+				STUDENT S, CLAZZ C, CUSTINFO T
+			WHERE 
+				S.CID = C.CID
+				AND C.ORGID = T.CUSTNO
+				AND S.P_CUSTNO = #{custno,JDBCTYPE=VARCHAR}   
+    </select>
+    
+    <select id="getQueryStudentByOrgid" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrgStudent">
+			SELECT 
+				S.SID AS studentid, 
+				S.NAME AS studentnm, 
+				C.CID AS classid, 
+				C.NAME AS classnm
+			FROM 
+				STUDENT S, CLAZZ C
+			WHERE 
+				S.CID = C.CID
+				AND C.ORGID = #{orgid,JDBCTYPE=VARCHAR}   
+				AND S.P_CUSTNO = #{custno,JDBCTYPE=VARCHAR}   
+
+;
+    </select>
+    
+    <select id="getQueryStudentByCustno" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrgStudent">
+			SELECT
+				DISTINCT
+				T.CUSTNO AS orgid,
+				T.INVNM AS orgnm
+			FROM 
+				STUDENT S, CLAZZ C, CUSTINFO T
+			WHERE 
+				S.CID = C.CID
+				AND C.ORGID = T.CUSTNO
+				AND S.P_CUSTNO = #{custno,JDBCTYPE=VARCHAR}   
+    </select>
+    
     
 
 	<select id="getQueryOrgplan" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrgplan">
@@ -165,24 +206,31 @@
 	       		</if>
 			    GROUP BY  d.p_custno
     </select>
-    
-    
     <select id="getQueryCustplandetail" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryCustplandetail">
 			SELECT
 			a.org_id as orgid,
-			a.detail_id as detailid ,
-			a.plan_id as planid,
+			c.invnm as orgnm,
+			b.name as studentnm,
 			a.student_id as studentid,
+			a.detail_id as detailid,
+			a.plan_id as planid,
 			a.pay_app_amount as payappamount,
 			a.pay_discount as paydiscount,
 			a.pay_ack_amount as payackamount,
 			a.is_pay as ispay,
 			a.pay_custno as paycustno,
-			date_format(a.pay_date,'%Y%m%d%H%i%s')  as paydate 
+			date_format(a.pay_date,'%Y-%m-%d %H:%i:%s')  as paydate,
+			date_format(a.plan_date,'%Y-%m-%d')  as plandate
 			FROM
 			student b,
-			org_plan_datail a
-			where b.sid = a.student_id
+			org_plan_datail a,
+			custinfo c
+			where 
+			a.student_id =b.sid
+			and a.org_id = c.custno
+			<if test="orgid != null">
+			and a.org_id = #{orgid,jdbcType=VARCHAR}
+			</if>
 			and b.p_custno  = #{custno,jdbcType=VARCHAR} 
 			order by a.pay_date  desc
     </select>

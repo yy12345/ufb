@@ -11,16 +11,63 @@ public class QueryCustplandetail extends PrintableModel implements Serializable 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String orgid;// char(24) NOT NULL COMMENT '机构ID',
+	private String orgnm;// char(24) NOT NULL COMMENT '机构NM',
 	private String detailid;// char(24) DEFAULT NULL,
 	private String planid;// char(24) DEFAULT NULL COMMENT '计划ID',
+	private String plannm;// char(24) DEFAULT NULL COMMENT '计划NM',
 	private String studentid;// char(24) DEFAULT NULL COMMENT '学生ID',
+	private String studentnm;// char(24) DEFAULT NULL COMMENT '学生NM',
 	private String payappamount="0";// decimal(16,2) DEFAULT NULL COMMENT '应缴金额',
 	private String paydiscount="0";// decimal(16,2) DEFAULT NULL COMMENT '折扣金额',
 	private String payackamount="0";// decimal(16,2) DEFAULT NULL COMMENT '实缴金额'
 	private String ispay;// char(1) DEFAULT 'F' COMMENT '是否缴费 Y 已缴费 F 未缴费',
 	private String paycustno;//` char(24) DEFAULT NULL COMMENT '缴费客户号',
+	private String paycustnonm;//` char(24) DEFAULT NULL COMMENT '缴费客户NM',
 	private String paydate;//` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP CO
+	private String plandate;//` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP CO
 	
+	
+	
+	public String getOrgnm() {
+		return orgnm;
+	}
+
+	public void setOrgnm(String orgnm) {
+		this.orgnm = orgnm;
+	}
+
+	public String getPlannm() {
+		return plannm;
+	}
+
+	public void setPlannm(String plannm) {
+		this.plannm = plannm;
+	}
+
+	public String getStudentnm() {
+		return studentnm;
+	}
+
+	public void setStudentnm(String studentnm) {
+		this.studentnm = studentnm;
+	}
+
+	public String getPaycustnonm() {
+		return paycustnonm;
+	}
+
+	public void setPaycustnonm(String paycustnonm) {
+		this.paycustnonm = paycustnonm;
+	}
+
+	public String getPlandate() {
+		return plandate;
+	}
+
+	public void setPlandate(String plandate) {
+		this.plandate = plandate;
+	}
+
 	public String getDetailid() {
 		return detailid;
 	}

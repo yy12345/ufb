@@ -86,7 +86,8 @@ public class CustController {
 			}
 			
 			// 校验手机验证码
-			MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
+			// TODO
+			//MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
 			
 			// 注册对象封装 
 			RegisterAction registerAction = new RegisterAction();
@@ -147,7 +148,8 @@ public class CustController {
 			}
 			
 			// 校验手机验证码
-			MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
+			// TODO
+			//MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
 			
 			// 注册对象封装 
 			RegisterAction registerAction = new RegisterAction();
