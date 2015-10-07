@@ -228,11 +228,12 @@
 			where 
 			a.student_id =b.sid
 			and a.org_id = c.custno
+			and date_format(a.plan_date,'%Y-%m')  = date_format(sysdate(),'%Y-%m') 
 			<if test="orgid != null">
 			and a.org_id = #{orgid,jdbcType=VARCHAR}
 			</if>
 			and b.p_custno  = #{custno,jdbcType=VARCHAR} 
-			order by a.pay_date  desc
+			order by a.student_id, a.plan_date  desc
     </select>
     
     

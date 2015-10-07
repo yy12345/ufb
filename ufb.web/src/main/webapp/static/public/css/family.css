@@ -79,11 +79,11 @@
 
 .checkbox{
     cursor: pointer;
-    background: url(../../images/tuition-icons.png) -10px -72px no-repeat;
+    background: url(images/tuition-icons.png) -10px -72px no-repeat;
     font-size: 14px;
 }
 .checkbox.active {
-    background: url(../../images/tuition-icons.png) -10px -105px no-repeat;
+    background: url(images/tuition-icons.png) -10px -105px no-repeat;
 }
 .magtb{
     margin-top: 30px;
@@ -216,7 +216,7 @@
     top: 0px;
     width: 14px;
     height: 16px;
-    background: url("../../images/tuition-icons.png") -10px -127px no-repeat;
+    background: url("images/tuition-icons.png") -10px -127px no-repeat;
 }
 .familyPayIndex .a1-notitle{
     line-height:22px;
@@ -490,10 +490,10 @@ i.imitate-radio{
     width: 16px;
     height: 16px;
     margin-right: 6px;
-    background: url("../../images/tuition-icons.png") no-repeat -10px -230px;
+    background: url("images/tuition-icons.png") no-repeat -10px -230px;
 }
 i.imitate-radio.check{
-    background: url("../../images/tuition-icons.png") no-repeat -10px -211px;
+    background: url("images/tuition-icons.png") no-repeat -10px -211px;
 }
 .affirm-content{
     background-color: #fff;
@@ -635,7 +635,7 @@ i.imitate-radio.check{
     height:38px;
 }
 i.bothno-icon{
-    background: url("../../images/tuition-icons.png") -10px -303px no-repeat;
+    background: url("images/tuition-icons.png") -10px -303px no-repeat;
     display: inline-block;
     width: 16px;
     height: 12px;
@@ -645,7 +645,7 @@ i.bothno-icon{
     margin:-6px 0 0 0;
 }
 i.question{
-    background: url("../../images/tuition-icons.png") -10px -319px no-repeat;
+    background: url("images/tuition-icons.png") -10px -319px no-repeat;
     display: inline-block;
     width: 14px;
     height: 14px;

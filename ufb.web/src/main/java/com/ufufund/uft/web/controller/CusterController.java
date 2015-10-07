@@ -31,6 +31,7 @@ import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
 //import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.model.vo.PayNoticeVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgStudent;
 import com.ufufund.ufb.web.util.UserHelper;
@@ -164,42 +165,22 @@ public class CusterController {
 					planlist = orgQueryManager.getQueryCustplandetail(custno, orgid);
 					model.addAttribute("planlist" + count, planlist);
 					
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-					String curmonth = sdf.format(new Date());
-					
 					for(QueryCustplandetail plan:planlist){
 						
-						String plandate = plan.getPlandate();
-						String planmonth = "";
-						if(null != plandate){
-							planmonth = plandate.substring(0, 7);
+						BigDecimal planmonthamt = BigDecimal.ZERO;
+						if(null != plan.getPayappamount()){
+							planmonthamt = new BigDecimal(plan.getPayappamount());
 						}
-						
-						if(planmonth.equals(curmonth)){
-							String planmonthamtStr = plan.getPayappamount();
-							BigDecimal planmonthamt = BigDecimal.ZERO;
-							if(null != planmonthamt){
-								planmonthamt = new BigDecimal(planmonthamtStr);
-							}
-							totalplanmonthamt = totalplanmonthamt.add(planmonthamt);
-						}
+						totalplanmonthamt = totalplanmonthamt.add(planmonthamt);
 					}
-					
-					
-					
 					
 					count = count + 1;
 				}
 				
-				model.addAttribute("orglist", orglist);
-				model.addAttribute("totalplanmonthamt", totalplanmonthamt);
-				
 			}
 			
-			
-			
-			
-		
+			model.addAttribute("orglist", orglist);
+			model.addAttribute("totalplanmonthamt", totalplanmonthamt);
 
 			/** 资产 **/
 			// 保存主帐户至session
@@ -224,11 +205,41 @@ public class CusterController {
 	}
 	
 	@RequestMapping(value = "family/payNotice")
-	public String payNotice(CustinfoVo custinfoVo, Model model) {
+	public String payNotice(Model model) {
 		
+		ArrayList<List<QueryCustplandetail>> planlistlist = new ArrayList<List<QueryCustplandetail>>();
 		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			String custno = s_custinfo.getCustno();
 			
-		
+			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(s_custinfo.getCustno());
+			List<QueryCustplandetail> planlist = null;
+			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
+			int plancount = 0;
+			for(QueryOrgStudent org: orglist){
+				String orgid = org.getOrgid();
+				LOG.info("CusterController==.loginIn==orgQueryManager.getQueryStudentByOrgid " + "orgid = " + orgid + ",custno = " +custno);
+				
+				// 个人用户查询收费计划详情
+				planlist = orgQueryManager.getQueryCustplandetail(custno, orgid);
+				if(planlist != null && planlist.size()>0){
+					planlistlist.add(planlist);
+				}
+				
+				for(QueryCustplandetail plan:planlist){
+					plancount = plancount + 1;
+					BigDecimal planmonthamt = BigDecimal.ZERO;
+					if(null != plan.getPayappamount()){
+						planmonthamt = new BigDecimal(plan.getPayappamount());
+					}
+					totalplanmonthamt = totalplanmonthamt.add(planmonthamt);
+				}
+			}
+			model.addAttribute("orglist", orglist);
+			model.addAttribute("planlistlist", planlistlist);
+			model.addAttribute("plancount", plancount);
+			model.addAttribute("totalplanmonthamt", totalplanmonthamt);
+			
 			
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -236,6 +247,68 @@ public class CusterController {
 			return "family/home";
 		}
 		return "family/payNotice";
+	}
+	
+	@RequestMapping(value = "family/payReview")
+	public String payReview(PayNoticeVo paynoticevo, Model model) {
+		
+		ArrayList<List<QueryCustplandetail>> planlistlistchecked = new ArrayList<List<QueryCustplandetail>>();
+		try{
+			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			String custno = s_custinfo.getCustno();
+			
+			/**  **/
+			String allplanids = paynoticevo.getAllplanids();
+			//String[] allplanidarray = null;
+			//if(null != allplanids){
+			//	allplanidarray = allplanids.split(",");
+			//}
+			/**  **/
+			
+			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(s_custinfo.getCustno());
+			List<QueryCustplandetail> planlist = null;
+			List<QueryCustplandetail> planlistchecked = null;
+			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
+			int plancountchecked = 0;
+			for(QueryOrgStudent org: orglist){
+				String orgid = org.getOrgid();
+				LOG.info("CusterController==.loginIn==orgQueryManager.getQueryStudentByOrgid " + "orgid = " + orgid + ",custno = " +custno);
+				
+				// 个人用户查询收费计划详情
+				planlist = orgQueryManager.getQueryCustplandetail(custno, orgid);
+				planlistchecked = new ArrayList<QueryCustplandetail>();
+				if(planlist != null && planlist.size()>0){
+					for(QueryCustplandetail detail : planlist){
+						if(allplanids != null){
+							if(allplanids.indexOf(detail.getPlanid())>-1){
+								planlistchecked.add(detail);
+							}
+						}
+					}
+					planlistlistchecked.add(planlistchecked);
+				}
+				
+				for(QueryCustplandetail plan:planlistchecked){
+					plancountchecked = plancountchecked + 1;
+					BigDecimal planmonthamt = BigDecimal.ZERO;
+					if(null != plan.getPayappamount()){
+						planmonthamt = new BigDecimal(plan.getPayappamount());
+					}
+					totalplanmonthamt = totalplanmonthamt.add(planmonthamt);
+				}
+			}
+			
+			model.addAttribute("orglist", orglist);
+			model.addAttribute("planlistlistchecked", planlistlistchecked);
+			model.addAttribute("plancountchecked", plancountchecked);
+			model.addAttribute("totalplanmonthamt", totalplanmonthamt);
+			
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+			model.addAttribute("errMsg", e.getMessage());
+			return "family/home";
+		}
+		return "family/payReview";
 	}
 	
 	
