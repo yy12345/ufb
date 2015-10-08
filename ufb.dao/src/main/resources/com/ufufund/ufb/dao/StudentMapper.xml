@@ -141,21 +141,46 @@
 	    </foreach>
     </insert>
     
-    <update id="adjustClazz">
-    	update Student set 
-    		cid = #{c.cid,jdbcType=VARCHAR} ,
-    		cname = #{c.name,jdbcType=VARCHAR} 
-    	where sid in
-    	<foreach item="item" collection="list" separator="," open="(" close=")" index="">  
-	      #{item,jdbcType=VARCHAR}  
-	    </foreach>
+    <update id="adjustStudent">
+    	update student s, clazz c set 
+    		s.cid = #{vo.toCid,jdbcType=VARCHAR} ,
+    		s.cname = (select name from clazz where cid = #{vo.toCid,jdbcType=VARCHAR})
+    	where s.cid = c.cid and c.orgid = #{vo.orgid,jdbcType=VARCHAR} and 
+    		(1 &lt;&gt; 1 
+    		<if test="cidList != null">
+	    		or s.cid in 
+	    		<foreach item="item" collection="cidList" separator="," open="(" close=")" index="">
+	    			#{item}
+	    		</foreach>
+    		</if>
+    		<if test="sidList != null">
+	    		or s.sid in 
+		    	<foreach item="item" collection="sidList" separator="," open="(" close=")" index="">
+	    			#{item}
+	    		</foreach>
+    		</if>
+	    	)
     </update>
-   
+    
     <select id="getCountByClazz" parameterType="String" resultType="int">
     	select count(*) from Student where cid = #{cid, jdbcType=VARCHAR}
     </select>
     
     <select id="getListByClazz" parameterType="String" resultType="Student">
     	select * from Student where cid = #{cid, jdbcType=VARCHAR}	
+    </select>
+    
+    <select id="queryStudent" parameterType="StudentVo" resultType="Student">
+    	select s.* from Student s , Clazz c 
+    	where s.cid = c.cid
+    	<if test="orgid != null">
+    		and c.orgid = #{orgid, jdbcType=VARCHAR}
+    	</if>
+    	<if test="cid != null">
+    		and s.cid = #{cid, jdbcType=VARCHAR}
+    	</if>
+    	<if test="name != null">
+    		and s.name = #{name, jdbcType=VARCHAR}
+    	</if>
     </select>
 </mapper>

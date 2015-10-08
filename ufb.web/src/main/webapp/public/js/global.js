@@ -13,5 +13,5 @@ $(function(){
 		$.delay({complete:function(){
 			$('nav>b').animate({width:$('nav>a.active').width(),left:$('nav>a.active').offset().left-$('nav>a:eq(0)').offset().left},400);
 		}});
-	})
-})
+	});
+});

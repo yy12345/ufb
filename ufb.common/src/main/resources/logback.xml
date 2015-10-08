@@ -25,9 +25,9 @@
     
     <logger name="org.apache" level="WARN"/> 
     
-    <logger name="org.mybatis" level="WARN"/> 
-    
     <logger name="org.quartz" level="WARN"/>
+    
+    <logger name="org.mybatis" level="WARN"/> 
     
     <logger name="java.sql" level="WARN"/> 
     

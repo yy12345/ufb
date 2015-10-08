@@ -1,6 +1,8 @@
 package com.ufufund.ufb.biz.manager.impl;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,8 @@ import com.ufufund.ufb.model.db.ClazzType;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.enums.NormalClazzType;
+import com.ufufund.ufb.model.vo.AdjustStudentVo;
+import com.ufufund.ufb.model.vo.StudentVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -222,4 +227,32 @@ public class SchoolManagerImpl implements SchoolManager{
 		return studentMapper.getListByClazz(cid);
 	}
 	
+	/**
+	 * 根据条件搜索学生记录
+	 * @param vo
+	 * @return
+	 */
+	public List<Student> queryStudentList(StudentVo vo){
+		return studentMapper.queryStudent(vo);
+	}
+	
+	/**
+	 * 学生调班
+	 * @param vo
+	 * @return
+	 */
+	public int adjustStudent(AdjustStudentVo vo){
+		smValidator.validateAdjustStudent(vo);
+		
+		List<String> cidList = null;
+		List<String> sidList = null;
+		if(!StringUtils.isBlank(vo.getCidStr())){
+			cidList = Arrays.asList(vo.getCidStr().split(","));
+		}
+		if(!StringUtils.isBlank(vo.getSidStr())){
+			sidList = Arrays.asList(vo.getSidStr().split(","));
+		}
+		return studentMapper.adjustStudent(vo, cidList, sidList);
+				
+	}
 }

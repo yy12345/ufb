@@ -11,7 +11,7 @@ $("body").on("click", ".alert-close", function () {
     var $this = $(this);
     var $con = $this.parents(".alert-con");
     console.log($con);
-    $con.remove();
+    $con.hide();
 });
 var errorBox = function (errorTitle, errorText) {//错误框
     var errorBox=$("<div class='error-box'>" +
@@ -58,11 +58,8 @@ $(function () {
         var _tabs = _tab.parent(".tabs");
         var _index = _tabs.find(".tab").index(_tab);
         var _panel = _tabs.siblings(".panels").find(".panel");
-        //add by GH
-        _panel.hide();
         _tab.addClass("on").siblings().removeClass("on");
-        //modified by GH +show()
-        _panel.addClass("slide-out").eq(_index).removeClass("slide-out").show();
+        _panel.addClass("slide-out").eq(_index).removeClass("slide-out");
     }
     $(".register-tabs").on("click", ".tab", function () {
         tabSlide($(this));
@@ -103,9 +100,6 @@ $(function () {
     $(".input-options .bank-list").on("click", ".bank", function () {
         var _this = $(this);
         var _select = $(".input-select");
-        //ADD BY GH
-        var _this_bankno = $(this).attr("bankno");
-        $("#bankNo").val(_this_bankno);
         _select.removeClass("open").find(".bank-current").html(_this.html());
     });
     $(".input-options .card-list").on("click", ".card", function () {
@@ -124,12 +118,41 @@ $(function () {
     $("body").on("click", ".trigger-loginBox", function () {
        alertBox(".box-login");
     });
-    // errorBox("系统错误","报错内容<br>报错内容<br>报错内容<br>");
+
+    //errorBox("系统错误","报错内容<br>报错内容<br>报错内容<br>");
+});
+
+
+$(function(){
+     //“登陆框”切换
     
-	$("form input[type=text],input[type=password]").each(function () {
-        var _this = $(this);
-		if(_this.val()!="") {
-            _this.siblings(".tips-normal").hide();
-        }
+    $(".tab-family").click(function(){
+         $(this).addClass("on").siblings().removeClass("on");
+         $(".tab-family i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
+         $(".panel01").addClass("panelShow").siblings().removeClass("panelShow");
     });
+    
+     $(".tab-org").click(function(){
+         $(this).addClass("on").siblings().removeClass("on");
+         $(this).find("i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
+         $(".panel02").addClass("panelShow").siblings().removeClass("panelShow");
+    });
+    
+    //"自动充值、自动取现"切换
+    $(".content-autoFund .autoFund-title span:first-child").click(function(){
+         $(this).addClass("on").siblings().removeClass("on");
+         $(this).find("i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
+         $(".FundList01").addClass("FundList").siblings().removeClass("FundList");
+    });
+     $(".content-autoFund .autoFund-title span:last-child").click(function(){
+         $(this).addClass("on").siblings().removeClass("on");
+         $(this).find("i").addClass("loginTri").parents().siblings().find("i").removeClass("loginTri");
+         $(".FundList02").addClass("FundList").siblings().removeClass("FundList");
+    });
+    
+    $(".topNav .b3 a").click(function(){
+        $(".alert-con").show();
+    });
+    
+
 });

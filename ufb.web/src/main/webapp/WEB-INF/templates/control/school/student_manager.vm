@@ -25,7 +25,7 @@
 						<div class="b1 cl">
 							<a href="javascript:;" class="c3">+新档案</a>
 							<a href="javascript:;" class="c1 active">批量导入</a>
-							<a href="javascript:;" class="c1">调班</a>
+							<a href="${ufbDomain}/school/student_adjust.htm" class="c1">调班</a>
 						</div>
 						<div class="b2">
 							<div class="c1 tabCon active">
@@ -109,7 +109,7 @@
 				});
 			})
 			
-			// 展开、隐藏班级详细
+			// 查看班级详情
 			$('.itemH').on('click','.a4 .b1 .c2',function(){
 				if($(this).hasClass('active')){
 					$(this).removeClass('active');

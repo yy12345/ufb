@@ -28,7 +28,8 @@ import com.ufufund.ufb.model.db.Clazz;
 import com.ufufund.ufb.model.db.ClazzType;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.enums.NormalClazzType;
-import com.ufufund.ufb.web.filter.ServletHolder;
+import com.ufufund.ufb.model.vo.AdjustStudentVo;
+import com.ufufund.ufb.model.vo.StudentVo;
 import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -304,16 +305,81 @@ public class SchoolController {
 		return "school/student_manager";
 	}
 	
+	@RequestMapping(value="student_adjust", method=RequestMethod.GET)
+	public String studentAdjust(String typeid, Model model){
+		
+		String orgid = UserHelper.getCustno();
+		
+		try{
+			// 机构下，所有班级类型
+			List<ClazzType> allTypes = new ArrayList<ClazzType>();
+			List<ClazzType> normalTypes = NormalClazzType.getList(orgid);
+			List<ClazzType> otherTypes = schoolManager.getClazzTypeList(orgid);
+			allTypes.addAll(normalTypes);
+			allTypes.addAll(otherTypes);
+			// 机构下，所有班级列表
+			Clazz clazz = new Clazz();
+			clazz.setOrgid(orgid);
+			List<Clazz> clazzList = schoolManager.getClazzList(clazz);
+			// 获取班级学生数量
+			schoolManager.getClazzSize(clazzList);
+			
+			// 默认，选【全部】班级类型
+			if(StringUtils.isBlank(typeid)){
+				typeid = "0";
+			}
+			
+			model.addAttribute("allTypes", allTypes);
+			model.addAttribute("clazzList", clazzList);
+			model.addAttribute("typeid", typeid);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			
+			model.addAttribute("message_title", "学生档案管理");
+			model.addAttribute("message_url", STUDENT_INDEX);
+			model.addAttribute("message_content0", "操作失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			return "error/user_error";
+		}
+		
+		return "school/student_adjust";
+	}
+	
+	@RequestMapping(value="student_adjustAction", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> studentAdjustAction(AdjustStudentVo vo){
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		
+		String orgid = UserHelper.getCustno();
+		try{
+			vo.setOrgid(orgid);
+			schoolManager.adjustStudent(vo);
+			resultMap.put("errCode", "0000");
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
+	
 	/**
 	 * 查询班级的学生列表
 	 * @param cid 班级id
 	 * @return
 	 */
 	@RequestMapping(value="student_list", method=RequestMethod.GET)
-	public String studentList(String cid, Model model){
+	public String studentList(String cid, String module, Model model){
 		try{
 			List<Student> students = schoolManager.getStudentList(cid);
 			model.addAttribute("students", students);
+			if(!StringUtils.isBlank(module)){
+				model.addAttribute("module", module);
+			}
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			
@@ -325,6 +391,30 @@ public class SchoolController {
 		}
 		
 		return "school/student_list";
+	}
+	
+	@RequestMapping(value="student_search", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> studentSearch(StudentVo vo){
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		
+		String orgid = UserHelper.getCustno();
+		try{
+			vo.setOrgid(orgid);
+			List<Student> students = schoolManager.queryStudentList(vo);
+		
+			resultMap.put("errCode", "0000");
+			resultMap.put("students", students);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
 	}
 	
 	@RequestMapping(value="student_downTemplate", method=RequestMethod.GET)

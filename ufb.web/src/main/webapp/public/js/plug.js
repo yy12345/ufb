@@ -45,7 +45,7 @@
 				$(this).parent().find(".list").html(list);
 			}
 			var that = $(this).parent();
-			that.css({"z-index":999,"width":parseInt($(this).css("width"))+2,"margin-right":$(this).css("margin-right"),"outline":"none"});
+			that.css({"z-index":999,"width":parseInt($(this).css("width"))+2,"margin-right":$(this).css("margin-right"),"margin-left":$(this).css("margin-left"),"outline":"none"});
 			that.find('.list').css({"width":parseInt($(this).css("width"))});
 			that.find(".text").text($(this).find('option:selected').text());
 			that.find("li").unbind("click").on("click",function(event){
@@ -160,20 +160,10 @@
 				that.removeClass('active');
 			}
 			that.find('input').unbind("click").on('click',function() {
-				switch(that.hasClass('active')){
-					case true:
-						thatAll.find('input[name="'+$(this).attr('name')+'"]').parent().removeClass('active');
-						thatAll.find('input[name="'+$(this).attr('name')+'"]').attr('checked',false);
-						that.removeClass('active');
-						$(this).attr('checked',false);
-						break;
-					case false:
-						thatAll.find('input[name="'+$(this).attr('name')+'"]').parent().removeClass('active');
-						thatAll.find('input[name="'+$(this).attr('name')+'"]').attr('checked',false);
-						that.addClass('active');
-						$(this).attr('checked',true);
-						break;
-				}
+				thatAll.find('input[name="'+$(this).attr('name')+'"]').parent().removeClass('active');
+				thatAll.find('input[name="'+$(this).attr('name')+'"]').attr('checked',false);
+				that.addClass('active');
+				$(this).attr('checked',true);
 			})
 		})
 	}
@@ -340,7 +330,7 @@
 })(jQuery);
 var JH = {}
 JH.load = {
-	add:function(url,target){
+	add:function(url,target,callback){
 		$(target).prepend('<div class="loading"><span></span></div>');
 		var loading = $('.loading span');
 		loading.animate({width:'90%'},1000,'easeOutQuad');
@@ -351,7 +341,21 @@ JH.load = {
 				loading.stop().animate({width:'100%'},100,'easeOutQuad',function(){
 					$('.loading').remove();
 					$(target).append(data);
+					callback(target);
 				});
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'网络不给力，请再试试！'});
+			}
+		})
+	},
+	syncAdd:function(url,target){
+		$.ajax({
+			type: "GET",
+			url: url,
+			async:false,
+			success: function(data){
+				$(target).append(data);
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 				$.alert({title:'网络不给力，请再试试！'});

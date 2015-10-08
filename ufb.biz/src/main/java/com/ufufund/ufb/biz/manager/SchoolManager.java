@@ -5,6 +5,8 @@ import java.util.List;
 import com.ufufund.ufb.model.db.Clazz;
 import com.ufufund.ufb.model.db.ClazzType;
 import com.ufufund.ufb.model.db.Student;
+import com.ufufund.ufb.model.vo.AdjustStudentVo;
+import com.ufufund.ufb.model.vo.StudentVo;
 
 public interface SchoolManager {
 	
@@ -88,4 +90,18 @@ public interface SchoolManager {
 	 * @return
 	 */
 	List<Student> getStudentList(String cid);
+	
+	/**
+	 * 根据条件搜索学生记录
+	 * @param vo
+	 * @return
+	 */
+	List<Student> queryStudentList(StudentVo vo);
+	
+	/**
+	 * 学生调班
+	 * @param vo
+	 * @return
+	 */
+	int adjustStudent(AdjustStudentVo vo);
 }

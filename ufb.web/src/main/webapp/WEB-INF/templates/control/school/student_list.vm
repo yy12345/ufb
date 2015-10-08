@@ -12,8 +12,8 @@
         <th>操作</th>
     </tr>
     #foreach($s in $students)
-    <tr>
-        <td><label class="checkbox"><input type="checkbox" name="student[]" value="0"></label></td>
+    <tr sid="${s.sid}">
+        <td><label class="checkbox"><input type="checkbox" name="student[]" value="${s.sid}"></label></td>
         <td>${s.sno}</td>
         <td>${s.name}</td>
         <td>${s.cname}</td>
@@ -33,5 +33,5 @@ $('.tableA').each(function(i,d){
 	$(this).find('tr:odd td').css('background-color','#fff');
 })
 //checkbox
-//$('.checkbox').checkbox();
+##if($module)$('.checkbox').checkbox();#end
 </script>

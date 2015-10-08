@@ -11,6 +11,7 @@ import com.ufufund.ufb.dao.ClazzMapper;
 import com.ufufund.ufb.model.db.Clazz;
 import com.ufufund.ufb.model.db.ClazzType;
 import com.ufufund.ufb.model.db.Student;
+import com.ufufund.ufb.model.vo.AdjustStudentVo;
 
 @Service
 public class SchoolManagerValidator {
@@ -48,5 +49,14 @@ public class SchoolManagerValidator {
 		// 1.检测clazzId，班级是否能全量删除
 		// 2.检测students数据是否为空
 		// code ...
+	}
+	
+	public void validateAdjustStudent(AdjustStudentVo vo){
+		if(vo == null || StringUtils.isBlank(vo.getToCid())){
+			throw new UserException("输入参数为空！");
+		}
+		if(clazzMapper.get(vo.getToCid()) == null){
+			throw new UserException("找不到调入班级！");
+		}
 	}
 }

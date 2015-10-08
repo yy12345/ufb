@@ -12,145 +12,312 @@
                 	<div class="a1 cl">
                     	<div class="b1">班级选择</div>
                         <div class="b2">
-                        	<div class="c1 active"><a typeid="0" href="javascript:void(0)" class="active">全部</a></div>
+                        	<div class='c1 #if("${typeid}" == "0")active#end'><a typeid="0" href="javascript:;">全部</a></div>
                             #foreach($ct in $allTypes)
-                            <div class="c1">
-                            	<a typeid="${ct.id}" href="javascript:void(0)">${ct.name}</a>
+                            <div class='c1 #if("${typeid}" == "${ct.id}")active#end'>
+                            	<a typeid="${ct.id}" href="javascript:;">${ct.name}</a>
                             </div>
                             #end
                         </div>
                         <div class="b3"><a href="${ufbDomain}/school/class_setting.htm">年级/班级设置</a></div>
                     </div>
-                    <div class="a1">
-                    	<div class="b1">&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    	<div class="b2" id="clazz_list_1">
-                    		#foreach($c in $clazzList)
-                    		<span>${c.name}&nbsp;&nbsp;</span>
-                    		#end
-                    	</div>
+                    <div class="groupStep">
+                        <div class="control-group group01" id="specific-big" style="display:block">
+                            <label class="form-lbl">&nbsp;</label>
+                            <p class="inline-block name" style="display:none">
+                            	#set($i = 0)
+                            	#set($n = ${clazzList.size()})
+                            	#foreach($c in $clazzList)
+                            		#set($i = $i+1)
+	                                <span typeid="${c.typeid}" cid="${c.cid}">${c.name}</span>
+	                                <i typeid="${c.typeid}" class="middel-wire">|</i>
+                                #end
+                            </p>
+                        </div>
                     </div>
                     <div class="a2">
-                    	<label class="inputText"><input type="text"><b>搜索学生姓名</b></label><a href="javascript:;" class="btnA">查 询</a>
+                    	<label class="inputText"><input id="queryText" type="text"><b>搜索学生姓名</b></label><a href="javascript:;" class="btnA">查 询</a>
                     </div>
 					<div class="a3">
 						<div class="b1 cl">
 							<a href="javascript:;" class="c3">+新档案</a>
-							<a href="javascript:;" class="c1">批量导入</a>
+							<a href="${ufbDomain}/school/student_manager.htm" class="c1">批量导入</a>
 							<a href="javascript:;" class="c1 active">调班</a>
 						</div>
 						<div class="b2">
-							<div class="c1 tabCon">
-                            	<div class="d1">下载：<a href="模版.xlsx" target="_blank">档案模版</a></div>
-                                <div class="d2">
-                                	<form action="action/template.html" enctype="multipart/form-data" id="formTemplate">
-                                        <span>仅支持学费通模板文件导入</span>
-                                        <label class="inputFile"><input type="file" accept="application/msexcel" name="templateFile" id="templateUpload"><b>选择文件（Excel）</b></label>
-                                    </form>
-                                </div>
-							</div>
 							<div class="cl c2 tabCon active">
 								<div class="d1"><label class="checkbox"><input type="checkbox" id="classSelAll">全选</label></div>
 								<div class="d2">
 									<div class="e1">已选择<span id="studentNum">0</span>个学生，进入</div>
-									<select class="select" name="class" id="class">
-										<option disabled>大班</option>
-										<option>大一班</option>
-										<option>大二班</option>
-										<option>大三班</option>
-										<option disabled>中班</option>
-										<option>中一班</option>
-										<option>中二班</option>
-										<option>中三班</option>
-										<option disabled>小班</option>
-										<option>小一班</option>
-										<option>小二班</option>
-										<option>小三班</option>
-										<option disabled>拖班</option>
-										<option>拖一班</option>
-										<option>拖二班</option>
-										<option>拖三班</option>
+									<select class="select" id="toClass">
+										<option value="" selected="selected">选择班级</option>
+										#foreach($ct in $allTypes)
+											<option disabled>${ct.name}</option>
+											#foreach($c in $clazzList)
+												#if(${c.typeid} == ${ct.id})<option value="${c.cid}">${c.name}</option>#end
+											#end
+										#end
 									</select>
 									<a href="javascript:;" class="btnB" id="classChange">确认调班</a>
 								</div>
 							</div>
 						</div>
 					</div>
-                    <form action="action/studentChangeClass.html" id="formClass">
-					<div class="target">
-						<section class="loadtarget">
-							<div class="a4">
-                            	<div class="b1 cl">
-                                	<div class="c1"><label class="checkbox"><input type="checkbox" name="classTop[]" value="大一班">大一班</label><span class="d1">12</span><span>人</span></div>
-                                    <div class="c2" data-href="class.html?classSubID=大一班"></div>
-                                </div>
-                                <div class="b2"></div>
-							</div>
-                            <div class="a4">
-                            	<div class="b1 cl">
-                                	<div class="c1"><label class="checkbox"><input type="checkbox" name="classTop[]" value="大二班">大二班</label><span class="d1">50</span><span>人</span></div>
-                                    <div class="c2" data-href="class.html?classSubID=大二班"></div>
-                                </div>
-                                <div class="b2"></div>
-							</div>
-                            <div class="a4">
-                            	<div class="b1 cl">
-                                	<div class="c1"><label class="checkbox"><input type="checkbox" name="classTop[]" value="大三班">大三班</label><span class="d1">32</span><span>人</span></div>
-                                    <div class="c2" data-href="class.html?classSubID=大三班"></div>
-                                </div>
-                                <div class="b2"></div>
-							</div>
-                            <script type="text/javascript">
-							//checkbox
-							$('.checkbox').checkbox();
-                            </script>
-						</section>
+					<div class="listStu">
+						#foreach($c in $clazzList)
+						<div class="a4" typeid="${c.typeid}" cid="${c.cid}" #if(${typeid} != "0" && ${c.typeid} != ${typeid})style="display:none"#end>
+                        	<div class="b1 cl">
+                            	<div class="c1">
+	                            	<label class="checkbox"><input type="checkbox" name="classTop[]" value="${c.cid}">${c.name}</label>
+	                            	<span class="d1">${c.size}</span><span>人</span>
+                            	</div>
+                                <div class="c2" data-href="${ufbDomain}/school/student_list.htm?cid=${c.cid}&module=adjust"></div>
+                            </div>
+                            <div class="b2"></div>
+						</div>
+						#end
 					</div>
-                    </form>
+					<!-- listStu end  -->
                 </div>
 			</div>
 		</div>
 		<!--开始 本页面JS-->
 		<script type="text/javascript">
-			//alert(1);
 			$('nav a:eq(1)').addClass('active');
-		
-			//班级选择
-			/*$('.itemH .a1 .b2 .c1').on('mouseenter',function(){
-				var that = $(this);
-				$.delay({complete:function(){
-					$('.itemH .a1 .b2 .c1>div').hide();
-					$('.itemH .a1 .b2 .c1').css('z-index',1);
-					that.css('z-index',2);
-					that.find('div').show();
-				}});
-			})
-			$('.itemH .a1 .b2 .c1').on('mouseleave',function(){
-				var that = $(this);
-				$.delay({complete:function(){
-					that.find('div').hide();
-				}});
-			})*/
 			
-			//班级类型选择
-			$('.itemH .a1 .b2 .c1 a').on('click',function(e){
-				// 样式控制
-				e.preventDefault();
-				$('.itemH .a1 .b2 .c1 a').removeClass('active');
-				$(this).addClass('active');
+			// 搜索框
+			$('.inputText').inputText();
+			$('.select').selectMenu();
+			$('.checkbox').checkbox();
+			
+			// 班级类型一级筛选
+			$('.itemH .a1 .b2 .c1 a').on('click', function(){
+				
+				if($(this).closest('.c1').hasClass('active'))return false;
+				toOriginPage();
 				$(this).closest('.c1').addClass('active').siblings().removeClass('active');
 				
-				// 获取后台班级数据-typeid
 				var typeid = $(this).attr('typeid');
-				var clazzList;
+				if(typeid == '0'){
+					// 全部
+					$('.groupStep p').find('span').hide();
+					$('.groupStep p').find('i').hide();
+					
+					$('.listStu .a4').show();
+					$('.listStu tr').show();
+				}else{
+					// 选定的班级类型 --- 页面上部横向班级列表处理
+					$('.groupStep p').show();
+					$('.groupStep p').find('span').hide();
+					$('.groupStep p').find('i').hide();
+					
+					$('.groupStep p').find('span[typeid="'+ typeid +'"]').show();
+					$('.groupStep p').find('i[typeid="'+ typeid +'"]').show();
+					$('.groupStep p').find('span[typeid="'+ typeid +'"]').last().next().hide();
+					
+					// 页面下部纵向班级列表处理
+					$('.listStu .a4').hide();
+					$('.listStu .a4[typeid="'+ typeid +'"]').show();
+				}
+				
+			})
+			
+			// 班级二级菜单筛选
+			$('.groupStep p span').on('click', function(){
+				
+				if($(this).hasClass('selected'))return false;
+				toOriginPage();
+				$(this).addClass('selected').siblings().removeClass('selected');
+				
+				// 底部纵向班级列表处理
+				var cid = $(this).attr('cid')
+				$('.listStu .a4').hide();
+				$('.listStu .a4[cid="'+ cid +'"]').show();
+				
+			})
+			
+			// 查询按钮
+			$('.itemH .a2 .btnA').on('click',function(){
+				
+				var queryStr = $('#queryText').val();
+				if(queryStr == ''){
+					$.alert({title:'请输入学生姓名！'});
+					return false;
+				}
+				toOriginPage();
+				
+				var stuList = search_student(queryStr);
+				
+				// 班级列表处理
+				$('.listStu .a4').hide();
+				$('.listStu .a4').each(function(){
+				
+					var cid = $(this).attr('cid');
+					if(inClazz(cid, stuList)){
+						// 展示班级
+						$(this).addClass('q');
+						$(this).show();
+						// 加载学生列表
+						var c2 = $(this).find('.b1 .c2');
+						if(!c2.hasClass('active')){
+							c2.addClass('active');
+							c2.closest('.b1').next().show();
+							if(c2.closest('.b1').next().children().length==0){
+								JH.load.syncAdd(c2.attr('data-href'), c2.closest('.b1').next());
+							}
+						}
+						// 学生列表处理
+						$(this).find('tr').hide();
+						$(this).find('tr').each(function(){
+							var sid = $(this).attr('sid');
+							if(sid == undefined){     // 学生表头
+								$(this).show();
+							}else if(inStudent(sid, stuList)){   // 学生结果
+								$(this).addClass('q');
+								$(this).show();
+							}
+						});
+						// 记录数量
+						var num = $(this).find('tr.q').length;
+						$(this).find('.b1 .c1 .d1').text(num);
+					}
+				});
+			})
+		
+			// 查看班级详情
+			$('.listStu').on('click','.a4 .b1 .c2',function(){
+				if($(this).hasClass('active')){
+					$(this).removeClass('active');
+					$(this).closest('.b1').next().hide();
+				}else{
+					$(this).addClass('active');
+					$(this).closest('.b1').next().show();
+					if($(this).closest('.b1').next().children().length==0){
+						JH.load.add($(this).attr('data-href'), $(this).closest('.b1').next(), selectWholeClazz);
+					}
+				}
+			});
+			
+			// 加载时，判断整班级选定状态
+			function selectWholeClazz(b2){
+				var checked = $(b2).prev().find('.c1 .checkbox input').attr('checked');
+				if(checked){
+					$(b2).find('.checkbox').checkbox({checked:true});
+				}else{
+					$(b2).find('.checkbox').checkbox({checked:false});
+				}
+			}
+			
+			// 班级全选
+			$('.itemH').on('click', '#classSelAll', function(){
+				if($(this).attr('checked')){
+					$('.listStu .a4:visible .checkbox').checkbox({checked:true});
+					var num = 0;
+					$('.listStu .a4:visible .b1 .c1 .d1').each(function(i,d){
+						num += parseInt($(this).text());
+					})
+					$('#studentNum').text(num);
+				}else{
+					$('.listStu .a4:visible .checkbox').checkbox({checked:false});
+					$('#studentNum').text(0);
+				}
+			})
+			
+			// 学生全选
+			$('.listStu').on('click','.a4 .b1 .c1 .checkbox input',function(){
+				if($(this).attr('checked')){
+					$(this).closest('.a4').find('tr:visible .checkbox').checkbox({checked:true});
+				}else{
+					$(this).closest('.a4').find('tr:visible .checkbox').checkbox({checked:false});
+				}
+				var num = 0, allchecked = true;
+				$('.listStu .a4:visible').each(function(){
+					var length = $(this).find('.b2').next().children().length;
+					var checked = $(this).find('.b1 .c1 .checkbox input').attr('checked');
+					if(length==0 && checked){
+						num += parseInt($(this).find('.b1 .c1 .d1').text());
+					}else{
+						num += $(this).find('.b2 .checkbox.active').length;
+					}
+					if(!checked)allchecked = false;
+				})
+				$('#studentNum').text(num);
+				if(allchecked){
+					$('#classSelAll').closest('.checkbox').checkbox({checked:true});
+				}else{
+					$('#classSelAll').closest('.checkbox').checkbox({checked:false});
+				}
+			})
+			
+			// 学生单个选择
+			$('.listStu').on('click','.a4 .b2 .checkbox input',function(){
+				var num = parseInt($('#studentNum').text());
+				if($(this).attr('checked')){
+					num += 1;
+				}else{
+					num -= 1;
+				}
+				$('#studentNum').text(num);
+				
+				var b1_num = parseInt($(this).closest('.a4').find('.b1 .c1 .d1').text());
+				var b2_num = $(this).closest('.a4').find('tr:visible .checkbox.active').length;
+				if(b2_num < b1_num){
+					$(this).closest('.a4').find('.b1 .c1 .checkbox').checkbox({checked:false});
+				}else{
+					$(this).closest('.a4').find('.b1 .c1 .checkbox').checkbox({checked:true});
+				}
+				var allchecked = true;
+				$('.listStu .a4:visible').each(function(){
+					var checked = $(this).find('.b1 .c1 .checkbox input').attr('checked');
+					if(!checked)allchecked = false;
+				});
+				if(allchecked){
+					$('#classSelAll').closest('.checkbox').checkbox({checked:true});
+				}else{
+					$('#classSelAll').closest('.checkbox').checkbox({checked:false});
+				}
+			})
+			
+			// 调班
+			$('#classChange').on('click',function(){  
+				
+				var classId = $('#toClass').val();
+				if(classId == ''){
+					$.alert({title:'请选择班级！'});
+					return false;
+				}
+				if($('.listStu .a4 .checkbox input:checked').length == 0){
+					$.alert({title:'您还未选择学生！'});
+					return false;
+				}
+				
+				var cidStr = '', sidStr = '';
+				$('.listStu .a4:visible').each(function(){
+					if(!$(this).hasClass('q') && 
+						$(this).find('.b1 .checkbox input').attr('checked')){
+						cidStr += $(this).attr('cid') + ',';
+					}else{
+						$(this).find('.b2 tr:visible').each(function(){
+							if($(this).find('.checkbox input').attr('checked')){
+								sidStr += $(this).attr('sid') + ',';
+							}
+						});
+					}
+				})
+				if(cidStr != '')cidStr = cidStr.substr(0, cidStr.length-1);
+				if(sidStr != '')sidStr = sidStr.substr(0, sidStr.length-1);
+				
+				// 上送后台请求
 				$.ajax({
-					type: 'GET',
-					url: '${ufbDomain}/school/class_list.ajax',
-					data:'typeid='+typeid,
+					type: "POST",
+					url: '${ufbDomain}/school/student_adjustAction.ajax',
+					data:'toCid='+classId+'&cidStr='+cidStr+'&sidStr='+sidStr,
 					async:false,
 					success: function(data){
 						var json = $.parseJSON(data);
 						if(json.errCode=='0000'){
-							clazzList = json.clazzList;
+							$.alert({title:'调班成功！'});
+							location.reload();
 						}else{
 							$.alert({title:json.errMsg});
 						}
@@ -159,114 +326,74 @@
 						$.alert({title:'系统出现异常！'});
 					}
 				});
-				
-				if(clazzList == undefined){
-					return false;
-				}
-				
 			})
-			$('.inputText').inputText();
-			//end
 			
-			//查询按钮
-			$('.itemH .a2 .btnA').on('click',function(e){
-				e.preventDefault();
-				$.loadPage($('.itemH .a1 .b2 .c1 a.active').attr('href')+'?name='+$('.itemH .a2 input').val(),'target');
-			})
-			//end
-			
-			$('.itemH .a3 .b1 .c1').on('click',function(){//批量导入，调班切换
-				$(this).addClass('active').siblings().removeClass('active');
-				$('.itemH .a3 .b2 .tabCon').eq($(this).index()-1).show().siblings().hide();
-			});
-				
-			$('.select').selectMenu();	
-				
-			$('.itemH').on('click','.a4 .b1 .c2',function(){//查看班级详情
-				if($(this).hasClass('active')){
-					$(this).removeClass('active');
-					$(this).closest('.b1').next().hide();
-				}else{
-					$(this).addClass('active');
-					$(this).closest('.b1').next().show();
-					if($(this).closest('.b1').next().children().length==0){
-						JH.load.add($(this).attr('data-href'),$(this).closest('.b1').next());
+			function inClazz(cid, stuList){
+				for(var i = 0; i < stuList.length; i++){
+					if(stuList[i].cid == cid){
+						return true;
 					}
 				}
-			});
+				return false;
+			}
 			
-			
-			$('.itemH').on('click','#classSelAll',function(){//班级全选
-				if($(this).attr('checked')){
-					$('.itemH .b1 .c1 .checkbox').checkbox({checked:true});
-					$('.itemH .b2 .checkbox').checkbox({checked:true});
-					var num = 0;
-					$('.itemH .b1 .c1 .d1').each(function(i,d){
-						num += parseInt($(this).text());
-					})
-					$('#studentNum').text(num);
-				}else{
-					$('.itemH .b1 .c1 .checkbox').checkbox({checked:false});
-					$('.itemH .b2 .checkbox').checkbox({checked:false});
-					$('#studentNum').text(0);
+			function inStudent(sid, stuList){
+				for(var i = 0; i < stuList.length; i++){
+					if(stuList[i].sid == sid){
+						return true;
+					}
 				}
-			})
+				return false;
+			}
 			
-			$('.itemH').on('click','.a4 .b1 .c1 .checkbox input',function(){//学生全选
-				if($(this).attr('checked')){
-					$(this).closest('.a4').find('.b2 .checkbox').checkbox({checked:true});
-				}else{
-					$(this).closest('.a4').find('.b2 .checkbox').checkbox({checked:false});
-				}
-				var num = 0;
-				$('.itemH .a4 .b1 .c1 .checkbox.active').next('.d1').each(function(i,d){
-					num += parseInt($(this).text());
-				})
-				$('#studentNum').text(num);
-			})
-			
-			$('.itemH').on('click','.a4 .b2 .checkbox input',function(){//学生单个选择
-				$('#studentNum').text($('.itemH .a4 .b2 .checkbox input:checked').length);
-			})
-			
-			$('#classChange').on('click',function(){//调班 action/studentChangeClass.html 返回 {"state":"success"}|{"state":"error"}
-				if($('.itemH .a4 .checkbox input:checked').length>0){
-					var className = $('#class').val();
-					$('#formClass').ajaxSubmit({
-						data: {
-							'class': className
-						},
-						success: function(data){
-							var json = $.parseJSON(data);
-							//$.alert({title:data});
-							if(json.state=='success'){
-								$.alert({title:'调班成功！'});
-								$.loadPage($('.itemH .a1 .b2 .c1 a.active').attr('href'),'target');//新增成功后刷新页面。
-								$('#studentNum').text(0);
-								$('#classSelAll').parent().checkbox({active:false});
-							}else if(json.state=='error'){
-								$.alert({title:'调班失败，请重试！'});
-							}
-						}
-					});
-				}else{
-					$.alert({title:'您还未选择学生！'});
-				}
-			})
-			
-			$('#templateUpload').on('change',function(){//导入模版
-				$.alert({title:'正在导入，请稍等...'});
-				$('#formTemplate').ajaxSubmit({
+			function search_student(queryStr){
+				var result = [];
+				$.ajax({
+					type: "POST",
+					url: '${ufbDomain}/school/student_search.ajax',
+					data:'name='+queryStr,
+					async:false,
 					success: function(data){
 						var json = $.parseJSON(data);
-						if(json.state=='success'){
-							$.alert({title:'导入成功！'});
-						}else if(json.state=='error'){
-							$.alert({title:'导入失败，请重试！'});
+						if(json.errCode=='0000'){
+							result = json.students;
+						}else{
+							$.alert({title:json.errMsg});
 						}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						$.alert({title:'系统出现异常！'});
 					}
 				});
-			})
+				return result;
+			}
+			
+			// 数据重置和样式还原
+			function toOriginPage(){
+				// 头部班级列表
+				$('.groupStep p span').removeClass('selected');
+			
+				// 复选框
+				$('#studentNum').text(0);
+				$('.checkbox').checkbox({active:false});
+				
+				// 底部班级列表  --- 应对搜索后的处理
+				$('.listStu .a4.q').each(function(){
+					var num = $(this).find('.b2 tr').length -1;
+					$(this).find('.b1 .c1 .d1').text(num);
+				});
+				$('.listStu .a4.q').removeClass('q');
+				$('.listStu tr.q').removeClass('q');
+				// 隐藏部分展示
+				$('.listStu .a4:hidden').show();
+				$('.listStu tr:hidden').show();
+				$('.listStu .a4 .b1 .c2').each(function(){
+					if($(this).hasClass('active')){
+						$(this).removeClass('active');
+						$(this).closest('.b1').next().hide();
+					}
+				});
+			}
 		</script>
 		<!--结束 本页面JS-->
 	</section>
