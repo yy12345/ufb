@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 资产总览 - 详情页</title>
+</head>
+<body>
+<div class="container center">
+<!--
+    <div class="header">
+        <div class="inner clearfix rel">
+            <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+            <div class="nav"><a href="index.html">首页</a>|<a class="current" href="centerClose.html">资产总览</a>|<a href="settingAccount.html">账户管理</a>|<a href="helpNotice.html">帮助中心</a><span class="member" href="javascript:;"><i class="trans icon"></i>啥<a href="javascript:;" class="trans out">安全退出</a></span></div>
+        </div>
+    </div>
+-->
+ <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+				<div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="${staticDomain}/family/session.htm">我的账户</a>
+				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
+				<a href="#">缴费明细</a>
+				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
+			</div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="inner clearfix">
+            <div class="title clearfix">
+                <h2 class="title-main fl">交易详情</h2><a href="javascript:;" class="e-bill fr">电子对账单</a>
+            </div>
+		<form id="form-detail" class="common-form" action="${ufbDomain}/trade/query_detail.htm" method="post">
+		<input id="tradeacco" name="tradeacco" value="${TradeRequest.tradeacco}" type="hidden"/>
+		<input id="oldserialno" name="oldserialno" value="${TradeRequest.serialno}" type="hidden"/>
+		<input id="fundcode" name="fundcode" value="${TradeRequest.fundcode}" type="hidden"/>
+
+            <div class="bill-detail">
+                <div class="clearfix">
+                    <div class="detail-info fl">
+                        <table width="480">
+                            <tr><td width="50%"><label>流水号：</label>${TradeRequest.serialno}</td>
+								<td>金额<span>
+									#if(${TradeRequest.apkind}=="022")
+									${TradeRequest.appamt}元
+									#end
+									#if(${TradeRequest.apkind}=="023")
+									${TradeRequest.appvol}元
+									#end
+								</span></td>
+							</tr>
+                            <tr><td><label>交易状态：</label>
+									<span class="txtLeft">
+										#if(${TradeRequest.state}=="I")处理中
+    									#elseif(${TradeRequest.state}=="F")失败
+    									#elseif(${TradeRequest.state}=="Y")成功
+    									#end
+									</span></td>
+								<td>类型<span>
+										#if(${TradeRequest.apkind}=="022")充值
+    									#elseif(${TradeRequest.apkind}=="023")普通取现
+    									#elseif(${TradeRequest.apkind}=="024")快速取现
+    									#end
+								</span></td></tr>
+                            <tr><td>&nbsp;</td><td>
+									<img src="${staticDomain}/static/family/images/bank_${TradeRequest.bankno}.png">
+										尾号：
+										#set($tailStr=${TradeRequest.bankacco})
+										#set($start=$tailStr.length() - 4)
+										#set($end=$tailStr.length())
+										$tailStr.substring($start,$end)
+								</td></tr>
+                        </table>
+                    </div>
+                    <div class="detail-process fr">
+                        <div class="process-line process-fail">
+                            <div class="moving-line"></div>
+                            <div class="process-point point-start">
+                                <div class="point-text">
+								    #if(${TradeRequest.apkind}=="022")充值
+    								#elseif(${TradeRequest.apkind}=="023")普通取现
+    								#end
+									<br>
+									#set($appdate=${TradeRequest.appdate})
+									$appdate.substring(0,4)-$appdate.substring(4,6)-$appdate.substring(6,8)
+								</div>
+                            </div>
+                            <div class="process-point point-end">
+                                <div class="point-text">基金公司到账<br>
+								#set($workday=${TradeRequest.workday})
+									$workday.substring(0,4)-$workday.substring(4,6)-$workday.substring(6,8)
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				#if(${TradeRequest.apkind}=="023")
+				<ul>
+				<li>
+                    <span class="form-title">交易密码</span>
+                    <input id="tradePwd" name="tradePwd" class="input-text" maxlength="20" type="password" value="">
+					<a class="find" href="${staticDomain}/setting/settingPassword.htm">忘记密码?</a>
+                    <span class="tips-normal"></span>
+                    <span id="tradePwdTips" class="tips-check"><i class="icon"></i>验证提示</span>
+                </li>
+				</ul>
+				#end
+                <div class="detail-btn clearfix">
+                    <a href="${staticDomain}/family/query_index.htm" class="btn off fl">返回</a>
+					#if(${TradeRequest.apkind}=="023")
+                    <a href="javascript:;" class="btn fl" id="btn-cancel">撤单</a>
+					#end
+                </div>
+            </div>
+        </div>
+    </div>
+	</form>
+	    <div class="footer footer-simple">
+    <div class="inner clearfix">
+        <div class="logo fl">
+            <img src="${staticDomain}/static/family/images/logo_130x55.png">
+        </div>
+        <div class="info fl">
+            <ul class="list">
+                <li>微信服务号：UFUfund</li>
+                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                <li>海富通产品：400-8840-099</li>
+            </ul>
+        </div>
+        <div class="copyright fr">
+            <ul class="list">
+                <li>幼富通版权所有 ©2014</li>
+                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<script src="${staticDomain}/static/family/scripts/load.js"></script>
+<script src="${staticDomain}/static/family/scripts/register.js"></script>
+<script>
+$(function(){
+
+	// 覆盖register.js验证
+	var check_pwd1 = function (ipt) {
+		var value = ipt.val();
+        if (value == "") {
+        	showTips(ipt, "密码不能为空");
+			return false;
+        }
+        var regex1 = /\s+/;
+        if (regex1.test(value)) {
+            showTips(ipt, "密码中不允许有空格");
+			return false;
+        }
+		
+		showTips(ipt, 0);
+		return true;
+	}
+	
+	$("#tradePwd").on("blur", function() {
+		check_pwd1($("#tradePwd"));
+    });
+		
+	$("#btn-cancel").on("click",function(){
+		if(!check_pwd1($("#tradePwd"))){
+			return false;
+		}
+		$("#form-detail").attr("action", "../family/cancel_result.htm");
+		$("#form-detail").submit();
+	});
+	
+	$(".link").on("click",function(){
+		$("#serialno").val($(this).attr("serialno"));
+		$("#form-index").attr("action", "../family/query_detail.htm");
+		$("#form-index").submit();
+	});
+});
+</script>
+</body>
+</html>

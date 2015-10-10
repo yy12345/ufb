@@ -36,7 +36,33 @@ public class Bankcardinfo extends PrintableModel  implements Serializable {
 									// current_timestamp on u
 	
 	private String bankmobile;
+	private String bankprovincenm;
+	private String bankcitynm;
+	private String bankadd; // 支行网点
 	
+	public String getBankprovincenm() {
+		return bankprovincenm;
+	}
+
+	public void setBankprovincenm(String bankprovincenm) {
+		this.bankprovincenm = bankprovincenm;
+	}
+
+	public String getBankcitynm() {
+		return bankcitynm;
+	}
+
+	public void setBankcitynm(String bankcitynm) {
+		this.bankcitynm = bankcitynm;
+	}
+
+	public String getBankadd() {
+		return bankadd;
+	}
+
+	public void setBankadd(String bankadd) {
+		this.bankadd = bankadd;
+	}
 	public String getBankmobile() {
 		return bankmobile;
 	}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 资产总览 - 取现</title>
+</head>
+<body>
+<div class="container center">
+<!--
+    <div class="header">
+        <div class="inner clearfix rel">
+            <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
+            <div class="nav"><a href="index.html">首页</a>|<a class="current" href="centerClose.html">资产总览</a>|<a href="settingAccount.html">账户管理</a>|<a href="helpNotice.html">帮助中心</a><span class="member" href="javascript:;"><i class="trans icon"></i>啥<a href="javascript:;" class="trans out">安全退出</a></span></div>
+        </div>
+    </div>
+--> 
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+				<div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="${staticDomain}/family/session.htm">我的账户</a>
+				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
+				<a href="#">缴费明细</a>
+				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
+			</div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="inner clearfix">
+            <div class="title clearfix">
+                <h2 class="title-main fl">资产总览 | 取现</h2>
+            </div>
+            <div class="notice">
+             <i class="v2_1"></i><p>公告：15:00前转入资金（以支付成功时间为准），第二个工作日确认份额，收益将在确认后次日发放，15:00后转入资金顺延1个工作日发放收益。双休日及国家法定假期，基金公司不进行份额确认。
+             </p>
+             </div>
+            <div class="date-line">
+                <div class="line-point point-left">
+                    <div class="point-icon"></div>
+                    <div class="point-text">
+                        <div class="text-name">取现日期</div>
+                        <div class="text-date">${today}</div>
+                    </div>
+                </div>
+                <div class="line-point point-right">
+                    <div class="point-icon"></div>
+                    <div class="point-text">
+                        <div class="text-name">计算收益</div>
+                        <div class="text-date">${nextWorkDay}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-cash">
+                <form class="common-form" action="${ufbDomain}/family/cash_result.htm" method="post">
+					${refreshTools.genInputHtml()}
+					<input id="tradeacco" name="tradeacco" value="${card.tradeacco}" type="hidden"/>
+					<input id="cardAvailable" name="cardAvailable" value="${card.available}" type="hidden"/>
+					<input id="cardRealAvailable" name="cardRealAvailable" value="${card.realavailable}" type="hidden"/>
+                    <ul>
+                        <li>
+                            <span class="form-title">总资产</span>
+                            <div class="mark">${totalDisplay}元</div>
+							  <i id="total" style="display:none">${total}</i>
+                        </li>
+                        <li class="clearfix zIndex">
+                            <span class="form-title">银行选择</span>
+                            <div class="input-select">
+                                <div class="card card-current">
+                                   #set($tailStr=$card.bankacco)
+								   #set($start=$tailStr.length() - 4)
+								   #set($end=$tailStr.length())
+                                <img src="${staticDomain}/static/family/images/bank_${card.bankno}.png">
+                                    <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
+                                </div>
+                                <div class="input-options">
+                                    <div class="card-list clearfix">
+									#foreach($c in $cardList)
+                                    <a class="card" href="javascript:;"
+										cardTradeacco="${c.tradeacco}" cardAvailable="${c.available}" cardRealAvailable="${c.realavailable}">
+										#set($tailStr=$c.bankacco)
+										#set($start=$tailStr.length() - 4)
+										#set($end=$tailStr.length())
+										<img src="${staticDomain}/static/family/images/bank_${c.bankno}.png">
+                                        <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
+                                    </a>
+								   	#end
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="tips-normal"></span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">可用金额</span>
+                            <div id="mark" class="mark">${cardAvailableDisplay}元
+							</div>
+							<div id="realmark" class="mark" style="display:none">
+								<font id="cardRealAvailableDisplay" >${cardRealAvailableDisplay}</font>元
+							</div>
+                        </li>
+                        <li>
+                            <span class="form-title">取现金额</span>
+                            <input class="ipt-cash input-text" id="appvol" name="appvol"  maxlength="11" type="text" value=""><span style="margin-right: 20px;">元</span>
+                            <span class="tips-normal"></span>
+                            <span id="appvolTips" class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">交易密码</span>
+                            <input class="ipt-password1 input-text" id="tradePwd" name="tradePwd" type="password" maxlength="20" value=""><a class="find hoverLine" href="${staticDomain}/setting/settingPassword.htm">忘记密码?</a>
+                            <span class="tips-normal"></span>
+                            <span id="tradePwdTips" class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <input id="submit" class="input-button ok" type="submit" value="取&nbsp;现">
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="footer footer-simple">
+    <div class="inner clearfix">
+        <div class="logo fl">
+            <img src="${staticDomain}/static/family/images/logo_130x55.png">
+        </div>
+        <div class="info fl">
+            <ul class="list">
+                <li>微信服务号：UFUfund</li>
+                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                <li>海富通产品：400-8840-099</li>
+            </ul>
+        </div>
+        <div class="copyright fr">
+            <ul class="list">
+                <li>幼富通版权所有 ©2014</li>
+                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<script src="${staticDomain}/static/family/scripts/load.js"></script>
+<script src="${staticDomain}/static/family/scripts/register.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".body .notice .v2_1").click(function(){
+            $(".body .notice").hide();
+        });
+    });
+</script>
+<script type="text/javascript">
+	$(function(){
+	
+		// 覆盖register.js验证
+		var check_pwd1 = function (ipt) {
+			var value = ipt.val();
+            if (value == "") {
+            	showTips(ipt, "密码不能为空");
+				return false;
+            }
+            var regex1 = /\s+/;
+            if (regex1.test(value)) {
+                showTips(ipt, "密码中不允许有空格");
+				return false;
+            }
+			
+			showTips(ipt, 0);
+			return true;
+		}
+		
+		// 增加安全中心验证
+		$(".ipt-cash").on("blur", function() {
+			var apkind = $("input[type=radio]:checked").val();
+			if(apkind == "023"){
+    			if($("#appvol").val() - $("#cardAvailable").val() > 0){
+    				showTips($("#appvol"), "取现金额大于本卡可取金额！");
+    				return false;
+    			}
+			}else if(apkind == "024"){
+				if($("#appvol").val() - $("#cardRealAvailable").val() > 0){
+					showTips($("#appvol"), "快取取现金额大于本卡可取金额！");
+					return false;
+				}
+			}else{
+			
+			}
+        });
+		
+		$("#tradePwd").on("blur", function() {
+			check_pwd1($("#tradePwd"));
+        });
+		
+		// 金额表单控制
+		$("#appvol").on("blur", function(){
+			var appvol = formatCurrency1($("#appvol").val());
+			if(appvol == '0.00'){
+				$("#appvol").val('');
+				showTips($(this), "请输入正确格式的金额，比如1000.00！");
+				//$("#appvolTips").html('请输入正确格式的金额，比如1000.00！');
+				//$("#appvolTips").show();
+			}else{
+				$("#appvol").val(appvol);
+			}
+		});
+		
+		// 点击银行卡
+		$(".card").on("click", function(){
+			$("#tradeacco").val($(this).attr("cardTradeacco"));
+			$("#cardAvailable").val($(this).attr("cardAvailable"));
+			$("#cardAvailableDisplay").html(formatCurrency2($(this).attr("cardAvailable")));
+			$("#cardRealAvailable").val($(this).attr("cardRealAvailable"));
+			$("#cardRealAvailableDisplay").html(formatCurrency2($(this).attr("cardRealAvailable")));
+		});
+		
+		// 表单提交时，验证	
+		$("#submit").on("click", function(){
+			if(!check_cash($("#appvol"))){
+				return false;
+			}
+			if(!check_pwd1($("#tradePwd"))){
+				return false;
+			}
+			var apkind = $("input[type=radio]:checked").val();
+			if(apkind == "023"){
+    			if($("#appvol").val() - $("#cardAvailable").val() > 0){
+    				showTips($("#appvol"), "取现金额大于本卡可取金额！");
+    				return false;
+    			}
+			}else if(apkind == "024"){
+				if($("#appvol").val() - $("#cardRealAvailable").val() > 0){
+					showTips($("#appvol"), "快取取现金额大于本卡可取金额！");
+					return false;
+				}
+			}else{
+			
+			}
+		});
+		
+	});
+</script>
+</body>
+</html>

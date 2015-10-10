@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 资产总览 - 资金明细</title>
+   
+</head>
+<body>
+<div class="container center">
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+				<div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="${staticDomain}/family/session.htm">我的账户</a>
+				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
+				<a href="#">缴费明细</a>
+				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
+			</div>
+        </div>
+    </div>
+    <div class="body">
+		<form id="form-index" action="${staticDomain}/family/query_index.htm">
+		<input type="hidden" id="appdateindex" name="appdateindex" value="${TradeQueryVo.appdateindex}">
+		<input type="hidden" id="appcateindex" name="appcateindex" value="${TradeQueryVo.appcateindex}">
+		<input type="hidden" id="apptypeindex" name="apptypeindex" value="${TradeQueryVo.apptypeindex}">
+		<input type="hidden" id="serialno" name="serialno" value="">
+		
+        <div class="inner clearfix">
+            <div class="title clearfix">
+                <h2 class="title-main fl">资金明细</h2><a href="javascript:;" class="e-bill fr">电子对账单</a>
+            </div>
+            <div class="bill-header clearfix">
+                <ul class="search-con fl">
+                    <li class="search-item item-date"><span class="item-title">起止日期</span>
+                        <div>
+                            <label class="datepicker"><input type="text" value="${TradeQueryVo.startappdate}"></label> 
+                            <span style="margin:0 15px;">--</span>
+                            <label class="datepicker"><input type="text" value="${TradeQueryVo.endappdate}"></label>
+                            <a class="on" href="javascript:;" index="0">今天</a>
+							<a class="on" href="javascript:;" index="1">最近1个月</a>
+							<a class="on" href="javascript:;" index="2">最近3个月</a>
+							<a class="on" href="javascript:;" index="3">1年</a>
+                       </div>
+                    </li>
+                    <li class="search-item item-cate"><span class="item-title">交易类型</span>
+                        <div class="clearfix">
+							<a href="javascript:;" class="on" index="0">全部</a>
+							<a class="on" href="javascript:;" index="1">转入</a>
+							<a class="on" href="javascript:;" index="2">转出</a>
+							<a class="on" href="javascript:;" index="3">其他</a>
+						</div>
+                    </li>
+                    <li class="search-item item-type"><span class="item-title">交易状态</span>
+                        <div class="clearfix">
+							<a href="javascript:;" class="on" index="0">全部</a>
+							<a class="on" href="javascript:;" index="1">处理中</a>
+							<a class="on" href="javascript:;" index="2">成功</a>
+							<a class="on" href="javascript:;" index="3">失败</a>
+							<input id="btn-search" class="input-button ok" type="button" value="查&nbsp;询">
+						</div>
+                    </li>
+                </ul>
+                <div class="total fr">
+                    <div class="name">总金额</div>
+                    <div class="value-big">#if(${total}) $!{total} #else 0.0 #end</div>
+                </div>
+            </div>
+            <div class="bill-list">
+                <table width="100%">
+                    <thead>
+                    <tr>
+                        <td width="180" class="tc">时间</td>
+                        <td width="100" class="tc">交易类型</td>
+                        <td class="tc">金额</td>
+                        <td width="100" class="tc">交易状态</td>
+                        <td width="180" class="tc">银行卡</td>
+                        <td width="80" class="tc">操作</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+						
+				    #foreach($tradeRequest in $listIn)
+                <tr>
+                    <td class="tc">
+						#set($appdate=${tradeRequest.appdate})
+						$appdate.substring(0,4)/$appdate.substring(4,6)/$appdate.substring(6,8)
+						#set($apptime=${tradeRequest.apptime})
+						$apptime.substring(0,2):$apptime.substring(2,4)
+					</td>
+                    <td class="tc">
+					#if(${tradeRequest.apkind}=="022")
+						充值
+					#elseif(${tradeRequest.apkind}=="023")
+						取现
+					#elseif(${tradeRequest.apkind}=="024")
+						快取
+					#end
+					</td>
+                    <td class="tc">
+					#if(${tradeRequest.appamt})
+						+${tradeRequest.appamt}
+					#else
+						-${tradeRequest.appvol}
+					#end
+					</td>
+                    <td class="tc">
+					#if(${tradeRequest.state}=="I")
+						处理中
+					#elseif(${tradeRequest.state}=="F")	
+						失败
+					#else	
+						成功
+					#end
+					</td>
+                    <td class="tc">
+					#set($tailStr=${tradeRequest.bankacco})
+					#set($start=$tailStr.length() - 4)
+					#set($end=$tailStr.length())
+					${tradeRequest.banknm}（尾号$tailStr.substring($start,$end)）	
+					</td>
+                    <td class="tc"><a serialno="${tradeRequest.serialno}" class="link" href="javascript:;">查看</a></td>
+                </tr>
+				#end
+						
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="footer footer-simple">
+    <div class="inner clearfix">
+        <div class="logo fl">
+            <img src="${staticDomain}/static/family/images/logo_130x55.png">
+        </div>
+        <div class="info fl">
+            <ul class="list">
+                <li>微信服务号：UFUfund</li>
+                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                <li>海富通产品：400-8840-099</li>
+            </ul>
+        </div>
+        <div class="copyright fr">
+            <ul class="list">
+                <li>幼富通版权所有 ©2014</li>
+                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<script src="${staticDomain}/static/family/scripts/load.js"></script>
+<script src="${staticDomain}/static/family/scripts/register.js"></script>
+<!--日历-->
+    <script type="text/javascript">
+        $('nav a:eq(1)').addClass('active');
+        $(".datepicker input").datepicker({
+            showOn: "button",
+            buttonImage: "${staticDomain}/static/family/images/calendar.png",
+            buttonImageOnly: true
+        });
+        $('.select').selectMenu();
+        $('.checkbox').checkbox();
+        $('.itemL .a5 tr:even td').css({'background':'#eaf4f8'});
+        $('.itemL .a5 tr:odd td').css({'background':'#fff'});
+    </script>
+	<script>
+$(function(){
+
+	$(".search-con a").removeClass("on");
+	#if(${TradeQueryVo.appdateindex})
+		$(".item-date a:eq(${TradeQueryVo.appdateindex})").addClass("on");
+	#else
+		$(".item-date a:eq(0)").addClass("on");
+	#end
+
+	#if(${TradeQueryVo.appcateindex})
+		$(".item-cate a:eq(${TradeQueryVo.appcateindex})").addClass("on");
+	#else
+		$(".item-cate a:eq(0)").addClass("on");
+	#end
+
+	#if(${TradeQueryVo.apptypeindex})
+		$(".item-type a:eq(${TradeQueryVo.apptypeindex})").addClass("on");
+	#else
+		$(".item-type a:eq(0)").addClass("on");
+	#end
+	
+	$(".item-date a").on("click",function(){
+		$(".item-date a").removeClass("on");
+		$(this).addClass("on");
+		$("#appdateindex").val($(this).attr("index"));
+	});
+	
+	$(".item-cate a").on("click",function(){
+		$(".item-cate a").removeClass("on");
+		$(this).addClass("on");
+		$("#appcateindex").val($(this).attr("index"));
+	});
+	
+	$(".item-type a").on("click",function(){
+		$(".item-type a").removeClass("on");
+		$(this).addClass("on");
+		$("#apptypeindex").val($(this).attr("index"));
+	});
+	
+	$("#btn-search").on("click",function(){
+		$("#form-index").submit();
+	});
+	
+	$(".link").on("click",function(){
+		$("#serialno").val($(this).attr("serialno"));
+		$("#form-index").attr("action", "../family/query_detail.htm");
+		$("#form-index").submit();
+	});
+});
+</script>
+</body>
+</html>

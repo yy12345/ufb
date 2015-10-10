@@ -8,4 +8,11 @@ import lombok.Data;
 public class StudentVo extends Student{
 
 	private String orgid;
+//	private String name;
+//	private String sex;
+//	private String birthday;
+//	private String p1name;
+//	private String p1mobile;
+	private String organization;
+//	private String orgid;
 }

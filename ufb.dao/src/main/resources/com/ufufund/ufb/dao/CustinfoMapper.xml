@@ -236,7 +236,16 @@
 	     WHERE T1.custno = #{custno,jdbcType=VARCHAR}
 	</update>
    
- 
+    <select id="queryStudentsByCustno" parameterType="String" resultType="Student">
+    	select * from  student t where p_custno=#{custno,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="queryOrgsByCid" parameterType="String" resultType="StudentVo">
+    	SELECT u.organization 
+    	FROM clazz c 
+    	join custinfo u on c.orgid=u.custno 
+    	 where cid=#{cid,jdbcType=VARCHAR}
+    </select>
 	
 </mapper>
 

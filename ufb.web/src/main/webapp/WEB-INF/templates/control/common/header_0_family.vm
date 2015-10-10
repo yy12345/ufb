@@ -1,0 +1,68 @@
+<div id="header">
+	#if ($S_CUSTINFO)
+	<div class="topNav">
+		<div class="container">
+			<div class="b1">
+			#if(${S_CUSTINFO.invtp} == "0")
+			<a href="#">机构版</a>
+			<a href="#" class="active">家庭版</a>
+			#end
+			#if(${S_CUSTINFO.invtp} == "1")
+			<a href="#" class="active">机构版</a>
+			<a href="#">家庭版</a>
+			#end
+			</div>
+			<div class="b2">
+				<span>
+					#if ($S_CUSTINFO.invnm)
+            			$!{S_CUSTINFO.invnm}
+                    #elseif ($S_CUSTINFO.mobileno)
+            			#set($tailStr=$S_CUSTINFO.mobileno)
+            			#set($start=$tailStr.substring(0,3))
+            			#set($end=$tailStr.substring(7,11))
+            			$start****$end
+            		#else
+						游客
+					#end
+				</span><a href="${staticDomain}/family/settingAccount.htm"></a><i id="logout">退出</i>
+			</div>
+		</div>
+	</div>
+    <div class="container">
+        <a href="${staticDomain}/home/index.htm" class="logo"></a>
+		<div class="nav">
+			<a href="${staticDomain}/cust/session.htm">我的账户</a>
+			<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
+			<a href="#"  >缴费明细</a>
+			<a href="${staticDomain}/family/helpAbout.htm" >帮助中心</a>
+		</div>
+    </div>
+	#else
+	<div class="topNav">
+		<div class="container">
+			<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+			<div class="b3"><a href="${staticDomain}/home/index.htm" id="login">登录</a>丨<a href="${staticDomain}/register/index.htm">注册</a></div>
+		</div>
+	</div>
+    <div class="container">
+        <a href="${staticDomain}/home/index.htm" class="logo"></a>
+		<div class="nav">
+			<a href="#">我的幼富通</a>
+			<a href="#">学费通</a>
+			<a href="#">幼富通</a>
+			<a href="#">短期理财</a>
+			<a href="#">幼富贷</a>
+		</div>
+    </div>
+	#end
+</div>
+<script>
+$(function(){
+	$("#logout").on("click",function(){
+		window.location.href = "${ufbDomain}/cust/logout.htm";
+	});
+	$(".b2>span").on("click",function(){
+		window.location.href = "${staticDomain}/setting/settingAccount.htm";
+	});
+});
+</script>

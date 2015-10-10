@@ -1,10 +1,14 @@
 package com.ufufund.ufb.biz.manager;
 
+import java.util.List;
+
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.db.Student;
+import com.ufufund.ufb.model.vo.StudentVo;
 import com.ufufund.ufb.service.CustInterface;
 
 public interface CustManager extends CustInterface{
@@ -76,5 +80,26 @@ public interface CustManager extends CustInterface{
 //	 * @return 
 //	 */
 //	public void insterCustinfo(Custinfo custinfo) throws Exception;
+	/**
+	 * 验证信息
+	 * @param RegisterAction loginAction
+	 * @return 
+	 */
+	public void validateFamily(RegisterAction loginAction) throws BizException;
+	
+	/**
+	 * 根据用户编号查询学生信息
+	 * @param String custno
+	 * @return 
+	 */
+	public List<Student>  queryStudentsByCustno(String custno) throws BizException;
+	
+	/**
+	 * 根据班级编号查询机构信息
+	 * @param String cid
+	 * @return 
+	 */
+	public StudentVo  queryOrgsByCid(String cid) throws BizException;
+	
 	
 }

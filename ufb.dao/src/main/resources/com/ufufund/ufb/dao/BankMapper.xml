@@ -29,7 +29,11 @@
 									opendt,
 									closedt,
 									disorder,
-									updatetimestamp)
+									updatetimestamp,
+									bankadd,
+									bankcitynm,
+									bankprovincenm
+									)
 		values (
 					#{serialid,jdbcType=VARCHAR},
 					#{custno,jdbcType=VARCHAR},
@@ -51,7 +55,10 @@
                     #{opendt,jdbcType=VARCHAR},
 					#{closedt,jdbcType=VARCHAR},
 					#{disorder,jdbcType=VARCHAR},
-					sysdate()
+					sysdate(),
+					#{bankadd,jdbcType=VARCHAR},
+					#{bankcitynm,jdbcType=VARCHAR},
+					#{bankprovincenm,jdbcType=VARCHAR}
 	    )
 	 ]]>
 	</insert>
@@ -247,5 +254,21 @@
 			sysdate()
 	    )
 	</insert>
+	
+		<delete id="deleteCard" parameterType="String">
+           DELETE
+            FROM 
+            BANKCARDINFO
+            WHERE SERIALID=#{serialid,jdbcType=VARCHAR}
+            AND CUSTNO=#{custno,jdbcType=VARCHAR}
+	    </delete>
+		<delete id="deleteTradeacc" parameterType="String">
+           DELETE
+            FROM 
+            BANKCARDINFO
+            WHERE BANKSERIALID=#{bankserialid,jdbcType=VARCHAR}
+            AND CUSTNO=#{custno,jdbcType=VARCHAR}
+	    </delete>
+
 	
 </mapper>

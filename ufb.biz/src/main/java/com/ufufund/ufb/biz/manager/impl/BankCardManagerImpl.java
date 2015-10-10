@@ -437,4 +437,17 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// **** 变更表
 		tradeNotesMapper.insterChangerecordinfo(changerecordinfo3);
 	}
+
+	/**
+	 * 删除银行卡
+	 */
+	@Override
+	public void deleteCard(String custno, String serialid) {
+		if(null == custno || "".equals(custno)){
+			throw new BizException(this.getProcessId(custno), ErrorInfo.NO_IDCARDNO, BisConst.Register.CUSTNO);
+		}
+		bankCardMapper.deleteCard(custno, serialid);
+		bankCardMapper.deleteTradeacc(custno, serialid);
+		
+	}
 }

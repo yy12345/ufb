@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 帮助中心 - 联系我们</title>
+</head>
+<body>
+<div class="container help">
+     <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+				<div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="${staticDomain}/family/session.htm">我的账户</a>
+				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
+				<a href="#">缴费明细</a>
+				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
+			</div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="inner clearfix">
+            <div class="title">
+                <h2 class="title-main">帮助中心</h2>
+            </div>
+            <div class="side side-nav fl">
+                <ul>
+                    <li><a href="${staticDomain}/family/helpFee.htm"><b class="icon01"></b>缴费退费</a></li>
+                    <li><a href="${staticDomain}/family/helpSecurity.htm"><b class="icon02"></b>安全性</a></li>
+                    <li><a href="${staticDomain}/family/helpBenefits.htm"><b class="icon03"></b>收益</a></li>
+                    <li><a href="${staticDomain}/family/helpCashandPay.htm"><b class="icon04"></b>充值取现</a></li>
+                    <li><a href="${staticDomain}/family/helpQA.htm"><b class="icon05"></b>常见问题汇总</a></li>
+                    <li><a href="${staticDomain}/family/helpAbout.htm"><b class="icon06"></b>关于幼富通</a></li>
+                    <li><a class="current" href="${staticDomain}/family/helpContact.htm"><b class="icon07"></b>联系我们</a></li>
+                </ul>
+            </div>
+            <div class="main fr">
+                <div class="help-content content-contact clearfix">
+                    <div class="qr fl"><img src="${staticDomain}/static/family/images/qr.png"><p class="tc">微信号：UFUfund</p></div>
+                    <div class="contact fl">
+                        <img src="${staticDomain}/static/family/images/logo_header.png" width="130">
+                        <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
+                        <p>海富通产品：400-8840-099</p>
+                        <p>上海幼赋金融信息服务有限公司版权所有</p>
+                        </p> ©2014沪ICP14054347号</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer footer-simple">
+    <div class="inner clearfix">
+        <div class="logo fl">
+            <img src="${staticDomain}/static/family/images/logo_130x55.png">
+        </div>
+        <div class="info fl">
+            <ul class="list">
+                <li>微信服务号：UFUfund</li>
+                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                <li>海富通产品：400-8840-099</li>
+            </ul>
+        </div>
+        <div class="copyright fr">
+            <ul class="list">
+                <li>幼富通版权所有 ©2014</li>
+                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<script src="${staticDomain}/static/family/scripts/load.js"></script>
+</body>
+</html>

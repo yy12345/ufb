@@ -56,6 +56,14 @@ public interface AutotradeManager { // extends CustInterface{
 	 * @return
 	 */
 	public List<Autotrade> getAutotradeList(String custno) throws BizException;
+	/**
+	 * 获取客户的智能交易
+	 * 
+	 * @param String
+	 *            custno
+	 * @return
+	 */
+	public List<Autotrade> getAutotradeCList(String custno) throws BizException;
 
 	/**
 	 * 获取客户的智能交易
@@ -73,5 +81,11 @@ public interface AutotradeManager { // extends CustInterface{
 	 * @return 
 	 */
 	public List<Autotrade> getCashtradeList(String custno) throws BizException;
+	/**
+	 * 删除自动充值业务
+	 * @param String
+	 * @return 
+	 */
+	public void deleteAutotrade(String custno,String frombankserialid,String autoid) throws BizException;
 
 }

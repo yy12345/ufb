@@ -100,6 +100,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**/*.htm" />
 			<mvc:exclude-mapping path="/cust/*.htm" />
+			<mvc:exclude-mapping path="/family/**/*.htm" />
 			<mvc:exclude-mapping path="/family/*.htm" />
 			<mvc:exclude-mapping path="/home/*.htm" />
 			<mvc:exclude-mapping path="/register/*.htm" />

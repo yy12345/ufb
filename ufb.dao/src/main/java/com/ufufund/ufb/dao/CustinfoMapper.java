@@ -1,9 +1,13 @@
 package com.ufufund.ufb.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.ufufund.ufb.common.dao.BaseDao;
 import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.db.Student;
+import com.ufufund.ufb.model.vo.StudentVo;
 
 
 public interface CustinfoMapper extends BaseDao {
@@ -30,7 +34,11 @@ public interface CustinfoMapper extends BaseDao {
 	
 	
 	public void updateCustinfo(Custinfo custinfo);
-	
 	//public String  getCustinfoSequence();
+	
+	public List<Student> queryStudentsByCustno(String custno);
+	
+	public StudentVo  queryOrgsByCid(String cid);
+	
 	
 }

@@ -10,7 +10,8 @@
 		<pattern>/**/*.service</pattern>
 	</excludes>
 
-	<layout page="layout/default_error.vm">
+	<!--  <layout page="layout/default_error.vm">-->
+	<layout page="layout/default_family.vm">
         <pattern>error/404.vm</pattern>
         <pattern>error/500.vm</pattern>
         <pattern>error/*</pattern>
@@ -54,6 +55,15 @@
     <layout page="layout/default_school.vm">
         <pattern>school/*.vm</pattern>
     </layout>
+    
+    <!-- add by ym -->
+    <layout page="layout/default_family.vm">
+        <pattern>family/ufb/*.vm</pattern>
+    </layout>
+    <layout page="layout/default_account.vm">
+        <pattern>family/account/*.vm</pattern>
+    </layout>
+    <!-- -->
     
     <layout page="layout/family.vm" default="true">
         <pattern>family/account.vm</pattern>

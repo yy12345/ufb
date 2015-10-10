@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 账户管理 - 银行卡管理</title>
+	<script>
+$(function(){
+
+	$(".set-main").on("click", function(){
+		if(!confirm("您确定要将你的银行卡设置为主卡吗？")){
+				return false;
+			}
+		$("#bankacco").val($(this).attr("bankacco"));
+		$("#form-settingCard").attr("action", "../family/settingMainCard.htm");
+		$("#form-settingCard").submit();
+	});
+	
+	$(".set-unbind").on("click", function(){
+		if($(this).attr("total")>0 ||
+		   	$(this).attr("available")>0 ||
+		   	$(this).attr("realavailable")>0 ||
+		   	$(this).attr("frozen")>0 ){
+		   	alert("对不起，您的银行卡有资金交易，暂时不能解绑！");
+			return false;
+		}else{
+			if(!confirm("您确定要解绑你的银行卡吗？")){
+				return false;
+			}
+			//$("#bankacco").val($(this).attr("bankacco"));
+			$("#serialid").val($(this).attr("serialid"));
+			//$("#tradeacco").val($(this).attr("tradeacco"));
+			$("#form-settingCard").attr("action", "../family/settingUnbindCard.htm");
+			$("#form-settingCard").submit();
+		}
+	});
+ 
+	$(".set-del").on("click", function(){
+		if($(this).attr("total")>0 ||
+		   	$(this).attr("available")>0 ||
+		   	$(this).attr("realavailable")>0 ||
+		   	$(this).attr("frozen")>0 ){
+		   	alert("对不起，您的银行卡有资金交易，暂时不能删除！");
+			return false;
+		}else{
+			if(!confirm("您确定要删除你的银行卡吗？")){
+				return false;
+			}
+			$("#serialid").val($(this).attr("serialid"));
+			alert($("#serialid").val());
+			$("#form-settingCard").attr("action", "../family/deleteCard.htm");
+			$("#form-settingCard").submit();
+		}
+	});
+ 
+	
+});
+</script>
+</head>
+<body>
+<div class="container setting">
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+				<div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="${staticDomain}/family/session.htm">我的账户</a>
+				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
+				<a href="#">缴费明细</a>
+				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
+			</div>
+        </div>
+    </div>
+    <div class="body">
+		<form id="form-settingCard" action="${ufbDomain}/family/settingCard.htm" method="post">
+    	<input id="bankacco" name="bankacco" value="${bankacco}" type="hidden"/>
+		<input id="serialid" name="serialid" value="${serialid}" type="hidden"/>
+		<input id="tradeacco" name="tradeacco" value="${tradeacco}" type="hidden"/>
+        <div class="inner clearfix">
+            <div class="title">
+                <h2 class="title-main">账户设置</h2>
+            </div>
+            <div class="side side-nav fl">
+                <ul>
+                    <li><a href="${staticDomain}/family/settingAccount.htm"><b class="icon01"></b>账户信息</a></li>
+                    <li><a href="${staticDomain}/family/settingPassword.htm"><b class="icon02"></b>密码设置</a></li>
+                    <li><a  class="current" href="${staticDomain}/family/settingCard.htm"><b class="icon03"></b>银行卡管理</a></li>
+                    <li><a href="${staticDomain}/family/settingAutoFund.htm"><b class="icon04"></b>自动理财设置</a></li>
+                </ul>
+            </div>
+            <div class="main fr">
+                <div class="setting-content content-card">
+                    <div>银行卡信息：<span class="mark">仅支持绑定借记卡进行快捷充值、取现或缴费</span>
+						#if($!{cardList})
+    					<span class="mark">您还没有绑定的银行卡噢</span>
+    					#end
+					</div>
+                    <ul class="card-list clearfix">
+						#foreach($card in $cardList_Y)
+    					#set($tailStr=$card.bankacco)
+    					#set($start=$tailStr.length() - 4)
+    					#set($end=$tailStr.length())
+    					<li class="card 
+    						#if($!{card.mainflag}=="Y")
+    						card-main	
+    						#end
+    						"> 
+                            <div class="card-info">
+    							<img src="${staticDomain}/static/family/images/bank_${card.bankno}.png">
+    							<span>尾号：$tailStr.substring($start,$end)</span>
+    						</div>
+                            <div class="card-setting">
+								<span>*幼富宝</span>
+        							#if($!{card.mainflag}!="Y")
+        							<a bankacco="${card.bankacco}" class="set-main" href="javascript:;">设为主卡</a>
+        							#end
+        							<a bankacco="${card.bankacco}" class="set-unbind" href="javascript:;"
+    									serialid="${card.serialid}"
+    									level="${card.level}"
+    									total="${card.total}"
+    									available="${card.available}"
+    									realavailable="${card.realavailable}"
+    									frozen="${card.frozen}"
+    									>解绑</a>
+    						</div>
+                        </li>
+    					#end
+                        <li class="card card-add cardM3"><a href="${staticDomain}/family/addBankCard.htm">添加银行卡</a></li>
+                    </ul>
+                    <div>已解绑银行卡：</div>
+                    <ul class="card-list clearfix">
+						
+						#foreach($card in $cardList_N)
+    					#set($tailStr=$card.bankacco)
+    					#set($start=$tailStr.length() - 4)
+    					#set($end=$tailStr.length())
+    					<li class="card">
+                            <div class="card-info">
+    							<img src="${staticDomain}/static/family/images/bank_${card.bankno}.png">
+    							<span>尾号：$tailStr.substring($start,$end)</span>
+    						</div>
+                            <div class="card-setting">
+        							<a class="set-bind" bankacco="${card.bankacco}" serialid="${card.serialid}" href="${staticDomain}/family/addBankCard.htm?bankAcco=$tailStr">重新绑定</a>
+									<a class="set-del" bankacco="${card.bankacco}" serialid="${card.serialid}" href="javascript:;">删除</a>
+    						</div>
+                        </li>
+						#end
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+	</form>
+	    <div class="footer footer-simple">
+    <div class="inner clearfix">
+        <div class="logo fl">
+            <img src="${staticDomain}/static/family/images/logo_130x55.png">
+        </div>
+        <div class="info fl">
+            <ul class="list">
+                <li>微信服务号：UFUfund</li>
+                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                <li>海富通产品：400-8840-099</li>
+            </ul>
+        </div>
+        <div class="copyright fr">
+            <ul class="list">
+                <li>幼富通版权所有 ©2014</li>
+                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+<script src="${staticDomain}/static/family/scripts/load.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".setting .card").click(function(){
+            $(this).addClass("card-main").siblings().removeClass("card-main");
+        });
+    });
+</script>
+</body>
+</html>

@@ -68,6 +68,28 @@ public class CustManagerValidator {
 			// 手机号格式错误
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.MOBILE);
 		}
+		//==交易密码
+		if (RegexUtil.isNull(action.getTradepwd())) {
+			// 交易密码为空
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD);
+		}
+		if (!RegexUtil.isPwd(action.getTradepwd())) {
+			// 密码 以字母，数字开头，长度在6-12之间，只能包含字符、数字和下划线。
+			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.TRADEPWD);
+		}
+		if (RegexUtil.isNull(action.getTradepwd2())) {
+			// 确认交易密码为空
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD2);
+		}
+		if (!action.getTradepwd().equals(action.getTradepwd2())) {
+			// 两次密码确认不一致
+			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD2);
+		}
+		if(action.getTradepwd().equals(action.getLoginpwd())){
+			//交易密码与登录密码 一致
+			throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD2);
+		}
+		//====
 		if(Level.ORGANIZATION.equals(action.getInvtp())){
 			// 机构注册
 			if (RegexUtil.isNull(action.getOrgnm())) {
@@ -104,12 +126,13 @@ public class CustManagerValidator {
 		}
 		
 		// 经办人已开户，不要
-		if(!action.isOpenaccoflag()){
+		// TODO
+	/*	if(!action.isOpenaccoflag()){
 			if (custManager.isIdnoRegister(action.getIdno())) {
 				// 经办人idno
 				throw new BizException(action.getProcessId(), ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
 			}
-		}
+		}*/
 	}
 	
 	/**
@@ -171,5 +194,48 @@ public class CustManagerValidator {
 		//if (!RegexUtil.isMobile(action.getMobile())) {
 		//	throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.MOBILE);
 		//}
+		
+	}
+	/**
+	 * 修改家庭版的密码的验证
+	 * @param action
+	 * @throws BizException
+	 */
+	public void validatorFamily(ChangePasswordAction action) throws BizException {
+		String processId = action.getProcessId();
+		if("TRADE".equals(action.getActionType())){
+			if (RegexUtil.isNull(action.getPassword0())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD0);
+			}
+			if (RegexUtil.isNull(action.getPassword1())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD);
+			}
+			if (RegexUtil.isNull(action.getPassword2())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD2);
+			}
+			if (!action.getPassword1().equals(action.getPassword2())) {
+				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD);
+			}
+			if (!RegexUtil.isPwd(action.getPassword1())) {
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.TRADEPWD);
+			}
+		}else if("LOGIN".equals(action.getActionType())){
+			if (RegexUtil.isNull(action.getPassword1())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.LOGINPWD);
+			}
+		}else{
+			if (RegexUtil.isNull(action.getPassword1())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD);
+			}
+			if (RegexUtil.isNull(action.getPassword2())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD2);
+			}
+			if (!action.getPassword1().equals(action.getPassword2())) {
+				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD);
+			}
+			if (!RegexUtil.isPwd(action.getPassword1())) {
+				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.TRADEPWD);
+			}
+		}
 	}
 }

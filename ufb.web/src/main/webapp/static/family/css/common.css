@@ -2747,7 +2747,20 @@ a.link-underline {
 }
 /*common.css中的footer*/
 
-
+/*20151008*/
+.search-con li input.input-button.ok {
+    color: #ffffff;
+    background-color: #CB3849;
+}
+.search-con li .input-button {
+    width: 82px;
+    height: 24px;
+    border: 0;
+    color: #ffffff;
+    background-color: #CB3849;
+    text-align: center;
+    background-color: #b4b4b5;
+}
 
 
 

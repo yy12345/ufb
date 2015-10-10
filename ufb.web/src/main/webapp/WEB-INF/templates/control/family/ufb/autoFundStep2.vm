@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 预览自动充值计划</title>
+<script>
+$(function(){
+
+	//$("#container").removeClass("setting");
+
+	// 表单提交时，验证	
+	$("#next-step").on("click", function(){
+		if(!check_cash($("#autoamt"))){
+			return false;
+		}
+		if(!check_pwd1($("#tradepwd"))){
+			return false;
+		}
+		$("#form-autoTrade-result").attr("action","../family/autoTrade_result.htm");
+		$("#form-autoTrade-result").submit();
+	});
+	
+	// 上一页
+	$("#btn-autoTrade-add").on("click",function(){
+		$("#form-autoTrade-result").attr("action", "../family/autoTrade_add.htm");
+		$("#form-autoTrade-result").submit();
+	});
+});
+</script>
+</head>
+
+<body>
+<div class="container">
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+				<div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="${staticDomain}/family/session.htm">我的账户</a>
+				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
+				<a href="#">缴费明细</a>
+				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
+			</div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="inner container-step">
+            <div class="step-title clearfix">自动充值设置<a class="link hoverLine fr" href="settingAutoFund.htm">&lt;&lt;自动充值设置</a></div>
+            <div class="step-tabs tabs-step2 clearfix">
+                <a class="tab fl" href="javascript:;">自动充值</a>
+                <a class="tab fl on" href="javascript:;">预览自动充值计划</a>
+                <a class="tab fl" href="javascript:;">开通结果</a>
+            </div>
+            <div class="step-panels">
+                <form class="common-form" id="form-autoTrade-result"  action="${ufbDomain}/family/autoTrade_result.htm" method="post">
+					
+				${refreshTools.genInputHtml()}
+				<input id="custno" name="custno" value="${AutoTradeVo.custno}" type="hidden"/>
+				<input id="frombankserialid" name="frombankserialid" value="${AutoTradeVo.frombankserialid}" type="hidden"/>
+				<input id="frombankno" name="frombankno" value="${AutoTradeVo.frombankno}" type="hidden"/>
+				<input id="frombanktail" name="frombanktail" value="${AutoTradeVo.frombanktail}" type="hidden"/>
+				<input id="tofundcorpno" name="tofundcorpno" value="${AutoTradeVo.tofundcorpno}" type="hidden"/>
+				<input id="tofundcode" name="tofundcode" value="${AutoTradeVo.tofundcode}" type="hidden"/>
+				<input id="tradetype" name="tradetype" value="${AutoTradeVo.tradetype}" type="hidden"/>
+				<input id="tochargetype" name="tochargetype" value="${AutoTradeVo.tochargetype}" type="hidden"/>
+				<input id="type" name="type" value="${AutoTradeVo.type}" type="hidden"/>
+				<input id="cycle" name="cycle" value="${AutoTradeVo.cycle}" type="hidden"/>
+				<input id="dat" name="dat" value="${AutoTradeVo.dat}" type="hidden"/>
+				<input id="nextdate" name="nextdate" value="${AutoTradeVo.nextdate}" type="hidden"/>
+				<input id="autoamt" name="autoamt" value="${AutoTradeVo.autoamt}" type="hidden"/>
+				<input id="summary" name="summary" value="${AutoTradeVo.summary}" type="hidden"/>
+				
+                    <div class="panel">
+                        <ul class="txtAuto width600">
+                            <li>
+                                <span class="form-title">绑定货币基金</span>
+                                <span class="form-text">海富通货币A    代码： 519505</span>
+                            </li>
+                            <li>
+                                <span class="form-title">收费模式</span>
+                                <span class="form-text">0费率</span>
+                            </li>
+                            <li style="height:36px;" class="zIndex">
+                                <span class="form-title">银行选择</span>
+                                <div class="input-select">
+                                <div class="card card-current">
+									#set($tailStr=$curCard.bankacco)
+								   #set($start=$tailStr.length() - 4)
+								   #set($end=$tailStr.length())
+                                    <img src="${staticDomain}/static/family/images/bank_${curCard.bankno}.png">
+                                    <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
+                                </div>
+                                <div class="input-options">
+                                    <div class="card-list clearfix">
+											#foreach($card in $cardList)
+											#set($tailStr=$card.bankacco)
+    										#set($start=$tailStr.length() - 4)
+    										#set($end=$tailStr.length())
+                                        <a class="card" href="javascript:;" 
+    										serialid="${card.serialid}"
+											frombankno="${card.bankno}"
+											frombanktail="$tailStr.substring($start,$end)"
+											>
+    										<img src="${staticDomain}/static/family/images/bank_${card.bankno}.png">
+                                            <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
+                                        </a>
+    									#end
+                                  
+                                    </div>
+                                </div>
+                            </div>
+                            </li>
+                            <li>
+                                <span class="form-title">充值金额</span>
+                                <span class="form-text">${AutoTradeVo.autoamt}元</span>
+                            </li>
+                            <li>
+                                <span class="form-title">充值周期</span>
+                                <span class="form-text">每月${AutoTradeVo.dat}日（遇节假日顺延至下个基金工作日）</span>
+                            </li>
+                            <li>
+                                <span class="form-title">下次充值日期</span>
+                                <span class="form-text">
+									$!{AutoTradeVo.nextdate}
+									<!--#set($str=$AutoTradeVo.nextdate)
+									 $str.substring(0,4)$str.substring(4,6)$str.substring(6,8)-->
+								</span>
+                            </li>
+                            <li>
+                                <span class="form-title">备注</span>
+                                <span class="form-text">${AutoTradeVo.summary}</span>
+                            </li>
+                            <li>
+                                <span class="form-title">交易密码</span>
+                                <input class="ipt-password1 input-text" type="password" id="tradepwd" name="tradepwd"  maxlength="20" value="">
+                                <span class="tips-normal">请填写交易密码</span>
+                                <span id="tradePwdTips" class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li>
+                                <label class="tips">点击下一步表示同意<a class="link" href="javascript:;" id="hft">《海富通货币基金申购赎回协议》</a></label>
+                            </li>
+                            <li class="clearfix">
+                                <a id="btn-autoTrade-add" class="input-button fl" href="#">返回修改</a>
+                                <input id="next-step"  class="input-button ok fl" type="submit" value="下一步">
+                            </li>
+
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="footer footer-simple">
+    <div class="inner clearfix">
+        <div class="logo fl">
+            <img src="${staticDomain}/static/family/images/logo_130x55.png">
+        </div>
+        <div class="info fl">
+            <ul class="list">
+                <li>微信服务号：UFUfund</li>
+                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                <li>海富通产品：400-8840-099</li>
+            </ul>
+        </div>
+        <div class="copyright fr">
+            <ul class="list">
+                <li>幼富通版权所有 ©2014</li>
+                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+            </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----------弹层--start----------->
+<div class="bgBox"></div>	
+	<!-- content block -->
+<div class="layerpop">	
+    <b class="close"></b>
+    <div class="layerTitle">《海富通货币基金申购赎回协议》</div>
+	<div id="content_1" class="content">
+               <h4>《海富通货币基金申购赎回协议》</h4>
+                <p>此处内容通过富文本编辑器进行编辑发布<br>
+个体工商户无组织机构代码（仅支持个体工商户）<br>
+目前仅支持中国大陆企业；<br>
+注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
+
+<p>对公账户填写（个体工商户）<br>
+若个体工商户无对公账户，可填写营业执照上法人的个人银行卡号。<br>
+温馨提示：仅限个体工商户，填写个人银行卡号时需与营业执照上法人保持一致。</p>
+
+<p>对公账户填写（政府类型）<br>
+若政府类型若没有对公账号，可以在“机构开户银行”、“机构银行账号”栏填写“无”。</p>
+
+<p>对公账户填写（企业类型）<br>
+若企业无对公银行帐号，可以填写营业执照上法人的对私银行卡号及姓名。<br>
+温馨提示：<br>
+填写个人银行卡号时需与营业执照上法人保持一致。</p>
+
+<p>对公账户填写（事业单位）
+事业单位如无对公账户，可以使用结算中心或财政账户支付验证（如国库集中收付结算中心等）。</p>  
+                <a href="javascript:;" class="btnKnow closebox">我知道了</a>
+                </div>
+</div>
+<!----------弹层--end----------->
+
+<script src="${staticDomain}/static/family/scripts/load.js"></script>
+<script src="${staticDomain}/static/family/scripts/register.js"></script>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>
+<script type="text/javascript">
+   $(function(){
+       $("#hft").click(function(){
+           $(".layerpop , .bgBox").fadeIn();
+       });
+       $(".layerpop b.close , .layerpop .btnKnow").click(function(){
+           $(".layerpop , .bgBox").fadeOut();
+       });
+   });
+</script>
+<script>
+		(function($){
+			$(window).load(function(){
+				$("#content_1").mCustomScrollbar({
+					theme:"dark", //主题颜色
+					scrollButtons:{
+						enable:true //是否使用上下滚动按钮
+					},
+					autoHideScrollbar: false, //是否自动隐藏滚动条
+					scrollInertia :0,//滚动延迟
+					horizontalScroll : false//水平滚动条
+					
+				});
+					
+			});
+			
+		})(jQuery);
+	
+	</script>
+	<script type="text/javascript">
+    $(function(){
+        $(".input-options .card").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    });
+</script>
+</body>
+</html>

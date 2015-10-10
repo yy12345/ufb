@@ -10,6 +10,8 @@ public class RegisterAction extends CommonAction {
 	private String logincode;
 	private String loginpwd;
 	private String loginpwd2;// 确认密码
+	private String tradepwd;
+	private String tradepwd2;// 确认密码
 	private Invtp invtp = Invtp.PERSONAL; // 用户类型
 	private Level level = Level.PERSONAL;// 级别
 	private String custst;
@@ -32,6 +34,21 @@ public class RegisterAction extends CommonAction {
 		this.logincode = logincode;
 	}
 
+	public String getTradepwd() {
+		return tradepwd;
+	}
+
+	public void setTradepwd(String tradepwd) {
+		this.tradepwd = tradepwd;
+	}
+
+	public String getTradepwd2() {
+		return tradepwd2;
+	}
+
+	public void setTradepwd2(String tradepwd2) {
+		this.tradepwd2 = tradepwd2;
+	}
 	public String getLoginpwd() {
 		return loginpwd;
 	}

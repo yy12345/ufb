@@ -12,10 +12,10 @@
         <div class="container">
             <a href="#" class="logo"></a>
 			<div class="nav">
-				<a href="#" class="active">我的账户</a>
-				<a href="#">幼富宝</a>
+				<a href="${staticDomain}/family/session.htm" class="active">我的账户</a>
+				<a href="${staticDomain}/family/myufb.htm" >幼富宝</a>
 				<a href="#">缴费明细</a>
-				<a href="#">帮助中心</a>
+				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
 			</div>
         </div>
     </div>
@@ -25,9 +25,9 @@
 <!--幼富宝-->
 			<div class="myaccount-top">
                 <p class="fr">
-                    银行卡已添加 <strong class="num-blue">5</strong> 张
-                    <a href="#" class="addMargin">查看全部</a>
-                    <a href="#">+新卡</a>
+                    银行卡已添加 <strong class="num-blue">$!{hft_family_trade_size}</strong> 张
+                    <a href="${staticDomain}/family/settingCard.htm" class="addMargin">查看全部</a>
+                    <a href="${staticDomain}/family/addBankCard.htm">+新卡</a>
                 </p>
             </div>
 			<div class="myaccount">
@@ -54,12 +54,12 @@
                                     <p class="font font-red">1,700</p>
                                 </li>
                                 <li class="mli3">
-                                    <p class="magb"><a href="#" class="btn btn-white" id="recharge">充 值</a></p>
-                                    <p> <a href="../UFB/centerBillList.html" class="assets">资产明细</a></p>
+                                    <p class="magb"><a href="${staticDomain}/family/pay_index.htm" class="btn btn-white" id="recharge">充 值</a></p>
+                                    <p> <a href="${staticDomain}/family/query_index.htm" class="assets">资产明细</a></p>
                                 </li>
                                 <li class="" style="position: relative;">
-                                        <p class="magb"><a href="#" class="btn btn-white" id="enchash">取 现</a></p>
-                                        <p><a href="../UFB/autoFundStep1.html" class="hoverLine">自动理财设置<i class="question"></i></a></p>
+                                        <p class="magb"><a href="${staticDomain}/family/cash_index.htm" class="btn btn-white" id="enchash">取 现</a></p>
+                                        <p><a href="${staticDomain}/family/settingAutoFund.htm" class="hoverLine">自动理财设置<i class="question"></i></a></p>
                                         <p class="question-content" style="display: none">可绑定工资卡，设<br/>置固定期限或固定<br/>金额的自动充值</p>
                                 </li>
                             </ul>
@@ -217,7 +217,6 @@
         </div><!--end of container-->
     </div><!--end of body-->
 </div><!--end of page-->
-
 <script type="text/javascript" src="${staticDomain}/static/public/js/jquery.js"></script>
 <script type="text/javascript">
     $(function(){

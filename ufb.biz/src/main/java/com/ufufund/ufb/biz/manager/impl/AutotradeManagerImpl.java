@@ -313,7 +313,14 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		autotrade.setTradetype(AutoTradeType.AUTORECHARGE.value());
 		return autotradeMapper.getAutotradeList(autotrade);
 	}
-	
+	@Override
+	public List<Autotrade> getAutotradeCList(String custno) throws BizException {
+		this.getProcessId(custno);
+		Autotrade autotrade = new Autotrade();
+		autotrade.setCustno(custno);
+		autotrade.setTradetype(AutoTradeType.AUTORECHARGE.value());
+		return autotradeMapper.getAutotradeCList(autotrade);
+	}
 	@Override
 	public Autotrade getAutotrade(String autoid) throws BizException {
 		this.getProcessId(autoid);
@@ -381,5 +388,12 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		autotrade.setTradetype(AutoTradeType.AUTOWITHDRAWAL.value());
 		return autotradeMapper.getAutotradeList(autotrade);
 	}
+/**
+ * 删除自动充值业务
+ */
+@Override
+public void deleteAutotrade(String custno, String frombankserialid, String autoid) throws BizException {
+	autotradeMapper.deleteAutotrade(custno, frombankserialid, autoid);
+}
 	
 }

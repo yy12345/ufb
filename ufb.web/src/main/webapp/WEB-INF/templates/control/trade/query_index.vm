@@ -111,8 +111,8 @@
     </div>
 	</form>
 </div>
-<script src="${staticDomain}/js/scripts/load.js"></script>
-<script src="${staticDomain}/js/scripts/register.js"></script>
+<script src="${staticDomain}/static/family/scripts/load.js"></script>
+<script src="${staticDomain}/static/family/scripts/register.js"></script>
 <script>
 $(function(){
 

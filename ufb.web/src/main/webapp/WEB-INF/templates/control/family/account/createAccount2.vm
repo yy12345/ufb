@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<head>
+    <title>幼富通</title>
+</head>
+<body>
+   <div id="page">
+        <div id="header">
+            <div class="topNav">
+                <div class="container">
+                    <div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+                    <div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
+                </div>
+            </div>
+            <div class="container">
+                <a href="#" class="logo"></a>
+                <div class="nav">
+                    <a href="${staticDomain}/family/session.htm">我的账户</a>
+				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
+				<a href="#">缴费明细</a>
+				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="body">
+            <div class="container">
+                <div class="u2 mt20">
+                    <div class="a4">
+                       <ul class="v1">
+                            <li>创建账户</li>
+                            <li class="v1_hover">身份安全信息</li>
+                            <li>设置支付方式</li>
+                            <li>成功</li>
+                        </ul>
+                       <div class="v2">
+                            <i class="v2_1"></i>
+                            <p>你正在访问幼富通安全网址，请放心操作。幼富通致力于为全国幼教机构打造安全、稳定、便捷的互联网金融服务平台。为了保障你的机构和广大幼儿家庭用户的合法权益，请认真填写以下机构登记信息，我们会严格保密相关隐私信息。</p>
+                       </div>
+                    <div class="b3">
+                        <form id="subform" class="common-form" method="post" action="../family/createAccount3.htm" >
+							<input type="hidden" name="mobileno" id="mobileno" value="$!{CustinfoVo.mobileno}" />
+                            <div class="panel">
+                                <ul class="safeInfo">
+                                    <li class="anotherArea">
+                                        <span class="form-title title-font">设置<label>登录密码</label></span>
+                                     <p>登录时需验证，保护账户信息</p>
+                                    </li>
+                                    <li>
+                                        <span class="form-title">登录密码</span>
+                                        <input class="ipt-password1 input-text" type="password" name="loginpwd" id="loginpwd" value="$!{CustinfoVo.loginpwd}">
+                                        <span class="tips-normal" style="display: block;">6-20个大小写英文字母、符号或数字</span>
+                              <span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd_family}</span>
+                                    </li>
+                                    <li #if($!{errMsg_pswpwd2_family})class="error" #end>
+                                        <span class="form-title">重复输入</span>
+                                        <input class="ipt-password2 input-text" type="password" name="loginpwd2" id="loginpwd2" value="$!{CustinfoVo.loginpwd2}">
+                                        <span class="tips-normal" style="display: block;">请再次输入密码</span>
+                                      <span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd2_family}</span>
+                                    </li>
+                                </ul>
+                                <ul class="safeInfo">
+                                    <li class="anotherArea">
+                                        <span class="form-title title-font">设置<label>交易密码</label></span>
+                                     <p>涉及资金交易或账户信息修改时输入，不能于登录密码相同</p>
+                                    </li>
+                                    <li>
+                                        <span class="form-title">交易密码</span>
+                                        <input class="ipt-tradepwd input-text" type="password"  name="tradepwd" id="tradepwd" value="$!{CustinfoVo.tradepwd}">
+                                        <span class="tips-normal" style="display: block;">6-20个大小写英文字母、符号或数字</span>
+                                      <span class="tips-check"><i class="icon"></i>$!{errmsg_tradepwd_family}</span>
+                                    </li>
+                                    <li #if($!{errmsg_tradepwd2_family}) class="error" #end>
+                                        <span class="form-title">重复输入</span>
+                                        <input class="ipt-tradepwd2 input-text" type="password"  name="tradepwd2" id="tradepwd2" value="$!{CustinfoVo.tradepwd2}">
+                                        <span class="tips-normal" style="display: block;">请再次输入密码</span>
+                                     <span class="tips-check"><i class="icon"></i>$!{errmsg_tradepwd2_family}</span>
+                                    </li>
+                                </ul>
+                                 <ul class="safeInfo borderNone">
+                                    <li class="anotherArea">
+                                        <span class="form-title title-font">确认家长身份</span>
+                                     <p>请务必准确填写本人身份信息，注册后不能更改，隐私信息严格保密</p>
+                                    </li>
+                                    <li>
+                                        <span class="form-title">家长姓名</span>
+                                        <input class="ipt-text input-text" type="text" name="invnm" id="invnm" value="$!{CustinfoVo.invnm}" >
+                                        <span class="tips-normal" style="display: block;">请填写家长姓名</span>
+                                        <span class="tips-check"><i class="icon">$!{errMsg_invnm_family}</i></span>
+                                    </li>
+                                    <li #if(${errMsg_idno_family}) class="error" #end>
+                                        <span class="form-title">身份证号码</span>
+                                        <input class="ipt-idCard input-text" type="text" name="idno" id="idno" maxlength="18" value="$!{CustinfoVo.idno}">
+                                        <span class="tips-normal" style="display: block;">请填写身份证号码</span>
+                                         <span class="tips-check"><i class="icon">$!{errMsg_idno_family}</i></span>
+                                    </li>
+                                    <li>
+                                        <input id="btn-subbutton" class="input-button" type="button" value="下一步">                 
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+ <div class="LowFoot">
+    <div class="inner">
+        <div class="contentFoot">
+            幼富通版权所有 ©2014 沪ICP备14054347号
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="${staticDomain}/static/family/scripts/load.js"></script>
+<script type="text/javascript" src="${staticDomain}/static/family/scripts/register.js"></script>    
+<script >
+  $(function(){
+	  $("#btn-subbutton").on("click",function(){
+		  var ivname=$("ipt-text").val();
+		alert("ivname=============="+ivname);
+		if(ivname==""){
+			$("ipt-text").siblings(".tips-check").html("<i class='icon'></i>家长姓名不能为空");
+			return false;
+		}
+		  $("#subform").submit();
+	  })
+	  
+  })
+ 
+</script>
+</body>
+</html>

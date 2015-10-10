@@ -1,0 +1,565 @@
+2015-08-06 13:52:09,675 WARN [214074868@qtp-1182320432-0] o.a.v.tools.view.XMLToolboxManager [XMLToolboxManager.java : 100] XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 13:52:09,705 WARN [214074868@qtp-1182320432-0] o.a.v.t.v.s.ServletToolboxManager [ServletToolboxManager.java : 131] ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 13:52:14,188 DEBUG [214074868@qtp-1182320432-0] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=9L3D
+2015-08-06 13:52:21,111 DEBUG [214074868@qtp-1182320432-0] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=9G9G
+2015-08-06 13:52:29,361 DEBUG [1973030592@qtp-1182320432-2] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=8H6E
+2015-08-06 14:04:24,381 DEBUG [214074868@qtp-1182320432-0] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [6d47c76a-762a-4947-a88e-179d8854665f] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[6d47c76a-762a-4947-a88e-179d8854665f] ]
+2015-08-06 14:15:20,407 DEBUG [2027819293@qtp-1182320432-16] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=5J9Q
+2015-08-06 14:49:00,782 WARN [214074868@qtp-1182320432-0] o.a.v.tools.view.XMLToolboxManager [XMLToolboxManager.java : 100] XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 14:49:00,786 WARN [214074868@qtp-1182320432-0] o.a.v.t.v.s.ServletToolboxManager [ServletToolboxManager.java : 131] ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 14:49:10,763 DEBUG [214074868@qtp-1182320432-0] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [4c2982c6-398e-4b9a-92e1-3870ca566b7f] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[4c2982c6-398e-4b9a-92e1-3870ca566b7f] ]
+2015-08-06 15:11:08,939 DEBUG [138834242@qtp-1182320432-13] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=9U5L
+2015-08-06 15:11:50,303 DEBUG [152212359@qtp-1182320432-15] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=8J3F
+2015-08-06 15:11:51,175 DEBUG [152212359@qtp-1182320432-15] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=3S3Z
+2015-08-06 15:11:57,810 DEBUG [608448217@qtp-1182320432-17] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [ee3d0019-95ee-4046-93e7-a56e0d3fbd24] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[ee3d0019-95ee-4046-93e7-a56e0d3fbd24] ]
+2015-08-06 15:15:06,364 DEBUG [1235623001@qtp-1182320432-21] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [18d2ac0d-c980-4067-ac36-f9c5bd777680] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[18d2ac0d-c980-4067-ac36-f9c5bd777680] ]
+2015-08-06 15:15:09,421 DEBUG [1235623001@qtp-1182320432-21] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [9868b527-cd3b-4699-9b59-385dd5d8e670] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[9868b527-cd3b-4699-9b59-385dd5d8e670] ]
+2015-08-06 15:16:24,172 DEBUG [152212359@qtp-1182320432-15] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [84e41773-7cc9-4280-9697-fdca3db9903b] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[84e41773-7cc9-4280-9697-fdca3db9903b] ]
+2015-08-06 15:18:29,288 DEBUG [152212359@qtp-1182320432-15] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [c2bb49a3-8e9e-4f59-9cf1-c832c5b7d317] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[c2bb49a3-8e9e-4f59-9cf1-c832c5b7d317] ]
+2015-08-06 15:18:35,506 DEBUG [1759543946@qtp-1182320432-16] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [8205c6a8-ff9b-496e-8aeb-cfe6acaba9e4] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[8205c6a8-ff9b-496e-8aeb-cfe6acaba9e4] ]
+2015-08-06 15:19:45,579 DEBUG [1759543946@qtp-1182320432-16] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [36e97784-eeb4-49a3-9a88-fcedb1c0e9a5] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[36e97784-eeb4-49a3-9a88-fcedb1c0e9a5] ]
+2015-08-06 15:20:36,439 DEBUG [152212359@qtp-1182320432-15] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [92c5fc3a-e295-4d7f-992a-d08518c23501] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[92c5fc3a-e295-4d7f-992a-d08518c23501] ]
+2015-08-06 15:21:15,485 DEBUG [1444952816@qtp-1182320432-24] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [f49f2fcd-cef6-49cb-9d4b-f3d85cf48028] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[f49f2fcd-cef6-49cb-9d4b-f3d85cf48028] ]
+2015-08-06 15:22:01,435 DEBUG [1759543946@qtp-1182320432-16] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [e4a162e9-07ea-44de-b168-0621efee1379] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[e4a162e9-07ea-44de-b168-0621efee1379] ]
+2015-08-06 15:22:06,236 DEBUG [1444952816@qtp-1182320432-24] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [a12cee46-9fd5-452c-8cd9-035a60f3cf8f] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[a12cee46-9fd5-452c-8cd9-035a60f3cf8f] ]
+2015-08-06 15:22:27,406 DEBUG [790470841@qtp-1182320432-25] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [adb7bbfd-9ddd-4f93-a733-f8a074da564f] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[adb7bbfd-9ddd-4f93-a733-f8a074da564f] ]
+2015-08-06 15:22:29,459 DEBUG [1444952816@qtp-1182320432-24] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [aa5be822-bce1-45aa-8a98-bf1cd10a1df1] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[aa5be822-bce1-45aa-8a98-bf1cd10a1df1] ]
+2015-08-06 15:22:30,486 DEBUG [1639116064@qtp-1182320432-22] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [ea9caa79-58d3-45ea-bd01-9257451b1299] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[ea9caa79-58d3-45ea-bd01-9257451b1299] ]
+2015-08-06 15:23:03,393 DEBUG [790470841@qtp-1182320432-25] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [ec7d2dc2-98ab-4005-8cef-bbc9fb2e1877] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[ec7d2dc2-98ab-4005-8cef-bbc9fb2e1877] ]
+2015-08-06 15:23:04,434 DEBUG [1444952816@qtp-1182320432-24] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [9bd54ede-44f8-462e-86eb-d0e78623d9eb] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[9bd54ede-44f8-462e-86eb-d0e78623d9eb] ]
+2015-08-06 15:23:59,388 DEBUG [1444952816@qtp-1182320432-24] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [c848c55a-cf60-46b5-aa29-575a3a83dc2c] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[c848c55a-cf60-46b5-aa29-575a3a83dc2c] ]
+2015-08-06 15:24:33,068 DEBUG [1639116064@qtp-1182320432-22] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [328a7d67-55e5-42db-849c-a0449a3c74eb] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[328a7d67-55e5-42db-849c-a0449a3c74eb] ]
+2015-08-06 15:26:14,915 DEBUG [2090964198@qtp-1182320432-28] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [1214b8ae-edf8-413d-a372-c91028c35984] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[1214b8ae-edf8-413d-a372-c91028c35984] ]
+2015-08-06 15:26:16,330 DEBUG [721542348@qtp-1182320432-27] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [369bfd72-d4ec-4225-9789-b6aadcea7a22] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[369bfd72-d4ec-4225-9789-b6aadcea7a22] ]
+2015-08-06 15:26:32,357 DEBUG [721542348@qtp-1182320432-27] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [cb1bcd3f-78c7-413f-9dd4-839a064e8df8] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[cb1bcd3f-78c7-413f-9dd4-839a064e8df8] ]
+2015-08-06 15:26:47,519 DEBUG [1444952816@qtp-1182320432-24] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [7a17d224-f5cb-4a93-849c-526869fae429] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[7a17d224-f5cb-4a93-849c-526869fae429] ]
+2015-08-06 15:29:25,370 DEBUG [2090964198@qtp-1182320432-28] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [528e4678-be08-4ce4-9dc4-bdf3c3ca8cd8] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[528e4678-be08-4ce4-9dc4-bdf3c3ca8cd8] ]
+2015-08-06 15:29:47,358 DEBUG [2090964198@qtp-1182320432-28] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [ff2b9b35-ef22-480d-8b83-265c46b636e3] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[ff2b9b35-ef22-480d-8b83-265c46b636e3] ]
+2015-08-06 15:30:05,288 DEBUG [910034522@qtp-1182320432-32] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [9c440ebb-1583-446f-80e0-078feeba8598] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[9c440ebb-1583-446f-80e0-078feeba8598] ]
+2015-08-06 15:30:23,705 DEBUG [1670052816@qtp-1182320432-30] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [23b0317c-d6c4-48f0-a68a-22e648c61c7f] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[23b0317c-d6c4-48f0-a68a-22e648c61c7f] ]
+2015-08-06 15:31:12,368 DEBUG [1467602381@qtp-1182320432-33] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [e07e639b-a818-4132-814e-5317abbedf98] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[e07e639b-a818-4132-814e-5317abbedf98] ]
+2015-08-06 15:31:30,999 DEBUG [1662644361@qtp-1182320432-34] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [24e97cca-5b15-4ca7-a658-197452bd05aa] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[24e97cca-5b15-4ca7-a658-197452bd05aa] ]
+2015-08-06 15:33:12,369 DEBUG [1670052816@qtp-1182320432-30] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [32c602da-52fa-4582-87dc-ebfb8b32bdd1] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[32c602da-52fa-4582-87dc-ebfb8b32bdd1] ]
+2015-08-06 15:35:04,400 DEBUG [2090964198@qtp-1182320432-28] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [cb8a87d7-577d-463f-a7f1-5ecf8df66347] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[cb8a87d7-577d-463f-a7f1-5ecf8df66347] ]
+2015-08-06 15:35:09,408 DEBUG [2090964198@qtp-1182320432-28] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=9H9B
+2015-08-06 15:35:25,942 DEBUG [2090964198@qtp-1182320432-28] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [84ae10ab-b156-4519-9345-c8a042ceabfc] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[84ae10ab-b156-4519-9345-c8a042ceabfc] ]
+2015-08-06 15:44:24,774 DEBUG [2090964198@qtp-1182320432-28] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [e0fa0d1a-646f-46c9-9c16-b8a54defb4dd] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[e0fa0d1a-646f-46c9-9c16-b8a54defb4dd] ]
+2015-08-06 15:44:32,444 WARN [2090964198@qtp-1182320432-28] o.s.web.servlet.PageNotFound [DispatcherServlet.java : 1108] No mapping found for HTTP request with URI [/ufb/trade/${ufbDomain}/cust/logout.htm] in DispatcherServlet with name 'ufb'
+2015-08-06 15:44:41,898 WARN [2090964198@qtp-1182320432-28] o.s.web.servlet.PageNotFound [DispatcherServlet.java : 1108] No mapping found for HTTP request with URI [/ufb/trade/${ufbDomain}/cust/logout.htm] in DispatcherServlet with name 'ufb'
+2015-08-06 15:48:14,086 DEBUG [1614083615@qtp-1182320432-35] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [85889556-51b2-40c6-adad-53f16a6913b3] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[85889556-51b2-40c6-adad-53f16a6913b3] ]
+2015-08-06 15:49:52,117 DEBUG [1614083615@qtp-1182320432-35] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [043869eb-8081-4067-b7ff-f5d7072e2eb4] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[043869eb-8081-4067-b7ff-f5d7072e2eb4] ]
+2015-08-06 15:50:09,559 DEBUG [1795122017@qtp-1182320432-47] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [1b1a7053-43d3-4be0-9145-07dd429aa154] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[1b1a7053-43d3-4be0-9145-07dd429aa154] ]
+2015-08-06 15:50:19,949 DEBUG [1011035029@qtp-1182320432-46] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [3694b055-b159-4fde-bfe8-eb2ee15bf277] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[3694b055-b159-4fde-bfe8-eb2ee15bf277] ]
+2015-08-06 15:50:31,745 DEBUG [1011035029@qtp-1182320432-46] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=3U7B
+2015-08-06 15:50:45,899 DEBUG [1011035029@qtp-1182320432-46] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [0482f083-f151-4bf9-af4b-3fa657619e7e] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[0482f083-f151-4bf9-af4b-3fa657619e7e] ]
+2015-08-06 15:51:05,529 DEBUG [1011035029@qtp-1182320432-46] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=7H5Q
+2015-08-06 15:51:07,488 DEBUG [1011035029@qtp-1182320432-46] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [407a3564ab4781a76e2db115d1558a93] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 15:51:14,527 DEBUG [1011035029@qtp-1182320432-46] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [407a3564ab4781a76e2db115d1558a93] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:03:17,448 WARN [214074868@qtp-1182320432-0] o.a.v.tools.view.XMLToolboxManager [XMLToolboxManager.java : 100] XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 16:03:17,454 WARN [214074868@qtp-1182320432-0] o.a.v.t.v.s.ServletToolboxManager [ServletToolboxManager.java : 131] ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 16:03:23,771 DEBUG [1973030592@qtp-1182320432-2] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [83af5637-84c8-44ad-a076-6ce651f3e6a7] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[83af5637-84c8-44ad-a076-6ce651f3e6a7] ]
+2015-08-06 16:03:40,776 DEBUG [1973030592@qtp-1182320432-2] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [434fb5b15595d20836558b692c879a7d] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:09:53,308 DEBUG [1973030592@qtp-1182320432-2] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [434fb5b15595d20836558b692c879a7d] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:24:42,377 DEBUG [1973030592@qtp-1182320432-2] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [434fb5b15595d20836558b692c879a7d] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:25:32,970 DEBUG [1395436436@qtp-1182320432-11] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [12cc660727be6bbcb6ecbb64b11b7fc7] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:25:33,684 DEBUG [1973030592@qtp-1182320432-2] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [434fb5b15595d20836558b692c879a7d] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:37:53,745 DEBUG [1395436436@qtp-1182320432-11] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [12cc660727be6bbcb6ecbb64b11b7fc7] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:37:55,011 DEBUG [1395436436@qtp-1182320432-11] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [12cc660727be6bbcb6ecbb64b11b7fc7] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:37:55,622 DEBUG [1395436436@qtp-1182320432-11] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [12cc660727be6bbcb6ecbb64b11b7fc7] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:38:14,796 DEBUG [1395436436@qtp-1182320432-11] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [12cc660727be6bbcb6ecbb64b11b7fc7] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:38:25,679 DEBUG [196137673@qtp-1182320432-19] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [0aab86f2373005b510700ec111f25529] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:38:30,930 DEBUG [1600830865@qtp-1182320432-20] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [b895ae8f296c8401485c05947cb8a2c7] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:38:31,693 DEBUG [798904129@qtp-1182320432-21] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [d78614995ad2f9d422f502a0f06475e4] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:38:44,442 DEBUG [1395436436@qtp-1182320432-11] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [12cc660727be6bbcb6ecbb64b11b7fc7] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:38:45,248 DEBUG [475018396@qtp-1182320432-16] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [0ed68b404885c54d00ee0baf374eac57] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:43:35,953 DEBUG [475018396@qtp-1182320432-16] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [0ed68b404885c54d00ee0baf374eac57] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:43:57,279 DEBUG [2027819293@qtp-1182320432-17] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [ed83ceeafa6c2aaaaef0b6d217312957] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:44:20,111 DEBUG [567617760@qtp-1182320432-22] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [565c503234fc9b3ab37255fb239d57ec] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:45:03,047 DEBUG [1157202848@qtp-1182320432-25] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [bfeba80b311156b44dbebc4b383a47bd] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:45:03,956 DEBUG [366960792@qtp-1182320432-26] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [5d5be6b54150352145bc4685e3dbb505] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:46:01,063 DEBUG [422261892@qtp-1182320432-27] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [826c2b88bd613a6dc5805f1995cceade] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:46:31,500 DEBUG [567617760@qtp-1182320432-22] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [565c503234fc9b3ab37255fb239d57ec] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:46:32,614 DEBUG [1535495420@qtp-1182320432-23] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [d1c7ecc911e8c701ed0f721a03930074] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:46:51,639 DEBUG [567617760@qtp-1182320432-22] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [565c503234fc9b3ab37255fb239d57ec] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:46:52,449 DEBUG [1271457289@qtp-1182320432-24] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [00d1404047eae21adc701f8143d9cd9a] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:46:53,081 DEBUG [567617760@qtp-1182320432-22] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [565c503234fc9b3ab37255fb239d57ec] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:48:21,718 DEBUG [1535495420@qtp-1182320432-23] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [d1c7ecc911e8c701ed0f721a03930074] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:49:45,932 DEBUG [422261892@qtp-1182320432-27] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [826c2b88bd613a6dc5805f1995cceade] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:49:46,806 DEBUG [422261892@qtp-1182320432-27] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [826c2b88bd613a6dc5805f1995cceade] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:49:55,090 DEBUG [1535495420@qtp-1182320432-23] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [d1c7ecc911e8c701ed0f721a03930074] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:49:55,938 DEBUG [567617760@qtp-1182320432-22] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [565c503234fc9b3ab37255fb239d57ec] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:30,478 DEBUG [567617760@qtp-1182320432-22] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [565c503234fc9b3ab37255fb239d57ec] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:31,228 DEBUG [422261892@qtp-1182320432-27] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [826c2b88bd613a6dc5805f1995cceade] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:32,590 DEBUG [1015360841@qtp-1182320432-30] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [52e476b31a73484c45f939f62245468f] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:40,931 DEBUG [1387285543@qtp-1182320432-29] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [e1fc99740198e43ae4d370a302dd6392] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:41,839 DEBUG [422261892@qtp-1182320432-27] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [826c2b88bd613a6dc5805f1995cceade] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:42,566 DEBUG [422261892@qtp-1182320432-27] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [826c2b88bd613a6dc5805f1995cceade] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:46,243 DEBUG [1015360841@qtp-1182320432-30] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [52e476b31a73484c45f939f62245468f] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:46,906 DEBUG [1015360841@qtp-1182320432-30] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [52e476b31a73484c45f939f62245468f] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:47,200 DEBUG [1015360841@qtp-1182320432-30] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [52e476b31a73484c45f939f62245468f] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:47,424 DEBUG [1387285543@qtp-1182320432-29] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [e1fc99740198e43ae4d370a302dd6392] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:47,572 DEBUG [422261892@qtp-1182320432-27] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [826c2b88bd613a6dc5805f1995cceade] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:49,088 DEBUG [1387285543@qtp-1182320432-29] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [e1fc99740198e43ae4d370a302dd6392] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:50:59,277 DEBUG [1387285543@qtp-1182320432-29] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [e1fc99740198e43ae4d370a302dd6392] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:51:13,893 DEBUG [47451560@qtp-1182320432-31] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [366565f7f5552d23491963d074c70020] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:51:39,068 DEBUG [1015360841@qtp-1182320432-30] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [52e476b31a73484c45f939f62245468f] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:51:58,654 DEBUG [725431362@qtp-1182320432-32] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [f40da4311647c177448d2b3cbf2b4c8b] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:52:17,238 DEBUG [567617760@qtp-1182320432-22] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [565c503234fc9b3ab37255fb239d57ec] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:52:17,759 DEBUG [1015360841@qtp-1182320432-30] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [52e476b31a73484c45f939f62245468f] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:52:37,350 DEBUG [1015360841@qtp-1182320432-30] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [52e476b31a73484c45f939f62245468f] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:52:49,637 DEBUG [475018396@qtp-1182320432-16] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [0ed68b404885c54d00ee0baf374eac57] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:52:50,357 DEBUG [47451560@qtp-1182320432-31] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [366565f7f5552d23491963d074c70020] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:53:12,768 DEBUG [1015360841@qtp-1182320432-30] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [52e476b31a73484c45f939f62245468f] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:53:54,909 DEBUG [367708402@qtp-1182320432-33] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [62ec9eca-866c-4a64-b1e0-33793f365ab3] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[62ec9eca-866c-4a64-b1e0-33793f365ab3] ]
+2015-08-06 16:54:18,456 DEBUG [367708402@qtp-1182320432-33] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [eef98396-d068-4df3-b596-596ae03eb9e5] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[eef98396-d068-4df3-b596-596ae03eb9e5] ]
+2015-08-06 16:57:28,917 DEBUG [367708402@qtp-1182320432-33] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [198e5654efe10425624c676cf08e5b4b] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:57:42,585 DEBUG [367708402@qtp-1182320432-33] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [198e5654efe10425624c676cf08e5b4b] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:58:50,017 DEBUG [422261892@qtp-1182320432-27] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [826c2b88bd613a6dc5805f1995cceade] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:58:51,717 DEBUG [367708402@qtp-1182320432-33] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [198e5654efe10425624c676cf08e5b4b] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 16:59:47,745 DEBUG [342462887@qtp-1182320432-37] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [982bcf0084a855fdd8987818c618856f] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 17:02:01,447 DEBUG [680754415@qtp-1182320432-35] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [0600afc122aacc06c8cab16acb87c4e5] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 17:05:33,659 DEBUG [680754415@qtp-1182320432-35] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [0600afc122aacc06c8cab16acb87c4e5] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 17:05:38,428 DEBUG [680754415@qtp-1182320432-35] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [0600afc122aacc06c8cab16acb87c4e5] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 17:08:15,727 DEBUG [809797961@qtp-1182320432-43] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [b23692306ca5123608fccba8a489c954] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 17:08:16,399 DEBUG [680754415@qtp-1182320432-35] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [0600afc122aacc06c8cab16acb87c4e5] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 17:09:09,203 DEBUG [680754415@qtp-1182320432-35] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [0600afc122aacc06c8cab16acb87c4e5] getNextdate : 
+2015-08-06 17:09:09,254 ERROR [680754415@qtp-1182320432-35] c.u.m.e.h.UfuMappingExceptionResolver [UfuMappingExceptionResolver.java : 16] spring mvc error:
+java.lang.NullPointerException: null
+	at com.ufufund.ufb.biz.manager.impl.WorkDayManagerImpl.getNextWorkDay(WorkDayManagerImpl.java:64) ~[classes/:na]
+	at com.ufufund.ufb.biz.manager.impl.AutotradeManagerImpl.getNextdate(AutotradeManagerImpl.java:226) ~[classes/:na]
+	at com.ufufund.ufb.web.controller.SettingController.autoTradePreview(SettingController.java:490) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_40]
+	at org.springframework.web.bind.annotation.support.HandlerMethodInvoker.invokeHandlerMethod(HandlerMethodInvoker.java:176) ~[spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.invokeHandlerMethod(AnnotationMethodHandlerAdapter.java:440) ~[spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.handle(AnnotationMethodHandlerAdapter.java:428) ~[spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:936) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:838) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727) [servlet-api-2.5-20081211.jar:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:812) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820) [servlet-api-2.5-20081211.jar:na]
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1221) [jetty-6.1.26.jar:6.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.RefreshHolderFilter.doFilter(RefreshHolderFilter.java:31) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.ServletHolderFilter.doFilter(ServletHolderFilter.java:26) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:399) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:766) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:450) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.Server.handle(Server.java:326) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection$RequestHandler.content(HttpConnection.java:945) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:756) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:218) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582) [jetty-util-6.1.26.jar:6.1.26]
+2015-08-06 17:09:15,451 DEBUG [1534902855@qtp-1182320432-45] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [dde05dec24c9fa919ee0f82f8e6069c6] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 17:09:26,002 DEBUG [1534902855@qtp-1182320432-45] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [dde05dec24c9fa919ee0f82f8e6069c6] getNextdate : 
+2015-08-06 17:09:26,045 ERROR [1534902855@qtp-1182320432-45] c.u.m.e.h.UfuMappingExceptionResolver [UfuMappingExceptionResolver.java : 16] spring mvc error:
+java.lang.NullPointerException: null
+	at com.ufufund.ufb.biz.manager.impl.WorkDayManagerImpl.getNextWorkDay(WorkDayManagerImpl.java:64) ~[classes/:na]
+	at com.ufufund.ufb.biz.manager.impl.AutotradeManagerImpl.getNextdate(AutotradeManagerImpl.java:226) ~[classes/:na]
+	at com.ufufund.ufb.web.controller.SettingController.autoTradePreview(SettingController.java:490) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_40]
+	at org.springframework.web.bind.annotation.support.HandlerMethodInvoker.invokeHandlerMethod(HandlerMethodInvoker.java:176) ~[spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.invokeHandlerMethod(AnnotationMethodHandlerAdapter.java:440) ~[spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.handle(AnnotationMethodHandlerAdapter.java:428) ~[spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:936) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:838) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727) [servlet-api-2.5-20081211.jar:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:812) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820) [servlet-api-2.5-20081211.jar:na]
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1221) [jetty-6.1.26.jar:6.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.RefreshHolderFilter.doFilter(RefreshHolderFilter.java:31) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.ServletHolderFilter.doFilter(ServletHolderFilter.java:26) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:399) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:766) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:450) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.Server.handle(Server.java:326) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection$RequestHandler.content(HttpConnection.java:945) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:756) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:218) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582) [jetty-util-6.1.26.jar:6.1.26]
+2015-08-06 17:10:18,793 DEBUG [1534902855@qtp-1182320432-45] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [dde05dec24c9fa919ee0f82f8e6069c6] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 17:14:29,702 DEBUG [1810647442@qtp-1182320432-50] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=6Z8J
+2015-08-06 17:14:32,724 DEBUG [1810647442@qtp-1182320432-50] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=7B4S
+2015-08-06 17:14:34,236 DEBUG [1810647442@qtp-1182320432-50] c.u.u.b.m.impl.AutotradeManagerImpl [ImplCommon.java : 31] [1176975dc43b923f79257c3fc03f0d16] getAutotradeList : CU150730150345773LDUVIM6
+2015-08-06 17:25:59,989 WARN [214074868@qtp-1182320432-0] o.a.v.tools.view.XMLToolboxManager [XMLToolboxManager.java : 100] XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 17:25:59,995 WARN [214074868@qtp-1182320432-0] o.a.v.t.v.s.ServletToolboxManager [ServletToolboxManager.java : 131] ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 17:26:04,357 DEBUG [214074868@qtp-1182320432-0] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [942785f7-7aa2-4009-9faf-7ac01af21059] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[942785f7-7aa2-4009-9faf-7ac01af21059] ]
+2015-08-06 17:27:07,096 WARN [214074868@qtp-1182320432-0] o.a.v.tools.view.XMLToolboxManager [XMLToolboxManager.java : 100] XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 17:27:07,099 WARN [214074868@qtp-1182320432-0] o.a.v.t.v.s.ServletToolboxManager [ServletToolboxManager.java : 131] ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 17:27:11,138 DEBUG [862237745@qtp-1182320432-7] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [bdb78a4a-4c61-4950-9a9a-de6340179a85] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[bdb78a4a-4c61-4950-9a9a-de6340179a85] ]
+2015-08-06 17:28:26,844 DEBUG [1651166162@qtp-1182320432-3] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=9G2J
+2015-08-06 17:29:06,513 DEBUG [2128965648@qtp-1182320432-4] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=7U3Y
+2015-08-06 17:29:08,299 DEBUG [2128965648@qtp-1182320432-4] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=9R3E
+2015-08-06 17:29:09,675 DEBUG [2128965648@qtp-1182320432-4] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=5Z4W
+2015-08-06 17:29:10,981 DEBUG [2128965648@qtp-1182320432-4] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=2A3Q
+2015-08-06 17:29:13,047 DEBUG [2128965648@qtp-1182320432-4] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=2A2S
+2015-08-06 17:31:30,049 DEBUG [2128965648@qtp-1182320432-4] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=2T9U
+2015-08-06 17:31:33,423 DEBUG [2128965648@qtp-1182320432-4] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=5B7W
+2015-08-06 17:54:43,902 ERROR [214074868@qtp-1182320432-0] o.apache.velocity.app.VelocityEngine [CommonsLoggingLogSystem.java : 49] ResourceManager : unable to find resource 'control/cust/session.vm' in any resource loader.
+2015-08-06 17:54:43,967 WARN [214074868@qtp-1182320432-0] o.a.v.tools.view.XMLToolboxManager [XMLToolboxManager.java : 100] XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 17:54:43,967 WARN [214074868@qtp-1182320432-0] o.a.v.t.v.s.ServletToolboxManager [ServletToolboxManager.java : 131] ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 17:54:48,383 DEBUG [214074868@qtp-1182320432-0] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [06a60a69-931c-4fdb-b31c-02d5676030bd] loginIn : LoginAction[loginCode=18616502181,loginPassword=1q2w3e,processId=[06a60a69-931c-4fdb-b31c-02d5676030bd] ]
+2015-08-06 17:55:08,812 DEBUG [214074868@qtp-1182320432-0] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=7J9A
+2015-08-06 17:55:17,123 DEBUG [214074868@qtp-1182320432-0] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [9843a904c3edf4c1cd1f8a93ace9ee13] isMobileRegister : 18577777777
+2015-08-06 17:55:17,146 DEBUG [214074868@qtp-1182320432-0] c.ufufund.ufb.web.util.MsgCodeUtils [MsgCodeUtils.java : 93] MsgCode=216176, timeList=[1438854917144]
+2015-08-06 17:55:24,993 DEBUG [214074868@qtp-1182320432-0] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [8dc64907-428a-4b93-9a17-d52482f73d34] register : RegisterAction[custno=<null>,logincode=18577777777,loginpwd=1q2w3e,loginpwd2=1q2w3e,invtp=ORGANIZATION,level=PERSONAL,custst=N,orgnm=aaa,orgbusiness=bbb,processId=[8dc64907-428a-4b93-9a17-d52482f73d34] ]
+2015-08-06 17:55:24,994 DEBUG [214074868@qtp-1182320432-0] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [9843a904c3edf4c1cd1f8a93ace9ee13] isMobileRegister : 18577777777
+2015-08-06 22:24:40,165 WARN [214074868@qtp-1182320432-0] o.a.v.tools.view.XMLToolboxManager [XMLToolboxManager.java : 100] XMLToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 22:24:40,171 WARN [214074868@qtp-1182320432-0] o.a.v.t.v.s.ServletToolboxManager [ServletToolboxManager.java : 131] ServletToolboxManager has been deprecated. Please use org.apache.velocity.tools.ToolboxFactory instead.
+2015-08-06 22:24:53,709 DEBUG [214074868@qtp-1182320432-0] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=7Q3E
+2015-08-06 22:25:07,897 DEBUG [214074868@qtp-1182320432-0] AppException [AppException.java : 90] [d8c790f0283dc2326162d4ea7413cbb0]  errcode :您输入的验证码不匹配！ errmsg :您输入的验证码不匹配！
+2015-08-06 22:25:07,904 ERROR [214074868@qtp-1182320432-0] c.u.u.w.c.ajax.AjaxCustController [AjaxCustController.java : 133] 您输入的验证码不匹配！
+com.ufufund.ufb.biz.exception.BizException: 您输入的验证码不匹配！
+	at com.ufufund.ufb.web.util.VerifyCodeUtils.validate(VerifyCodeUtils.java:30) ~[classes/:na]
+	at com.ufufund.ufb.web.controller.ajax.AjaxCustController.sendMsgCode(AjaxCustController.java:114) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_40]
+	at org.springframework.web.bind.annotation.support.HandlerMethodInvoker.invokeHandlerMethod(HandlerMethodInvoker.java:176) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.invokeHandlerMethod(AnnotationMethodHandlerAdapter.java:440) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.handle(AnnotationMethodHandlerAdapter.java:428) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:936) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:827) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707) [servlet-api-2.5-20081211.jar:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:812) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820) [servlet-api-2.5-20081211.jar:na]
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1221) [jetty-6.1.26.jar:6.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.ServletHolderFilter.doFilter(ServletHolderFilter.java:26) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:399) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:766) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:450) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.Server.handle(Server.java:326) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection$RequestHandler.headerComplete(HttpConnection.java:928) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:549) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582) [jetty-util-6.1.26.jar:6.1.26]
+2015-08-06 22:25:07,981 DEBUG [214074868@qtp-1182320432-0] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=4Q5W
+2015-08-06 22:26:59,024 DEBUG [1066270952@qtp-1182320432-8] c.u.u.web.servlet.CreateImageServlet [CreateImageServlet.java : 97] created verifyCode=5Y2F
+2015-08-06 22:27:09,684 DEBUG [2121794828@qtp-1182320432-7] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [d03797fc82e3069d47ed987b4cff8dd8] isMobileRegister : 13231313131
+2015-08-06 22:27:09,763 DEBUG [2121794828@qtp-1182320432-7] c.ufufund.ufb.web.util.MsgCodeUtils [MsgCodeUtils.java : 93] MsgCode=731601, timeList=[1438871229761]
+2015-08-06 22:27:20,968 DEBUG [2121794828@qtp-1182320432-7] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [010a65aa-f440-46fa-9e73-68bf68410f3f] register : RegisterAction[custno=<null>,logincode=13231313131,loginpwd=1q2w3e4r,loginpwd2=1q2w3e4r,invtp=ORGANIZATION,level=PERSONAL,custst=N,orgnm=321312,orgbusiness=31231,processId=[010a65aa-f440-46fa-9e73-68bf68410f3f] ]
+2015-08-06 22:27:20,970 DEBUG [2121794828@qtp-1182320432-7] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [d03797fc82e3069d47ed987b4cff8dd8] isMobileRegister : 13231313131
+2015-08-06 22:29:53,283 DEBUG [1768308615@qtp-1182320432-9] c.u.u.b.m.impl.BankCardManagerImpl [ImplCommon.java : 31] [2f6946e4-974b-4b50-a2ca-ed9e80b73ed1] openAccount1 : OpenAccountAction[fundcorpno=01,custno=CU150806221021JT663LIFD5,invtp=1,level=<null>,tradepwd=1q2w3e,tradepwd2=1q2w3e,mobileautocode=<null>,serialno=<null>,accoreqserial=<null>,transactionaccountid=<null>,otherserial=<null>,protocolno=<null>,invnm=31231,idno=21,idtp=<null>,mobile=<null>,telno=<null>,emailadd=<null>,orgnm=321312,orgbusiness=31231,orgprovinceno=<null>,orgprovincenm=<null>,orgcityno=<null>,orgcitynm=<null>,orgadd=<null>,bankno=<null>,bankacnm=<null>,bankidtp=<null>,bankidno=21,bankacco=<null>,bankacco2=<null>,bankmobile=<null>,bankprovinceno=<null>,bankprovincenm=<null>,bankcityno=<null>,bankcitynm=<null>,bankadd=<null>,rerpidtp=<null>,rerpidno=<null>,rerpvalidt=<null>,rerpnm=<null>,hftfamilytradeaccoct=0,hftoperatortradeaccoct=0,hftorganizationtradeaccoct=0,cpfamilytradeaccoct=0,cporganizationtradeaccoct=0,openaccoflag=false,checkautocodeflag=false,processId=[2f6946e4-974b-4b50-a2ca-ed9e80b73ed1] ]
+2015-08-06 22:29:53,284 DEBUG [1768308615@qtp-1182320432-9] AppException [AppException.java : 90] [2f6946e4-974b-4b50-a2ca-ed9e80b73ed1]  errcode :FIELD_FORMAT_WRONG errmsg :证件号码格式不正确
+2015-08-06 22:29:53,286 ERROR [1768308615@qtp-1182320432-9] c.u.u.web.controller.CustController [BankCardController.java : 418] 证件号码格式不正确
+com.ufufund.ufb.biz.exception.BizException: 证件号码格式不正确
+	at com.ufufund.ufb.biz.manager.impl.validator.BankCardManagerValidator.validator(BankCardManagerValidator.java:46) ~[classes/:na]
+	at com.ufufund.ufb.biz.manager.impl.BankCardManagerImpl.openAccount1(BankCardManagerImpl.java:265) ~[classes/:na]
+	at com.ufufund.ufb.web.controller.BankCardController.addBankCard2(BankCardController.java:401) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_40]
+	at org.springframework.web.bind.annotation.support.HandlerMethodInvoker.invokeHandlerMethod(HandlerMethodInvoker.java:176) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.invokeHandlerMethod(AnnotationMethodHandlerAdapter.java:440) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.handle(AnnotationMethodHandlerAdapter.java:428) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:936) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:838) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727) [servlet-api-2.5-20081211.jar:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:812) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820) [servlet-api-2.5-20081211.jar:na]
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1221) [jetty-6.1.26.jar:6.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.RefreshHolderFilter.doFilter(RefreshHolderFilter.java:31) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.ServletHolderFilter.doFilter(ServletHolderFilter.java:26) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:399) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:766) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:450) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.Server.handle(Server.java:326) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection$RequestHandler.content(HttpConnection.java:945) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:756) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:218) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582) [jetty-util-6.1.26.jar:6.1.26]
+2015-08-06 22:30:25,618 DEBUG [1768308615@qtp-1182320432-9] c.u.u.b.m.impl.BankCardManagerImpl [ImplCommon.java : 31] [499aba16-77e7-4d6d-8514-d4f8737fa0d1] openAccount1 : OpenAccountAction[fundcorpno=01,custno=CU150806221021JT663LIFD5,invtp=1,level=<null>,tradepwd=1q2w3e,tradepwd2=1q2w3e,mobileautocode=<null>,serialno=<null>,accoreqserial=<null>,transactionaccountid=<null>,otherserial=<null>,protocolno=<null>,invnm=31231,idno=21,idtp=<null>,mobile=<null>,telno=<null>,emailadd=<null>,orgnm=321312,orgbusiness=31231,orgprovinceno=<null>,orgprovincenm=<null>,orgcityno=<null>,orgcitynm=<null>,orgadd=<null>,bankno=<null>,bankacnm=<null>,bankidtp=<null>,bankidno=21,bankacco=<null>,bankacco2=<null>,bankmobile=<null>,bankprovinceno=<null>,bankprovincenm=<null>,bankcityno=<null>,bankcitynm=<null>,bankadd=<null>,rerpidtp=<null>,rerpidno=<null>,rerpvalidt=<null>,rerpnm=<null>,hftfamilytradeaccoct=0,hftoperatortradeaccoct=0,hftorganizationtradeaccoct=0,cpfamilytradeaccoct=0,cporganizationtradeaccoct=0,openaccoflag=false,checkautocodeflag=false,processId=[499aba16-77e7-4d6d-8514-d4f8737fa0d1] ]
+2015-08-06 22:30:25,618 DEBUG [1768308615@qtp-1182320432-9] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [0bbadfea60276f8a046fc024de6b3449] isTradePwdSet : CU150806221021JT663LIFD5
+2015-08-06 22:30:25,667 DEBUG [1768308615@qtp-1182320432-9] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [0bbadfea60276f8a046fc024de6b3449] isIdnoRegister : 21
+2015-08-06 22:30:25,668 DEBUG [1768308615@qtp-1182320432-9] AppException [AppException.java : 90] [0bbadfea60276f8a046fc024de6b3449]  errcode :FIELD_FORMAT_WRONG errmsg :证件号码格式不正确
+2015-08-06 22:30:25,669 ERROR [1768308615@qtp-1182320432-9] c.u.u.web.controller.CustController [BankCardController.java : 418] 证件号码格式不正确
+com.ufufund.ufb.biz.exception.BizException: 证件号码格式不正确
+	at com.ufufund.ufb.biz.manager.impl.CustManagerImpl.isIdnoRegister(CustManagerImpl.java:78) ~[classes/:na]
+	at com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator.validator(CustManagerValidator.java:108) ~[classes/:na]
+	at com.ufufund.ufb.biz.manager.impl.BankCardManagerImpl.openAccount1(BankCardManagerImpl.java:267) ~[classes/:na]
+	at com.ufufund.ufb.web.controller.BankCardController.addBankCard2(BankCardController.java:401) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_40]
+	at org.springframework.web.bind.annotation.support.HandlerMethodInvoker.invokeHandlerMethod(HandlerMethodInvoker.java:176) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.invokeHandlerMethod(AnnotationMethodHandlerAdapter.java:440) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.handle(AnnotationMethodHandlerAdapter.java:428) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:936) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:838) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727) [servlet-api-2.5-20081211.jar:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:812) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820) [servlet-api-2.5-20081211.jar:na]
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1221) [jetty-6.1.26.jar:6.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.RefreshHolderFilter.doFilter(RefreshHolderFilter.java:31) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.ServletHolderFilter.doFilter(ServletHolderFilter.java:26) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:399) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:766) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:450) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.Server.handle(Server.java:326) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection$RequestHandler.content(HttpConnection.java:945) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:756) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:218) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582) [jetty-util-6.1.26.jar:6.1.26]
+2015-08-06 22:30:27,949 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.m.impl.BankCardManagerImpl [ImplCommon.java : 31] [68ecec14-47c6-4b48-965c-57740516a3d3] openAccount1 : OpenAccountAction[fundcorpno=01,custno=CU150806221021JT663LIFD5,invtp=1,level=<null>,tradepwd=1q2w3e,tradepwd2=1q2w3e,mobileautocode=<null>,serialno=<null>,accoreqserial=<null>,transactionaccountid=<null>,otherserial=<null>,protocolno=<null>,invnm=31231,idno=21,idtp=<null>,mobile=<null>,telno=<null>,emailadd=<null>,orgnm=321312,orgbusiness=31231,orgprovinceno=<null>,orgprovincenm=<null>,orgcityno=<null>,orgcitynm=<null>,orgadd=<null>,bankno=<null>,bankacnm=<null>,bankidtp=<null>,bankidno=21,bankacco=<null>,bankacco2=<null>,bankmobile=<null>,bankprovinceno=<null>,bankprovincenm=<null>,bankcityno=<null>,bankcitynm=<null>,bankadd=<null>,rerpidtp=<null>,rerpidno=<null>,rerpvalidt=<null>,rerpnm=<null>,hftfamilytradeaccoct=0,hftoperatortradeaccoct=0,hftorganizationtradeaccoct=0,cpfamilytradeaccoct=0,cporganizationtradeaccoct=0,openaccoflag=false,checkautocodeflag=false,processId=[68ecec14-47c6-4b48-965c-57740516a3d3] ]
+2015-08-06 22:30:27,950 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [38c3a50334f6e70038ca018a90bd11bf] isTradePwdSet : CU150806221021JT663LIFD5
+2015-08-06 22:30:27,991 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [38c3a50334f6e70038ca018a90bd11bf] isIdnoRegister : 21
+2015-08-06 22:30:27,991 DEBUG [2116753169@qtp-1182320432-10] AppException [AppException.java : 90] [38c3a50334f6e70038ca018a90bd11bf]  errcode :FIELD_FORMAT_WRONG errmsg :证件号码格式不正确
+2015-08-06 22:30:27,993 ERROR [2116753169@qtp-1182320432-10] c.u.u.web.controller.CustController [BankCardController.java : 418] 证件号码格式不正确
+com.ufufund.ufb.biz.exception.BizException: 证件号码格式不正确
+	at com.ufufund.ufb.biz.manager.impl.CustManagerImpl.isIdnoRegister(CustManagerImpl.java:78) ~[classes/:na]
+	at com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator.validator(CustManagerValidator.java:108) ~[classes/:na]
+	at com.ufufund.ufb.biz.manager.impl.BankCardManagerImpl.openAccount1(BankCardManagerImpl.java:267) ~[classes/:na]
+	at com.ufufund.ufb.web.controller.BankCardController.addBankCard2(BankCardController.java:401) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_40]
+	at org.springframework.web.bind.annotation.support.HandlerMethodInvoker.invokeHandlerMethod(HandlerMethodInvoker.java:176) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.invokeHandlerMethod(AnnotationMethodHandlerAdapter.java:440) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.handle(AnnotationMethodHandlerAdapter.java:428) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:936) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:838) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:727) [servlet-api-2.5-20081211.jar:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:812) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820) [servlet-api-2.5-20081211.jar:na]
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1221) [jetty-6.1.26.jar:6.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.RefreshHolderFilter.doFilter(RefreshHolderFilter.java:31) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.ServletHolderFilter.doFilter(ServletHolderFilter.java:26) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:399) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:766) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:450) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.Server.handle(Server.java:326) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection$RequestHandler.content(HttpConnection.java:945) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:756) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:218) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582) [jetty-util-6.1.26.jar:6.1.26]
+2015-08-06 22:30:47,570 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.m.impl.BankCardManagerImpl [ImplCommon.java : 31] [d56d0865-82f0-410e-848f-bb917c6d6b33] openAccount1 : OpenAccountAction[fundcorpno=01,custno=CU150806221021JT663LIFD5,invtp=1,level=<null>,tradepwd=1q2w3e,tradepwd2=1q2w3e,mobileautocode=<null>,serialno=<null>,accoreqserial=<null>,transactionaccountid=<null>,otherserial=<null>,protocolno=<null>,invnm=31231,idno=21,idtp=<null>,mobile=<null>,telno=<null>,emailadd=<null>,orgnm=321312,orgbusiness=31231,orgprovinceno=<null>,orgprovincenm=<null>,orgcityno=<null>,orgcitynm=<null>,orgadd=<null>,bankno=<null>,bankacnm=<null>,bankidtp=<null>,bankidno=21,bankacco=<null>,bankacco2=<null>,bankmobile=<null>,bankprovinceno=<null>,bankprovincenm=<null>,bankcityno=<null>,bankcitynm=<null>,bankadd=<null>,rerpidtp=<null>,rerpidno=<null>,rerpvalidt=<null>,rerpnm=<null>,hftfamilytradeaccoct=0,hftoperatortradeaccoct=0,hftorganizationtradeaccoct=0,cpfamilytradeaccoct=0,cporganizationtradeaccoct=0,openaccoflag=false,checkautocodeflag=false,processId=[d56d0865-82f0-410e-848f-bb917c6d6b33] ]
+2015-08-06 22:30:47,571 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [38c3a50334f6e70038ca018a90bd11bf] isTradePwdSet : CU150806221021JT663LIFD5
+2015-08-06 22:30:47,608 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [38c3a50334f6e70038ca018a90bd11bf] isIdnoRegister : 21
+2015-08-06 22:31:00,669 DEBUG [2116753169@qtp-1182320432-10] AppException [AppException.java : 90] [677f4931-ef68-42b8-b973-bd660c811114]  errcode :NECESSARY_EMPTY errmsg :银行证件号码不能为空
+2015-08-06 22:31:00,672 ERROR [2116753169@qtp-1182320432-10] c.u.u.w.c.ajax.AjaxCustController [AjaxCustController.java : 66] 银行证件号码不能为空
+com.ufufund.ufb.biz.exception.BizException: 银行证件号码不能为空
+	at com.ufufund.ufb.biz.manager.impl.validator.BankCardManagerValidator.validator(BankCardManagerValidator.java:101) ~[classes/:na]
+	at com.ufufund.ufb.biz.manager.impl.BankCardManagerImpl.openAccount2(BankCardManagerImpl.java:293) ~[classes/:na]
+	at com.ufufund.ufb.web.controller.ajax.AjaxCustController.addBankCardAjax(AjaxCustController.java:58) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_40]
+	at org.springframework.web.bind.annotation.support.HandlerMethodInvoker.invokeHandlerMethod(HandlerMethodInvoker.java:176) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.invokeHandlerMethod(AnnotationMethodHandlerAdapter.java:440) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.handle(AnnotationMethodHandlerAdapter.java:428) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:936) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:827) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707) [servlet-api-2.5-20081211.jar:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:812) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820) [servlet-api-2.5-20081211.jar:na]
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1221) [jetty-6.1.26.jar:6.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.ServletHolderFilter.doFilter(ServletHolderFilter.java:26) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:399) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:766) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:450) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.Server.handle(Server.java:326) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection$RequestHandler.headerComplete(HttpConnection.java:928) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:549) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582) [jetty-util-6.1.26.jar:6.1.26]
+2015-08-06 22:33:01,941 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.m.impl.BankCardManagerImpl [ImplCommon.java : 31] [16b4f0c8-c4df-4c66-9483-696f0c42df93] openAccount1 : OpenAccountAction[fundcorpno=01,custno=CU150806221021JT663LIFD5,invtp=1,level=<null>,tradepwd=1q2w3e,tradepwd2=1q2w3e,mobileautocode=<null>,serialno=<null>,accoreqserial=<null>,transactionaccountid=<null>,otherserial=<null>,protocolno=<null>,invnm=31231,idno=21,idtp=<null>,mobile=<null>,telno=<null>,emailadd=<null>,orgnm=321312,orgbusiness=31231,orgprovinceno=<null>,orgprovincenm=<null>,orgcityno=<null>,orgcitynm=<null>,orgadd=<null>,bankno=<null>,bankacnm=<null>,bankidtp=<null>,bankidno=21,bankacco=<null>,bankacco2=<null>,bankmobile=<null>,bankprovinceno=<null>,bankprovincenm=<null>,bankcityno=<null>,bankcitynm=<null>,bankadd=<null>,rerpidtp=<null>,rerpidno=<null>,rerpvalidt=<null>,rerpnm=<null>,hftfamilytradeaccoct=0,hftoperatortradeaccoct=0,hftorganizationtradeaccoct=0,cpfamilytradeaccoct=0,cporganizationtradeaccoct=0,openaccoflag=false,checkautocodeflag=false,processId=[16b4f0c8-c4df-4c66-9483-696f0c42df93] ]
+2015-08-06 22:33:01,942 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [38c3a50334f6e70038ca018a90bd11bf] isTradePwdSet : CU150806221021JT663LIFD5
+2015-08-06 22:33:01,975 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [38c3a50334f6e70038ca018a90bd11bf] isIdnoRegister : 21
+2015-08-06 22:33:10,025 DEBUG [2116753169@qtp-1182320432-10] AppException [AppException.java : 90] [fea213cc-fd71-48ab-9d14-8c0898212395]  errcode :NECESSARY_EMPTY errmsg :银行证件号码不能为空
+2015-08-06 22:33:10,026 ERROR [2116753169@qtp-1182320432-10] c.u.u.w.c.ajax.AjaxCustController [AjaxCustController.java : 66] 银行证件号码不能为空
+com.ufufund.ufb.biz.exception.BizException: 银行证件号码不能为空
+	at com.ufufund.ufb.biz.manager.impl.validator.BankCardManagerValidator.validator(BankCardManagerValidator.java:101) ~[classes/:na]
+	at com.ufufund.ufb.biz.manager.impl.BankCardManagerImpl.openAccount2(BankCardManagerImpl.java:293) ~[classes/:na]
+	at com.ufufund.ufb.web.controller.ajax.AjaxCustController.addBankCardAjax(AjaxCustController.java:58) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_40]
+	at org.springframework.web.bind.annotation.support.HandlerMethodInvoker.invokeHandlerMethod(HandlerMethodInvoker.java:176) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.invokeHandlerMethod(AnnotationMethodHandlerAdapter.java:440) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.handle(AnnotationMethodHandlerAdapter.java:428) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:936) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:827) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707) [servlet-api-2.5-20081211.jar:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:812) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820) [servlet-api-2.5-20081211.jar:na]
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1221) [jetty-6.1.26.jar:6.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.ServletHolderFilter.doFilter(ServletHolderFilter.java:26) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:399) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:766) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:450) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.Server.handle(Server.java:326) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection$RequestHandler.headerComplete(HttpConnection.java:928) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:549) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582) [jetty-util-6.1.26.jar:6.1.26]
+2015-08-06 22:33:36,846 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.m.impl.BankCardManagerImpl [ImplCommon.java : 31] [a8f4610f-6b36-447f-aa5a-b0e3a6a1bed5] openAccount1 : OpenAccountAction[fundcorpno=01,custno=CU150806221021JT663LIFD5,invtp=1,level=<null>,tradepwd=1q2w3e,tradepwd2=1q2w3e,mobileautocode=<null>,serialno=<null>,accoreqserial=<null>,transactionaccountid=<null>,otherserial=<null>,protocolno=<null>,invnm=31231,idno=21,idtp=<null>,mobile=<null>,telno=<null>,emailadd=<null>,orgnm=321312,orgbusiness=31231,orgprovinceno=<null>,orgprovincenm=<null>,orgcityno=<null>,orgcitynm=<null>,orgadd=<null>,bankno=<null>,bankacnm=<null>,bankidtp=<null>,bankidno=21,bankacco=<null>,bankacco2=<null>,bankmobile=<null>,bankprovinceno=<null>,bankprovincenm=<null>,bankcityno=<null>,bankcitynm=<null>,bankadd=<null>,rerpidtp=<null>,rerpidno=<null>,rerpvalidt=<null>,rerpnm=<null>,hftfamilytradeaccoct=0,hftoperatortradeaccoct=0,hftorganizationtradeaccoct=0,cpfamilytradeaccoct=0,cporganizationtradeaccoct=0,openaccoflag=false,checkautocodeflag=false,processId=[a8f4610f-6b36-447f-aa5a-b0e3a6a1bed5] ]
+2015-08-06 22:33:36,847 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [38c3a50334f6e70038ca018a90bd11bf] isTradePwdSet : CU150806221021JT663LIFD5
+2015-08-06 22:33:36,878 DEBUG [2116753169@qtp-1182320432-10] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [38c3a50334f6e70038ca018a90bd11bf] isIdnoRegister : 21
+2015-08-06 22:33:50,187 DEBUG [1423485503@qtp-1182320432-12] AppException [AppException.java : 90] [395ddd2d-2e31-463c-a6c2-689b99227f39]  errcode :NECESSARY_EMPTY errmsg :银行证件号码不能为空
+2015-08-06 22:33:50,188 ERROR [1423485503@qtp-1182320432-12] c.u.u.w.c.ajax.AjaxCustController [AjaxCustController.java : 66] 银行证件号码不能为空
+com.ufufund.ufb.biz.exception.BizException: 银行证件号码不能为空
+	at com.ufufund.ufb.biz.manager.impl.validator.BankCardManagerValidator.validator(BankCardManagerValidator.java:101) ~[classes/:na]
+	at com.ufufund.ufb.biz.manager.impl.BankCardManagerImpl.openAccount2(BankCardManagerImpl.java:293) ~[classes/:na]
+	at com.ufufund.ufb.web.controller.ajax.AjaxCustController.addBankCardAjax(AjaxCustController.java:58) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_40]
+	at org.springframework.web.bind.annotation.support.HandlerMethodInvoker.invokeHandlerMethod(HandlerMethodInvoker.java:176) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.invokeHandlerMethod(AnnotationMethodHandlerAdapter.java:440) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter.handle(AnnotationMethodHandlerAdapter.java:428) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:936) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:827) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707) [servlet-api-2.5-20081211.jar:na]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:812) [spring-webmvc-3.2.5.RELEASE.jar:3.2.5.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:820) [servlet-api-2.5-20081211.jar:na]
+	at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:511) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1221) [jetty-6.1.26.jar:6.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-3.2.4.RELEASE.jar:3.2.4.RELEASE]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at com.ufufund.ufb.web.filter.ServletHolderFilter.doFilter(ServletHolderFilter.java:26) [classes/:na]
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:399) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:766) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:450) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.Server.handle(Server.java:326) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection$RequestHandler.headerComplete(HttpConnection.java:928) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:549) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:212) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410) [jetty-6.1.26.jar:6.1.26]
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582) [jetty-util-6.1.26.jar:6.1.26]
+2015-08-06 22:34:56,829 DEBUG [853883128@qtp-1182320432-14] c.u.u.b.m.impl.BankCardManagerImpl [ImplCommon.java : 31] [d19ce951-1f0f-4cce-9873-8de8db7309b0] openAccount1 : OpenAccountAction[fundcorpno=01,custno=CU150806221021JT663LIFD5,invtp=1,level=<null>,tradepwd=1q2w3e,tradepwd2=1q2w3e,mobileautocode=<null>,serialno=<null>,accoreqserial=<null>,transactionaccountid=<null>,otherserial=<null>,protocolno=<null>,invnm=31231,idno=21,idtp=<null>,mobile=<null>,telno=<null>,emailadd=<null>,orgnm=321312,orgbusiness=31231,orgprovinceno=<null>,orgprovincenm=<null>,orgcityno=<null>,orgcitynm=<null>,orgadd=<null>,bankno=<null>,bankacnm=<null>,bankidtp=<null>,bankidno=21,bankacco=<null>,bankacco2=<null>,bankmobile=<null>,bankprovinceno=<null>,bankprovincenm=<null>,bankcityno=<null>,bankcitynm=<null>,bankadd=<null>,rerpidtp=<null>,rerpidno=<null>,rerpvalidt=<null>,rerpnm=<null>,hftfamilytradeaccoct=0,hftoperatortradeaccoct=0,hftorganizationtradeaccoct=0,cpfamilytradeaccoct=0,cporganizationtradeaccoct=0,openaccoflag=false,checkautocodeflag=false,processId=[d19ce951-1f0f-4cce-9873-8de8db7309b0] ]
+2015-08-06 22:34:56,830 DEBUG [853883128@qtp-1182320432-14] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [f6ad46e798c1627bad05075f2b0a69f4] isTradePwdSet : CU150806221021JT663LIFD5
+2015-08-06 22:34:56,882 DEBUG [853883128@qtp-1182320432-14] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [f6ad46e798c1627bad05075f2b0a69f4] isIdnoRegister : 21
+2015-08-06 22:35:23,267 WARN [138834242@qtp-1182320432-11] c.u.u.r.h.s.HftCustServiceSimulator [HftCustServiceSimulator.java : 47] 模拟器返回：BankAuthResponse [OtherSerial=null, ProtocolNo=null, toString()=AbstractResponse [Version=1.0.0, MerchantId=00000001, DistributorCode=223, BusinType=bankSwiftAuth, ApplicationNo=FD150806221023UZ4FFMIHL6, ReturnCode=0000, ReturnMsg=交易成功, Extension=null]]
+2015-08-06 22:35:33,942 WARN [138834242@qtp-1182320432-11] c.u.u.r.h.s.HftCustServiceSimulator [HftCustServiceSimulator.java : 71] 模拟器返回：BankVeriResponse [ValidateState=1, ProtocolNo=Protocol20150806223533, toString()=AbstractResponse [Version=1.0.0, MerchantId=00000001, DistributorCode=223, BusinType=bankSwiftVerify, ApplicationNo=FD150806221033BDKJMA82D7, ReturnCode=0000, ReturnMsg=交易成功, Extension=null]]
+2015-08-06 22:35:33,943 DEBUG [138834242@qtp-1182320432-11] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [8e36622985b4c31c70f163a1c3413786] isTradePwdSet : CU150806221021JT663LIFD5
+2015-08-06 22:35:33,989 DEBUG [138834242@qtp-1182320432-11] c.u.u.b.manager.impl.CustManagerImpl [ImplCommon.java : 31] [8e36622985b4c31c70f163a1c3413786] isIdnoRegister : 21
+2015-08-06 22:35:37,850 WARN [138834242@qtp-1182320432-11] c.u.u.r.h.s.HftCustServiceSimulator [HftCustServiceSimulator.java : 94] 模拟器返回：OpenAccountResponse [TransactionAccountID=Tan20150806223537, toString()=AbstractResponse [Version=1.0.0, MerchantId=00000001, DistributorCode=223, BusinType=openAccount, ApplicationNo=FD150806221037ELJJWLZU18, ReturnCode=0000, ReturnMsg=交易成功, Extension=null]]

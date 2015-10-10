@@ -1,0 +1,301 @@
+<!doctype html>
+<html>
+<head>
+<title>幼富通</title>
+<meta name="keywords" content="幼富通">
+<meta name="description" content="幼富通">
+<link rel="shortcut icon" href="${staticDomain}/static/family/favicon.ico" type="image/x-icon">
+
+<script type="text/javascript" src="${staticDomain}/static/family/scripts/load.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+    $(".link").on("click",function(){
+		$("#serialno").val($(this).attr("serialno"));
+		$("#form").attr("action", "../family/query_detail.htm");
+		$("#form").submit();
+	});
+	
+	$("#btn-queryIndex").on("click",function(){
+		$("#form").attr("action", "../family/query_index.htm");
+		$("#form").submit();
+	});
+		
+	$("#showYield").html("7日年化收益率（%)"+ parseFloat('${hftFundInfo.yield}').toFixed(4)+"");
+	$("#showIncome").html("万份收益（元）"+ parseFloat('${hftFundInfo.income}').toFixed(4) +"");
+
+});
+</script>
+</head>
+<body>
+<div id="page">
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+				<div class="b2"><span>柔软的大牛</span><a href="${staticDomain}/family/settingAccount.htm"></a></div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="${staticDomain}/family/session.htm">我的账户</a>
+				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
+				<a href="#">缴费明细</a>
+				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
+			</div>
+        </div>
+    </div>
+    
+    <div id="body">
+		<form id="form" method="post" action="${staticDomain}/family/query_index.htm">
+			<input type="hidden" id="serialno" name="serialno" value="">
+        <div class="container">
+			<div class="a1 height22">
+			     幼富宝
+			     <div class="addCard">
+                    银行卡已添加<span class="cBlue">$!{hft_family_trade_size}</span>张
+					<a href="${staticDomain}/family/settingCard.htm" class="readAll">查看全部</a>
+					<a href="${staticDomain}/family/addBankCard.htm">+新卡</a>
+                 </div>
+			</div>
+			<div class="a2 width928">
+				<div class="headtitle">
+				    <h3>活期理财账户（海富通货币）</h3>
+				</div>
+				<div class="ufbbox">
+				    <ul>
+				        <li class="li01"><span>资产总额（元）</span><label>#if($hftTotalBalanceDisplay)$!{hftTotalBalanceDisplay}#else --#end</label></li>
+				        <li class="li02"><span>昨日收益（元）</span><label>#if($hftFunddayincome) $!{hftFunddayincome}#else -- #end</label></li>
+				        <li class="li03"><span>累计收益（元）</span><label class="total">#if($hftTotalincome) $!{hftTotalincome} #else -- #end</label></li>
+				        <li class="li04">
+				            <div class="liBtn">
+				                <a href="${staticDomain}/family/pay_index.htm" class="btn01">充 值</a>
+                                <a href="${staticDomain}/family/cash_index.htm" class="btn02">取 现</a>
+				            </div>
+				            <div class="liBox">
+				                <a href="${staticDomain}/family/query_index.htm" class="Detailed hoverLine">资产明细</a>
+				                <a href="${staticDomain}/family/settingAutoFund.htm" class="hoverLine">自动理财设置</a>
+				                <div class="trip"><div>可设置固定期限或固定金额的自动充值或取现<b></b></div></div>
+				            </div>
+				        </li>
+				    </ul>
+				</div>
+			</div>
+			<div class="a3 mt15 mb30">
+				<div class="b1">
+					<div class="c1">资金明细<a id="btn-queryIndex" href="#">查看更多</a></div>
+					<div class="c2">
+						<table>
+							<tr>
+								<th>时间</th>
+								<th>交易类型</th>
+								<th>金额</th>
+								<th>交易状态</th>
+								<th>银行</th>
+								<th>操作</th>
+							</tr>
+							#foreach($tradeRequest in $Tradelist)
+							<tr>
+									   <td>
+											#set($appdate=${tradeRequest.appdate})
+											$appdate.substring(0,4)-$appdate.substring(4,6)-$appdate.substring(6,8)
+											#set($apptime=${tradeRequest.apptime})
+											$apptime.substring(0,2):$apptime.substring(2,4)
+										</td>
+                                        <td>
+    									#if(${tradeRequest.apkind}=="022")
+    										充值
+    									#elseif(${tradeRequest.apkind}=="023")
+    										取现
+    									#elseif(${tradeRequest.apkind}=="024")
+    										快取
+    									#end
+    									</td>
+                                        <td>
+    									#if(${tradeRequest.appamt})
+    										+$!{tradeRequest.appamt}
+    									#else
+    										-$!{tradeRequest.appvol}
+    									#end
+    									</td>
+                                        <td>
+    									#if(${tradeRequest.state}=="I")
+    										处理中
+										#elseif(${tradeRequest.state}=="F")	
+											失败
+    									#else	
+    										成功
+    									#end
+    									</td>
+                                        <td>
+    									#set($tailStr=${tradeRequest.bankacco})
+    									#set($start=$tailStr.length() - 4)
+    									#set($end=$tailStr.length())
+    									${tradeRequest.banknm}（尾号$tailStr.substring($start,$end)）	
+    									</td>
+                                        <td>
+											<a serialno="${tradeRequest.serialno}" class="link" href="javascript:;">查看</a>
+										</td>
+							</tr>
+		                	#end
+						</table>
+					</div>
+				</div>
+				<div class="b2">
+					<div class="c1">收益看板</div>
+					<div class="c2 tabs">
+						<div class="tabsNav"><a href="javascript:;" class="active" id="showYield"></a><a href="javascript:;" class="txtR" id="showIncome"></a></div>
+						<div id="main1" class="showNow">日年化收益率</div>
+						<div id="main2">万份收益</div>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+	</form>
+</div>
+<div class="LowFoot">
+    <div class="inner">
+        <div class="contentFoot">
+            幼富通版权所有 ©2014 沪ICP备14054347号
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                   echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main1')); 
+                
+               option = {
+                   title: {
+                       x: "center"
+                   },
+                   tooltip: {
+                       trigger: "item",
+                       formatter: "{a} <br/>{b} : {c}"
+                   },
+                   legend: {
+                       x: 'left',
+                       data: [""]
+                   },
+                   xAxis: [
+                       {
+                           type: "category",
+                           splitLine: {show: false},
+                           data: [
+						  #foreach($nav in $hftNavList)
+							'$nav.date.substring(4,6)/$nav.date.substring(6,8)',
+							#end
+						   ]
+                       }
+                   ],
+                   yAxis: [
+                       {
+                           type: "log"
+                       }
+                   ],
+                   calculable: true,
+                   series: [
+                       {
+                           name: "1的指数",
+                           type: "line",
+                           data: [
+						   	#foreach($nav in $hftNavList)
+							$nav.yield,
+							#end
+						   ]
+
+                       }
+                   ]
+                };
+                
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    
+    
+     // 路径配置
+        require.config({
+            paths: {
+                   echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main2')); 
+                
+               option = {
+                   title: {
+                       x: "center"
+                   },
+                   tooltip: {
+                       trigger: "item",
+                       formatter: "{a} <br/>{b} : {c}"
+                   },
+                   legend: {
+                       x: 'left',
+                       data: [""]
+                   },
+                   xAxis: [
+                       {
+                           type: "category",
+                           splitLine: {show: false},
+                           data: [
+						   #foreach($nav in $hftNavList)
+							'$nav.date.substring(4,6)/$nav.date.substring(6,8)',
+							#end
+						   ]
+                       }
+                   ],
+                   yAxis: [
+                       {
+                           type: "log"
+                       }
+                   ],
+                   calculable: true,
+                   series: [
+                       {
+                           name: "2的指数",
+                           type: "line",
+                           data: [
+						   #foreach($nav in $hftNavList)
+							$nav.income,
+							#end
+						   ]
+
+                       }
+                   ]
+                };
+                
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+</script>
+</body>
+</html>

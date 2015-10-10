@@ -1,5 +1,7 @@
 package com.ufufund.ufb.biz.manager.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +23,11 @@ import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
+import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
+import com.ufufund.ufb.model.vo.StudentVo;
 import com.ufufund.ufb.model.vo.Today;
 
 
@@ -285,8 +289,13 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		String processId = this.getProcessId(changePasswordAction);
 		String actionType = changePasswordAction.getActionType();
 		/** 校验数据有效性 **/
-		custManagerValidator.validator(changePasswordAction);
-		
+		//custManagerValidator.validator(changePasswordAction);
+		//20151005==============
+		String password0=changePasswordAction.getPassword0();
+		if(!("").equals(password0)&&!(password0==null)){
+			custManagerValidator.validator(changePasswordAction);
+		}
+		//20151005==============
 		/** 验证原始密码 **/
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(changePasswordAction.getCustno());
@@ -295,7 +304,9 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			custinfo.setTradepwd(EncryptUtil.md5(changePasswordAction.getPassword0()));
 		}else if("LOGIN".equals(actionType)){
 			// 登入密码
-			custinfo.setLoginpwd(EncryptUtil.md5(changePasswordAction.getPassword0()));
+			if(!("").equals(password0)&&!(password0==null)){//20151005==============
+				custinfo.setLoginpwd(EncryptUtil.md5(changePasswordAction.getPassword0()));
+			} 
 		}else{
 			// 找回交易密码
 		}
@@ -343,5 +354,27 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		}
 		custinfoMapper.updateCustinfo(custinfo);
 		this.insterSerialno(custinfo, Apkind.CHANGE_PASSWORD.getValue());
+	}
+
+	@Override
+	public void validateFamily(RegisterAction registerAction) throws BizException {
+		String processId = this.getProcessId(registerAction);
+		custManagerValidator.validator(registerAction);
+		
+		// 查询手机号是否注册
+		if(this.isMobileRegister(registerAction.getLogincode())){
+			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, BisConst.Register.MOBILE);
+		}
+		
+	}
+
+	@Override
+	public List<Student> queryStudentsByCustno(String custno) throws BizException {
+		return custinfoMapper.queryStudentsByCustno(custno);
+	}
+
+	@Override
+	public StudentVo queryOrgsByCid(String cid) throws BizException {
+		return custinfoMapper.queryOrgsByCid(cid);
 	}
 }

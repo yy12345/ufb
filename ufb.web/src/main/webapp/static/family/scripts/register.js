@@ -458,9 +458,9 @@ $("body").on("blur", ".ipt-phoneNum", function() {
     check_mobile($(this));
 });
 
-//$("body").on("blur", ".ipt-code", function() {
-//   check_code($(this));
-//});
+ $("body").on("blur", ".ipt-code", function() {
+    check_code($(this));
+ });
 
 $("body").on("blur", ".ipt-phoneCode", function() {
     check_phoneCode($(this));
@@ -552,4 +552,5 @@ $("body").on("blur", ".ipt-tradepwd2",  function() {
 $("body").on("blur", "#orgprovinceno",  function() {
     check_orgprovinceno($(this));
 });
+
 
