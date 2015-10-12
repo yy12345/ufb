@@ -109,6 +109,7 @@
 			a.pay_discount as paydiscount,
 			a.pay_ack_amount as payackamount,
 			a.is_pay as ispay,
+			a.stats as stats,
 			a.pay_custno as paycustno,
 			a.pay_date as paydate 
 			FROM

@@ -276,13 +276,14 @@
     <insert id="insertOrgplandetailList"  parameterType="java.util.List">  
         insert into 
         org_plan_datail(
-               org_id,
+              org_id,
            	  detail_id,
 			  plan_id,
 			  student_id,
 			  pay_app_amount,
 			  pay_discount,
-			  pay_ack_amount
+			  pay_ack_amount,
+			  stats
                  )
         values 
     	<foreach collection="list" item="item" index="index" separator=",">
@@ -293,7 +294,8 @@
          #{item.studentid,jdbcType=VARCHAR},
          #{item.payappamount,jdbcType=VARCHAR},
          #{item.paydiscount,jdbcType=VARCHAR},
-         #{item.payackamount,jdbcType=VARCHAR}                  
+         #{item.payackamount,jdbcType=VARCHAR},
+         #{item.stats,jdbcType=VARCHAR}               
          )
        </foreach>
     </insert>

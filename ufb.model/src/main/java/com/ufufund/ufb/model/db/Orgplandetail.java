@@ -17,7 +17,9 @@ public class Orgplandetail extends PrintableModel implements Serializable {
 	private String payappamount="0";// decimal(16,2) DEFAULT NULL COMMENT '应缴金额',
 	private String paydiscount="0";// decimal(16,2) DEFAULT NULL COMMENT '折扣金额',
 	private String payackamount="0";// decimal(16,2) DEFAULT NULL COMMENT '实缴金额'
-
+	private String stats;// char(1) DEFAULT NULL,
+	
+	
 	public String getDetailid() {
 		return detailid;
 	}
@@ -72,6 +74,14 @@ public class Orgplandetail extends PrintableModel implements Serializable {
 
 	public void setOrgid(String orgid) {
 		this.orgid = orgid;
+	}
+
+	public String getStats() {
+		return stats;
+	}
+
+	public void setStats(String stats) {
+		this.stats = stats;
 	}
 
 }

@@ -18,6 +18,7 @@ public class QueryOrgplandetail extends PrintableModel implements Serializable {
 	private String paydiscount="0";// decimal(16,2) DEFAULT NULL COMMENT '折扣金额',
 	private String payackamount="0";// decimal(16,2) DEFAULT NULL COMMENT '实缴金额'
 	private String ispay;// char(1) DEFAULT 'F' COMMENT '是否缴费 Y 已缴费 F 未缴费',
+	private String stats;// char(1) DEFAULT NULL,
 	private String paycustno;//` char(24) DEFAULT NULL COMMENT '缴费客户号',
 	private String paydate;//` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP CO
 	
@@ -99,6 +100,14 @@ public class QueryOrgplandetail extends PrintableModel implements Serializable {
 
 	public void setPaydate(String paydate) {
 		this.paydate = paydate;
+	}
+
+	public String getStats() {
+		return stats;
+	}
+
+	public void setStats(String stats) {
+		this.stats = stats;
 	}
 
 	

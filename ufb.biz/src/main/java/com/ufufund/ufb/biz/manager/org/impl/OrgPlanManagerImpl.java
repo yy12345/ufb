@@ -166,6 +166,7 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 			orggplandetail.setPayappamount(payappamount.toString());
 			payackamount = payappamount.subtract(new BigDecimal(orggplandetail.getPaydiscount()));
 			orggplandetail.setPayackamount(payackamount.toString());
+			orggplandetail.setStats("N");
 			plandetailList.add(orggplandetail);
 		}
 		log.debug(processId + " List<plandetailList> ：" + plandetailList.size());
