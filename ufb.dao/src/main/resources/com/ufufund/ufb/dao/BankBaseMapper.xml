@@ -3,31 +3,29 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ufufund.ufb.dao.BankBaseMapper">
-	<select id="getBankBaseInfo" parameterType="com.ufufund.ufb.model.db.BankBaseInfo"
-		resultType="com.ufufund.ufb.model.db.BankBaseInfo">
-		SELECT
-		bankbase.BANKNO,
-		bankbase.BANKNM,
-		bankbase.BANK_SITE,
-		bankbase.EBANK_URL,
-		bankbase.TELBANK,
-		bankbase.LINK_MAN,
-		bankbase.LINK_MAN_TEL,
-		bankbase.LINK_MAN_FAX,
-		bankbase.LINK_MAN_EMAIL,
-		bankbase.DIS_ORDER,
-		bankbase.DIS_FLAG,
-		bankbase.STATUS,
-		bankbase.C_MAN,
-		bankbase.C_TIME,
-		bankbase.E_MAN,
-		bankbase.E_TIME
-		FROM
-		bankbase
-		WHERE
-		<if test="bankno != null and bankno !=''">
-			bankbase.BANKNO = #{bankno,jdbcType=VARCHAR} AND
-		</if>
-		bankbase.STATUS &lt;&gt; 'N'
+
+	<select id="getBankBaseInfo" parameterType="BankBaseInfo" resultType="BankBaseInfo">
+		select 
+			bankno  ,
+			banknm  ,
+			level   ,
+			disorder,
+			status  ,
+			mark    ,
+			createtime,
+			updatetime
+		from bankbase where 
+			<if test="bankno != null and bankno !=''">
+				bankno = #{bankno,jdbcType=VARCHAR} and
+			</if>
+			status &lt;&gt; 'N'
 	</select>
+	
+	<select id="getBankCardbin" parameterType="String" resultType="BankCardbin">
+		select 
+			bin, bankno, banknm, type, date_format(updatetime,'%Y%m%d%H%i%s') updatetime
+		from bankcardbin 
+		where bin = #{bin,jdbcType=VARCHAR}
+	</select>
+
 </mapper>

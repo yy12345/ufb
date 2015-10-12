@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.dao.BankBaseMapper;
 import com.ufufund.ufb.model.db.BankBaseInfo;
+import com.ufufund.ufb.model.db.BankCardbin;
 
 @Service
 public class BankBaseManagerImpl extends ImplCommon implements BankBaseManager {
@@ -22,5 +23,10 @@ public class BankBaseManagerImpl extends ImplCommon implements BankBaseManager {
 		bankBaseInfo.setBankno(bankno);
 
 		return bankBaseMapper.getBankBaseInfo(bankBaseInfo);
+	}
+
+	@Override
+	public BankCardbin getBankCardbin(String bin) {
+		return bankBaseMapper.getBankCardbin(bin);
 	}
 }
