@@ -359,5 +359,14 @@
 		</if>
     </select>
     
+    
+    
+    <update id="updatePlandetail" parameterType="com.ufufund.ufb.model.db.Orgplandetail">
+		UPDATE org_plan_datail a
+	       SET a.stats = #{stats,jdbcType=VARCHAR}
+	     WHERE a.detail_id = #{detailid,jdbcType=VARCHAR}
+	 </update>
+	 
+	 
 </mapper>
 

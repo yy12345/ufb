@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.ufufund.ufb.common.dao.BaseDao;
 import com.ufufund.ufb.model.db.Orgchargeinfo;
+import com.ufufund.ufb.model.db.Orggrade;
 import com.ufufund.ufb.model.db.Orgplan;
 import com.ufufund.ufb.model.db.Orgplandetail;
 import com.ufufund.ufb.model.db.Orgplandetailcharge;
-import com.ufufund.ufb.model.db.Orggrade;
 
 
 public interface OrgDeployMapper extends BaseDao {
@@ -46,4 +46,5 @@ public interface OrgDeployMapper extends BaseDao {
 	
 	public List<Orgplan> getOrgplan(Orgplan orggplan);
 	
+	public int updatePlandetail(Orgplandetail orgplandetail);
 }

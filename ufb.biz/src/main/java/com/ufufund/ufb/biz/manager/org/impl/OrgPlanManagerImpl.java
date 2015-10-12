@@ -21,6 +21,7 @@ import com.ufufund.ufb.dao.OrgDeployMapper;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction2;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction3;
+import com.ufufund.ufb.model.action.org.PersonConfirmAction;
 import com.ufufund.ufb.model.action.org.UpdateOrgPlanAction1;
 import com.ufufund.ufb.model.db.Orgplan;
 import com.ufufund.ufb.model.db.Orgplandetail;
@@ -166,7 +167,14 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 			orggplandetail.setPayappamount(payappamount.toString());
 			payackamount = payappamount.subtract(new BigDecimal(orggplandetail.getPaydiscount()));
 			orggplandetail.setPayackamount(payackamount.toString());
-			orggplandetail.setStats("N");
+			/*
+			 * 月代扣状态直接确认
+			 */
+			if (Constant.Orggrade.CYCLE_TYPE$M.equals(action.getCycletype())) {
+				orggplandetail.setStats("F");
+			}else{
+				orggplandetail.setStats("N");
+			}
 			plandetailList.add(orggplandetail);
 		}
 		log.debug(processId + " List<plandetailList> ：" + plandetailList.size());
@@ -175,5 +183,24 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		orgDeployMapper.insertOrgplandetailList(plandetailList);
 		orgDeployMapper.insertOrgplandetailchargeList(plandetailchargeList);
 	}
+
+	@Override
+	public void personConfirmPlandetail(List<PersonConfirmAction> datailList) throws BizException {
+		// TODO Auto-generated method stub
+		String processId = this.getProcessId(datailList);
+		if(datailList.isEmpty()||datailList.size() ==0){
+			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
+		}
+		Orgplandetail orgplandetail = null;
+		for(PersonConfirmAction action : datailList){
+			orgplandetail = new Orgplandetail();
+			orgplandetail.setDetailid(action.getDetailid());
+			orgplandetail.setStats("F");
+			orgDeployMapper.updatePlandetail(orgplandetail);
+		}
+	}
+
+	
+	
 
 }

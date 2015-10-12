@@ -1,7 +1,10 @@
 package com.ufufund.ufb.biz.manager.org;
 
+import java.util.List;
+
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
+import com.ufufund.ufb.model.action.org.PersonConfirmAction;
 import com.ufufund.ufb.model.action.org.UpdateOrgPlanAction1;
 
 
@@ -19,11 +22,17 @@ public interface OrgPlanManager {
 	public void createOrgPlanAction2(CreateOrgPlanAction1 action) throws BizException;
 	
 	
-
 	/*
 	 * 修改收费计划
 	 */
 	public void updateOrgPlanAction2(UpdateOrgPlanAction1 action) throws BizException;
 	
 	
+	
+	
+	/*
+	 * 
+	 * 家庭确认发起收费
+	 */
+	public void personConfirmPlandetail(List<PersonConfirmAction> datailList) throws BizException;
 }
