@@ -17,7 +17,7 @@
 		<div class="topNav">
 			<div class="container">
 				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
-				<div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
+				<div class="b2"><span>柔软的大牛</span><a href="${staticDomain}/family/settingAccount.htm"></a></div>
 			</div>
 		</div>
         <div class="container">
@@ -168,27 +168,17 @@
                 showTips(ipt, "密码中不允许有空格");
 				return false;
             }
-			
 			showTips(ipt, 0);
+			ipt.parents("li").removeClass("ok");
 			return true;
 		}
 		
 		// 增加安全中心验证
 		$(".ipt-cash").on("blur", function() {
-			var apkind = $("input[type=radio]:checked").val();
-			if(apkind == "023"){
     			if($("#appvol").val() - $("#cardAvailable").val() > 0){
     				showTips($("#appvol"), "取现金额大于本卡可取金额！");
     				return false;
     			}
-			}else if(apkind == "024"){
-				if($("#appvol").val() - $("#cardRealAvailable").val() > 0){
-					showTips($("#appvol"), "快取取现金额大于本卡可取金额！");
-					return false;
-				}
-			}else{
-			
-			}
         });
 		
 		$("#tradePwd").on("blur", function() {
@@ -225,20 +215,10 @@
 			if(!check_pwd1($("#tradePwd"))){
 				return false;
 			}
-			var apkind = $("input[type=radio]:checked").val();
-			if(apkind == "023"){
-    			if($("#appvol").val() - $("#cardAvailable").val() > 0){
-    				showTips($("#appvol"), "取现金额大于本卡可取金额！");
-    				return false;
-    			}
-			}else if(apkind == "024"){
-				if($("#appvol").val() - $("#cardRealAvailable").val() > 0){
-					showTips($("#appvol"), "快取取现金额大于本卡可取金额！");
-					return false;
-				}
-			}else{
-			
-			}
+    		if($("#appvol").val() - $("#cardAvailable").val() > 0){
+    			showTips($("#appvol"), "取现金额大于本卡可取金额！");
+    			return false;
+    		}
 		});
 		
 	});

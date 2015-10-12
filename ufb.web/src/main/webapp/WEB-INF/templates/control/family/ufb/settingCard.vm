@@ -51,6 +51,16 @@ $(function(){
 		}
 	});
  
+	$("#addCard").on("click",function(){
+		var len=$(".cardCount").length;
+		if(len>=2){
+			alert("对不起，您最多只能添加两张银行卡！");
+			return false;
+		}
+			$("#form-settingCard").attr("action", "../$family/addBankCard.htm");
+			$("#form-settingCard").submit();
+		
+	});
 	
 });
 </script>
@@ -103,7 +113,7 @@ $(function(){
     					#set($tailStr=$card.bankacco)
     					#set($start=$tailStr.length() - 4)
     					#set($end=$tailStr.length())
-    					<li class="card 
+    					<li class="card cardCount
     						#if($!{card.mainflag}=="Y")
     						card-main	
     						#end
@@ -128,7 +138,7 @@ $(function(){
     						</div>
                         </li>
     					#end
-                        <li class="card card-add cardM3"><a href="${staticDomain}/family/addBankCard.htm">添加银行卡</a></li>
+                        <li class="card card-add cardM3"><a id="addCard" href="#">添加银行卡</a></li>
                     </ul>
                     <div>已解绑银行卡：</div>
                     <ul class="card-list clearfix">

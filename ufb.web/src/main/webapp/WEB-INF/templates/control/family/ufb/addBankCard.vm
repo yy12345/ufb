@@ -322,7 +322,7 @@ $(function(){
        $(".input-options .bank").click(function(){
             $(this).addClass("active").parents().siblings().find("a").removeClass("active");
             $(this).addClass("active").siblings().removeClass("active");
-			$("#bankno").val($(this).val("bankno"));
+			$("#bankno").val($(this).attr("bankno"));
        });
         
 //        点击叉叉关掉

@@ -168,7 +168,7 @@ var check_autoDat = function (ipt) {//充值时间
 
 
 var check_id = function (ipt) {
-	return showTips(ipt, 0);
+	//return showTips(ipt, 0);//改
 
 	var value = ipt.val();
 	if(value == "") {  

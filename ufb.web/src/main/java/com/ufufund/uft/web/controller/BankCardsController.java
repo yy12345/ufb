@@ -25,6 +25,7 @@ import com.ufufund.ufb.model.db.BankBaseInfo;
 import com.ufufund.ufb.model.db.PicInfo;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.enums.ErrorInfo;
+import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
@@ -80,10 +81,10 @@ public class BankCardsController {
 	@RequestMapping(value="family/addBankCard_result")
 	public String addBankCard_result(BankCardVo bankCardVo, Model model){
 		
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		bankCardVo.setBankidtp("0"); // 身份证绑卡
 		try{		 
 					//验证手机验证码
-					CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 					OpenAccountAction openAccountAction = new OpenAccountAction();
 					/** 开户所属基金单位 **/
 					openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
@@ -97,7 +98,10 @@ public class BankCardsController {
 					openAccountAction.setCustno(s_custinfo.getCustno());
 					openAccountAction.setInvnm(bankCardVo.getBankacnm());
 					openAccountAction.setIdno(bankCardVo.getBankidno());
-					openAccountAction.setLevel("0");
+					/** 家庭**/
+					openAccountAction.setLevel(Invtp.PERSONAL.getValue());
+					openAccountAction.setTradepwd(s_custinfo.getTradepwd());
+					openAccountAction.setTradepwd2(s_custinfo.getTradepwd2());
 					// 银行
 					openAccountAction.setBankno(bankCardVo.getBankno());
 					openAccountAction.setBankacnm(bankCardVo.getBankacnm());
@@ -110,7 +114,11 @@ public class BankCardsController {
 					openAccountAction.setBankcitynm(bankCardVo.getBankcitynm());
 					openAccountAction.setBankprovincenm(bankCardVo.getBankprovincenm());
 					openAccountAction.setBankadd(bankCardVo.getBankadd());
-					openAccountAction.setOpenaccoflag(true);
+					openAccountAction.setOtherserial(bankCardVo.getOtherserial());
+					
+					/** 需要验证手机验证码标志 **/
+					openAccountAction.setCheckautocodeflag(true);
+					
 					bankCardManager.openAccount3(openAccountAction);
 					/** 开户 **/
 					bankCardManager.openAccountPerson(openAccountAction);

@@ -40,18 +40,18 @@
                     <div class="myright fl">
                         <div class="myright-top">
                             <h3 class="fl">幼富宝（海富通货币）</h3>
-                            <a href="../UFB/myUFB.html"><p class="fr num-red"><i class="bothno-icon"></i> 理财缴费两不误</p></a>
+                            <a href="${staticDomain}/family/myufb.htm"><p class="fr num-red"><i class="bothno-icon"></i> 理财缴费两不误</p></a>
                         </div>
                         <div class="myright-down">
                             <ul>
                                 <li >
                                     <p class="magb">资产总额（元）</p>
-                                    <p class="font"><strong>56,700</strong></p>
+                                    <p class="font"><strong>#if($hftTotalBalanceDisplay)$!{hftTotalBalanceDisplay}#else 0.00#end</strong></p>
                                 </li>
 
                                 <li class="mli2">
                                     <p class="magb">累计收益（元）</p>
-                                    <p class="font font-red">1,700</p>
+                                    <p class="font font-red">#if($hftTotalincome) $!{hftTotalincome} #else 0.00 #end</p>
                                 </li>
                                 <li class="mli3">
                                     <p class="magb"><a href="${staticDomain}/family/pay_index.htm" class="btn btn-white" id="recharge">充 值</a></p>

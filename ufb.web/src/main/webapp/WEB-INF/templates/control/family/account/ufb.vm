@@ -65,9 +65,9 @@ $(function(){
 				</div>
 				<div class="ufbbox">
 				    <ul>
-				        <li class="li01"><span>资产总额（元）</span><label>#if($hftTotalBalanceDisplay)$!{hftTotalBalanceDisplay}#else --#end</label></li>
-				        <li class="li02"><span>昨日收益（元）</span><label>#if($hftFunddayincome) $!{hftFunddayincome}#else -- #end</label></li>
-				        <li class="li03"><span>累计收益（元）</span><label class="total">#if($hftTotalincome) $!{hftTotalincome} #else -- #end</label></li>
+				        <li class="li01"><span>资产总额（元）</span><label>#if($hftTotalBalanceDisplay)$!{hftTotalBalanceDisplay}#else 0.00#end</label></li>
+				        <li class="li02"><span>昨日收益（元）</span><label>#if($hftFunddayincome) $!{hftFunddayincome}#else 0.00 #end</label></li>
+				        <li class="li03"><span>累计收益（元）</span><label class="total">#if($hftTotalincome) $!{hftTotalincome} #else 0.00 #end</label></li>
 				        <li class="li04">
 				            <div class="liBtn">
 				                <a href="${staticDomain}/family/pay_index.htm" class="btn01">充 值</a>

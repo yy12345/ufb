@@ -39,7 +39,7 @@
                         <p>申请时间：${today}</p>
                         <p></p>
                         <p>预计收益到帐：${nextWorkDay}</p>
-                        <a class="btn" href="javascript:;">我的账户</a>
+                        <a class="btn" href="${staticDomain}/family/session.htm">我的账户</a>
                         <div class="tips">
                         </div>
                     </div>

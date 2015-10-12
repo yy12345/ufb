@@ -38,6 +38,7 @@ public interface BisConst {
 		public static final String TRADEPWD0 = "原交易密码";
 		public static final String TRADEPWD = "交易密码";
 		public static final String TRADEPWD2 = "交易确认密码";
+		public static final String TRADEPWDUEQLOGINPWD = "交易确认密码不能与登录密码相同";
 		
 		public static final String ORGNM = "机构名称";
 		public static final String ORGBUSINESS = "营业执照";

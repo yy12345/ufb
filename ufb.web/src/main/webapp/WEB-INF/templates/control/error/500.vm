@@ -44,7 +44,7 @@
                 <div class="panel">
                     <div class="form-done">
                         <div class="title">系统繁忙，您的申请提交失败！</div>
-                        <a class="btn" href="javascript:;">我的账户</a>
+                        <a class="btn" href="${staticDomain}/family/session.htm">我的账户</a>
                         <div class="tips">
                         	<p>温馨提示：</p>
 							<p>请重新操作，如始终无法提交申请可联系幼富通客服热线！

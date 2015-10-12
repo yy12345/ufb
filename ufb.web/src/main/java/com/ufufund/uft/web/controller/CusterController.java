@@ -1,11 +1,9 @@
 package com.ufufund.uft.web.controller;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.biz.manager.BankBaseManager;
+import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.FundManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
@@ -22,30 +22,30 @@ import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.org.OrgQueryManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.NumberUtils;
+import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.LoginAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
+import com.ufufund.ufb.model.action.cust.RegisterAction;
+import com.ufufund.ufb.model.db.BankBaseInfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.FundInfo;
 import com.ufufund.ufb.model.db.FundNav;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
+import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
+import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.vo.Assets;
+import com.ufufund.ufb.model.vo.BankCardVo;
 //import com.ufufund.ufb.model.db.BankCardWithTradeAcco;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.PayNoticeVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgStudent;
-import com.ufufund.ufb.web.util.UserHelper;
 import com.ufufund.ufb.web.filter.ServletHolder;
-import com.ufufund.ufb.model.vo.BankCardVo;
-import com.ufufund.ufb.model.enums.Invtp;
-import com.ufufund.ufb.model.db.TradeRequest;
-import com.ufufund.ufb.model.action.cust.OpenAccountAction;
-import com.ufufund.ufb.model.action.cust.RegisterAction;
-import com.ufufund.ufb.model.db.BankBaseInfo;
-import com.ufufund.ufb.common.utils.StringUtils;
-import com.ufufund.ufb.biz.manager.BankBaseManager;
-import com.ufufund.ufb.biz.manager.BankCardManager;
+import com.ufufund.ufb.web.util.MsgCodeUtils;
+import com.ufufund.ufb.web.util.UserHelper;
 @Controller
 public class CusterController {
 	private static final Logger LOG = LoggerFactory.getLogger(CusterController.class);
@@ -620,13 +620,13 @@ public class CusterController {
 				model.addAttribute("Tradelist", Tradelist);
 			}else{
 				 
-				ServletHolder.getResponse().sendRedirect("/ufb/home/index.htm");
+				ServletHolder.getResponse().sendRedirect("/family/home.htm");
 				return null;
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("CustinfoVo", custinfoVo);
-			return "home/indexPage";
+			return "family/home";
 		}
 		return "family/account/ufb";
 	}
@@ -637,7 +637,7 @@ public class CusterController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="family/createAccount1")
+	@RequestMapping(value="family/createAccount")
 	public String familyIndex(CustinfoVo custinfoVo, Model model){
 		// 清除Session
 		UserHelper.removeCustinfoVo();
@@ -655,7 +655,7 @@ public class CusterController {
 		
 		try{
 			// 校验手机验证码
-		   //	MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
+		//   	MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
 			
 			model.addAttribute("CustinfoVo",custinfoVo);
 		}catch (BizException e){
@@ -674,6 +674,11 @@ public class CusterController {
 			}
 			model.addAttribute("CustinfoVo", custinfoVo);
 			return "family/account/createAccount1";
+		}catch(UserException ue){
+			LOG.warn(ue.getMessage(), ue);
+			model.addAttribute("errMsg_msgcode_family", ue.getMessage()+"不匹配");
+			model.addAttribute("CustinfoVo", custinfoVo);
+			return "family/account/createAccount1";
 		}
 		return "family/account/createAccount2";
 	}
@@ -690,6 +695,11 @@ public class CusterController {
 			registerAction.setTradepwd(custinfoVo.getTradepwd());
 			registerAction.setTradepwd2(custinfoVo.getTradepwd2());
 			custManager.validateFamily(registerAction);
+			/*//用户注册
+			custManager.register(registerAction);
+			// 注册成功，保存用户至session
+		    custinfoVo.setCustno(registerAction.getCustno());
+			UserHelper.saveCustinfoVo(custinfoVo);*/
 			//获得所有的银行
 			List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
 			if(StringUtils.isBlank(bankCardVo.getBankno())){
@@ -714,13 +724,17 @@ public class CusterController {
 			} else if (BisConst.Register.LOGINPWD2.equals(ems)) {
 				model.addAttribute("errMsg_pswpwd2_family", e.getMessage()); // 登录确认密码
 			} else if (BisConst.Register.TRADEPWD.equals(ems)) {
-				model.addAttribute("errmsg_tradepwd_family", e.getMessage()); // 登录密码
+				model.addAttribute("errmsg_tradepwd_family", e.getMessage()); // 交易密码
 			} else if (BisConst.Register.TRADEPWD2.equals(ems)) {
-				model.addAttribute("errMsg_tradepwd2_family", e.getMessage()); // 登录确认密码
-			} else {
+				model.addAttribute("errMsg_tradepwd2_family", e.getMessage()); // 交易确认密码
+			} 
+			else if (BisConst.Register.TRADEPWDUEQLOGINPWD.equals(ems)) {
+				model.addAttribute("errMsg_tradepwd2_family", e.getMessage()); //  
+			}else {
 				model.addAttribute("errMsg_family", e.getMessage());
 			}
 			model.addAttribute("CustinfoVo", custinfoVo);
+			ServletHolder.forward("/family/createAccount2.htm");
 			return "family/account/createAccount2";
 		}
 		return "family/account/createAccount3";
@@ -728,27 +742,30 @@ public class CusterController {
 	@RequestMapping(value = "family/createAccount4")
 	public String createAccount4(CustinfoVo custinfoVo, BankCardVo bankCardVo, Model model) {
 		
+		
 		try{
-			
-			//用户注册
 			RegisterAction registerAction = new RegisterAction();
 			registerAction.setLogincode(custinfoVo.getMobileno());
 			registerAction.setLoginpwd(custinfoVo.getLoginpwd());
 			registerAction.setLoginpwd2(custinfoVo.getLoginpwd2());
 			registerAction.setTradepwd(custinfoVo.getTradepwd());
 			registerAction.setTradepwd2(custinfoVo.getTradepwd2());
-			registerAction.setInvtp(Invtp.PERSONAL);
+			registerAction.setInvtp(Invtp.PERSONAL);// 个人
 			registerAction.setCustst("N");
+			custManager.validateFamily(registerAction);
+			//用户注册
 			custManager.register(registerAction);
-         
-			
+			// 注册成功，保存用户至session
+		    custinfoVo.setCustno(registerAction.getCustno());
+			UserHelper.saveCustinfoVo(custinfoVo);
 				//绑卡、开户
+			CustinfoVo s_custno=UserHelper.getCustinfoVo();
 		    	bankCardVo.setBankidtp("0"); // 身份证绑卡
 				OpenAccountAction openAccountAction = new OpenAccountAction();
 				/** 开户所属基金单位 **/
 				openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
 				/** 开户标志 **/
-				if(custinfoVo.getIdno() !=null && custinfoVo.getInvnm() != null){
+				if(s_custno.getIdno() !=null && s_custno.getInvnm() != null){
 					openAccountAction.setOpenaccoflag(true);
 				}else{
 					openAccountAction.setOpenaccoflag(false);
@@ -763,12 +780,15 @@ public class CusterController {
 				openAccountAction.setTradepwd2(custinfoVo.getTradepwd2());
 				// 银行
 				openAccountAction.setBankno(bankCardVo.getBankno());
-				openAccountAction.setBankacnm(custinfoVo.getInvnm());
+				openAccountAction.setBankacnm(bankCardVo.getBankacnm());
 				openAccountAction.setBankacco(bankCardVo.getBankacco());
 				openAccountAction.setBankidtp(bankCardVo.getBankidtp());
 				openAccountAction.setBankidno(bankCardVo.getBankidno());
 				openAccountAction.setBankmobile(bankCardVo.getBankmobile());
 				openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
+				openAccountAction.setBankcitynm(bankCardVo.getBankcitynm());
+				openAccountAction.setBankprovincenm(bankCardVo.getBankprovincenm());
+				openAccountAction.setBankadd(bankCardVo.getBankadd());
 				openAccountAction.setOtherserial(bankCardVo.getOtherserial());
 				/** 需要验证手机验证码标志 **/
 				openAccountAction.setCheckautocodeflag(true);
@@ -779,9 +799,7 @@ public class CusterController {
 				/** 开户 **/
 				bankCardManager.openAccountPerson(openAccountAction);
 				
-				// 注册成功，保存用户至session
-			    custinfoVo.setCustno(registerAction.getCustno());
-				UserHelper.saveCustinfoVo(custinfoVo);
+				
 			}catch (BizException e){
 				
 				// 获取银行列表

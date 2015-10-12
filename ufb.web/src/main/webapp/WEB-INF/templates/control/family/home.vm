@@ -119,8 +119,8 @@
 										<input id="btn-familyLogin" type="button" class="input-button" value="立即登录">
 										-->
 									</li>
-                                    <li class="li05"><a href="${staticDomain}/family/register1.htm" class="freeRegistered">免费注册</a>
-										<a href="findPasswordStep1.html" class="fogetPassword">忘记密码？</a></li>
+                                    <li class="li05"><a href="${staticDomain}/family/createAccount.htm" class="freeRegistered">免费注册</a>
+										<a href="${staticDomain}/family/findPasswordStep1.htm" class="fogetPassword">忘记密码？</a></li>
                                 </ul>
                             </form>
 						</div>

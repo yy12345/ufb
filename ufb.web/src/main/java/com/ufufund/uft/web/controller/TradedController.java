@@ -185,15 +185,20 @@ public class TradedController {
 			model.addAttribute("totalDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getTotal()));
 			model.addAttribute("availableDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getAvailable()));
 			model.addAttribute("frozenDisplay", NumberUtils.DF_CASH_CONMMA.format(assets.getFrozen()));
-			
-			BigDecimal cardAvailable = assets.getAccoList().get(0).getAvailable();
-			BigDecimal cardRealAvailable = assets.getAccoList().get(0).getRealavailable();
+			BigDecimal cardAvailable=BigDecimal.ZERO;
+			BigDecimal cardRealAvailable=BigDecimal.ZERO;
+			if( assets.getAccoList().size()>0){
+				 cardAvailable = assets.getAccoList().get(0).getAvailable();
+				 cardRealAvailable = assets.getAccoList().get(0).getRealavailable();
+				model.addAttribute("card", assets.getAccoList().get(0));
+			}else{
+				 model.addAttribute("card", null);
+			}
 			model.addAttribute("cardAvailable", cardAvailable);
 			model.addAttribute("cardAvailableDisplay", NumberUtils.DF_CASH_CONMMA.format(cardAvailable));
 			model.addAttribute("cardRealAvailable", cardRealAvailable);
 			model.addAttribute("cardRealAvailableDisplay", NumberUtils.DF_CASH_CONMMA.format(cardRealAvailable));
 			
-			model.addAttribute("card", assets.getAccoList().get(0));
 			model.addAttribute("cardList", assets.getAccoList());
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
@@ -226,25 +231,15 @@ public class TradedController {
 			vo.setShareclass(BasicFundinfo.YFB.getShareClass());
 			vo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
 			
-			Today today = null;
-			String nextWorkDay = null;
-			if("023".equals(vo.getApkind())){
+				Today today = null;
+				String nextWorkDay = null;
 				tradeManager.redeem(vo);
 				today = workDayManager.getSysDayInfo();
 				nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
-				
-			}else if("024".equals(vo.getApkind())){
-				tradeManager.realRedeem(vo);
-				today = workDayManager.getSysDayInfo();
-				nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
-			}else{
-				throw new SysException("异常交易！");
-			}
 			
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			
-			model.addAttribute("APKIND", vo.getApkind());
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
@@ -413,39 +408,5 @@ public class TradedController {
 		
 		return "family/ufb/query_detail";
 	}
-	/**
-	 * 撤单
-	 * @param vo
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="family/cancel_result")
-	public String canclApply(CancelVo vo, Model model){
-		
-		try{
-			String custno = UserHelper.getCustno();
-			
-			vo.setCustno(custno);
-			vo.setFundcode(BasicFundinfo.YFB.getFundCode());
-			
-			tradeManager.cancel(vo);
-//			
-//			if("023".equals(vo.getApkind())){
-//				tradeManager.redeem(vo);
-//			}else if("024".equals(vo.getApkind())){
-//				tradeManager.realRedeem(vo);
-//			}else{
-//				throw new SysException("异常交易！");
-//			}
-//			
-			model.addAttribute("tmp", "success");
-			
-		}catch(UserException ue){
-			LOG.warn(ue.getMessage(), ue);
-			model.addAttribute("errorMsg", ue.getMessage());
-			model.addAttribute("returnUrl", PAGE_CASH_INDEX);
-			return "error/user_error";
-		}
-		return "family/ufb/query_detail";
-	}
+ 
 }

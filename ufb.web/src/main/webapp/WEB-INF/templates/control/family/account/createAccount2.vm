@@ -48,13 +48,13 @@
                                     <li>
                                         <span class="form-title">登录密码</span>
                                         <input class="ipt-password1 input-text" type="password" name="loginpwd" id="loginpwd" value="$!{CustinfoVo.loginpwd}">
-                                        <span class="tips-normal" style="display: block;">6-20个大小写英文字母、符号或数字</span>
+                                        <span class="tips-normal" style="display: block;">#if(${CustinfoVo.loginpwd}) #else 6-20个大小写英文字母、符号或数字 #end</span>
                               <span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd_family}</span>
                                     </li>
                                     <li #if($!{errMsg_pswpwd2_family})class="error" #end>
                                         <span class="form-title">重复输入</span>
                                         <input class="ipt-password2 input-text" type="password" name="loginpwd2" id="loginpwd2" value="$!{CustinfoVo.loginpwd2}">
-                                        <span class="tips-normal" style="display: block;">请再次输入密码</span>
+                                        <span class="tips-normal" style="display: block;">#if(${CustinfoVo.loginpwd2}) #else 请再次输入密码 #end</span>
                                       <span class="tips-check"><i class="icon"></i>$!{errMsg_pswpwd2_family}</span>
                                     </li>
                                 </ul>
@@ -66,14 +66,14 @@
                                     <li>
                                         <span class="form-title">交易密码</span>
                                         <input class="ipt-tradepwd input-text" type="password"  name="tradepwd" id="tradepwd" value="$!{CustinfoVo.tradepwd}">
-                                        <span class="tips-normal" style="display: block;">6-20个大小写英文字母、符号或数字</span>
+                                        <span class="tips-normal" style="display: block;">#if(${CustinfoVo.tradepwd}) #else 6-20个大小写英文字母、符号或数字 #end </span>
                                       <span class="tips-check"><i class="icon"></i>$!{errmsg_tradepwd_family}</span>
                                     </li>
-                                    <li #if($!{errmsg_tradepwd2_family}) class="error" #end>
+                                    <li #if($!{errMsg_tradepwd2_family}) class="error" #end>
                                         <span class="form-title">重复输入</span>
                                         <input class="ipt-tradepwd2 input-text" type="password"  name="tradepwd2" id="tradepwd2" value="$!{CustinfoVo.tradepwd2}">
-                                        <span class="tips-normal" style="display: block;">请再次输入密码</span>
-                                     <span class="tips-check"><i class="icon"></i>$!{errmsg_tradepwd2_family}</span>
+                                        <span class="tips-normal" style="display: block;">#if(${CustinfoVo.tradepwd2}) #else 请再次输入密码 #end </span>
+                                     <span class="tips-check"><i class="icon"></i>$!{errMsg_tradepwd2_family}</span>
                                     </li>
                                 </ul>
                                  <ul class="safeInfo borderNone">
@@ -83,14 +83,14 @@
                                     </li>
                                     <li>
                                         <span class="form-title">家长姓名</span>
-                                        <input class="ipt-text input-text" type="text" name="invnm" id="invnm" value="$!{CustinfoVo.invnm}" >
-                                        <span class="tips-normal" style="display: block;">请填写家长姓名</span>
+                                        <input class="ipt-invnm input-text" type="text" name="invnm" id="invnm" value="$!{CustinfoVo.invnm}" >
+                                        <span class="tips-normal" style="display: block;">#if(${CustinfoVo.invnm}) #else 请填写家长姓名 #end </span>
                                         <span class="tips-check"><i class="icon">$!{errMsg_invnm_family}</i></span>
                                     </li>
                                     <li #if(${errMsg_idno_family}) class="error" #end>
                                         <span class="form-title">身份证号码</span>
                                         <input class="ipt-idCard input-text" type="text" name="idno" id="idno" maxlength="18" value="$!{CustinfoVo.idno}">
-                                        <span class="tips-normal" style="display: block;">请填写身份证号码</span>
+                                        <span class="tips-normal" style="display: block;">#if(${CustinfoVo.idno}) #else 请填写身份证号码 #end </span>
                                          <span class="tips-check"><i class="icon">$!{errMsg_idno_family}</i></span>
                                     </li>
                                     <li>
@@ -117,11 +117,24 @@
 <script >
   $(function(){
 	  $("#btn-subbutton").on("click",function(){
-		  var ivname=$("ipt-text").val();
-		alert("ivname=============="+ivname);
-		if(ivname==""){
-			$("ipt-text").siblings(".tips-check").html("<i class='icon'></i>家长姓名不能为空");
+	 
+		if(!check_pwd1($(".ipt-password1"))){
 			return false;
+		}
+		if(!check_pwd2($(".ipt-password2"))){
+			return false;
+		}
+		if(!check_pwd1($(".ipt-tradepwd"))){
+			return false;
+		}
+		if(!check_tradepwd2($(".ipt-tradepwd2"))){
+			return false;
+		}
+		if(!check_bankAcnm($("#invnm"))){
+			return false;
+		}
+		if(!check_id($(".ipt-idCard"))){
+		//	return false;
 		}
 		  $("#subform").submit();
 	  })

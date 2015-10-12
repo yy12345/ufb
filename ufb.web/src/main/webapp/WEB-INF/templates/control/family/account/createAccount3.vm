@@ -52,7 +52,7 @@ $(function(){
                             <p><i></i>为了给您提供完善便捷的缴费、理财及其他金融服务，请您设置支付方式。成功后即可使用幼富宝、学费通等贴心服务。</p>
                        </div>
                     <div class="b3">
-                        <form class="common-form" method="post" action="../family/createAccount4.htm">
+                        <form id="btn-subform" class="common-form" method="post" action="../family/createAccount4.htm">
 							<input type="hidden" name="loginpwd" id="loginpwd" value="$!{CustinfoVo.loginpwd}" />
 							<input type="hidden" name="loginpwd2" id="loginpwd2" value="$!{CustinfoVo.loginpwd2}" />
 							<input type="hidden" name="tradepwd" id="tradepwd" value="$!{CustinfoVo.tradepwd}" />
@@ -61,19 +61,22 @@ $(function(){
 							<input type="hidden" name="idno" id="idno" value="$!{CustinfoVo.idno}" />
 							<input type="hidden" name="mobileno" id="mobileno" value="$!{CustinfoVo.mobileno}" />
 							<input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
-                            <div class="panel">
+                          	<input id="bankno" name="bankno" type="hidden" value="$!{BankCardVo.bankno}">	
+							<input id="bankprovincenm" name="bankprovincenm" type="hidden" value="$!{BankCardVo.bankprovincenm}">	
+							<input id="bankcitynm" name="bankcitynm" type="hidden" value="$!{BankCardVo.bankcitynm}">
+							<div class="panel">
                                 <ul class="safeInfo">
-                                    <li id="errMsg_invnm" #if(${errMsg_invnm}) class="error" #end>
+                                    <li>
                                         <span class="form-title">家长姓名</span>
-                                        <input class="ipt-text input-text" type="text" name="invnm" id="invnm" value="$!{CustinfoVo.invnm}">
+                                        <input class="ipt-text input-text" type="text" name="bankacnm" id="bankacnm" style="background-color:#cbcbcb;" readonly="readonly" value="$!{CustinfoVo.invnm}">
                                         <span class="tips-normal" style="display: none;">$!{CustinfoVo.invnm}</span>
-                                      <span class="tips-check"><i class="icon"></i>$!{errMsg_invnm}</span> 
+                                      <span class="tips-check"><i class="icon"></i></span> 
                                     </li>
-                                    <li id="errMsg_bankIdno" #if(${errMsg_bankIdno}) class="error" #end>
+                                    <li>
                                         <span class="form-title">身份证号</span>
-                                        <input class="ipt-idCard input-text" type="text" name="idno" id="idno" value="$!{CustinfoVo.idno}" >
+                                        <input class="ipt-idCardno input-text" type="text" name="bankidno" id="bankidno" style="background-color:#cbcbcb;" readonly="readonly" value="$!{CustinfoVo.idno}" >
                                         <span class="tips-normal" style="display: none;">$!{CustinfoVo.idno}</span>
-                                         <span class="tips-check"><i class="icon"></i>$!{errMsg_bankIdno}</span>
+                                         <span class="tips-check"><i class="icon"></i></span>
                                     </li>
                                 </ul>
                                 <ul class="safeInfo">
@@ -83,7 +86,7 @@ $(function(){
                                     </li>
                                     <li class="clearfix">
                                         <div class="input-select">
-                                            <div class="bank bank-current"><img src="${staticDomain}/images/bank_${BankCardVo.bankno}.png"></div>
+                                            <div class="bank bank-current"><img src="${staticDomain}/images/bank_${BankCardVo.bankno}.png" id="firstbankno" bankno="$!{BankCardVo.bankno}"></div>
                                             <div class="input-options">
                                                 <div class="bank-list clearfix mb10">
 													#foreach($bank in $bankList)
@@ -336,7 +339,8 @@ $(function(){
         $(".input-options .bank").click(function(){
             $(this).addClass("active").parents().siblings().find("a").removeClass("active");
             $(this).addClass("active").siblings().removeClass("active");
-                  });
+               $("#bankno").val($(this).attr("bankno"));
+				  });
     });
 </script>
 <script>
@@ -365,31 +369,16 @@ $(function(){
 
 	// 验证码
 	$("#btn-addBankCardAjax").on("click",function(){
-	
-		if(!check_invnm($("#invnm"))){
-			return false;
-		}
-		if(!check_id($("#bankidno"))){
-			return false;
-		}
 		if(!check_bankCard($("#bankacco"))){
 			return false;
 		}
 		if(!check_mobile($("#bankmobile"))){
 			return false;
 		}
-		
-		//var errLen = $("ul li.error").not("#errMsg_msgcode").length;
-		//if(errLen>0){
-		//	$("ul li.error:eq(0) input[type=text]").focus();
-		//	$("ul li.error:eq(0) input[type=password]").focus();
-		//	return false;
-		//}else{
-			// 
-		//}
-		
-		//$(".panel ul li").removeClass("error").removeClass("ok");
-		
+	var bankno=$("#bankno").val();
+	if(bankno==""){
+		$("#bankno").val($("#firstbankno").attr("bankno"));
+	}
 		// 获取验证码按钮无效并倒计时 
 		$("#btn-addBankCardAjax").attr("disabled","disabled");
 		$("#btn-addBankCardAjax").addClass("off");
@@ -398,7 +387,7 @@ $(function(){
     		url: "../ajaxbankcard/addBankCardAjax.ajax",
     		data: {
 				bankno: $("#bankno").val(),
-    			bankacnm: $("#invnm").val(),
+    			bankacnm: $("#bankacnm").val(),
 				bankidno: $("#bankidno").val(),
 				bankacco: $("#bankacco").val(),
 				bankmobile: $("#bankmobile").val()
@@ -420,15 +409,7 @@ $(function(){
                   	var errCode = b.errCode;
 					var errMsg = b.errMsg;
 					//alert(errCode + ": " + errMsg);
-					if(errCode=="errMsg_bankInvnm"){
-						//经办人姓名
-						$("#errMsg_invnm").addClass("error");
-						$("#errMsg_invnm > .tips-check").html("<i class=icon></i>" + errMsg);
-					}else if(errCode=="errMsg_bankIdno"){
-						//身份证号
-						$("#errMsg_bankIdno").addClass("error");
-						$("#errMsg_bankIdno > .tips-check").html("<i class=icon></i>" + errMsg);
-					}else if(errCode=="errMsg_bankAcco"){
+				   if(errCode=="errMsg_bankAcco"){
 						//银行卡号 
 						$("#errMsg_bankAcco").addClass("error");
 						$("#errMsg_bankAcco > .tips-check").html("<i class=icon></i>" + errMsg);
@@ -455,13 +436,12 @@ $(function(){
     	var province= $("#bankprovincenm").val();
     	var city= $("#bankcitynm").val();
     	if(province=="省份"){
-    		alert("请填写省份");
-    		return false;
+		$("#bankprovincenm").val("");
     	}
     	if(city=="城市"){
-    		alert("请填写城市");
-    		return false;
+    		$("#bankcitynm").val("");
     	}
+		$("#btn-subform").submit();
     })
 	 
 </script>	
