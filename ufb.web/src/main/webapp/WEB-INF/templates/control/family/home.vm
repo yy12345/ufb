@@ -101,8 +101,8 @@
 										<input id="ipt-loginPassword" name="loginpwd" value="$!{CustinfoVo.loginpwd}" class="ipt-loginPassword" type="password" >
 									</li>
                                     <li class="li03"><img src="${staticDomain}/static/family/images/img_10.png">
-										<input id="ipt-code" name="verifycode" class="ipt-code" value="$!{CustinfoVo.verifycode}" type="text" >
-										<span class="yanZ tips-check"><img src="${staticDomain}/static/family/images/img_11.png"></span>
+										<input id="ipt-code" name="verifycode" maxlength="4" class="ipt-code" value="$!{CustinfoVo.verifycode}" type="text" >
+										<span class="yanZ "><img src="${staticDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())" /></span>
 										<!--
 										<span class="tips-check"><i class="icon"></i>验证提示</span>
 										<span class="yanZ"><img src="${staticDomain}/static/family/images/img_11.png"></span>

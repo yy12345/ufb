@@ -702,14 +702,27 @@ public class CusterController {
 			UserHelper.saveCustinfoVo(custinfoVo);*/
 			//获得所有的银行
 			List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
+			//支持幼富通的银行===20151013
+			List<BankBaseInfo> yftBankList= new ArrayList<BankBaseInfo>();
+			//其它的银行
+			List<BankBaseInfo> qtBankList= new ArrayList<BankBaseInfo>();
+			for(BankBaseInfo bankinfo:bankBaseList){
+				if("1".equals(bankinfo.getLevel())){
+					qtBankList.add(bankinfo);
+				}
+				else if("2".equals(bankinfo.getLevel())){
+					yftBankList.add(bankinfo);
+				}
+			}
+			
 			if(StringUtils.isBlank(bankCardVo.getBankno())){
 				// 默认第一个
-				bankCardVo.setBankno(bankBaseList.get(0).getBankno());
-			}else{
-				// 上下文中的
-			}
+				bankCardVo.setBankno(yftBankList.get(0).getBankno());
+			} 
+			model.addAttribute("qtBankList", qtBankList);
+			model.addAttribute("bankList", yftBankList);
+			//===20151013
 			model.addAttribute("CustinfoVo", custinfoVo);
-			model.addAttribute("bankList", bankBaseList);
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -729,7 +742,7 @@ public class CusterController {
 				model.addAttribute("errMsg_tradepwd2_family", e.getMessage()); // 交易确认密码
 			} 
 			else if (BisConst.Register.TRADEPWDUEQLOGINPWD.equals(ems)) {
-				model.addAttribute("errMsg_tradepwd2_family", e.getMessage()); //  
+				model.addAttribute("errMsg_tradepwd2_family", e.getMessage()); // 
 			}else {
 				model.addAttribute("errMsg_family", e.getMessage());
 			}

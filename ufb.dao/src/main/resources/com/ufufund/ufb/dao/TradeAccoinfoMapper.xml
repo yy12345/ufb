@@ -113,10 +113,11 @@
 			b.CLOSEDT,
 			b.DISORDER,
 			b.MAINFLAG,
-			b.UPDATETIMESTAMP
-		from tradeaccoinfo t, bankcardinfo b
+			b.UPDATETIMESTAMP,
+            c.level as clevel 
+		from tradeaccoinfo t, bankcardinfo b,bankbase c
 		where 
-			b.serialid  = t.bankserialid
+			b.serialid  = t.bankserialid and b.bankno=c.bankno
 			and t.tradeaccost in 
 			<foreach item="tradeaccost" index="index" collection="tradeaccosts" open="(" separator="," close=")">
  		   	#{tradeaccost, jdbcType=VARCHAR}

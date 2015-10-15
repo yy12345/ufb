@@ -1653,7 +1653,8 @@ a {
     color:#878787;
 }
 .a3 .b1 .c2 table td a{
-	color:#888;
+	/* color:#888; 20151014改*/
+	color:#2f8ebe;
 }
 .a3 .b2{
 	margin-left:600px;

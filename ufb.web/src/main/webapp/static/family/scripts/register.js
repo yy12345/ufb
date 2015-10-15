@@ -389,6 +389,9 @@ var check_bankAcnm = function (ipt) {//经办人姓名
 	if (isNull(value)) {
 		return showTips(ipt, "姓名不能为空");
 	}
+	if (!/[\u4E00-\u9FA5\uF900-\uFA2D]/.test($.trim(value))) {
+	        return showTips(ipt, "只能输入汉字");
+	    }
 	return showTips(ipt, 0)
 }
 var check_orgprovinceno = function (ipt) {//省份

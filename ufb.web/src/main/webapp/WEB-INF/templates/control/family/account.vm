@@ -27,7 +27,7 @@
                 <p class="fr">
                     银行卡已添加 <strong class="num-blue">$!{hft_family_trade_size}</strong> 张
                     <a href="${staticDomain}/family/settingCard.htm" class="addMargin">查看全部</a>
-                    <a href="${staticDomain}/family/addBankCard.htm">+新卡</a>
+                    <a id="addBankCard" href="#">+新卡</a>
                 </p>
             </div>
 			<div class="myaccount">
@@ -257,6 +257,16 @@
             $(".every-account").find("#change0"+ex).addClass("showNow").siblings().removeClass("showNow");
         });
 
+	$("#addBankCard").on("click",function(){
+		var cardcount=$(".num-blue").html();
+		if(cardcount>=2){
+			alert("对不起，您最多只能添加两张银行卡");
+			return false;
+		}
+		window.open("${staticDomain}/family/addBankCard.htm","_blank");
+		//$("#addBankCard").attr("href","${staticDomain}/family/addBankCard.htm").click();
+	});
+		
     });
 </script>
 </body>

@@ -1581,7 +1581,7 @@ a.link-underline {
 }
 .center .bill-header .item-date input {
 	width: 90px;
-	text-align: center;
+	/* text-align: center; 20151014改 */
 	border: 1px solid #CBCBCB;
 	color: #888888;
 }

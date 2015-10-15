@@ -3,12 +3,12 @@
     <title>幼富通</title>
  
 <script type="text/javascript">
-$(function(){
-	$('.inputText').inputText();
-});
-$(function(){
-    $('#card2').cardFormat('###,###,####,####,####');//身份证
-});
+//$(function(){
+//	$('.inputText').inputText();
+//});
+//$(function(){
+//    $('#card2').cardFormat('###,###,####,####,####');//身份证
+//});
 </script>
 <style>
     .num{
@@ -18,24 +18,6 @@ $(function(){
 </style>
 </head>
 <body>
-   <div id="page">
-        <div id="header">
-            <div class="topNav">
-                <div class="container">
-                    <div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
-                    <div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
-                </div>
-            </div>
-            <div class="container">
-                <a href="#" class="logo"></a>
-                <div class="nav">
-                    <a href="${staticDomain}/family/session.htm">我的账户</a>
-				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
-				<a href="#">缴费明细</a>
-				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
-                </div>
-            </div>
-        </div>
       
         <div id="body">
             <div class="container">
@@ -64,6 +46,8 @@ $(function(){
                           	<input id="bankno" name="bankno" type="hidden" value="$!{BankCardVo.bankno}">	
 							<input id="bankprovincenm" name="bankprovincenm" type="hidden" value="$!{BankCardVo.bankprovincenm}">	
 							<input id="bankcitynm" name="bankcitynm" type="hidden" value="$!{BankCardVo.bankcitynm}">
+							<input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
+								
 							<div class="panel">
                                 <ul class="safeInfo">
                                     <li>
@@ -86,18 +70,21 @@ $(function(){
                                     </li>
                                     <li class="clearfix">
                                         <div class="input-select">
-                                            <div class="bank bank-current"><img src="${staticDomain}/images/bank_${BankCardVo.bankno}.png" id="firstbankno" bankno="$!{BankCardVo.bankno}"></div>
+                                            <div class="bank bank-current"><img src="${staticDomain}/static/family/images/bank_${BankCardVo.bankno}.png" id="firstbankno" bankno="$!{BankCardVo.bankno}"></div>
                                             <div class="input-options">
                                                 <div class="bank-list clearfix mb10">
 													#foreach($bank in $bankList)
-											        <a bankno="${bank.bankno}" class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_${bank.bankno}.png"></a>
+											        <a bankno="${bank.bankno}" class="bank" href="javascript:;"><img src="${staticDomain}/static/family/images/bank_${bank.bankno}.png"></a>
         									        #end
                                                     <div class="banktip">
                                                         <p>其他银行<span>（可缴费，不支持幼富宝）</span><i class="down"></i></p>
                                                     </div>
                                                 </div>
                                                  <div class="bank-list clearfix bgGray">
-                                                    <a class="bank" href="javascript:;"><img src="${staticDomain}/images/bank_41.png"></a>
+													#foreach($qcard in $qtBankList)
+                                                    <a class="bank" bankno="${qcard.bankno}" href="javascript:;">
+													<img src="${staticDomain}/static/family/images/bank_${qcard.bankno}.png"></a>
+													#end
                                                     <div class="banktip">
                                                         <p>隐藏其他银行<i class="up"></i></p>
                                                     </div>
@@ -112,7 +99,7 @@ $(function(){
                                     <li class="cardNum">
                                        <span class="form-title">银行卡号</span>
                                            <div class="cardFormat" id="card2">
-                                               <input class="ipt-bankCard input-text ipt-focus"  type="text" id="bankacco" name="bankacco" value="$!{BankCardVo.bankacco}">
+                                               <input class="ipt-bankCard input-text ipt-focus" maxlength="22"  type="text" id="bankacco" name="bankacco" value="$!{BankCardVo.bankacco}">
                                            </div>
                                        <span>仅支持借记卡，<a href="">银行卡要求。
                                        <div class="trip" >
@@ -124,8 +111,8 @@ $(function(){
                                        </a></span>
                                        <p>此卡将设为默认缴费卡</p>
                                    </li>
-                                   <li class="sureAddr"><b>请明确银行开户地点</b></li>
-                                   <li class="Addr zIndex">
+                                   <li class="sureAddr" style="display:none;"><b>请明确银行开户地点</b></li>
+                                   <li class="Addr zIndex" style="display:none;">
                                    <span class="form-title">地址</span>
                                    <div class="inputL">
 <!--
@@ -161,9 +148,9 @@ $(function(){
 -->
                                       
                                    </li>
-                                    <li>
+                                    <li class="openAddr" style="display:none;">
                                    <span class="form-title">开户网点</span>
-                                   <input class="ipt-bankCard input-text inputL" type="text" id="bankadd" name="bankadd" value="$!{BankCardVo.bankadd}">
+                                   <input class="ipt-text input-text inputL" type="text" id="bankadd" name="bankadd" value="$!{BankCardVo.bankadd}">
                                    <span class="tips-normal" style="display: block;">如：浦建路支行</span>
                                    <span>如果不明确开户网点，请拨打相应银行客服电话询问</span>
                                    
@@ -171,11 +158,12 @@ $(function(){
                                     
                                 </ul>
                                 <ul class="safeInfo borderNone">
-                                    <li>
+                                    <li id="errMsg_bankMobile">
                                         <span class="form-title">银行预留手机号码</span>
-                                        <input class="ipt-idCard input-text" type="text" id="bankmobile" name="bankmobile" value="$!{BankCardVo.bankmobile}">
-                                    </li>
-                                   <li>
+                                        <input class="ipt-phoneNum input-text" type="text" id="bankmobile" name="bankmobile" value="$!{BankCardVo.bankmobile}" maxlength="11">
+                                       <span class="tips-check"><i class="icon"></i>验证提示</span>
+                                     </li>
+                                   <li id="errMsg_msgcode">
                                         <span class="form-title">验证码</span>
                                         <input class="ipt-phoneCode input-code" type="text" maxlength="6"  value="$!{BankCardVo.mobileautocode}" id="mobileautocode" name="mobileautocode" >
                                         <input id="btn-addBankCardAjax" class="input-button" type="button" value="获取验证码">
@@ -198,14 +186,7 @@ $(function(){
           </div>
         </div>
     </div>
-<div class="LowFoot">
-    <div class="inner">
-        <div class="contentFoot">
-            幼富通版权所有 ©2014 沪ICP备14054347号
-          </div>
-        </div>
-    </div>
-
+ 
 <!----------------弹层------------------------->       
 <div class="bgBox"></div>	
 <!--《幼富宝服务协议》-->
@@ -359,26 +340,74 @@ $(function(){
 
         });
 	
-	var check_invnm = function (ipt) {//姓名
-	var value = ipt.val();
-	if (isNull(value)) {
-		return showTips(ipt, "姓名不能为空");
+	 	//根据银行卡判断是否需要填写开户地址信息
+	var check_bankCard = function (ipt) {//验证银行卡
+        var value = ipt.val();
+        if (isNull(value)) {
+            alert("银行卡号不能为空");
+			return false;
+        }
+        var regex = /^\d{5,21}\d*$/;
+        if (!regex.test($.trim(value))) {
+             alert("银行卡格式错误"); 
+			 return false;
+        }
 	}
-	return showTips(ipt, 0)
-	}
-
+	
+	$(".ipt-bankCard").on("blur",function(){
+	
+			check_bankCard($(this));
+		    $.ajax({
+     			type: "GET",
+    			url: "../bank/cardbin_read.htm",
+    			data: {
+					bin: $("#bankacco").val().substring(0,6)
+    			},
+    			dataType: "json",
+    			success: function(b) {
+                if (b.errCode == "0000") {
+				if(null!=b.cardbin){
+					var bankno=b.cardbin.bankno;
+					$("#bankno").val(bankno);
+					if((bankno=="008")||(bankno=="009")||(bankno=="010")){
+					 $(".sureAddr").attr("style","display:block;");
+					 $(".zIndex").attr("style","display:block;");
+					 $(".openAddr").attr("style","display:block;");
+					}
+				}
+					
+                } 
+        	}
+        });
+	
+	});
 	// 验证码
 	$("#btn-addBankCardAjax").on("click",function(){
-		if(!check_bankCard($("#bankacco"))){
+			//初始化的bankno
+		var bankno=$("#bankno").val();
+		if(bankno==""){
+			$("#bankno").val($("#firstbankno").attr("bankno"));
+		}
+		if(!check_bankAcnm($("#bankacnm"))){
 			return false;
+		}
+		//if(!check_id($("#bankidno"))){
+			//return false;
+		//}
+		if($("#bankacco").val()==""){
+			alert("请填写银行卡号");
+			return  false;
 		}
 		if(!check_mobile($("#bankmobile"))){
 			return false;
 		}
-	var bankno=$("#bankno").val();
-	if(bankno==""){
-		$("#bankno").val($("#firstbankno").attr("bankno"));
-	}
+		$("#bankacco").attr("readonly","readonly");
+		$("#bankmobile").attr("readonly","readonly");
+		$("#bankacco").css("background-color","#ddd");
+		$("#bankmobile").css("background-color","#ddd");
+		$("#bankacco").unbind("blur");
+		$("#bankmobile").unbind("blur");
+	
 		// 获取验证码按钮无效并倒计时 
 		$("#btn-addBankCardAjax").attr("disabled","disabled");
 		$("#btn-addBankCardAjax").addClass("off");
@@ -405,7 +434,13 @@ $(function(){
 					// 获取验证码按钮有效并取消倒计时 
             		$("#btn-addBankCardAjax").removeAttr("disabled");
             		$("#btn-addBankCardAjax").removeClass("off");
-				
+					
+					$("#bankacco").removeAttr("readonly");
+            		$("#bankmobile").removeAttr("readonly");
+            		$("#bankacco").css("background-color","#fff");
+            		$("#bankmobile").css("background-color","#fff");
+            		$("#bankacco").bind("blur");
+            		$("#bankmobile").bind("blur");
                   	var errCode = b.errCode;
 					var errMsg = b.errMsg;
 					//alert(errCode + ": " + errMsg);
@@ -425,24 +460,42 @@ $(function(){
         	}
         });
 	});
-    })(jQuery);
 	//表单提交校验
 	$("#btn-submit").on("click",function(){
-	 	var pro=$(".provinces").html();
-   		$("#bankprovincenm").val(pro);
-		var city=$(".city").html();
-  	 	$("#bankcitynm").val(city);
-		
-    	var province= $("#bankprovincenm").val();
-    	var city= $("#bankcitynm").val();
-    	if(province=="省份"){
-		$("#bankprovincenm").val("");
-    	}
-    	if(city=="城市"){
-    		$("#bankcitynm").val("");
-    	}
+	var bankno=$("#bankno").val();
+	if((bankno=="008")||(bankno=="009")||(bankno=="010")){
+    	var pro=$(".provinces").html();
+    	var city=$(".city").html();
+    	var bankadd=$("#bankadd").val();
+		if(pro=="省份"){
+		   alert("请填写省份");
+		   return false;
+		}else{
+		   $("#bankprovincenm").val(pro);
+		}
+		if(city=="城市"){
+			 alert("请填写城市");
+			 return false;
+		}else{
+			$("#bankcitynm").val(city);
+		}
+		if(bankadd==""){
+		 alert("请填写支付网点");
+		 return false;
+		}
+	}else{
+		 $("#bankprovincenm").val("");
+		 $("#bankcitynm").val("");
+	}
+	if(!check_mobile($("#bankmobile"))){
+			return false;
+		}
+	if(!check_phoneCode($(".ipt-phoneCode"))){
+			return false;
+		}
 		$("#btn-subform").submit();
     })
+    })(jQuery);
 	 
 </script>	
 </body>

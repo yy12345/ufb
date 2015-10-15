@@ -36,6 +36,8 @@ public class TradeAccoinfoOfMore extends PrintableModel  implements Serializable
 	private String disorder;
 	private String mainflag;
 	private String updatetimestamp;
+	//2151013
+	private String clevel;
 	
 	/** 资金 **/
 	private BigDecimal total = new BigDecimal("0.00");
@@ -43,6 +45,12 @@ public class TradeAccoinfoOfMore extends PrintableModel  implements Serializable
 	private BigDecimal realavailable = new BigDecimal("0.00");
 	private BigDecimal frozen = new BigDecimal("0.00");
 	
+	public String getClevel() {
+		return clevel;
+	}
+	public void setClevel(String clevel) {
+		this.clevel = clevel;
+	}
 	public BigDecimal getTotal() {
 		return total;
 	}

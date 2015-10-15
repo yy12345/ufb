@@ -12,8 +12,8 @@
 			disorder,
 			status  ,
 			mark    ,
-			createtime,
-			updatetime
+			<!-- createtime,20151013改数据库无该字段--> 
+			 updatetime
 		from bankbase where 
 			<if test="bankno != null and bankno !=''">
 				bankno = #{bankno,jdbcType=VARCHAR} and

@@ -9,7 +9,7 @@
 		<div class="topNav">
 			<div class="container">
 				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
-				<div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
+				<div class="b2"><span>柔软的大牛</span><a href="${staticDomain}/family/settingAccount.htm"></a></div>
 			</div>
 		</div>
         <div class="container">
@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-     <div class="footer footer-simple">
+  <!--    <div class="footer footer-simple">
     <div class="inner clearfix">
         <div class="logo fl">
             <img src="${staticDomain}/static/family/images/logo_130x55.png">
@@ -81,7 +81,7 @@
             </ul>
         </div>
     </div>
-</div>
+	</div>-->
 </div>
 <script src="${staticDomain}/static/family/scripts/load.js"></script>
 </body>

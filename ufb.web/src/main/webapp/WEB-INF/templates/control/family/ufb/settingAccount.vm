@@ -78,7 +78,7 @@
             </div>
         </div>
     </div>
-  <div class="footer footer-simple">
+  <!-- <div class="footer footer-simple">
     <div class="inner clearfix">
         <div class="logo fl">
             <img src="${staticDomain}/static/family/images/logo_130x55.png">
@@ -97,7 +97,7 @@
             </ul>
         </div>
     </div>
-</div>
+	</div>-->
 </div>
 <script src="${staticDomain}/static/family/scripts/load.js"></script>
 </body>

@@ -2,7 +2,9 @@
 <html>
 #parse("control/common/head_3.vm")
 <body>	
+#parse("control/common/header_0_family.vm")
 $body
 $!{script}
+#parse("control/common/footer_0.vm")
 </body>
 </html>

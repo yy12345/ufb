@@ -768,7 +768,7 @@ public class SettingsController {
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("AutoTradeVo", autotradeVo);
-			return "setting/autoFundStepU2";
+			return "family/ufb/autoFundStepU2";
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
 			

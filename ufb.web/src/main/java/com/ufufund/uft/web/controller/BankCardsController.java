@@ -63,11 +63,26 @@ public class BankCardsController {
 			 model.addAttribute("idno", idno);
 			 //获得所有的银行卡
 				List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
+				//支持幼富通的银行===20151013
+				List<BankBaseInfo> yftBankList= new ArrayList<BankBaseInfo>();
+				//其它的银行
+				List<BankBaseInfo> qtBankList= new ArrayList<BankBaseInfo>();
+				for(BankBaseInfo bankinfo:bankBaseList){
+					if("1".equals(bankinfo.getLevel())){
+						qtBankList.add(bankinfo);
+					}
+					else if("2".equals(bankinfo.getLevel())){
+						yftBankList.add(bankinfo);
+					}
+				}
+				
 				if(StringUtils.isBlank(bankCardVo.getBankno())){
 					// 默认第一个
-					bankCardVo.setBankno(bankBaseList.get(0).getBankno());
+					bankCardVo.setBankno(yftBankList.get(0).getBankno());
 				} 
-				model.addAttribute("bankList", bankBaseList);
+				model.addAttribute("bankList", yftBankList);
+				model.addAttribute("qtBankList", qtBankList);
+				//===20151013
 				model.addAttribute("BankCardVo", bankCardVo);
 				
 		}catch (BizException e){
