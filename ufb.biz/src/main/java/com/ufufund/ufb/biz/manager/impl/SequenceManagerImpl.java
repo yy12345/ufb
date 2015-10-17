@@ -42,8 +42,16 @@ public class SequenceManagerImpl implements SequenceManager {
 	@Override
 	public String getAccoreqSerialSeq() {
 		// TODO Auto-generated method stub
-		return sequenceMapper.getSequence("22_TRADEACCO", 20, "A");
+		return sequenceMapper.getSequence("22_TRADEACCO", 17, "A");
 	}
+	
+	
+	@Override
+	public String getTradeaccoinfoSeq() {
+		// TODO Auto-generated method stub
+		return sequenceMapper.getSequence("23_TRADEACCOID", 24, "A");
+	}
+
 
 	@Override
 	public String getAutotradeSequence() {

@@ -28,6 +28,10 @@ public interface SequenceManager {
 
 	// 交易账号
 	public String getAccoreqSerialSeq();
+	
+	
+	// 交易账ID
+	public String getTradeaccoinfoSeq();
 
 	/*
 	 * 自动任务序列

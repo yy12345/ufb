@@ -52,7 +52,7 @@
 			  UPDATETIME				
 		)
 		values (
-				getSequence('TRADEACCOINFO_SEQ'),
+				#{accoid,jdbcType=VARCHAR},
 				#{custno,jdbcType=VARCHAR},
 				#{fundcorpno,jdbcType=VARCHAR},
 				#{level,jdbcType=VARCHAR},
