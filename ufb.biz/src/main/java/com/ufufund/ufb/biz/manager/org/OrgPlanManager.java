@@ -34,5 +34,5 @@ public interface OrgPlanManager {
 	 * 
 	 * 家庭确认发起收费
 	 */
-	public void personConfirmPlandetail(List<PersonConfirmAction> datailList) throws BizException;
+	public void personConfirmPlandetail(PersonConfirmAction action) throws BizException;
 }

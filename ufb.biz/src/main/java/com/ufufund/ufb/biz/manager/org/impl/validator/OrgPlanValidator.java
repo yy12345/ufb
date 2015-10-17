@@ -7,6 +7,7 @@ import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction3;
+import com.ufufund.ufb.model.action.org.PersonConfirmAction;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 
 @Service
@@ -78,5 +79,22 @@ public class OrgPlanValidator {
 		if (!RegexUtil.isAmt(action.getChargeamount())) {
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Orggrade.CHARGE_AMOUNT);
 		}
+	}
+	
+	public void validator(PersonConfirmAction action) throws BizException {
+		String processId = action.getProcessId();
+		if (RegexUtil.isNull(action.getAcktype())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, "Acktype");
+		}
+		if (RegexUtil.isNull(action.getAckcustno())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, "Ackcustno");
+		}
+		if (RegexUtil.isNull(action.getAckbankcardid())) {
+			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY,"Ackbankcardid");
+		}
+
+//		if (!RegexUtil.isAmt(action.getAcktradeacco())) {
+//			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Orggrade.CHARGE_AMOUNT);
+//		}
 	}
 }

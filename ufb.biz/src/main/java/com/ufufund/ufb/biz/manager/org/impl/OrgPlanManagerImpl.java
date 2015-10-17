@@ -22,6 +22,7 @@ import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction2;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction3;
 import com.ufufund.ufb.model.action.org.PersonConfirmAction;
+import com.ufufund.ufb.model.action.org.PersonConfirmList;
 import com.ufufund.ufb.model.action.org.UpdateOrgPlanAction1;
 import com.ufufund.ufb.model.db.Orgplan;
 import com.ufufund.ufb.model.db.Orgplandetail;
@@ -185,17 +186,32 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 	}
 
 	@Override
-	public void personConfirmPlandetail(List<PersonConfirmAction> datailList) throws BizException {
+	public void personConfirmPlandetail(PersonConfirmAction action) throws BizException {
 		// TODO Auto-generated method stub
-		String processId = this.getProcessId(datailList);
+		String processId = this.getProcessId(action);
+		orgPlanValidator.validator(action);
+		if("U".equals(action.getAcktype())){
+			if (RegexUtil.isNull(action.getAcktradeaccoid())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, "Acktradeaccoid");
+			}
+			if (!RegexUtil.isNull(action.getAcktradeacco())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, "Acktradeacco");
+			}
+		}
+		List<PersonConfirmList> datailList = action.getPersonConfirmList();
 		if(datailList.isEmpty()||datailList.size() ==0){
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		Orgplandetail orgplandetail = null;
-		for(PersonConfirmAction action : datailList){
+		for(PersonConfirmList detail : datailList){
 			orgplandetail = new Orgplandetail();
-			orgplandetail.setDetailid(action.getDetailid());
+			orgplandetail.setDetailid(detail.getDetailid());
 			orgplandetail.setStats("F");
+			orgplandetail.setAcktype(action.getAcktype());
+			orgplandetail.setAckcustno(action.getAckcustno());
+			orgplandetail.setAckbankcardid(action.getAckbankcardid());
+			orgplandetail.setAcktradeaccoid(action.getAcktradeaccoid());
+			orgplandetail.setAcktradeacco(action.getAcktradeacco());
 			orgDeployMapper.updatePlandetail(orgplandetail);
 		}
 	}
