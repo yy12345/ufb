@@ -410,6 +410,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		}		
 		Today today = workDayManager.getSysDayInfo();
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
+		tradeaccoinfo.setAccoid(sequenceManager.getTradeaccoinfoSeq());// char(10) not null comment '客户编号',
 		tradeaccoinfo.setCustno(openAccountAction.getCustno());// char(10) not null comment '客户编号',
 		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// char(2) not null default '' comment '交易账号类型：归属基金公司',
 		tradeaccoinfo.setLevel(openAccountAction.getLevel());
