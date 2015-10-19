@@ -37,7 +37,7 @@ $(function(){
                                     <b></b>
                                     <h2 class="title">注册成功</h2>
                                     <p>你可以使用本账户进行学费缴付、查询或使用其他幼富通服务。</p>
-                                    <a class="btn" href="myUFB.html">我的账户</a>
+                                    <a class="btn" href="${staticDomain}/family/session.htm">我的账户</a>
                                 </div>
                             </div>
                         </div>

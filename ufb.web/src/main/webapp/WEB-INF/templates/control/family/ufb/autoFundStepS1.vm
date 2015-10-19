@@ -64,7 +64,7 @@ $(function(){
                             <span class="form-title">银行选择</span>
                             <div class="input-select">
 								<div class="card card-current">
-                                    <img src="${staticDomain}/images/bank_${curCard.bankno}.png">
+                                    <img src="${staticDomain}/static/family/images/bank_${curCard.bankno}.png">
                                     <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
                                 </div>
                             </div>

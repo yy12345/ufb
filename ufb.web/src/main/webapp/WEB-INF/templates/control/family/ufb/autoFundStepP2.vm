@@ -87,7 +87,7 @@ $(function(){
                         <li>
                             <span class="form-title">银行选择</span>
                             <div class="input-card">
-								<img src="${staticDomain}/images/bank_${AutoTradeVo.frombankno}.png">
+								<img src="${staticDomain}/static/family/images/bank_${AutoTradeVo.frombankno}.png">
 									<span class="card-number">尾号：${AutoTradeVo.frombanktail}</span>
 								</div>
                         </li>

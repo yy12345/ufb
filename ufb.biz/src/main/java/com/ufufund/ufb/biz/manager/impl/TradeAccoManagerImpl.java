@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
+import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.dao.TradeAccoinfoMapper;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
+import com.ufufund.ufb.model.db.Tradeaccoinfo;
 
 @Service
 public class TradeAccoManagerImpl implements TradeAccoManager{
@@ -25,7 +27,7 @@ public class TradeAccoManagerImpl implements TradeAccoManager{
 		List<String> levels = new ArrayList<String>();
 		levels.add("0"); // 
 		levels.add("2"); // 
-		return tradeAccoinfoMapper.getTradeAccoList(custno, null, levels, tradeaccosts);
+		return tradeAccoinfoMapper.getTradeAccoList(custno, Constant.HftSysConfig.HftFundCorpno, levels, tradeaccosts);
 	}
 	
 	@Override
@@ -35,6 +37,13 @@ public class TradeAccoManagerImpl implements TradeAccoManager{
 	
 	public TradeAccoinfoOfMore getTradeAcco(String custno, String fundcorpno, String bankserialid){
 		return tradeAccoinfoMapper.getTradeAcco(custno, fundcorpno, bankserialid, "Y");
+	}
+
+	@Override
+	public Tradeaccoinfo getTradeaccoinfo(String custno) {
+		Tradeaccoinfo tradeacco=new Tradeaccoinfo();
+		tradeacco.setCustno(custno);
+		return tradeAccoinfoMapper.getTradeaccoinfo(tradeacco);
 	}
 
 }

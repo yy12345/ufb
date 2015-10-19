@@ -22,8 +22,10 @@ import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankBaseInfo;
+import com.ufufund.ufb.model.db.BankCardbin;
 import com.ufufund.ufb.model.db.PicInfo;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
+import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.vo.BankCardVo;
@@ -52,7 +54,7 @@ public class BankCardsController {
 	 * @return
 	 */
 	@RequestMapping(value="family/addBankCard")
-	public String addBankCard(BankCardVo bankCardVo, Model model){
+	public String addBankCard(BankCardVo bankCardVo,String bankacco, String serialid,Model model){
 		
 		try{
 			 CustinfoVo custinfoVo=UserHelper.getCustinfoVo();
@@ -68,21 +70,60 @@ public class BankCardsController {
 				//其它的银行
 				List<BankBaseInfo> qtBankList= new ArrayList<BankBaseInfo>();
 				for(BankBaseInfo bankinfo:bankBaseList){
-					if("1".equals(bankinfo.getLevel())){
+					if("2".equals(bankinfo.getLevel())){
 						qtBankList.add(bankinfo);
 					}
-					else if("2".equals(bankinfo.getLevel())){
+					else if("1".equals(bankinfo.getLevel())){
 						yftBankList.add(bankinfo);
 					}
 				}
-				
-				if(StringUtils.isBlank(bankCardVo.getBankno())){
-					// 默认第一个
-					bankCardVo.setBankno(yftBankList.get(0).getBankno());
-				} 
+				String banknbinno="";
+				 if(null!=bankacco&&!"".equals(bankacco)){//重新绑定的交易账号
+					 bankCardVo.setBankacco(bankacco);
+					BankCardbin banknbin=bankBaseManager.getBankCardbin(bankacco.substring(0, 6));
+					if(null!=banknbin){
+						banknbinno=banknbin.getBankno();
+					}
+				 }
+				 if(""!=banknbinno&&null!=banknbinno){
+					 bankCardVo.setBankno(banknbinno);
+				 }else if(StringUtils.isBlank(bankCardVo.getBankno())){
+						 // 默认第一个
+						 bankCardVo.setBankno(yftBankList.get(0).getBankno());
+					 } 
+				 
 				model.addAttribute("bankList", yftBankList);
 				model.addAttribute("qtBankList", qtBankList);
-				//===20151013
+				//获得用户是否有幼富通卡
+				List<String> tradeaccosts = new ArrayList<String>();
+				tradeaccosts.add("Y"); // 
+				tradeaccosts.add("N"); // 
+				
+				List<String> levels = new ArrayList<String>();
+				levels.add("0"); 
+				List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(
+						custinfoVo.getCustno(),
+						null,//Constant.HftSysConfig.HftFundCorpno, 
+						levels,
+						tradeaccosts);
+				String isufbCard="N";
+				if(null!=hft_family_trade&& hft_family_trade.size() > 0){
+					for(TradeAccoinfoOfMore tradeacco:hft_family_trade){
+						if(tradeacco.getFundcorpno().equals("01")){
+							isufbCard="Y";
+							break;
+						}
+					}
+				}
+				else{
+					isufbCard="Y";
+				}
+				 model.addAttribute("hasTadeacco", isufbCard);
+				 if(""!=serialid&&null!=serialid){
+					 
+					 model.addAttribute("serialid", serialid);
+				 }
+				 //===20151013
 				model.addAttribute("BankCardVo", bankCardVo);
 				
 		}catch (BizException e){
@@ -94,11 +135,18 @@ public class BankCardsController {
 		return "family/ufb/addBankCard";
 	}
 	@RequestMapping(value="family/addBankCard_result")
-	public String addBankCard_result(BankCardVo bankCardVo, Model model){
+	public String addBankCard_result(BankCardVo bankCardVo, String serialid,Model model){
 		
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		bankCardVo.setBankidtp("0"); // 身份证绑卡
-		try{		 
+		try{		
+			
+			          if(""!=serialid&&null!=serialid){
+						bankCardManager.unbindBankCard(
+								s_custinfo.getCustno(), 
+								ServletHolder.getRequest().getParameter("serialid"), 
+								"Y");
+		             }else{
 					//验证手机验证码
 					OpenAccountAction openAccountAction = new OpenAccountAction();
 					/** 开户所属基金单位 **/
@@ -126,18 +174,25 @@ public class BankCardsController {
 					openAccountAction.setBankmobile(bankCardVo.getBankmobile());
 					openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
 					openAccountAction.setOtherserial(bankCardVo.getOtherserial());
-					openAccountAction.setBankcitynm(bankCardVo.getBankcitynm());
-					openAccountAction.setBankprovincenm(bankCardVo.getBankprovincenm());
-					openAccountAction.setBankadd(bankCardVo.getBankadd());
+					openAccountAction.setBankcitynm(StringUtils.isNotBlank(bankCardVo.getBankcitynm())?bankCardVo.getBankcitynm():null);
+					openAccountAction.setBankprovincenm(StringUtils.isNotBlank(bankCardVo.getBankprovincenm())?bankCardVo.getBankprovincenm():null);
+					openAccountAction.setBankadd(StringUtils.isNotBlank(bankCardVo.getBankadd())?bankCardVo.getBankadd():null);
 					openAccountAction.setOtherserial(bankCardVo.getOtherserial());
-					
-					/** 需要验证手机验证码标志 **/
-					openAccountAction.setCheckautocodeflag(true);
-					
-					bankCardManager.openAccount3(openAccountAction);
-					/** 开户 **/
-					bankCardManager.openAccountPerson(openAccountAction);
-				
+					//String banklevel=bankCardManager.getLevelByBankno(bankCardVo.getBankno());//add
+					 
+						/** 需要验证手机验证码标志 **/
+						openAccountAction.setCheckautocodeflag(true);
+						
+						bankCardManager.openAccount3(openAccountAction);
+						//其他的银行卡的银联验证
+						String banklevel=bankCardManager.getLevelByBankno(openAccountAction.getBankno());
+						if("2".equals(banklevel)){
+							bankCardManager.checkYinLian(openAccountAction);  	
+						}
+						/** 开户 **/
+						bankCardManager.openAccountPerson(openAccountAction);
+						
+		             } 
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			model.addAttribute("errMsg", e.getMessage());

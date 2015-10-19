@@ -12,13 +12,12 @@
 			disorder,
 			status  ,
 			mark    ,
-			<!-- createtime,20151013改数据库无该字段--> 
 			 updatetime
 		from bankbase where 
 			<if test="bankno != null and bankno !=''">
 				bankno = #{bankno,jdbcType=VARCHAR} and
 			</if>
-			status &lt;&gt; 'N'
+			status &lt;&gt; 'N' order by level ,disorder 
 	</select>
 	
 	<select id="getBankCardbin" parameterType="String" resultType="BankCardbin">

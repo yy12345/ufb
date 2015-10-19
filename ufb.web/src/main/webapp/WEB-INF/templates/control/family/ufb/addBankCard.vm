@@ -45,7 +45,8 @@ $(function(){
 				<input id="bankno" name="bankno" type="hidden" value="$!{BankCardVo.bankno}">	
 				<input id="bankprovincenm" name="bankprovincenm" type="hidden" value="$!{BankCardVo.bankprovincenm}">	
 				<input id="bankcitynm" name="bankcitynm" type="hidden" value="$!{BankCardVo.bankcitynm}">	
-				 <input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
+				<input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
+				<input id="serialid" name="serialid" value="$!{serialid}" type="hidden"/>
                    <div class="panel">
                                 <ul class="safeInfo">
                                     <li id="errMsg_bankAcnm"
@@ -87,7 +88,7 @@ $(function(){
                                                     <a bankno="${card.bankno}" class="bank" href="javascript:;">
 														<img src="${staticDomain}/static/family/images/bank_${card.bankno}.png"></a>
 													#end
-                                                    <div class="banktip">
+                                                    <div class="banktip" #if(${hasTadeacco}!="Y") style="display:none;" #else style="display:block;" #end>
                                                         <p>其他银行<span>（可缴费，不支持幼富宝）</span><i class="down"></i></p>
                                                     </div>
                                                 </div>
@@ -122,8 +123,8 @@ $(function(){
                                        </a></span>
                                        <p>此卡将设为默认缴费卡</p>
                                    </li>
-                                   <li class="sureAddr" style="display:none;"><b>请明确银行开户地点</b></li>
-                                   <li class="Addr zIndex" style="display:none;">
+                                   <li class="sureAddr" #if(${BankCardVo.bankno}=="008"||${BankCardVo.bankno}=="009"||${BankCardVo.bankno}=="010") style="display:bblock;" #else style="display:none;" #end><b>请明确银行开户地点</b></li>
+                                   <li class="Addr zIndex" #if(${BankCardVo.bankno}=="008"||${BankCardVo.bankno}=="009"||${BankCardVo.bankno}=="010") style="display:bblock;" #else style="display:none;" #end>
                                    <span class="form-title">地址</span>
                                    <div class="inputL">
                                       
@@ -367,7 +368,8 @@ $(function(){
 	}
 	
 	$(".ipt-bankCard").on("blur",function(){
-			check_bankCard($(this));
+	//		check_bankCard($(this));
+			 
 		    $.ajax({
      		type: "GET",
     		url: "../bank/cardbin_read.htm",
@@ -379,12 +381,10 @@ $(function(){
                 if (b.errCode == "0000") {
 				if(null!=b.cardbin){
 					var bankno=b.cardbin.bankno;
-					$("#bankno").val(bankno);
-					if((bankno=="008")||(bankno=="009")||(bankno=="010")){
-					 
-					 $(".sureAddr").attr("style","display:block;");
-					 $(".zIndex").attr("style","display:block;");
-					 $(".openAddr").attr("style","display:block;");
+					var banknosel=$("#bankno").val();
+					if(bankno!=banknosel){
+					 alert("对不起，您所填写的账号和所选银行不符");
+					 return false;
 					}
 				}
 					
@@ -393,13 +393,21 @@ $(function(){
         });
 	
 	});
+$('.bank-list .bank').on('click', function(){ 
+  var bankno = $(this).attr('bankno'); 
+  $('.bank-current').attr('bankno', bankno); 
+
+  if(bankno == '008' || bankno == '009' || bankno == '010'){
+	$('.Addr').show();
+	$('.sureAddr').show();
+  }else{
+	$('.sureAddr').hide();
+	$('.Addr').hide();
+  }
+});
 	// 验证码
 	$("#btn-addBankCardAjax").on("click",function(){
-		//初始化的bankno
-		var bankno=$("#bankno").val();
-		if(bankno==""){
-			$("#bankno").val($("#firstbankno").attr("bankno"));
-		}
+	
 		if(!check_bankAcnm($("#bankacnm"))){
 			return false;
 		}
@@ -500,10 +508,10 @@ $("#btn-sub").on("click",function(){
 		}else{
 			$("#bankcitynm").val(city);
 		}
-		if(bankadd==""){
-		 alert("请填写支付网点");
-		 return false;
-		}
+	//	if(bankadd==""){
+	//	 alert("请填写开户网点");
+	//	 return false;
+	//	}
 	}else{
 		 $("#bankprovincenm").val("");
 		 $("#bankcitynm").val("");
@@ -514,7 +522,14 @@ $("#btn-sub").on("click",function(){
 	if(!check_phoneCode($(".ipt-phoneCode"))){
 			return false;
 		}
-	$("#myForm").submit();
+		var errLen = $("ul li.error").length;
+		if(errLen>0){
+			$("ul li.error:eq(0) input[type=text]").focus();
+			$("ul li.error:eq(0) input[type=password]").focus();
+		}else{
+			$("#myForm").submit();
+		}
+	
 })
 
     })(jQuery);

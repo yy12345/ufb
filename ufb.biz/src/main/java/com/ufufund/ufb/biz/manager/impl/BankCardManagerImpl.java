@@ -16,6 +16,7 @@ import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.biz.util.HftResponseUtil;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.dao.BankBaseMapper;
 import com.ufufund.ufb.dao.BankMapper;
@@ -23,6 +24,8 @@ import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeAccoinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
+import com.ufufund.ufb.model.chinapay.Response;
+import com.ufufund.ufb.model.chinapay.TransDetail;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -42,6 +45,7 @@ import com.ufufund.ufb.model.hftfund.OpenAccountOrgResponse;
 import com.ufufund.ufb.model.hftfund.OpenAccountRequest;
 import com.ufufund.ufb.model.hftfund.OpenAccountResponse;
 import com.ufufund.ufb.model.vo.Today;
+import com.ufufund.ufb.remote.chinapay.ChinapayService;
 import com.ufufund.ufb.remote.hftfund.HftCustService;
 
 @Service
@@ -71,6 +75,8 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	private WorkDayManager workDayManager;
 	@Autowired
 	private SequenceManager sequenceManager;
+	@Autowired
+	private ChinapayService chinapayService;
 	
 	@Override
 	public PicInfo getPicInfo(PicInfo picinfo) throws BizException {
@@ -359,16 +365,25 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// 银行基本信息验证
 		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
-		// 执行开户交易
-		openAccountAction.setSerialno(sequenceManager.getFdacfinalresultSeq());
-		OpenAccountRequest request = bankCardManagerHelper.toOpenAccountRequest(openAccountAction);
-		OpenAccountResponse response = hftCustService.openAccount(request);
 		
-		// 处理返回异常码
-		HftResponseUtil.dealResponseCode(response);
-		
+		OpenAccountResponse response=new OpenAccountResponse();
+		String banklevel=bankCardMapper.getLevelByBankno(openAccountAction.getBankno());
+		if("1".equals(banklevel)){//支持幼富通的银行卡进行开户
+			// 执行开户交易
+			openAccountAction.setSerialno(sequenceManager.getFdacfinalresultSeq());
+			OpenAccountRequest request = bankCardManagerHelper.toOpenAccountRequest(openAccountAction);
+			 response = hftCustService.openAccount(request);
+			
+			// 处理返回异常码
+			HftResponseUtil.dealResponseCode(response);
+			openAccountAction.setTransactionaccountid(response.getTransactionAccountID());
+			//开户成功进行银联验证
+			this.checkYinLian(openAccountAction);  	
+		}else{
+			openAccountAction.setTransactionaccountid("");
+		}
 		// *** 开户成功，更新custinfo表的交易帐号、投资人姓名、证件类型、证件号、开户状态、交易密码
-		openAccountAction.setTransactionaccountid(response.getTransactionAccountID());
+		//openAccountAction.setTransactionaccountid(response.getTransactionAccountID());
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(openAccountAction.getCustno());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
@@ -410,15 +425,18 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		}		
 		Today today = workDayManager.getSysDayInfo();
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
-		tradeaccoinfo.setAccoid(sequenceManager.getTradeaccoinfoSeq());// char(10) not null comment '客户编号',
-		tradeaccoinfo.setCustno(openAccountAction.getCustno());// char(10) not null comment '客户编号',
-		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// char(2) not null default '' comment '交易账号类型：归属基金公司',
-		tradeaccoinfo.setLevel(openAccountAction.getLevel());
-		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
-		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionaccountid());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
-		tradeaccoinfo.setOpendt(today.getWorkday());
-		tradeAccoinfoMapper.insterTradeaccoinfo(tradeaccoinfo);
-
+			tradeaccoinfo.setAccoid(sequenceManager.getTradeaccoinfoSeq());// char(10) not null comment '客户编号',
+			tradeaccoinfo.setCustno(openAccountAction.getCustno());// char(10) not null comment '客户编号',
+			if("1".equals(banklevel)){//20151019	如果是其它的银行卡则不添加		
+				tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// char(2) not null default '' comment '交易账号类型：归属基金公司',
+			}else{
+				tradeaccoinfo.setFundcorpno(openAccountAction.getLevel());
+			}
+			tradeaccoinfo.setLevel(openAccountAction.getLevel());
+			tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
+			tradeaccoinfo.setTradeacco(openAccountAction.getTransactionaccountid());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
+			tradeaccoinfo.setOpendt(today.getWorkday());
+			tradeAccoinfoMapper.insterTradeaccoinfo(tradeaccoinfo);
 		// *** 插入流水表
 		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//helper.toFdacfinalresult(custinfo);
 		fdacfinalresult.setCustno(custinfo.getCustno());
@@ -438,6 +456,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		changerecordinfo3.setRefserialno(openAccountAction.getSerialno());
 		// **** 变更表
 		tradeNotesMapper.insterChangerecordinfo(changerecordinfo3);
+	 
 	}
 
 	/**
@@ -451,5 +470,54 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		bankCardMapper.deleteCard(custno, serialid);
 		bankCardMapper.deleteTradeacc(custno, serialid);
 		
+	}
+	/**
+	 * 根据bankno判断银行卡是否支持幼富通
+	 * parameter bankno
+	 */
+	@Override
+	public String getLevelByBankno(String bankno) throws BizException {
+		
+		return bankCardMapper.getLevelByBankno(bankno);
+	}
+	/**
+	 * 银联验证
+	 */
+	@Override
+	public void checkYinLian(OpenAccountAction openAccountAction) throws BizException {
+		try{
+		TransDetail tDetail = new TransDetail();
+		/*tDetail.setBANK_CODE(openAccountAction.getBankno());
+		tDetail.setACCOUNT_NO(openAccountAction.getBankacco());
+		tDetail.setACCOUNT_NAME(openAccountAction.getBankacnm());
+		tDetail.setID_TYPE(openAccountAction.getIdtp());
+		tDetail.setID(openAccountAction.getBankidno());
+		tDetail.setTEL(openAccountAction.getBankmobile());*/
+		tDetail.setBANK_CODE("105");
+		tDetail.setACCOUNT_NO("6227001823260036733");
+		tDetail.setACCOUNT_NAME("吴小龄");
+		tDetail.setID_TYPE("0");
+		tDetail.setID("441509876512014787");
+		tDetail.setTEL("13602459062");
+		Response response = chinapayService
+				.checkAccount(String.valueOf(System.currentTimeMillis()), tDetail);
+		log.info("返回对象："+response);
+		
+		if("0000".equals(response.getINFO().getRET_CODE())){
+			if("0000".equals(response.getBODY().getRET_DETAIL().get(0).getRET_CODE())){
+				log.info("认证成功！");
+			}else{
+				log.info("认证失败：code="+response.getBODY().getRET_DETAIL().get(0).getRET_CODE()
+						+", msg="+response.getBODY().getRET_DETAIL().get(0).getERR_MSG());
+				throw new UserException("银联认证失败");
+			}
+		}else{
+			log.error("系统异常：code="+response.getINFO().getRET_CODE()
+					+", msg="+response.getINFO().getERR_MSG());
+			throw new UserException("系统异常");
+		}
+		}catch(BizException e){
+			log.warn(e.getErrmsg(),e);
+		}
 	}
 }

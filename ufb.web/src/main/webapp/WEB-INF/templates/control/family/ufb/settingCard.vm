@@ -45,21 +45,33 @@ $(function(){
 				return false;
 			}
 			$("#serialid").val($(this).attr("serialid"));
-			alert($("#serialid").val());
+			//alert($("#serialid").val());
 			$("#form-settingCard").attr("action", "../family/deleteCard.htm");
 			$("#form-settingCard").submit();
 		}
 	});
  
 	$("#addCard").on("click",function(){
-		var len=$(".cardCount").length;
-		if(len>=2){
-			alert("对不起，您最多只能添加两张银行卡！");
+		 if($(this).attr("cardcount")>=2){
+			 alert("对不起，您只能添加两张银行卡！");
 			return false;
-		}
+		}else if($("#ufbCard").html()!=undefined){
+			alert("对不起，您只能添加一张幼富通银行卡！");
+			return false;
+		} 
 			$("#form-settingCard").attr("action", "../family/addBankCard.htm");
 			$("#form-settingCard").submit();
 		
+	});
+	$(".set-bind").on("click", function(){
+		 if($("#addCard").attr("cardcount")>=2){
+			 alert("对不起，您只能添加两张银行卡！");
+			return false;
+		}
+		$("#serialid").val($(this).attr("serialid"));
+		$("#bankacco").val($(this).attr("bankacco"));
+		$("#form-settingCard").attr("action", "../family/addBankCard.htm");
+		$("#form-settingCard").submit();
 	});
 	
 });
@@ -86,9 +98,9 @@ $(function(){
     </div>
     <div class="body">
 		<form id="form-settingCard" action="${ufbDomain}/family/settingCard.htm" method="post">
-    	<input id="bankacco" name="bankacco" value="${bankacco}" type="hidden"/>
-		<input id="serialid" name="serialid" value="${serialid}" type="hidden"/>
-		<input id="tradeacco" name="tradeacco" value="${tradeacco}" type="hidden"/>
+    	<input id="bankacco" name="bankacco" value="$!{bankacco}" type="hidden"/>
+		<input id="serialid" name="serialid" value="$!{serialid}" type="hidden"/>
+		<input id="tradeacco" name="tradeacco" value="$!{tradeacco}" type="hidden"/>
         <div class="inner clearfix">
             <div class="title">
                 <h2 class="title-main">账户设置</h2>
@@ -123,7 +135,7 @@ $(function(){
     							<span>尾号：$tailStr.substring($start,$end)</span>
     						</div>
                             <div class="card-setting">
-							        #if($!{card.clevel}=="2")	<span>*幼富宝 </span> #end
+							        #if($!{card.clevel}=="1")	<span id="ufbCard">*幼富宝 </span> #end
         							#if($!{card.mainflag}!="Y")
         							<a bankacco="${card.bankacco}" class="set-main" href="javascript:;">设为主卡</a>
         							#end
@@ -138,7 +150,7 @@ $(function(){
     						</div>
                         </li>
     					#end
-                        <li class="card card-add cardM3"><a id="addCard" href="#">添加银行卡</a></li>
+                        <li class="card card-add cardM3"><a id="addCard" href="#" cardcount="${cardList_Y.size()}">添加银行卡</a></li>
                     </ul>
                     <div>已解绑银行卡：</div>
                     <ul class="card-list clearfix">
@@ -153,7 +165,7 @@ $(function(){
     							<span>尾号：$tailStr.substring($start,$end)</span>
     						</div>
                             <div class="card-setting">
-        							<a class="set-bind" bankacco="${card.bankacco}" serialid="${card.serialid}" href="${staticDomain}/family/addBankCard.htm?bankAcco=$tailStr">重新绑定</a>
+        							<a class="set-bind" bankacco="${card.bankacco}" serialid="${card.serialid}" href="javascript:;">重新绑定</a>
 									<a class="set-del" bankacco="${card.bankacco}" serialid="${card.serialid}" href="javascript:;">删除</a>
     						</div>
                         </li>
@@ -187,11 +199,11 @@ $(function(){
 </div>
 <script src="${staticDomain}/static/family/scripts/load.js"></script>
 <script type="text/javascript">
-    $(function(){
-        $(".setting .card").click(function(){
-            $(this).addClass("card-main").siblings().removeClass("card-main");
-        });
-    });
+//    $(function(){
+ //       $(".setting .card").click(function(){
+ //           $(this).addClass("card-main").siblings().removeClass("card-main");
+ //       });
+ //   });
 </script>
 </body>
 </html>

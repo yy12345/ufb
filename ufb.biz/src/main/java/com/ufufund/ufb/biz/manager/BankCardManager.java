@@ -39,4 +39,8 @@ public interface BankCardManager {
 	public void updatePicInfo(PicInfo picInfo) throws BizException;
 	public void insertPicInfo(PicInfo picInfo) throws BizException;
 	public PicInfo getPicInfo(PicInfo picInfo) throws BizException;
+	//根据bankno判断银行卡是否支持幼富通
+	public String getLevelByBankno(String bankno) throws BizException;
+	//银行卡的银联验证
+	public void checkYinLian(OpenAccountAction openAccountAction) throws BizException;
 }

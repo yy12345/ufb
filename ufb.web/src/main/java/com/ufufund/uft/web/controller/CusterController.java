@@ -468,10 +468,19 @@ public class CusterController {
 		levels.add("0"); 
 		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(
 				custinfoVo.getCustno(),
-				Constant.HftSysConfig.HftFundCorpno, 
+				null,//Constant.HftSysConfig.HftFundCorpno, 
 				levels,
 				tradeaccosts);
-		
+		String isufbCard="";
+		if(null!=hft_family_trade){
+			for(TradeAccoinfoOfMore tradeacco:hft_family_trade){
+				if(tradeacco.getClevel().equals("1")){
+					isufbCard="Y";
+					break;
+				}
+			}
+		}
+		model.addAttribute("isufbCard", isufbCard);
 		levels = new ArrayList<String>();
 		levels.add("1"); 
 		List<TradeAccoinfoOfMore> hft_organization_trade = tradeAccoManager.getTradeAccoList(
@@ -506,7 +515,7 @@ public class CusterController {
 				model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 				model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 				model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
-				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
+				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计收益
 				model.addAttribute("hft_family_trade_size", "0");
 			}
 		}else if("1".equals(custinfoVo.getInvtp())){
@@ -526,7 +535,7 @@ public class CusterController {
 				model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 				model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
 				model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
-				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计受益
+				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计收益
 				model.addAttribute("hft_operator_trade_size", "0");
 			}
 			// 机构
@@ -707,10 +716,10 @@ public class CusterController {
 			//其它的银行
 			List<BankBaseInfo> qtBankList= new ArrayList<BankBaseInfo>();
 			for(BankBaseInfo bankinfo:bankBaseList){
-				if("1".equals(bankinfo.getLevel())){
+				if("2".equals(bankinfo.getLevel())){
 					qtBankList.add(bankinfo);
 				}
-				else if("2".equals(bankinfo.getLevel())){
+				else if("1".equals(bankinfo.getLevel())){
 					yftBankList.add(bankinfo);
 				}
 			}
@@ -726,7 +735,6 @@ public class CusterController {
 			model.addAttribute("BankCardVo", bankCardVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
-			
 			String ems = e.getOtherInfo();
 			if (BisConst.Register.INVNM.equals(ems)) {
 				model.addAttribute("errMsg_invnm_family", e.getMessage()); // 家长名
@@ -741,13 +749,10 @@ public class CusterController {
 			} else if (BisConst.Register.TRADEPWD2.equals(ems)) {
 				model.addAttribute("errMsg_tradepwd2_family", e.getMessage()); // 交易确认密码
 			} 
-			else if (BisConst.Register.TRADEPWDUEQLOGINPWD.equals(ems)) {
-				model.addAttribute("errMsg_tradepwd2_family", e.getMessage()); // 
-			}else {
+			else {
 				model.addAttribute("errMsg_family", e.getMessage());
 			}
 			model.addAttribute("CustinfoVo", custinfoVo);
-			ServletHolder.forward("/family/createAccount2.htm");
 			return "family/account/createAccount2";
 		}
 		return "family/account/createAccount3";
@@ -770,6 +775,7 @@ public class CusterController {
 			custManager.register(registerAction);
 			// 注册成功，保存用户至session
 		    custinfoVo.setCustno(registerAction.getCustno());
+		    custinfoVo.setInvtp(Invtp.PERSONAL.getValue());
 			UserHelper.saveCustinfoVo(custinfoVo);
 				//绑卡、开户
 			CustinfoVo s_custno=UserHelper.getCustinfoVo();
@@ -799,16 +805,20 @@ public class CusterController {
 				openAccountAction.setBankidno(bankCardVo.getBankidno());
 				openAccountAction.setBankmobile(bankCardVo.getBankmobile());
 				openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
-				openAccountAction.setBankcitynm(bankCardVo.getBankcitynm());
-				openAccountAction.setBankprovincenm(bankCardVo.getBankprovincenm());
-				openAccountAction.setBankadd(bankCardVo.getBankadd());
+				openAccountAction.setBankcitynm(StringUtils.isNotBlank(bankCardVo.getBankcitynm())?bankCardVo.getBankcitynm():null);
+				openAccountAction.setBankprovincenm(StringUtils.isNotBlank(bankCardVo.getBankprovincenm())?bankCardVo.getBankprovincenm():null);
+				openAccountAction.setBankadd(StringUtils.isNotBlank(bankCardVo.getBankadd())?bankCardVo.getBankadd():null);
 				openAccountAction.setOtherserial(bankCardVo.getOtherserial());
 				/** 需要验证手机验证码标志 **/
 				openAccountAction.setCheckautocodeflag(true);
 				
 				/** 银行手机验证，并带回Serialno、Protocolno的值 **/
 				bankCardManager.openAccount3(openAccountAction);
-				
+				//其他的银行卡的银联验证
+				String banklevel=bankCardManager.getLevelByBankno(openAccountAction.getBankno());
+				if("2".equals(banklevel)){
+					bankCardManager.checkYinLian(openAccountAction);  	
+				}
 				/** 开户 **/
 				bankCardManager.openAccountPerson(openAccountAction);
 				

@@ -51,7 +51,7 @@
                                         <span class="tips-normal" style="display: block;">#if(${CustinfoVo.tradepwd}) #else 6-20个大小写英文字母、符号或数字 #end </span>
                                       <span class="tips-check"><i class="icon"></i>$!{errmsg_tradepwd_family}</span>
                                     </li>
-                                    <li #if($errMsg_tradepwd2_family) class="error" #end>
+                                    <li #if(${errMsg_tradepwd2_family}) class="error" #end>
                                         <span class="form-title">重复输入</span>
                                         <input class="ipt-tradepwd2 input-text" type="password"  name="tradepwd2" id="tradepwd2" value="$!{CustinfoVo.tradepwd2}">
                                         <span class="tips-normal" style="display: block;">#if(${CustinfoVo.tradepwd2}) #else 请再次输入密码 #end </span>

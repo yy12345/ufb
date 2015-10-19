@@ -68,7 +68,6 @@ public class SettingsController {
 	public String setAccount(CustinfoVo custinfoVo, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			
 			custinfoVo.setCustno(s_custinfo.getCustno());;                      
 			custinfoVo.setMobileno(s_custinfo.getMobileno());                    
 			custinfoVo.setInvtp(s_custinfo.getInvtp()); 
@@ -226,7 +225,7 @@ public class SettingsController {
 			return "family/ufb/autoFundStep2";
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			
+			String errMes=ue.getMessage();
 			model.addAttribute("message_title", "错误信息");
 			model.addAttribute("message_url", "family/autoTrade_add.htm");
 			model.addAttribute("message_content0", "新增自动充值计划失败!");
@@ -234,7 +233,11 @@ public class SettingsController {
 			model.addAttribute("message_content2", "重新添加自动充值计划");
 			model.addAttribute("message_content3", "温馨提示：");
 			model.addAttribute("message_content4", "您的自动充值计划，提交失败，您可通过自动充值计划列表确认，如有问题请联系幼富通客服热线。");
-			return "error/pay_result";
+			if("交易密码错误！".equals(errMes)){
+				return "error/pay_result";
+			}else{
+				return "error/user_error";
+			}
 		}
 		return "family/ufb/autoFundStep3";
 	}
@@ -292,7 +295,7 @@ public class SettingsController {
 			CustinfoVo s_custinfo=UserHelper.getCustinfoVo();
 			// 校验手机验证码
 		//	MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
-			//手机号是否需要验证与注册的时候的一致？？？
+			
 			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -504,12 +507,12 @@ public class SettingsController {
 			tradeaccosts.add("N"); // 
 			
 			List<String> levels = new ArrayList<String>();
-			if("0".equals(s_custinfo.getInvtp())){
+			//if("0".equals(s_custinfo.getInvtp())){
 				levels.add("0"); // 
-			}else{
+			//}else{
 				levels.add("1"); // 
 				levels.add("2"); // 
-			}
+			//}
 			List<TradeAccoinfoOfMore> tradeAccoList_Y = 
 					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, levels, tradeaccosts);
 			if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
@@ -771,7 +774,7 @@ public class SettingsController {
 			return "family/ufb/autoFundStepU2";
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			
+			String errMes=ue.getMessage();
 			model.addAttribute("message_title", "错误信息");
 			model.addAttribute("message_url", "family/settingAutoFund.htm");
 			model.addAttribute("message_content0", "修改自动充值计划失败!");
@@ -779,7 +782,11 @@ public class SettingsController {
 			model.addAttribute("message_content2", "返回自动充值计划");
 			model.addAttribute("message_content3", "温馨提示：");
 			model.addAttribute("message_content4", "您的自动充值计划，提交失败，您可通过自动充值计划列表确认，如有问题请联系幼富通客服热线。");
-			return "error/pay_result";
+			if("交易密码错误！".equals(errMes)){
+				return "error/pay_result";
+			}else{
+				return "error/user_error";
+			}
 		}
 		return "family/ufb/autoFundStepU3";
 	}
@@ -877,7 +884,7 @@ public class SettingsController {
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			
+			String errMes=ue.getMessage();
 			model.addAttribute("message_title", "错误信息");
 			model.addAttribute("message_url", "family/settingAutoFund.htm");
 			model.addAttribute("message_content0", "暂停自动充值计划失败!");
@@ -885,7 +892,11 @@ public class SettingsController {
 			model.addAttribute("message_content2", "返回自动充值计划");
 			model.addAttribute("message_content3", "温馨提示：");
 			model.addAttribute("message_content4", "您的自动充值计划，提交失败，您可通过自动充值计划列表确认，如有问题请联系幼富通客服热线。");
-			return "error/pay_result";
+			if("交易密码错误！".equals(errMes)){
+				return "error/pay_result";
+			}else{
+				return "error/user_error";
+			}
 		}
 		return "family/ufb/autoFundStepP3";
 	}
@@ -958,15 +969,19 @@ public class SettingsController {
 			
 		}catch(UserException ue){
 			LOG.warn(ue.getMessage(), ue);
-			
+			String errMes=ue.getMessage();
 			model.addAttribute("message_title", "错误信息");
 			model.addAttribute("message_url", "family/settingAutoFund.htm");
-			model.addAttribute("message_content0", "暂停自动充值计划失败!");
+			model.addAttribute("message_content0", "终止自动充值计划失败!");
 			model.addAttribute("message_content1", ue.getMessage());
 			model.addAttribute("message_content2", "返回自动充值计划");
 			model.addAttribute("message_content3", "温馨提示：");
 			model.addAttribute("message_content4", "您的自动充值计划，提交失败，您可通过自动充值计划列表确认，如有问题请联系幼富通客服热线。");
-			return "error/pay_result";
+			if("交易密码错误！".equals(errMes)){
+				return "error/pay_result";
+			}else{
+				return "error/user_error";
+			}
 		}
 		return "family/ufb/autoFundStepS3";
 	}

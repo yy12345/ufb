@@ -97,7 +97,8 @@
                         </li>
                         <li>
                             <span class="form-title">可用金额</span>
-                            <div id="mark" class="mark">${cardAvailableDisplay}元
+                            <div id="mark" class="mark" >
+								<font id="cardAvailableDisplay" >${cardAvailableDisplay}</font>元
 							</div>
 							<div id="realmark" class="mark" style="display:none">
 								<font id="cardRealAvailableDisplay" >${cardRealAvailableDisplay}</font>元
@@ -146,6 +147,7 @@
 </div>
 <script src="${staticDomain}/static/family/scripts/load.js"></script>
 <script src="${staticDomain}/static/family/scripts/register.js"></script>
+<script src="${staticDomain}/static/family/scripts/ufuCommon.js"></script>
 <script type="text/javascript">
     $(function(){
         $(".body .notice .v2_1").click(function(){

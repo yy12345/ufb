@@ -355,8 +355,8 @@
 	}
 	
 	$(".ipt-bankCard").on("blur",function(){
-	
-			check_bankCard($(this));
+			//check_bankCard($(this));
+		 
 		    $.ajax({
      			type: "GET",
     			url: "../bank/cardbin_read.htm",
@@ -368,11 +368,10 @@
                 if (b.errCode == "0000") {
 				if(null!=b.cardbin){
 					var bankno=b.cardbin.bankno;
-					$("#bankno").val(bankno);
-					if((bankno=="008")||(bankno=="009")||(bankno=="010")){
-					 $(".sureAddr").attr("style","display:block;");
-					 $(".zIndex").attr("style","display:block;");
-					 $(".openAddr").attr("style","display:block;");
+					var banknosel=$("#bankno").val();
+					if(bankno!=banknosel){
+					 alert("对不起，您所填写的账号和所选银行不符");
+					 return false;
 					}
 				}
 					
@@ -381,13 +380,21 @@
         });
 	
 	});
+$('.bank-list .bank').on('click', function(){ 
+  var bankno = $(this).attr('bankno'); 
+  $('.bank-current').attr('bankno', bankno); 
+
+  if(bankno == '008' || bankno == '009' || bankno == '010'){
+	$('.sureAddr').show();
+	$('.Addr').show();
+  }else{
+	$('.sureAddr').hide();
+	$('.Addr').hide();
+  }
+});
 	// 验证码
 	$("#btn-addBankCardAjax").on("click",function(){
-			//初始化的bankno
-		var bankno=$("#bankno").val();
-		if(bankno==""){
-			$("#bankno").val($("#firstbankno").attr("bankno"));
-		}
+	
 		if(!check_bankAcnm($("#bankacnm"))){
 			return false;
 		}
@@ -479,10 +486,10 @@
 		}else{
 			$("#bankcitynm").val(city);
 		}
-		if(bankadd==""){
-		 alert("请填写支付网点");
-		 return false;
-		}
+		//if(bankadd==""){
+		// alert("请填写开户网点");
+		// return false;
+	//	}
 	}else{
 		 $("#bankprovincenm").val("");
 		 $("#bankcitynm").val("");

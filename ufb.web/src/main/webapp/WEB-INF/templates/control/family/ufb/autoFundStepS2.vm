@@ -86,7 +86,7 @@ $(function(){
                         <li>
                             <span class="form-title">银行选择</span>
                             <div class="input-card">
-								<img src="${staticDomain}/images/bank_${AutoTradeVo.frombankno}.png">
+								<img src="${staticDomain}/static/family/images/bank_${AutoTradeVo.frombankno}.png">
 									<span class="card-number">尾号：${AutoTradeVo.frombanktail}</span>
 								</div>
                         </li>
@@ -149,8 +149,8 @@ $(function(){
         </div>
 	</div>-->
     </div>
-<script src="${staticDomain}/js/scripts/load.js"></script>
-<script src="${staticDomain}/js/scripts/register.js"></script>
-<script src="${staticDomain}/js/ufuCommon.js"></script>
+<script src="${staticDomain}/static/family/scripts/load.js"></script>
+<script src="${staticDomain}/static/family/scripts/register.js"></script>
+<script src="${staticDomain}/static/family/ufuCommon.js"></script>
 </body>
 </html>

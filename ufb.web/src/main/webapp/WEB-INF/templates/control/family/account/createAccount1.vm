@@ -37,7 +37,7 @@
 										#end
 										>
                                         <span class="form-title">验证码</span>
-                                         <input class="ipt-verifycode input-code" type="text"  name="verifycode"  id="verifycode" maxlength="4" value="$!{CustinfoVo.verifycode}" placeholder="输入图形验证码">
+                                         <input class="ipt-code input-code" type="text"  name="verifycode"  id="verifycode" maxlength="4" value="$!{CustinfoVo.verifycode}" placeholder="输入图形验证码">
                                        <!-- <input class="input-yz" type="button" value="验证码">-->
                                        <span><img id="btn-verifycode" src="${staticDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())" ></span>
                                         <span class="tips-check"><i class="icon"></i>$!{errMsg_verifycode_family}</span>
@@ -179,9 +179,9 @@
 						$(".ipt-phoneNum").parent().addClass("error");
 					}else 
 					if("errMsg_verifycode"==errCode){
-						$(".ipt-verifycode").siblings(".tips-check").html("<i class=icon></i>" + errMsg);
-						$(".ipt-verifycode").siblings(".tips-check").attr("style","display:block");
-						$(".ipt-verifycode").parent().addClass("error");
+						$(".ipt-code").siblings(".tips-check").html("<i class=icon></i>" + errMsg);
+						$(".ipt-code").siblings(".tips-check").attr("style","display:block");
+						$(".ipt-code").parent().addClass("error");
 					}else{
 						alert(errMsg);
 					}

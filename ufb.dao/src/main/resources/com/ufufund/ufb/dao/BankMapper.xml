@@ -265,10 +265,14 @@
 		<delete id="deleteTradeacc" parameterType="String">
            DELETE
             FROM 
-            BANKCARDINFO
-            WHERE BANKSERIALID=#{bankserialid,jdbcType=VARCHAR}
+            tradeaccoinfo
+            WHERE BANKSERIALID=#{serialid,jdbcType=VARCHAR}
             AND CUSTNO=#{custno,jdbcType=VARCHAR}
 	    </delete>
+<select id="getLevelByBankno" parameterType="String" resultType="String">
 
+	select level from bankbase where bankno=#{bankno,jdbcType=VARCHAR}
+
+</select>
 	
 </mapper>

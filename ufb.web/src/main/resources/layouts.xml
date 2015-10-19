@@ -10,8 +10,8 @@
 		<pattern>/**/*.service</pattern>
 	</excludes>
 
-	<!--  <layout page="layout/default_error.vm">-->
-	<layout page="layout/default_family.vm">
+	<!-- <layout page="layout/default_family.vm">-->
+	 <layout page="layout/default_error.vm">
         <pattern>error/404.vm</pattern>
         <pattern>error/500.vm</pattern>
         <pattern>error/*</pattern>

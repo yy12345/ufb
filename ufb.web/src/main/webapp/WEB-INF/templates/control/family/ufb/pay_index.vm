@@ -58,7 +58,7 @@
             <div class="form-payInto">
                 <form class="common-form" action="${ufbDomain}/family/pay_result.htm" method="post">
 					 ${refreshTools.genInputHtml()}
-				     <input id="tradeacco" name="tradeacco" value="${curCard.tradeacco}" type="hidden"/>
+				     <input id="tradeacco" name="tradeacco" value="$!{curCard.tradeacco}" type="hidden"/>
                     <ul>
                         <li class="clearfix zIndex">
                             <span class="form-title">银行选择</span>

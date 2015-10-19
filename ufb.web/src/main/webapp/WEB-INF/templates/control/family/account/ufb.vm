@@ -22,12 +22,20 @@ $(function(){
 	});
 		
 	$("#addBankCard").on("click",function(){
+	
 		var cardcount=$(".cBlue").html();
 		if(cardcount>=2){
 			alert("对不起，您最多只能添加两张银行卡");
 			return false;
 		}
-		window.open("${staticDomain}/family/addBankCard.htm","_blank");
+		 else{
+		 	var isufbCard=$(this).attr("isufbCard");
+    	    if(isufbCard=="Y"){
+    			alert("对不起，您只能添加一张幼富通银行卡");
+    			return false;
+    		} 
+		 }
+		window.location.href="${staticDomain}/family/addBankCard.htm";
 		//$("#addBankCard").attr("href","${staticDomain}/family/addBankCard.htm").click();
 	});
 	
@@ -48,7 +56,7 @@ $(function(){
 			     <div class="addCard">
                     银行卡已添加<span class="cBlue">$!{hft_family_trade_size}</span>张
 					<a href="${staticDomain}/family/settingCard.htm" class="readAll">查看全部</a>
-					<a href="#" id="addBankCard">+新卡</a>
+					<a href="#" id="addBankCard" isufbCard="$!{isufbCard}">+新卡</a>
                  </div>
 			</div>
 			<div class="a2 width928">
