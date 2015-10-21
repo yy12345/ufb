@@ -45,7 +45,7 @@
 				$(this).parent().find(".list").html(list);
 			}
 			var that = $(this).parent();
-			that.css({"z-index":999,"width":parseInt($(this).css("width"))+2,"margin-right":$(this).css("margin-right"),"margin-left":$(this).css("margin-left"),"outline":"none"});
+			that.css({"z-index":99,"width":parseInt($(this).css("width"))+2,"margin-right":$(this).css("margin-right"),"margin-left":$(this).css("margin-left"),"outline":"none"});
 			that.find('.list').css({"width":parseInt($(this).css("width"))});
 			that.find(".text").text($(this).find('option:selected').text());
 			that.find("li").unbind("click").on("click",function(event){
@@ -341,7 +341,7 @@ JH.load = {
 				loading.stop().animate({width:'100%'},100,'easeOutQuad',function(){
 					$('.loading').remove();
 					$(target).append(data);
-					callback(target);
+					if(callback)callback(target);
 				});
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {

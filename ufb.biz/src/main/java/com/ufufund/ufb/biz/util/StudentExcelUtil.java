@@ -20,11 +20,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.ufufund.ufb.common.exception.SysException;
 import com.ufufund.ufb.common.exception.UserException;
+import com.ufufund.ufb.common.utils.CompressUtil;
 import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.common.utils.SequenceUtil;
@@ -34,8 +33,10 @@ import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.enums.FamilyTypeEnum;
 import com.ufufund.ufb.model.enums.SexEnum;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class StudentExcelUtil {
-	private static final Logger log = LoggerFactory.getLogger(StudentExcelUtil.class);
 	// 配置文件路径
 	private static final String CONFIG_FILE = "config/spring-ufb-all.properties";
 	// 表单tab项颜色 
@@ -70,7 +71,8 @@ public class StudentExcelUtil {
 					|| StringUtils.isBlank(excel_download_dir) 
 					|| max_num == 0
 					|| StringUtils.isBlank(password) ){
-				throw new SysException("excel模板参数为空！");			}
+				throw new SysException("excel模板参数为空！");
+			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			System.exit(0);
@@ -78,13 +80,50 @@ public class StudentExcelUtil {
 	}
 	
 	/**
-	 * 指定生成模板的文件名规范
+	 * 压缩包目录名
 	 * @param orgname
-	 * @param typeName
 	 * @return
 	 */
-	public static String getTemplateName(String orgname, String typeName){
-		return orgname+"-学生档案-"+typeName+".xlsx";
+	public static String getDirName(String orgname){
+		return orgname+"-学生档案" + File.separator;
+	}
+	
+	/**
+	 * 指定生成模板的文件名规范
+	 * @param orgname
+	 * @param gradeName
+	 * @param cname
+	 * @return
+	 */
+	public static String getTemplateName(String orgname, String gradeName, String cname){
+		return orgname+"-"+gradeName+"-"+cname+".xlsx";
+	}
+	
+	/**
+	 * 确保为空文件夹
+	 * @param dir
+	 */
+	public static void ensureDirEmpty(String dir){
+		File directory = new File(excel_download_dir+dir);
+		if(!directory.exists()){
+			directory.mkdirs();
+		}else{
+			File[] files = directory.listFiles();
+			for(File f : files){
+				f.delete();
+			}
+		}
+	}
+	
+	/**
+	 * 打包生成的excel文件
+	 * @param relativeDir
+	 */
+	public static String zipExcels(String archive, String sourceDir){
+		String archive_temp = excel_download_dir + archive + ".zip";
+		String sourceDir_temp = excel_download_dir + sourceDir;
+		CompressUtil.zip(archive_temp, sourceDir_temp);
+		return archive + ".zip";
 	}
 	
 	/**
@@ -94,45 +133,37 @@ public class StudentExcelUtil {
 	 * @param templateName
 	 * @throws IOException
 	 */
-	public static void createFromTemplate(String destFilename, List<Clazz> clazzList){
+	public static void createFromTemplate(Clazz clazz, String savePath){
 		try {
 			XSSFWorkbook workBook = new XSSFWorkbook(new FileInputStream(new File(excel_template_file)));
-			XSSFSheet sheet = null;
-			for(int i=0; i < clazzList.size(); i++){
-				Clazz clazz = clazzList.get(i);
-				if(i == 0){
-					sheet = workBook.getSheetAt(0);
-				}else{
-					sheet = workBook.cloneSheet(0);
-				}
-				// 班级名、及id数据填充
-				workBook.setSheetName(i, clazz.getName());
-				sheet.getRow(max_num+3).getCell(0).setCellValue(clazz.getCid());
-				// 第一列班级名数据填充
-				for(int j = 2; j < max_num+2; j++){
-					sheet.getRow(j).getCell(0).setCellValue(clazz.getName());
-				}
-				// 表单tab页颜色
-				String colorKey = "other";
-				if(clazz.getTypeid().length() == 1){
-					colorKey = clazz.getTypeid();
-				}
-				sheet.setTabColor(colorMap.get(colorKey).getIndex());
+			XSSFSheet sheet = workBook.getSheetAt(0);
+			// 班级名、及id数据填充
+			workBook.setSheetName(0, clazz.getName());
+			sheet.getRow(max_num+3).getCell(0).setCellValue(clazz.getCid());
+			// 第一列班级名数据填充
+			for(int j = 2; j < max_num+2; j++){
+				sheet.getRow(j).getCell(0).setCellValue(clazz.getName());
 			}
+			// 表单tab页颜色
+//			String colorKey = "other";
+//			if(clazz.getTypeid().length() == 1){
+//				colorKey = clazz.getTypeid();
+//			}
+//			sheet.setTabColor(colorMap.get(colorKey).getIndex());
 			
 			workBook.lockStructure();
 			workBook.setWorkbookPassword(password, HashAlgorithm.sha1);
 			
 			// 文档保存到输出流
-			FileOutputStream os = new FileOutputStream(excel_download_dir+destFilename);
+			FileOutputStream os = new FileOutputStream(excel_download_dir+savePath);
 			workBook.write(os);
 			os.close();
 			workBook.close();
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
-			throw new SysException("生成excel错误：filename="+destFilename+","+e.getMessage());
+			throw new SysException("生成excel错误：filename="+excel_download_dir+savePath+","+e.getMessage());
 		}
-		log.info("生成excel成功："+excel_download_dir+destFilename);
+		log.info("生成excel成功："+excel_download_dir+savePath);
 	}
 	
 	
@@ -201,34 +232,34 @@ public class StudentExcelUtil {
 		
 		// 检验数据
 		if(!StringUtils.isBlank(s.getSno()) && s.getSno().length() > 12){
-			throw new UserException(clazzName+", row="+(r.getRowNum()+1)+":[学号]超过12个字符！");
+			throw new UserException(clazzName+", 第"+(r.getRowNum()+1)+"行:[学号]超过12个字符！");
 		}
 		if(s.getName().length() > 20){
-			throw new UserException(clazzName+", row="+(r.getRowNum()+1)+":[姓名]超过20个字符！");
+			throw new UserException(clazzName+", 第"+(r.getRowNum()+1)+"行:[姓名]超过20个字！");
 		}
 		if(StringUtils.isBlank(s.getSex())){
-			throw new UserException(clazzName+", row="+(r.getRowNum()+1)+":[性别]为空！");
+			throw new UserException(clazzName+", 第"+(r.getRowNum()+1)+"行:[性别]为空！");
 		}
 		if(StringUtils.isBlank(s.getBirthday())){
-			throw new UserException(clazzName+", row="+(r.getRowNum()+1)+":[生日]为空！");
+			throw new UserException(clazzName+", 第"+(r.getRowNum()+1)+"行:[生日]为空！");
 		}
 		if(StringUtils.isBlank(s.getF_type())){
-			throw new UserException(clazzName+", row="+(r.getRowNum()+1)+":[家庭类型]为空！");
+			throw new UserException(clazzName+", 第"+(r.getRowNum()+1)+"行:[家庭类型]为空！");
 		}
 		if(StringUtils.isBlank(s.getP1_name())){
-			throw new UserException(clazzName+", row="+(r.getRowNum()+1)+":[家长]为空！");
+			throw new UserException(clazzName+", 第"+(r.getRowNum()+1)+"行:[缴费家长]为空！");
 		}
 		if(s.getP1_name().length() > 20){
-			throw new UserException(clazzName+", row="+(r.getRowNum()+1)+":[家长]超过20个字符！");
+			throw new UserException(clazzName+", 第"+(r.getRowNum()+1)+"行:[缴费家长]超过20个字！");
 		}
 		if(!RegexUtil.isMobile(s.getP1_mobile())){
-			throw new UserException(clazzName+", row="+(r.getRowNum()+1)+":[家长手机]数据不正确！");
+			throw new UserException(clazzName+", 第"+(r.getRowNum()+1)+"行:[家长手机]有误！");
 		}
 		if(!StringUtils.isBlank(s.getP1_mail()) && s.getP1_mail().indexOf('@') == -1){
-			throw new UserException(clazzName+", row="+(r.getRowNum()+1)+":[家长邮箱]数据不正确！");
+			throw new UserException(clazzName+", 第"+(r.getRowNum()+1)+"行:[家长邮箱]有误！");
 		}
 		if(s.getP1_mail().length() > 30){
-			throw new UserException(clazzName+", row="+(r.getRowNum()+1)+":[家长邮箱]超过30个字符！");
+			throw new UserException(clazzName+", 第"+(r.getRowNum()+1)+"行:[家长邮箱]超过30个字符！");
 		}
 		
 		return s;
@@ -258,4 +289,23 @@ public class StudentExcelUtil {
 		return FamilyTypeEnum.getKeyByValue(value);
 	}
 	
+	
+	public static void main(String args[]){
+		
+		String dir = "E:/opt/logs/孙桥幼儿园";
+		
+		File tempDir = new File(dir);
+		if(!tempDir.exists()){
+			tempDir.mkdirs();
+		}else{
+			File[] files = tempDir.listFiles();
+			for(File f : files){
+				f.delete();
+			}
+			System.out.println(tempDir.exists());
+			tempDir.mkdirs();
+		}
+		
+		System.out.println(tempDir.exists());
+	}
 }

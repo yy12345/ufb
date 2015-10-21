@@ -30,6 +30,7 @@ import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.enums.NormalClazzType;
 import com.ufufund.ufb.model.vo.AdjustStudentVo;
 import com.ufufund.ufb.model.vo.StudentVo;
+import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -155,13 +156,13 @@ public class SchoolController {
 			for(ClazzType ct : otherTypes){
 				ct.setClazzList(filterClazz(allList, ct.getId()));
 			}
-			model.addAttribute("otherTypes", otherTypes);
 			
+			model.addAttribute("otherTypes", otherTypes);
 			model.addAttribute("list_1", list_1);
 			model.addAttribute("list_2", list_2);
 			model.addAttribute("list_3", list_3);
 			model.addAttribute("list_4", list_4);
-			
+			model.addAttribute("back", ServletHolder.getRequest().getHeader("Referer"));
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			
@@ -264,12 +265,9 @@ public class SchoolController {
 	}
 	
 	@RequestMapping(value="student_manager", method=RequestMethod.GET)
-	public String studentManager(String typeid, Model model){
+	public String studentManager(String cid, Model model){
 		
 		String orgid = UserHelper.getCustno();
-		if(StringUtils.isBlank(typeid)){
-			typeid = "0";  // 0-全部类型
-		}
 		try{
 			// 机构下，所有班级类型
 			List<ClazzType> allTypes = new ArrayList<ClazzType>();
@@ -281,17 +279,15 @@ public class SchoolController {
 			// 机构下，所有班级列表
 			Clazz clazz = new Clazz();
 			clazz.setOrgid(orgid);
-			// 是否根据typeid查询
-			if(!"0".equals(typeid)){
-				clazz.setTypeid(typeid);
-			}
 			List<Clazz> clazzList = schoolManager.getClazzList(clazz);
 			// 获取班级学生数量
 			schoolManager.getClazzSize(clazzList);
 			
 			model.addAttribute("allTypes", allTypes);
 			model.addAttribute("clazzList", clazzList);
-			model.addAttribute("typeid", typeid);
+			if(!StringUtils.isBlank(cid)){
+				model.addAttribute("cid", cid);
+			}
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			
@@ -305,11 +301,65 @@ public class SchoolController {
 		return "school/student_manager";
 	}
 	
-	@RequestMapping(value="student_adjust", method=RequestMethod.GET)
-	public String studentAdjust(String typeid, Model model){
+	@RequestMapping(value="student_downTemplate", method=RequestMethod.GET)
+	public String studentDownTemplate(String gradeid, String cid, Model model)
+			throws UnsupportedEncodingException{
+		
+		String downFilename = "";
+		String orgid = UserHelper.getCustno();
+		try{
+			downFilename = schoolManager.genStudentTemplate(orgid, gradeid, cid);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			
+			model.addAttribute("message_title", "学生档案管理");
+			model.addAttribute("message_url", STUDENT_INDEX);
+			model.addAttribute("message_content0", "操作失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			return "error/user_error";
+		}
+		
+		downFilename = URLEncoder.encode(downFilename, "utf-8");
+		return "redirect:/excel/"+downFilename;
+	}
+	
+	@RequestMapping(value = "student_upload", method=RequestMethod.POST) 
+	@ResponseBody
+    public Map<String,String> studentUpload(@RequestParam("file") MultipartFile file) {  
+		Map<String,String> resultMap = new HashMap<String,String>();
 		
 		String orgid = UserHelper.getCustno();
+		try{
+			
+			String fileName = DateUtil.format(new Date(), DateUtil.DATE_PATTERN_1) + "-" 
+					+ orgid + "-" + String.valueOf(System.currentTimeMillis()).substring(8);
+	        File targetFile = new File(excel_upload_dir, fileName);  
+	        if(!targetFile.exists()){  
+	            targetFile.mkdirs();  
+	        }  
+	        // 保存  
+	        file.transferTo(targetFile);
+	        // 解析数据
+	        String cid = schoolManager.importStudentExcel(orgid, targetFile.getAbsolutePath());
+	        
+	        resultMap.put("errCode", "0000");
+	        resultMap.put("cid", cid);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+    }
+	
+	@RequestMapping(value="student_adjust", method=RequestMethod.GET)
+	public String studentAdjust(String cid, Model model){
 		
+		String orgid = UserHelper.getCustno();
 		try{
 			// 机构下，所有班级类型
 			List<ClazzType> allTypes = new ArrayList<ClazzType>();
@@ -324,14 +374,11 @@ public class SchoolController {
 			// 获取班级学生数量
 			schoolManager.getClazzSize(clazzList);
 			
-			// 默认，选【全部】班级类型
-			if(StringUtils.isBlank(typeid)){
-				typeid = "0";
-			}
-			
 			model.addAttribute("allTypes", allTypes);
 			model.addAttribute("clazzList", clazzList);
-			model.addAttribute("typeid", typeid);
+			if(!StringUtils.isBlank(cid)){
+				model.addAttribute("cid", cid);
+			}
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			
@@ -355,6 +402,7 @@ public class SchoolController {
 			vo.setOrgid(orgid);
 			schoolManager.adjustStudent(vo);
 			resultMap.put("errCode", "0000");
+			resultMap.put("cid", vo.getToCid());
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			resultMap.put("errCode", ue.getCode());
@@ -401,7 +449,7 @@ public class SchoolController {
 		String orgid = UserHelper.getCustno();
 		try{
 			vo.setOrgid(orgid);
-			List<Student> students = schoolManager.queryStudentList(vo);
+			List<Student> students = schoolManager.searchStudentList(vo);
 		
 			resultMap.put("errCode", "0000");
 			resultMap.put("students", students);
@@ -417,49 +465,93 @@ public class SchoolController {
 		return resultMap;
 	}
 	
-	@RequestMapping(value="student_downTemplate", method=RequestMethod.GET)
-	public String studentDownTemplate(String typeid, Model model)
-			throws UnsupportedEncodingException{
+	@RequestMapping(value="student_detail", method=RequestMethod.GET)
+	public String studentDetail(String action, String backUrl, String sid, Model model){
 		
-		String downFilename = "";
 		String orgid = UserHelper.getCustno();
 		try{
-			downFilename = schoolManager.genStudentTemplate(orgid, typeid);
+			Student s = schoolManager.queryStudent(sid);
+			
+			if("add".equals(action)){
+				// 机构下，所有班级类型
+				List<ClazzType> allTypes = new ArrayList<ClazzType>();
+				List<ClazzType> normalTypes = NormalClazzType.getList(orgid);
+				List<ClazzType> otherTypes = schoolManager.getClazzTypeList(orgid);
+				allTypes.addAll(normalTypes);
+				allTypes.addAll(otherTypes);
+				// 机构下，所有班级列表
+				Clazz clazz = new Clazz();
+				clazz.setOrgid(orgid);
+				List<Clazz> clazzList = schoolManager.getClazzList(clazz);
+				
+				model.addAttribute("allTypes", allTypes);
+				model.addAttribute("clazzList", clazzList);
+			}
+			
+			model.addAttribute("vo", s);
+			model.addAttribute("action", action);
+			model.addAttribute("backUrl", backUrl);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			
-			model.addAttribute("message_title", "学生档案管理");
-			model.addAttribute("message_url", STUDENT_INDEX);
+			model.addAttribute("message_title", "班级管理");
+			model.addAttribute("message_url", CLASS_INDEX);
 			model.addAttribute("message_content0", "操作失败!");
 			model.addAttribute("message_content1", ue.getMessage());
 			return "error/user_error";
 		}
 		
-		downFilename = URLEncoder.encode(downFilename, "utf-8");
-		return "redirect:/excel/"+downFilename;
+		return "school/student_detail";
 	}
 	
-	@RequestMapping(value = "student_upload", method=RequestMethod.POST) 
+	@RequestMapping(value="student_update", method=RequestMethod.POST)
+	public String studentUpdate(String backUrl, Student s, Model model){
+		try{
+			schoolManager.updateStudent(s);
+			
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			
+			model.addAttribute("message_title", "班级管理");
+			model.addAttribute("message_url", CLASS_INDEX);
+			model.addAttribute("message_content0", "操作失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			return "error/user_error";
+		}
+		
+		return "redirect:student_detail.htm?action=view&sid="+s.getSid()+"&backUrl="+backUrl;
+	}
+	
+	@RequestMapping(value="student_add", method=RequestMethod.POST)
+	public String studentAdd(String backUrl, Student s, Model model){
+		try{
+			s.setSid(SequenceUtil.getSerial());
+			schoolManager.addStudent(s);
+			
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			
+			model.addAttribute("message_title", "班级管理");
+			model.addAttribute("message_url", CLASS_INDEX);
+			model.addAttribute("message_content0", "操作失败!");
+			model.addAttribute("message_content1", ue.getMessage());
+			return "error/user_error";
+		}
+		
+		return "redirect:student_detail.htm?action=view&sid="+s.getSid()+"&backUrl="+backUrl;
+	}
+	
+	@RequestMapping(value="student_remove", method=RequestMethod.POST)
 	@ResponseBody
-    public Map<String,String> studentUpload(@RequestParam("file") MultipartFile file) {  
-		Map<String,String> resultMap = new HashMap<String,String>();
+	public Map<String,Object> studentRemove(StudentVo s){
+		Map<String,Object> resultMap = new HashMap<String,Object>();
 		
 		String orgid = UserHelper.getCustno();
 		try{
-			
-			String fileName = DateUtil.format(new Date(), DateUtil.DATE_PATTERN_1) + "-" 
-					+ orgid + "-" + String.valueOf(System.currentTimeMillis()).substring(8);
-	        File targetFile = new File(excel_upload_dir, fileName);  
-	        if(!targetFile.exists()){  
-	            targetFile.mkdirs();  
-	        }  
-	        // 保存  
-	        file.transferTo(targetFile);
-	        // 解析数据
-	        String typeid = schoolManager.importStudentExcel(targetFile.getAbsolutePath());
-	        
-	        resultMap.put("errCode", "0000");
-	        resultMap.put("typeid", typeid);
+			s.setOrgid(orgid);
+			schoolManager.removeStudent(s);
+		
+			resultMap.put("errCode", "0000");
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			resultMap.put("errCode", ue.getCode());
@@ -470,8 +562,7 @@ public class SchoolController {
 			resultMap.put("errMsg", "系统出现异常！");
 		}
 		return resultMap;
-    }
-	
+	}
 	
 	/**
 	 * 根据类型过滤出不同类型的班级

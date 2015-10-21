@@ -1,28 +1,53 @@
+#if(!$module)
+	#set($backUrl = "${ufbDomain}/school/student_manager.htm")
+#else
+	#set($backUrl = "${ufbDomain}/school/student_adjust.htm")
+#end
 <table width="100%;" class="tableA">
     <tr>
-        <th></th>
+        #if($module)<th></th>#end
         <th>学号</th>
         <th>姓名</th>
         <th>班级</th>
         <th>性别</th>
         <th>出生日期</th>
         <th>家庭类型</th>
+        <th>缴费家长</th>
         <th>家长手机</th>
         <th>家长邮箱</th>
         <th>操作</th>
     </tr>
     #foreach($s in $students)
     <tr sid="${s.sid}">
-        <td><label class="checkbox"><input type="checkbox" name="student[]" value="${s.sid}"></label></td>
+        #if($module)<td><label class="checkbox"><input type="checkbox" name="student[]" value="${s.sid}"></label></td>#end
         <td>${s.sno}</td>
         <td>${s.name}</td>
         <td>${s.cname}</td>
-        <td>${s.sex}</td>
+        <td>
+        	#if(${s.sex} == "1")男
+        	#elseif(${s.sex} == "2")女
+        	#end
+        </td>
         <td>${s.birthday}</td>
-        <td>${s.f_type}</td>
+        <td>
+        	#if(${s.f_type}=="1")业主   
+			#elseif(${s.f_type}=="2")非业主  
+			#elseif(${s.f_type}=="3")关系单位
+			#elseif(${s.f_type}=="4")本园职工
+			#elseif(${s.f_type}=="5")助养孤儿
+			#elseif(${s.f_type}=="6")特困家庭
+			#elseif(${s.f_type}=="7")其它    
+			#end
+        </td>
+        <td>${s.p1_name}</td>
         <td>${s.p1_mobile}</td>
         <td>${s.p1_mail}</td>
-        <td><a href="javascript:;">查看</a></td>
+        <td>
+        	<div class="btnTwo">
+		    	<a href="${ufbDomain}/school/student_detail.htm?action=view&sid=${s.sid}&backUrl=${backUrl}" class="btn1">查看</a>
+		    	<a href="javascript:;" class="btn2 btnPos delete">删除</a>
+		  	</div>
+		</td>
     </tr>
     #end
 </table>
@@ -33,5 +58,19 @@ $('.tableA').each(function(i,d){
 	$(this).find('tr:odd td').css('background-color','#fff');
 })
 //checkbox
-##if($module)$('.checkbox').checkbox();#end
+#if($module)$('.checkbox').checkbox();#end
+// 删除
+$('.delete').on('click', function(){
+	var sid = $(this).closest('tr').attr('sid');
+	if(removeStudent(sid)){
+		var checkbox = $(this).closest('tr').find('input');
+		if(checkbox && checkbox.attr('checked')){
+			var num = parseInt($('#studentNum').text());
+			$('#studentNum').text(num -1);
+		}
+		var clazzNum = parseInt($(this).closest('.a4').find('.b1 .c1 .d1').text());
+		$(this).closest('.a4').find('.b1 .c1 .d1').text(clazzNum - 1);
+		$(this).closest('tr').remove();
+	}
+});
 </script>

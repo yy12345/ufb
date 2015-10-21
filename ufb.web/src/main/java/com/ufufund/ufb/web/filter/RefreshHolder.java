@@ -19,7 +19,7 @@ public class RefreshHolder {
 	// 保存随机序列的map
 	private static final ConcurrentMap<String,Long> holder = new ConcurrentHashMap<String,Long>(5000);
 	// 生成input项的表单元素名
-	public static final String INPUT_NAME = "refresh_holer_item";
+	public static final String INPUT_NAME = "refresh_param";
 	// holder中存储序列的数量的预警值
 	private static final int WARN_NUM = 3000;
 	// 序列值失效的时间，单位：分钟
@@ -32,6 +32,16 @@ public class RefreshHolder {
 	 */
 	static{
 		new Thread(new HolderCleaner()).start();
+	}
+	
+	/**
+	 * 生成随机序列值
+	 * @return
+	 */
+	public static String getValue(){
+		String rand = UUID.randomUUID().toString();
+		holder.put(rand, System.currentTimeMillis());
+		return rand;
 	}
 	
 	/**

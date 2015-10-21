@@ -34,6 +34,9 @@
     		<if test="typeid != null">
     			and typeid = #{typeid, jdbcType=VARCHAR}
     		</if>
+    		<if test="cid != null">
+    			and cid = #{cid, jdbcType=VARCHAR}
+    		</if>
     	order by typeid, cno 
     </select>
     

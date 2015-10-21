@@ -11,14 +11,16 @@ import com.ufufund.ufb.model.vo.StudentVo;
 public interface StudentMapper {
 
 	Student get(String sid);
+
+	List<Student> getList(Student s);
 	
-	int add(Student student);
+	List<Student> getListWithOrg(StudentVo vo);
 	
-	int update(Student student);
+	int add(Student s);
 	
-	int remove(String sid);
+	int update(Student s);
 	
-	int removeByClazz(String cid);
+	int remove(StudentVo s);
 	
 	int addBatch(List<Student> studentList);
 	
@@ -26,10 +28,5 @@ public interface StudentMapper {
 			@Param("sidList")List<String> sidList);
 	
 	int getCountByClazz(String cid);
-	
-	List<Student> getListByClazz(String cid);
-	
-	List<Student> queryStudent(StudentVo vo);
-	
 	
 }

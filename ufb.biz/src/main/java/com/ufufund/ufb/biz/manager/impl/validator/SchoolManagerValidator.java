@@ -12,8 +12,12 @@ import com.ufufund.ufb.model.db.Clazz;
 import com.ufufund.ufb.model.db.ClazzType;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.vo.AdjustStudentVo;
+import com.ufufund.ufb.model.vo.StudentVo;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class SchoolManagerValidator {
 
 	@Autowired
@@ -45,7 +49,7 @@ public class SchoolManagerValidator {
 		}
 	}
 	
-	public void validateImportStudentExcel(String clazzId, List<Student> students){
+	public void validateRemoveStudentByClazz(String clazzId, List<Student> students){
 		// 1.检测clazzId，班级是否能全量删除
 		// 2.检测students数据是否为空
 		// code ...
@@ -58,5 +62,32 @@ public class SchoolManagerValidator {
 		if(clazzMapper.get(vo.getToCid()) == null){
 			throw new UserException("找不到调入班级！");
 		}
+	}
+	
+	public void validateUpdateStudent(Student s){
+		if(s == null || StringUtils.isBlank(s.getSid()) 
+				|| StringUtils.isBlank(s.getName()) || StringUtils.isBlank(s.getSex()) 
+				|| StringUtils.isBlank(s.getBirthday()) || StringUtils.isBlank(s.getState())
+				|| StringUtils.isBlank(s.getP1_name()) || StringUtils.isBlank(s.getP1_mobile())
+				|| StringUtils.isBlank(s.getP1_mail())){
+			log.warn("输入参数为空："+s.toString());
+			throw new UserException("输入参数为空！");
+		}
+	}
+	
+	public void validateAddStudent(Student s){
+		if(s == null || StringUtils.isBlank(s.getSid()) 
+				|| StringUtils.isBlank(s.getCid()) || StringUtils.isBlank(s.getCname())
+				|| StringUtils.isBlank(s.getName()) || StringUtils.isBlank(s.getSex()) 
+				|| StringUtils.isBlank(s.getBirthday()) || StringUtils.isBlank(s.getState())
+				|| StringUtils.isBlank(s.getP1_name()) || StringUtils.isBlank(s.getP1_mobile())
+				|| StringUtils.isBlank(s.getP1_mail())){
+			log.warn("输入参数为空："+s.toString());
+			throw new UserException("输入参数为空！");
+		}
+	}
+	
+	public void validateRemoveStudent(StudentVo s){
+		// code later...
 	}
 }

@@ -1,16 +1,12 @@
 package com.ufufund.ufb.biz.manager.impl;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +14,6 @@ import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.SchoolManager;
 import com.ufufund.ufb.biz.manager.impl.validator.SchoolManagerValidator;
 import com.ufufund.ufb.biz.util.StudentExcelUtil;
-import com.ufufund.ufb.common.exception.SysException;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.dao.ClazzMapper;
 import com.ufufund.ufb.dao.ClazzTypeMapper;
@@ -161,60 +156,62 @@ public class SchoolManagerImpl implements SchoolManager{
 	/**
 	 * 生成学生档案模板
 	 * @param orgid 机构id
-	 * @param typeid 班级类型id
+	 * @param gradeid 年级id
+	 * @param cid 班级id
 	 * @return
 	 */
-	public String genStudentTemplate(String orgid, String typeid){
+	public String genStudentTemplate(String orgid, String gradeid, String cid){
 		
 		String downFilename = null;
-		Custinfo custinfo = custManager.getCustinfo(orgid);
-		String typeName = getClazzTypeName(typeid);
 		
+		// 查询待生成导入模板的班级
 		Clazz clazz = new Clazz();
 		clazz.setOrgid(orgid);
-		if(!StringUtils.isBlank(typeid) && !"0".equals(typeid)){
-			clazz.setTypeid(typeid);
+		if(!"0".equals(gradeid)){
+			clazz.setTypeid(gradeid);
+		}
+		if(!"0".equals(cid)){
+			clazz.setCid(cid);
 		}
 		List<Clazz> clazzList = clazzMapper.getList(clazz);
 		
-		downFilename = StudentExcelUtil.getTemplateName(custinfo.getInvnm(), typeName);
-		StudentExcelUtil.createFromTemplate(downFilename, clazzList);
+		// 逐班生成模板
+		Custinfo custinfo = custManager.getCustinfo(orgid);
+		String dirName = StudentExcelUtil.getDirName(custinfo.getOrgnm());
+		StudentExcelUtil.ensureDirEmpty(dirName);
+		for(Clazz c : clazzList){
+			String gradeName = getClazzTypeName(c.getTypeid());
+			String excelFile = StudentExcelUtil.getTemplateName(custinfo.getOrgnm(), gradeName, c.getName());
+			String savePath = dirName + excelFile;
+			StudentExcelUtil.createFromTemplate(c, savePath);
+		}
+		downFilename = StudentExcelUtil.zipExcels(dirName.substring(0, dirName.length() -1), dirName);
 		
 		return downFilename;
 	}
 	
 	/**
 	 * 导入学生档案数据
+	 * @param orgid
 	 * @param filePath
-	 * @return 导入班级的typeid；全部班级，则为<code>0</code>
+	 * @return 导入班级的cid；全部班级，则为<code>0</code>
 	 */
-	public String importStudentExcel(String filePath){
+	public String importStudentExcel(String orgid, String filePath){
 		
-		String typeid = null;
-		Set<String> typeidSet = new HashSet<String>();
-		
+		StudentVo vo = new StudentVo();
+		vo.setOrgid(orgid);
 		Map<String, List<Student>> resultMap = StudentExcelUtil.readFromExcel(filePath);
 		for(Entry<String, List<Student>> entry : resultMap.entrySet()){
 			String clazzId = entry.getKey();
 			List<Student> students = entry.getValue();
-			// 检测班级是否可全量导入
-			smValidator.validateImportStudentExcel(clazzId, students);
 			// 导入学生档案数据
-			studentMapper.removeByClazz(clazzId);
+			vo.setCid(clazzId);
+			smValidator.validateRemoveStudentByClazz(clazzId, students);
+			studentMapper.remove(vo);
 			studentMapper.addBatch(students);
-			
-			// 识别导入班级的typeid，后续优化...
-			typeidSet.add(clazzMapper.get(clazzId).getTypeid());
 		}
 		
-		// 识别导入班级的typeid，后续优化...
-		if(typeidSet.size() > 1){
-			typeid = "0";
-		}else if(typeidSet.size() == 1){
-			typeid = typeidSet.iterator().next();
-		}
-		
-		return typeid;
+		return resultMap.size() > 0? resultMap.keySet().iterator().next():"0";
 	}
 	
 	
@@ -224,7 +221,9 @@ public class SchoolManagerImpl implements SchoolManager{
 	 * @return
 	 */
 	public List<Student> getStudentList(String cid){
-		return studentMapper.getListByClazz(cid);
+		Student s = new Student();
+		s.setCid(cid);
+		return studentMapper.getList(s);
 	}
 	
 	/**
@@ -232,8 +231,8 @@ public class SchoolManagerImpl implements SchoolManager{
 	 * @param vo
 	 * @return
 	 */
-	public List<Student> queryStudentList(StudentVo vo){
-		return studentMapper.queryStudent(vo);
+	public List<Student> searchStudentList(StudentVo vo){
+		return studentMapper.getListWithOrg(vo);
 	}
 	
 	/**
@@ -253,6 +252,45 @@ public class SchoolManagerImpl implements SchoolManager{
 			sidList = Arrays.asList(vo.getSidStr().split(","));
 		}
 		return studentMapper.adjustStudent(vo, cidList, sidList);
-				
 	}
+	
+	/**
+	 * 查询学生详细
+	 * @param sid
+	 * @return
+	 */
+	public Student queryStudent(String sid){
+		return studentMapper.get(sid);
+	}
+	
+	/**
+	 * 更新学生档案信息
+	 * @param s
+	 * @return
+	 */
+	public int updateStudent(Student s){
+		smValidator.validateUpdateStudent(s);
+		return studentMapper.update(s);
+	}
+	
+	/**
+	 * 新增学生档案信息
+	 * @param s
+	 * @return
+	 */
+	public int addStudent(Student s){
+		smValidator.validateAddStudent(s);
+		return studentMapper.add(s);
+	}
+	
+	/**
+	 * 删除学生档案信息
+	 * @param s
+	 * @return
+	 */
+	public int removeStudent(StudentVo s){
+		smValidator.validateRemoveStudent(s);
+		return studentMapper.remove(s);
+	}
+	
 }

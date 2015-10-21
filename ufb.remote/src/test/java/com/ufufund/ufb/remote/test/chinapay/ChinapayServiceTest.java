@@ -29,7 +29,7 @@ public class ChinapayServiceTest {
 	/***
 	 * 账户验证测试
 	 */
-//	@Test
+	@Test
 	public void checkAccount(){
 		
 		TransDetail tDetail = new TransDetail();
