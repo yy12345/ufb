@@ -1066,3 +1066,16 @@
 .camera_yellow_skin .camera_commands > .camera_stop {
 	background-position: -120px -1240px	;
 }
+
+.LowLi{
+    width:85%;
+    height:60px;
+    text-align:center;
+    margin-left:8%;
+}
+.LowLi li{
+    float:left;
+    height:60px;
+    line-height:60px;
+    margin-right:20px;
+}

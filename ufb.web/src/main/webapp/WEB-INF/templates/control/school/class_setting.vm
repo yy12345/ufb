@@ -92,7 +92,7 @@
 							<div class="c2"><a href="javascript:;" id="classOtherNew">+新增班级类型</a></div>
 						</div>
 					</div>
-					<div class="ctrl"><a href="recordsManagement.html" class="btnB">确 定</a></div>
+					<div class="ctrl"><a href="${back}" class="btnB">确 定</a></div>
 				</div>
 			</div>
 		</div>

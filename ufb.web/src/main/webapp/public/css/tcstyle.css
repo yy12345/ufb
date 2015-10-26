@@ -103,6 +103,9 @@ img{vertical-align:top;}
 .fz0{
 	font-size:0px;
 }
+.mb60{
+    margin-bottom:60px;
+}
 .inputText{
 	position:relative;
 	height:32px;
@@ -395,7 +398,7 @@ img{vertical-align:top;}
 	*display:inline;
 	zoom:1;
 	padding-left:16px;
-	background:url(../images/checkboxR.png) no-repeat;
+	background:url(../images/checkbox.png) no-repeat 0 -3px;
 	overflow:hidden;
 	vertical-align:middle;
 	font-size:12px;
@@ -405,7 +408,7 @@ img{vertical-align:top;}
 	-o-user-select:none;
 }
 .checkbox.active{
-	background:url(../images/checkboxR.png) no-repeat 0 -16px;
+	background:url(../images/checkbox.png) no-repeat 0 -27px;
 }
 .checkbox input{
 	position:absolute;
@@ -878,6 +881,7 @@ img{vertical-align:top;}
   border: 1px solid #E6E6E5;
   line-height: 1.5;
   position:relative;
+  margin-top:5px;
 }
 .u2 .v2_1{
     position:absolute;
@@ -908,7 +912,9 @@ img{vertical-align:top;}
 .u3 .x1 {
   overflow: hidden;
   position: relative;
-  margin-bottom: 20px;
+}
+.mb20{
+    margin-bottom:20px;
 }
 .u3 .x1 .y1 {
   width: 180px;
@@ -1543,7 +1549,7 @@ img{vertical-align:top;}
 
 .title-font{
     font-size:16px;
-    color:#000;
+    color:#333;
     font-weight: bold;
     position:absolute;
     width:150px;
@@ -1551,11 +1557,30 @@ img{vertical-align:top;}
     top:0;
     left:0;
 }
-.title-font label{
-    color:#cb3849;
-}
 .a4 .b4.b4Mag{
     padding-left:165px;
     position:relative;
     color:#808080;
+}
+.mb15{
+    margin-bottom:15px;
+}
+.pb15{
+    padding-bottom:15px;
+}
+pt10{
+    padding-top:10px;
+}
+.pb10{
+    padding-bottom:10px;
+}
+pt10{
+    padding-top:10px;
+}
+.checkG , .checkG.checkbox{
+    background:url(../images/checkbox.png) no-repeat 0 -3px;
+}
+.checkG.active , .checkG.checkbox.active{
+    background:url(../images/checkbox.png) no-repeat 0px -3px;
+    background-position:0 -27px;
 }

@@ -7,9 +7,9 @@
 
 	<!-- 按日滚动日志 -->
     <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/usr/local/resin4.0/log/ufb-all.log</file>
+        <file>/opt/logs/ufb/ufb-all.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/usr/local/resin4.0/log/ufb-all-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/opt/logs/ufb/ufb-all-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>20</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy
                     class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">

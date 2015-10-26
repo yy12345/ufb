@@ -8,6 +8,24 @@
     	select * from Student where sid = #{sid, jdbcType=VARCHAR}
     </select>
     
+    <select id="getList" parameterType="Student" resultType="Student">
+    	select * from Student where cid = #{cid, jdbcType=VARCHAR}
+    </select>
+    
+    <select id="getListWithOrg" parameterType="StudentVo" resultType="Student">
+    	select s.* from Student s , Clazz c 
+    	where s.cid = c.cid
+    	<if test="orgid != null">
+    		and c.orgid = #{orgid, jdbcType=VARCHAR}
+    	</if>
+    	<if test="cid != null">
+    		and s.cid = #{cid, jdbcType=VARCHAR}
+    	</if>
+    	<if test="name != null">
+    		and s.name = #{name, jdbcType=VARCHAR}
+    	</if>
+    </select>
+    
     <insert id="add" parameterType="Student">
 		insert into Student values(
 			#{sid             ,jdbcType=VARCHAR},     
@@ -22,9 +40,7 @@
 			#{f_address       ,jdbcType=VARCHAR},      
 			#{state           ,jdbcType=VARCHAR},    
 			#{p_custno        ,jdbcType=VARCHAR},     
-			#{p_date          ,jdbcType=VARCHAR},     
-			#{pay_default     ,jdbcType=VARCHAR},     
-			#{contact_default ,jdbcType=VARCHAR},     
+			#{p_date          ,jdbcType=VARCHAR},    
 			#{p1_relation     ,jdbcType=VARCHAR},     
 			#{p1_name         ,jdbcType=VARCHAR},     
 			#{p1_mobile       ,jdbcType=VARCHAR},     
@@ -39,7 +55,6 @@
 			#{end_date        ,jdbcType=VARCHAR},     
 			#{registry_type   ,jdbcType=VARCHAR},     
 			#{registry_address,jdbcType=VARCHAR},     
-			#{is_addr_same    ,jdbcType=BIT},     
 			#{nation          ,jdbcType=VARCHAR},     
 			#{insurance       ,jdbcType=VARCHAR},     
 			#{medical         ,jdbcType=VARCHAR},     
@@ -62,10 +77,7 @@
 			birthday         = #{birthday        ,jdbcType=VARCHAR},     
 			sex              = #{sex             ,jdbcType=VARCHAR},     
 			certno           = #{certno          ,jdbcType=VARCHAR},     
-			f_type           = #{f_type          ,jdbcType=VARCHAR},     
-			f_address        = #{f_address       ,jdbcType=VARCHAR},     
-			state            = #{state           ,jdbcType=VARCHAR},    
-			contact_default  = #{contact_default ,jdbcType=VARCHAR},     
+			state            = #{state           ,jdbcType=VARCHAR},     
 			p1_relation      = #{p1_relation     ,jdbcType=VARCHAR},     
 			p1_name          = #{p1_name         ,jdbcType=VARCHAR},     
 			p1_mobile        = #{p1_mobile       ,jdbcType=VARCHAR},     
@@ -75,12 +87,13 @@
 			p2_name          = #{p2_name         ,jdbcType=VARCHAR},     
 			p2_mobile        = #{p2_mobile       ,jdbcType=VARCHAR},     
 			p2_mail          = #{p2_mail         ,jdbcType=VARCHAR},     
-			p2_work          = #{p2_work         ,jdbcType=VARCHAR},     
+			p2_work          = #{p2_work         ,jdbcType=VARCHAR},      
+			f_type           = #{f_type          ,jdbcType=VARCHAR},     
+			f_address        = #{f_address       ,jdbcType=VARCHAR},    
 			start_date       = #{start_date      ,jdbcType=VARCHAR},     
 			end_date         = #{end_date        ,jdbcType=VARCHAR},     
 			registry_type    = #{registry_type   ,jdbcType=VARCHAR},     
 			registry_address = #{registry_address,jdbcType=VARCHAR},     
-			is_addr_same     = #{is_addr_same    ,jdbcType=VARCHAR},     
 			nation           = #{nation          ,jdbcType=VARCHAR},     
 			insurance        = #{insurance       ,jdbcType=VARCHAR},     
 			medical          = #{medical         ,jdbcType=VARCHAR},     
@@ -92,18 +105,21 @@
 			special_care     = #{special_care    ,jdbcType=VARCHAR},     
 			care_type        = #{care_type       ,jdbcType=VARCHAR},     
 			meal_type        = #{meal_type       ,jdbcType=VARCHAR},     
-			now()                                                                            
+			updatetime 		 = now()                                                                            
     	where sid = #{sid, jdbcType=VARCHAR}
     </update>
     
-    <delete id="remove" parameterType="String">
-    	delete from Student where sid = #{sid,jdbcType=VARCHAR}
+    <delete id="remove" parameterType="StudentVo">
+    	delete s from Student s, Clazz c
+    	where s.cid = c.cid and c.orgid = #{orgid,jdbcType=VARCHAR}
+    		<if test="sid != null">
+    			and s.sid = #{sid,jdbcType=VARCHAR}
+    		</if>
+    		<if test="cid != null">
+    			and s.cid = #{cid,jdbcType=VARCHAR}
+    		</if>
     </delete>
      
-    <delete id="removeByClazz" parameterType="String">
-    	delete from Student where cid = #{cid,jdbcType=VARCHAR}
-    </delete>
-    
     <insert id="addBatch" parameterType="Student">
     	insert into Student (
     		sid      ,
@@ -118,9 +134,7 @@
 			p1_mobile,
 			p1_mail  ,
 			state    ,
-			pay_default,
-			contact_default,
-			lastupdate
+			updatetime
     	) values
     	<foreach item="item" collection="list" separator="," open="" close="" index="">  
 	    	(#{item.sid      ,jdbcType=VARCHAR},     
@@ -134,9 +148,7 @@
 			#{item.p1_name  ,jdbcType=VARCHAR},     
 			#{item.p1_mobile,jdbcType=VARCHAR},     
 			#{item.p1_mail  ,jdbcType=VARCHAR},    
-			'1',     
-			'1', 
-			'1',
+			'1',   
 			now())
 	    </foreach>
     </insert>
@@ -166,21 +178,4 @@
     	select count(*) from Student where cid = #{cid, jdbcType=VARCHAR}
     </select>
     
-    <select id="getListByClazz" parameterType="String" resultType="Student">
-    	select * from Student where cid = #{cid, jdbcType=VARCHAR}	
-    </select>
-    
-    <select id="queryStudent" parameterType="StudentVo" resultType="Student">
-    	select s.* from Student s , Clazz c 
-    	where s.cid = c.cid
-    	<if test="orgid != null">
-    		and c.orgid = #{orgid, jdbcType=VARCHAR}
-    	</if>
-    	<if test="cid != null">
-    		and s.cid = #{cid, jdbcType=VARCHAR}
-    	</if>
-    	<if test="name != null">
-    		and s.name = #{name, jdbcType=VARCHAR}
-    	</if>
-    </select>
 </mapper>

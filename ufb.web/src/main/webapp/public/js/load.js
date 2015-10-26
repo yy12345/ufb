@@ -96,11 +96,16 @@ $(function () {
     $(".input-select *:first-child").on("click", function () {
         var _this = $(this);
         _this.parent().toggleClass("open");
+        if($('.mb10').css('display') == 'none'){
+            $(".bgGray").css('display','none');
+        }
+
     });
     $(".input-options .bank-list").on("click", ".bank", function () {
         var _this = $(this);
         var _select = $(".input-select");
         _select.removeClass("open").find(".bank-current").html(_this.html());
+        $(".bgGray").hide().find(".bank-current").html(_this.html());
     });
     $(".input-options .card-list").on("click", ".card", function () {
         var _this = $(this);
@@ -155,4 +160,88 @@ $(function(){
     });
     
 
+});
+
+
+
+
+// by Tracy 09-12 
+$(function(){
+    $(".container .u2 .v2_1").click(function(){
+        $(".container .u2 .v2").hide();
+    });
+    
+    $(".input-select .bank-list .banktip p").click(function(){
+        $(".input-select .bank-list .banktip .down").toggleClass("up");
+        $(".input-select.open .bank-list.bgGray").toggle();
+    });
+    $(".input-select .bank-list.bgGray p").click(function(){
+        $(".input-select.open .bank-list.bgGray").hide();
+    });
+    
+    $(".liBox .trip").mouseover(function(){
+        $(this).find("div").show();
+    });
+      $(".liBox .trip").mouseout(function(){
+        $(this).find("div").hide();
+    });
+     $(".common-form .safeInfo li span a").mouseover(function(){
+        $(this).find("div").show();
+    });
+    $(".common-form .safeInfo li span a").mouseout(function(){
+        $(this).find("div").hide();
+    });
+    
+    $(".common-form .safeInfo .provinces").click(function(){
+        $(".common-form .safeInfo .inputL .chose").toggle();
+        $(this).css("background","#ffffff url(public/images/icon.png) no-repeat 94px -147px");
+    });
+    $(".common-form .safeInfo .inputL .chose li").click(function(){
+        $(".common-form .safeInfo .provinces").html($(this).html()).css("background","#ffffff url(public/images/icon.png) no-repeat 94px -111px");
+        $(".common-form .safeInfo .inputL .chose").hide();
+    });
+    
+    $(".common-form .safeInfo .city").click(function(){
+        $(".common-form .safeInfo .inputR .choseCity").toggle();
+        $(this).css("background","#ffffff url(public/images/icon.png) no-repeat 94px -147px");
+    });
+    $(".common-form .safeInfo .inputR .choseCity li").click(function(){
+        $(".common-form .safeInfo .city").html($(this).html()).css("background","#ffffff url(public/images/icon.png) no-repeat 94px -111px");
+        $(".common-form .safeInfo .inputR .choseCity").hide();
+    });
+    
+
+    
+    var ex;
+    $(".a3 .b2 .tabs").find("a").click(function(){
+        $(this).addClass("active")
+           .siblings().removeClass("active");
+            ex = $(this).index()+1;
+        $('.a3 .b2 .tabs').find('#main'+ex).addClass('showNow')
+                 .siblings().removeClass('showNow');
+    });
+    
+    $(".common-form li input.ipt-focus").focus(function(){
+         $(".common-form .safeInfo .fontBigger").show();
+    });
+     $(".common-form li input.ipt-focus").focusout(function(){
+         $(".common-form .safeInfo .fontBigger").hide();
+    });
+    
+    $(".profile .a5 #bx-pager a").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+    });
+    
+});
+
+
+$(function(){
+    $(".help .side-nav li").find("a").click(function(){
+        $(this).addClass("current").parents().siblings().find("a").removeClass("current");
+    });
+    
+    $(".nav a").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+    });
+   
 });

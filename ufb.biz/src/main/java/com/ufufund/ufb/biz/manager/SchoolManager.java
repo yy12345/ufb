@@ -72,17 +72,19 @@ public interface SchoolManager {
 	/**
 	 * 生成学生档案模板
 	 * @param orgid 机构id
-	 * @param typeid 班级类型id
+	 * @param gradeid 年级id
+	 * @param cid 班级id
 	 * @return
 	 */
-	String genStudentTemplate(String orgid, String typeid);
+	String genStudentTemplate(String orgid, String gradeid, String cid);
 	
 	/**
 	 * 导入学生档案数据
+	 * @param orgid
 	 * @param filePath
 	 * @return 导入班级的typeid；全部班级，则为<code>0</code>
 	 */
-	String importStudentExcel(String filePath);
+	String importStudentExcel(String orgid, String filePath);
 	
 	/**
 	 * 查询班级下的学生列表
@@ -96,7 +98,7 @@ public interface SchoolManager {
 	 * @param vo
 	 * @return
 	 */
-	List<Student> queryStudentList(StudentVo vo);
+	List<Student> searchStudentList(StudentVo vo);
 	
 	/**
 	 * 学生调班
@@ -104,4 +106,32 @@ public interface SchoolManager {
 	 * @return
 	 */
 	int adjustStudent(AdjustStudentVo vo);
+	
+	/**
+	 * 查询学生详细
+	 * @param sid
+	 * @return
+	 */
+	Student queryStudent(String sid);
+	
+	/**
+	 * 更新学生档案信息
+	 * @param s
+	 * @return
+	 */
+	int updateStudent(Student s);
+	
+	/**
+	 * 新增学生档案信息
+	 * @param s
+	 * @return
+	 */
+	int addStudent(Student s);
+	
+	/**
+	 * 删除学生档案信息
+	 * @param s
+	 * @return
+	 */
+	int removeStudent(StudentVo s);
 }

@@ -13,7 +13,7 @@ public class StudentExcelUtilTest {
 	public void test(){
 		String orgname = "";
 		String typeName = "";
-		String name = StudentExcelUtil.getTemplateName(orgname, typeName);
+		String name = StudentExcelUtil.getTemplateName(orgname, typeName,"");
 		log.info("name="+name);
 	}
 	

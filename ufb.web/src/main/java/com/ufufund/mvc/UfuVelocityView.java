@@ -39,7 +39,6 @@ public class UfuVelocityView extends VelocityToolboxView {
 			throws Exception {
 
 		exposeHelpers(model, request);
-
 		Context velocityContext = createVelocityContext(model, request,
 				response);
 

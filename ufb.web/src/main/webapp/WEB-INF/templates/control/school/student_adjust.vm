@@ -10,47 +10,50 @@
 			<div class="boxB">
 				<div class="itemH">
                 	<div class="a1 cl">
-                    	<div class="b1">班级选择</div>
-                        <div class="b2">
-                        	<div class='c1 #if("${typeid}" == "0")active#end'><a typeid="0" href="javascript:;">全部</a></div>
-                            #foreach($ct in $allTypes)
-                            <div class='c1 #if("${typeid}" == "${ct.id}")active#end'>
-                            	<a typeid="${ct.id}" href="javascript:;">${ct.name}</a>
-                            </div>
-                            #end
-                        </div>
-                        <div class="b3"><a href="${ufbDomain}/school/class_setting.htm">年级/班级设置</a></div>
-                    </div>
-                    <div class="groupStep">
-                        <div class="control-group group01" id="specific-big" style="display:block">
-                            <label class="form-lbl">&nbsp;</label>
-                            <p class="inline-block name" style="display:none">
-                            	#set($i = 0)
-                            	#set($n = ${clazzList.size()})
-                            	#foreach($c in $clazzList)
-                            		#set($i = $i+1)
-	                                <span typeid="${c.typeid}" cid="${c.cid}">${c.name}</span>
-	                                <i typeid="${c.typeid}" class="middel-wire">|</i>
-                                #end
-                            </p>
-                        </div>
-                    </div>
-                    <div class="a2">
-                    	<label class="inputText"><input id="queryText" type="text"><b>搜索学生姓名</b></label><a href="javascript:;" class="btnA">查 询</a>
+                    	<div class="common-form panel">
+                            <ul class="safeInfo">
+	                            <li class="totalBtn">
+	                                <span class="choseClass H42">班级选择</span>
+	                                <a href="javascript:;" class="all #if(!${cid})active#end">全部</a>
+	                                <a href="${ufbDomain}/school/class_setting.htm" class="sz fr">年级/班级设置</a>
+	                            </li>
+	                            <li class="Addr zIndex">
+	                                <div class="inputL"> 
+	                                   <select id="grade" class="select">
+	                                      <option value="0">年级（全部）</option>
+	                                      #foreach($ct in $allTypes)
+	                                      <option value="${ct.id}">${ct.name}</option>
+	                                      #end
+	                                   </select>
+	                                </div>   
+	                                 <div class="inputR"> 
+	                                    <select id="clazz" class="select">
+	                                          <option value="0">班级（全部）</option>
+	                                    </select>
+	                                </div>    
+	                            <li class="searchBox">
+	                                <span class="choseClass H55">搜索学生</span>
+                                     <div class="searchDiv">
+                                         <input type="text" placeholder="搜索学生姓名">
+                                         <span>搜索</span>
+                                     </div>
+	                            </li>
+	                        </ul>
+	                    </div>
                     </div>
 					<div class="a3">
 						<div class="b1 cl">
-							<a href="javascript:;" class="c3">+新档案</a>
+							<a href="${ufbDomain}/school/student_detail.htm?action=add&backUrl=${ufbDomain}/school/student_adjust.htm" class="c3 floatR">+新档案</a>
 							<a href="${ufbDomain}/school/student_manager.htm" class="c1">批量导入</a>
 							<a href="javascript:;" class="c1 active">调班</a>
 						</div>
 						<div class="b2">
 							<div class="cl c2 tabCon active">
-								<div class="d1"><label class="checkbox"><input type="checkbox" id="classSelAll">全选</label></div>
+								<div class="d1"><label class="checkbox"><input type="checkbox" id="classAll">全选</label></div>
 								<div class="d2">
 									<div class="e1">已选择<span id="studentNum">0</span>个学生，进入</div>
-									<select class="select" id="toClass">
-										<option value="" selected="selected">选择班级</option>
+									<select id="toClazz" class="select">
+										<option value="0">选择班级</option>
 										#foreach($ct in $allTypes)
 											<option disabled>${ct.name}</option>
 											#foreach($c in $clazzList)
@@ -65,7 +68,7 @@
 					</div>
 					<div class="listStu">
 						#foreach($c in $clazzList)
-						<div class="a4" typeid="${c.typeid}" cid="${c.cid}" #if(${typeid} != "0" && ${c.typeid} != ${typeid})style="display:none"#end>
+						<div class="a4" gradeid="${c.typeid}" cid="${c.cid}" #if(${cid} && ${c.cid}!=${cid})style="display:none"#end>
                         	<div class="b1 cl">
                             	<div class="c1">
 	                            	<label class="checkbox"><input type="checkbox" name="classTop[]" value="${c.cid}">${c.name}</label>
@@ -85,104 +88,65 @@
 		<script type="text/javascript">
 			$('nav a:eq(1)').addClass('active');
 			
-			// 搜索框
-			$('.inputText').inputText();
-			$('.select').selectMenu();
+			// 初始化选项框及checkbox
+			$('#grade').selectMenu({change:changeGrade});
+			$('#clazz').selectMenu({change:changeClazz});
 			$('.checkbox').checkbox();
+			$('#toClazz').selectMenu({change:changeToClazz});
 			
-			// 班级类型一级筛选
-			$('.itemH .a1 .b2 .c1 a').on('click', function(){
-				
-				if($(this).closest('.c1').hasClass('active'))return false;
+			// 班级options表
+			var clazzOptions = {};
+			clazzOptions['0'] = '<option value="0">班级（全部）</option>';
+			#foreach($c in $clazzList)
+				if(clazzOptions['${c.typeid}'] == undefined)
+					clazzOptions['${c.typeid}'] = '<option value="0">班级（全部）</option>';
+				clazzOptions['${c.typeid}'] +=  '<option value="${c.cid}">${c.name}</option>';
+			#end
+			
+			// 全部
+			$('.panel .all').on('click', function(){
+				$(this).addClass('active');
+				$('#grade').val('0');
+				$('#clazz').html('<option value="0">班级（全部）</option>');
+				$('#grade').selectMenu({refresh:true,change:changeGrade});
+				$('#clazz').selectMenu({refresh:true,change:changeClazz});
+				// 页面还原
 				toOriginPage();
-				$(this).closest('.c1').addClass('active').siblings().removeClass('active');
-				
-				var typeid = $(this).attr('typeid');
-				if(typeid == '0'){
-					// 全部
-					$('.groupStep p').find('span').hide();
-					$('.groupStep p').find('i').hide();
-					
+			});
+		
+			// 年级联动
+			function changeGrade(gradeid){
+				$('#grade').val(gradeid);
+				$('#clazz').html(clazzOptions[gradeid]);
+				$('#clazz').selectMenu({refresh:true,change:changeClazz});
+				// 页面还原
+				toOriginPage();
+				// 筛选处理
+				if(gradeid == '0'){
+					$('.panel .all').addClass('active');
 					$('.listStu .a4').show();
-					$('.listStu tr').show();
 				}else{
-					// 选定的班级类型 --- 页面上部横向班级列表处理
-					$('.groupStep p').show();
-					$('.groupStep p').find('span').hide();
-					$('.groupStep p').find('i').hide();
-					
-					$('.groupStep p').find('span[typeid="'+ typeid +'"]').show();
-					$('.groupStep p').find('i[typeid="'+ typeid +'"]').show();
-					$('.groupStep p').find('span[typeid="'+ typeid +'"]').last().next().hide();
-					
-					// 页面下部纵向班级列表处理
+					$('.panel .all').removeClass("active");
 					$('.listStu .a4').hide();
-					$('.listStu .a4[typeid="'+ typeid +'"]').show();
+					$('.listStu .a4[gradeid="'+gradeid+'"]').show();
 				}
-				
-			})
+			}
 			
-			// 班级二级菜单筛选
-			$('.groupStep p span').on('click', function(){
-				
-				if($(this).hasClass('selected'))return false;
+			// 班级联动
+			function changeClazz(cid){
+				$('#clazz').val(cid);
+				// 页面还原
 				toOriginPage();
-				$(this).addClass('selected').siblings().removeClass('selected');
-				
-				// 底部纵向班级列表处理
-				var cid = $(this).attr('cid')
-				$('.listStu .a4').hide();
-				$('.listStu .a4[cid="'+ cid +'"]').show();
-				
-			})
-			
-			// 查询按钮
-			$('.itemH .a2 .btnA').on('click',function(){
-				
-				var queryStr = $('#queryText').val();
-				if(queryStr == ''){
-					$.alert({title:'请输入学生姓名！'});
-					return false;
+				// 筛选处理
+				var gradeid = $('#grade').val();
+				if(cid != '0'){
+					$('.listStu .a4').hide();
+					$('.listStu .a4[cid="'+cid+'"]').show();
+				}else if(gradeid != '0'){
+					$('.listStu .a4').hide();
+					$('.listStu .a4[gradeid="'+gradeid+'"]').show();
 				}
-				toOriginPage();
-				
-				var stuList = search_student(queryStr);
-				
-				// 班级列表处理
-				$('.listStu .a4').hide();
-				$('.listStu .a4').each(function(){
-				
-					var cid = $(this).attr('cid');
-					if(inClazz(cid, stuList)){
-						// 展示班级
-						$(this).addClass('q');
-						$(this).show();
-						// 加载学生列表
-						var c2 = $(this).find('.b1 .c2');
-						if(!c2.hasClass('active')){
-							c2.addClass('active');
-							c2.closest('.b1').next().show();
-							if(c2.closest('.b1').next().children().length==0){
-								JH.load.syncAdd(c2.attr('data-href'), c2.closest('.b1').next());
-							}
-						}
-						// 学生列表处理
-						$(this).find('tr').hide();
-						$(this).find('tr').each(function(){
-							var sid = $(this).attr('sid');
-							if(sid == undefined){     // 学生表头
-								$(this).show();
-							}else if(inStudent(sid, stuList)){   // 学生结果
-								$(this).addClass('q');
-								$(this).show();
-							}
-						});
-						// 记录数量
-						var num = $(this).find('tr.q').length;
-						$(this).find('.b1 .c1 .d1').text(num);
-					}
-				});
-			})
+			}
 		
 			// 查看班级详情
 			$('.listStu').on('click','.a4 .b1 .c2',function(){
@@ -193,13 +157,13 @@
 					$(this).addClass('active');
 					$(this).closest('.b1').next().show();
 					if($(this).closest('.b1').next().children().length==0){
-						JH.load.add($(this).attr('data-href'), $(this).closest('.b1').next(), selectWholeClazz);
+						JH.load.add($(this).attr('data-href'), $(this).closest('.b1').next(), afterloadClazz);
 					}
 				}
 			});
 			
 			// 加载时，判断整班级选定状态
-			function selectWholeClazz(b2){
+			function afterloadClazz(b2){
 				var checked = $(b2).prev().find('.c1 .checkbox input').attr('checked');
 				if(checked){
 					$(b2).find('.checkbox').checkbox({checked:true});
@@ -209,7 +173,7 @@
 			}
 			
 			// 班级全选
-			$('.itemH').on('click', '#classSelAll', function(){
+			$('.itemH').on('click', '#classAll', function(){
 				if($(this).attr('checked')){
 					$('.listStu .a4:visible .checkbox').checkbox({checked:true});
 					var num = 0;
@@ -237,15 +201,15 @@
 					if(length==0 && checked){
 						num += parseInt($(this).find('.b1 .c1 .d1').text());
 					}else{
-						num += $(this).find('.b2 .checkbox.active').length;
+						num += $(this).find('tr:visible .checkbox.active').length;
 					}
 					if(!checked)allchecked = false;
 				})
 				$('#studentNum').text(num);
 				if(allchecked){
-					$('#classSelAll').closest('.checkbox').checkbox({checked:true});
+					$('#classAll').closest('.checkbox').checkbox({checked:true});
 				}else{
-					$('#classSelAll').closest('.checkbox').checkbox({checked:false});
+					$('#classAll').closest('.checkbox').checkbox({checked:false});
 				}
 			})
 			
@@ -272,17 +236,21 @@
 					if(!checked)allchecked = false;
 				});
 				if(allchecked){
-					$('#classSelAll').closest('.checkbox').checkbox({checked:true});
+					$('#classAll').closest('.checkbox').checkbox({checked:true});
 				}else{
-					$('#classSelAll').closest('.checkbox').checkbox({checked:false});
+					$('#classAll').closest('.checkbox').checkbox({checked:false});
 				}
 			})
 			
-			// 调班
-			$('#classChange').on('click',function(){  
-				
-				var classId = $('#toClass').val();
-				if(classId == ''){
+			// 调班选项框事件
+			function changeToClazz(to_cid){
+				$('#toClazz').val(to_cid);
+			}
+			
+			// 调班请求
+			$('#classChange').on('click',function(){
+				var to_cid = $('#toClazz').val();
+				if(to_cid == '0'){
 					$.alert({title:'请选择班级！'});
 					return false;
 				}
@@ -297,7 +265,7 @@
 						$(this).find('.b1 .checkbox input').attr('checked')){
 						cidStr += $(this).attr('cid') + ',';
 					}else{
-						$(this).find('.b2 tr:visible').each(function(){
+						$(this).find('tr:visible').each(function(){
 							if($(this).find('.checkbox input').attr('checked')){
 								sidStr += $(this).attr('sid') + ',';
 							}
@@ -311,13 +279,14 @@
 				$.ajax({
 					type: "POST",
 					url: '${ufbDomain}/school/student_adjustAction.ajax',
-					data:'toCid='+classId+'&cidStr='+cidStr+'&sidStr='+sidStr,
+					data:'toCid='+to_cid+'&cidStr='+cidStr+'&sidStr='+sidStr,
 					async:false,
 					success: function(data){
 						var json = $.parseJSON(data);
 						if(json.errCode=='0000'){
 							$.alert({title:'调班成功！'});
-							location.reload();
+							location.href = '${ufbDomain}/school/student_adjust.htm?cid='+json.cid;
+							return;
 						}else{
 							$.alert({title:json.errMsg});
 						}
@@ -327,6 +296,59 @@
 					}
 				});
 			})
+			
+			// 搜索框
+			$('.searchDiv span').on('click', function(){
+				var value = $('.searchDiv input').val();
+				if(value == ''){
+					$.alert({title:'请输入学生姓名！'});
+					return false;
+				}
+				// 后台搜索
+				var stuList = search_student(value);
+				if(stuList.length == 0){
+					$.alert({title:'未找到该学生！'});
+					return false;
+				}
+				// 搜索结果，页面展示处理
+				$('.panel .all').removeClass('active');
+				$('#grade').val('0');
+				$('#clazz').html('<option value="0">班级（全部）</option>');
+				$('#grade').selectMenu({refresh:true,change:changeGrade});
+				$('#clazz').selectMenu({refresh:true,change:changeClazz});
+				
+				$('.listStu .a4').hide();
+				$('.listStu .a4').each(function(){
+					var cid = $(this).attr('cid');
+					if(inClazz(cid, stuList)){
+						// 展示班级
+						$(this).addClass('q');
+						$(this).show();
+						// 加载学生列表
+						var c2 = $(this).find('.b1 .c2');
+						if(!c2.hasClass('active')){
+							c2.addClass('active');
+							c2.closest('.b1').next().show();
+							if(c2.closest('.b1').next().children().length==0){
+								JH.load.syncAdd(c2.attr('data-href'), c2.closest('.b1').next());
+							}
+						}
+						// 学生列表处理
+						$(this).find('tr').hide();
+						$(this).find('tr').each(function(){
+							var sid = $(this).attr('sid');
+							if(sid == undefined){     // 学生表头
+								$(this).show();
+							}else if(inStudent(sid, stuList)){   // 学生结果
+								$(this).show();
+							}
+						});
+						// 记录数量
+						var num = $(this).find('tr:visible').length-1;
+						$(this).find('.b1 .c1 .d1').text(num);
+					}
+				});
+			});
 			
 			function inClazz(cid, stuList){
 				for(var i = 0; i < stuList.length; i++){
@@ -368,31 +390,51 @@
 				return result;
 			}
 			
-			// 数据重置和样式还原
+			// 搜索后，页面重置
 			function toOriginPage(){
-				// 头部班级列表
-				$('.groupStep p span').removeClass('selected');
-			
-				// 复选框
-				$('#studentNum').text(0);
-				$('.checkbox').checkbox({active:false});
-				
-				// 底部班级列表  --- 应对搜索后的处理
+				// 搜索框
+				$('.searchDiv input').val('');
+				// 搜索结果影响还原
 				$('.listStu .a4.q').each(function(){
 					var num = $(this).find('.b2 tr').length -1;
 					$(this).find('.b1 .c1 .d1').text(num);
 				});
 				$('.listStu .a4.q').removeClass('q');
-				$('.listStu tr.q').removeClass('q');
-				// 隐藏部分展示
-				$('.listStu .a4:hidden').show();
 				$('.listStu tr:hidden').show();
+				// 班级展开部分还原
 				$('.listStu .a4 .b1 .c2').each(function(){
 					if($(this).hasClass('active')){
 						$(this).removeClass('active');
 						$(this).closest('.b1').next().hide();
 					}
 				});
+				// 展示全部班级
+				$('.listStu .a4:hidden').show();
+				$('.checkbox').checkbox();
+				$('#studentNum').text('0');
+			}
+			
+			function removeStudent(sid){
+				var result = false;
+				$.ajax({
+					type: "POST",
+					url: '${ufbDomain}/school/student_remove.ajax',
+					data:'sid='+sid,
+					async:false,
+					success: function(data){
+						var json = $.parseJSON(data);
+						if(json.errCode=='0000'){
+							$.alert({title:'删除成功！'});
+							result = true;
+						}else{
+							$.alert({title:json.errMsg});
+						}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						$.alert({title:'系统出现异常！'});
+					}
+				});
+				return result;
 			}
 		</script>
 		<!--结束 本页面JS-->

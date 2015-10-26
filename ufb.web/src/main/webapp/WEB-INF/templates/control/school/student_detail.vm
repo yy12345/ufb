@@ -1,0 +1,343 @@
+<div class="body">
+	<!--开始 body内容替换区域-->
+	<section class="loadbody">
+		<div class="container">
+			<div class="boxC">
+				<div class="itemD">
+                	<div class="a1">学生档案管理</div>
+                </div>
+			</div>
+			<div class="boxB mb60">
+				#if(${action} == "view")
+					#set($actionUrl = "")
+				#elseif(${action} == "update")
+					#set($actionUrl = "${ufbDomain}/school/student_update.htm")
+				#else
+					#set($actionUrl = "${ufbDomain}/school/student_add.htm")
+				#end
+            	<form id="myform" action="${actionUrl}" method="post">
+				<div class="itemL">
+                	<div class="a1">
+                		<a href="javascript:;" class="hoverW">信息档案</a>
+                		<a href="payHistory.html">缴费历史记录</a>
+                		#if(${action} == "view")
+                		<label class="a1Edit"><a href="${ufbDomain}/school/student_detail.htm?action=update&sid=${vo.sid}&backUrl=${backUrl}">编辑</a></label>
+                		#end
+                		#if(${action} != "view")
+                		<label id="save2" class="a1Edit fRed">保存</label>
+                		#end
+                	</div>
+                    <div class="a2">学生基本资料</div>
+                    <div class="a3">
+                    	<table class="tableB">
+                        	<tr>
+                            	<th>班级</th>
+                                <td width="165">
+                                	#if($action != "add")
+                                		$!{vo.cname}
+                                	#else
+	                                	<select id="cid" name="cid" class="select" checkNull="true" errorMsg="请选择班级！">
+											<option value="">选择班级</option>
+											#foreach($ct in $allTypes)
+												<option disabled>${ct.name}</option>
+												#foreach($c in $clazzList)
+													#if(${c.typeid} == ${ct.id})<option value="${c.cid}">${c.name}</option>#end
+												#end
+											#end
+										</select>
+										<input id="cname" name="cname" value="" type="hidden">
+	                                #end
+                                </td>
+                                <th>学号</th>
+                                <td colspan="3"><label class="inputText"><input type="text" name="sno" value="$!{vo.sno}"></label></td>
+                            </tr>
+                            <tr>
+                            	<th><span class="cRed">*</span>学生姓名</th>
+                                <td><label class="inputText"><input type="text" name="name" value="$!{vo.name}" checkNull="true" errorMsg="请填写学生姓名！"></label></td>
+                                <th>身份证号</th>
+                                <td colspan="3"><label class="inputText"><input type="text" name="certno" value="$!{vo.certno}"></label></td>
+                            </tr>
+                            <tr>
+                            	<th><span class="cRed">*</span>性别</th>
+                                <td width="165">
+                                	<select class="select" name="sex" checkNull="true" errorMsg="请选择性别！">
+                                		<option value="">--</option>
+                                    	<option value="1" #if($!{vo.sex}=="1")selected#end>男</option>
+                                        <option value="2" #if($!{vo.sex}=="2")selected#end>女</option>
+                                    </select>
+                                </td>
+                                <th><span class="cRed">*</span>出生日期</th>
+                                <td><label class="datepicker"><input type="text" name="birthday" value="$!{vo.birthday}" checkNull="true" errorMsg="请填写出生日期！"></label></td>
+                                <th><span class="cRed">*</span>状态</th>
+                                <td>
+                                	<select class="select" name="state" checkNull="true" errorMsg="请选择入园状态！">
+                                		<option value="">--</option>
+                                    	<option value="1" #if($!{vo.state}=="1")selected#end>就读</option>
+                                    	<option value="2" #if($!{vo.state}=="2")selected#end>离园</option>
+                                    	<option value="3" #if($!{vo.state}=="3")selected#end>休学</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="tableB b1 parents">
+                        	<tr>
+                            	<th><span class="cRed">*</span>家长1</th>
+                                <td width="165"><label class="inputText"><input type="text" name="p1_name" value="$!{vo.p1_name}" checkNull="true" errorMsg="请填写家长1：姓名！"></label></td>
+                                <th>关系</th>
+                                <td>
+                                	<select class="select" name="p1_relation">
+                                		<option value="">--</option>
+                                    	<option value="1" #if($!{vo.p1_relation}=="1")selected#end>父母</option>
+                                        <option value="2" #if($!{vo.p1_relation}=="2")selected#end>祖父母</option>
+                                        <option value="3" #if($!{vo.p1_relation}=="3")selected#end>监护人</option>
+                                    </select>
+                                </td>
+                                <th>工作单位</th>
+                                <td><label class="inputText"><input type="text" name="p1_work" value="$!{vo.p1_work}"></label></td>
+                            </tr>
+                            <tr>
+                            	<th><span class="cRed">*</span>手机</th>
+                                <td><label class="inputText"><input type="text" id="p1_mobile" name="p1_mobile" value="$!{vo.p1_mobile}" checkNull="true" errorMsg="请填写家长1：手机！"></label></td>
+                                <th><span class="cRed">*</span>邮箱</th>
+                                <td colspan="3">
+                                	<label class="inputText" style="margin-right:20px;"><input type="text" name="p1_mail" value="$!{vo.p1_mail}" checkNull="true" errorMsg="请填写家长1：邮箱！"></label>
+                                    <label class="checkbox" style="margin-right:20px;"><input type="checkbox" checked disabled>缴费人</label>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="tableB b1 parents">
+                        	<tr>
+                            	<th>家长2</th>
+                                <td width="165"><label class="inputText"><input type="text" name="p2_name" value="$!{vo.p2_name}"></label></td>
+                                <th>关系</th>
+                                <td>
+                                	<select class="select" name="p2_relation">
+                                		<option value="">--</option>
+                                    	<option value="1" #if($!{vo.p2_relation}=="1")selected#end>父母</option>
+                                        <option value="2" #if($!{vo.p2_relation}=="2")selected#end>祖父母</option>
+                                        <option value="3" #if($!{vo.p2_relation}=="3")selected#end>监护人</option>
+                                    </select>
+                                </td>
+                                <th>工作单位</th>
+                                <td><label class="inputText"><input type="text" name="p2_work" value="$!{vo.p2_work}"></label></td>
+                            </tr>
+                            <tr>
+                            	<th>手机</th>
+                                <td><label class="inputText"><input type="text" id="p2_mobile" name="p2_mobile" value="$!{vo.p2_mobile}"></label></td>
+                                <th>邮箱</th>
+                                <td colspan="3">
+                                	<label class="inputText" style="margin-right:20px;"><input type="text" name="p2_mail" value="$!{vo.p2_mail}"></label>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="tableB ">
+                        	<tr>
+                            	<th>家庭住址</th>
+                                <td><label class="inputText"><input id="f_address" type="text" name="f_address" value="$!{vo.f_address}" style="width:350px;"></label></td>
+                            </tr>
+                            <tr>
+                            	<th><span class="cRed">*</span>家庭类型</th>
+                                <td>
+                                	<select id="f_type" name="f_type" class="select" checkNull="true" errorMsg="请选择家庭类型！">
+                                		<option value="">--</option>
+                                    	<option value="1" #if($!{vo.f_type}=="1")selected#end>业主</option>
+                                        <option value="2" #if($!{vo.f_type}=="2")selected#end>非业主</option>
+                                        <option value="3" #if($!{vo.f_type}=="3")selected#end>关系单位</option>
+                                        <option value="4" #if($!{vo.f_type}=="4")selected#end>本园职工</option>
+                                        <option value="5" #if($!{vo.f_type}=="5")selected#end>助养孤儿</option>
+                                        <option value="6" #if($!{vo.f_type}=="6")selected#end>特困家庭</option>
+                                        <option value="7" #if($!{vo.f_type}=="7")selected#end>其它</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="a4 cl">
+                        <div class="b1">更多补充信息</div>
+                        <div class="b2"></div>
+                    </div>
+                    <div class="a3 disNone">
+                    	<table class="tableB ">
+                        	<tr>
+                            	<th>入园时间</th>
+                                <td width="350"><label class="datepicker"><input type="text" id="start_date" name="start_date" value="$!{vo.start_date}"></label></td>
+                                <th>离园时间</th>
+                                <td><label class="datepicker"><input type="text" id="end_date" name="end_date" value="$!{vo.end_date}"></label></td>
+                            </tr>
+                            <tr>
+                            	<th>户籍类型</th>
+                                <td>
+                                	<select class="select" name="registry_type">
+                                		<option value="">--</option>
+                                    	<option value="1" #if("$!{vo.registry_type}"=="1")selected#end>城镇户口</option>
+                                        <option value="2" #if("$!{vo.registry_type}"=="2")selected#end>农业户口</option>
+                                    </select>
+                                </td>
+                                <th>民族</th>
+                                <td>
+                                	<select id="nation" name="nation" class="select">
+                                		<option value="">--</option>
+                                    	#parse("control/school/nation_options.vm")
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<th>户籍所在地</th>
+                                <td colspan="3">
+                                	<label class="inputText"><input id="registry_address" type="text" name="registry_address" value="$!{vo.registry_address}" #if("${vo.f_address}"=="${vo.registry_address}")readonly#end style="width:350px;"></label>
+                                    <label class="checkbox" style="margin-left:20px;"><input id="addr_same" type="checkbox" #if("${vo.f_address}"=="${vo.registry_address}")checked#end>与家庭住址相同</label>
+                               	</td>
+                            </tr>
+                            <tr>
+                            	<th>已缴险种</th>
+                                <td><label class="inputText"><input type="text" name="insurance" value="$!{vo.insurance}"></label></td>
+                                <th>既往病史</th>
+                                <td><label class="inputText"><input type="text" name="medical" value="$!{vo.medical}"></label></td>
+                            </tr>
+                            <tr>
+                            	<th>健康状况</th>
+                                <td><label class="inputText"><input type="text" name="health" value="$!{vo.health}"></label></td>
+                                <th>害怕的事情</th>
+                                <td><label class="inputText"><input type="text" name="afraid" value="$!{vo.afraid}"></label></td>
+                            </tr>
+                            <tr>
+                            	<th>忌食</th>
+                                <td><label class="inputText"><input type="text" name="diet_not" value="$!{vo.diet_not}"></label></td>
+                                <th>过敏药物</th>
+                                <td><label class="inputText"><input type="text" name="allergies" value="$!{vo.allergies}"></label></td>
+                            </tr>
+                            <tr>
+                            	<th>兴趣爱好</th>
+                                <td><label class="inputText"><input type="text" name="interest" value="$!{vo.interest}"></label></td>
+                                <th>特殊照顾</th>
+                                <td><label class="inputText"><input type="text" name="special_care" value="$!{vo.special_care}"></label></td>
+                            </tr>
+                            <tr>
+                            	<th>保护费标准</th>
+                                <td>
+                                	<select class="select" name="care_type">
+                                    	<option value="">--</option>
+                                    	<option value="1" #if("$!{vo.care_type}"=="1")selected#end>月</option>
+                                        <option value="2" #if("$!{vo.care_type}"=="2")selected#end>学期</option>
+                                        <option value="3" #if("$!{vo.care_type}"=="3")selected#end>学年</option>
+                                    </select>
+                                </td>
+                                <th>膳食费标准</th>
+                                <td>
+                                	<select class="select" name="meal_type">
+                                    	<option value="">--</option>
+                                    	<option value="1" #if("$!{vo.meal_type}"=="1")selected#end>月</option>
+                                        <option value="2" #if("$!{vo.meal_type}"=="2")selected#end>学期</option>
+                                        <option value="3" #if("$!{vo.meal_type}"=="3")selected#end>学年</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="ctrl">
+                    	#if(${action}=="view")
+                    		<a href="${backUrl}" class="btnA">确 定</a>
+                    	#else
+                    		<a href="javascript:;" class="btnA" id="save1">保 存</a>
+                    	#end
+                    </div>
+                </div>
+                ${refreshTools.genInputHtml()}
+                <input name="sid" value="${vo.sid}" type="hidden">
+                <input name="backUrl" value="${backUrl}" type="hidden">
+                </form>
+			</div>
+		</div>
+		<!--开始 本页面JS-->
+		<script type="text/javascript">
+			$('nav a:eq(1)').addClass('active');
+			
+			$(function(){
+				// 民族
+				$('#nation').val('$!{vo.nation}');
+				
+				// 控件
+				$('.select').selectMenu();
+				$('.checkbox').checkbox();
+				
+				// 更多档案信息
+		        $(".itemL .a4").click(function(){
+	                $(this).find(".b2").toggleClass("active");
+	                $(".itemL .a3.disNone").fadeToggle();
+	            }); 
+			
+				if('${action}' == 'view'){
+					$('input').attr('disabled',true);
+					$('.select').parent().unbind('click');
+				}else{   // 新增or编辑
+					// 日期
+					$(".datepicker input").datepicker({
+						showOn: "button",
+						buttonImage: "${staticDomain}/public/images/calendar.png",
+						buttonImageOnly: true
+					});
+					
+					// 民族
+					$('#nation').selectMenu({refresh:true, change:changeNation});
+					
+					// 户籍地址
+					$('#addr_same').on('click', function(){
+						if($(this).attr('checked')){
+							$('#registry_address').val($('#f_address').val());
+							$('#registry_address').attr('readonly',true);
+						}else{
+							$('#registry_address').removeAttr('readonly');
+						}
+					});
+					
+					if('${action}' == 'add'){
+						// 班级选择
+						$('#cid').selectMenu({refresh:true, change:changeClazz});
+					}
+					
+					// 保存
+		            $('#save1, #save2').on('click',function(){
+		            	
+		            	var checked = true;
+		            	$('select[checkNull="true"],input[checkNull="true"]').each(function(){
+		            		if($(this).val() == undefined || $.trim($(this).val()) == ''){
+		            			checked = false;
+		            			$.alert({title:$(this).attr('errorMsg')});
+		            			$(this).focus();
+		            			return false;
+		            		}
+		            	});
+		            	if(!checked)return false;
+		            	
+		            	// 入园时间
+		            	var start_date = $('#start_date').val();
+		            	var end_date = $('#end_date').val();
+		            	if(start_date != '' && end_date != ''){
+		            		start = new Date(start_date.replace("-", "/").replace("-", "/"));
+		            		end = new Date(end_date.replace("-", "/").replace("-", "/"));
+		            		if(end <= start){
+		            			$.alert({title:'离园日期不能早于入园日期！'});
+		            			return false;
+		            		}
+		            	}
+		            	
+						$(this).closest('form').submit();
+					});
+					
+				}
+			});
+			
+			function changeNation(nation){
+				$('#nation').val(nation);
+			}
+			
+			function changeClazz(cid){
+				$('#cid').val(cid);
+				$('#cname').val($('#cid').find('option:selected').text());
+			}
+			
+		</script>
+		<!--结束 本页面JS-->
+	</section>
+	<!--结束 body内容替换区域-->
+</div>

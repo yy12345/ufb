@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.gnete.security.crypt.Crypt;
@@ -28,13 +29,21 @@ public class ChinapayService {
 
 	private static final String ENCODING = "gbk";
 	
-	private String requestUrl = "http://59.41.103.98:333/gzdsf/ProcessServlet";
-	private String username = "operator";
-	private String userpass = "operator";
-	private String merchantId = "001053110000001";
-	private String publicKey = "E:/workspace/ufufund/cert/gzdsf.cer";
-	private String privateKey = "E:/workspace/ufufund/cert/ORA@TEST1.pfx";
-	private String privateKeyPwd = "123456";
+	@Value("${ufb.chinapay.requestUrl}")
+	private String requestUrl;
+	@Value("${ufb.chinapay.username}")
+	private String username;
+	@Value("${ufb.chinapay.userpass}")
+	private String userpass;
+	@Value("${ufb.chinapay.merchantId}")
+	private String merchantId;
+	@Value("${ufb.chinapay.publicKey}")
+	private String publicKey;
+	@Value("${ufb.chinapay.privateKey}")
+	private String privateKey;
+	@Value("${ufb.chinapay.privateKeyPwd}")
+	private String privateKeyPwd;
+	
 	private String downUrl = "http://59.41.103.98:333/gzdsf/GetSettFile.do";
 	private String settleFileDir = "E:/workspace/ufufund/cp_data/";
 	

@@ -18,8 +18,6 @@ public class Student {
 	private String f_address;
 	private String p_custno;
 	private String p_date;
-	private String pay_default;
-	private String contact_default;
 	private String p1_relation;
 	private String p1_name;
 	private String p1_mobile;
@@ -34,7 +32,6 @@ public class Student {
 	private String end_date        ;
 	private String registry_type   ;
 	private String registry_address;
-	private boolean is_addr_same    ;
 	private String nation          ;
 	private String insurance       ;
 	private String medical         ;
@@ -46,9 +43,5 @@ public class Student {
 	private String special_care    ;
 	private String care_type       ;
 	private String meal_type       ;
-	private String lastupdate;
-	// 展示属性
-	private String sexDisplay; 
-	private String birthdayDisplay;
-	private String f_typeDisplay;
+	private String updatetime;
 }
