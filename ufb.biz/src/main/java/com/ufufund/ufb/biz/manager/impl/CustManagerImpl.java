@@ -27,6 +27,7 @@ import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
+import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.StudentVo;
 import com.ufufund.ufb.model.vo.Today;
 
@@ -365,7 +366,9 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		if(this.isMobileRegister(registerAction.getLogincode())){
 			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, BisConst.Register.MOBILE);
 		}
-		
+		if(this.isIdnoRegister(registerAction.getIdno())){
+			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
+		}
 	}
 
 	@Override
@@ -376,5 +379,13 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	@Override
 	public StudentVo queryOrgsByCid(String cid) throws BizException {
 		return custinfoMapper.queryOrgsByCid(cid);
+	}
+
+	@Override
+	public Custinfo getCustInfoByMobileno(String mobileno) throws BizException {
+		Custinfo custinfo = new Custinfo();
+		custinfo.setMobileno(mobileno.trim());
+		return custinfoMapper.getCustinfo(custinfo);
+		
 	}
 }

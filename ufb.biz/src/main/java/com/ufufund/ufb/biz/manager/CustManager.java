@@ -8,6 +8,7 @@ import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Student;
+import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.StudentVo;
 import com.ufufund.ufb.service.CustInterface;
 
@@ -101,5 +102,5 @@ public interface CustManager extends CustInterface{
 	 */
 	public StudentVo  queryOrgsByCid(String cid) throws BizException;
 	
-	
+	public Custinfo getCustInfoByMobileno(String mobileno) throws BizException;
 }
