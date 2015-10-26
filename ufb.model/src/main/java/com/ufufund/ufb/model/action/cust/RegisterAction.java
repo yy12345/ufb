@@ -17,6 +17,16 @@ public class RegisterAction extends CommonAction {
 	private String custst;
 	private String orgnm;// 机构名称
 	private String orgbusiness;// 营业执照
+	private String idno;
+	
+	public String getIdno() {
+		return idno;
+	}
+
+	public void setIdno(String idno) {
+		this.idno = idno;
+	}
+
 
 	public String getCustno() {
 		return custno;
