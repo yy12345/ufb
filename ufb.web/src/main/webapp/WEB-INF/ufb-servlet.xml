@@ -75,8 +75,8 @@
 		<!-- 公共变量 --> 
 		<property name="attributesMap">
 			<map>
-				<entry key="ufbDomain" value="http://localhost:8088/ufb"/>
-				<entry key="staticDomain" value="http://localhost:8088/ufb"/>
+				<entry key="ufbDomain" value="http://localhost:8080/ufb"/>
+				<entry key="staticDomain" value="http://localhost:8080/ufb/static"/>
 			</map>
 		</property>
 	</bean>
@@ -99,15 +99,12 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**/*.htm" />
-			<mvc:exclude-mapping path="/cust/*.htm" />
-			<mvc:exclude-mapping path="/family/**/*.htm" />
-			<mvc:exclude-mapping path="/family/*.htm" />
-			<mvc:exclude-mapping path="/home/*.htm" />
-			<mvc:exclude-mapping path="/register/*.htm" />
+			<mvc:exclude-mapping path="/family/index.htm" />
+			<mvc:exclude-mapping path="/family/register_index.htm" />
 			<mvc:exclude-mapping path="/error/*.htm" />
 			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.LoginInterceptor">
 				<property name="loginUrl">
-					<value>http://localhost:8088/ufb/home/index.htm</value>
+					<value>http://localhost:8080/ufb/family/index.htm</value>
 				</property>
 			</bean>
 		</mvc:interceptor>
@@ -115,7 +112,7 @@
 			<mvc:mapping path="/trade/*.htm" />
 			<bean id="hftTradeInterceptor" class="com.ufufund.ufb.web.interceptor.HftTradeInterceptor">
 				<property name="redirectUrl">
-					<value>http://localhost:8088/ufb/cust/session.htm</value>
+					<value>http://localhost:8080/ufb/family/uft_index.htm</value>
 				</property>
 			</bean>
 		</mvc:interceptor>

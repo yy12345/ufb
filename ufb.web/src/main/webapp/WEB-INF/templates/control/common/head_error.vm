@@ -1,0 +1,20 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    #if("$!{title}"=="")
+	    <title>幼富通</title>
+	#else
+	    $!{title}
+	#end
+    <link rel="stylesheet" href="${staticDomain}/public/css/reset.css">
+    <link rel="stylesheet" href="${staticDomain}/public/css/camera.css">
+    <link rel="stylesheet" href="${staticDomain}/public/css/common.css">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="${staticDomain}/public/js/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="${staticDomain}/public/js/jquery.min.js"></script>
+    <style type="text/css">
+        .title.clearfix{
+            margin-top:0;
+        }
+    </style>
+</head>

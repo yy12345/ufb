@@ -52,6 +52,7 @@ public class UserHelper {
 	 * @return 返回custno；若没有，则返回null
 	 */
 	public static String getCustno(){
+		if(true)return "CU201508165661EKDYBIBS22";
 		CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
 		
 		if(s_custinfo != null && !StringUtils.isBlank(s_custinfo.getCustno())){

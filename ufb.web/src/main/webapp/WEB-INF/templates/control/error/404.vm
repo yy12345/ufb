@@ -1,7 +1,23 @@
-<body >
-<div style="text-align: center; padding-top: 100px; padding-bottom: 100px;">
-    <h1>404-您请求的页面不存在！</h1>
-    <p>很抱歉，您访问的页面不存在，<span id="time">5</span>秒后将自动跳转首页。</p>
+<div class="body">
+    <div class="inner container-find">
+       <div class="title clearfix">
+            <h2 class="title-main fl">无效请求</h2>
+        </div>
+        <div class="find-panels">
+            <div class="panel">
+                <div class="form-done">
+                    <div class="title">很抱歉，您访问的页面不存在，<span id="time">5</span>秒后将自动跳转至首页！</div>
+                    <a class="btn" href="${ufbDomain}/family/home.htm">
+                    	幼富通首页
+                    </a>
+                    <div class="tips">
+                    	<p>温馨提示：</p>
+						<p>如有任何疑问，可联系幼富通客服热线！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script type="text/javascript">
 	var time=5;
@@ -11,9 +27,8 @@
 		if(time--==0){
 			$('#time').html("0");
 			window.clearInterval(goToId);
-			window.top.location.href="${ufbDomain}/trade/pay_index.htm";
+			window.top.location.href="${ufbDomain}/family/index.htm";
 		}
 	}
 	var goToId=window.setInterval("GoTo()",1000);
 </script>
-</body>

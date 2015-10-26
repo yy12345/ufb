@@ -38,6 +38,15 @@ public class UfuVelocityView extends VelocityToolboxView {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
+		String uri = request.getRequestURI();
+		if(uri.indexOf("family/uft/") > 0){
+			model.put("family_module", "uft");
+		}else if(uri.indexOf("family/ufb/") > 0){
+			model.put("family_module", "ufb");
+		}if(uri.indexOf("family/setting/") > 0){
+			model.put("family_module", "setting");
+		}
+		
 		exposeHelpers(model, request);
 		Context velocityContext = createVelocityContext(model, request,
 				response);

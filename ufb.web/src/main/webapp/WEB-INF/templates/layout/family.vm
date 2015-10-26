@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html>
-#parse("control/common/head_family.vm")
+#if(${family_module} == "uft")
+#parse("control/common/head_family_uft.vm")
+#else
+#parse("control/common/head_family_ufb.vm")
+#end
 <body>
-$body
-#parse("control/common/footer_0.vm")
+	#if(${family_module} == "ufb")
+		<div class="container center">
+	#elseif(${family_module} == "setting")
+		<div class="container setting">
+	#else
+		<div id="page">
+	#end	
+		#parse("control/common/header_family.vm")
+		$body
+		#if(${S_CUSTINFO})
+			##parse("control/common/slider_family.vm")
+		#end
+		#parse("control/common/footer.vm")
+	</div>
 $!{script}
 </body>
 </html>

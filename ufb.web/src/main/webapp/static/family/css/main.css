@@ -259,11 +259,10 @@ a {
     color:#fff;
 }
 
-.LowFoot{
-    width:100%;
-    background:#202231;
-    overflow:hidden;
-    border-top:1px solid #65656a;
+.LowFoot {
+    border-top: 1px solid #cfcfcf;
+    overflow: hidden;
+    width: 100%;
 }
 .LowFoot .contentFoot{
     text-align:center;
@@ -532,7 +531,8 @@ a {
     top:0;
 }
 .profileBox .loginForm .yanZ img{
-    width:100%;
+    
+	width: 72px;
 }
 .profileBox .loginForm .li03{
     width:143px;
@@ -943,12 +943,14 @@ a {
     left:132px;
 }
 .common-form li .tips-check {
-	position: relative;
 	display: none;
-	padding-left: 20px;
-	font-size: 12px;
-	line-height: 36px;
+    font-size: 12px;
+    line-height: 36px;
+    padding-left: 20px;
+    position: absolute;
+    width: 180px;
 }
+
 .common-form li .tips-check .icon {
 	position: absolute;
 	left: 0px;
@@ -963,6 +965,9 @@ a {
 }
 .common-form li.ok .tips-check .icon {
 	background: url("../images/icon.png") no-repeat 0 -84px;
+}
+.panel .panelCenter .error .vcode-error-tips{
+	
 }
 .common-form li.error .tips-check {
 	display: inline;
@@ -1328,6 +1333,8 @@ a {
 	float:left;
 	border:1px solid #cbcbcb;
     background:#fff;
+	height: 50px;
+	line-height: 50px;
 }
 .input-options .bank img {
 	left: 0px;

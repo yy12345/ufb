@@ -504,8 +504,8 @@ a.link-underline {
 }
 .error-box {
 	width: 380px;
-	position: fixed;
-	top: 50%;
+	position:absolute;  
+	top:360px;
 	left: 50%;
 	margin-left: -190px;
 	background-color: #ffffff;
@@ -606,7 +606,7 @@ a.link-underline {
 }
 .common-form li .form-title {
 	position: absolute;
-	top: 50%;
+	top: 26px;
 	left: 0;
 	width: 100px;
 	height: 20px;
@@ -891,6 +891,7 @@ a.link-underline {
 }
 .input-select .card img {
 	position:absolute;
+	height:30px;
 	top:50%;
 	left:1px;
 	margin-top:-15px;
@@ -933,7 +934,7 @@ a.link-underline {
 	z-index:4;
 }
 .input-options .bank-list {
-	width:620px;
+	/*width:620px;*/
 	padding-bottom: 10px;
 	background-color:#ffffff;
 	border: 1px solid #cbcbcb;
@@ -941,7 +942,7 @@ a.link-underline {
     position:relative;
 }
 .input-options .bank {
-	width: 140px;
+	width: 92%;
 	margin-top:10px;
 	margin-left:10px;
 	padding: 0;
@@ -1160,6 +1161,7 @@ a.link-underline {
 }
 .panel .width600{
     width:600px;
+	 margin-left: 150px;width: 700px;
 }
 .item-detail .detail-list td {
 	line-height: 2;
@@ -1892,7 +1894,7 @@ a.link-underline {
 	float: left;
 	display: block;
 	width: 203px;
-	height: 70px;
+	height: 80px;
 	padding: 10px 10px 0 10px;
 	margin-right: 10px;
 	margin-bottom: 10px;
@@ -2535,8 +2537,8 @@ a.link-underline {
 }
 .common-form li .tips-normal {
 	position: absolute;
-	top: 50%;
-	left: 152px;
+	top: 30px;
+	left: 132px;
 	height: 20px;
 	line-height: 20px;
 	margin-top: -10px;

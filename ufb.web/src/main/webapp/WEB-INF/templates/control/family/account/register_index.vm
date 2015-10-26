@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<head>
+    <title>幼富通</title>
+<script type="text/javascript">
+//$(function(){
+//	$('.inputText').inputText();
+//})
+</script>
+
+</head>
+<body>
+ 
+        <div id="body">
+            <div class="container">
+                <div class="u2 mt20">
+                    <div class="a4 minHeight">
+                       <ul class="v1">
+                            <li class="v1_hover">创建账户</li>
+                            <li>身份安全信息</li>
+                            <li>设置支付方式</li>
+                            <li>成功</li>
+                        </ul>
+                    <div class="b3 mt10 pt30">
+                        <form class="common-form" method="post">
+                            <div class="panel panelCenter">
+                                <ul>
+                                    <li #if($errMsg_mobileno_family)
+										class="error"
+										#end
+										>
+                                        <span class="form-title">手机号</span>
+                                        <input class="ipt-phoneNum input-text" type="text" name="mobileno" id="mobileno"  value="$!{CustinfoVo.mobileno}" placeholder="输入11位手机号">
+                                        <span class="tips-check"><i class="icon"></i>$!{errMsg_mobileno_family}</span>
+                                    </li>
+                                    <li #if($errMsg_verifycode_family)
+										class="error"
+										#end
+										>
+                                        <span class="form-title">验证码</span>
+                                         <input class="ipt-code input-code" type="text"  name="verifycode"  id="verifycode" maxlength="4" value="$!{CustinfoVo.verifycode}" placeholder="输入图形验证码">
+                                        <span style="display:block;float:right;padding-right:55px;"><img style="width: 80px;height: 35px;display: block;padding-top: 3px;" id="btn-verifycode" src="${staticDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())" ></span>
+                                        <span class="tips-check" style="float:right;width: 100px;display: block; position: absolute; top:10px;right: -70px"><i class="icon"></i> $!{errMsg_verifycode_family}</span>
+                                    </li>
+                                    <li #if($errMsg_msgcode_family)
+										class="error"
+										#end
+										>
+                                        <span class="form-title">手机验证码</span>
+                                        <input class="ipt-phoneCode input-code" type="text" maxlength="6" name="msgcode" id="msgcode" value="$!{CustinfoVo.msgcode}" placeholder="输入手机验证码">
+                                        <input id="btn-getMsgCode" class="input-button" type="button" value="获取验证码">
+                                        <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode_family}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="b2">
+                        <p class="font12">点击下一步表示同意<a href="#" id="uftRegistered">《幼富通用户注册协议》</a></p>
+                        <a href="#"  id="submitForm" class="btnA">下一步</a>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+<!--弹层-->    
+<div class="bgBox" style="display: none;"></div>
+<div class="layerpop" id="uft">	
+    <b class="close"></b>
+    <div class="layerTitle">《幼富通用户注册协议》</div>
+	<div id="content_1" class="content content_scroll">
+               <h4>《幼富通用户注册协议》</h4>
+                <p>此处内容通过富文本编辑器进行编辑发布<br>
+                    个体工商户无组织机构代码（仅支持个体工商户）<br>
+                    目前仅支持中国大陆企业；<br>
+                    注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
+                <p>此处内容通过富文本编辑器进行编辑发布<br>
+                个体工商户无组织机构代码（仅支持个体工商户）<br>
+                目前仅支持中国大陆企业；<br>
+                注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
+                <h4>幼富宝服务协议</h4>
+                <p>此处内容通过富文本编辑器进行编辑发布<br>
+                个体工商户无组织机构代码（仅支持个体工商户）<br>
+                目前仅支持中国大陆企业；<br>
+                注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
+                <p>对公账户填写（个体工商户）<br>
+                若个体工商户无对公账户，可填写营业执照上法人的个人银行卡号。<br>
+                温馨提示：仅限个体工商户，填写个人银行卡号时需与营业执照上法人保持一致。</p>
+                <p>对公账户填写（政府类型）<br>
+                若政府类型若没有对公账号，可以在“机构开户银行”、“机构银行账号”栏填写“无”。</p>
+        <a href="javascript:;" class="btnKnow closebox">我知道了</a>
+    </div>
+</div> 
+  
+    
+      
+          
+<script type="text/javascript" src="${staticDomain}/static/family/scripts/load.js"></script>
+<script type="text/javascript" src="${staticDomain}/static/family/scripts/register.js"></script>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>  <!--scroll美化-->
+<script type="text/javascript">
+     $("#uftRegistered").click(function(){
+           $(".bgBox , #uft").fadeIn();       
+       });
+       $("#uft .close , .btnKnow").click(function(){
+           $(".bgBox , #uft").fadeOut();       
+       });
+</script>  
+
+<script>
+    (function($){
+        $(window).load(function(){
+            $(".content_scroll").mCustomScrollbar({
+                theme:"dark", //主题颜色
+                scrollButtons:{
+                    enable:true //是否使用上下滚动按钮
+                },
+                autoHideScrollbar: false, //是否自动隐藏滚动条
+                scrollInertia :0,//滚动延迟
+                horizontalScroll : false//水平滚动条
+
+            });
+
+        });
+
+   		//手机验证码
+	$("#btn-getMsgCode").on("click",function(){
+	 
+		if(!check_mobile($("#mobileno"))){
+			return false;
+		}
+		if(!check_code($("#verifycode"))){
+			return false;
+		}
+		
+        $.ajax({
+     		type: "GET",
+    		url: "../ajaxcust/getMsgCode.ajax",
+    		data: {
+				mobileno: $("#mobileno").val(),
+				verifycode: $("#verifycode").val()
+    		},
+    		dataType: "json",
+    		success: function(b) {
+                if (b.errCode == "0000") {
+					alert("手机验证码已发送");
+					// 倒计时
+					var count = 60;
+            		var countdown = setTimeout(countDown, 1000);
+            		$("#btn-getMsgCode").addClass("off");
+            		$("#btn-getMsgCode").attr("disabled","disabled");
+            		// TODO
+					$("#msgcode").val(b.TODO);
+            		$("#msgcode").siblings(".tips-normal").hide();
+					//
+            		function countDown() {
+            			$("#btn-getMsgCode").prop("disabled", true); 
+            			$("#btn-getMsgCode").val("等待" + count + "秒!"); 
+            			if (count == 0) { 
+            				$("#btn-getMsgCode").val("重新发送"); 
+            				$("#btn-getMsgCode").removeClass("off");
+            				$("#btn-getMsgCode").removeAttr("disabled"); 
+            				clearTimeout(countdown); 
+            			}else{
+            				count--; 
+            				setTimeout(countDown, 1000);
+            			}
+            		}
+					//
+					$(".ipt-phoneCode").siblings(".tips-check").attr("style","display:none");
+					$(".ipt-phoneCode").parent().removeClass("error");
+                } else {
+                  	var errCode = b.errCode;
+					var errMsg = b.errMsg;
+					//alert(errCode + ": " + errMsg);
+					if("errMsg_mobileno"==errCode){
+						$(".ipt-phoneNum").siblings(".tips-check").html("<i class=icon></i>" + errMsg);
+						$(".ipt-phoneNum").siblings(".tips-check").attr("style","display:block");
+						$(".ipt-phoneNum").parent().addClass("error");
+					}else 
+					if("errMsg_verifycode"==errCode){
+						$(".ipt-code").siblings(".tips-check").html("<i class=icon></i>" + errMsg);
+						$(".ipt-code").siblings(".tips-check").attr("style","display:block");
+						$(".ipt-code").parent().addClass("error");
+					}else{
+						alert(errMsg);
+					}
+					var src = $("#btn-verifycode").attr("src");
+					$("#btn-verifycode").attr("src",src +'?time='+(new Date()));
+                }
+        	}
+        });
+	});
+
+	
+	  //提交表单
+	  $("#submitForm").on("click",function(){
+	  
+		if(!check_mobile($("#mobileno"))){
+			return false;
+		}
+		if(!check_code($("#verifycode"))){
+			return false;
+		}
+		//if(!check_phoneCode($("#msgcode"))){
+		//	return false;
+		//}
+		var errLen = $("ul li.error").length;
+		if(errLen>0){
+			$("ul li.error:eq(0) input[type=text]").focus();
+			$("ul li.error:eq(0) input[type=password]").focus();
+		}else{
+			$(".common-form").attr("action","../family/createAccount2.htm");
+		    $(".common-form").submit();
+		}
+	      
+	  })
+    })(jQuery);
+</script>	            
+</body>
+
+</html>

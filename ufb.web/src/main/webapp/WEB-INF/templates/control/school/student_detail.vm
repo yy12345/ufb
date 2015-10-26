@@ -274,7 +274,9 @@
 					$(".datepicker input").datepicker({
 						showOn: "button",
 						buttonImage: "${staticDomain}/public/images/calendar.png",
-						buttonImageOnly: true
+						buttonImageOnly: true,
+						//changeMonth: true ,
+						//changeYear: true 
 					});
 					
 					// 民族

@@ -1,8 +1,0 @@
-<!DOCTYPE html>
-<html>
-#parse("control/public/head.vm")
-<body>
-$body
-$!{script}
-</body>
-</html>

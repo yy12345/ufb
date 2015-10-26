@@ -10,10 +10,7 @@
 		<pattern>/**/*.service</pattern>
 	</excludes>
 
-	<!-- <layout page="layout/default_family.vm">-->
-	 <layout page="layout/default_error.vm">
-        <pattern>error/404.vm</pattern>
-        <pattern>error/500.vm</pattern>
+	<layout page="layout/error.vm">
         <pattern>error/*</pattern>
     </layout>
     
@@ -21,60 +18,17 @@
         <pattern>school/student_list.vm</pattern>
     </layout> 
 	
-    <layout page="layout/default_register.vm">
-        <pattern>register/*.vm</pattern>
+	<!-- family -->
+	<layout page="layout/family.vm">
+        <pattern>family/**/*.vm</pattern>
     </layout>
     
-    <layout page="layout/default_setting.vm">
-        <pattern>setting/*.vm</pattern>
-    </layout>
-    
-     <layout page="layout/default_help.vm">
-        <pattern>help/*.vm</pattern>
-    </layout>
-    
-    <layout page="layout/default_trade.vm">
-        <pattern>trade/*.vm</pattern>
-    </layout>
-    
-    <layout page="layout/default_bankcard.vm">
-        <pattern>bankcard/*.vm</pattern>
-    </layout>
-    
-    <layout page="layout/public_cust.vm">
-        <pattern>cust/*.vm</pattern>
-    </layout>
-     <layout page="layout/public_ufb.vm">
-        <pattern>ufb/*.vm</pattern>
-    </layout>
-    
-    <layout page="layout/public_cust.vm">
-        <pattern>org/*.vm</pattern>
-    </layout>
-    
+    <!-- organ -->
     <layout page="layout/default_school.vm">
         <pattern>school/*.vm</pattern>
     </layout>
     
-    <!-- add by ym -->
-    <layout page="layout/default_family.vm">
-        <pattern>family/ufb/*.vm</pattern>
-    </layout>
-    <layout page="layout/default_account.vm">
-        <pattern>family/account/*.vm</pattern>
-    </layout>
-    <!-- -->
-    
-    <layout page="layout/family.vm" default="true">
-        <pattern>family/account.vm</pattern>
-    </layout>
-    <layout page="layout/family.vm" default="true">
-        <pattern>family/payNotice.vm</pattern>
-    </layout>
-    <layout page="layout/family.vm" default="true">
-        <pattern>family/payReview.vm</pattern>
-    </layout>
-    <layout page="layout/default.vm" default="true">
+    <layout page="layout/blank.vm" default="true">
         <pattern>**/*.vm</pattern>
     </layout>
 </layouts>

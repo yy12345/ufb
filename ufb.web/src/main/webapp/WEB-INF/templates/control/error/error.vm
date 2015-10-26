@@ -1,0 +1,21 @@
+<div class="body">
+    <div class="inner container-find">
+       <div class="title clearfix">
+            <h2 class="title-main fl">#if(${message_title})${message_title}#else系统繁忙#end</h2>
+        </div>
+        <div class="find-panels">
+            <div class="panel">
+                <div class="form-done">
+                    <div class="title">#if(${message_content})${message_content}#else系统繁忙，您的申请提交失败！#end</div>
+                    <a class="btn" #if(${message_url}) href="${message_url}" #else href="${ufbDomain}/family/uft_index.htm" #end>
+                    	#if(${back_module})${back_module}#else我的账户#end
+                    </a>
+                    <div class="tips">
+                    	<p>温馨提示：</p>
+						<p>请重新操作，如始终无法提交申请可联系幼富通客服热线！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

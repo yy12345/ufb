@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+#parse("control/common/head_org.vm")
+<body>	
+<div class="page">
+<div class="main">
+	<section class="loadmain">
+	#parse("control/common/header.vm")
+	$body
+	</section>
+</div>
+#parse("control/common/slider_org.vm")
+#parse("control/common/footer.vm")
+</div>
+$!{script}
+</body>
+</html>

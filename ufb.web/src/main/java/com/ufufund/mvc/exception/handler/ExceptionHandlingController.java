@@ -24,7 +24,7 @@ public class ExceptionHandlingController {
 	@ExceptionHandler(Exception.class)
 	@RequestMapping("syserr")
 	public ModelAndView handleException(Exception e,WebRequest request) {
-		ModelAndView mav=new ModelAndView("error/500");
+		ModelAndView mav=new ModelAndView("error/error");
 		LOG.error("error:"+e.getMessage(), e);
 		mav.addObject("ex", e);
 		return mav;
