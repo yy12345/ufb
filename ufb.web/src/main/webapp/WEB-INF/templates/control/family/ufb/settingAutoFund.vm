@@ -37,7 +37,15 @@ $(function(){
 		$("#form-autoTrade-index").attr("action", "../family/autoTrade_delete.htm");
 		$("#form-autoTrade-index").submit();
 	});
-	
+	#if("PR"==$TAB) 
+		errorBox("暂停自动充值成功","成功！");
+	#end
+	#if("CR"==$TAB) 
+		errorBox("终止自动充值成功","成功！");
+	#end
+	#if("DR"==$TAB) 
+		errorBox("删除 自动充值成功","成功！");
+	#end
 	})
     </script>
 </head>

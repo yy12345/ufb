@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 暂停自动充值计划</title>
+	<script>
+$(function(){
+
+	$("#container").removeClass("setting");
+
+	// 表单提交时，验证	
+	$("#next-step").on("click", function(){
+		if(!check_pwd1($("#tradepwd"))){
+			return false;
+		}
+		$("#form-autoTrade-result").attr("action","../family/autoTradePause_result.htm");
+		$("#form-autoTrade-result").submit();
+	});
+	
+});
+</script>
+</head>
+<body>
+<div class="container center">
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
+				<div class="b2"><span>柔软的大牛</span><a href="${staticDomain}/family/settingAccount.htm"></a></div>
+			</div>
+		</div>
+        <div class="container">
+            <a href="#" class="logo"></a>
+			<div class="nav">
+				<a href="${staticDomain}/family/session.htm">我的账户</a>
+				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
+				<a href="#">缴费明细</a>
+				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
+			</div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="inner clearfix">
+            <div class="title clearfix">
+                <h2 class="title-main fl">暂停自动充值计划</h2>
+            </div>
+            <div class="notice">
+             <i class="v2_1"></i><p>确认暂停本次自动充值计划吗？若暂停，最近一次自动充值也将暂停。
+             </p>
+             </div>
+
+            <div class="form-cash">
+                <form id="form-autoTrade-result" class="common-form" action="${ufbDomain}/family/autoTradePause_result.htm" method="post" >
+                  ${refreshTools.genInputHtml()}
+				<input id="custno" name="custno" value="${AutoTradeVo.custno}" type="hidden"/>
+				<input id="frombankserialid" name="frombankserialid" value="${AutoTradeVo.frombankserialid}" type="hidden"/>
+				<input id="tofundcorpno" name="tofundcorpno" value="${AutoTradeVo.tofundcorpno}" type="hidden"/>
+				<input id="tofundcode" name="tofundcode" value="${AutoTradeVo.tofundcode}" type="hidden"/>
+				<input id="tradetype" name="tradetype" value="${AutoTradeVo.tradetype}" type="hidden"/>
+				<input id="tochargetype" name="tochargetype" value="${AutoTradeVo.tochargetype}" type="hidden"/>
+				<input id="type" name="type" value="${AutoTradeVo.type}" type="hidden"/>
+				<input id="cycle" name="cycle" value="${AutoTradeVo.cycle}" type="hidden"/>
+				<input id="dat" name="dat" value="${AutoTradeVo.dat}" type="hidden"/>
+				<input id="nextdate" name="nextdate" value="${AutoTradeVo.nextdate}" type="hidden"/>
+				<input id="autoamt" name="autoamt" value="${AutoTradeVo.autoamt}" type="hidden"/>
+				<input id="summary" name="summary" value="${AutoTradeVo.summary}" type="hidden"/>
+				<input id="frombankserialid" name="frombankserialid" value="${curCard.serialid}" type="hidden"/>
+                #set($tailStr=$curCard.bankacco)
+				#set($start=$tailStr.length() - 4)
+				#set($end=$tailStr.length())
+				<input id="frombankno" name="frombankno" value="${curCard.bankno}" type="hidden"/>
+				<input id="frombanktail" name="frombanktail" value="$tailStr.substring($start,$end)" type="hidden"/>
+				<input id="autoid" name="autoid" value="${AutoTradeVo.autoid}" type="hidden"/>
+					<div class="panel">
+                        <ul class="txtAuto width600">
+                            <li>
+                                <span class="form-title">绑定货币基金</span>
+                                <span class="form-text">海富通货币A    代码： 519505</span>
+                            </li>
+                            <li style="height:36px;" class="zIndex">
+                                <span class="form-title">银行选择</span>
+                                <div class="input-card">
+                                    <img src="${staticDomain}/static/family/images/bank_${curCard.bankno}.png">
+                                    <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="form-title">充值金额</span>
+                                <span class="form-text">${AutoTradeVo.autoamt}元</span>
+                            </li>
+                            <li>
+                                <span class="form-title">收费模式</span>
+                                <span class="form-text">0费率</span>
+                            </li>
+                            <li>
+                                <span class="form-title">充值周期</span>
+                                <span class="form-text">每月${AutoTradeVo.dat}日（遇节假日顺延至下个基金工作日）</span>
+                            </li>
+                            <li>
+                                <span class="form-title">下次充值日期</span>
+                                <span class="form-text">$!{AutoTradeVo.nextdate}</span>
+                            </li>
+                            <li>
+                                <span class="form-title">备注</span>
+                                <span class="form-text">${AutoTradeVo.summary}</span>
+                            </li>
+                            <li>
+                                <span class="form-title">交易密码</span>
+                                <input class="ipt-password1 input-text" id="tradepwd" name="tradepwd" maxlength="20" type="password" value="">
+                                <span class="tips-normal">请填写交易密码</span>
+                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                            </li>
+                            <li class="clearfix">
+                                <a class="input-button fl" href="${staticDomain}/family/settingAutoFund.htm">返回列表</a>
+                                <input id="next-step" class="input-button ok fl" type="button" value="确定暂停">
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  <!--   <div class="footer footer-simple">
+    <div class="inner clearfix">
+        <div class="logo fl">
+            <img src="images/logo_130x55.png">
+        </div>
+        <div class="info fl">
+            <ul class="list">
+                <li>微信服务号：UFUfund</li>
+                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
+                <li>海富通产品：400-8840-099</li>
+            </ul>
+        </div>
+        <div class="copyright fr">
+            <ul class="list">
+                <li>幼富通版权所有 ©2014</li>
+                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
+            </ul>
+        </div>
+    </div>
+	</div>-->
+</div>
+<script src="${staticDomain}/static/family/scripts/load.js"></script>
+<script src="${staticDomain}/static/family/scripts/register.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".center .body .notice .v2_1").click(function(){
+            $(".center .body .notice").hide();
+        });
+    });
+</script>
+</body>
+</html>

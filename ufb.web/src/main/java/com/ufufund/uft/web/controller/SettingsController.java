@@ -27,11 +27,13 @@ import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
+import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.cust.ChangeAutoStateAction;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.ModifyAutotradeAction;
 import com.ufufund.ufb.model.db.Autotrade;
+import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.enums.AutoTradeType;
@@ -271,7 +273,7 @@ public class SettingsController {
 		return "family/ufb/settingPassword";
 	}
 	/**
-	 * 修改登录密码step1
+	 * 修改登录密码    未登录状态step1
 	 * 20151002
 	 */
 	@RequestMapping(value="family/findPasswordStep1")
@@ -286,17 +288,16 @@ public class SettingsController {
 		return "family/ufb/findPasswordStep1";
 	}
 	/**
-	 * 修改登录密码step2
+	 * 修改登录密码   未登录状态step2
 	 * 20151002
 	 */
 	@RequestMapping(value="family/findPasswordStep2")
 	public String findPasswordStep2(CustinfoVo custinfoVo, Model model){
 		try{
-			CustinfoVo s_custinfo=UserHelper.getCustinfoVo();
 			// 校验手机验证码
-		//	MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
+			//	MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
 			
-			model.addAttribute("CustinfoVo", custinfoVo);
+			model.addAttribute("CustInfoVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			String ems = e.getOtherInfo();
@@ -309,17 +310,80 @@ public class SettingsController {
 			} else {
 				model.addAttribute("errMsg", e.getMessage());
 			}
-			model.addAttribute("CustinfoVo", custinfoVo);
+			model.addAttribute("CustInfoVo", custinfoVo);
+			return "family/ufb/findPasswordStep1";
+		}catch(UserException ue){
+			LOG.warn(ue.getMessage(), ue);
+			model.addAttribute("errMsg_msgcode", ue.getMessage()+"不匹配");
+			model.addAttribute("TAB", "1");
 			return "family/ufb/findPasswordStep1";
 		}
 		return "family/ufb/findPasswordStep2";
 	}
 	/**
-	 * 修改登录密码step3
+	 * 修改登录密码   未登录状态step3
 	 * 20151002
 	 */
 	@RequestMapping(value="family/findPasswordStep3")
-	public String findPasswordStep3(String password1, Model model){
+	public String findPasswordStep3(CustinfoVo custinfoVo,String password1, Model model){
+		try{
+			Custinfo custinfo=custManager.getCustInfoByMobileno(custinfoVo.getMobileno());
+			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
+			changePasswordAction.setActionType("LOGIN");
+			changePasswordAction.setCustno(custinfo.getCustno());
+			changePasswordAction.setPassword1(password1);
+			/** 修改登录密码 **/
+			custManager.changePassword(changePasswordAction);
+				
+		}catch (BizException e){
+			LOG.error(e.getErrmsg(), e);
+				model.addAttribute("errMsg", e.getMessage());
+			return "error/error";
+		}
+		return "family/ufb/findPasswordStep3";
+	}
+	/**
+	 * 修改登录密码  登录状态step1
+	 * 20151025
+	 */
+ 	@RequestMapping(value="family/updatePasswordStep1")
+	public String updatePasswordStep1(CustinfoVo custinfoVo, Model model){
+			try{
+				// 校验手机验证码
+			   //	MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
+				model.addAttribute("TAB", "1");
+				model.addAttribute("TAB2", "1");
+				model.addAttribute("CustInfoVo", custinfoVo);
+			}catch (BizException e){
+				LOG.error(e.getErrmsg(), e);
+				String ems = e.getOtherInfo();
+				if (BisConst.Register.MOBILE.equals(ems) || BisConst.Register.BANKMOBILE.equals(ems)) {
+					model.addAttribute("errMsg_mobileno", e.getMessage()); //手机号 
+				} else if (BisConst.Register.VERIFYCODE.equals(ems)) {
+					model.addAttribute("errMsg_verifycode", e.getMessage()); // 验证码
+				} else if(BisConst.Register.MSGCODE.equals(ems)){
+					model.addAttribute("errMsg_msgcode", e.getMessage()); // 手机验证码
+				} else {
+					model.addAttribute("errMsg", e.getMessage());
+				}
+				model.addAttribute("TAB", "1");
+				model.addAttribute("CustInfoVo", custinfoVo);
+				return "family/ufb/settingPassword";
+			}catch(UserException ue){
+				LOG.warn(ue.getMessage(), ue);
+				model.addAttribute("errMsg_msgcode", ue.getMessage()+"不匹配");
+				model.addAttribute("TAB", "1");
+				model.addAttribute("CustInfoVo", custinfoVo);
+				return "family/ufb/settingPassword";
+			}
+		return "family/ufb/settingPassword";
+	}
+	/**
+	 * 修改登录密码  登录状态step2
+	 * 20151025
+	 */
+	@RequestMapping(value="family/updatePasswordStep2")
+	public String fupdatePasswordStep2(String password1, Model model){
 		try{
 			CustinfoVo s_custinfo=UserHelper.getCustinfoVo();
 			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
@@ -328,14 +392,15 @@ public class SettingsController {
 			changePasswordAction.setPassword1(password1);
 			/** 修改登录密码 **/
 			custManager.changePassword(changePasswordAction);
-				
+			model.addAttribute("TAB", "1S");	
 			model.addAttribute("CustinfoVo", s_custinfo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 				model.addAttribute("errMsg", e.getMessage());
 			return "error/error";
 		}
-		return "family/ufb/findPasswordStep3";
+		 
+		return "family/ufb/settingPassword";
 	}
 	/**
 	 * 修改交易密码
@@ -390,7 +455,7 @@ public class SettingsController {
 	 */
 	@RequestMapping(value = "family/getMsgCode", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String,String> sendMsgCode(String verifycode){
+	public Map<String,String> sendMsgCode(String verifycode,String mobileno){
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try {
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -399,7 +464,7 @@ public class SettingsController {
 				VerifyCodeUtils.validate(verifycode);
 				
 				// 查询手机号是否注册
-				boolean isMobileRegister = custManager.isMobileRegister(s_custinfo.getMobileno());
+				boolean isMobileRegister = custManager.isMobileRegister(mobileno);
 				if(!isMobileRegister){
 					// 错误 手机号未注册
 					resultMap.put("errCode", "errMsg_mobileno");
@@ -416,8 +481,27 @@ public class SettingsController {
 				}
 			}else{
 				//TODO 错误
-				resultMap.put("errCode", "errMsg_mobileno");
-				resultMap.put("errMsg", "登录超时!");
+				/*resultMap.put("errCode", "errMsg_mobileno");
+				resultMap.put("errMsg", "登录超时!");*/
+				// 校验验证码
+				VerifyCodeUtils.validate(verifycode);
+				
+				// 查询手机号是否注册
+				boolean isMobileRegister = custManager.isMobileRegister(mobileno);
+				if(!isMobileRegister){
+					// 错误 手机号未注册
+					resultMap.put("errCode", "errMsg_mobileno");
+					resultMap.put("errMsg", "手机号未注册");
+				}else{
+					// 获取手机验证码
+					String template = "";
+					// 发送短信
+					MsgCodeUtils.sendMsg(template, mobileno);
+					resultMap.put("errCode", "0000");
+					resultMap.put("errMsg", "短信已发送");
+					//TODO 测试用
+					resultMap.put("TODO", MsgCodeUtils.getMsgCode());
+				}
 			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
@@ -440,7 +524,14 @@ public class SettingsController {
 		}
 		return resultMap;
 	}
-	
+	/**
+	 * 忘记交易密码
+	 * @param password1
+	 * @param password2
+	 * @param msgcode
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="family/settingTradePwdBack")
 	public String setTradePwdBack(String password1, String password2, String msgcode, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
@@ -664,7 +755,7 @@ public class SettingsController {
 	 * @return
 	 */
 	@RequestMapping(value="family/settingAutoFund")
-	public String settingAutoFund(CustinfoVo custinfoVo, Model model){
+	public String settingAutoFund(CustinfoVo custinfoVo,String TAB, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
 			// 获取自动充值计划列表
@@ -673,6 +764,9 @@ public class SettingsController {
 			 
 			model.addAttribute("LIST", list);
 			model.addAttribute("CLIST", clist);
+			if(StringUtils.isNotBlank(TAB)){
+				model.addAttribute("TAB", TAB);
+			}
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "family/ufb/settingAutoFund";
@@ -818,7 +912,7 @@ public class SettingsController {
 	}
 	
 	
-	@RequestMapping(value="family/autoTrade_pause")
+/*	@RequestMapping(value="family/autoTrade_pause")
 	public String autoTradePause(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
@@ -842,33 +936,41 @@ public class SettingsController {
 			return "family/ufb/settingAutoFund";
 		}
 		return "family/ufb/autoFundStepP1";
-	}
+	}*/
 	
-	@RequestMapping(value="family/autoTradePause_preview")
+	@RequestMapping(value="family/autoTrade_pause")
 	public String autoTradePause_preview(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
+			String frombankserialid = autotradeVo.getFrombankserialid();
+			if(null != frombankserialid && frombankserialid.length() > 0){
+				TradeAccoinfoOfMore tradeAccoinfoOfMore = 
+						tradeAccoManager.getTradeAcco(s_custinfo.getCustno(), Constant.HftSysConfig.HftFundCorpno, frombankserialid);
+				model.addAttribute("curCard", tradeAccoinfoOfMore);
+			}
+			Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
 			// 用户信息
-			autotradeVo.setCustno(s_custinfo.getCustno());
+			autotrade.setCustno(s_custinfo.getCustno());
 			// 货币信息
-			autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
-			autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
-			autotradeVo.setTochargetype("A");
+			autotrade.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			autotrade.setTofundcode(BasicFundinfo.YFB.getFundCode());
+			autotrade.setTochargetype("A");
 			
 			// 跳转确认页
-			model.addAttribute("AutoTradeVo", autotradeVo);
+			model.addAttribute("AutoTradeVo", autotrade);
 		}catch (BizException e){
 			model.addAttribute("errorMsg", e.getMessage());
 			model.addAttribute("returnUrl", "family/settingAutoFund.htm");
 			return "error/user_error";
 		}
-		return "family/ufb/autoFundStepP2";
+		return "family/ufb/autoFundPause";
 	}
 	
 	@RequestMapping(value="family/autoTradePause_result")
 	public String autoTradePauseResult(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
+			//model.addAttribute("TAB", "PR");
 			ChangeAutoStateAction action = new ChangeAutoStateAction();
 			
 			action.setCustno(s_custinfo.getCustno());// 用户信息
@@ -898,12 +1000,13 @@ public class SettingsController {
 				return "error/user_error";
 			}
 		}
-		return "family/ufb/autoFundStepP3";
+		ServletHolder.forward("/family/settingAutoFund.htm?TAB=PR");
+		return "family/ufb/settingAutoFund";
 	}
 	/**
 	 * 终止自动充值计划
 	 */
-	@RequestMapping(value="family/autoTrade_stop")
+/*	@RequestMapping(value="family/autoTrade_stop")
 	public String autoTrade_stop(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
@@ -927,33 +1030,41 @@ public class SettingsController {
 			return "family/ufb/settingAutoFund";
 		}
 		return "family/ufb/autoFundStepS1";
-	}
+	}*/
 	
-	@RequestMapping(value="family/autoTradeStop_preview")
+	@RequestMapping(value="family/autoTrade_stop")
 	public String autoTradeStop_preview(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
+			String frombankserialid = autotradeVo.getFrombankserialid();
+			if(null != frombankserialid && frombankserialid.length() > 0){
+				TradeAccoinfoOfMore tradeAccoinfoOfMore = 
+						tradeAccoManager.getTradeAcco(s_custinfo.getCustno(), Constant.HftSysConfig.HftFundCorpno, frombankserialid);
+				model.addAttribute("curCard", tradeAccoinfoOfMore);
+			}
+			Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
 			// 用户信息
-			autotradeVo.setCustno(s_custinfo.getCustno());
+			autotrade.setCustno(s_custinfo.getCustno());
 			// 货币信息
-			autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
-			autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
-			autotradeVo.setTochargetype("A");
+			autotrade.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			autotrade.setTofundcode(BasicFundinfo.YFB.getFundCode());
+			autotrade.setTochargetype("A");
 			
 			// 跳转确认页
-			model.addAttribute("AutoTradeVo", autotradeVo);
+			model.addAttribute("AutoTradeVo", autotrade);
 		}catch (BizException e){
 			model.addAttribute("errorMsg", e.getMessage());
 			model.addAttribute("returnUrl", "family/settingAutoFund.htm");
 			return "error/user_error";
 		}
-		return "family/ufb/autoFundStepS2";
+		return "family/ufb/autoFundClose";
 	}
 	
 	@RequestMapping(value="family/autoTradeStop_result")
 	public String autoTradeStopResult(AutotradeVo autotradeVo, Model model){
 		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 		try{
+			//model.addAttribute("TAB", "CR");
 			ChangeAutoStateAction action = new ChangeAutoStateAction();
 			
 			action.setCustno(s_custinfo.getCustno());// 用户信息
@@ -983,7 +1094,8 @@ public class SettingsController {
 				return "error/user_error";
 			}
 		}
-		return "family/ufb/autoFundStepS3";
+		ServletHolder.forward("/family/settingAutoFund.htm?TAB=CR");
+		return "family/ufb/settingAutoFund";
 	}
 	/**
 	 * 删除自动充值计划
@@ -991,18 +1103,18 @@ public class SettingsController {
 	@RequestMapping(value="family/autoTrade_delete")
 	public String autoTrade_delete(AutotradeVo autotradeVo, Model model){
 		try{
+			//model.addAttribute("TAB", "DR");
 			String custno = UserHelper.getCustno();
 			
 			String frombankserialid = autotradeVo.getFrombankserialid();
 			if(null != frombankserialid && frombankserialid.length() > 0){
 				autotradeManager.deleteAutotrade(custno, frombankserialid, autotradeVo.getAutoid());
 			}
-		 
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);
 			return "family/ufb/settingAutoFund";
 		}
-		ServletHolder.forward("/family/settingAutoFund.htm");
+		ServletHolder.forward("/family/settingAutoFund.htm?TAB=DR");
 		return "family/ufb/settingAutoFund";
 	}
 	//帮助中心--关于幼富通
