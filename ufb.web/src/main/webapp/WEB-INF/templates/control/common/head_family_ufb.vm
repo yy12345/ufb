@@ -7,8 +7,10 @@
 	#end
     <link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
     <link rel="stylesheet" href="${staticDomain}/family/css/common.css">
+    #if(${family_module} != "ufb")
     <link rel="stylesheet" href="${staticDomain}/family/css/main.css">
     <link rel="stylesheet" href="${staticDomain}/family/css/public.css">
+    #end
     
 	<script type='text/javascript' src='${staticDomain}/family/libs/jquery.min.js'></script>
 	<script type="text/javascript" src="${staticDomain}/family/libs/jquery.form.js"></script>
