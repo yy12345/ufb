@@ -33,4 +33,6 @@
     <script type="text/javascript" src="${staticDomain}/family/libs/jquery.ui.datepicker.js"></script>
     <script type="text/javascript" src="${staticDomain}/family/libs/jquery.ui.datepicker-zh-CN.js"></script>
     <!--日期控件 结束-->
+    
+    $!{style}
 </head>
