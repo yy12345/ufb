@@ -180,6 +180,7 @@
 				$('#uploadForm').ajaxSubmit({
 					url:'${ufbDomain}/school/student_upload.ajax',
 					type:'POST',
+					async:false,
 					resetForm:true,
 					clearForm:true,
 					success: function(data){

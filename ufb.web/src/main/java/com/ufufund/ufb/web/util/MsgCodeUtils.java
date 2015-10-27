@@ -11,7 +11,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.ufufund.ufb.biz.manager.MobileMsgManager;
 import com.ufufund.ufb.common.constant.Constant.MsgTemplate;
-import com.ufufund.ufb.common.exception.SysException;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.web.filter.ServletHolder;
@@ -94,41 +93,39 @@ public class MsgCodeUtils {
 	
 	
 	/**
-	 * 检验短信验证码：严格一次检验有效
-	 * @param compare
+	 * 检验短信验证码-后台使用
+	 * 备注：验证成功后，清除已使用的短信码
+	 * @param msgCode
 	 * @param mobileNo
 	 * @exception 校验失败，直接提示业务类异常
 	 */
-	public static void validate(String compare, String mobileNo) {
-		validate(compare, mobileNo, true);
+	public static void validate(String msgCode, String mobileNo) {
+		check(msgCode, mobileNo);
+		// 清除已使用的短信码
+		ServletHolder.getSession().removeAttribute("MSGCODE");
 	}
 	
 	/**
-	 * 检验短信验证码
-	 * @param compare 比较码
-	 * @param mobileNo 手机号
-	 * @param strictly 是否严格一次检验有效
+	 * 检验短信验证码-前端校验使用
+	 * 备注：仅检验是否正确，不清除session中的短信码
+	 * @param msgCode 
+	 * @param mobileNo 
 	 * @exception 校验失败，直接提示业务类异常
 	 */
-	public static void validate(String compare, String mobileNo, boolean strictly){
+	public static void check(String msgCode, String mobileNo){
 		
-		MsgCode msgCode = (MsgCode) ServletHolder.getSession().getAttribute("MSGCODE");
-		if (null == compare || StringUtils.isBlank(compare)) {
+		MsgCode value = (MsgCode) ServletHolder.getSession().getAttribute("MSGCODE");
+		if (null == msgCode || StringUtils.isBlank(msgCode)) {
 			throw new UserException("手机验证码为空！");
-		} else if (null == msgCode || StringUtils.isBlank(msgCode.getMsgCode())) {
+		} else if (null == value || StringUtils.isBlank(value.getMsgCode())) {
 			throw new UserException("您的手机验证码已失效，请重新发送！");
-		} else if (!msgCode.getMsgCode().equals(compare) || !msgCode.getMobileNo().equals(mobileNo) ) {
+		} else if (!value.getMsgCode().equals(msgCode) || !value.getMobileNo().equals(mobileNo) ) {
 			throw new UserException("您输入的手机验证码不匹配，请重新发送！", "手机验证码");
 		} else {
 			long now = System.currentTimeMillis();
-			if (now
-					- msgCode.getTimeList().get(
-							msgCode.getTimeList().size() - 1) > ACTIVE_TIME * 60 * 1000) {
+			if (now - value.getTimeList().get(value.getTimeList().size() - 1) > ACTIVE_TIME * 60 * 1000) {
 				throw new UserException("您的手机验证码已失效，请重新发送！");
 			}
-		}
-		if(strictly){
-			ServletHolder.getSession().removeAttribute("MSGCODE");
 		}
 	}
 	

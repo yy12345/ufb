@@ -100,8 +100,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**/*.htm" />
 			<mvc:exclude-mapping path="/family/index.htm" />
-			<mvc:exclude-mapping path="/family/register_index.htm" />
-			<mvc:exclude-mapping path="/error/*.htm" />
+			<mvc:exclude-mapping path="/family/account/*.htm" />
 			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.LoginInterceptor">
 				<property name="loginUrl">
 					<value>http://localhost:8080/ufb/family/index.htm</value>
@@ -109,10 +108,10 @@
 			</bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/trade/*.htm" />
+			<mvc:mapping path="/family/ufb-no/*.htm" />
 			<bean id="hftTradeInterceptor" class="com.ufufund.ufb.web.interceptor.HftTradeInterceptor">
 				<property name="redirectUrl">
-					<value>http://localhost:8080/ufb/family/uft_index.htm</value>
+					<value>http://localhost:8080/ufb/family/ufb/ufb_index.htm</value>
 				</property>
 			</bean>
 		</mvc:interceptor>
