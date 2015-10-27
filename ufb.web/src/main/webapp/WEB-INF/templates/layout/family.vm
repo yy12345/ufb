@@ -7,7 +7,7 @@
 #end
 <body>
 	#if(${family_module} == "ufb")
-		<div class="container center">
+		<div class="container $!{family_center}">
 	#elseif(${family_module} == "setting")
 		<div class="container setting">
 	#else

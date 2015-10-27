@@ -43,6 +43,9 @@ public class UfuVelocityView extends VelocityToolboxView {
 			model.put("family_module", "uft");
 		}else if(uri.indexOf("family/ufb/") > 0){
 			model.put("family_module", "ufb");
+			if(uri.endsWith("pay_index.htm") || uri.endsWith("cash_index.htm")){
+				model.put("family_center", "center");
+			}
 		}if(uri.indexOf("family/setting/") > 0){
 			model.put("family_module", "setting");
 		}
