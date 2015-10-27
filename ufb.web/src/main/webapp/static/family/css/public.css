@@ -1,0 +1,228 @@
+/*header*/
+#header{
+	z-index:30;
+	height:108px;
+	background:#fff;
+	border-bottom:1px solid #dbdcdc;
+}
+#header .container{
+	height:80px !important;
+	position:relative;
+	margin:0 auto;
+	text-align:left;
+	width:960px;
+	height:100%;
+	background-color:transparent;
+}
+.topNav{
+	background:#3e3a39;
+	height:28px;
+}
+.topNav .b1{
+	float:left;
+	width:50%;
+}
+.topNav .b2{
+	margin-left:500px;
+	text-align:right;
+    color:#fff;
+    vertical-align:middle;
+}
+.topNav .b1 a{
+	color:#fff;
+	line-height:28px;
+	margin-right:10px;
+}
+.topNav .b1 .active,.topNav .b1 a:hover{
+	color:#29abe2;
+}
+.topNav .b2 span{
+	display:inline-block;
+	zoom:1;
+	line-height:28px;
+	padding-left:15px;
+	color:#fff;
+	vertical-align:middle;
+}
+.topNav .b2 i{
+    display:inline-block;
+    line-height:28px;
+    vertical-align: middle;
+    color:#29abe2;
+    margin:0 0 0 20px;
+    font-style: normal;
+    cursor: pointer;
+}
+.topNav .b2 a.quit{
+	margin:0 0 0 10px;
+    color:#29abe2;
+    vertical-align: middle;
+}
+.topNav .b2 a.c1{
+	width:auto;
+	height:28px;
+	display:inline-block;
+	zoom:1;
+	vertical-align:middle;
+	background:none;
+	line-height:28px;
+    color:#29abe2;
+}
+.topNav .b2 #reg{
+    color:#fff;
+    margin-left:10px;
+}
+.topNav .b2 #reg:hover{
+     color:#29abe2;
+}
+.topNav .b3{
+    margin-left:500px;
+    text-align:right;
+    font-size:12px;
+    color:#fff;
+    line-height:28px;
+}
+.topNav .b3 a{
+    color:#fff;
+    display:inline-block;
+    margin:0 5px;
+}
+.topNav .b3 a:hover{
+    color:#cb3849;
+}
+.logo{
+	font-size:26px;
+	position:absolute;
+	top:20px;
+	background:url(../images/1.png) no-repeat;
+	width:98px;height:43px;
+}
+.footer .inner .logo{   
+    top:5px;   /*+*/
+}
+.nav{
+	font-size:16px;
+	position:absolute;
+	bottom:12px;
+	right:0;
+}
+.nav a{
+	margin-left:35px;
+	float:left;
+	border-bottom:2px solid #fff;
+	color:#666;
+	padding-bottom:5px;
+}
+.nav a:hover,.nav a.active{
+	border-bottom:2px solid #cb3849;
+}
+.nav a.active{
+    border-bottom:2px solid #cb3849;
+    color:#cb3849;
+}
+
+/*footer.html*/
+.LowFoot{
+    width:100%;
+    background:#202231;
+    overflow:hidden;
+    border-top:1px solid #65656a;
+    color:#808080;
+}
+.LowFoot .contentFoot{
+    text-align:center;
+    font-size:12px;
+    color:#808080;
+    height:60px;
+    line-height:60px;
+}
+.LowLi{
+    width:85%;
+    height:60px;
+    text-align:center;
+    margin-left:8%;
+}
+.LowLi li{
+    float:left;
+    height:60px;
+    line-height:60px;
+    margin-right:20px;
+}
+
+/*侧边悬浮条*/
+.sideFixed{
+	position:fixed;
+	right:0px;top:50%;
+	z-index:99;
+	height:328px;
+	margin-top:-164px;
+	width:40px;
+}
+.sideFixed a{
+	display:block;
+	width:40px;height:34px;
+	background-color:#7a6e6e;
+	border-bottom:1px solid #fff;
+	color:#fff;
+	text-align:center;
+	padding-top:6px;
+}
+.sideFixed a:hover{
+	background-color:#cb3849;
+}
+.sideFixed .a1{
+	margin-bottom:40px;
+}
+.sideFixed .a1 a:first-child{
+	background-image:url(../images/04.png);
+	background-repeat:no-repeat;
+	background-position:50% 50%;
+	position:relative;
+}
+.sideFixed .a1 a:first-child div{
+	position:absolute;
+	top:0;right:48px;
+	height:38px;
+	line-height:38px;
+	white-space:nowrap;
+	padding:0 10px;
+	background:#fff;
+	color:#808080;
+	border:1px solid #e3e3e3;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	border-radius:5px;
+	display:none;
+}
+.sideFixed .a1 a:first-child:hover div{
+	display:block;
+}
+.sideFixed .a1 a:first-child div b{
+	position:absolute;
+	top:50%;right:-5px;
+	margin-top:-4px;
+	width:5px;height:8px;
+	background:url(../images/05.png) no-repeat;
+}
+.sideFixed .a2 a.b1{
+	background-image:url(../images/6.png);
+	background-repeat:no-repeat;
+	background-position:50% 50%;
+}
+.sideFixed .a2 a.b2{
+	background-image:url(../images/7.png);
+	background-repeat:no-repeat;
+	background-position:50% 50%;
+	position:relative;
+}
+.sideFixed .a2 a.b2 div{
+	position:absolute;
+	bottom:0;right:43px;
+	width:102px;height:119px;
+	background:url(../images/8.png) no-repeat;
+	display:none;
+}
+.sideFixed .a2 a.b2:hover div{
+	display:block;
+}

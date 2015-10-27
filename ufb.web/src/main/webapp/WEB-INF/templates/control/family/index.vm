@@ -40,6 +40,7 @@ $(function(){
 		 if(!login()){
 		 	$("#error_text").html("登录账号或密码有误！");
 			$(".wrongTips").fadeIn();
+			$("#verifyImg").trigger('click');
 			return false;
 		 }else{
 		 	location.href = '${ufbDomain}/family/uft/uft_index.htm';
@@ -123,7 +124,7 @@ function login(){
 								</li>
                                 <li class="li03"><img src="${staticDomain}/family/images/img_10.png">
 									<input id="verifycode" name="verifycode" maxlength="4" maxlength="4" type="text" >
-									<span class="yanZ "><img src="${ufbDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())" /></span>
+									<span class="yanZ "><img id="verifyImg" src="${ufbDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())" /></span>
 								</li>
                                 <li class="li04">
 									<a id="submit" href="#">立即登录</a>
