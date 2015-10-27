@@ -1,6 +1,5 @@
 package com.ufufund.uft.web.controller;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ufufund.ufb.biz.manager.FundManager;
-import com.ufufund.ufb.biz.manager.QueryManager;
-import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.org.OrgQueryManager;
-import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
-import com.ufufund.ufb.model.db.FundInfo;
-import com.ufufund.ufb.model.db.FundNav;
-import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.PayNoticeVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
