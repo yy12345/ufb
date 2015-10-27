@@ -129,8 +129,8 @@ function login(){
                                 <li class="li04">
 									<a id="submit" href="#">立即登录</a>
 								</li>
-                                <li class="li05"><a href="${ufbDomain}/family/createAccount.htm" class="freeRegistered">免费注册</a>
-									<a href="${ufbDomain}/family/findPasswordStep1.htm" class="fogetPassword">忘记密码？</a></li>
+                                <li class="li05"><a href="${ufbDomain}/family/account/register_index.htm" class="freeRegistered">免费注册</a>
+									<a href="${ufbDomain}/family/setting/findpwd_index.htm" class="fogetPassword">忘记密码？</a></li>
                             </ul>
                         </form>
 					</div>

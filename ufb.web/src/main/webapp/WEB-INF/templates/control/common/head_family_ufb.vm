@@ -17,13 +17,13 @@
 	<script type='text/javascript' src='${staticDomain}/family/libs/jquery.easing.1.3.js'></script>
 	<link rel="stylesheet" href="${staticDomain}/family/css/jquery.bxslider.css">
 	<script type="text/javascript" src="${staticDomain}/family/libs/jquery.bxslider.min.js"></script>
+	<link rel="stylesheet" href="${staticDomain}/family/css/jquery.mCustomScrollbar.css">
+	<script type="text/javascript" src="${staticDomain}/family/libs/jquery.mCustomScrollbar.concat.min.js"></script>
 	##<link rel='stylesheet' href='${staticDomain}/family/css/camera.css'>
 	##<script type='text/javascript' src='${staticDomain}/family/libs/camera.min.js'></script>
-	##<link rel="stylesheet" href="${staticDomain}/family/css/jquery.mCustomScrollbar.css">
-	##<script type="text/javascript" src="${staticDomain}/family/libs/jquery.mCustomScrollbar.concat.min.js"></script>
 	##<script type='text/javascript' src='${staticDomain}/family/libs/jquery.mobile.customized.min.js'></script>
 	<!--[if lt IE 9]>
-    <script type="text/javascript" src="${staticDomain}/js/libs/html5.js"></script>
+    <script type="text/javascript" src="${staticDomain}/family/libs/html5.js"></script>
     <![endif]-->
     
 	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>

@@ -78,7 +78,7 @@ public class PaymentController {
 			model.addAttribute("message_content", ue.getMessage());
 			model.addAttribute("message_url", UFT_INDEX);
 			model.addAttribute("back_module", UFT_INDEX_NAME);
-			return "error/user_error";
+			return "error/error";
 		}
 		return "family/uft/pay_notice";
 	}
@@ -143,7 +143,7 @@ public class PaymentController {
 			model.addAttribute("message_content", ue.getMessage());
 			model.addAttribute("message_url", UFT_INDEX);
 			model.addAttribute("back_module", UFT_INDEX_NAME);
-			return "error/user_error";
+			return "error/error";
 		}
 		return "family/uft/pay_confirm";
 	}

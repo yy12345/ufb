@@ -5,13 +5,14 @@
 	#else
 	    $!{title}
 	#end
-    <link rel="stylesheet" href="${staticDomain}/public/css/reset.css">
-    <link rel="stylesheet" href="${staticDomain}/public/css/camera.css">
-    <link rel="stylesheet" href="${staticDomain}/public/css/common.css">
+    <link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
+    <link rel="stylesheet" href="${staticDomain}/family/css/common.css">
+    
+    <script type='text/javascript' src='${staticDomain}/family/libs/jquery.min.js'></script>
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="${staticDomain}/public/js/html5.js"></script>
+    <script type="text/javascript" src="${staticDomain}/family/libs/html5.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="${staticDomain}/public/js/jquery.min.js"></script>
+    
     <style type="text/css">
         .title.clearfix{
             margin-top:0;

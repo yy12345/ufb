@@ -149,7 +149,7 @@ public class FamilyAccountController {
 			model.addAttribute("message_content", ue.getMessage());
 			model.addAttribute("message_url", FAMILY_HOME);
 			model.addAttribute("back_module", FAMILY_HOME_NAME);
-			return "error/user_error";
+			return "error/error";
 		}
 		return "family/account/register_passwd";
 	}
@@ -208,7 +208,7 @@ public class FamilyAccountController {
 			model.addAttribute("message_content", ue.getMessage());
 			model.addAttribute("message_url", FAMILY_HOME);
 			model.addAttribute("back_module", FAMILY_HOME_NAME);
-			return "error/user_error";
+			return "error/error";
 		}
 		return "family/account/register_card";
 	}
@@ -290,7 +290,7 @@ public class FamilyAccountController {
 			model.addAttribute("message_content", ue.getMessage());
 			model.addAttribute("message_url", FAMILY_HOME);
 			model.addAttribute("back_module", FAMILY_HOME_NAME);
-			return "error/user_error";
+			return "error/error";
 		}
 		return "family/account/register_success";
 	}
@@ -378,7 +378,7 @@ public class FamilyAccountController {
 			model.addAttribute("message_content", ue.getMessage());
 			model.addAttribute("message_url", SETTING_CARD);
 			model.addAttribute("back_module", SETTING_CARD_NAME);
-			return "error/user_error";
+			return "error/error";
 		}
 		return "family/ufb/addBankCard";
 	}
@@ -455,7 +455,7 @@ public class FamilyAccountController {
 			model.addAttribute("message_content", ue.getMessage());
 			model.addAttribute("message_url", SETTING_CARD);
 			model.addAttribute("back_module", SETTING_CARD_NAME);
-			return "error/user_error";
+			return "error/error";
 		}
 		return "redirect:/"+SETTING_CARD;
 	}

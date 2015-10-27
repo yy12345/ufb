@@ -91,6 +91,7 @@ public class UfuVelocityView extends VelocityToolboxView {
 		matcher = pattern.matcher(screen);
 		if (matcher.find()) {
 			String head = matcher.group(0);
+			// title
 			pattern = Pattern.compile("<title.*</title>");
 			matcher = pattern.matcher(head);
 			String title;
@@ -99,6 +100,7 @@ public class UfuVelocityView extends VelocityToolboxView {
 				head = matcher.replaceAll("");
 				context.put("title", title);
 			}
+			// script
 			pattern = Pattern.compile("<script[\\s\\S]*?</script>");
 			matcher = pattern.matcher(head);
 			StringBuffer script = new StringBuffer();
@@ -108,6 +110,17 @@ public class UfuVelocityView extends VelocityToolboxView {
 			if (script.length() > 0) {
 				head = matcher.replaceAll("");
 				context.put("script", script);
+			}
+			// style
+			pattern = Pattern.compile("<style[\\s\\S]*?</style>");
+			matcher = pattern.matcher(head);
+			StringBuffer style = new StringBuffer();
+			while (matcher.find()) {
+				style.append(matcher.group());
+			}
+			if (style.length() > 0) {
+				head = matcher.replaceAll("");
+				context.put("style", style);
 			}
 			context.put("head", head);
 		}
