@@ -4,11 +4,16 @@
     <title>幼富通 - 账户管理 - 自动理财设置</title>
 	<script>
 $(function(){
+	
+	$('.nav a:eq(1)').addClass('active');
+	
+	$(".container").addClass("setting");
+	
 	$(".btn-autoTrade-update").on("click", function(){
 		$("#autoid").val($(this).attr("autoid"));
 		$("#frombankserialid").val($(this).attr("frombankserialid"));
 		
-		$("#form-autoTrade-index").attr("action", "../family/autoTrade_update.htm");
+		$("#form-autoTrade-index").attr("action", "${ufbDomain}/family/ufb/autoupdate_index.htm");
 		$("#form-autoTrade-index").submit();
 	});
 	
@@ -16,7 +21,7 @@ $(function(){
 		$("#autoid").val($(this).attr("autoid"));
 		$("#frombankserialid").val($(this).attr("frombankserialid"));
 		
-		$("#form-autoTrade-index").attr("action", "../family/autoTrade_pause.htm");
+		$("#form-autoTrade-index").attr("action", "${ufbDomain}/family/ufb/auto_pause.htm");
 		$("#form-autoTrade-index").submit();
 	});
 	
@@ -24,7 +29,7 @@ $(function(){
 		$("#autoid").val($(this).attr("autoid"));
 		$("#frombankserialid").val($(this).attr("frombankserialid"));
 		
-		$("#form-autoTrade-index").attr("action", "../family/autoTrade_stop.htm");
+		$("#form-autoTrade-index").attr("action", "${ufbDomain}/family/ufb/auto_stop.htm");
 		$("#form-autoTrade-index").submit();
 	});
 	$(".delete").on("click", function(){
@@ -34,7 +39,7 @@ $(function(){
 		$("#autoid").val($(this).attr("autoid"));
 		$("#frombankserialid").val($(this).attr("frombankserialid"));
 		
-		$("#form-autoTrade-index").attr("action", "../family/autoTrade_delete.htm");
+		$("#form-autoTrade-index").attr("action", "${ufbDomain}/family/ufb/auto_delete.htm");
 		$("#form-autoTrade-index").submit();
 	});
 	#if("PR"==$TAB) 
@@ -50,24 +55,6 @@ $(function(){
     </script>
 </head>
 <body>
-<div class="container setting">
-    <div id="header">
-		<div class="topNav">
-			<div class="container">
-				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
-				<div class="b2"><span>柔软的大牛</span><a href="${staticDomain}/family/settingAccount.htm"></a></div>
-			</div>
-		</div>
-        <div class="container">
-            <a href="#" class="logo"></a>
-			<div class="nav">
-				<a href="${staticDomain}/family/session.htm">我的账户</a>
-				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
-				<a href="#">缴费明细</a>
-				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
-			</div>
-        </div>
-    </div>
     <div class="body">
         <div class="inner clearfix">
             <div class="title">
@@ -78,10 +65,10 @@ $(function(){
                     <li><a href="${staticDomain}/family/settingAccount.htm"><b class="icon01"></b>账户信息</a></li>
                     <li><a href="${staticDomain}/family/settingPassword.htm"><b class="icon02"></b>密码设置</a></li>
                     <li><a href="${staticDomain}/family/settingCard.htm"><b class="icon03"></b>银行卡管理</a></li>
-                    <li><a class="current" href="${staticDomain}/family/settingAutoFund.htm"><b class="icon04"></b>自动理财设置</a></li>
+                    <li><a class="current" href="${ufbDomain}/family/ufb/autotrade_index.htm"><b class="icon04"></b>自动理财设置</a></li>
                 </ul>
             </div>
-			<form id="form-autoTrade-index" action="${staticDomain}/family/settingAutoFund.htm" method="post">
+			<form id="form-autoTrade-index" action="${ufbDomain}/family/ufb/autotrade_index.htm" method="post">
 			<input id="autoid" name="autoid" value="" type="hidden"/>
 			<input id="frombankserialid" name="frombankserialid" value="" type="hidden"/>
 			<input id="tobankserialid" name="tobankserialid" value="" type="hidden"/>
@@ -90,7 +77,7 @@ $(function(){
                 <div class="setting-content content-autoFund">
                     <div class="autoFund-title"><span class="on">自动充值计划<i class="loginTri"></i></span><span>自动缴费计划<i></i></span></div>
                     <div class="FundList FundList01">
-                       <div class="item-title">进行中<a class="link hoverLine" href="${staticDomain}/family/autoTrade_add.htm">添加自动充值计划</a></div>
+                       <div class="item-title">进行中<a class="link hoverLine" href="${ufbDomain}/family/ufb/autoadd_index.htm">添加自动充值计划</a></div>
                        <ul class="autoFund-list">
 						#if($LIST.size()!=0)
 							#foreach($autotrade in $LIST)
@@ -236,8 +223,8 @@ $(function(){
                                 </table>
                             </div>
                         </li>
+                        #end
                     </ul>
-					#end
 					#end
                     </div>
                     
@@ -384,27 +371,7 @@ $(function(){
 			 </div>
         </div>
     </div>
-	<!-- <div class="footer footer-simple">
-    <div class="inner clearfix">
-        <div class="logo fl">
-            <img src="${staticDomain}/static/family/images/logo_130x55.png">
-        </div>
-        <div class="info fl">
-            <ul class="list">
-                <li>微信服务号：UFUfund</li>
-                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                <li>海富通产品：400-8840-099</li>
-            </ul>
-        </div>
-        <div class="copyright fr">
-            <ul class="list">
-                <li>幼富通版权所有 ©2014</li>
-                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-            </ul>
-        </div>
-    </div>
-	</div>-->
 
-<script src="${staticDomain}/static/family/scripts/load.js"></script>
+<script src="${staticDomain}/family/scripts/load.js"></script>
 </body>
 </html>

@@ -4,40 +4,24 @@
     <title>幼富通 - 暂停自动充值计划</title>
 	<script>
 $(function(){
-
+	$('.nav a:eq(1)').addClass('active');
+	
 	$("#container").removeClass("setting");
 
 	// 表单提交时，验证	
 	$("#next-step").on("click", function(){
-		if(!check_pwd1($("#tradepwd"))){
+		var tradepwd=$("#tradepwd").val();
+		if(tradepwd==''){
+			$("#tradepwdErrMsg").addClass("error");
+			$("#tradePwdTips").html("交易密码不能为空！");
 			return false;
 		}
-		$("#form-autoTrade-result").attr("action","../family/autoTradePause_result.htm");
-		$("#form-autoTrade-result").submit();
 	});
 	
 });
 </script>
 </head>
 <body>
-<div class="container center">
-    <div id="header">
-		<div class="topNav">
-			<div class="container">
-				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
-				<div class="b2"><span>柔软的大牛</span><a href="${staticDomain}/family/settingAccount.htm"></a></div>
-			</div>
-		</div>
-        <div class="container">
-            <a href="#" class="logo"></a>
-			<div class="nav">
-				<a href="${staticDomain}/family/session.htm">我的账户</a>
-				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
-				<a href="#">缴费明细</a>
-				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
-			</div>
-        </div>
-    </div>
     <div class="body">
         <div class="inner clearfix">
             <div class="title clearfix">
@@ -49,7 +33,7 @@ $(function(){
              </div>
 
             <div class="form-cash">
-                <form id="form-autoTrade-result" class="common-form" action="${ufbDomain}/family/autoTradePause_result.htm" method="post" >
+                <form id="form-autoTrade-result" class="common-form" action="${ufbDomain}/family/ufb/autopause_result.htm" method="post" >
                   ${refreshTools.genInputHtml()}
 				<input id="custno" name="custno" value="${AutoTradeVo.custno}" type="hidden"/>
 				<input id="frombankserialid" name="frombankserialid" value="${AutoTradeVo.frombankserialid}" type="hidden"/>
@@ -79,7 +63,7 @@ $(function(){
                             <li style="height:36px;" class="zIndex">
                                 <span class="form-title">银行选择</span>
                                 <div class="input-card">
-                                    <img src="${staticDomain}/static/family/images/bank_${curCard.bankno}.png">
+                                    <img src="${staticDomain}/family/images/bank_${curCard.bankno}.png">
                                     <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
                                 </div>
                             </li>
@@ -103,15 +87,15 @@ $(function(){
                                 <span class="form-title">备注</span>
                                 <span class="form-text">${AutoTradeVo.summary}</span>
                             </li>
-                            <li>
+                            <li id="tradepwdErrMsg">
                                 <span class="form-title">交易密码</span>
-                                <input class="ipt-password1 input-text" id="tradepwd" name="tradepwd" maxlength="20" type="password" value="">
+                                <input class="ipt-password input-text" id="tradepwd" name="tradepwd" maxlength="20" type="password" value="">
                                 <span class="tips-normal">请填写交易密码</span>
-                                <span class="tips-check"><i class="icon"></i>验证提示</span>
+                                <span class="tips-check"><i class="icon"></i><font id="tradePwdTips">验证提示</font></span>
                             </li>
                             <li class="clearfix">
-                                <a class="input-button fl" href="${staticDomain}/family/settingAutoFund.htm">返回列表</a>
-                                <input id="next-step" class="input-button ok fl" type="button" value="确定暂停">
+                                <a class="input-button fl" href="${ufbDomain}/family/ufb/autotrade_index.htm">返回列表</a>
+                                <input id="next-step" class="input-button ok fl" type="submit" value="确定暂停">
                             </li>
                         </ul>
                     </div>
@@ -119,29 +103,7 @@ $(function(){
             </div>
         </div>
     </div>
-  <!--   <div class="footer footer-simple">
-    <div class="inner clearfix">
-        <div class="logo fl">
-            <img src="images/logo_130x55.png">
-        </div>
-        <div class="info fl">
-            <ul class="list">
-                <li>微信服务号：UFUfund</li>
-                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                <li>海富通产品：400-8840-099</li>
-            </ul>
-        </div>
-        <div class="copyright fr">
-            <ul class="list">
-                <li>幼富通版权所有 ©2014</li>
-                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-            </ul>
-        </div>
-    </div>
-	</div>-->
 </div>
-<script src="${staticDomain}/static/family/scripts/load.js"></script>
-<script src="${staticDomain}/static/family/scripts/register.js"></script>
 <script type="text/javascript">
     $(function(){
         $(".center .body .notice .v2_1").click(function(){

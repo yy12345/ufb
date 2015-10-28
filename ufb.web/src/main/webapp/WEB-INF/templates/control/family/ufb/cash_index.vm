@@ -100,6 +100,7 @@
         </div>
     </div>
 </div>
+<script src="${staticDomain}/family/scripts/load.js"></script>
 <script src="${staticDomain}/family/scripts/family-common.js"></script>
 <script type="text/javascript">
     $(function(){
@@ -110,6 +111,7 @@
 </script>
 <script type="text/javascript">
 	$(function(){
+		$('.nav a:eq(1)').addClass('active');
 		// 点击银行卡
 		$(".card").on("click", function(){
 			$("#tradeacco").val($(this).attr("cardTradeacco"));

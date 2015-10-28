@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 开通结果</title>
+    $(function(){
+    	$('.nav a:eq(1)').addClass('active');
+    })
+    
+</head>
+<body>
+    <div class="body">
+        <div class="inner container-step">
+            <div class="step-title clearfix">自动充值设置<a class="link hoverLine fr" href="${ufbDomain}/family/ufb/autotrade_index.htm">&lt;&lt;自动充值计划</a></div>
+            <div class="step-tabs tabs-step3 clearfix">
+                <a class="tab fl" href="javascript:;">自动充值</a>
+                <a class="tab fl" href="javascript:;">预览自动充值计划</a>
+                <a class="tab fl on" href="javascript:;">开通结果</a>
+            </div>
+            <div class="step-panels H300">
+                <div class="panel">
+                    <div class="form-done">
+                        <div class="title">你的自动充值计划已开通</div>
+                        <div class="text">
+                            <table width="300">
+                                <tr>
+                                    <td>设置时间</td>
+                                    <td>$!{today}</td>
+                                </tr>
+                                <tr>
+                                    <td>下次充值日期</td>
+                                    <td>
+										 $!{nextWorkDay} 
+									</td>
+                                </tr>
+                                <tr>
+                                    <td>每期充值金额</td>
+                                    <td>$!{autoamt}元</td>
+                                </tr>
+                                <tr>
+                                    <td>备注</td>
+                                    <td>$!{summary}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <a class="btn" href="${ufbDomain}/family/uft/uft_index.htm">我的账户</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

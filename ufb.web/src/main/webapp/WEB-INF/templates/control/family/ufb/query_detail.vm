@@ -2,44 +2,16 @@
 <html>
 <head>
     <title>幼富通 - 资产总览 - 详情页</title>
+    $(function(){
+    	$('.nav a:eq(1)').addClass('active');
+    })
 </head>
 <body>
-<div class="container center">
-<!--
-    <div class="header">
-        <div class="inner clearfix rel">
-            <div class="logo"><a href="javascript:;">幼教金融，一站通</a></div>
-            <div class="nav"><a href="index.html">首页</a>|<a class="current" href="centerClose.html">资产总览</a>|<a href="settingAccount.html">账户管理</a>|<a href="helpNotice.html">帮助中心</a><span class="member" href="javascript:;"><i class="trans icon"></i>啥<a href="javascript:;" class="trans out">安全退出</a></span></div>
-        </div>
-    </div>
--->
- <div id="header">
-		<div class="topNav">
-			<div class="container">
-				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
-				<div class="b2"><span>柔软的大牛</span><a href="${staticDomain}/family/settingAccount.htm"></a></div>
-			</div>
-		</div>
-        <div class="container">
-            <a href="#" class="logo"></a>
-			<div class="nav">
-				<a href="${staticDomain}/family/session.htm">我的账户</a>
-				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
-				<a href="#">缴费明细</a>
-				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
-			</div>
-        </div>
-    </div>
     <div class="body">
         <div class="inner clearfix">
             <div class="title clearfix">
                 <h2 class="title-main fl">交易详情</h2><a href="javascript:;" class="e-bill fr">电子对账单</a>
             </div>
-		<form id="form-detail" class="common-form" action="${ufbDomain}/trade/query_detail.htm" method="post">
-		<input id="tradeacco" name="tradeacco" value="${TradeRequest.tradeacco}" type="hidden"/>
-		<input id="oldserialno" name="oldserialno" value="${TradeRequest.serialno}" type="hidden"/>
-		<input id="fundcode" name="fundcode" value="${TradeRequest.fundcode}" type="hidden"/>
-
             <div class="bill-detail">
                 <div class="clearfix">
                     <div class="detail-info fl">
@@ -64,7 +36,6 @@
 								<td>类型<span>
 										#if(${TradeRequest.apkind}=="022")充值
     									#elseif(${TradeRequest.apkind}=="023")普通取现
-    									#elseif(${TradeRequest.apkind}=="024")快速取现
     									#end
 								</span></td></tr>
                             <tr><td>&nbsp;</td><td>
@@ -100,37 +71,12 @@
                     </div>
                 </div>
                 <div class="detail-btn clearfix">
-                    <a href="#" onclick="window.history.go(-1);return fasle" class="btn off fl">返回</a>
+                    <a href="#" onclick="window.history.go(-1);return fasle" class="btn fl">返回</a>
                 </div>
             </div>
         </div>
     </div>
-	</form>
-	<!--     <div class="footer footer-simple">
-    <div class="inner clearfix">
-        <div class="logo fl">
-            <img src="${staticDomain}/static/family/images/logo_130x55.png">
-        </div>
-        <div class="info fl">
-            <ul class="list">
-                <li>微信服务号：UFUfund</li>
-                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                <li>海富通产品：400-8840-099</li>
-            </ul>
-        </div>
-        <div class="copyright fr">
-            <ul class="list">
-                <li>幼富通版权所有 ©2014</li>
-                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-            </ul>
-        </div>
-    </div>
-	</div>-->
+
 </div>
-<script src="${staticDomain}/static/family/scripts/load.js"></script>
-<script src="${staticDomain}/static/family/scripts/register.js"></script>
-<script>
- 
-</script>
 </body>
 </html>

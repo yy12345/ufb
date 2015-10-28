@@ -4,59 +4,43 @@
     <title>幼富通 - 预览自动充值计划</title>
 <script>
 $(function(){
-
-	//$("#container").removeClass("setting");
-
-	// 表单提交时，验证	
-	$("#next-step").on("click", function(){
-		if(!check_cash($("#autoamt"))){
-			return false;
-		}
-		if(!check_pwd1($("#tradepwd"))){
-			return false;
-		}
-		$("#form-autoTrade-result").attr("action","../family/autoTrade_result.htm");
-		$("#form-autoTrade-result").submit();
-	});
+	$('.nav a:eq(1)').addClass('active');
 	
+	// 点击银行卡
+	$(".card").on("click", function(){
+		$("#frombankserialid").val($(this).attr("serialid"));
+		$("#frombankno").val($(this).attr("frombankno"));
+		$("#frombanktail").val($(this).attr("frombanktail"));
+	});
 	// 上一页
 	$("#btn-autoTrade-add").on("click",function(){
-		$("#form-autoTrade-result").attr("action", "../family/autoTrade_add.htm");
+		$("#form-autoTrade-result").attr("action", "${ufbDomain}/family/ufb/autoadd_index.htm");
 		$("#form-autoTrade-result").submit();
+	});
+	// 表单提交时，验证	
+	$("#next-step").on("click", function(){
+		var tradepwd=$("#tradepwd").val();
+		if(tradepwd==''){
+			$("#tradepwdErrMsg").addClass("error");
+			$("#tradePwdTips").html("交易密码不能为空！");
+			return false;
+		}
 	});
 });
 </script>
 </head>
 
 <body>
-<div class="container">
-    <div id="header">
-		<div class="topNav">
-			<div class="container">
-				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
-				<div class="b2"><span>柔软的大牛</span><a href="${staticDomain}/family/settingAccount.htm"></a></div>
-			</div>
-		</div>
-        <div class="container">
-            <a href="#" class="logo"></a>
-			<div class="nav">
-				<a href="${staticDomain}/family/session.htm">我的账户</a>
-				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
-				<a href="#">缴费明细</a>
-				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
-			</div>
-        </div>
-    </div>
     <div class="body">
         <div class="inner container-step">
-            <div class="step-title clearfix">自动充值设置<a class="link hoverLine fr" href="settingAutoFund.htm">&lt;&lt;自动充值设置</a></div>
+            <div class="step-title clearfix">自动充值设置<a class="link hoverLine fr" href="${ufbDomain}/family/ufb/autotrade_index.htm">&lt;&lt;自动充值设置</a></div>
             <div class="step-tabs tabs-step2 clearfix">
                 <a class="tab fl" href="javascript:;">自动充值</a>
                 <a class="tab fl on" href="javascript:;">预览自动充值计划</a>
                 <a class="tab fl" href="javascript:;">开通结果</a>
             </div>
             <div class="step-panels">
-                <form class="common-form" id="form-autoTrade-result"  action="${ufbDomain}/family/autoTrade_result.htm" method="post">
+                <form class="common-form" id="form-autoTrade-result"  action="${ufbDomain}/family/ufb/autoadd_success.htm" method="post">
 					
 				${refreshTools.genInputHtml()}
 				<input id="custno" name="custno" value="${AutoTradeVo.custno}" type="hidden"/>
@@ -91,7 +75,7 @@ $(function(){
 									#set($tailStr=$curCard.bankacco)
 								   #set($start=$tailStr.length() - 4)
 								   #set($end=$tailStr.length())
-                                    <img src="${staticDomain}/static/family/images/bank_${curCard.bankno}.png">
+                                    <img src="${staticDomain}/family/images/bank_${curCard.bankno}.png">
                                     <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
                                 </div>
                                 <div class="input-options">
@@ -105,7 +89,7 @@ $(function(){
 											frombankno="${card.bankno}"
 											frombanktail="$tailStr.substring($start,$end)"
 											>
-    										<img src="${staticDomain}/static/family/images/bank_${card.bankno}.png">
+    										<img src="${staticDomain}/family/images/bank_${card.bankno}.png">
                                             <span class="card-lastNumber">尾号：$tailStr.substring($start,$end)</span>
                                         </a>
     									#end
@@ -134,17 +118,17 @@ $(function(){
                                 <span class="form-title">备注</span>
                                 <span class="form-text">${AutoTradeVo.summary}</span>
                             </li>
-                            <li>
+                            <li id="tradepwdErrMsg">
                                 <span class="form-title">交易密码</span>
-                                <input class="ipt-password1 input-text" type="password" id="tradepwd" name="tradepwd"  maxlength="20" value="">
+                                <input class="ipt-password input-text" type="password" id="tradepwd" name="tradepwd"  maxlength="20" value="">
                                 <span class="tips-normal">请填写交易密码</span>
-                                <span id="tradePwdTips" class="tips-check"><i class="icon"></i>验证提示</span>
+                                <span  class="tips-check"><i class="icon"></i><font id="tradePwdTips">验证提示</font></span>
                             </li>
                             <li>
                                 <label class="tips">点击下一步表示同意<a class="link" href="javascript:;" id="hft">《海富通货币基金申购赎回协议》</a></label>
                             </li>
                             <li class="clearfix">
-                                <a id="btn-autoTrade-add" class="input-button fl" href="#">返回修改</a>
+                                <a id="btn-autoTrade-add" class="input-button fl" href="javascript:;">返回修改</a>
                                 <input id="next-step"  class="input-button ok fl" type="submit" value="下一步">
                             </li>
 
@@ -154,26 +138,6 @@ $(function(){
             </div>
         </div>
     </div>
-  <!--  <div class="footer footer-simple">
-    <div class="inner clearfix">
-        <div class="logo fl">
-            <img src="${staticDomain}/static/family/images/logo_130x55.png">
-        </div>
-        <div class="info fl">
-            <ul class="list">
-                <li>微信服务号：UFUfund</li>
-                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                <li>海富通产品：400-8840-099</li>
-            </ul>
-        </div>
-        <div class="copyright fr">
-            <ul class="list">
-                <li>幼富通版权所有 ©2014</li>
-                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-            </ul>
-            </div>
-        </div>
-    </div>-->
 </div>
 
 <!----------弹层--start----------->
@@ -207,9 +171,7 @@ $(function(){
                 </div>
 </div>
 <!----------弹层--end----------->
-
-<script src="${staticDomain}/static/family/scripts/load.js"></script>
-<script src="${staticDomain}/static/family/scripts/register.js"></script>
+<script src="${staticDomain}/family/scripts/load.js"></script>
 <script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>
 <script type="text/javascript">
    $(function(){
@@ -240,12 +202,5 @@ $(function(){
 		})(jQuery);
 	
 	</script>
-	<script type="text/javascript">
-    $(function(){
-        $(".input-options .card").click(function(){
-            $(this).addClass("active").siblings().removeClass("active");
-        });
-    });
-</script>
 </body>
 </html>

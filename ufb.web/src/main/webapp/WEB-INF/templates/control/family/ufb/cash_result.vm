@@ -7,18 +7,13 @@
             margin-top:0;
         }
     </style>
-
+$(function(){
+	$('.nav a:eq(1)').addClass('active');
+})
 </head>
 <body>
     <div class="body">
         <div class="inner container-find">
-<!--
-            <div class="find-tabs tabs-step3 clearfix">
-                <a class="tab fl" href="javascript:;">1-验证身份</a>
-                <a class="tab fl" href="javascript:;">2-银行卡绑定</a>
-                <a class="tab fl on" href="javascript:;">3-开通结果</a>
-            </div>
--->
            <div class="title clearfix">
                 <h2 class="title-main fl">取现</h2>
             </div>
@@ -37,6 +32,5 @@
         </div>
     </div>
 </div>
-<script src="${staticDomain}/static/family/scripts/load.js"></script>
 </body>
 </html>

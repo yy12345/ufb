@@ -5,29 +5,11 @@
    
 </head>
 <body>
-<div class="container center">
-    <div id="header">
-		<div class="topNav">
-			<div class="container">
-				<div class="b1"><a href="#" class="active">机构版</a><a href="#">家庭版</a></div>
-				<div class="b2"><span>柔软的大牛</span><a href="${staticDomain}/family/settingAccount.htm"></a></div>
-			</div>
-		</div>
-        <div class="container">
-            <a href="#" class="logo"></a>
-			<div class="nav">
-				<a href="${staticDomain}/family/session.htm">我的账户</a>
-				<a href="${staticDomain}/family/myufb.htm" class="active">幼富宝</a>
-				<a href="#">缴费明细</a>
-				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
-			</div>
-        </div>
-    </div>
     <div class="body">
-		<form id="form-index" action="${staticDomain}/family/query_index.htm">
-		<input type="hidden" id="appdateindex" name="appdateindex" value="${TradeQueryVo.appdateindex}">
-		<input type="hidden" id="appcateindex" name="appcateindex" value="${TradeQueryVo.appcateindex}">
-		<input type="hidden" id="apptypeindex" name="apptypeindex" value="${TradeQueryVo.apptypeindex}">
+		<form id="form-index" action="${ufbDomain}/family/ufb/query_index.htm">
+		<input type="hidden" id="appdateindex" name="appdateindex" value="$!{TradeQueryVo.appdateindex}">
+		<input type="hidden" id="appcateindex" name="appcateindex" value="$!{TradeQueryVo.appcateindex}">
+		<input type="hidden" id="apptypeindex" name="apptypeindex" value="$!{TradeQueryVo.apptypeindex}">
 		<input type="hidden" id="serialno" name="serialno" value="">
 		
         <div class="inner clearfix">
@@ -38,9 +20,9 @@
                 <ul class="search-con fl">
                     <li class="search-item item-date"><span class="item-title">起止日期</span>
                         <div>
-                            <label class="datepicker"><input type="text" value="${TradeQueryVo.startappdate}"></label> 
+                            <label class="datepicker startDate"><input type="text" name="startappdate" id="startappdate" value="${TradeQueryVo.startappdate}"></label> 
                             <span style="margin:0 15px;">--</span>
-                            <label class="datepicker"><input type="text" value="${TradeQueryVo.endappdate}"></label>
+                            <label class="datepicker  endDate"><input type="text" name="endappdate" id="endappdate"  value="${TradeQueryVo.endappdate}"></label>
                             <a class="on" href="javascript:;" index="0">今天</a>
 							<a class="on" href="javascript:;" index="1">最近1个月</a>
 							<a class="on" href="javascript:;" index="2">最近3个月</a>
@@ -61,7 +43,7 @@
 							<a class="on" href="javascript:;" index="1">处理中</a>
 							<a class="on" href="javascript:;" index="2">成功</a>
 							<a class="on" href="javascript:;" index="3">失败</a>
-							<input id="btn-search" class="input-button ok" type="button" value="查&nbsp;询">
+						<!--	<input id="btn-search" class="input-button ok" type="button" value="查&nbsp;询">-->
 						</div>
                     </li>
                 </ul>
@@ -97,8 +79,6 @@
 						充值
 					#elseif(${tradeRequest.apkind}=="023")
 						取现
-					#elseif(${tradeRequest.apkind}=="024")
-						快取
 					#end
 					</td>
                     <td class="tc">
@@ -132,35 +112,14 @@
             </div>
         </div>
     </div>
- <!--   <div class="footer footer-simple">
-    <div class="inner clearfix">
-        <div class="logo fl">
-            <img src="${staticDomain}/static/family/images/logo_130x55.png">
-        </div>
-        <div class="info fl">
-            <ul class="list">
-                <li>微信服务号：UFUfund</li>
-                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                <li>海富通产品：400-8840-099</li>
-            </ul>
-        </div>
-        <div class="copyright fr">
-            <ul class="list">
-                <li>幼富通版权所有 ©2014</li>
-                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-            </ul>
-        </div>
-    </div>
-</div>-->
+    </form>
 </div>
-<script src="${staticDomain}/static/family/scripts/load.js"></script>
-<script src="${staticDomain}/static/family/scripts/register.js"></script>
 <!--日历-->
     <script type="text/javascript">
         $('nav a:eq(1)').addClass('active');
         $(".datepicker input").datepicker({
             showOn: "button",
-            buttonImage: "${staticDomain}/static/family/images/calendar.png",
+            buttonImage: "${staticDomain}/family/images/calendar.png",
             buttonImageOnly: true
         });
         $('.select').selectMenu();
@@ -171,11 +130,13 @@
 	<script>
 $(function(){
 
+	$('.nav a:eq(1)').addClass('active');
+	
 	$(".search-con a").removeClass("on");
 	#if(${TradeQueryVo.appdateindex})
 		$(".item-date a:eq(${TradeQueryVo.appdateindex})").addClass("on");
-	#else
-		$(".item-date a:eq(0)").addClass("on");
+	//#else
+	//	$(".item-date a:eq(0)").addClass("on");
 	#end
 
 	#if(${TradeQueryVo.appcateindex})
@@ -194,27 +155,37 @@ $(function(){
 		$(".item-date a").removeClass("on");
 		$(this).addClass("on");
 		$("#appdateindex").val($(this).attr("index"));
+		$("#form-index").submit();
+	});
+	
+	//日历查询
+	$(".startDate .endDate").on("change",function(){
+		$(".item-date a").removeClass("on");
+		$("#appdateindex").val("");
+		$("#form-index").submit();
 	});
 	
 	$(".item-cate a").on("click",function(){
 		$(".item-cate a").removeClass("on");
 		$(this).addClass("on");
 		$("#appcateindex").val($(this).attr("index"));
+		$("#form-index").submit();
 	});
 	
 	$(".item-type a").on("click",function(){
 		$(".item-type a").removeClass("on");
 		$(this).addClass("on");
 		$("#apptypeindex").val($(this).attr("index"));
-	});
-	
-	$("#btn-search").on("click",function(){
 		$("#form-index").submit();
 	});
 	
+	  //$("#btn-search").on("click",function(){
+	 //	$("#form-index").submit();
+	//});
+	
 	$(".link").on("click",function(){
 		$("#serialno").val($(this).attr("serialno"));
-		$("#form-index").attr("action", "../family/query_detail.htm");
+		$("#form-index").attr("action", "../family/ufb/tradeQuery_detail.htm");
 		$("#form-index").submit();
 	});
 });
