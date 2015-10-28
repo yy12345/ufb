@@ -82,7 +82,7 @@ $(function(){
 				<input id="frombanktail" name="frombanktail" value="$tailStr.substring($start,$end)" type="hidden"/>
 				<input id="autoid" name="autoid" value="${AutoTradeVo.autoid}" type="hidden"/>
 				<div class="panel">
-                    <ul>
+                    <ul class="txtAuto width600">
                         <li>
                             <span class="form-title">绑定货币基金</span>
                             <span class="form-text">海富通货币A    代码： 519505</span>

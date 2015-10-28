@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--
+
 <title>幼富通 - 开通结果</title>
--->
+
 <script>
 $(function(){
 	$('.nav a:eq(1)').addClass('active');

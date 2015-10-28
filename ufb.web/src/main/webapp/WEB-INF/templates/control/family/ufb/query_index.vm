@@ -120,7 +120,14 @@
         $(".datepicker input").datepicker({
             showOn: "button",
             buttonImage: "${staticDomain}/family/images/calendar.png",
-            buttonImageOnly: true
+            buttonImageOnly: true,
+            onSelect:function(dateText,inst){
+        	$(".item-date a").each(function(){
+        		$(this).removeClass("on");
+        	})
+    		$("#appdateindex").val("4");
+    		$("#form-index").submit();
+        }
         });
         $('.select').selectMenu();
         $('.checkbox').checkbox();
@@ -158,13 +165,6 @@ $(function(){
 		$("#form-index").submit();
 	});
 	
-	//日历查询
-	$(".startDate .endDate").on("change",function(){
-		$(".item-date a").removeClass("on");
-		$("#appdateindex").val("");
-		$("#form-index").submit();
-	});
-	
 	$(".item-cate a").on("click",function(){
 		$(".item-cate a").removeClass("on");
 		$(this).addClass("on");
@@ -185,7 +185,7 @@ $(function(){
 	
 	$(".link").on("click",function(){
 		$("#serialno").val($(this).attr("serialno"));
-		$("#form-index").attr("action", "../family/ufb/tradeQuery_detail.htm");
+		$("#form-index").attr("action", "${ufbDomain}/family/ufb/query_detail.htm");
 		$("#form-index").submit();
 	});
 });

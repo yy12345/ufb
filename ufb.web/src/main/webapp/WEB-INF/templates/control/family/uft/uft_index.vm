@@ -99,11 +99,11 @@
                         </li>
                         <li class="mli3">
                             <p class="magb"><a href="${ufbDomain}/family/ufb/pay_index.htm" class="btn btn-white" id="recharge">充 值</a></p>
-                            <p> <a href="${ufbDomain}/family/query_index.htm" class="assets">资产明细</a></p>
+                            <p> <a href="${ufbDomain}/family/ufb/query_index.htm" class="assets">资产明细</a></p>
                         </li>
                         <li class="" style="position: relative;">
                                 <p class="magb"><a href="${ufbDomain}/family/ufb/cash_index.htm" class="btn btn-white" id="enchash">取 现</a></p>
-                                <p><a href="${ufbDomain}/family/setting/autotrade_index.htm" class="hoverLine">自动理财设置<i class="question"></i></a></p>
+                                <p><a href="${ufbDomain}/family/ufb/autotrade_index.htm" class="hoverLine">自动理财设置<i class="question"></i></a></p>
                                 <p class="question-content" style="display: none">可绑定工资卡，设<br/>置固定期限或固定<br/>金额的自动充值</p>
                         </li>
                     </ul>

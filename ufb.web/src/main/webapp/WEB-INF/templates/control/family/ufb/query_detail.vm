@@ -39,7 +39,7 @@
     									#end
 								</span></td></tr>
                             <tr><td>&nbsp;</td><td>
-									<img src="${staticDomain}/static/family/images/bank_${TradeRequest.bankno}.png">
+									<img src="${staticDomain}/family/images/bank_${TradeRequest.bankno}.png">
 										尾号：
 										#set($tailStr=${TradeRequest.bankacco})
 										#set($start=$tailStr.length() - 4)

@@ -138,12 +138,12 @@ $(function(){
 	
     $(".link").on("click",function(){
 		$("#serialno").val($(this).attr("serialno"));
-		$("#form").attr("action", "../family/query_detail.htm");
+		$("#form").attr("action", "${ufbDomain}/family/ufb/query_detail.htm");
 		$("#form").submit();
 	});
 	
 	$("#btn-queryIndex").on("click",function(){
-		$("#form").attr("action", "../family/query_index.htm");
+		$("#form").attr("action", "${ufbDomain}/family/ufb/query_index.htm");
 		$("#form").submit();
 	});
 		
@@ -198,8 +198,8 @@ $(function(){
                             <a href="${ufbDomain}/family/ufb/cash_index.htm" class="btn02">取 现</a>
 			            </div>
 			            <div class="liBox">
-			                <a href="${ufbDomain}/family/query_index.htm" class="Detailed hoverLine">资产明细</a>
-			                <a href="${ufbDomain}/family/settingAutoFund.htm" class="hoverLine">自动理财设置</a>
+			                <a href="${ufbDomain}/family/ufb/query_index.htm" class="Detailed hoverLine">资产明细</a>
+			                <a href="${ufbDomain}/family/ufb/autotrade_index.htm" class="hoverLine">自动理财设置</a>
 			                <div class="trip"><div>可设置固定期限或固定金额的自动充值或取现<b></b></div></div>
 			            </div>
 			        </li>

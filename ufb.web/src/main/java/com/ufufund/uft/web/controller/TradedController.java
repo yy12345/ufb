@@ -280,45 +280,46 @@ public class TradedController {
 				// 今天
 				Calendar c = Calendar.getInstance();
 			    c.add(Calendar.DATE, -0);
-			    startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());
-			    endappdate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+			    startappdate = new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
+			    endappdate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 			}else if("1".equals(appdateindex)){
 				// 最近1个月
 				Calendar c = Calendar.getInstance();
 			    c.add(Calendar.MONTH, -1);
-			    startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());
-			    endappdate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+			    startappdate = new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
+			    endappdate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 			}else if("2".equals(appdateindex)){
 				// 最近3个月
 				Calendar c = Calendar.getInstance();
 			    c.add(Calendar.MONTH, -3);
-			    startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());
-			    endappdate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+			    startappdate = new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
+			    endappdate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 			}else if("3".equals(appdateindex)){
 				// 1年
 				Calendar c = Calendar.getInstance();
 			    c.add(Calendar.MONTH, -12);
-			    startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());
-			    endappdate = new SimpleDateFormat("yyyyMMdd").format(new Date());
+			    startappdate = new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
+			    endappdate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 			}else{
-				vo.setAppdateindex("0");
+				//vo.setAppdateindex("0");
 				Calendar c = Calendar.getInstance();
 			    c.add(Calendar.DATE, -0);
 			    /* startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());*/
 				if(vo.getStartappdate()!=null&&vo.getStartappdate()!=""){
 					startappdate=vo.getStartappdate();
 				}else{
-					startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());
+					vo.setAppdateindex("0");
+					startappdate = new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
 				}
 				if(vo.getEndappdate()!=null&&vo.getEndappdate()!=""){
 					endappdate=vo.getEndappdate();
 				}else{
-					endappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());
+					endappdate = new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
 				}
 				
 			}
-			vo.setStartappdate(startappdate.substring(0, 4)+"-"+startappdate.substring(4, 6)+"-"+startappdate.substring(6, 8));
-			vo.setEndappdate(endappdate.substring(0, 4)+"-"+endappdate.substring(4, 6)+"-"+endappdate.substring(6, 8));
+			vo.setStartappdate(startappdate);
+			vo.setEndappdate(endappdate);
 			
 			/** 交易类型 **/
 			List<String> apkinds = new ArrayList<String>();
@@ -355,13 +356,12 @@ public class TradedController {
 				states.add("F"); 
 				states.add("I");   
 			}
-			
 			List<TradeRequest> listIn = queryManager.qryTradeList(
 					custno, 
 					apkinds,
 					states,
-					startappdate, 
-					endappdate,
+					startappdate.replace("-", ""), 
+					endappdate.replace("-", ""),
 					0, 
 					10
 					);
@@ -419,7 +419,7 @@ public class TradedController {
 			//model.addAttribute("back_module", "返回");
 			return "error/error";
 		}
-		return "family/ufb/tradeQuery_detail";
+		return "family/ufb/query_detail";
 	}
 	/**
 	 * 自动业务管理
