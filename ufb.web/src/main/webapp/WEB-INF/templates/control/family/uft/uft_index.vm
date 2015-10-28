@@ -96,7 +96,7 @@
                             <p class="font font-red">#if($hftTotalincome) $!{hftTotalincome} #else 0.00 #end</p>
                         </li>
                         <li class="mli3">
-                            <p class="magb"><a href="${ufbDomain}/family/pay_index.htm" class="btn btn-white" id="recharge">充 值</a></p>
+                            <p class="magb"><a href="${ufbDomain}/family/ufb/pay_index.htm" class="btn btn-white" id="recharge">充 值</a></p>
                             <p> <a href="${ufbDomain}/family/query_index.htm" class="assets">资产明细</a></p>
                         </li>
                         <li class="" style="position: relative;">

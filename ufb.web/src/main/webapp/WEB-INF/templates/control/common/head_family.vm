@@ -1,16 +1,27 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
-	#if("$!{title}"=="")
+	<meta name="keywords" content="幼富通">
+	<meta name="description" content="幼富通">
+    #if("$!{title}"=="")
 	    <title>幼富通</title>
 	#else
 	    $!{title}
 	#end
-    <link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
-    <link rel="stylesheet" href="${staticDomain}/family/css/common.css">
-    #if(${family_module} != "ufb")
-    <link rel="stylesheet" href="${staticDomain}/family/css/main.css">
-    <link rel="stylesheet" href="${staticDomain}/family/css/public.css">
-    #end
+	<link rel="shortcut icon" href="${staticDomain}/favicon.ico" type="image/x-icon">
+	#if(${family_module} == "uft")
+		<link rel="stylesheet" href="${staticDomain}/family/css/style.css">
+		<link rel="stylesheet" href="${staticDomain}/family/css/family.css">
+	#elseif(${family_module} == "ufb")
+		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
+    	<link rel="stylesheet" href="${staticDomain}/family/css/common.css">
+    	#if(${family_page} == "ufb_index")
+    		<link rel="stylesheet" href="${staticDomain}/family/css/main.css">
+    	#end
+	#else
+		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
+    	<link rel="stylesheet" href="${staticDomain}/family/css/common.css">
+    	<link rel="stylesheet" href="${staticDomain}/family/css/main.css">
+	#end
     
 	<script type='text/javascript' src='${staticDomain}/family/libs/jquery.min.js'></script>
 	<script type="text/javascript" src="${staticDomain}/family/libs/jquery.form.js"></script>

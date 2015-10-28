@@ -1,13 +1,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+    <meta name="keywords" content="幼富通">
+	<meta name="description" content="幼富通，幼教金融一站通">
 	#if("$!{title}"=="")
 	    <title>幼富通</title>
 	#else
 	    $!{title}
 	#end
-    <meta name="keywords" content="幼富通">
-	<meta name="description" content="幼富通，幼教金融一站通">
-	<link rel="shortcut icon" href="${staticDomain}/public/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="${staticDomain}/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="${staticDomain}/public/css/style.css">
 	<link rel="stylesheet" href="${staticDomain}/public/css/jquery.jscrollpane.css">
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.js"></script>

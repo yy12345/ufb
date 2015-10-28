@@ -24,7 +24,7 @@
     </layout>
     
     <!-- organ -->
-    <layout page="layout/default_school.vm">
+    <layout page="layout/organ_school.vm">
         <pattern>school/*.vm</pattern>
     </layout>
     

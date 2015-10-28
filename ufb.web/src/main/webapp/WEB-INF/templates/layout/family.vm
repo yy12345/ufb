@@ -1,18 +1,8 @@
 <!DOCTYPE html>
 <html>
-#if(${family_module} == "uft")
-#parse("control/common/head_family_uft.vm")
-#else
-#parse("control/common/head_family_ufb.vm")
-#end
+#parse("control/common/head_family.vm")
 <body>
-	#if(${family_module} == "ufb")
-		<div class="container $!{family_center}">
-	#elseif(${family_module} == "setting")
-		<div class="container setting">
-	#else
-		<div id="page">
-	#end	
+	<div ${family_container}>	
 		#parse("control/common/header_family.vm")
 		$body
 		#if(${S_CUSTINFO})

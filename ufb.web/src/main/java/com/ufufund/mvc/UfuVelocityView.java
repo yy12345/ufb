@@ -39,15 +39,27 @@ public class UfuVelocityView extends VelocityToolboxView {
 			throws Exception {
 
 		String uri = request.getRequestURI();
-		if(uri.indexOf("family/uft/") > 0){
+		if(uri.endsWith("family/index.htm")){
+			model.put("family_module", "index");
+			model.put("family_container", "class=\"containerBox\"");
+		}else if(uri.indexOf("family/account/") > 0){
+			model.put("family_module", "account");
+			model.put("family_container", "id=\"page\"");
+		}else if(uri.indexOf("family/uft/") > 0){
 			model.put("family_module", "uft");
+			model.put("family_container", "id=\"page\"");
 		}else if(uri.indexOf("family/ufb/") > 0){
 			model.put("family_module", "ufb");
+			model.put("family_container", "class=\"container\"");
 			if(uri.endsWith("pay_index.htm") || uri.endsWith("cash_index.htm")){
-				model.put("family_center", "center");
+				model.put("family_container", "class=\"container center\"");
+			}else if(uri.endsWith("ufb_index.htm")){
+				model.put("family_container", "id=\"page\"");
+				model.put("family_page", "ufb_index");
 			}
-		}if(uri.indexOf("family/setting/") > 0){
-			model.put("family_module", "setting");
+		}else if(uri.indexOf("family/setting/") > 0){
+			model.put("family_module", "ufb");
+			model.put("family_container", "class=\"container setting\"");
 		}
 		
 		exposeHelpers(model, request);

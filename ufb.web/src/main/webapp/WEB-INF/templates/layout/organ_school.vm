@@ -5,7 +5,7 @@
 <div class="page">
 <div class="main">
 	<section class="loadmain">
-	#parse("control/common/header.vm")
+	#parse("control/common/header_org.vm")
 	$body
 	</section>
 </div>
@@ -14,4 +14,4 @@
 </div>
 $!{script}
 </body>
-</html>
+</html>d

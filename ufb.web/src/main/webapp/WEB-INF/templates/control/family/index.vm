@@ -39,8 +39,11 @@ $(function(){
 		 
 		 if(!login()){
 		 	$("#error_text").html("登录账号或密码有误！");
-			$(".wrongTips").fadeIn();
 			$("#verifyImg").trigger('click');
+			$("#loginpwd").val('');
+			$("#verifycode").val('');
+			$("#mobileno").focus();
+			$(".wrongTips").fadeIn();
 			return false;
 		 }else{
 		 	location.href = '${ufbDomain}/family/uft/uft_index.htm';
@@ -79,8 +82,8 @@ function login(){
 	 var result = false;
 	 $('#myform').ajaxSubmit({
 		async:false,
-		resetForm:true,
-		clearForm:true,
+		resetForm:false,
+		clearForm:false,
 		success: function(data){
 			var json = $.parseJSON(data);
 			if(json.errCode=='0000'){
@@ -114,13 +117,12 @@ function login(){
 							<span></span><font id="error_text">请输入登录账号！</font> <b></b>
 						</div>
 						<form id="myform" method="post" action="${ufbDomain}/family/account/login.htm">
-							<input type="hidden" id="invtp" name="invtp" value="$!{CustinfoVo.invtp}">
 							<ul>
 								<li class="li01"><img src="${staticDomain}/family/images/img_08.png">
-									<input id="mobileno" name="mobileno"  maxlength="11" type="text" placeholder="邮箱/手机号/用户名">
+									<input id="mobileno" name="mobileno"  maxlength="11" type="text" placeholder="手机号">
 								</li>
 								<li class="li02"><img src="${staticDomain}/family/images/img_09.png">
-									<input id="loginpwd" name="loginpwd" maxlength="20" type="password" >
+									<input id="loginpwd" name="loginpwd" maxlength="20" type="password">
 								</li>
                                 <li class="li03"><img src="${staticDomain}/family/images/img_10.png">
 									<input id="verifycode" name="verifycode" maxlength="4" maxlength="4" type="text" >
