@@ -59,7 +59,7 @@ public class UfuVelocityView extends VelocityToolboxView {
 				model.put("family_page", "ufb_index");
 			}
 		}else if(uri.indexOf("family/setting/") > 0){
-			model.put("family_module", "ufb");
+			model.put("family_module", "setting");
 			model.put("family_container", "class=\"container setting\"");
 		}
 		

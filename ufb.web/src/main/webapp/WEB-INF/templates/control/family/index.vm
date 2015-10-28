@@ -3,7 +3,8 @@
 <title>幼富金融，一站通</title>
 <script type="text/javascript">
 $(function(){ 
- 
+ 	$('.nav a:eq(0)').addClass('active');
+ 	
    	$('#marquee').bxSlider({ 
       	displaySlideQty:1,//显示li的个数 
       	moveSlideQty: 1,//移动li的个数  

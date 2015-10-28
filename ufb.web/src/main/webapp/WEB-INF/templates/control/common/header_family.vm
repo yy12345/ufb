@@ -20,7 +20,7 @@
     <div class="container">
         <a href="${ufbDomain}/family/index.htm" class="logo"></a>
 		<div class="nav">
-			<a href="${ufbDomain}/family/uft/uft_index.htm" class="active">我的账户</a>
+			<a href="${ufbDomain}/family/uft/uft_index.htm">我的账户</a>
 			<a href="${ufbDomain}/family/ufb/ufb_index.htm">幼富宝</a>
 			<a href="javascript:;">缴费明细</a>
 			<a href="javascript:;">帮助中心</a>

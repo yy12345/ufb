@@ -3,6 +3,8 @@
 <head>
 <title>幼富宝</title>
 <script type="text/javascript">
+		$('.nav a:eq(1)').addClass('active');
+		
         // 路径配置
         require.config({
             paths: {
