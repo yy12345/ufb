@@ -3,6 +3,7 @@ package com.ufufund.ufb.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +13,11 @@ import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.model.db.BankCardbin;
+import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.MsgCodeUtils.MsgCode;
+import com.ufufund.ufb.web.util.UserHelper;
 import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -136,6 +139,40 @@ public class UfuCommonController {
 		}
 		return resultMap;
 	}
+	
+	
+	/**
+	 * 检验交易密码是否与登录密码相同
+	 * @param msgcode
+	 * @return
+	 */
+	@RequestMapping(value = "isTradePwdSame")
+	@ResponseBody
+	public Map<String,Object> isTradePwdSame(String tradePwd) {
+		
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try{
+			String custno = UserHelper.getCustno();
+			if(StringUtils.isBlank(custno)){
+				throw new UserException("用户未登录！");
+			}
+			Custinfo custinfo = custManager.getCustinfo(custno);
+			boolean same = tradePwd.equals(custinfo.getLoginpwd());
+			
+			resultMap.put("errCode", "0000");
+			resultMap.put("same", same);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
+	
 	
 	/**
 	 * 根据bin编码读取银行卡bin
