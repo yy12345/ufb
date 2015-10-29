@@ -4,7 +4,7 @@
  * @return 金额格式的字符串,如'1234,567.45'
  * @type String
  */
-function formatCurrency1(num) {
+var formatCurrency1=function(num) {
 	if (typeof(num) == "undefined"){
 		return "0.00";
 	}
@@ -29,7 +29,7 @@ function formatCurrency1(num) {
  * @return 金额格式的字符串,如'1,234,567.45'
  * @type String
  */
-function formatCurrency2(num) {
+var formatCurrency2 =function(num) {
 	if (typeof(num) == "undefined"){
 		return "0.00";
 	}
@@ -46,4 +46,66 @@ function formatCurrency2(num) {
     num = num.substring(0,num.length-(4*i+3))+','+
     num.substring(num.length-(4*i+3));
     return (((sign)?'':'-') + num + '.' + cents);
+}
+
+//验证密码
+var commonSymbol = "[\\,\\`\\~\\!\\@\\#\\$\\%\\\\^\\&\\*\\(\\)\\-\\_\\+\\[\\{\\]\\}\\\\|\\;\\:\\‘\\’\\“\\”\\<\\>\\/?]+";
+var check_pwd1 = function (value) {
+    if (value == "") {
+        return "密码不能为空";
+    }
+    if (value.length < 6 || value.length > 20) {
+        return "密码为6-20位字符";
+    }
+    var regex1 = /\s+/;
+    if (regex1.test(value)) {
+        return "密码中不允许有空格";
+    }
+    var regex2 = /^[0-9]+$/;
+    if (regex2.test(value)) {
+        return "密码不能全为数字";
+    }
+    var regex3 = /^[a-zA-Z]+$/;
+    if (regex3.test(value)) {
+        return "密码不能全为字母，请包含至少1个数字或符号";
+    }
+    var regex4 = /^[^0-9A-Za-z]+$/;
+    if (!regex4.test(value)) {
+        return "密码不能全为符号";
+    }
+    if (isSameWord(value)) {
+        return "密码不能全为相同字符或数字";
+    }
+    var regexAll = "^([0-9]+|[a-zA-Z]+|" + commonSymbol + ")+$";
+    var regex5 = new RegExp(regexAll);
+    if (!regex5.test(value)) {
+        return "密码不符合规范，必须包含数字，字母，特殊字符中的两者或三者";
+    }
+    return "";
+}
+//验证重复密码
+ var check_pwd2 = function (pwd1, pwd2) {
+    var _form = ipt.parents("form");
+
+    var _valuePassword1 = pwd1;
+    var _valuePassword2 = pwd2;
+    if (_valuePassword2 == "") {
+        return "确认密码不能为空";
+    }
+    if (_valuePassword1 != _valuePassword2) {
+        return "两次密码输入不一致";
+    }
+    return "";
+}
+// 是否所有字符相同
+function isSameWord(str) {
+    var char;
+    if (str != null && str != "") {
+        char = str.charCodeAt(0);
+        char = "\\" + char.toString(8);
+        var f = "[" + char + "]{" + (str.length) + "}";
+        var h = new RegExp(f);
+        return h.test(str);
+    }
+    return true
 }

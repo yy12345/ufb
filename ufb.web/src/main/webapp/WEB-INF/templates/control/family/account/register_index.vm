@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+<html>
 <head>
 <title>幼富通</title>
 <script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>  <!--scroll美化-->
 <script type="text/javascript">
 $(function(){
+	// 用户注册协议
 	$("#uftRegistered").click(function(){
        $(".bgBox , #uft").fadeIn();       
    	});
    	$("#uft .close , .btnKnow").click(function(){
        $(".bgBox , #uft").fadeOut();       
    	});
-	
 	$(window).load(function(){
         $(".content_scroll").mCustomScrollbar({
             theme:"dark", //主题颜色
@@ -22,102 +22,207 @@ $(function(){
             horizontalScroll : false//水平滚动条
 
         });
-
     });
-
-   	//手机验证码
-	$("#btn-getMsgCode").on("click",function(){
-	 
+    
+    // 手机号码
+    $('#mobileno').on('blur', function(){
 		if($("#mobileno").val() == ''){
 			$("#mobileno").next().css('display', 'inline');
 			$("#mobileno").closest('li').addClass('error');
 			return false;
+		}else if(!$("#mobileno").val().match(regex)){
+			$("#mobileno").next().find('font').text('手机号码格式不正确！');
+			$("#mobileno").next().css('display', 'inline');
+			$("#mobileno").closest('li').addClass('error');
+			return false;
+		}else if(isMobileRegister($('mobileno').val())){
+	 		$("#mobileno").next().find('font').text('手机号码已注册！');
+			$("#mobileno").next().css('display', 'inline');
+			$("#mobileno").closest('li').addClass('error');
+			return false;
+	 	}else{
+	 		$("#mobileno").next().find('font').text('&nbsp;');
+			$("#mobileno").next().css('display', 'inline');
+			$("#mobileno").closest('li').addClass('ok');
+			return true;
+	 	}
+	});
+	
+    // 校验-共用
+    var commonValidate = function(){
+    	var regex = /^(((13[0-9]{1})|145|147|(15[0-9]{1})|170|17[6-8]{1}|(18[0-9]{1}))+\d{8})$/;
+	 	
+		if($("#mobileno").val() == ''){
+			$("#mobileno").next().css('display', 'inline');
+			$("#mobileno").closest('li').addClass('error');
+			return false;
+		}else if(!$("#mobileno").val().match(regex)){
+			$("#mobileno").next().find('font').text('手机号码格式不正确！');
+			$("#mobileno").next().css('display', 'inline');
+			$("#mobileno").closest('li').addClass('error');
+			return false;
 		}else if($("#verifycode").val() == ''){
-			$("#verifycode").next().css('display', 'inline');
+			$("#verifycode").next().next().css('display', 'inline');
+			$("#verifycode").closest('li').addClass('error');
+			return false;
+		}
+		return true;
+    }
+    
+    // 验证码
+	$('#verifycode').on('blur', function(){
+	
+		if(!commonValidate()){
+			return false;
+		}else if(!verifycode_check($("#verifycode").val())){
+			$("#verifycode").next().next().find('font').text('验证码不正确！');
+			$("#verifycode").next().next().css('display', 'inline');
+			$("#verifycode").closest('li').addClass('error');
+			return false;
+		}else{
+			$("#verifycode").next().next().find('font').text('&nbsp;');
+			$("#verifycode").next().next().css('display', 'inline');
+			$("#verifycode").closest('li').addClass('error');
+			return true;
+		}
+	});
+
+   	// 获取手机验证码
+	$("#btn-getMsgCode").on("click",function(){
+	 	if(!commonValidate()){
+	 		return false;
+	 	}else if(!verifycode_check($("#verifycode").val())){
+			$("#verifycode").next().next().find('font').text('验证码不正确！');
+			$("#verifycode").next().next().css('display', 'inline');
 			$("#verifycode").closest('li').addClass('error');
 			return false;
 		}
 		
-        $.ajax({
-     		type: "GET",
-    		url: "${ufbDomain}/ajaxcust/getMsgCode.htm",
-    		data: 'mobileno='+$("#mobileno").val()+'&verifycode='+$("#verifycode").val(),
-    		async: false,
-    		success: function(b) {
-                if (b.errCode == "0000") {
-					alert("手机验证码已发送");
-					// 倒计时
-					var count = 60;
-            		var countdown = setTimeout(countDown, 1000);
-            		$("#btn-getMsgCode").addClass("off");
-            		$("#btn-getMsgCode").attr("disabled","disabled");
-            		// TODO
-					$("#msgcode").val(b.TODO);
-            		$("#msgcode").siblings(".tips-normal").hide();
-					//
-            		function countDown() {
-            			$("#btn-getMsgCode").prop("disabled", true); 
-            			$("#btn-getMsgCode").val("等待" + count + "秒!"); 
-            			if (count == 0) { 
-            				$("#btn-getMsgCode").val("重新发送"); 
-            				$("#btn-getMsgCode").removeClass("off");
-            				$("#btn-getMsgCode").removeAttr("disabled"); 
-            				clearTimeout(countdown); 
-            			}else{
-            				count--; 
-            				setTimeout(countDown, 1000);
-            			}
-            		}
-					//
-					$(".ipt-phoneCode").siblings(".tips-check").attr("style","display:none");
-					$(".ipt-phoneCode").parent().removeClass("error");
-                } else {
-                  	var errCode = b.errCode;
-					var errMsg = b.errMsg;
-					//alert(errCode + ": " + errMsg);
-					if("errMsg_mobileno"==errCode){
-						$(".ipt-phoneNum").siblings(".tips-check").html("<i class=icon></i>" + errMsg);
-						$(".ipt-phoneNum").siblings(".tips-check").attr("style","display:block");
-						$(".ipt-phoneNum").parent().addClass("error");
-					}else 
-					if("errMsg_verifycode"==errCode){
-						$(".ipt-code").siblings(".tips-check").html("<i class=icon></i>" + errMsg);
-						$(".ipt-code").siblings(".tips-check").attr("style","display:block");
-						$(".ipt-code").parent().addClass("error");
-					}else{
-						alert(errMsg);
-					}
-					var src = $("#btn-verifycode").attr("src");
-					$("#btn-verifycode").attr("src",src +'?time='+(new Date()));
-                }
-        	}
-        });
-       
+		// 发送短信
+		msgcode_send();
+	});
+	
+	
+	$("form input").on('focus', function(){
+		$(this).closest('ul').find('.tips-check').hide();
 	});
 
-	
-	  //提交表单
-	  $("#submitForm").on("click",function(){
+	//提交表单
+	$("#submitForm").on("click",function(){
+		if(!commonValidate()){
+	 		return false;
+	 	}else if($("#msgcode").val() == ''){
+			$("#msgcode").next().next().css('display', 'inline');
+			$("#msgcode").closest('li').addClass('error');
+			return false;
+		}
+		
+		$.ajax({
+			type: "POST",
+			url: '${ufbDomain}/family/account/register_passwd.htm',
+			data:'mobileno='+$('#mobileno').val()+'&msgcode='+$('#msgcode').val(),
+			async:false,
+			success: function(data){
+				var json = $.parseJSON(data);
+				if(json.errCode=='0000'){
+					location = '${ufbDomain}/family/account/register_passwd.htm';
+				}else{
+					alert('手机验证码不正确！');
+				}
+			}
+		});
+	});
 	  
-		if(!check_mobile($("#mobileno"))){
-			return false;
-		}
-		if(!check_code($("#verifycode"))){
-			return false;
-		}
-		//if(!check_phoneCode($("#msgcode"))){
-		//	return false;
-		//}
-		var errLen = $("ul li.error").length;
-		if(errLen>0){
-			$("ul li.error:eq(0) input[type=text]").focus();
-			$("ul li.error:eq(0) input[type=password]").focus();
+	// 检验图形验证码
+	var verifycode_check = function(verifycode){
+		var result = false;
+		$.ajax({
+			type: "POST",
+			url: '${ufbDomain}/common/verifycode_check.htm',
+			data:'verifycode='+verifycode,
+			async:false,
+			success: function(data){
+				var json = $.parseJSON(data);
+				if(json.errCode=='0000'){
+					result = true;
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'系统出现异常！'});
+			}
+		});
+		return result;
+	}
+	
+	// 发送短信验证码
+	var msgcode_send = function(){
+		var result = false;
+		$("#btn-getMsgCode").addClass("off");
+        $("#btn-getMsgCode").attr("disabled","disabled");
+		$.ajax({
+     		type: "GET",
+    		url: "${ufbDomain}/common/msgcode_send.htm",
+    		data: 'mobileno='+$("#mobileno").val()+'&verifycode='+$("#verifycode").val(),
+    		async: false,
+    		success: function(data) {
+    			var json = $.parseJSON(data);
+				if(json.errCode=='0000'){
+					result = true;
+					
+					// this is test code... removed later...
+					$('#msgcode').val(json.msgcode);
+				}
+        	},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'系统出现异常！'});
+			}
+        });
+        if(result){
+        	alert("手机验证码已发送！");
+            setTimeout(countDown, 1000);
+        }else{
+        	$("#btn-getMsgCode").removeClass("off");
+			$("#btn-getMsgCode").removeAttr("disabled");
+        }
+        return result;
+	}
+	
+	// 获取短信码按钮倒计时
+	var count = 60;
+	var countDown = function() {
+		$("#btn-getMsgCode").val("等待" + count + "秒!"); 
+		if (count == 0) { 
+			$("#btn-getMsgCode").val("重新发送"); 
+			$("#btn-getMsgCode").removeClass("off");
+			$("#btn-getMsgCode").removeAttr("disabled"); 
+			clearTimeout(countdown); 
 		}else{
-			$(".common-form").attr("action","../family/createAccount2.htm");
-		    $(".common-form").submit();
+			count--; 
+			setTimeout(countDown, 1000);
 		}
-	      
-	  });
+	}
+	
+	// 手机是否已注册
+	var isMobileRegister = function(mobileno){
+		var result = false;
+		$.ajax({
+			type: "POST",
+			url: '${ufbDomain}/common/isMobileRegister.htm',
+			data:'mobileno='+$('#mobileno').val(),
+			async:false,
+			success: function(data){
+				var json = $.parseJSON(data);
+				if(json.errCode=='0000'){
+					result = json.isMobileRegister;
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'系统出现异常！'});
+			}
+		});
+		return result;
+	}
+	
 })
 </script>
 </head>
@@ -135,24 +240,25 @@ $(function(){
                 </ul>
                 <div class="b3 mt10 pt30">
                     <form class="common-form" method="post">
+                    	<input type="hidden" id="isRegister" value="0">
                         <div class="panel panelCenter">
                             <ul>
                                 <li>
                                     <span class="form-title">手机号</span>
                                     <input class="ipt-phoneNum input-text" type="text" name="mobileno" id="mobileno"  value="$!{CustinfoVo.mobileno}" placeholder="输入11位手机号">
-                                    <span class="tips-check"><i class="icon"></i>手机号码不能为空！</span>
+                                    <span class="tips-check"><i class="icon"></i><font>手机号码不能为空！</font></span>
                                 </li>
                                 <li>
                                     <span class="form-title">验证码</span>
                                      <input class="ipt-code input-code" type="text"  name="verifycode"  id="verifycode" maxlength="4" value="$!{CustinfoVo.verifycode}" placeholder="输入图形验证码">
                                     <span style="display:block;float:right;padding-right:55px;"><img style="width: 80px;height: 35px;display: block;padding-top: 3px;" id="btn-verifycode" src="${ufbDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())" ></span>
-                                    <span class="tips-check" style="float:right;width: 100px;display: block; position: absolute; top:10px;right: -70px"><i class="icon"></i>请输入图形验证码！</span>
+                                    <span class="tips-check" style="float:right;width: 120px;display: block; position: absolute; top:10px;right: -90px"><i class="icon"></i><font>请输入图形验证码！</font></span>
                                 </li>
                                 <li>
                                     <span class="form-title">手机验证码</span>
                                     <input class="ipt-phoneCode input-code" type="text" maxlength="6" name="msgcode" id="msgcode" value="$!{CustinfoVo.msgcode}" placeholder="输入手机验证码">
                                     <input id="btn-getMsgCode" class="input-button" type="button" value="获取验证码">
-                                    <span class="tips-check"><i class="icon"></i>请输入短信验证码！</span>
+                                    <span class="tips-check"><i class="icon"></i><font>请输入手机验证码！<font></span>
                                 </li>
                             </ul>
                         </div>

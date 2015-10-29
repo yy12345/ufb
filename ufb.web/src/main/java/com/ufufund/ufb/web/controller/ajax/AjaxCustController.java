@@ -105,8 +105,8 @@ public class AjaxCustController {
 	 * @param
 	 * @return
 	 */
-	@RequestMapping(value = "ajaxcust/getMsgCode", method = RequestMethod.GET)
-	@ResponseBody
+//	@RequestMapping(value = "ajaxcust/getMsgCode", method = RequestMethod.GET)
+//	@ResponseBody
 	public Map<String,String> sendMsgCode(String mobileno, String verifycode){
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try {

@@ -43,7 +43,7 @@ $(function(){
 			$("#verifyImg").trigger('click');
 			$("#loginpwd").val('');
 			$("#verifycode").val('');
-			$("#mobileno").focus();
+			$("#mobileno").select();
 			$(".wrongTips").fadeIn();
 			return false;
 		 }else{
@@ -54,49 +54,50 @@ $(function(){
 	
 	$("#myform input").on('focus', function(){
 		$(".wrongTips").fadeOut();
-	})
-
-}); 
-
-// 检验图形验证码
-function verifycode_check(verifycode){
-	var result = false;
-	$.ajax({
-		type: "POST",
-		url: '${ufbDomain}/common/verifycode_check.htm',
-		data:'verifycode='+verifycode,
-		async:false,
-		success: function(data){
-			var json = $.parseJSON(data);
-			if(json.errCode=='0000'){
-				result = true;
-			}
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			$.alert({title:'系统出现异常！'});
-		}
 	});
-	return result;
-}
 
-function login(){
-	 var result = false;
-	 $('#myform').ajaxSubmit({
-		async:false,
-		resetForm:false,
-		clearForm:false,
-		success: function(data){
-			var json = $.parseJSON(data);
-			if(json.errCode=='0000'){
-				result = true;
+	// 检验图形验证码
+	var verifycode_check = function(verifycode){
+		var result = false;
+		$.ajax({
+			type: "POST",
+			url: '${ufbDomain}/common/verifycode_check.htm',
+			data:'verifycode='+verifycode,
+			async:false,
+			success: function(data){
+				var json = $.parseJSON(data);
+				if(json.errCode=='0000'){
+					result = true;
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'系统出现异常！'});
 			}
-		},
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			$.alert({title:'系统出现异常！'});
-		}
-	 });
-	 return result;
-}
+		});
+		return result;
+	}
+	
+	// 登录
+	var login = function(){
+		 var result = false;
+		 $('#myform').ajaxSubmit({
+			async:false,
+			resetForm:false,
+			clearForm:false,
+			success: function(data){
+				var json = $.parseJSON(data);
+				if(json.errCode=='0000'){
+					result = true;
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'系统出现异常！'});
+			}
+		 });
+		 return result;
+	}
+	
+}); 
 </script>
 </head>
 <body>

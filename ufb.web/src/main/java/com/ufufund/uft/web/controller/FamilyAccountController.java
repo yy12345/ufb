@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.exception.BizException;
@@ -43,6 +44,7 @@ import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgStudent;
 import com.ufufund.ufb.web.filter.ServletHolder;
+import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.UserHelper;
 import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
@@ -60,8 +62,11 @@ public class FamilyAccountController {
 	
 	private static final String FAMILY_HOME = "family/home.htm";
 	private static final String FAMILY_HOME_NAME = "幼富通首页";
+	private static final String REGISTER_INDEX = "family/account/register_index.htm";
 	private static final String SETTING_CARD = "family/setting/card_index.htm";
 	private static final String SETTING_CARD_NAME = "我的银行卡";
+	
+	private static final String REGISTER_MOBILE = "register_mobile";
 	
 	@Autowired
 	private CustManager custManager;
@@ -136,22 +141,25 @@ public class FamilyAccountController {
 	 * @return
 	 */
 	@RequestMapping(value = "register_passwd")
-	public String registerPasswd(CustinfoVo custinfoVo, Model model) {
-		
+	@ResponseBody
+	public Map<String,Object> registerPasswd(CustinfoVo custinfoVo, Model model) {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
 		try{
 			// 后台验证手机验证码
-			// coding later...
+			MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
+			ServletHolder.getSession().setAttribute(REGISTER_MOBILE, custinfoVo.getMobileno());
 			
-			model.addAttribute("CustinfoVo",custinfoVo);
+			resultMap.put("errCode", "0000");
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
-			model.addAttribute("message_title", "操作失败");
-			model.addAttribute("message_content", ue.getMessage());
-			model.addAttribute("message_url", FAMILY_HOME);
-			model.addAttribute("back_module", FAMILY_HOME_NAME);
-			return "error/error";
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
 		}
-		return "family/account/register_passwd";
+		return resultMap;
 	}
 	
 	/**

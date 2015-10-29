@@ -87,7 +87,7 @@ public class MsgCodeUtils {
 
 		// 调用短信接口，发送短信
 		MobileMsgManager mobileMsgManager = getMobileMsgManager();
-		String content = String.format(MsgTemplate.templateMap.get("0J001"), msgCode.getMsgCode());
+		String content = String.format(MsgTemplate.templateMap.get(template), msgCode.getMsgCode());
 		mobileMsgManager.sendMobile(mobileNo, content);
 	}
 	
@@ -118,13 +118,13 @@ public class MsgCodeUtils {
 		if (null == msgCode || StringUtils.isBlank(msgCode)) {
 			throw new UserException("手机验证码为空！");
 		} else if (null == value || StringUtils.isBlank(value.getMsgCode())) {
-			throw new UserException("您的手机验证码已失效，请重新发送！");
+			throw new UserException("手机验证码已失效，请重新发送！");
 		} else if (!value.getMsgCode().equals(msgCode) || !value.getMobileNo().equals(mobileNo) ) {
-			throw new UserException("您输入的手机验证码不匹配，请重新发送！", "手机验证码");
+			throw new UserException("手机验证码不正确！！");
 		} else {
 			long now = System.currentTimeMillis();
 			if (now - value.getTimeList().get(value.getTimeList().size() - 1) > ACTIVE_TIME * 60 * 1000) {
-				throw new UserException("您的手机验证码已失效，请重新发送！");
+				throw new UserException("手机验证码已失效，请重新发送！");
 			}
 		}
 	}
@@ -139,7 +139,7 @@ public class MsgCodeUtils {
 	}
 	
 
-	private static class MsgCode {
+	public static class MsgCode {
 		private String mobileNo;
 		// 短信码
 		private String msgCode;

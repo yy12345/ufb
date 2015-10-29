@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.manager.BankBaseManager;
+import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.model.db.BankCardbin;
+import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
+import com.ufufund.ufb.web.util.MsgCodeUtils.MsgCode;
 import com.ufufund.ufb.web.util.VerifyCodeUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +27,8 @@ public class UfuCommonController {
 	
 	@Autowired
 	private BankBaseManager bankBaseManager;
+	@Autowired
+	private CustManager custManager;
 	
 	
 	/**
@@ -64,6 +69,62 @@ public class UfuCommonController {
 		try{
 			MsgCodeUtils.check(msgcode, mobileno);
 			resultMap.put("errCode", "0000");
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 检验短信验证码是否正确
+	 * @param msgcode
+	 * @return
+	 */
+	@RequestMapping(value = "msgcode_send")
+	@ResponseBody
+	public Map<String,Object> msgcodeSend(String mobileno, String verifycode) {
+		
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try{
+			VerifyCodeUtils.validate(verifycode);
+			MsgCodeUtils.sendMsg("0J001", mobileno);
+			resultMap.put("errCode", "0000");
+			
+			// this is test code ... removed later...
+			MsgCode msgcode = (MsgCode)ServletHolder.getSession().getAttribute("MSGCODE");
+			resultMap.put("msgcode", msgcode.getMsgCode());
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 检验手机号码是否已注册
+	 * @param msgcode
+	 * @return
+	 */
+	@RequestMapping(value = "isMobileRegister")
+	@ResponseBody
+	public Map<String,Object> isMobileRegister(String mobileno) {
+		
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try{
+			boolean isMobileRegister = custManager.isMobileRegister(mobileno);
+			resultMap.put("errCode", "0000");
+			resultMap.put("isMobileRegister", isMobileRegister);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			resultMap.put("errCode", ue.getCode());
