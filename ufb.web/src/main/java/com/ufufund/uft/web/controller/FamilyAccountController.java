@@ -66,7 +66,7 @@ public class FamilyAccountController {
 	private static final String SETTING_CARD = "family/setting/card_index.htm";
 	private static final String SETTING_CARD_NAME = "我的银行卡";
 	
-	private static final String REGISTER_MOBILE = "register_mobile";
+	private static final String REGISTER_VO = "register_vo";
 	
 	@Autowired
 	private CustManager custManager;
@@ -135,19 +135,19 @@ public class FamilyAccountController {
 	}
 	
 	/**
-	 * 家庭版：注册，密码填写
+	 * 家庭版：注册，确认手机号可注册
 	 * @param custinfoVo
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "register_passwd")
+	@RequestMapping(value = "register_comfirmMobile")
 	@ResponseBody
-	public Map<String,Object> registerPasswd(CustinfoVo custinfoVo, Model model) {
+	public Map<String,Object> registerComfirmMobile(CustinfoVo custinfoVo, Model model) {
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		try{
 			// 后台验证手机验证码
-			MsgCodeUtils.validate(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
-			ServletHolder.getSession().setAttribute(REGISTER_MOBILE, custinfoVo.getMobileno());
+			MsgCodeUtils.check(custinfoVo.getMsgcode(), custinfoVo.getMobileno());
+			ServletHolder.getSession().setAttribute(REGISTER_VO, custinfoVo);
 			
 			resultMap.put("errCode", "0000");
 		}catch(UserException ue){
@@ -160,6 +160,28 @@ public class FamilyAccountController {
 			resultMap.put("errMsg", "系统出现异常！");
 		}
 		return resultMap;
+	}
+	
+	/**
+	 * 家庭版：注册，密码填写
+	 * @param custinfoVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "register_passwd")
+	public String registerPasswd(Model model) {
+		try{
+			CustinfoVo custinfoVo = (CustinfoVo)ServletHolder.getSession().getAttribute(REGISTER_VO);
+			if(custinfoVo == null )throw new UserException("您的访问的地址有误！");
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "操作失败");
+			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("message_url", FAMILY_HOME);
+			model.addAttribute("back_module", FAMILY_HOME_NAME);
+			return "error/error";
+		}
+		return "family/account/register_passwd";
 	}
 	
 	/**

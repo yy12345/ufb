@@ -1,20 +1,37 @@
-(function($) {	
+(function($) {
+	$.fn.limit=function(num){//截取文字
+		$(this).each(function(i,d){
+			var objString = $(this).text();
+			var objLength = $(this).text().length;
+			if(objLength > num){
+				$(this).attr("title",objString);
+				$(this).css({textIndent:0});
+				objString = $(this).text(objString.substring(0,JH.StringUtilities.limitLength(objString,num))+'…');
+			}
+		})
+	}
 	//下拉菜单
 	$.fn.selectMenu = function(options) {
 		var defaults = {
 			refresh: false,
-			change: $.noop
+			change: $.noop,
+			blur: $.noop
 		};
 		var sets = $.extend(defaults, options || {});
 		$(this).each(function(i,d){
 			var list = '';var listval = [];
 			$(this).find("option").each(function(j,e){
-				list += '<li>'+$(this).text()+'</li>';
-				listval.push($(this).val());
+				if(!$(this).attr('disabled')){
+					list += '<li>'+$(this).text()+'</li>';
+					listval.push($(this).val());
+				}else{
+					list += '<li class="disabled">'+$(this).text()+'</li>';
+					listval.push($(this).val());
+				}
 			});
 			if(!sets.refresh && !$(this).next().hasClass("title")){
 				$(this).wrap('\
-					<div class="selectmenu">\
+					<div class="selectmenu" tabindex="-1">\
 					</div>\
 				');
 				$(this).after('\
@@ -27,45 +44,55 @@
 			}else{
 				$(this).parent().find(".list").html(list);
 			}
-			var thatAll = $('.selectmenu');
 			var that = $(this).parent();
-			that.css({"z-index":1000-i,"width":parseInt($(this).css("width"))+2,"margin-right":$(this).css("margin-right")});
-			that.find(".text").text($(this).val());
+			that.css({"z-index":99,"width":parseInt($(this).css("width"))+2,"margin-right":$(this).css("margin-right"),"margin-left":$(this).css("margin-left"),"outline":"none"});
+			that.find('.list').css({"width":parseInt($(this).css("width"))});
+			that.find(".text").text($(this).find('option:selected').text());
 			that.find("li").unbind("click").on("click",function(event){
 				event.stopPropagation();
-				that.find(".text").text($(this).text());
-				that.find(".select").val(listval[$(this).index()]);
-				sets.change(listval[$(this).index()]);
-				that.find(".ico").removeClass("active");
-				that.find(".list").hide();
+				if(!$(this).hasClass('disabled')){
+					that.find(".text").text($(this).text());
+					that.find(".select").val(listval[$(this).index()]);
+					sets.change(listval[$(this).index()]);
+					that.find(".ico").removeClass("active");
+					that.find(".list").hide();
+				}
+			});
+			that.find("li").unbind("mouseover").on("mouseover",function(){
+				$(this).addClass('over');
+			});
+			that.find("li").unbind("mouseout").on("mouseout",function(){
+				$(this).removeClass('over');
 			});
 			that.unbind("click").on("click",function(event){
 				event.stopPropagation();
-				thatAll.find(".list").hide();		
+				$('.selectmenu').css('z-index',1);
+				$(this).css('z-index',2);
+				$('.selectmenu').find(".list").hide();		
 				switch ($(this).find(".ico").hasClass("active")) {
 					case true:
-						thatAll.find(".ico").removeClass("active");
+						$('.selectmenu').find(".ico").removeClass("active");
 						$(this).find(".ico").removeClass("active");
 						that.find(".list").hide();
 						break;
 					case false:
-						thatAll.find(".ico").removeClass("active");
+						$('.selectmenu').find(".ico").removeClass("active");
 						$(this).find(".ico").addClass("active");
 						that.find(".list").show();
 						break;
 				}
 				if($(document).height()-that.offset().top-that.find(".list").height()<40){
-					that.find(".list").css({top:-that.find(".list").height()});
+					that.find(".list").css({top:-that.find(".list").height()-1});
 				}else{
-					that.find(".list").css({top:that.height()});
+					that.find(".list").css({top:that.height()-1});
 				}
 			});
-			that.find(".list").unbind("mousewheel").mousewheel(function(event, delta) {
-				event.stopPropagation();
+			that.unbind("blur").on("blur",function(event){
+				sets.blur($(this).find("select"));
 			});
 			$(document).unbind("click").on("click",function(){
-				thatAll.find(".ico").removeClass("active");
-				thatAll.find(".list").hide();
+				$('.selectmenu').find(".ico").removeClass("active");
+				$('.selectmenu').find(".list").hide();
 			})
 		});
 	}
@@ -133,20 +160,10 @@
 				that.removeClass('active');
 			}
 			that.find('input').unbind("click").on('click',function() {
-				switch(that.hasClass('active')){
-					case true:
-						thatAll.find('input[name="'+$(this).attr('name')+'"]').parent().removeClass('active');
-						thatAll.find('input[name="'+$(this).attr('name')+'"]').attr('checked',false);
-						that.removeClass('active');
-						$(this).attr('checked',false);
-						break;
-					case false:
-						thatAll.find('input[name="'+$(this).attr('name')+'"]').parent().removeClass('active');
-						thatAll.find('input[name="'+$(this).attr('name')+'"]').attr('checked',false);
-						that.addClass('active');
-						$(this).attr('checked',true);
-						break;
-				}
+				thatAll.find('input[name="'+$(this).attr('name')+'"]').parent().removeClass('active');
+				thatAll.find('input[name="'+$(this).attr('name')+'"]').attr('checked',false);
+				that.addClass('active');
+				$(this).attr('checked',true);
 			})
 		})
 	}
@@ -166,9 +183,9 @@
 			}
 			that.find('.num').css({top:-that.outerHeight()+1,width:that.outerWidth()-22});
 			that.find('input').on('focus',function(){
-				$(this).next().show();
+				$(this).parent().find('.num').show();
 			}).on('blur',function(){
-				$(this).next().hide();
+				$(this).parent().find('.num').hide();
 			}).on('keyup',function(e){
 				var reg = /^(?=.*?\,)/g;
 				if(!reg.test( pattern.substr(0,$(this).val().length)) ){
@@ -182,98 +199,227 @@
 							k++;
 						}				
 						break;
-					
 				}
 				var retpattern = pattern.substr(0,$(this).val().length+k);
 				//console.log(retpattern);
-				
-				var num = JH.NumberFormat.format($(this).val(),retpattern).replace(/,/g,' ');
-				if(num == 0){
-					$(this).next().html('&nbsp;');
+				if($(this).val().length>pattern.replace(/,/g,'').length){
+					var num = JH.NumberFormat.format($(this).val().substr(0,pattern.replace(/,/g,'').length),retpattern).replace(/,/g,' ')+"…";
 				}else{
-					$(this).next().text(num);
+					var num = JH.NumberFormat.format($(this).val(),retpattern).replace(/,/g,' ');
+				}
+				if(num == 0){
+					$(this).parent().find('.num').html('&nbsp;');
+				}else{
+					$(this).parent().find('.num').text(num);
 				}
 			})
 		})
 	}
-	$.fn.box = function(options) {
+	$.alert = function(options) {
 		var defaults = {
-			width: 720,
-			height:540,
+			width:200,
+			time:1,
 			title:''
 		};
 		var sets = $.extend(defaults, options || {});
-		$(this).each(function(){
-			var that = $(this);
-			if(!that.parentsUntil('.boxwrap').parent().hasClass('boxwrap')){
-				var wrapBox = $('<div class="boxwrap"><div class="boxbg"></div><div class="box"><b class="close closebox"></b><div class="title">'+sets.title+'</div><div class="content"></div></div></div>');
-				wrapBox.find('.content').append(that);
-				wrapBox.find('.box').css({width:sets.width,height:sets.height,marginLeft:-sets.width/2,marginTop:-sets.height/2});
-				wrapBox.find('.content').css({width:sets.width-70,height:sets.height-110,margin:"20px 35px"});
-				$('body').append(wrapBox);
-				that.show();
-				wrapBox.find('.content').jScrollPane();
-				wrapBox.find('.closebox').on('click',function(){
-					that.parentsUntil('.boxwrap').parent().fadeOut();
-				});
-				wrapBox.find('.boxbg').on('click',function(){
-					that.parentsUntil('.boxwrap').parent().fadeOut();
-				});
-			}else{
-				that.parentsUntil('.boxwrap').parent().fadeIn();
-			}
-			
-		});
+		$('.alert').remove();
+		if(sets.time != null){
+			$.doTimeout( 'timeid' );
+			$.doTimeout('timeid',1000,function(){
+				sets.time--;
+				if(sets.time == 0){
+					$('.alert').remove();
+					return false;
+				}
+				return true;
+			})		
+		}
+		$('body').append('<div class="alert">'+sets.title+'</div>');
+		$('.alert').css({marginLeft:-$('.alert').outerWidth()/2,marginTop:-$('.alert').outerHeight()/2});
 	}
-	//tabs菜单
-	$.fn.tabs = function(options) {
+	$.confirm = function(options) {
 		var defaults = {
-			active:1
+			width:450,
+			title:'',
+			complete:$.noop
 		};
 		var sets = $.extend(defaults, options || {});
-		$(this).each(function(i,d){
-			$(this).find('.tabsCon').eq(sets.active-1).show();
-			$(this).find('.tabsNav a').eq(sets.active-1).addClass('active');
-			$(this).find('.tabsNav a').each(function(i,id){
-				$(this).on('click',function(){
-					$(this).parent().parent().find('.tabsNav a').removeClass('active');
-					$(this).addClass('active');
-					$(this).parent().parent().find('.tabsCon').hide();
-					$(this).parent().parent().find('.tabsCon').eq(i).show();
-				})
-			})
+		$('body').append('<div class="confirm"><div class="close closeAlert"></div><div class="content">'+sets.title+'</div><div class="ok">确 认</div><div class="cancel closeAlert">取 消</div></div>');
+		
+		$('.confirm').css({width:sets.width,marginLeft:-sets.width/2,marginTop:-$('.confirm').outerHeight()/2});
+		$('.confirm .closeAlert').on('click',function(){
+			$('.confirm').remove();
+		})
+		$('.confirm .ok').on('click',function(){
+			sets.complete();
+			$('.confirm').remove();
+		})
+	}
+	$.delay = function(options) {
+		var defaults = {
+			delay:200,
+			complete:$.noop,
+			id:'delayid'
+		};
+		var sets = $.extend(defaults, options || {});
+		$.doTimeout(sets.id);
+		$.doTimeout(sets.id,sets.delay,function(){
+			sets.complete();
+		});
+	}
+	$.loadPage = function(url,mode) {
+		var target,reg,url;
+		url = url;
+		switch(mode){
+			case 'main':
+				target = '.page .main';
+				break;
+			case 'body':
+				target = '.page .body';
+				break;
+			case 'target':
+				target = '.page .target';
+				break;
+			case 'more':
+				target = '.page .loadmore';
+				break;
+			case 'page':
+				target = 'body';
+				break;
+		}
+		$(target).prepend('<div class="loading"><span></span></div>');
+		var loading = $('.loading span');
+		loading.animate({width:'90%'},1000,'easeOutQuad');
+		$.ajax({
+			type: "GET",
+			url: url,
+			success: function(data){
+				loading.stop().animate({width:'100%'},100,'easeOutQuad',function(){
+					$('.loading').remove();
+					if(mode == 'main'){
+						reg = /<section [^>]*class="loadmain"[^>]*>(<section[^>]*>[\s\S]*?<\/section>|[\s\S])*?<\/section>/;
+					}else if(mode == 'body'){
+						reg = /<section [^>]*class="loadbody"[^>]*>(<section[^>]*>[\s\S]*?<\/section>|[\s\S])*?<\/section>/;
+					}else if(mode == 'target'){
+						reg = /<section [^>]*class="loadtarget"[^>]*>(<section[^>]*>[\s\S]*?<\/section>|[\s\S])*?<\/section>/;
+					}else if(mode == 'page'){
+						reg = /<section [^>]*class="loadpage"[^>]*>(<section[^>]*>[\s\S]*?<\/section>|[\s\S])*?<\/section>/;
+					}
+					if(mode == 'more'){
+						$(target).append($(data).find('.loadmore').html());
+					}if(mode == 'page'){
+						$(target).append(data.match(reg)[0]);
+						$(data).find('.loadpage').fadeIn();
+						$(data).find('.loadpageclose,.loadpagebg').on('click',function(){
+							$(this).closest('.loadpage').fadeOut(400,'easeOutQuad',function(){
+								$(this).remove();
+							});
+						});
+					}else{
+						$(target).html(data.match(reg)[0]);
+					}
+					//$(target).css('opacity',0).animate({'opacity':1},400,'easeOutQuad');
+				});
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'网络不给力，请再试试！'});
+				$('.loading').remove();
+			}
 		});
 	}
 })(jQuery);
 var JH = {}
-JH.NumberUtilities = {
-	random:function(nMinimum, nMaximum, nRoundToInterval) {//生成随机数
-		nMaximum?nMaximum:nMaximum = 0;
-		nRoundToInterval?nRoundToInterval:nRoundToInterval = 1;
-		if(nMinimum > nMaximum) {
-			var nTemp = nMinimum;
-			nMinimum = nMaximum;
-			nMaximum = nTemp;
-		}
-		var nDeltaRange = (nMaximum - nMinimum) + (1 * nRoundToInterval);
-		var nRandomNumber = Math.random() * nDeltaRange;
-		nRandomNumber += nMinimum;
-		return Math.floor(nRandomNumber, nRoundToInterval);
+JH.load = {
+	add:function(url,target,callback){
+		$(target).prepend('<div class="loading"><span></span></div>');
+		var loading = $('.loading span');
+		loading.animate({width:'90%'},1000,'easeOutQuad');
+		$.ajax({
+			type: "GET",
+			url: url,
+			success: function(data){
+				loading.stop().animate({width:'100%'},100,'easeOutQuad',function(){
+					$('.loading').remove();
+					$(target).append(data);
+					if(callback)callback(target);
+				});
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'网络不给力，请再试试！'});
+			}
+		})
+	},
+	syncAdd:function(url,target){
+		$.ajax({
+			type: "GET",
+			url: url,
+			async:false,
+			success: function(data){
+				$(target).append(data);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'网络不给力，请再试试！'});
+			}
+		})
 	}
 }
 JH.ArrayUtilities = {
-	randomize:function(aArray){//数组元素随机化
-		var aCopy = aArray.concat();
-		var aRandomized = new Array();
-		var oElement;
-		var nRandom;
-		for(var i = 0; i < aCopy.length; i++) {
-			nRandom = JH.NumberUtilities.random(0, aCopy.length - 1);
-			aRandomized.push(aCopy[nRandom]);
-			aCopy.splice(nRandom, 1);
-			i--;
+	toString:function(oArray, nLevel) {//快速输出数组内容
+		nLevel?nLevel:nLevel = 0;
+		var sIndent = "";
+		for(var i = 0; i < nLevel; i++) {
+			sIndent += "\t";
 		}
-		return aRandomized;
+		var sOutput = "";
+		for(var sItem in oArray) {
+			if(typeof oArray[sItem] == "object") {
+				sOutput = sIndent + "** " + sItem + " **\n" + toString(oArray[sItem], nLevel + 1) + sOutput;
+			}
+			else {
+				sOutput += sIndent + sItem + ":" + oArray[sItem] + "\n";
+			}
+		}
+		return sOutput;
+	}
+}
+JH.StringUtilities = {
+	isWhitespace:function( ch ) {
+		return ch == '\r' || 
+				ch == '\n' ||
+				ch == '\f' || 
+				ch == '\t' ||
+				ch == ' '; 
+	},
+	trim:function( original ) {//剪去开始结尾处空白
+		var characters = original.split( "" );
+		for ( var i = 0; i < characters.length; i++ ) {
+			if ( this.isWhitespace( characters[i] ) ) {
+				characters.splice( i, 1 );
+				i--;
+			} else {
+				break;
+			}
+		}
+		for ( i = characters.length - 1; i >= 0; i-- ) {
+			if ( this.isWhitespace( characters[i] ) ) {
+				characters.splice( i, 1 );
+			} else {
+				break;
+			}
+		}
+		return characters.join("");
+	},
+	limitLength:function(str,num){
+		var l = 0;
+		var a = str.split("");
+		for (var i=0;i<num;i++) {
+			if (a[i].charCodeAt(0)<299) {
+				l+=2;
+			} else {
+				l++;
+			}
+		}
+		return l;
 	}
 }
 JH.NumberFormat = {
@@ -330,41 +476,4 @@ JH.NumberFormat = {
 		}
 		return retstr.replace(/^,+/,'').replace(/\.$/,'');
 	}
-}
-JH.formatDate = function(date,pattern){//JH.formatDate("2015-05-22 20:21:00","YYYY-MM-DD hh:mm:ss");
-	Date.prototype.format = function(format){ 
-		var o = { 
-			"M+" : this.getMonth()+1, //month 
-			"D+" : this.getDate(), //day 
-			"h+" : this.getHours(), //hour 
-			"m+" : this.getMinutes(), //minute 
-			"s+" : this.getSeconds(), //second 
-			"Q+" : Math.floor((this.getMonth()+3)/3), //quarter 
-			"S" : this.getMilliseconds() //millisecond 
-		} 
-	
-		if(/(Y+)/.test(format)) { 
-			format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
-		} 
-	
-		for(var k in o) { 
-			if(new RegExp("("+ k +")").test(format)) { 
-				format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length)); 
-			} 
-		} 
-		return format; 
-	}
-	var now = new Date(date); 
-	var nowStr = now.format(pattern);
-	return nowStr;
-}
-JH.toDate = function(options){
-	var date = new Date(options*1000);
-	Y = date.getFullYear() + '-';
-	M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-	D = date.getDate() + ' ';
-	h = date.getHours() + ':';
-	m = date.getMinutes() + ':';
-	s = date.getSeconds(); 
-	return Y+M+D+h+m+s;
 }

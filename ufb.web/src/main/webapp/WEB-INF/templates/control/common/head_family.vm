@@ -8,7 +8,10 @@
 	    $!{title}
 	#end
 	<link rel="shortcut icon" href="${staticDomain}/favicon.ico" type="image/x-icon">
-	#if(${family_module} == "uft")
+	#if(${family_module} == "index" || ${family_module} == "account")
+		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
+		<link rel="stylesheet" href="${staticDomain}/family/css/main.css">
+	#elseif(${family_module} == "uft")
 		<link rel="stylesheet" href="${staticDomain}/family/css/style.css">
 		<link rel="stylesheet" href="${staticDomain}/family/css/family.css">
 	#elseif(${family_module} == "ufb")
@@ -21,10 +24,6 @@
 	#elseif(${family_module} == "setting")
 		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
     	<link rel="stylesheet" href="${staticDomain}/family/css/common.css">
-    #else
-    	<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
-    	<link rel="stylesheet" href="${staticDomain}/family/css/common.css">
-    	<link rel="stylesheet" href="${staticDomain}/family/css/main.css">
 	#end
     
 	<script type='text/javascript' src='${staticDomain}/family/libs/jquery.min.js'></script>
@@ -48,6 +47,6 @@
     <script type="text/javascript" src="${staticDomain}/family/libs/jquery.ui.datepicker.js"></script>
     <script type="text/javascript" src="${staticDomain}/family/libs/jquery.ui.datepicker-zh-CN.js"></script>
     <!--日期控件 结束-->
-    
+   
     $!{style}
 </head>

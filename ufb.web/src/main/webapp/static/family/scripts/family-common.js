@@ -4,7 +4,7 @@
  * @return 金额格式的字符串,如'1234,567.45'
  * @type String
  */
-var formatCurrency1=function(num) {
+var formatCurrency1 = function(num) {
 	if (typeof(num) == "undefined"){
 		return "0.00";
 	}
@@ -29,7 +29,7 @@ var formatCurrency1=function(num) {
  * @return 金额格式的字符串,如'1,234,567.45'
  * @type String
  */
-var formatCurrency2 =function(num) {
+var formatCurrency2 = function(num) {
 	if (typeof(num) == "undefined"){
 		return "0.00";
 	}
@@ -50,7 +50,7 @@ var formatCurrency2 =function(num) {
 
 //验证密码
 var commonSymbol = "[\\,\\`\\~\\!\\@\\#\\$\\%\\\\^\\&\\*\\(\\)\\-\\_\\+\\[\\{\\]\\}\\\\|\\;\\:\\‘\\’\\“\\”\\<\\>\\/?]+";
-var check_pwd1 = function (value) {
+var check_pwd1 = function(value){
     if (value == "") {
         return "密码不能为空";
     }
@@ -84,7 +84,7 @@ var check_pwd1 = function (value) {
     return "";
 }
 //验证重复密码
- var check_pwd2 = function (pwd1, pwd2) {
+ var check_pwd2 = function(pwd1, pwd2){
     var _form = ipt.parents("form");
 
     var _valuePassword1 = pwd1;
@@ -98,7 +98,7 @@ var check_pwd1 = function (value) {
     return "";
 }
 // 是否所有字符相同
-function isSameWord(str) {
+var isSameWord = function(str){
     var char;
     if (str != null && str != "") {
         char = str.charCodeAt(0);

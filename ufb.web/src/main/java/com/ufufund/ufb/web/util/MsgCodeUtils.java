@@ -115,7 +115,7 @@ public class MsgCodeUtils {
 	public static void check(String msgCode, String mobileNo){
 		
 		MsgCode value = (MsgCode) ServletHolder.getSession().getAttribute("MSGCODE");
-		if (null == msgCode || StringUtils.isBlank(msgCode)) {
+		if (StringUtils.isBlank(msgCode)) {
 			throw new UserException("手机验证码为空！");
 		} else if (null == value || StringUtils.isBlank(value.getMsgCode())) {
 			throw new UserException("手机验证码已失效，请重新发送！");
