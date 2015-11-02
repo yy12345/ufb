@@ -24,6 +24,9 @@
 	#elseif(${family_module} == "setting")
 		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
     	<link rel="stylesheet" href="${staticDomain}/family/css/common.css">
+    #elseif(${family_module} == "help")
+		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
+    	<link rel="stylesheet" href="${staticDomain}/family/css/common.css">
 	#end
     
 	<script type='text/javascript' src='${staticDomain}/family/libs/jquery.min.js'></script>

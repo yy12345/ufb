@@ -6,14 +6,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.AutotradeManager;
+import com.ufufund.ufb.biz.manager.BankBaseManager;
+import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.TradeManager;
@@ -26,14 +25,19 @@ import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.cust.ChangeAutoStateAction;
 import com.ufufund.ufb.model.action.cust.ModifyAutotradeAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.Autotrade;
+import com.ufufund.ufb.model.db.BankBaseInfo;
+import com.ufufund.ufb.model.db.BankCardbin;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.AutoTradeType;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
+import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.vo.ApplyVo;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.AutotradeVo;
+import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.RedeemVo;
 import com.ufufund.ufb.model.vo.Today;
@@ -53,6 +57,8 @@ public class TradedController {
 	private static final String AUTOTRADE_INDEX = "family/ufb/autotrade_index.htm";
 	private static final String AUTOTRADE_NAME = "自动充值";
 	private static final String AUTOTRADEADD_INDEX = "family/ufb/autoadd_index.htm";
+	private static final String BANKCARD_INDEX="family/setting/bankcard_index.htm";
+	private static final String SETTING_CARD_NAME="银行卡管理";
 	@Autowired
 	private TradeManager tradeManager;
 	@Autowired
@@ -63,7 +69,10 @@ public class TradedController {
 	private WorkDayManager workDayManager;
 	@Autowired
 	private AutotradeManager autotradeManager;
-	
+	@Autowired
+	private BankBaseManager bankBaseManager;
+	@Autowired
+	private BankCardManager bankCardManager;
 	/**
 	 * 充值
 	 * @param vo
@@ -843,5 +852,170 @@ public class TradedController {
 		ServletHolder.forward("/family/ufb/autotrade_index.htm?TAB=DR");
 		return "family/ufb/autotrade_index";
 	}
+	/**
+	 * 重新绑定银行卡
+	 * @param bankCardVo
+	 * @param bankacco
+	 * @param serialid
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="card_add")
+	public String cardAdd(BankCardVo bankCardVo,String bankacco, String serialid,Model model){
+		
+		try{
+			 CustinfoVo custinfoVo=UserHelper.getCustinfoVo();
+			 String ivnname=custinfoVo.getInvnm();
+			 String idno=custinfoVo.getIdno();
+			 //用户信息
+			 model.addAttribute("ivnname", ivnname);
+			 model.addAttribute("idno", idno);
+			 //获得所有的银行卡
+				List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
+				//支持幼富通的银行===20151013
+				List<BankBaseInfo> yftBankList= new ArrayList<BankBaseInfo>();
+				//其它的银行
+				List<BankBaseInfo> qtBankList= new ArrayList<BankBaseInfo>();
+				for(BankBaseInfo bankinfo:bankBaseList){
+					if("2".equals(bankinfo.getLevel())){
+						qtBankList.add(bankinfo);
+					}
+					else if("1".equals(bankinfo.getLevel())){
+						yftBankList.add(bankinfo);
+					}
+				}
+				String banknbinno="";
+				 if(null!=bankacco&&!"".equals(bankacco)){//重新绑定的交易账号
+					 bankCardVo.setBankacco(bankacco);
+					BankCardbin banknbin=bankBaseManager.getBankCardbin(bankacco.substring(0, 6));
+					if(null!=banknbin){
+						banknbinno=banknbin.getBankno();
+					}
+				 }
+				 if(""!=banknbinno&&null!=banknbinno){
+					 bankCardVo.setBankno(banknbinno);
+				 }else if(StringUtils.isBlank(bankCardVo.getBankno())){
+						 // 默认第一个
+						 bankCardVo.setBankno(yftBankList.get(0).getBankno());
+					 } 
+				 
+				model.addAttribute("bankList", yftBankList);
+				model.addAttribute("qtBankList", qtBankList);
+				//获得用户是否有幼富通卡
+				List<String> tradeaccosts = new ArrayList<String>();
+				tradeaccosts.add("Y"); // 
+				tradeaccosts.add("N"); // 
+				
+				List<String> levels = new ArrayList<String>();
+				levels.add("0"); 
+				List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(
+						custinfoVo.getCustno(),
+						null,//Constant.HftSysConfig.HftFundCorpno, 
+						levels,
+						tradeaccosts);
+				String isufbCard="N";
+				if(null!=hft_family_trade&& hft_family_trade.size() > 0){
+					for(TradeAccoinfoOfMore tradeacco:hft_family_trade){
+						if(tradeacco.getFundcorpno().equals("01")){
+							isufbCard="Y";
+							break;
+						}
+					}
+				}
+				else{
+					isufbCard="Y";
+				}
+				model.addAttribute("hasTadeacco", isufbCard);
+				if(""!=serialid&&null!=serialid){
+					model.addAttribute("serialid", serialid);
+				}
+				
+				model.addAttribute("BankCardVo", bankCardVo);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "操作失败");
+			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("message_url", BANKCARD_INDEX);
+			model.addAttribute("back_module", SETTING_CARD_NAME);
+			return "error/error";
+		}
+		return "family/ufb/card_add";
+	}
 	
+	/**
+	 * 银行卡:重新绑定成功页
+	 * @param bankCardVo
+	 * @param serialid
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="card_addResult")
+	public String cardAddResult(BankCardVo bankCardVo, String serialid,Model model){
+		
+		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+		bankCardVo.setBankidtp("0"); // 身份证绑卡
+		try{		
+			
+		        if(""!=serialid&&null!=serialid){
+					bankCardManager.unbindBankCard(
+							s_custinfo.getCustno(), 
+							ServletHolder.getRequest().getParameter("serialid"), 
+							"Y");
+	            }else{
+					//验证手机验证码
+					OpenAccountAction openAccountAction = new OpenAccountAction();
+					/** 开户所属基金单位 **/
+					openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+					/** 开户标志 **/
+					if(s_custinfo.getIdno() !=null && s_custinfo.getInvnm() != null){
+						openAccountAction.setOpenaccoflag(true);
+					}else{
+						openAccountAction.setOpenaccoflag(false);
+					}
+					// 个人
+					openAccountAction.setCustno(s_custinfo.getCustno());
+					openAccountAction.setInvnm(bankCardVo.getBankacnm());
+					openAccountAction.setIdno(bankCardVo.getBankidno());
+					/** 家庭**/
+					openAccountAction.setLevel(Invtp.PERSONAL.getValue());
+					openAccountAction.setTradepwd(s_custinfo.getTradepwd());
+					openAccountAction.setTradepwd2(s_custinfo.getTradepwd2());
+					// 银行
+					openAccountAction.setBankno(bankCardVo.getBankno());
+					openAccountAction.setBankacnm(bankCardVo.getBankacnm());
+					openAccountAction.setBankacco(bankCardVo.getBankacco());
+					openAccountAction.setBankidtp(bankCardVo.getBankidtp());
+					openAccountAction.setBankidno(bankCardVo.getBankidno());
+					openAccountAction.setBankmobile(bankCardVo.getBankmobile());
+					openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
+					openAccountAction.setOtherserial(bankCardVo.getOtherserial());
+					openAccountAction.setBankcitynm(StringUtils.isNotBlank(bankCardVo.getBankcitynm())?bankCardVo.getBankcitynm():null);
+					openAccountAction.setBankprovincenm(StringUtils.isNotBlank(bankCardVo.getBankprovincenm())?bankCardVo.getBankprovincenm():null);
+					openAccountAction.setBankadd(StringUtils.isNotBlank(bankCardVo.getBankadd())?bankCardVo.getBankadd():null);
+					openAccountAction.setOtherserial(bankCardVo.getOtherserial());
+					//String banklevel=bankCardManager.getLevelByBankno(bankCardVo.getBankno());//add
+					 
+					/** 需要验证手机验证码标志 **/
+					openAccountAction.setCheckautocodeflag(true);
+						
+					bankCardManager.openAccount3(openAccountAction);
+					//其他的银行卡的银联验证
+					String banklevel=bankCardManager.getLevelByBankno(openAccountAction.getBankno());
+					if("2".equals(banklevel)){
+						bankCardManager.checkYinLian(openAccountAction);  	
+					}
+					/** 开户 **/
+					bankCardManager.openAccountPerson(openAccountAction);
+					
+		       } 
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "操作失败");
+			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("message_url", BANKCARD_INDEX);
+			model.addAttribute("back_module", SETTING_CARD_NAME);
+			return "error/error";
+		}
+		return "redirect:/"+BANKCARD_INDEX;
+	}
 }

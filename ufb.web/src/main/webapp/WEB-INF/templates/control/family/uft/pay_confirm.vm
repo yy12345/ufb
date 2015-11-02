@@ -131,7 +131,7 @@
                     <div class="control-group" style="margin-top: 2em;margin-bottom: 1em;">
                         <label class="form-lbl" style="width:10em;">请输入交易密码</label>
                         <input type="password" class="tradepw" placeholder="6位数字密码" maxlength="6" style="width: 190px;"/>
-                        <a href="${staticDomain}/setting/settingPassword.htm" class="forgetpw hoverLine">忘记密码？</a>
+                        <a href="${ufbDomain}/family/setting/password_index.htm" class="forgetpw hoverLine">忘记密码？</a>
                     </div>
                     <div class="control-review">
                         <p>幼富通是专注为幼教机构提供金融服务的互联网平台。</p>

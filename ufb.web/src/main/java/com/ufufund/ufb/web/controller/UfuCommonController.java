@@ -3,17 +3,23 @@ package com.ufufund.ufb.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.manager.BankBaseManager;
+import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.common.exception.UserException;
+import com.ufufund.ufb.common.utils.EncryptUtil;
+import com.ufufund.ufb.common.utils.StringUtils;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankCardbin;
 import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.MsgCodeUtils.MsgCode;
@@ -32,7 +38,8 @@ public class UfuCommonController {
 	private BankBaseManager bankBaseManager;
 	@Autowired
 	private CustManager custManager;
-	
+	@Autowired
+	private BankCardManager bankCardManager;
 	
 	/**
 	 * 检验图形验证码是否正确
@@ -148,16 +155,23 @@ public class UfuCommonController {
 	 */
 	@RequestMapping(value = "isTradePwdSame")
 	@ResponseBody
-	public Map<String,Object> isTradePwdSame(String tradePwd) {
+	public Map<String,Object> isTradePwdSame(String password,String type) {
 		
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		try{
 			String custno = UserHelper.getCustno();
-			if(StringUtils.isBlank(custno)){
+			
+			 if(StringUtils.isBlank(custno)){
 				throw new UserException("用户未登录！");
 			}
 			Custinfo custinfo = custManager.getCustinfo(custno);
-			boolean same = tradePwd.equals(custinfo.getLoginpwd());
+			boolean same=false;
+			if(type.equals("1")){
+				 same = EncryptUtil.md5(password).equals(custinfo.getTradepwd());
+			}
+			if(type.equals("2")){
+				same = EncryptUtil.md5(password).equals(custinfo.getLoginpwd());
+			}
 			
 			resultMap.put("errCode", "0000");
 			resultMap.put("same", same);
@@ -172,7 +186,33 @@ public class UfuCommonController {
 		}
 		return resultMap;
 	}
-	
+	/**
+	 * 未登录状态检验交易密码是否与登录密码相同
+	 * @param msgcode
+	 * @return
+	 */
+	@RequestMapping(value = "isTradePwdSameUnLoign")
+	@ResponseBody
+	public Map<String,Object> isTradePwdSameUnLoign(String password,String mobileno) {
+		
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try{
+		    Custinfo custInfo=  custManager.getCustInfoByMobileno(mobileno);
+			boolean	same = EncryptUtil.md5(password).equals(custInfo.getTradepwd());
+			
+			resultMap.put("errCode", "0000");
+			resultMap.put("same", same);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
 	
 	/**
 	 * 根据bin编码读取银行卡bin
@@ -200,4 +240,45 @@ public class UfuCommonController {
 		}
 		return resultMap;
 	}
+	/**
+	 * 银行快捷鉴权
+	 * @param bankCardVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "addBankCardCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String,String> addBankCardAjax(BankCardVo bankCardVo, Model model){
+
+		Map<String,String> resultMap = new HashMap<String,String>();
+		try{
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setBankno(bankCardVo.getBankno());//银行编号
+			openAccountAction.setBankacnm(bankCardVo.getBankacnm());//银行用户名
+			bankCardVo.setBankidtp("0");//银行证件类型
+			openAccountAction.setBankidtp(bankCardVo.getBankidtp());//银行证件类型
+			openAccountAction.setBankidno(bankCardVo.getBankidno());//银行证件号
+			openAccountAction.setBankacco(bankCardVo.getBankacco());//银行卡号码
+			openAccountAction.setBankmobile(bankCardVo.getBankmobile());//银行手机号
+			
+			//调用银行快捷鉴权
+			bankCardManager.openAccount2(openAccountAction);
+			
+			resultMap.put("errCode", "0000");
+			resultMap.put("errMsg", "银行卡鉴权成功");
+			// 对方序列号
+			resultMap.put("otherserial", openAccountAction.getAccoreqserial());
+			
+		}catch (UserException e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", e.getCode());
+			resultMap.put("errMsg", e.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
+	
 }

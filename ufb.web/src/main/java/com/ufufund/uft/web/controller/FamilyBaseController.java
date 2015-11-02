@@ -118,11 +118,12 @@ public class FamilyBaseController {
 			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(s_custinfo.getCustno());
 			List<QueryOrgStudent> studentlist = null;
 			List<QueryCustplandetail> planlist = null;
+			int allcount=0;
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
 			if(orglist != null && orglist.size() > 0){
 				int count = 1;
 				for(QueryOrgStudent org: orglist){
-					
+					int plancount=0;
 					String orgid = org.getOrgid();
 					String custno = s_custinfo.getCustno();
 					
@@ -137,22 +138,32 @@ public class FamilyBaseController {
 					// 个人用户查询收费计划详情
 					planlist = orgQueryManager.getQueryCustplandetail(custno, orgid);
 					model.addAttribute("planlist" + count, planlist);
-					
+					BigDecimal payackamount=BigDecimal.ZERO;
+					BigDecimal planmonthamt = BigDecimal.ZERO;
 					for(QueryCustplandetail plan:planlist){
-						
-						BigDecimal planmonthamt = BigDecimal.ZERO;
+						allcount=allcount+1;
+						plancount = plancount + 1;
 						if(null != plan.getPayappamount()){
 							planmonthamt = new BigDecimal(plan.getPayappamount());
 						}
+						if(null!=plan.getPayackamount()){
+							payackamount=new BigDecimal(plan.getPayackamount());
+						}
+						planmonthamt=planmonthamt.add(planmonthamt);
+						payackamount=payackamount.add(payackamount);
 						totalplanmonthamt = totalplanmonthamt.add(planmonthamt);
 					}
 					
+					model.addAttribute("planmonthamt"+ count, planmonthamt);
+					model.addAttribute("payackamount"+ count, payackamount);
+					model.addAttribute("plancount"+ count, plancount);
 					count = count + 1;
 				}
 				
 			}
 			
 			model.addAttribute("orglist", orglist);
+			model.addAttribute("allcount", allcount);
 			model.addAttribute("totalplanmonthamt", totalplanmonthamt);
 
 			/** 资产 **/

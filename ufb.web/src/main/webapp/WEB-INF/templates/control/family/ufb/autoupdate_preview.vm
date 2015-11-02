@@ -95,7 +95,7 @@ $(function(){
                         <li id="tradepwdErrMsg">
                             <span class="form-title">交易密码</span>
                             <input id="tradepwd" name="tradepwd" class="ipt-password" maxlength="20"  type="password" value="">
-                            <a class="find" href="${staticDomain}/family/settingPassword.htm">忘记密码?</a>
+                            <a class="find" href="${ufbDomain}/family/setting/password_index.htm">忘记密码?</a>
 							<span class="tips-normal"><!--请填写交易密码--></span>
                             <span class="tips-check"><i class="icon"></i><font  id="tradePwdTips" >验证提示</font></span>
                         </li>

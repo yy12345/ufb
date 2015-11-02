@@ -55,8 +55,7 @@
 					return false;
 				} 
 			 }
-			window.location.href="${staticDomain}/family/addBankCard.htm";
-			//$("#addBankCard").attr("href","${staticDomain}/family/addBankCard.htm").click();
+			window.location.href="${staticDomain}/family/ufb/card_adds.htm";
 		});	
     });
 </script>
@@ -64,17 +63,16 @@
 <body>
 <div id="body">
     <div class="container familyMyAccount">
-		<!--幼富宝-->
 		<div class="myaccount-top">
             <p class="fr">
                                                         银行卡已添加 <strong class="num-blue">$!{hft_family_trade_size}</strong>张
-                <a href="${ufbDomain}/family/setting/card_index.htm" class="addMargin">查看全部</a>
+                <a href="${ufbDomain}/family/setting/bankcard_index.htm" class="addMargin">查看全部</a>
                 <a id="addBankCard" href="#" isufbCard="$!{isufbCard}">+新卡</a>
             </p>
         </div>
 		<div class="myaccount">
             <div class="myleft fl">
-                  <p class="magtb">本月共<strong class="num-red">3</strong>个缴费通知，总计（元）</p>
+                  <p class="magtb">本月共<strong class="num-red">$allcount</strong>个缴费通知，总计（元）</p>
                   <p class="magtb">
                   	  <strong class="num-red" style="font-size: 45px;">$totalplanmonthamt</strong>
                       <a href="${ufbDomain}/family/uft/pay_notice.htm" class="btn btn-red btn-pay">缴费</a>
@@ -84,7 +82,7 @@
             <div class="myright fl">
                 <div class="myright-top">
                     <h3 class="fl">幼富宝（海富通货币）</h3>
-                    <a href="${ufbDomain}/family/ufb_index.htm"><p class="fr num-red"><i class="bothno-icon"></i> 理财缴费两不误</p></a>
+                    <a href="${ufbDomain}/family/ufb/ufb_index.htm"><p class="fr num-red"><i class="bothno-icon"></i> 理财缴费两不误</p></a>
                 </div>
                 <div class="myright-down">
                     <ul>
@@ -133,8 +131,8 @@
 									$student.studentnm
 									#end
 							  </p></li>
-                              <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">1</strong>个缴费通知，总计（元）</p><p class="sli2-p2">2600</p></li>
-                              <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">+156</p></li>
+                              <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">#if($!{plancount1}) $!{plancount1} #else 0 #end</strong>个缴费通知，总计（元）</p><p class="sli2-p2">  #if($!{planmonthamt1})$!{planmonthamt1} #else 0.00 #end</p></li>
+                              <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">#if($!{payackamount1})+$!{payackamount1} #else 0.00 #end</p></li>
                               <li class="sli4"><a href="${ufbDomain}/family/pay_notice.htm" class="btn btn-white">缴费</a></li>
                           </ul>
 					  </div>
@@ -160,7 +158,7 @@
                               <td class="num-green">$plan1.payappamount</td>
                               <td>$!{plan1.paydate}</td>
 							  <td>$!{plan1.plandate}</td>
-                              <td>$!{plan1.ispay}</td>
+                              <td>#if($!{plan1.ispay}=='Y') 已缴费 #else 未缴费 #end</td>
                           </tr>
 						  #end		  
                       </table>
@@ -176,8 +174,8 @@
 									$student.studentnm
 									#end
 								</p></li>
-                              <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">1</strong>个缴费通知，总计（元）</p><p class="sli2-p2">2600</p></li>
-                              <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">+156</p></li>
+                              <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">#if($!{plancount2}) $!{plancount2} #else 0 #end</strong>个缴费通知，总计（元）</p><p class="sli2-p2">#if($planmonthamt2)$!{planmonthamt2} #else 0.00 #end</p></li>
+                              <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">#if($!{payackamount2})+$!{payackamount2} #else 0.00 #end</p></li>
                               <li class="sli4"><a href="" class="btn btn-white">缴费</a></li>
                           </ul>
 					  </div>
@@ -203,7 +201,7 @@
                               <td class="num-green">$plan2.payappamount</td>
                               <td>$!{plan2.paydate}</td>
 							  <td>$!{plan2.plandate}</td>
-                              <td>$!{plan2.ispay}</td>
+                              <td>#if($!{plan2.ispay}=='Y') 已缴费 #else 未缴费 #end</td>
                           </tr>
 						  #end
                       </table>
@@ -211,7 +209,7 @@
                   </div>
               </div>
         </div>        
-    </div><!--end of container-->
+    </div> 
 </div>
 </body>
 </html>

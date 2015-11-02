@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 帮助中心 - 联系我们</title>
+</head>
+<body>
+    <div class="body">
+        <div class="inner clearfix">
+            <div class="title">
+                <h2 class="title-main">帮助中心</h2>
+            </div>
+            <div class="side side-nav fl">
+                <ul>
+                    <li><a href="${ufbDomain}/family/help/payment.htm"><b class="icon01"></b>缴费退费</a></li>
+                    <li><a href="${ufbDomain}/family/help/security.htm"><b class="icon02"></b>安全性</a></li>
+                    <li><a href="${ufbDomain}/family/help/benefits.htm"><b class="icon03"></b>收益</a></li>
+                    <li><a href="${ufbDomain}/family/help/cashandPay.htm"><b class="icon04"></b>充值取现</a></li>
+                    <li><a href="${ufbDomain}/family/help/question.htm"><b class="icon05"></b>常见问题汇总</a></li>
+                    <li><a href="${ufbDomain}/family/help/aboutuft.htm"><b class="icon06"></b>关于幼富通</a></li>
+                    <li><a class="current" href="${ufbDomain}/family/help/contact.htm"><b class="icon07"></b>联系我们</a></li>
+                </ul>
+            </div>
+            <div class="main fr">
+                <div class="help-content content-contact clearfix">
+                    <div class="qr fl"><img src="${staticDomain}/family/images/qr.png"><p class="tc">微信号：UFUfund</p></div>
+                    <div class="contact fl">
+                        <img src="${staticDomain}/family/images/logo_header.png" width="130">
+                        <p>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></p>
+                        <p>海富通产品：400-8840-099</p>
+                        <p>上海幼赋金融信息服务有限公司版权所有</p>
+                        </p> ©2014沪ICP14054347号</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/family/scripts/load.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 帮助中心 - 收益</title>
+</head>
+<body>
+    <div class="body">
+        <div class="inner clearfix">
+            <div class="title">
+                <h2 class="title-main">帮助中心</h2>
+            </div>
+            <div class="side side-nav fl">
+                <ul>
+                    <li><a href="${ufbDomain}/family/help/payment.htm"><b class="icon01"></b>缴费退费</a></li>
+                    <li><a href="${ufbDomain}/family/help/security.htm"><b class="icon02"></b>安全性</a></li>
+                    <li><a class="current" href="${ufbDomain}/family/help/benefits.htm"><b class="icon03"></b>收益</a></li>
+                    <li><a href="${ufbDomain}/family/help/cashandPay.htm"><b class="icon04"></b>充值取现</a></li>
+                    <li><a href="${ufbDomain}/family/help/question.htm"><b class="icon05"></b>常见问题汇总</a></li>
+                    <li><a href="${ufbDomain}/family/help/aboutuft.htm"><b class="icon06"></b>关于幼富通</a></li>
+                    <li><a href="${ufbDomain}/family/help/contact.htm"><b class="icon07"></b>联系我们</a></li>
+                </ul>
+            </div>
+            <div class="main fr">
+                <div class="help-content">
+                    <ul>
+                        <li><a name="q1"></a>
+                            <h3>什么时候能看到收益到账？</h3>
+                            <div>转入资金在基金公司确认份额的第2天可以看到收益。*如遇国家法定假期，基金公司不进行份额确认，以实际收益时间为准。</div>
+                        </li>
+                        <li><a name="q2"></a>
+                            <h3>每天的收益是怎么计算的？</h3>
+                            <div>当日收益=（幼富宝已确认份额的资金/10000 ）X 每万份收益。假设您已确认份额的资金为12000元，当天的每万份收益为1.3元，代入计算公式，您当日的收益为：1.56元。</div>
+                        </li>
+                        <li class="last"><a name="q3"></a>
+                            <h3>幼富宝的收益结算有什么规则？</h3>
+                            <div>幼富宝的收益每日结算，每天下午15:00左右前一天的收益到账。您缴费或转出到银行卡的那部分资金，当天没有收益。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/family/scripts/load.js"></script>
+</body>
+</html>

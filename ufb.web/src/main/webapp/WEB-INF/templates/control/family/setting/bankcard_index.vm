@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 账户管理 - 银行卡管理</title>
+	<script>
+$(function(){
+
+	var setting_mainCard=function(bankacco,serialid,tradeacco,type){
+		 var result=false;
+		$.ajax({
+			type:"POST",
+			url:"${ufbDomain}/family/setting/setting_cards.htm",
+			data:"bankacco="+bankacco+"&serialid="+serialid+"&tradeacco="+tradeacco+"&type="+type,
+			async:false,
+			success:function(data){
+				var json=$.parseJSON(data);
+				if(json.errCode=="0000"){
+					result= true;
+				}
+		     },
+			error:function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'系统出现异常！'});
+		     }
+			
+		})
+		return result;
+	}
+	
+	$(".set-main").on("click", function(){
+		if(!confirm("您确定要将你的银行卡设置为主卡吗？")){
+				return false;
+			}
+		if(setting_mainCard($(this).attr("bankacco"),null,null,"M")){
+			//alert("设置主卡成功");
+			window.location.href="${ufbDomain}/family/setting/bankcard_index.htm";
+		}
+	});
+	
+	$(".set-unbind").on("click", function(){
+		if($(this).attr("total")>0 ||
+		   	$(this).attr("available")>0 ||
+		   	$(this).attr("realavailable")>0 ||
+		   	$(this).attr("frozen")>0 ){
+		   	alert("对不起，您的银行卡有资金交易，暂时不能解绑！");
+			return false;
+		}else{
+			if(!confirm("您确定要解绑你的银行卡吗？")){
+				return false;
+			}
+			if(setting_mainCard(null,$(this).attr("serialid"),$(this).attr("tradeacco"),"U")){
+			//	alert("解绑银行卡成功");
+				window.location.href="${ufbDomain}/family/setting/bankcard_index.htm";
+			}
+		}
+	});
+ 
+	$(".set-del").on("click", function(){
+			if(!confirm("您确定要删除你的银行卡吗？")){
+				return false;
+			}
+			//$("#serialid").val($(this).attr("serialid"));
+			if(setting_mainCard(null,$(this).attr("serialid"),null,"D")){
+			//	alert("删除银行卡成功");
+				window.location.href="${ufbDomain}/family/setting/bankcard_index.htm";
+			}
+	});
+ 
+/*	$("#addCard").on("click",function(){
+		 if($(this).attr("cardcount")>=2){
+			 alert("对不起，您只能添加两张银行卡！");
+			return false;
+		}else if($("#ufbCard").html()!=undefined){
+			alert("对不起，您只能添加一张幼富通银行卡！");
+			return false;
+		} 
+			$("#form-settingCard").attr("action", "../family/card_add.htm");
+			$("#form-settingCard").submit();
+		
+	});*/
+	$(".set-bind").on("click", function(){
+		 if($(this).attr("cardcount")>=2){
+			 alert("对不起，您只能添加两张银行卡！");
+			return false;
+		}
+		$("#serialid").val($(this).attr("serialid"));
+		$("#bankacco").val($(this).attr("bankacco"));
+		$("#form-settingCard").attr("action", "${ufbDomain}/family/ufb/card_add.htm");
+		$("#form-settingCard").submit();
+	});
+	
+});
+</script>
+</head>
+<body>
+
+    <div class="body">
+		<form id="form-settingCard" action="${ufbDomain}/family/setting/bankcard_index.htm" method="post">
+    	<input id="bankacco" name="bankacco" value="$!{bankacco}" type="hidden"/>
+		<input id="serialid" name="serialid" value="$!{serialid}" type="hidden"/>
+		<input id="tradeacco" name="tradeacco" value="$!{tradeacco}" type="hidden"/>
+        <div class="inner clearfix">
+            <div class="title">
+                <h2 class="title-main">账户设置</h2>
+            </div>
+            <div class="side side-nav fl">
+                <ul>
+                    <li><a href="${ufbDomain}/family/setting/account_index.htm"><b class="icon01"></b>账户信息</a></li>
+                    <li><a href="${ufbDomain}/family/setting/password_index.htm"><b class="icon02"></b>密码设置</a></li>
+                    <li><a  class="current" href="${ufbDomain}/family/setting/bankcard_index.htm"><b class="icon03"></b>银行卡管理</a></li>
+                    <li><a href="${ufbDomain}/family/ufb/autotrade_index.htm"><b class="icon04"></b>自动理财设置</a></li>
+                </ul>
+            </div>
+            <div class="main fr">
+                <div class="setting-content content-card">
+                    <div>银行卡信息：<span class="mark">仅支持绑定借记卡进行快捷充值、取现或缴费</span>
+						#if($!{cardList_Y})
+    					<span class="mark">您还没有绑定的银行卡噢</span>
+    					#end
+					</div>
+                    <ul class="card-list clearfix">
+                    #if(${cardList_Y})
+						#foreach($card in $cardList_Y)
+    					#set($tailStr=$card.bankacco)
+    					#set($start=$tailStr.length() - 4)
+    					#set($end=$tailStr.length())
+    					<li class="card cardCount
+    						#if($!{card.mainflag}=="Y")
+    						card-main	
+    						#end
+    						"> 
+                            <div class="card-info">
+    							<img src="${staticDomain}/family/images/bank_${card.bankno}.png">
+    							<span>尾号：$tailStr.substring($start,$end)</span>
+    						</div>
+                            <div class="card-setting">
+							        #if($!{card.clevel}=="1")	<span id="ufbCard">*幼富宝 </span> #end
+        							#if($!{card.mainflag}!="Y")
+        							<a bankacco="${card.bankacco}" class="set-main" href="javascript:;">设为主卡</a>
+        							#end
+        							<a bankacco="${card.bankacco}" class="set-unbind" href="javascript:;"
+    									serialid="${card.serialid}"
+    								    tradeacco="${card.tradeacco}"
+    									level="${card.level}"
+    									total="${card.total}"
+    									available="${card.available}"
+    									realavailable="${card.realavailable}"
+    									frozen="${card.frozen}"
+    									>解绑</a>
+    						</div>
+                        </li>
+    					#end
+    					#if(${isUfbCard}!=true)
+                        <li class="card card-add cardM3"><a id="addCard" href="#" cardcount="${cardList_Y.size()}">升级为幼富宝卡</a></li>
+                        #end
+                        #else
+                        	<li class="card card-add cardM3"><a id="addCard" href="#" cardcount="${cardList_Y.size()}">添加银行卡</a></li>
+                        #end
+                    </ul>
+                    <div>已解绑银行卡：</div>
+                    <ul class="card-list clearfix">
+						
+						#foreach($card in $cardList_N)
+    					#set($tailStr=$card.bankacco)
+    					#set($start=$tailStr.length() - 4)
+    					#set($end=$tailStr.length())
+    					<li class="card">
+                            <div class="card-info">
+    							<img src="${staticDomain}/family/images/bank_${card.bankno}.png">
+    							<span>尾号：$tailStr.substring($start,$end)</span>
+    						</div>
+                            <div class="card-setting">
+        							<a class="set-bind" bankacco="${card.bankacco}" cardcount="${cardList_Y.size()}" serialid="${card.serialid}" href="javascript:;">重新绑定</a>
+									<a class="set-del" bankacco="${card.bankacco}" serialid="${card.serialid}" href="javascript:;">删除</a>
+    						</div>
+                        </li>
+						#end
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+	</form>
+</div>
+<script src="${staticDomain}/family/scripts/load.js"></script>
+</body>
+</html>

@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PaymentController {
 	
-	private static final String UFT_INDEX = "family/uft_index.htm";
+	private static final String UFT_INDEX = "family/uft/uft_index.htm";
 	private static final String UFT_INDEX_NAME = "我的账户";
 
 	@Autowired

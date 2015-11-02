@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 帮助中心 - 充值取现</title>
+</head>
+<body>
+    <div class="body">
+        <div class="inner clearfix">
+            <div class="title">
+                <h2 class="title-main">帮助中心</h2>
+            </div>
+            <div class="side side-nav fl">
+                <ul>
+                    <li><a href="${ufbDomain}/family/help/payment.htm"><b class="icon01"></b>缴费退费</a></li>
+                    <li><a href="${ufbDomain}/family/help/security.htm"><b class="icon02"></b>安全性</a></li>
+                    <li><a href="${ufbDomain}/family/help/benefits.htm"><b class="icon03"></b>收益</a></li>
+                    <li><a class="current" href="${ufbDomain}/family/help/cashandPay.htm"><b class="icon04"></b>充值取现</a></li>
+                    <li><a href="${ufbDomain}/family/help/question.htm"><b class="icon05"></b>常见问题汇总</a></li>
+                    <li><a href="${ufbDomain}/family/help/aboutuft.htm"><b class="icon06"></b>关于幼富通</a></li>
+                    <li><a href="${ufbDomain}/family/help/contact.htm"><b class="icon07"></b>联系我们</a></li>
+                </ul>
+            </div>
+            <div class="main fr">
+                <div class="help-content">
+                    <ul>
+                        <li><a name="q1"></a>
+                            <h3>幼富宝充值支持哪些银行？</h3>
+                            <div>幼富宝目前支持中国银行、工商银行、建设银行、招商银行、邮政储蓄、光大银行、民生银行、中信银行、华夏银行、平安银行十家银行。（农业银行、浦发银行、兴业银行、广发银行、交通银行五家银行可进行自动缴费，但无法充值幼富宝）</div>
+                        </li>
+                        <li><a name="q2"></a>
+                            <h3>幼富宝转入有金额限制吗？</h3>
+                            <div>用借记卡快捷转入幼富宝时不同银行额度不同,以收银台提示限额为准。</div>
+                        </li>
+                        <li><a name="q3"></a>
+                            <h3>我可以用借记卡网银方式给幼富宝转钱吗？</h3>
+                            <div>不支持，请您使用借记卡快捷支付方式。</div>
+                        </li>
+                        <li><a name="q4"></a>
+                            <h3>幼富宝转出至银行卡到账时间？</h3>
+                            <div>15：00前转出，下一工作日到账。15：00后转出，在转出日之后第二个工作日到账。</div>
+                        </li>
+                        <li class="last"><a name="q5"></a>
+                            <h3>幼富宝转出当天有收益吗？</h3>
+                            <div>幼富宝转出到银行卡当日起至到账日不再产生收益。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/family/scripts/load.js"></script>
+</body>
+</html>

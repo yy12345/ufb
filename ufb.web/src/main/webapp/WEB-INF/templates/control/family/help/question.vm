@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 帮助中心 - 常见问题</title>
+</head>
+<body>
+    <div class="body">
+        <div class="inner clearfix">
+            <div class="title">
+                <h2 class="title-main">帮助中心</h2>
+            </div>
+            <div class="side side-nav fl">
+                <ul>
+                    <li><a href="${ufbDomain}/family/help/payment.htm"><b class="icon01"></b>缴费退费</a></li>
+                    <li><a href="${ufbDomain}/family/help/security.htm"><b class="icon02"></b>安全性</a></li>
+                    <li><a href="${ufbDomain}/family/help/benefits.htm"><b class="icon03"></b>收益</a></li>
+                    <li><a href="${ufbDomain}/family/help/cashandPay.htm"><b class="icon04"></b>充值取现</a></li>
+                    <li><a  class="current" href="${ufbDomain}/family/help/question.htm"><b class="icon05"></b>常见问题汇总</a></li>
+                    <li><a href="${ufbDomain}/family/help/aboutuft.htm"><b class="icon06"></b>关于幼富通</a></li>
+                    <li><a href="${ufbDomain}/family/help/contact.htm"><b class="icon07"></b>联系我们</a></li>
+                </ul>
+            </div>
+            <div class="main fr">
+                <div class="help-content">
+                    <ul>
+                        <li><a name="q1"></a>
+                            <h3>我只想缴学费不想充值幼富宝</h3>
+                            <div>仅须绑定主流银行卡（借记卡）均可进行快速学费缴付，在缴费付款确认时选择相应银行卡即可。若选择幼富宝帐户自动缴付学费，则需要预先充值。</div>
+                        </li>
+                        <li><a name="q2"></a>
+                            <h3>我们孩子的幼儿园只发起了单笔收费，没有使用月代扣啊</h3>
+                            <div>单笔收费需要家长每次登录幼富通网站并输入交易密码确认当期缴费。</div>
+                        </li>
+                        <li><a name="q3"></a>
+                            <h3>收费通知书上的识别码有什么用？</h3>
+                            <div>识别码对应相应的收费机构，只需要在首次绑定收费机构时输入，一次性绑定后就不用重复输入了。但如果你想绑定更多的收费机构，则需要对应的识别码才能完成新的绑定。</div>
+                        </li>
+                        <li class="last"><a name="q4"></a>
+                            <h3>绑定多个收费机构可以合并缴费吗？</h3>
+                            <div>通过幼富通，家长可以绑定多个收费机构，比如一个幼儿园和几个早教或培训机构，合并缴费。有二宝的家长也可以使用幼富宝同时为两个宝宝自动缴费，方便快捷。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/family/scripts/load.js"></script>
+</body>
+</html>

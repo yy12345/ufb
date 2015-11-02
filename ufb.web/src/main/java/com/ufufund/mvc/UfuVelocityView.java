@@ -53,7 +53,7 @@ public class UfuVelocityView extends VelocityToolboxView {
 			model.put("family_container", "class=\"container\"");
 			if(uri.endsWith("pay_index.htm") || uri.endsWith("cash_index.htm")
 					|| uri.endsWith("query_index.htm") || uri.endsWith("query_detail.htm")
-					|| uri.endsWith("auto_pause.htm")|| uri.endsWith("auto_stop.htm")){
+					|| uri.endsWith("auto_pause.htm")|| uri.endsWith("auto_stop.htm")||uri.endsWith("card_add.htm")){
 				model.put("family_container", "class=\"container center\"");
 			}else if(uri.endsWith("ufb_index.htm")){
 				model.put("family_container", "id=\"page\"");
@@ -62,6 +62,10 @@ public class UfuVelocityView extends VelocityToolboxView {
 		}else if(uri.indexOf("family/setting/") > 0){
 			model.put("family_module", "setting");
 			model.put("family_container", "class=\"container setting\"");
+		}
+		else if(uri.indexOf("family/help/") > 0){
+			model.put("family_module", "help");
+			model.put("family_container", "class=\"container help\"");
 		}
 		
 		exposeHelpers(model, request);

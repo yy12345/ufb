@@ -62,9 +62,9 @@ $(function(){
             </div>
             <div class="side side-nav fl">
                 <ul>
-                    <li><a href="${staticDomain}/family/settingAccount.htm"><b class="icon01"></b>账户信息</a></li>
-                    <li><a href="${staticDomain}/family/settingPassword.htm"><b class="icon02"></b>密码设置</a></li>
-                    <li><a href="${staticDomain}/family/settingCard.htm"><b class="icon03"></b>银行卡管理</a></li>
+                    <li><a href="${ufbDomain}/family/setting/account_index.htm"><b class="icon01"></b>账户信息</a></li>
+                    <li><a href="${ufbDomain}/family/setting/password_index.htm"><b class="icon02"></b>密码设置</a></li>
+                    <li><a href="${ufbDomain}/family/setting/bankcard_index.htm"><b class="icon03"></b>银行卡管理</a></li>
                     <li><a class="current" href="${ufbDomain}/family/ufb/autotrade_index.htm"><b class="icon04"></b>自动理财设置</a></li>
                 </ul>
             </div>

@@ -1,25 +1,6 @@
 <!doctype html>
 <html>
 <body>
-<div id="page">
-    <div id="header">
-		<div class="topNav">
-			<div class="container">
-				<div class="b1"><a href="#">机构版</a><a href="#" class="active">家庭版</a></div>
-				<div class="b2"><span>柔软的大牛</span><a href="#"></a></div>
-			</div>
-		</div>
-        <div class="container">
-            <a href="#" class="logo"></a>
-			<div class="nav">
-				<a href="${staticDomain}/family/session.htm" class="active">我的账户</a>
-				<a href="${staticDomain}/family/myufb.htm">幼富宝</a>
-				<a href="#">缴费明细</a>
-				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
-			</div>
-        </div>
-    </div>
-    
     <div id="body">
 		<form id="form-payNotice" class="vote" method="post" action="${staticDomain}/family/payNotice.htm">
 			<input type="hidden" id="allplanids" name="allplanids" value="$!{PayNoticeVo.allplanids}">
@@ -178,29 +159,9 @@
         </div>
     </div>
 </div>
-<div class="footer footer-simple">
-    <div class="inner clearfix">
-        <div class="logo fl">
-            <img src="${staticDomain}/static/familypay/images/logo_130x55.png">
-        </div>
-        <div class="info fl">
-            <ul class="list">
-                <li>微信服务号：UFUfund</li>
-                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                <li>海富通产品：400-8840-099</li>
-            </ul>
-        </div>
-        <div class="copyright fr">
-            <ul class="list">
-                <li>幼富通版权所有 ©2014</li>
-                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<script type="text/javascript" src="${staticDomain}/static/public/js/jquery.js"></script>
-<script type="text/javascript" src="${staticDomain}/static/public/js/plug.js"></script><!--自定义插件-->
-<script type="text/javascript" src="${staticDomain}/static/familypay/libs/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${staticDomain}/public/js/jquery.js"></script>
+<script type="text/javascript" src="${staticDomain}/public/js/plug.js"></script><!--自定义插件-->
+<script type="text/javascript" src="${staticDomain}/familypay/libs/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript">
     $(function(){
 		$(".payreview").on("click",function(){

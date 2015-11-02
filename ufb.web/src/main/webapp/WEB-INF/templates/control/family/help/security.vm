@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>幼富通 - 帮助中心 - 安全性</title>
+</head>
+<body>
+    <div class="body">
+        <div class="inner clearfix">
+            <div class="title">
+                <h2 class="title-main">帮助中心</h2>
+            </div>
+            <div class="side side-nav fl">
+                <ul>
+                    <li><a href="${ufbDomain}/family/help/payment.htm"><b class="icon01"></b>缴费退费</a></li>
+                    <li><a  class="current" href="${ufbDomain}/family/help/security.htm"><b class="icon02"></b>安全性</a></li>
+                    <li><a href="${ufbDomain}/family/help/benefits.htm"><b class="icon03"></b>收益</a></li>
+                    <li><a href="${ufbDomain}/family/help/cashandPay.htm"><b class="icon04"></b>充值取现</a></li>
+                    <li><a href="${ufbDomain}/family/help/question.htm"><b class="icon05"></b>常见问题汇总</a></li>
+                    <li><a href="${ufbDomain}/family/help/aboutuft.htm"><b class="icon06"></b>关于幼富通</a></li>
+                    <li><a href="${ufbDomain}/family/help/contact.htm"><b class="icon07"></b>联系我们</a></li>
+                </ul>
+            </div>
+            <div class="main fr">
+                <div class="help-content">
+                    <ul>
+                        <li><a name="q1"></a>
+                            <h3>幼富宝对接货币基金</h3>
+                            <div>幼富宝主要对接的是业绩优良的货币基金。货币型基金是一种开放式基金，资产主要投资于国债、央行票据、银行定期存单、同业存款等安全性高、收益稳定的有价证券。2014年国内货币基金7日年化收益率平均约为4.3%。</div>
+                        </li>
+                        <li><a name="q2"></a>
+                            <h3>幼富宝特性与现金相似</h3>
+                            <div>幼富宝还具有随时快速申购赎回、资金快速到账、全程0费用、收益免税、红利自动再投产生复利收益、通常收益超过银行活期利率10-15倍等优势，能够很好地满足家庭闲置资金增效的需求。</div>
+                        </li>
+                        <li><a name="q3"></a>
+                            <h3>幼富宝（货币基金）的资产管理人值得托付</h3>
+                            <div>海富通基金为国内少数拥有全牌照的资产管理公司，由海通证券（中方股东）和法国巴黎投资（外方股东）合资建立，主要业务范围包括公募基金，企业年金，专户，社保，及海外业务，总管理资产超过1000亿人民币元 （截止2014年12月31日），是国内唯一获得国际评级机构惠誉‘最高标准（中国）’ 评级的资产管理人。</div>
+                        </li>                        
+                        <li class="last"><a name="q4"></a>
+                            <h3>如何确保每月自动扣款的资金安全？</h3>
+                            <div>由中国银联全程进行账户安全审验及资金支付服务，为收费机构与家庭提供多重数据安全保护。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${staticDomain}/family/scripts/load.js"></script>
+</body>
+</html>

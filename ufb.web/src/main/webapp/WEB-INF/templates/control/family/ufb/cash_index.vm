@@ -87,7 +87,7 @@
                         </li>
                         <li id="tradePwdErrMsg">
                             <span class="form-title">交易密码</span>
-                            <input class="ipt-password1 input-text" id="tradePwd" name="tradePwd" type="password" maxlength="20" value=""><a class="find hoverLine" href="${staticDomain}/setting/settingPassword.htm">忘记密码?</a>
+                            <input class="ipt-password1 input-text" id="tradePwd" name="tradePwd" type="password" maxlength="20" value=""><a class="find hoverLine" href="${ufbDomain}/family/setting/password_index.htm">忘记密码?</a>
                             <span class="tips-normal"></span>
                             <span  class="tips-check"><i class="icon"></i><font id="tradeTips">验证提示</font></span>
                         </li>
