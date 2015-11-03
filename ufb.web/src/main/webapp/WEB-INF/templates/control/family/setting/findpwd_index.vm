@@ -12,7 +12,7 @@
                 <a class="tab fl" href="javascript:;">3-完成</a>
             </div>
             <div class="find-panels">
-                <form id="form-findstep1" class="common-form" method="post" action="${ufbDomain}/family/setting/findpassword_confirm.htm">
+                <form id="form-findstep1" class="common-form" method="post" action="${ufbDomain}/family/setting/findpwd_confirm.htm">
                     <div class="panel">
                         <ul class="txtAuto width600">
                             <li id="errMsg_mobileno">
@@ -50,6 +50,15 @@
 <script src="${staticDomain}/family/scripts/load.js"></script>
 <script >
 $(function(){
+	
+	// 用户输入时，取消错误提示
+		$("form input").on('focus', function(){
+			if($(this).parent().hasClass('error')){
+				$(this).parent().removeClass('error');
+				//$(this).siblings('.tips-check').hide();
+			}
+		});
+		
 	// 获取短信码按钮倒计时
 	var count = 60;
 	var countDown = function() {

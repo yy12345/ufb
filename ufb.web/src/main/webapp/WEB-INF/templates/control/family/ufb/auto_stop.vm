@@ -7,6 +7,15 @@ $(function(){
 	$('.nav a:eq(1)').addClass('active');
 	
 	$("#container").removeClass("setting");
+	
+	// 用户输入时，取消错误提示
+		$("form input").on('focus', function(){
+			if($(this).parent().hasClass('error')){
+				$(this).parent().removeClass('error');
+				//$(this).siblings('.tips-check').hide();
+			}
+		});
+	
 	// 表单提交时，验证	
 	$("#next-step").on("click", function(){
 		var tradepwd=$("#tradepwd").val();
@@ -15,6 +24,7 @@ $(function(){
 			$("#tradePwdTips").html("交易密码不能为空！");
 			return false;
 		}
+		$("#tradepwd").siblings(".tips-normal").hide();
 	});
 });
 </script>
@@ -106,6 +116,12 @@ $(function(){
         $(".center .body .notice .v2_1").click(function(){
             $(".center .body .notice").hide();
         });
+        $("#tradepwd").on("focus",function(){
+        	$("#tradepwd").siblings(".tips-normal").hide();
+        })
+        $("#tradepwd").on("blur",function(){
+        	$("#tradepwd").siblings(".tips-normal").show();
+        })
     });
 </script>
 </body>

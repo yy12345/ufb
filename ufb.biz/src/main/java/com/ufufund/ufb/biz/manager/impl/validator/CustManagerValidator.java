@@ -151,7 +151,7 @@ public class CustManagerValidator {
 			if (!action.getPassword1().equals(action.getPassword2())) {
 				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD);
 			}
-			if (!RegexUtil.isPwd(action.getPassword1())) {
+			if (!RegexUtil.isTradePwd(action.getPassword1())) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.TRADEPWD);
 			}
 		}else if("LOGIN".equals(action.getActionType())){
@@ -180,7 +180,7 @@ public class CustManagerValidator {
 			if (!action.getPassword1().equals(action.getPassword2())) {
 				throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD);
 			}
-			if (!RegexUtil.isPwd(action.getPassword1())) {
+			if (!RegexUtil.isTradePwd(action.getPassword1())) {
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.TRADEPWD);
 			}
 		}

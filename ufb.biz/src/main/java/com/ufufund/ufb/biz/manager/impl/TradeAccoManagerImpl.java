@@ -27,12 +27,12 @@ public class TradeAccoManagerImpl implements TradeAccoManager{
 		List<String> levels = new ArrayList<String>();
 		levels.add("0"); // 
 		levels.add("2"); // 
-		return tradeAccoinfoMapper.getTradeAccoList(custno, Constant.HftSysConfig.HftFundCorpno, levels, tradeaccosts);
+		return tradeAccoinfoMapper.getTradeAccoList(custno, Constant.HftSysConfig.HftFundCorpno, tradeaccosts);
 	}
 	
 	@Override
-	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno, String fundcorpno, List<String> levels, List<String> tradeaccosts) {
-		return tradeAccoinfoMapper.getTradeAccoList(custno, fundcorpno, levels, tradeaccosts);
+	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno, String fundcorpno, List<String> tradeaccosts) {
+		return tradeAccoinfoMapper.getTradeAccoList(custno, fundcorpno, tradeaccosts);
 	}
 	
 	public TradeAccoinfoOfMore getTradeAcco(String custno, String fundcorpno, String bankserialid){

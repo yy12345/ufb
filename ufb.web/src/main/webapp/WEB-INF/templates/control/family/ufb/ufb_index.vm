@@ -179,7 +179,7 @@ $(function(){
 		     幼富宝
 		     <div class="addCard">
                 银行卡已添加<span class="cBlue">$!{hft_family_trade_size}</span>张
-				<a href="${ufbDomain}/family/settingCard.htm" class="readAll">查看全部</a>
+				<a href="${ufbDomain}/family/setting/bankcard_index.htm" class="readAll">查看全部</a>
 				<a href="#" id="addBankCard" isufbCard="$!{isufbCard}">+新卡</a>
              </div>
 		</div>

@@ -1888,7 +1888,7 @@ a.link-underline {
 .setting .card-list {
 	padding: 10px 0;
 	margin-bottom: 10px;
-	border-bottom: 1px solid #cbcbcb;
+	border-bottom: 0px solid #cbcbcb;
 }
 .setting .card {
 	float: left;

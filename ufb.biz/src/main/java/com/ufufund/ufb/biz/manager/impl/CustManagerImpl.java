@@ -291,13 +291,10 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		String processId = this.getProcessId(changePasswordAction);
 		String actionType = changePasswordAction.getActionType();
 		/** 校验数据有效性 **/
-		//custManagerValidator.validator(changePasswordAction);
-		//20151005==============
 		String password0=changePasswordAction.getPassword0();
 		if(!("").equals(password0)&&!(password0==null)){
 			custManagerValidator.validator(changePasswordAction);
 		}
-		//20151005==============
 		/** 验证原始密码 **/
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(changePasswordAction.getCustno());
@@ -306,7 +303,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 			custinfo.setTradepwd(EncryptUtil.md5(changePasswordAction.getPassword0()));
 		}else if("LOGIN".equals(actionType)){
 			// 登入密码
-			if(!("").equals(password0)&&!(password0==null)){//20151005==============
+			if(!("").equals(password0)&&!(password0==null)){ 
 				custinfo.setLoginpwd(EncryptUtil.md5(changePasswordAction.getPassword0()));
 			} 
 		}else{

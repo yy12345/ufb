@@ -89,14 +89,9 @@ public class TradedController {
 			tradeaccosts.add("Y");  
 			tradeaccosts.add("N");  
 			
-			List<String> levels = new ArrayList<String>();
-			levels.add("0"); 
-			//levels.add("2");
-			
 			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
 					custno, 
 					Constant.HftSysConfig.HftFundCorpno, 
-					levels,
 					tradeaccosts);
 			
 			// 获取工作日信息等
@@ -178,14 +173,9 @@ public class TradedController {
 			tradeaccosts.add("Y");  
 			tradeaccosts.add("N");  
 			
-			List<String> levels = new ArrayList<String>();
-			levels.add("0"); 
-			//levels.add("2"); 
-			
 			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
 					custno, 
 					Constant.HftSysConfig.HftFundCorpno, 
-					levels,
 					tradeaccosts);
 			// 获取用户总资产
 			Assets assets = queryManager.queryAssets(tradeAccoList, BasicFundinfo.YFB.getFundCode());
@@ -372,21 +362,15 @@ public class TradedController {
 					startappdate.replace("-", ""), 
 					endappdate.replace("-", ""),
 					0, 
-					10
+					400
 					);
 			// 获取交易账户列表
 			List<String> tradeaccosts = new ArrayList<String>();
 			tradeaccosts.add("Y");   
 			tradeaccosts.add("N");  
-			
-			List<String> levels = new ArrayList<String>();
-			levels.add("0"); 
-			//levels.add("2"); 
-			
 			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
 					custno, 
 					Constant.HftSysConfig.HftFundCorpno, 
-					levels,
 					tradeaccosts);
 			// 获取用户总资产
 			Assets assets = queryManager.queryAssets(tradeAccoList, BasicFundinfo.YFB.getFundCode());
@@ -517,14 +501,13 @@ public class TradedController {
 			String nextdate = autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
 			nextdate=nextdate.substring(0,4)+"年"+nextdate.substring(4, 6)+"月"+nextdate.substring(6, 8)+"日";
 			autotradeVo.setNextdate(nextdate);
-			// 获取交易账户列表==20151001
+			// 获取交易账户列表 
 			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(s_custinfo.getCustno());
 						
 				if(null != tradeAccoList && tradeAccoList.size() > 0){
 					model.addAttribute("curCard", tradeAccoList.get(0));
 					model.addAttribute("cardList", tradeAccoList);
 				}
-				//20151001===
 			// 跳转确认页
 			model.addAttribute("AutoTradeVo", autotradeVo);
 		}catch(UserException ue){
@@ -864,15 +847,15 @@ public class TradedController {
 	public String cardAdd(BankCardVo bankCardVo,String bankacco, String serialid,Model model){
 		
 		try{
-			 CustinfoVo custinfoVo=UserHelper.getCustinfoVo();
-			 String ivnname=custinfoVo.getInvnm();
-			 String idno=custinfoVo.getIdno();
-			 //用户信息
-			 model.addAttribute("ivnname", ivnname);
-			 model.addAttribute("idno", idno);
-			 //获得所有的银行卡
+				 CustinfoVo custinfoVo=UserHelper.getCustinfoVo();
+				 String ivnname=custinfoVo.getInvnm();
+				 String idno=custinfoVo.getIdno();
+				 //用户信息
+				 model.addAttribute("ivnname", ivnname);
+				 model.addAttribute("idno", idno);
+			    //获得所有的银行卡
 				List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
-				//支持幼富通的银行===20151013
+				//支持幼富通的银行 
 				List<BankBaseInfo> yftBankList= new ArrayList<BankBaseInfo>();
 				//其它的银行
 				List<BankBaseInfo> qtBankList= new ArrayList<BankBaseInfo>();
@@ -895,23 +878,21 @@ public class TradedController {
 				 if(""!=banknbinno&&null!=banknbinno){
 					 bankCardVo.setBankno(banknbinno);
 				 }else if(StringUtils.isBlank(bankCardVo.getBankno())){
-						 // 默认第一个
-						 bankCardVo.setBankno(yftBankList.get(0).getBankno());
-					 } 
+					 // 默认第一个
+				     bankCardVo.setBankno(yftBankList.get(0).getBankno());
+				} 
 				 
 				model.addAttribute("bankList", yftBankList);
 				model.addAttribute("qtBankList", qtBankList);
-				//获得用户是否有幼富通卡
-				List<String> tradeaccosts = new ArrayList<String>();
-				tradeaccosts.add("Y"); // 
-				tradeaccosts.add("N"); // 
 				
-				List<String> levels = new ArrayList<String>();
-				levels.add("0"); 
+				// 获得用户是否有幼富通卡
+				List<String> tradeaccosts = new ArrayList<String>();
+				tradeaccosts.add("Y");   
+				tradeaccosts.add("N");   
+				
 				List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(
 						custinfoVo.getCustno(),
 						null,//Constant.HftSysConfig.HftFundCorpno, 
-						levels,
 						tradeaccosts);
 				String isufbCard="N";
 				if(null!=hft_family_trade&& hft_family_trade.size() > 0){

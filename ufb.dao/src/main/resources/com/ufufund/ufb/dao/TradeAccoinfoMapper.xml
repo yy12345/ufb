@@ -125,10 +125,6 @@
 			<if test="fundcorpno != null and fundcorpno !=''" >
   			and t.fundcorpno = #{fundcorpno,jdbcType=VARCHAR}
   			</if>
-  			and t.level in 
-			<foreach item="level" index="index" collection="levels" open="(" separator="," close=")">
- 		   	#{level, jdbcType=VARCHAR}
- 			</foreach>
 			and b.custno = #{custno,jdbcType=VARCHAR}
 		order by b.mainflag desc
 	</select>

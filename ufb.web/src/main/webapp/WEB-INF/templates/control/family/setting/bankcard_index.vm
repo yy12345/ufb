@@ -27,13 +27,7 @@ $(function(){
 	}
 	
 	$(".set-main").on("click", function(){
-		if(!confirm("您确定要将你的银行卡设置为主卡吗？")){
-				return false;
-			}
-		if(setting_mainCard($(this).attr("bankacco"),null,null,"M")){
-			//alert("设置主卡成功");
-			window.location.href="${ufbDomain}/family/setting/bankcard_index.htm";
-		}
+			window.location.href="${ufbDomain}/family/accout/card_update.htm";
 	});
 	
 	$(".set-unbind").on("click", function(){
@@ -135,7 +129,7 @@ $(function(){
                             <div class="card-setting">
 							        #if($!{card.clevel}=="1")	<span id="ufbCard">*幼富宝 </span> #end
         							#if($!{card.mainflag}!="Y")
-        							<a bankacco="${card.bankacco}" class="set-main" href="javascript:;">设为主卡</a>
+        							#if($!{card.clevel}!="1")<a bankacco="${card.bankacco}" class="set-main" href="javascript:;">升级幼富宝卡</a>#end
         							#end
         							<a bankacco="${card.bankacco}" class="set-unbind" href="javascript:;"
     									serialid="${card.serialid}"
@@ -149,15 +143,12 @@ $(function(){
     						</div>
                         </li>
     					#end
-    					#if(${isUfbCard}!=true)
-                        <li class="card card-add cardM3"><a id="addCard" href="#" cardcount="${cardList_Y.size()}">升级为幼富宝卡</a></li>
-                        #end
                         #else
                         	<li class="card card-add cardM3"><a id="addCard" href="#" cardcount="${cardList_Y.size()}">添加银行卡</a></li>
                         #end
                     </ul>
-                    <div>已解绑银行卡：</div>
-                    <ul class="card-list clearfix">
+                    <div style="display:none">已解绑银行卡：</div>
+                    <ul class="card-list clearfix" style="display:none">
 						
 						#foreach($card in $cardList_N)
     					#set($tailStr=$card.bankacco)

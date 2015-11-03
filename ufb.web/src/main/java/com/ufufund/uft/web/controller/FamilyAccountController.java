@@ -365,12 +365,9 @@ public class FamilyAccountController {
 				tradeaccosts.add("Y"); // 
 				tradeaccosts.add("N"); // 
 				
-				List<String> levels = new ArrayList<String>();
-				levels.add("0"); 
 				List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(
 						custinfoVo.getCustno(),
 						null,//Constant.HftSysConfig.HftFundCorpno, 
-						levels,
 						tradeaccosts);
 				String isufbCard="N";
 				if(null!=hft_family_trade&& hft_family_trade.size() > 0){

@@ -79,14 +79,9 @@ public class SettingsController {
 	public String accountIndex(CustinfoVo custinfoVo, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			custinfoVo.setCustno(s_custinfo.getCustno());;                      
 			custinfoVo.setMobileno(s_custinfo.getMobileno());                    
-			custinfoVo.setInvtp(s_custinfo.getInvtp()); 
 			custinfoVo.setInvnm(s_custinfo.getInvnm());        
-			custinfoVo.setIdtp(s_custinfo.getIdtp());     
 			custinfoVo.setIdno(s_custinfo.getIdno());             
-			custinfoVo.setCustst(s_custinfo.getCustst());
-			custinfoVo.setLevel(s_custinfo.getLevel());
 			//学生信息
 			List<StudentVo> list=new ArrayList<StudentVo>();
 		    List<Student> slists=custManager.queryStudentsByCustno(s_custinfo.getCustno());
@@ -124,15 +119,6 @@ public class SettingsController {
 	public String passwordIndex(CustinfoVo custinfoVo, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			custinfoVo.setCustno(s_custinfo.getCustno());;                      
-			custinfoVo.setMobileno(s_custinfo.getMobileno());                    
-			custinfoVo.setInvtp(s_custinfo.getInvtp()); 
-			custinfoVo.setInvnm(s_custinfo.getInvnm());        
-			custinfoVo.setIdtp(s_custinfo.getIdtp());     
-			custinfoVo.setIdno(s_custinfo.getIdno());             
-			custinfoVo.setCustst(s_custinfo.getCustst());
-			custinfoVo.setLevel(s_custinfo.getLevel());
-			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "密码设置");
@@ -152,17 +138,18 @@ public class SettingsController {
 	 */
  	@RequestMapping(value="update_loginPwd")
  	@ResponseBody
-	public Map<String,Object> updateLoginPwd(String login_password0,String login_password1){
+	public Map<String,Object> updateLoginPwd(String password0,String password1){
  		Map<String,Object> resultMap=new HashMap<String,Object>();
  		try{
-			CustinfoVo s_custinfo=UserHelper.getCustinfoVo();
+			String custno=UserHelper.getCustno();
 			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
 			changePasswordAction.setActionType("LOGIN");
-			changePasswordAction.setCustno(s_custinfo.getCustno());
-			changePasswordAction.setPassword1(login_password1);
-			String password=s_custinfo.getLoginpwd();
-			login_password0=EncryptUtil.md5(login_password0);
-			if(!password.equals(login_password0)){
+			changePasswordAction.setCustno(custno);
+			changePasswordAction.setPassword1(password1);
+			Custinfo custinfo=custManager.getCustinfo(custno);
+			String password=custinfo.getLoginpwd();
+			password0=EncryptUtil.md5(password0);
+			if(!password.equals(password0)){
 				resultMap.put("errCode", "0001");
 				resultMap.put("errMsg", "原登录密码不正确！");
 				return resultMap;
@@ -193,19 +180,22 @@ public class SettingsController {
 	 */
 	@RequestMapping(value="update_tradePwd")
 	@ResponseBody
-	public Map<String,Object> setUTradePwd(String password0, String password1, String password2){
-		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+	public Map<String,Object> setUTradePwd(String password0, String password1,String password2){
+		String custno=UserHelper.getCustno();
 		Map<String,Object> resultMap=new HashMap<String, Object>();
 		try{
 			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
 			changePasswordAction.setActionType("TRADE");
-			changePasswordAction.setCustno(s_custinfo.getCustno());
+			changePasswordAction.setCustno(custno);
 			changePasswordAction.setPassword0(password0);
 			changePasswordAction.setPassword1(password1);
 			changePasswordAction.setPassword2(password2);
-			String tradePwd=s_custinfo.getTradepwd();
+			Custinfo custinfo=custManager.getCustinfo(custno);
+			String tradePwd=custinfo.getTradepwd();
 			password0=EncryptUtil.md5(password0);
-			if(!password0.equals(tradePwd)){//交易密码与原交易密码不同
+			
+			// 交易密码与原交易密码不同
+			if(!password0.equals(tradePwd)){
 				resultMap.put("errCode", "0001");
 				return resultMap;
 			}
@@ -281,12 +271,8 @@ public class SettingsController {
 			tradeaccosts.add("Y");  
 			tradeaccosts.add("N");  
 			
-			List<String> levels = new ArrayList<String>();
-				levels.add("0"); 
-				levels.add("1");  
-				levels.add("2");  
 			List<TradeAccoinfoOfMore> tradeAccoList_Y = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, levels, tradeaccosts);
+					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, tradeaccosts);
 			if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
 				// 获取用户总资产
 				Assets assets = queryManager.queryAssets(tradeAccoList_Y, BasicFundinfo.YFB.getFundCode());//20151011添加基金编码
@@ -303,10 +289,10 @@ public class SettingsController {
 				model.addAttribute("cardList_Y", null);
 			}
 			tradeaccosts = new ArrayList<String>();
-			tradeaccosts.add("C"); // 
-			tradeaccosts.add("F"); // 
+			tradeaccosts.add("C");  
+			tradeaccosts.add("F");  
 			List<TradeAccoinfoOfMore> tradeAccoList_N = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, levels, tradeaccosts);
+					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null,tradeaccosts);
 			if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
 				model.addAttribute("cardList_N", tradeAccoList_N);
 			} else {
@@ -337,7 +323,6 @@ public class SettingsController {
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			if("M".equals(type)){
-				// 短信验证
 				bankCardManager.setBankCardMainFlag(
 						s_custinfo.getCustno(), 
 						null, 
@@ -348,7 +333,6 @@ public class SettingsController {
 						"Y");
 			}
 			else if("U".equals(type)){
-				// 短信验证
 				TradeAccoVo tradeAccoVo = queryManager.queryAssets(tradeacco, null);
 				BigDecimal total = tradeAccoVo.getTotal();
 				BigDecimal available = tradeAccoVo.getAvailable();
@@ -368,7 +352,6 @@ public class SettingsController {
 						"C");
 			}
 			else if("D".equals(type)){
-				// 短信验证
 				TradeAccoVo tradeAccoVo = queryManager.queryAssets(tradeacco, null);
 				BigDecimal total = tradeAccoVo.getTotal();
 				BigDecimal available = tradeAccoVo.getAvailable();
@@ -405,7 +388,7 @@ public class SettingsController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="findpassword_index")
+	@RequestMapping(value="findpwd_index")
 	public String findpasswordIndex(AutotradeVo autotradeVo, Model model){
 		try{
 			
@@ -415,13 +398,13 @@ public class SettingsController {
 			model.addAttribute("message_content", ue.getMessage());
 			return "error/error";
 		}
-		return "family/setting/findpassword_index";
+		return "family/setting/findpwd_index";
 	}
 	/**
 	 * 修改登录密码   未登录状态step2
 	 * 20151002
 	 */
-	@RequestMapping(value="findpassword_confirm")
+	@RequestMapping(value="findpwd_confirm")
 	public String findpasswordConfirm(CustinfoVo custinfoVo, Model model){
 		try{
 			
@@ -429,23 +412,23 @@ public class SettingsController {
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "修改登录密码");
-			model.addAttribute("message_url", "family/setting/findpassword_index.htm");
+			model.addAttribute("message_url", "family/setting/findpwd_index.htm");
 			model.addAttribute("message_content", ue.getMessage());
 			model.addAttribute("back_module", "返回");
 			return "error/error";
 		}
-		return "family/setting/findpassword_confirm";
+		return "family/setting/findpwd_confirm";
 	}
 	/**
 	 * 修改登录密码   未登录状态step3
 	 * 20151002
 	 */
-	@RequestMapping(value="findpassword_success")
+	@RequestMapping(value="findpwd_success")
 	@ResponseBody
-	public Map<String,Object> findPasswordStep3(CustinfoVo custinfoVo,String password1, Model model){
+	public Map<String,Object> findPasswordStep3(String mobileno,String password1, Model model){
 		Map<String,Object> resultMap= new HashMap<String, Object>();
 		try{
-			Custinfo custinfo=custManager.getCustInfoByMobileno(custinfoVo.getMobileno());
+			Custinfo custinfo=custManager.getCustInfoByMobileno(mobileno);
 			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
 			changePasswordAction.setActionType("LOGIN");
 			changePasswordAction.setCustno(custinfo.getCustno());
@@ -468,7 +451,7 @@ public class SettingsController {
 	 * 修改登录密码结果   未登录状态step3
 	 * 20151002
 	 */
-	@RequestMapping(value="findpassword_result")
+	@RequestMapping(value="findpwd_result")
 	public String findpasswordResult(AutotradeVo autotradeVo, Model model){
 		try{
 			
@@ -478,7 +461,7 @@ public class SettingsController {
 			model.addAttribute("message_content", ue.getMessage());
 			return "error/error";
 		}
-		return "family/setting/findpassword_success";
+		return "family/setting/findpwd_success";
 	}
 	
 

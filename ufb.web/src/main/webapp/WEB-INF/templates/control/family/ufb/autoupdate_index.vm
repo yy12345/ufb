@@ -7,7 +7,14 @@
 <script>
 $(function(){
 	$('.nav a:eq(1)').addClass('active');
-	
+	// 用户输入时，取消错误提示
+		$("form input").on('focus', function(){
+			if($(this).parent().hasClass('error')){
+				$(this).parent().removeClass('error');
+				//$(this).siblings('.tips-check').hide();
+			}
+		});
+		
 	$("#container").removeClass("setting");
 	// 点击银行卡
 	$(".card").on("click", function(){
