@@ -10,4 +10,6 @@ public interface BankBaseMapper{
 	public List<BankBaseInfo> getBankBaseInfo(BankBaseInfo bankBaseInfo);
 	
 	public BankCardbin getBankCardbin(String bin);
+	
+	public String getLevelByBankno(String bankno);
 }

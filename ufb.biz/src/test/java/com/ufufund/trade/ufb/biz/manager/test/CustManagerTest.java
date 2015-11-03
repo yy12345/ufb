@@ -55,7 +55,7 @@ public class CustManagerTest {
 		loginAction.setLogincode("13611686341");
 		loginAction.setLoginpwd("123257");
 		loginAction.setLoginpwd2("123257");
-		custManager.register(loginAction);
+//		custManager.register(loginAction);
 	}
 	
 	
@@ -72,7 +72,7 @@ public class CustManagerTest {
 		loginAction.setLevel(Level.OPERATOR);
 		loginAction.setOrgnm("Organization");
 		loginAction.setOrgbusiness("business");
-		custManager.register(loginAction);
+//		custManager.register(loginAction);
 	}
 	
 	/*
@@ -122,7 +122,7 @@ public class CustManagerTest {
 		openAccountAction = bankCardManager.openAccount2(openAccountAction);
 		openAccountAction.setMobileautocode("12345678");	
 		openAccountAction = bankCardManager.openAccount3(openAccountAction);
-		bankCardManager.openAccountPerson(openAccountAction);
+//		bankCardManager.openAccountPerson(openAccountAction);
 		//areaManager.loginIn(loginAction);
 	}
 	

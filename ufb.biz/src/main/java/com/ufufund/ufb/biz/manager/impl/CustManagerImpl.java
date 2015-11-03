@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
@@ -15,10 +17,12 @@ import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.RegexUtil;
+import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -27,7 +31,6 @@ import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
-import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.StudentVo;
 import com.ufufund.ufb.model.vo.Today;
 
@@ -47,6 +50,8 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	private TradeNotesMapper tradeNotesMapper;
 	@Autowired
 	private SequenceManager sequenceManager;
+	@Autowired
+	private BankCardManager bankCardManager;
 	
 	/**
 	 * 查询手机号是否注册
@@ -123,27 +128,23 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 * @return
 	 */
 	@Override
-	public void register(RegisterAction registerAction) throws BizException {
-		String processId = this.getProcessId(registerAction);
-		custManagerValidator.validator(registerAction);
+	@Transactional
+	public String register(RegisterAction registerAction, OpenAccountAction openAccountAction) throws BizException {
+//		custManagerValidator.validator(registerAction);
 		
-		// 查询手机号是否注册
-		if(this.isMobileRegister(registerAction.getLogincode())){
-			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, BisConst.Register.MOBILE);
+		// 添加用户信息
+		Custinfo custinfo = custManagerHelper.toCustinfo(registerAction, openAccountAction);
+		custinfo.setCustno(sequenceManager.getCustinfoSequence());
+		custinfoMapper.insertCustinfo(custinfo);
+		// 添加银行卡
+		openAccountAction.setCustno(custinfo.getCustno());
+		String bankSerialid = bankCardManager.addBankCardinfo(openAccountAction);
+		// 添加幼富宝基金交易账户
+		if(!StringUtils.isBlank(openAccountAction.getTransactionaccountid())){
+			bankCardManager.addTradeaccoinfo(openAccountAction, bankSerialid);
 		}
 		
-		// 插入客户信息表
-		Custinfo custinfo = custManagerHelper.toCustinfo(registerAction);
-		custinfo.setCustno(sequenceManager.getCustinfoSequence());
-		
-		// 注册
-		custinfoMapper.insertCustinfo(custinfo);
-
-		// 插入流水表、更新变动表
-		this.insterSerialno(custinfo, Apkind.REGISTER.getValue());
-		
-		// 带回CustNo
-		registerAction.setCustno(custinfo.getCustno());
+		return custinfo.getCustno();
 	}
 
 

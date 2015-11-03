@@ -181,8 +181,7 @@ public class RegexUtil {
      */
 	public final static boolean isPwd(String value) {
 		String commonSymbol = "[\\,\\`\\~\\!\\@\\#\\$\\%\\\\^\\&\\*\\(\\)\\-\\_\\+\\[\\{\\]\\}\\\\|\\;\\:\\‘\\’\\“\\”\\<\\>\\/?]+";
-		// return match(str, "^[a-zA-Z0-9]\\w{5,11}$");
-
+		
 		if (StringUtils.isBlank(value)) {
 			return false;
 		}
@@ -193,7 +192,6 @@ public class RegexUtil {
 			return false;
 		}
 		String regex1 = "[^ ]+";
-		//System.out.println("fuck: " + Pattern.compile("\\s+").matcher("1  2").matches());
 		if (!match(value, regex1)) {
 			return false;
 		}
@@ -216,6 +214,22 @@ public class RegexUtil {
 				+ n + "";
 		if (!match(value, regexAll)) {
 			return true;
+		}
+		return true;
+	}
+	
+	/**
+	 * 交易密码为6位数字(家长用户)
+	 * @param value
+	 * @return
+	 */
+	public static boolean isTradePwd(String value){
+		if (StringUtils.isBlank(value)) {
+			return false;
+		}
+		String regex = "^\\d{6}$";
+		if (!match(value, regex)) {
+			return false;
 		}
 		return true;
 	}

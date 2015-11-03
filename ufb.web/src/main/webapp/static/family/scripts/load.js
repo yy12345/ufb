@@ -185,28 +185,28 @@ $(function(){
       $(".liBox .trip").mouseout(function(){
         $(this).find("div").hide();
     });
-     $(".common-form .safeInfo li span a").mouseover(function(){
-        $(this).find("div").show();
+    $("#cardRequirement").mouseover(function(){
+        $(this).parent().next().show();
     });
-    $(".common-form .safeInfo li span a").mouseout(function(){
-        $(this).find("div").hide();
+    $("#cardRequirement").mouseout(function(){
+        $(this).parent().next().hide();
     });
     
     $(".common-form .safeInfo .provinces").click(function(){
         $(".common-form .safeInfo .inputL .chose").toggle();
-        $(this).css("background","#ffffff url(/ufb/static/family/images/icon.png) no-repeat 94px -147px");
+        $(this).css("background","#ffffff url(../images/icon.png) no-repeat 94px -147px");
     });
     $(".common-form .safeInfo .inputL .chose li").click(function(){
-        $(".common-form .safeInfo .provinces").html($(this).html()).css("background","#ffffff url(/ufb/static/family/images/icon.png) no-repeat 94px -111px");
+        $(".common-form .safeInfo .provinces").html($(this).html()).css("background","#ffffff url(../images/icon.png) no-repeat 94px -111px");
         $(".common-form .safeInfo .inputL .chose").hide();
     });
     
     $(".common-form .safeInfo .city").click(function(){
         $(".common-form .safeInfo .inputR .choseCity").toggle();
-        $(this).css("background","#ffffff url(/ufb/static/family/images/icon.png) no-repeat 94px -147px");
+        $(this).css("background","#ffffff url(../images/icon.png) no-repeat 94px -147px");
     });
     $(".common-form .safeInfo .inputR .choseCity li").click(function(){
-        $(".common-form .safeInfo .city").html($(this).html()).css("background","#ffffff url(/ufb/static/family/images/icon.png) no-repeat 94px -111px");
+        $(".common-form .safeInfo .city").html($(this).html()).css("background","#ffffff url(../images/icon.png) no-repeat 94px -111px");
         $(".common-form .safeInfo .inputR .choseCity").hide();
 
     });

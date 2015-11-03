@@ -5,10 +5,10 @@ import java.util.List;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.LoginAction;
+import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Student;
-import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.StudentVo;
 import com.ufufund.ufb.service.CustInterface;
 
@@ -19,7 +19,7 @@ public interface CustManager extends CustInterface{
 	 * @param RegisterAction loginAction
 	 * @return 
 	 */
-	public void register(RegisterAction loginAction) throws BizException;
+	public String register(RegisterAction loginAction, OpenAccountAction openAccountAction) throws BizException;
 
 	/**
 	 * 登录 

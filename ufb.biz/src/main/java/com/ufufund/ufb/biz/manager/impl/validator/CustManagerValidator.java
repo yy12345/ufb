@@ -73,8 +73,8 @@ public class CustManagerValidator {
 			// 交易密码为空
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.TRADEPWD);
 		}
-		if (!RegexUtil.isPwd(action.getTradepwd())) {
-			// 密码 以字母，数字开头，长度在6-12之间，只能包含字符、数字和下划线。
+		if (!RegexUtil.isTradePwd(action.getTradepwd())) {
+			// 家庭用户，交易密码为6位数字
 			throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG,BisConst.Register.TRADEPWD);
 		}
 		if (RegexUtil.isNull(action.getTradepwd2())) {
@@ -84,10 +84,6 @@ public class CustManagerValidator {
 		if (!action.getTradepwd().equals(action.getTradepwd2())) {
 			// 两次密码确认不一致
 			throw new BizException(processId, ErrorInfo.NOT_EQUALS_PASSWORD, BisConst.Register.TRADEPWD2);
-		}
-		if(action.getTradepwd().equals(action.getLoginpwd())){
-			//交易密码与登录密码 一致
-			throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD2);
 		}
 		//====
 		if(Level.ORGANIZATION.equals(action.getInvtp())){

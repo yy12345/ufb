@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>幼富通</title>
+<title>幼富通-注册-设置支付方式</title>
  
 <script type="text/javascript">
 //$(function(){
@@ -10,6 +10,240 @@
 //    $('#card2').cardFormat('###,###,####,####,####');//身份证
 //});
 </script>
+<script type="text/javascript" src="${staticDomain}/family/scripts/load.js"></script>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>  <!--scroll美化-->
+<script type="text/javascript">
+    $(function(){
+	   // 幼富宝协议    
+       $("#ufbAgreement").click(function(){
+           $(".bgBox , #ufb01").fadeIn();       
+       });
+       $("#ufb01 .close , .btnKnow").click(function(){
+           $(".bgBox , #ufb01").fadeOut();       
+       });
+	   // 海富通基金协议 
+       $("#hftAgreement").click(function(){
+           $(".bgBox , #hft").fadeIn();       
+       });
+       $("#hft .close , .btnKnow").click(function(){
+           $(".bgBox , #hft").fadeOut();       
+       });
+	   // 实名注册协议
+       $("#uftName").click(function(){
+           $(".bgBox , #uft").fadeIn();       
+       });
+       $("#uft .close , .btnKnow").click(function(){
+           $(".bgBox , #uft").fadeOut();       
+       });
+       
+       $(window).load(function(){
+	        $(".content_scroll").mCustomScrollbar({
+	            theme:"dark", //主题颜色
+	            scrollButtons:{
+	                enable:true //是否使用上下滚动按钮
+	            },
+	            autoHideScrollbar: false, //是否自动隐藏滚动条
+	            scrollInertia :0,//滚动延迟
+	            horizontalScroll : false//水平滚动条
+	
+	        });
+	   });
+        
+       // 银行卡列表-样式控制
+       $(".input-options .bank").on('click', function(){
+            $(this).addClass("active").parents().siblings().find("a").removeClass("active");
+            $(this).addClass("active").siblings().removeClass("active");
+       });
+	   // 银行卡列表-业务逻辑控制
+	   $('.input-options .bank').on('click', function(){ 
+		  var bankno = $(this).attr('bankno'); 
+		  $("#bankno").val(bankno);
+		  // 是否需要地址
+		  if(bankno == '008' || bankno == '009' || bankno == '010'){
+			$('.sureAddr').show();
+			$('.Addr').show();
+		  }else{
+			$('.sureAddr').hide();
+			$('.Addr').hide();
+		  }
+		  // 是否需要通联验证码
+		  if($(this).parent().hasClass('ufbCard')){
+		  	$('#mobileautocode').closest('li').show();
+		  }else{
+		  	$('#mobileautocode').closest('li').hide();
+		  }
+	   });
+	   
+	   // 检查银行卡号
+	   var checkBankacco = function(){
+	   		
+	   		var obj = $('#bankacco').closest('li').children('.tips-check');
+	   		if($('#bankacco').val() == ''){
+	   			obj.parent().removeClass('ok');
+				obj.parent().addClass('error');
+	   			obj.find('font').text('请填写银行卡号！');
+	   			obj.css('display', 'inline');
+	   			return false;
+	   		}else if($('#bankacco').val().length < 14 || $('#bankacco').val().length > 21){
+	   			obj.parent().removeClass('ok');
+				obj.parent().addClass('error');
+	   			obj.find('font').text('请填写正确的银行卡号！');
+	   			obj.css('display', 'inline');
+	   			return false;
+	   		}else{
+	   			var result = readCardbin($('#bankacco').val());
+	   			if(result.errCode == '0000' && result.cardbin
+	   				&& result.cardbin.bankno != $("#bankno").val()){
+	   				obj.parent().removeClass('ok');
+					obj.parent().addClass('error');
+		   			obj.find('font').text('对不起，银行卡号与所选银行不符！');
+		   			obj.css('display', 'inline');
+		   			return false;
+	   			}else{
+	   				obj.parent().addClass('ok');
+					obj.parent().removeClass('error');
+		   			obj.find('font').html('&nbsp;');
+		   			obj.css('display', 'inline');
+		   			return true;
+	   			}
+	   		}
+	   }
+	   
+	   // 检查银行预留手机号
+	   var checkBankMobile = function(){
+	   		var regex = /^(((13[0-9]{1})|145|147|(15[0-9]{1})|170|17[6-8]{1}|(18[0-9]{1}))+\d{8})$/;
+	 	
+			if($("#bankmobile").val() == ''){
+				$("#bankmobile").next().find('font').text('银行预留手机号码不能为空！');
+				$("#bankmobile").next().css('display', 'inline');
+				$("#bankmobile").closest('li').addClass('error');
+				$("#bankmobile").closest('li').removeClass('ok');
+				return false;
+			}else if(!$("#bankmobile").val().match(regex)){
+				$("#bankmobile").next().find('font').text('银行预留手机号码格式不正确！');
+				$("#bankmobile").next().css('display', 'inline');
+				$("#bankmobile").closest('li').addClass('error');
+				$("#bankmobile").closest('li').removeClass('ok');
+				return false;
+			}else{
+		 		$("#bankmobile").next().find('font').html('&nbsp;');
+				$("#bankmobile").next().css('display', 'inline');
+				$("#bankmobile").closest('li').removeClass('error');
+				$("#bankmobile").closest('li').addClass('ok');
+				return true;
+		 	}
+	   }
+	   
+	   // 检查验证码
+	   var checkMobileCode = function(){
+	   		var obj = $('#mobileautocode');
+	   		if(obj.closest('li').is(':visible')
+	   			&& obj.val() == ''){
+	   			obj.next().next().find('font').text('验证码为空！');
+				obj.next().next().css('display', 'inline');
+				obj.closest('li').addClass('error');
+				return false;
+	   		}
+	   		return true;
+	   }
+	   
+		// 输入框响应事件
+		$("#bankacco").on("blur", checkBankacco);
+		$("#bankmobile").on("blur", checkBankMobile);
+		$("#mobileautocode").on("blur", checkMobileCode);
+		
+		// 用户输入时，取消错误提示
+		$("form input").on('focus', function(){
+			if($(this).closest('li').hasClass('error')){
+				$(this).closest('li').removeClass('error');
+				$(this).closest('li').children('.tips-check').hide();
+			}
+		});
+		
+		// 获取通联手机验证码
+		$("#btn-getMsgCode").on("click",function(){
+		 	if(checkBankacco() && checkBankMobile() && bank_auth()){
+		 		$('#bankacco').attr('readonly', true);
+		 		$('#bankmobile').attr('readonly', true);
+		 	}
+		});
+		
+		// 表单提交
+		$("#btn-submit").on("click",function(){
+			if(checkBankacco() && checkBankMobile() && checkMobileCode()){
+		 		$("#myform").submit();
+		 	}
+		});
+		
+		// 海富通银行鉴权
+		var bank_auth = function(){
+			var result = {errMsg:'系统出现异常！'};
+			$("#btn-getMsgCode").addClass("off");
+	        $("#btn-getMsgCode").attr("disabled","disabled");
+			$.ajax({
+	     		type: "get",
+	    		url: "${ufbDomain}/family/account/bank_auth.htm",
+	    		data: 'bankno='+$("#bankno").val()+'&bankacco='+$("#bankacco").val()+'&bankmobile='+$('#bankmobile').val(),
+	    		async: false,
+	    		success: function(data) {
+	    			result = $.parseJSON(data);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log('系统出现异常！');
+				}
+	        });
+	        if(result.errCode == '0000'){
+	        	alert("通联手机验证码已发送！");
+	            setTimeout(countDown, 1000);
+	            return true;
+	        }else if(result.errCode == '9998'){
+	        	alert("页面已失效！");
+	            location = '${ufbDomain}/family/index.htm';
+	            return false;
+	        }else{
+	        	alert(result.errMsg);
+	        	$("#btn-getMsgCode").removeClass("off");
+				$("#btn-getMsgCode").removeAttr("disabled");
+				return false;
+	        }
+		}
+		
+		// 获取短信码按钮倒计时
+		var count = 60;
+		var countDown = function() {
+			$("#btn-getMsgCode").val("等待" + count + "秒!"); 
+			if (count == 0) { 
+				$("#btn-getMsgCode").val("重新发送"); 
+				$("#btn-getMsgCode").removeClass("off");
+				$("#btn-getMsgCode").removeAttr("disabled"); 
+				clearTimeout(countdown); 
+			}else{
+				count--; 
+				setTimeout(countDown, 1000);
+			}
+		}
+		
+	   // 根据银行卡号读取卡bin
+	   var readCardbin = function(bankacco){
+	   		var result = {errCode:'9999'};
+			$.ajax({
+				type: "post",
+				url: '${ufbDomain}/common/cardbin_read.htm',
+				data:'bin='+bankacco.substr(0,6),
+				async:false,
+				success: function(data){
+					result = $.parseJSON(data);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log('系统出现异常！');
+				}
+			});
+			return result;
+	   }
+	   
+    });
+</script>
+
 <style>
     .num{
         z-index:1000;
@@ -17,108 +251,93 @@
     }    
 </style>
 </head>
-<body>
-      
-        <div id="body">
-            <div class="container">
-                <div class="u2 mt20">
-                    <div class="a4">
-                       <ul class="v1">
-                            <li>创建账户</li>
-                            <li>身份安全信息</li>
-                            <li class="v1_hover">设置支付方式</li>
-                            <li>成功</li>
-                        </ul>
-                       <div class="v2">
-                            <i class="v2_1"></i>
-                            <p><i></i>为了给您提供完善便捷的缴费、理财及其他金融服务，请您设置支付方式。成功后即可使用幼富宝、学费通等贴心服务。</p>
-                       </div>
-                    <div class="b3">
-                        <form id="btn-subform" class="common-form" method="post" action="../family/createAccount4.htm">
-							<input type="hidden" name="loginpwd" id="loginpwd" value="$!{CustinfoVo.loginpwd}" />
-							<input type="hidden" name="loginpwd2" id="loginpwd2" value="$!{CustinfoVo.loginpwd2}" />
-							<input type="hidden" name="tradepwd" id="tradepwd" value="$!{CustinfoVo.tradepwd}" />
-							<input type="hidden" name="tradepwd2" id="tradepwd2" value="$!{CustinfoVo.tradepwd2}" />
-							<input type="hidden" name="invnm" id="invnm" value="$!{CustinfoVo.invnm}" />
-							<input type="hidden" name="idno" id="idno" value="$!{CustinfoVo.idno}" />
-							<input type="hidden" name="mobileno" id="mobileno" value="$!{CustinfoVo.mobileno}" />
-							<input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
-                          	<input id="bankno" name="bankno" type="hidden" value="$!{BankCardVo.bankno}">	
-							<input id="bankprovincenm" name="bankprovincenm" type="hidden" value="$!{BankCardVo.bankprovincenm}">	
-							<input id="bankcitynm" name="bankcitynm" type="hidden" value="$!{BankCardVo.bankcitynm}">
-							<input id="otherserial" name="otherserial" type="hidden" value="$!{BankCardVo.otherserial}">
-								
-							<div class="panel">
-                                <ul class="safeInfo">
-                                    <li>
-                                        <span class="form-title">家长姓名</span>
-                                        <input class="ipt-text input-text" type="text" name="bankacnm" id="bankacnm" style="background-color:#cbcbcb;" readonly="readonly" value="$!{CustinfoVo.invnm}">
-                                        <span class="tips-normal" style="display: none;">$!{CustinfoVo.invnm}</span>
-                                      <span class="tips-check"><i class="icon"></i></span> 
-                                    </li>
-                                    <li>
-                                        <span class="form-title">身份证号</span>
-                                        <input class="ipt-idCardno input-text" type="text" name="bankidno" id="bankidno" style="background-color:#cbcbcb;" readonly="readonly" value="$!{CustinfoVo.idno}" >
-                                        <span class="tips-normal" style="display: none;">$!{CustinfoVo.idno}</span>
-                                         <span class="tips-check"><i class="icon"></i></span>
-                                    </li>
-                                </ul>
-                                <ul class="safeInfo">
-                                    <li class="anotherArea">
-                                        <span class="form-title title-font">设置支付方式</span>
-                                     <p>选择银行</p>
-                                    </li>
-                                    <li class="clearfix">
-                                        <div class="input-select">
-                                            <div class="bank bank-current"><img src="${staticDomain}/static/family/images/bank_${BankCardVo.bankno}.png" id="firstbankno" bankno="$!{BankCardVo.bankno}"></div>
-                                            <div class="input-options">
-                                                <div class="bank-list clearfix mb10">
-													#foreach($bank in $bankList)
-											        <a bankno="${bank.bankno}" class="bank" href="javascript:;"><img src="${staticDomain}/static/family/images/bank_${bank.bankno}.png"></a>
-        									        #end
-                                                    <div class="banktip">
-                                                        <p>其他银行<span>（可缴费，不支持幼富宝）</span><i class="down"></i></p>
-                                                    </div>
+<body>  
+<div id="body">
+    <div class="container">
+        <div class="u2 mt20">
+            <div class="a4">
+               <ul class="v1">
+                    <li>创建账户</li>
+                    <li>身份安全信息</li>
+                    <li class="v1_hover">设置支付方式</li>
+                    <li>成功</li>
+                </ul>
+               <div class="v2">
+                    <i class="v2_1"></i>
+                    <p><i></i>为了给您提供完善便捷的缴费、理财及其他金融服务，请您设置支付方式。成功后即可使用幼富宝、学费通等贴心服务。</p>
+               </div>
+                <div class="b3">
+                    <form id="myform" class="common-form" method="post" action="${ufbDomain}/family/account/register_success.htm">
+						${refreshTools.genInputHtml()}
+						<input id="bankno" name="bankno" type="hidden">
+							
+						<div class="panel">
+                            <ul class="safeInfo">
+                                <li>
+                                    <span class="form-title">家长姓名</span>
+                                    <input class="ipt-text input-text" type="text" name="bankacnm" id="bankacnm" style="background-color:#cbcbcb;" readonly="readonly" value="$!{custinfoVo.invnm}">
+                                    <span class="tips-normal" style="display: none;"></span>
+                                  	<span class="tips-check"><i class="icon"></i></span> 
+                                </li>
+                                <li>
+                                    <span class="form-title">身份证号</span>
+                                    <input class="ipt-idCardno input-text" type="text" name="bankidno" id="bankidno" style="background-color:#cbcbcb;" readonly="readonly" value="$!{custinfoVo.idno}" >
+                                    <span class="tips-normal" style="display: none;"></span>
+                                    <span class="tips-check"><i class="icon"></i></span>
+                                </li>
+                            </ul>
+                            <ul class="safeInfo">
+                                <li class="anotherArea">
+                                    <span class="form-title title-font">设置支付方式</span>
+                                 <p>选择银行</p>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="input-select">
+                                        <div class="bank bank-current"><img src="${staticDomain}/family/images/bank_${firstBank.bankno}.png" id="firstbankno" bankno="${firstBank.bankno}"></div>
+                                        <div class="input-options">
+                                            <div class="bank-list clearfix mb10 ufbCard">
+												#foreach($bank in $ufbBankList)
+										        <a bankno="${bank.bankno}" class="bank" href="javascript:;"><img src="${staticDomain}/family/images/bank_${bank.bankno}.png"></a>
+    									        #end
+                                                <div class="banktip">
+                                                    <p>其他银行<span>（可缴费，不支持幼富宝）</span><i class="down"></i></p>
                                                 </div>
-                                                 <div class="bank-list clearfix bgGray">
-													#foreach($qcard in $qtBankList)
-                                                    <a class="bank" bankno="${qcard.bankno}" href="javascript:;">
-													<img src="${staticDomain}/static/family/images/bank_${qcard.bankno}.png"></a>
-													#end
-                                                    <div class="banktip">
-                                                        <p>隐藏其他银行<i class="up"></i></p>
-                                                    </div>
+                                            </div>
+                                            <div class="bank-list clearfix bgGray">
+												#foreach($bank in $uftBankList)
+                                                <a class="bank" bankno="${bank.bankno}" href="javascript:;">
+												<img src="${staticDomain}/family/images/bank_${bank.bankno}.png"></a>
+												#end
+                                                <div class="banktip">
+                                                    <p>隐藏其他银行<i class="up"></i></p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <span class="tips-normal"></span>
-                                        <span class="tips-check"><i class="icon"></i>$!{errMsg_bankNo}</span>
-                                    </li>
-                                </ul>
-                                <ul class="safeInfo">
-                                    <li class="cardNum">
-                                       <span class="form-title">银行卡号</span>
-                                           <div class="cardFormat" id="card2">
-                                               <input class="ipt-bankCard input-text ipt-focus" maxlength="22"  type="text" id="bankacco" name="bankacco" value="$!{BankCardVo.bankacco}">
-                                           </div>
-                                       <span>仅支持借记卡，<a href="">银行卡要求。
-                                       <div class="trip" >
-                                           <div>填写以你自己姓名开户的银行卡<br>
-                                                幼富通平台快捷缴费：共支持超过25家全国及地方银行借记卡<br>
-                                                充值幼富宝（理财+缴费）目前共支持9家银行，仅限借记卡，需事先开通网银<b></b>
-                                            </div>
-                                        </div>
-                                       </a></span>
-                                       <p>此卡将设为默认缴费卡</p>
-                                   </li>
-                                   <li class="sureAddr" style="display:none;"><b>请明确银行开户地点</b></li>
-                                   <li class="Addr zIndex" style="display:none;">
+                                    </div>
+                                    <span class="tips-normal"></span>
+                                    <span class="tips-check"><i class="icon"></i><font></font></span>
+                                </li>
+                            </ul>
+                            <ul class="safeInfo">
+                                <li class="cardNum">
+                                   <span class="form-title">银行卡号</span>
+                                   <div class="cardFormat" id="card2">
+                                       <input class="ipt-bankCard input-text ipt-focus" maxlength="22"  type="text" id="bankacco" name="bankacco">
+                                   </div>
+                                   <span class="tips-check"><i class="icon"></i><font></font></span>
+                                   <p>
+                                   	         此卡默认缴费卡，仅支持借记卡，<a id="cardRequirement" href="javascript:;">绑卡须知</a>。
+	                               </p>
+	                               <div class="trip" style="display:none">
+	                                	 填写以你自己姓名开户的银行卡<br>
+						                                                幼富通平台快捷缴费：共支持超过15家全国及地方银行借记卡<br>
+						                                                充值幼富宝（理财+缴费）目前共支持9家银行，仅限借记卡<b></b>
+	                               </div>
+                               </li>
+                               <li class="sureAddr" style="display:none;"><b>请明确银行开户地点</b></li>
+                               <li class="Addr zIndex" style="display:none;">
                                    <span class="form-title">地址</span>
                                    <div class="inputL">
-<!--
-                                       <input type="text" value="" class="inputS">
-                                       <span class="tips-normal" style="display: block;">省份</span>    
--->
                                        <div class="inputS provinces">省份</div>
                                        <div class="chose">
                                            <ul>
@@ -142,50 +361,37 @@
                                            </ul>
                                        </div>
                                    </div>
-<!--
-                                   <input type="text" value="" class="inputS">
-                                   <span class="tips-normal tips_pos" style="display: block;">城市</span>
--->
-                                      
-                                   </li>
-                                    <li class="openAddr" style="display:none;">
-                                   <span class="form-title">开户网点</span>
-                                   <input class="ipt-text input-text inputL" type="text" id="bankadd" name="bankadd" value="$!{BankCardVo.bankadd}">
-                                   <span class="tips-normal" style="display: block;">如：浦建路支行</span>
-                                   <span>如果不明确开户网点，请拨打相应银行客服电话询问</span>
-                                   
-                                   </li>
-                                    
-                                </ul>
-                                <ul class="safeInfo borderNone">
-                                    <li id="errMsg_bankMobile">
-                                        <span class="form-title">银行预留手机号码</span>
-                                        <input class="ipt-phoneNum input-text" type="text" id="bankmobile" name="bankmobile" value="$!{BankCardVo.bankmobile}" maxlength="11">
-                                       <span class="tips-check"><i class="icon"></i>验证提示</span>
-                                     </li>
-                                   <li id="errMsg_msgcode">
-                                        <span class="form-title">验证码</span>
-                                        <input class="ipt-phoneCode input-code" type="text" maxlength="6"  value="$!{BankCardVo.mobileautocode}" id="mobileautocode" name="mobileautocode" >
-                                        <input id="btn-addBankCardAjax" class="input-button" type="button" value="获取验证码">
-                                        <span class="tips-check"><i class="icon"></i>$!{errMsg_msgcode}</span>
-                                    </li>
-                                     <li class="anotherArea anotherTips">
-                                     <p>免费开通幼富宝服务，海富通基金（海富通货币）</p>
-                                     <p class="fontP">点击下一步表示同意<a href="javascript:;" id="ufbAgreement">《幼富宝服务协议》 </a><a href="javascript:;" id="hftAgreement">《海富通基金管理有限公司网上交易直销自助式前台服务协议》</a></p>
-                                    </li>
-                                    <li>
-                                        <input id="btn-submit" class="input-button btnB" type="button" value="同意协议并确定" > 
-                                        <p class="fontP"><a href="javascript:;" id="ufbFast">《幼富宝快捷支付服务协议》</a><a href="javascript:;" id="uftName">《幼富通实名认证服务协议》</a></p>                
-                                    </li>
-                                </ul>
-                            </div>
-                        </form>
-                    </div>
+                               </li>
+                            </ul>
+                            <ul class="safeInfo borderNone">
+                                <li>
+                                    <span class="form-title">银行预留手机号码</span>
+                                    <input class="ipt-phoneNum input-text" type="text" id="bankmobile" name="bankmobile" maxlength="11">
+                                   <span class="tips-check"><i class="icon"></i><font></font></span>
+                                </li>
+                               	<li>
+                                    <span class="form-title">验证码</span>
+                                    <input class="ipt-phoneCode input-code" type="text" maxlength="6" id="mobileautocode" name="mobileautocode" >
+                                    <input id="btn-getMsgCode" class="input-button" type="button" value="获取验证码">
+                                    <span class="tips-check"><i class="icon"></i><font></font></span>
+                                </li>
+                                 <li class="anotherArea anotherTips">
+                                 <p>免费开通幼富宝服务，海富通基金（海富通货币）</p>
+                                 <p class="fontP">点击下一步表示同意<a href="javascript:;" id="ufbAgreement">《幼富宝服务协议》 </a><a href="javascript:;" id="hftAgreement">《海富通基金管理有限公司网上交易直销自助式前台服务协议》</a></p>
+                                </li>
+                                <li>
+                                    <input id="btn-submit" class="input-button btnB" type="button" value="同意协议并确定" > 
+                                    <p class="fontP"><a href="javascript:;" id="uftName">《幼富通实名认证服务协议》</a></p>                
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
                 </div>
             </div>
-          </div>
         </div>
+      </div>
     </div>
+</div>
  
 <!----------------弹层------------------------->       
 <div class="bgBox"></div>	
@@ -278,233 +484,6 @@
 
         <a href="javascript:;" class="btnKnow closebox">我知道了</a>
     </div>
-</div>   
-
-                                                       
-                                                                                          
-<script type="text/javascript" src="${staticDomain}/static/family/scripts/load.js"></script>
-<script type="text/javascript" src="${staticDomain}/static/family/scripts/register.js"></script>	
-
-<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>  <!--scroll美化-->
-<script type="text/javascript">
-    $(function(){
-//        ①
-       $("#ufbAgreement").click(function(){
-           $(".bgBox , #ufb01").fadeIn();       
-       });
-       $("#ufb01 .close , .btnKnow").click(function(){
-           $(".bgBox , #ufb01").fadeOut();       
-       });
-//        ②
-        $("#hftAgreement").click(function(){
-           $(".bgBox , #hft").fadeIn();       
-       });
-       $("#hft .close , .btnKnow").click(function(){
-           $(".bgBox , #hft").fadeOut();       
-       });
-//        ③
-        $("#ufbFast").click(function(){
-           $(".bgBox , #ufb02").fadeIn();       
-       });
-       $("#ufb02 .close , .btnKnow").click(function(){
-           $(".bgBox , #ufb02").fadeOut();       
-       });
-//        ④
-        $("#uftName").click(function(){
-           $(".bgBox , #uft").fadeIn();       
-       });
-       $("#uft .close , .btnKnow").click(function(){
-           $(".bgBox , #uft").fadeOut();       
-       });
-        
-        $(".input-options .bank").click(function(){
-            $(this).addClass("active").parents().siblings().find("a").removeClass("active");
-            $(this).addClass("active").siblings().removeClass("active");
-               $("#bankno").val($(this).attr("bankno"));
-				  });
-    });
-</script>
-<script>
-    (function($){
-        $(window).load(function(){
-            $(".content_scroll").mCustomScrollbar({
-                theme:"dark", //主题颜色
-                scrollButtons:{
-                    enable:true //是否使用上下滚动按钮
-                },
-                autoHideScrollbar: false, //是否自动隐藏滚动条
-                scrollInertia :0,//滚动延迟
-                horizontalScroll : false//水平滚动条
-
-            });
-
-        });
-	
-	 	//根据银行卡判断是否需要填写开户地址信息
-	var check_bankCard = function (ipt) {//验证银行卡
-        var value = ipt.val();
-        if (isNull(value)) {
-            alert("银行卡号不能为空");
-			return false;
-        }
-        var regex = /^\d{5,21}\d*$/;
-        if (!regex.test($.trim(value))) {
-             alert("银行卡格式错误"); 
-			 return false;
-        }
-	}
-	
-	$(".ipt-bankCard").on("blur",function(){
-			//check_bankCard($(this));
-		 
-		    $.ajax({
-     			type: "GET",
-    			url: "../bank/cardbin_read.htm",
-    			data: {
-					bin: $("#bankacco").val().substring(0,6)
-    			},
-    			dataType: "json",
-    			success: function(b) {
-                if (b.errCode == "0000") {
-				if(null!=b.cardbin){
-					var bankno=b.cardbin.bankno;
-					var banknosel=$("#bankno").val();
-					if(bankno!=banknosel){
-					 alert("对不起，您所填写的账号和所选银行不符");
-					 return false;
-					}
-				}
-					
-                } 
-        	}
-        });
-	
-	});
-$('.bank-list .bank').on('click', function(){ 
-  var bankno = $(this).attr('bankno'); 
-  $('.bank-current').attr('bankno', bankno); 
-
-  if(bankno == '008' || bankno == '009' || bankno == '010'){
-	$('.sureAddr').show();
-	$('.Addr').show();
-  }else{
-	$('.sureAddr').hide();
-	$('.Addr').hide();
-  }
-});
-	// 验证码
-	$("#btn-addBankCardAjax").on("click",function(){
-	
-		if(!check_bankAcnm($("#bankacnm"))){
-			return false;
-		}
-		//if(!check_id($("#bankidno"))){
-			//return false;
-		//}
-		if($("#bankacco").val()==""){
-			alert("请填写银行卡号");
-			return  false;
-		}
-		if(!check_mobile($("#bankmobile"))){
-			return false;
-		}
-		$("#bankacco").attr("readonly","readonly");
-		$("#bankmobile").attr("readonly","readonly");
-		$("#bankacco").css("background-color","#ddd");
-		$("#bankmobile").css("background-color","#ddd");
-		$("#bankacco").unbind("blur");
-		$("#bankmobile").unbind("blur");
-	
-		// 获取验证码按钮无效并倒计时 
-		$("#btn-addBankCardAjax").attr("disabled","disabled");
-		$("#btn-addBankCardAjax").addClass("off");
-        $.ajax({
-     		type: "GET",
-    		url: "../ajaxbankcard/addBankCardAjax.ajax",
-    		data: {
-				bankno: $("#bankno").val(),
-    			bankacnm: $("#bankacnm").val(),
-				bankidno: $("#bankidno").val(),
-				bankacco: $("#bankacco").val(),
-				bankmobile: $("#bankmobile").val()
-    		},
-    		dataType: "json",
-    		success: function(b) {
-                if (b.errCode == "0000") {
-					$("#otherserial").val(b.otherserial);
-					// 提交按钮有效 
-				//	$("#btn-addBankCard3").removeAttr("disabled");
-				//	$("#btn-addBankCard3").removeClass("off");
-					alert("手机验证码已发送");
-					
-                } else {
-					// 获取验证码按钮有效并取消倒计时 
-            		$("#btn-addBankCardAjax").removeAttr("disabled");
-            		$("#btn-addBankCardAjax").removeClass("off");
-					
-					$("#bankacco").removeAttr("readonly");
-            		$("#bankmobile").removeAttr("readonly");
-            		$("#bankacco").css("background-color","#fff");
-            		$("#bankmobile").css("background-color","#fff");
-            		$("#bankacco").bind("blur");
-            		$("#bankmobile").bind("blur");
-                  	var errCode = b.errCode;
-					var errMsg = b.errMsg;
-					//alert(errCode + ": " + errMsg);
-				   if(errCode=="errMsg_bankAcco"){
-						//银行卡号 
-						$("#errMsg_bankAcco").addClass("error");
-						$("#errMsg_bankAcco > .tips-check").html("<i class=icon></i>" + errMsg);
-					}else if(errCode=="errMsg_bankMobile"){
-						//银行预留手机号
-						$("#errMsg_bankMobile").addClass("error");
-						$("#errMsg_bankMobile > .tips-check").html("<i class=icon></i>" + errMsg);
-					}else{
-						$("#errMsg_msgcode").addClass("error");
-						$("#errMsg_msgcode > .tips-check").html("<i class=icon></i>" + errMsg);
-					}
-                }
-        	}
-        });
-	});
-	//表单提交校验
-	$("#btn-submit").on("click",function(){
-	var bankno=$("#bankno").val();
-	if((bankno=="008")||(bankno=="009")||(bankno=="010")){
-    	var pro=$(".provinces").html();
-    	var city=$(".city").html();
-    	var bankadd=$("#bankadd").val();
-		if(pro=="省份"){
-		   alert("请填写省份");
-		   return false;
-		}else{
-		   $("#bankprovincenm").val(pro);
-		}
-		if(city=="城市"){
-			 alert("请填写城市");
-			 return false;
-		}else{
-			$("#bankcitynm").val(city);
-		}
-		//if(bankadd==""){
-		// alert("请填写开户网点");
-		// return false;
-	//	}
-	}else{
-		 $("#bankprovincenm").val("");
-		 $("#bankcitynm").val("");
-	}
-	if(!check_mobile($("#bankmobile"))){
-			return false;
-		}
-	if(!check_phoneCode($(".ipt-phoneCode"))){
-			return false;
-		}
-		$("#btn-subform").submit();
-    })
-    })(jQuery);
-	 
-</script>	
+</div>   	
 </body>
-
 </html>

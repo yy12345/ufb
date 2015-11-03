@@ -20,4 +20,11 @@ public interface BankBaseManager {
 	 * @return
 	 */
 	public BankCardbin getBankCardbin(String bin);
+	
+	/**
+	 * 根据bankno判断银行卡是否支持幼富通
+	 * @param bankno
+	 * @return
+	 */
+	public String getLevelByBankno(String bankno);
 }

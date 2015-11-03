@@ -6,47 +6,143 @@
 <script >
 $(function(){
 
-	$("#btn-subbutton").on("click",function(){
-	 
-		if(!check_pwd1($(".ipt-password1"))){
-			return false;
-		}
-		if(!check_pwd2($(".ipt-password2"))){
-			return false;
-		}
-		if(!check_pwd1($(".ipt-tradepwd"))){
-			return false;
-		}
-		if(!check_tradepwd2($(".ipt-tradepwd2"))){
-			return false;
-		}
-		if(!check_bankAcnm($("#invnm"))){
-			return false;
-		}
-		if(!check_id($(".ipt-idCard"))){
-		//	return false;
-		}
-		  $("#subform").submit();
-	});
-	
-	// 登录密码
-	$('#loginpwd').on('blur', function(){
+	// 检验密码1
+	var checkPwd1 = function(obj, type){
 		var errorMsg = '';
-		if($(this).val()!= '' && (errorMsg = check_pwd1($(this).val())) != ''){
-			$(this).siblings('.tips-check').find('font').text(errorMsg);
-			$(this).siblings('.tips-check').css('display', 'inline');
-			$(this).parent().addClass('error');
+		if(type == 'login'){
+			errorMsg = check_pwd1(obj.val());
+		}else{
+			errorMsg = check_tradePwd1(obj.val());
 		}
-	})
+		if(errorMsg != ''){
+			obj.parent().removeClass('ok');
+			obj.parent().addClass('error');
+			obj.siblings('.tips-check').find('font').text(errorMsg);
+			obj.siblings('.tips-check').css('display', 'inline');
+			return false;
+		}else{
+			obj.parent().addClass('ok');
+			obj.parent().removeClass('error');
+			obj.siblings('.tips-check').find('font').html('&nbsp;');
+			obj.siblings('.tips-check').css('display', 'inline');
+			return true;
+		}
+	}
+	// 检验密码2
+	var checkPwd2 = function(obj, type){
+		var errorMsg = '';
+		if(type == 'login'){
+			errorMsg = check_pwd1(obj.val());
+		}else{
+			errorMsg = check_tradePwd1(obj.val());
+		}
+		if(errorMsg != ''){
+			obj.parent().removeClass('ok');
+			obj.parent().addClass('error');
+			obj.siblings('.tips-check').find('font').text(errorMsg);
+			obj.siblings('.tips-check').css('display', 'inline');
+			return false;
+		}else{
+			pwd1 = obj.parent().prev().children('input');
+			errorMsg = check_pwd2(pwd1.val(), obj.val());
+			if(errorMsg != ''){
+				obj.parent().removeClass('ok');
+				obj.parent().addClass('error');
+				obj.siblings('.tips-check').find('font').text(errorMsg);
+				obj.siblings('.tips-check').css('display', 'inline');
+				return false;
+			}else{
+				obj.parent().addClass('ok');
+				obj.parent().removeClass('error');
+				obj.siblings('.tips-check').find('font').html('&nbsp;');
+				obj.siblings('.tips-check').css('display', 'inline');
+				return true;
+			}
+		}
+	}
+	// 检查交易密码不能与登录密码相同
+	var	checkTradePwdWithLoginPwd = function(){
+		var obj = $('#tradepwd');
+		if(obj.val() != '' && obj.val() == $('#loginpwd').val()){
+			obj.parent().removeClass('ok');
+			obj.parent().addClass('error');
+			obj.siblings('.tips-check').find('font').text('交易密码不能与登录密码相同！');
+			obj.siblings('.tips-check').css('display', 'inline');
+			return false;
+		}
+		return true;
+	}
+	// 检查家长姓名
+	var checkInvnm = function(obj){
+		if(obj.val() == ''){
+			obj.parent().removeClass('ok');
+			obj.parent().addClass('error');
+			obj.siblings('.tips-check').find('font').text('请输入家长姓名！');
+			obj.siblings('.tips-check').css('display', 'inline');
+			return false;
+		}else{
+			obj.parent().addClass('ok');
+			obj.parent().removeClass('error');
+			obj.siblings('.tips-check').find('font').html('&nbsp;');
+			obj.siblings('.tips-check').css('display', 'inline');
+			return true;
+		}
+	}
+	// 检查身份证id
+	var checkId = function(obj){
+		var errorMsg = check_id(obj.val());
+		if(errorMsg != ''){
+			obj.parent().removeClass('ok');
+			obj.parent().addClass('error');
+			obj.siblings('.tips-check').find('font').text(errorMsg);
+			obj.siblings('.tips-check').css('display', 'inline');
+			return false;
+		}else{
+			obj.parent().addClass('ok');
+			obj.parent().removeClass('error');
+			obj.siblings('.tips-check').find('font').html('&nbsp;');
+			obj.siblings('.tips-check').css('display', 'inline');
+			return true;
+		}
+	}
+	
+	// 添加响应事件
+	$('#loginpwd').on('blur', function(){
+		checkPwd1($(this), 'login');
+	});
+	$('#tradepwd').on('blur', function(){
+		checkPwd1($(this), 'trade');
+	});
+	$('#loginpwd2').on('blur', function(){
+		checkPwd2($(this), 'login');
+	});
+	$('#tradepwd2').on('blur', function(){
+		checkPwd2($(this), 'trade');
+	});
+	$('#invnm').on('blur', function(){
+		checkInvnm($(this));
+	});
+	$('#idno').on('blur', function(){
+		checkId($(this));
+	});
 	
 	// 用户输入时，取消错误提示
 	$("form input").on('focus', function(){
-		$(this).closest('ul').find('li').each(function(){
-			if($(this).hasClass('error')){
-				$(this).removeClass('error');
-				$(this).find('.tips-check').hide();
-			}
-		});
+		if($(this).parent().hasClass('error')){
+			$(this).parent().removeClass('error');
+			$(this).siblings('.tips-check').hide();
+		}
+	});
+	
+	// 下一步，提交
+	$("#btn-subbutton").on("click",function(){
+	 
+		if(checkPwd1($('#loginpwd'), 'login') && checkPwd2($('#loginpwd2'), 'login')
+			&& checkPwd1($('#tradepwd'), 'trade') && checkPwd2($('#tradepwd2'), 'trade')
+			&& checkInvnm($('#invnm')) && checkId($('#idno'))){
+			
+			$("#myform").submit();
+		}
 	});
    
 })
@@ -70,7 +166,7 @@ $(function(){
                     <p>你正在访问幼富通安全网址，请放心操作。幼富通致力于为全国幼教机构打造安全、稳定、便捷的互联网金融服务平台。为了保障你的机构和广大幼儿家庭用户的合法权益，请认真填写以下机构登记信息，我们会严格保密相关隐私信息。</p>
                </div>
                 <div class="b3">
-                    <form id="subform" class="common-form" method="post" action="../family/createAccount3.htm" >
+                    <form id="myform" class="common-form" method="post" action="${ufbDomain}/family/account/register_card.htm" >
 						<input type="hidden" name="mobileno" id="mobileno" value="$!{CustinfoVo.mobileno}" />
                         <div class="panel">
                             <ul class="safeInfo">
@@ -80,14 +176,14 @@ $(function(){
                                 </li>
                                 <li>
                                     <span class="form-title">登录密码</span>
-                                    <input class="ipt-password1 input-text" type="password" name="loginpwd" id="loginpwd" value="$!{CustinfoVo.loginpwd}">
-                                    <span class="tips-normal" style="display: block;">#if(${CustinfoVo.loginpwd}) #else 6-20个大小写英文字母、符号或数字 #end</span>
+                                    <input class="ipt-password1 input-text" type="password" name="loginpwd" id="loginpwd">
+                                    <span class="tips-normal" style="display: block;">6-20个大小写英文字母、符号或数字</span>
                           <span class="tips-check"><i class="icon"></i><font></font></span>
                                 </li>
-                                <li #if($errMsg_pswpwd2_family)class="error" #end>
+                                <li>
                                     <span class="form-title">重复输入</span>
-                                    <input class="ipt-password2 input-text" type="password" name="loginpwd2" id="loginpwd2" value="$!{CustinfoVo.loginpwd2}">
-                                    <span class="tips-normal" style="display: block;">#if(${CustinfoVo.loginpwd2}) #else 请再次输入密码 #end</span>
+                                    <input class="ipt-password2 input-text" type="password" name="loginpwd2" id="loginpwd2">
+                                    <span class="tips-normal" style="display: block;">请再次输入密码</span>
                                   <span class="tips-check"><i class="icon"></i><font></font></span>
                                 </li>
                             </ul>
@@ -98,14 +194,14 @@ $(function(){
                                 </li>
                                 <li>
                                     <span class="form-title">交易密码</span>
-                                    <input class="ipt-tradepwd input-text" type="password"  name="tradepwd" id="tradepwd" value="$!{CustinfoVo.tradepwd}">
-                                    <span class="tips-normal" style="display: block;">#if(${CustinfoVo.tradepwd}) #else 6-20个大小写英文字母、符号或数字 #end </span>
+                                    <input class="ipt-tradepwd input-text" type="password"  name="tradepwd" id="tradepwd">
+                                    <span class="tips-normal" style="display: block;">6-20个大小写英文字母、符号或数字</span>
                                   <span class="tips-check"><i class="icon"></i><font></font></span>
                                 </li>
-                                <li #if(${errMsg_tradepwd2_family}) class="error" #end>
+                                <li>
                                     <span class="form-title">重复输入</span>
-                                    <input class="ipt-tradepwd2 input-text" type="password"  name="tradepwd2" id="tradepwd2" value="$!{CustinfoVo.tradepwd2}">
-                                    <span class="tips-normal" style="display: block;">#if(${CustinfoVo.tradepwd2}) #else 请再次输入密码 #end </span>
+                                    <input class="ipt-tradepwd2 input-text" type="password"  name="tradepwd2" id="tradepwd2">
+                                    <span class="tips-normal" style="display: block;">请再次输入密码</span>
                                  <span class="tips-check"><i class="icon"></i><font></font></span>
                                 </li>
                             </ul>
@@ -120,10 +216,10 @@ $(function(){
                                     <span class="tips-normal" style="display: block;">#if(${CustinfoVo.invnm}) #else 请填写家长姓名 #end </span>
                                     <span class="tips-check"><i class="icon"><font></font></i></span>
                                 </li>
-                                <li #if($errMsg_idno_family) class="error" #end>
+                                <li>
                                     <span class="form-title">身份证号码</span>
-                                    <input class="ipt-idCard input-text" type="text" name="idno" id="idno" maxlength="18" value="$!{CustinfoVo.idno}">
-                                    <span class="tips-normal" style="display: block;">#if(${CustinfoVo.idno}) #else 请填写身份证号码 #end </span>
+                                    <input class="ipt-idCard input-text" type="text" name="idno" id="idno" maxlength="18">
+                                    <span class="tips-normal" style="display: block;">请填写身份证号码</span>
                                      <span class="tips-check"><i class="icon"><font></font></i></span>
                                 </li>
                                 <li>

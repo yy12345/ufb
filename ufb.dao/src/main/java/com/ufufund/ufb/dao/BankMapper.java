@@ -19,7 +19,7 @@ public interface BankMapper extends BaseDao {
 	public void unbindBankCard(@Param("custno")String custno, @Param("serialid")String serialid, @Param("state")String state);
 	public void deleteCard(@Param("custno")String custno, @Param("serialid")String serialid);
 	public void deleteTradeacc(@Param("custno")String custno, @Param("serialid")String bankserialid);
-	public String getLevelByBankno(@Param("bankno")String bankno);
+	
 	//public String getBankcardinfoSequence();
 	
 	public void updatePicInfo(PicInfo picinfo);

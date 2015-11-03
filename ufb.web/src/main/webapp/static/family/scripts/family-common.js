@@ -85,13 +85,22 @@ var check_pwd1 = function(value){
 }
 //验证重复密码
  var check_pwd2 = function(pwd1, pwd2){
-    var _valuePassword1 = pwd1;
-    var _valuePassword2 = pwd2;
-    if (_valuePassword2 == "") {
+    if (pwd2 == "") {
         return "确认密码不能为空";
     }
-    if (_valuePassword1 != _valuePassword2) {
+    if (pwd1 != pwd2) {
         return "两次密码输入不一致";
+    }
+    return "";
+}
+// 验证交易密码（个人用户6位数字）
+var check_tradePwd1 = function(value){
+	if (value == "") {
+        return "交易密码不能为空";
+    }
+    var regex = /^[0-9]{6}$/;
+    if (!regex.test(value)) {
+        return "交易密码为6位数字！";
     }
     return "";
 }
@@ -107,23 +116,18 @@ var isSameWord = function(str){
     }
     return true
 }
-
-//校验身份证
-var check_id = function (value) {
+// 检验身份证是否合法
+var check_id = function(value) {
 	if(value == "") {  
 		return "输入身份证号码不能为空!";
 	}  
- 
 	if (value.length != 15 && value.length != 18) {  
 		return "输入身份证号码格式不正确!";
-    }  
-         
-    var area={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"};   
-        
+    }          
+    var area={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"};         
 	if(area[parseInt(value.substr(0,2))]==null) {  
 		return "身份证号码不正确(地区非法)!";
-	}   
-             
+	}               
 	if (value.length == 15) {  
 		pattern= /^\d{15}$/;  
         if (pattern.exec(value)==null){  
@@ -170,15 +174,13 @@ var check_id = function (value) {
         if(nowYear - parseInt(birth)<15 || nowYear - parseInt(birth)>100) {
         	return "输入身份证号码不格式正确!";
         }  
-		
-		return "";
+		return '';  
     }  
        
     var Wi = new Array(7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2,1);  
     var lSum        = 0;  
     var nNum        = 0;  
-    var nCheckSum   = 0;  
-       
+    var nCheckSum   = 0;       
     for (i = 0; i < 17; ++i) {  
     	if ( value.charAt(i) < '0' || value.charAt(i) > '9' ) {  
     		return "输入身份证号码不格式正确!";
@@ -194,10 +196,9 @@ var check_id = function (value) {
     	return "输入身份证号码不格式正确!";
     } else {  
         lSum += ( value.charAt(17) - '0' ) * Wi[17];  
-    } 
-         
+    }         
     if ((lSum % 11) == 1) {  
-    	return "";
+    	return '';
     } else {  
     	return "输入身份证号码不格式正确!";
 	}  

@@ -42,7 +42,7 @@ public class ChinapayServiceTest {
 		
 		Response response = chinapayService
 				.checkAccount(String.valueOf(System.currentTimeMillis()), tDetail);
-		log.info("返回对象："+response);
+//		log.info("返回对象："+response);
 		
 		if("0000".equals(response.getINFO().getRET_CODE())){
 			if("0000".equals(response.getBODY().getRET_DETAIL().get(0).getRET_CODE())){
@@ -73,7 +73,7 @@ public class ChinapayServiceTest {
 		Response response = chinapayService
 				.paySign(String.valueOf(System.currentTimeMillis()), tDetail);
 		
-		log.info(response.toString());
+//		log.info(response.toString());
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class ChinapayServiceTest {
 		
 		Response response = chinapayService
 				.collectMoney(String.valueOf(System.currentTimeMillis()), tDetailList, "10900");
-		log.info("返回对象："+response);
+//		log.info("返回对象："+response);
 		
 		if("0000".equals(response.getINFO().getRET_CODE())){
 			log.info("订单接收成功！");
@@ -144,7 +144,7 @@ public class ChinapayServiceTest {
 		
 		Response response = chinapayService
 				.payMoney(String.valueOf(System.currentTimeMillis()), tDetailList, "09000");
-		log.info("返回对象："+response);
+//		log.info("返回对象："+response);
 		
 		if("0000".equals(response.getINFO().getRET_CODE())){
 			log.info("订单接收成功！");
@@ -170,7 +170,7 @@ public class ChinapayServiceTest {
 		
 		Response response = chinapayService
 				.collectMoney(String.valueOf(System.currentTimeMillis()), tDetail, "10900");
-		log.info("返回对象："+response);
+//		log.info("返回对象："+response);
 		
 		String failInfoCode = "0001,0002,1000,1001,1002,2004,3045,3097";
 		if("0000".equals(response.getINFO().getRET_CODE())){
@@ -200,7 +200,7 @@ public class ChinapayServiceTest {
 		
 		Response response = chinapayService
 				.payMoney(String.valueOf(System.currentTimeMillis()), tDetail, "09000");
-		log.info("返回对象："+response);
+//		log.info("返回对象："+response);
 		
 		String failInfoCode = "0001,0002,1000,1001,1002,2004,3045,3097";
 		if("0000".equals(response.getINFO().getRET_CODE())){
@@ -224,7 +224,7 @@ public class ChinapayServiceTest {
 		queryTrans.setQUERY_REMARK("幼富宝代收付查询");
 		
 		Response response = chinapayService.queryTrans(queryTrans);
-		log.info("返回对象："+response);
+//		log.info("返回对象："+response);
 		
 		String failInfoCode = "0001,0002,1002,2002,2004,2006";
 		if("0000".equals(response.getINFO().getRET_CODE())){

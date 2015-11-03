@@ -1,55 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>幼富通</title>
-    <meta name="keywords" content="幼富通">
-    <meta name="description" content="幼富通">
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/main.css">
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="./libs/html5.js"></script>
-    <![endif]-->
-    <script type="text/javascript" src="libs/jquery.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	$('.inputText').inputText();
-})
-</script>
+<title>幼富通-注册-成功</title>
 </head>
 <body>
- 
-        <div id="body">
-            <div class="container">
-                <div class="u2 mt20">
-                    <div class="a4 minHeight">
-                       <ul class="v1">
-                            <li>创建账户</li>
-                            <li>身份安全信息</li>
-                            <li>设置支付方式</li>
-                            <li class="v1_hover">成功</li>
-                        </ul>
-                    <div class="b3 mt30 pt30">
-                        <div class="find-panels">
-                            <div class="panel">
-                                <div class="form-done">
-                                    <b></b>
-                                    <h2 class="title">注册成功</h2>
-                                    <p>你可以使用本账户进行学费缴付、查询或使用其他幼富通服务。</p>
-                                    <a class="btn" href="${staticDomain}/family/session.htm">我的账户</a>
-                                </div>
+<div id="body">
+    <div class="container">
+        <div class="u2 mt20">
+            <div class="a4 minHeight">
+               <ul class="v1">
+                    <li>创建账户</li>
+                    <li>身份安全信息</li>
+                    <li>设置支付方式</li>
+                    <li class="v1_hover">成功</li>
+                </ul>
+                <div class="b3 mt30 pt30">
+                    <div class="find-panels">
+                        <div class="panel">
+                            <div class="form-done">
+                                <b></b>
+                                <h2 class="title">注册成功</h2>
+                                <p>你可以使用本账户进行学费缴付、查询或使用其他幼富通服务。</p>
+                                <a class="btn" href="${ufbDomain}/family/uft/uft_index.htm">我的账户</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-          </div>
         </div>
+      </div>
     </div>
-  
-<script type="text/javascript" src="scripts/load.js"></script>
-<script type="text/javascript" src="scripts/register.js"></script>    
+</div>
 </body>
-
 </html>

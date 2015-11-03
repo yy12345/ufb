@@ -29,7 +29,9 @@ public interface BankCardManager {
 	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction) throws BizException;
 	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException;
 	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException;
-	public void openAccountPerson(OpenAccountAction openAccountAction) throws BizException;
+	public OpenAccountAction openAccount4(OpenAccountAction openAccountAction) throws BizException;
+	public String addBankCardinfo(OpenAccountAction openAccountAction);
+	public void addTradeaccoinfo(OpenAccountAction openAccountAction, String bankSerialid);
 	public void openAccountOrg(OpenAccountAction openAccountAction) throws BizException;
 	
 	public OpenAccountAction openAccoStep1(OpenAccountAction openAccountAction) throws BizException;
@@ -39,8 +41,6 @@ public interface BankCardManager {
 	public void updatePicInfo(PicInfo picInfo) throws BizException;
 	public void insertPicInfo(PicInfo picInfo) throws BizException;
 	public PicInfo getPicInfo(PicInfo picInfo) throws BizException;
-	//根据bankno判断银行卡是否支持幼富通
-	public String getLevelByBankno(String bankno) throws BizException;
-	//银行卡的银联验证
-	public void checkYinLian(OpenAccountAction openAccountAction) throws BizException;
+	// 银联账户验证
+	public void checkAccount(OpenAccountAction openAccountAction);
 }

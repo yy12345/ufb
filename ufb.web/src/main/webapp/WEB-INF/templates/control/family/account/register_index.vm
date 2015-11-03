@@ -87,6 +87,14 @@ $(function(){
 			$("#msgcode").next().next().css('display', 'inline');
 			$("#msgcode").closest('li').addClass('error');
 			return false;
+		}else{
+			var result = msgcode_check($("#msgcode").val(), $("#mobileno").val());
+			if(result.errCode != '0000'){
+				$("#msgcode").next().next().find('font').text('手机验证码不正确！');
+				$("#msgcode").next().next().css('display', 'inline');
+				$("#msgcode").closest('li').addClass('error');
+				return false;
+			}
 		}
 		return true;
     }
@@ -115,23 +123,7 @@ $(function(){
 		if(!(checkMobile() && checkMsgcode())){
 			return false;
 		}
-		
-		$.ajax({
-			type: "post",
-			url: '${ufbDomain}/family/account/register_comfirmMobile.htm',
-			data:'mobileno='+$('#mobileno').val()+'&msgcode='+$('#msgcode').val(),
-			async:false,
-			success: function(data){
-				var json = $.parseJSON(data);
-				if(json.errCode=='0000'){
-					location = '${ufbDomain}/family/account/register_passwd.htm';
-				}else{
-					$("#msgcode").next().next().find('font').text(json.errMsg);
-					$("#msgcode").next().next().css('display', 'inline');
-					$("#msgcode").closest('li').addClass('error');
-				}
-			}
-		});
+		$('#myform').submit();
 	});
 	
 	// 检验图形验证码
@@ -149,7 +141,25 @@ $(function(){
 				}
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				$.alert({title:'系统出现异常！'});
+				console.log('系统出现异常！');
+			}
+		});
+		return result;
+	}
+	
+	// 检验手机验证码
+	var msgcode_check = function(msgcode, mobileno){
+		var result = {errCode:'9999'};
+		$.ajax({
+			type: "post",
+			url: '${ufbDomain}/common/msgcode_check.htm',
+			data:'msgcode='+msgcode+'&mobileno='+mobileno,
+			async:false,
+			success: function(data){
+				result = $.parseJSON(data);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log('系统出现异常！');
 			}
 		});
 		return result;
@@ -175,7 +185,7 @@ $(function(){
 				}
         	},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				$.alert({title:'系统出现异常！'});
+				console.log('系统出现异常！');
 			}
         });
         if(result){
@@ -218,7 +228,7 @@ $(function(){
 				}
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				$.alert({title:'系统出现异常！'});
+				console.log('系统出现异常！');
 			}
 		});
 		return result;
@@ -240,7 +250,7 @@ $(function(){
                     <li>成功</li>
                 </ul>
                 <div class="b3 mt10 pt30">
-                    <form class="common-form" method="post">
+                    <form id="myform" class="common-form" method="post" action="${ufbDomain}/family/account/register_passwd.htm">
                     	<input type="hidden" id="isRegister" value="0">
                         <div class="panel panelCenter">
                             <ul>

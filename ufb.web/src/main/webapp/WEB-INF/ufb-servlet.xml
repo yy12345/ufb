@@ -99,6 +99,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**/*.htm" />
+			<mvc:exclude-mapping path="/error/*.htm" />
 			<mvc:exclude-mapping path="/common/*.htm" />
 			<mvc:exclude-mapping path="/family/index.htm" />
 			<mvc:exclude-mapping path="/family/account/*.htm" />

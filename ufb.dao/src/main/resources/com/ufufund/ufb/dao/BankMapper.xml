@@ -255,24 +255,19 @@
 	    )
 	</insert>
 	
-		<delete id="deleteCard" parameterType="String">
-           DELETE
-            FROM 
-            BANKCARDINFO
-            WHERE SERIALID=#{serialid,jdbcType=VARCHAR}
-            AND CUSTNO=#{custno,jdbcType=VARCHAR}
-	    </delete>
-		<delete id="deleteTradeacc" parameterType="String">
-           DELETE
-            FROM 
-            tradeaccoinfo
-            WHERE BANKSERIALID=#{serialid,jdbcType=VARCHAR}
-            AND CUSTNO=#{custno,jdbcType=VARCHAR}
-	    </delete>
-<select id="getLevelByBankno" parameterType="String" resultType="String">
-
-	select level from bankbase where bankno=#{bankno,jdbcType=VARCHAR}
-
-</select>
-	
+	<delete id="deleteCard" parameterType="String">
+          DELETE
+           FROM 
+           BANKCARDINFO
+           WHERE SERIALID=#{serialid,jdbcType=VARCHAR}
+           AND CUSTNO=#{custno,jdbcType=VARCHAR}
+    </delete>
+	<delete id="deleteTradeacc" parameterType="String">
+          DELETE
+           FROM 
+           tradeaccoinfo
+           WHERE BANKSERIALID=#{serialid,jdbcType=VARCHAR}
+           AND CUSTNO=#{custno,jdbcType=VARCHAR}
+    </delete>
+    
 </mapper>

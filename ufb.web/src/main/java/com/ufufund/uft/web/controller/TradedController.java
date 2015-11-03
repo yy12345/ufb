@@ -999,13 +999,13 @@ public class TradedController {
 					openAccountAction.setCheckautocodeflag(true);
 						
 					bankCardManager.openAccount3(openAccountAction);
-					//其他的银行卡的银联验证
-					String banklevel=bankCardManager.getLevelByBankno(openAccountAction.getBankno());
-					if("2".equals(banklevel)){
-						bankCardManager.checkYinLian(openAccountAction);  	
-					}
-					/** 开户 **/
-					bankCardManager.openAccountPerson(openAccountAction);
+//					//其他的银行卡的银联验证
+//					String banklevel=bankCardManager.getLevelByBankno(openAccountAction.getBankno());
+//					if("2".equals(banklevel)){
+//						bankCardManager.checkYinLian(openAccountAction);  	
+//					}
+//					/** 开户 **/
+//					bankCardManager.openAccountPerson(openAccountAction);
 					
 		       } 
 		}catch(UserException ue){

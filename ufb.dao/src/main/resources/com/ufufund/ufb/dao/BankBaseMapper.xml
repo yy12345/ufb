@@ -26,5 +26,9 @@
 		from bankcardbin 
 		where bin = #{bin,jdbcType=VARCHAR}
 	</select>
+	
+	<select id="getLevelByBankno" parameterType="String" resultType="String">
+		select level from bankbase where bankno=#{bankno,jdbcType=VARCHAR}
+	</select>
 
 </mapper>

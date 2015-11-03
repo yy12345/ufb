@@ -511,7 +511,7 @@ public class BankCardController {
 			bankCardManager.openAccount3(openAccountAction);
 			
 			/** 开户 **/
-			bankCardManager.openAccountPerson(openAccountAction);
+//			bankCardManager.openAccountPerson(openAccountAction);
 			
 			UserHelper.setAddBankCardStatus("Y");
 			s_custinfo.setInvnm(bankCardVo.getBankacnm());

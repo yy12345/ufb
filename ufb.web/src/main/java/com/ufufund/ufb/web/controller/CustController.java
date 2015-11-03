@@ -97,7 +97,7 @@ public class CustController {
 			registerAction.setInvtp(Invtp.PERSONAL);// 个人
 			registerAction.setCustst("N");
 			// 注册
-			custManager.register(registerAction);
+//			custManager.register(registerAction);
 
 			// 注册成功，保存用户至session
 			custinfoVo.setCustno(registerAction.getCustno());
@@ -161,7 +161,7 @@ public class CustController {
 			registerAction.setOrgnm(custinfoVo.getOrgnm());
 			registerAction.setOrgbusiness(custinfoVo.getOrgbusiness());
 			// 注册
-			custManager.register(registerAction);
+//			custManager.register(registerAction);
 
 			// 注册成功，保存用户至session
 			custinfoVo.setCustno(registerAction.getCustno());

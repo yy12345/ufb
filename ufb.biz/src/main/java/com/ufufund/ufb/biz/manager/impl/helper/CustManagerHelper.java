@@ -23,6 +23,22 @@ public class CustManagerHelper {
 		custinfo.setCustst(registerAction.getCustst());
 		return custinfo;
 	}
+	
+	public Custinfo toCustinfo(RegisterAction registerAction, OpenAccountAction openAccountAction){
+		Custinfo custinfo = new Custinfo();
+		custinfo.setMobileno(registerAction.getLogincode());
+		custinfo.setLoginpwd(EncryptUtil.md5(registerAction.getLoginpwd()));
+		custinfo.setTradepwd(EncryptUtil.md5(registerAction.getTradepwd()));
+		custinfo.setInvtp(registerAction.getInvtp().getValue());
+		custinfo.setLevel(registerAction.getLevel().getValue());
+		custinfo.setInvnm(openAccountAction.getInvnm());
+		custinfo.setIdtp(openAccountAction.getIdtp());
+		custinfo.setIdno(openAccountAction.getIdno());
+		custinfo.setOrgnm(registerAction.getOrgnm());
+		custinfo.setOrgbusiness(registerAction.getOrgbusiness());
+		custinfo.setCustst(registerAction.getCustst());
+		return custinfo;
+	}
 
 	public Custinfo toOpenAccountAction(OpenAccountAction openAccountAction){
 		Custinfo custinfo = new Custinfo();

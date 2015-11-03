@@ -359,6 +359,7 @@ public class ChinapayService {
 			log.error("银联-验签响应报文失败！");
 			throw new SysException("银联-验签响应报文失败！");
 		}
+		log.info("返回对象："+response.toString());
 		return response;
 	}
 	
