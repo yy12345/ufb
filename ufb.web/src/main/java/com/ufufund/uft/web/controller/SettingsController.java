@@ -429,7 +429,7 @@ public class SettingsController {
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "修改登录密码");
-			model.addAttribute("message_url", "${ufbDomain}/family/setting/findpassword_index.htm");
+			model.addAttribute("message_url", "family/setting/findpassword_index.htm");
 			model.addAttribute("message_content", ue.getMessage());
 			model.addAttribute("back_module", "返回");
 			return "error/error";
