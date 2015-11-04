@@ -67,7 +67,7 @@ $(function(){
 			$("#btn-getMsgCode").val("重新发送"); 
 			$("#btn-getMsgCode").removeClass("off");
 			$("#btn-getMsgCode").removeAttr("disabled"); 
-			clearTimeout(countdown); 
+			clearTimeout(countDown); 
 		}else{
 			count--; 
 			setTimeout(countDown, 1000);
