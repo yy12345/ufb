@@ -107,7 +107,7 @@ $(function(){
             <div class="main fr">
                 <div class="setting-content content-card">
                     <div>银行卡信息：<span class="mark">仅支持绑定借记卡进行快捷充值、取现或缴费</span>
-						#if($!{cardList_Y})
+						#if($cardList_Y.size()==0)
     					<span class="mark">您还没有绑定的银行卡噢</span>
     					#end
 					</div>

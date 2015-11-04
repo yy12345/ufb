@@ -20,7 +20,7 @@
                             <li id="errMsg_password1">
                                 <span class="form-title">新登录密码</span>
                                 <input id="password1" name="password1" class="ipt-password input-text" type="password">
-                                <span class="tips-normal">请输入密码</span>
+                                <span class="tips-normal">6-20个大小写英文字母、符号或数字</span>
                                 <span class="tips-check"><i class="icon"></i><font id="password1Tips"></font></span>
                             </li>
                             <li id="errMsg_password2">
