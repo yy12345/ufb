@@ -67,7 +67,7 @@
             <p class="fr">
                                                         银行卡已添加 <strong class="num-blue">$!{hft_family_trade_size}</strong>张
                 <a href="${ufbDomain}/family/setting/bankcard_index.htm" class="addMargin">查看全部</a>
-                <a id="addBankCard" href="#" isufbCard="$!{isufbCard}">+新卡</a>
+              <!--  <a id="addBankCard" href="#" isufbCard="$!{isufbCard}">+新卡</a>-->
             </p>
         </div>
 		<div class="myaccount">
