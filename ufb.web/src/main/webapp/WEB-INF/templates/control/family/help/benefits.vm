@@ -2,6 +2,11 @@
 <html>
 <head>
     <title>幼富通 - 帮助中心 - 收益</title>
+ <script>
+    $(function(){
+    	$('.nav a:eq(3)').addClass('active');
+    })
+ </script>
 </head>
 <body>
     <div class="body">

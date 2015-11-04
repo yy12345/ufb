@@ -42,7 +42,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <a class="btn" href="${ufbDomain}/family/uft/uft_index.htm">我的账户</a>
+                        <a class="btn" href="${ufbDomain}/family/ufb/autotrade_index.htm">查看自动充值计划</a>
                     </div>
                 </div>
             </div>

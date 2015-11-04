@@ -9,12 +9,11 @@ $(function(){
 	$("#container").removeClass("setting");
 	
 	// 用户输入时，取消错误提示
-		$("form input").on('focus', function(){
-			if($(this).parent().hasClass('error')){
-				$(this).parent().removeClass('error');
-				//$(this).siblings('.tips-check').hide();
-			}
-		});
+	$("form input").on('focus', function(){
+		if($(this).parent().hasClass('error')){
+			$(this).parent().removeClass('error');
+		}
+	});
 	
 	// 表单提交时，验证	
 	$("#next-step").on("click", function(){

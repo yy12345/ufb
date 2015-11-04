@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 帮助中心 - 关于幼富通</title>
+<title>幼富通 - 帮助中心 - 关于幼富通</title>
+ <script>
+    $(function(){
+    	$('.nav a:eq(3)').addClass('active');
+    })
+ </script>
 </head>
 <body>
-
     <div class="body">
         <div class="inner clearfix">
             <div class="title">

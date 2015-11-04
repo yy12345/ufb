@@ -11,16 +11,16 @@ $(function(){
 	$("#container").removeClass("setting");
 	
 	// 用户输入时，取消错误提示
-		$("form input").on('focus', function(){
-			if($(this).parent().hasClass('error')){
-				$(this).parent().removeClass('error');
-				//$(this).siblings('.tips-check').hide();
-			}
-		});
+	$("form input").on('focus', function(){
+		if($(this).parent().hasClass('error')){
+			$(this).parent().removeClass('error');
+		}
+	});
 		
 	$("#tradepwd").on("blur",function(){
 		$(".tips-normal").val("");
 	})
+	
 	// 表单提交时，验证	
 	$("#next-step").on("click", function(){
 		var tradepwd=$("#tradepwd").val();
@@ -30,6 +30,7 @@ $(function(){
 			return false;
 		}
 	});
+	
 	// 上一页
 	$("#btn-autoTrade-update").on("click",function(){
 		$("#form-autoTrade-result").attr("action", "${ufbDomain}/family/ufb/autoupdate_index.htm");
@@ -98,8 +99,8 @@ $(function(){
 							</span>
                         </li>
                         <li>
-                            <span class="form-title">备注</span>
-                            <span class="form-text">${AutoTradeVo.summary}</span>
+                            <span class="form-title" style="top: 50%;">备注</span>
+                            <span class="form-text">#if(${AutoTradeVo.summary}) $!{AutoTradeVo.summary} #else &nbsp;&nbsp; #end</span>
                         </li>
                         <li id="tradepwdErrMsg">
                             <span class="form-title">交易密码</span>

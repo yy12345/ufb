@@ -1,7 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 资产总览 - 充值</title>
+<title>幼富通 - 资产总览 - 充值</title>
+<script src="${staticDomain}/family/scripts/load.js"></script>
+<script src="${staticDomain}/family/scripts/family-common.js"></script>
+<script type="text/javascript">
+$(function(){
+    $(".body .notice .v2_1").click(function(){
+        $(".body .notice").hide();
+    });
+    
+    $(".input-options .card").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+    });
+ 
+	$('.nav a:eq(1)').addClass('active');
+	// 点击银行卡
+	$(".card-list a").on("click", function(){
+		$("#tradeacco").val($(this).attr("tradeacco"));
+	});
+	
+	//校验金额
+	var check_amt=function(){
+		var appamt=$("#appamt").val();
+		if(appamt==''){
+			$("#appamtErrMsg").addClass("error");
+			$("#appamtTips").html("充值金额不能为空！");
+			return false;
+		}
+		appamt=formatCurrency1(appamt);
+		if( appamt== '0.00'){
+			$("#appamt").val('0.00');
+			$("#appamtErrMsg").addClass("error");
+			$("#appamtTips").html("请输入正确的金额，比如1000.00！");
+			return false;
+		}else if(appamt<1){
+			$("#appamtErrMsg").addClass("error");
+			$("#appamtTips").html("充值金额不能小于1.00元！");
+			return false;
+		}else{
+			$("#appamt").val(appamt);
+			$("#appamtErrMsg").removeClass("error");
+		}
+		return true;
+	}
+	
+	// 校验交易密码
+	var check_tradepwd=function(){
+		var tradepwd=$("#tradePwd").val();
+		if(tradepwd==''){
+			$("#tradePwdErrMsg").addClass("error");
+			$("#tradeTips").html("交易密码不能为空！");
+			return false;
+		}
+		return true;
+	}
+	
+	// 用户输入时，取消错误提示
+	$("form input").on('focus', function(){
+		if($(this).parent().hasClass('error')){
+			$(this).parent().removeClass('error');
+		}
+	});
+	
+	// 添加响应事件
+	$("#appamt").on("blur",check_amt);
+	
+	// 表单提交时，验证	
+	$("#submit").on("click", function(){
+		if(!(check_amt()&&check_tradepwd())){
+			return false;
+		}
+	});
+	
+});
+</script>
 </head>
 <body>
  
@@ -40,7 +113,8 @@
             </div>
             <div class="form-payInto">
                 <form class="common-form" action="${ufbDomain}/family/ufb/pay_result.htm" method="post">
-				     <input id="tradeacco" name="tradeacco" value="$!{curCard.tradeacco}" type="hidden"/>
+                ${refreshTools.genInputHtml()}    
+                <input id="tradeacco" name="tradeacco" value="$!{curCard.tradeacco}" type="hidden"/>
                     <ul>
                         <li class="clearfix zIndex">
                             <span class="form-title">银行选择</span>
@@ -91,65 +165,5 @@
         </div>
     </div>
 </div>
-<script src="${staticDomain}/family/scripts/load.js"></script>
-<script src="${staticDomain}/family/scripts/family-common.js"></script>
-<script type="text/javascript">
-$(function(){
-    $(".body .notice .v2_1").click(function(){
-        $(".body .notice").hide();
-    });
-    
-    $(".input-options .card").click(function(){
-        $(this).addClass("active").siblings().removeClass("active");
-    });
-});
-</script>
-<script type="text/javascript">
-$(function(){
-	
-	$('.nav a:eq(1)').addClass('active');
-	// 点击银行卡
-	$(".card").on("click", function(){
-		$("#tradeacco").val($(this).attr("tradeacco"));
-	});
-	
-	// 用户输入时，取消错误提示
-		$("form input").on('focus', function(){
-			if($(this).parent().hasClass('error')){
-				$(this).parent().removeClass('error');
-				//$(this).siblings('.tips-check').hide();
-			}
-		});
-	
-	// 表单提交时，验证	
-	$("#submit").on("click", function(){
-	 //校验充值金额
-		var appamt=$("#appamt").val();
-		if(appamt==''){
-			$("#appamtErrMsg").addClass("error");
-			$("#appamtTips").html("充值金额不能为空！");
-			return false;
-		}
-		appamt = formatCurrency1(appamt);
-		if(appamt == '0.00'){
-			$("#appamt").val('');
-			$("#appamtErrMsg").addClass("error");
-			$("#appamtTips").html("请输入正确格式的金额，比如1000.00！");
-			return false;
-		}
-		else{
-			$("#appamt").val(appamt);
-			$("#appamtErrMsg").removeClass("error");
-		}
-		//校验交易密码
-		var tradepwd=$("#tradePwd").val();
-		if(tradepwd==''){
-			$("#tradePwdErrMsg").addClass("error");
-			$("#tradeTips").html("交易密码不能为空！");
-			return false;
-		}
-	});
-	
-});
-</script>
+</body>
 </html>

@@ -2,28 +2,23 @@
 <html>
 <head>
     <title>幼富通 - 自动充值</title>
-	<script>
+    <script src="${staticDomain}/family/scripts/load.js"></script>
+    <script src="${staticDomain}/family/scripts/family-common.js"></script>
+<script>
 $(function(){
 	$('.nav a:eq(1)').addClass('active');
 	
 	$("#container").removeClass("setting");
-	// 用户输入时，取消错误提示
-		$("form input").on('focus', function(){
-			if($(this).parent().hasClass('error')){
-				$(this).parent().removeClass('error');
-				//$(this).siblings('.tips-check').hide();
-			}
-		});
-		
+
 	// 点击银行卡
-	$(".card").on("click", function(){
+	$(".card-list a").on("click", function(){
 		$("#frombankserialid").val($(this).attr("serialid"));
 		$("#frombankno").val($(this).attr("frombankno"));
 		$("#frombanktail").val($(this).attr("frombanktail"));
 	});
-	// 表单提交时，验证	
-	$("#submit").on("click", function(){
-		//校验自动充值金额
+	
+	// 校验充值金额
+	var check_amt=function(){
 		var autoamt=$("#autoamt").val();
 		if(autoamt==''){
 			$("#autoamtErrMsg").addClass("error");
@@ -32,37 +27,67 @@ $(function(){
 		}
 		autoamt = formatCurrency1(autoamt);
 		if(autoamt == '0.00'){
-			$("#autoamt").val('');
+			$("#autoamt").val('0.00');
 			$("#autoamtErrMsg").addClass("error");
-			$("#autoamtTips").html("请输入正确格式的金额，比如1000.00！");
+			$("#autoamtTips").html("请输入正确的金额，比如1000.00！");
 			return false;
-		}else{
+		}else if(autoamt<1){
+			$("#autoamtErrMsg").addClass("error");
+			$("#autoamtTips").html("充值金额不能小于1.00元！");
+			return false;
+		}
+		else{
 			$("#autoamtErrMsg").removeClass("error");
 			$("#autoamt").val(autoamt);
 		}
-		//校验日期
-			var dat=$("#dat").val();
-			if(dat==''){
-				$("#datErrMsg").addClass("error");
-				$("#datTips").html("充值日期不能为空！");
-				return false;
-			}
-		   if (dat.length > 2) {
-			   $("#datErrMsg").addClass("error");
-				$("#datTips").html("充值时间为2位数字");
-				return false;
-		    }
-		    var regex2 = /^[0-8]+$/;
-		    if (!regex2.test(dat)) {
-		    	$("#datErrMsg").addClass("error");
-				$("#datTips").html("充值时间范围为1至28日");
-				return false;
-		    }
-		    if (dat>29 || dat<1) {
-		    	$("#datErrMsg").addClass("error");
-				$("#datTips").html("充值时间范围为1至28日");
-				return false;
-		    }
+		return true;
+	}
+	
+	// 校验日期
+	var check_date=function(){
+		var dat=$("#dat").val();
+		if(dat==''){
+			$("#datErrMsg").addClass("error");
+			$("#datTips").html("充值日期不能为空！");
+			return false;
+		}
+		if (dat.length > 2) {
+		   $("#datErrMsg").addClass("error");
+			$("#datTips").html("充值时间为2位数字");
+			return false;
+	    }
+	    var regex2 = /^[0-8]+$/;
+	    if (!regex2.test(dat)) {
+	    	$("#datErrMsg").addClass("error");
+			$("#datTips").html("充值时间范围为1至28日");
+			return false;
+	    }
+	    if (dat>29 || dat<1) {
+	    	$("#datErrMsg").addClass("error");
+			$("#datTips").html("充值时间范围为1至28日");
+			return false;
+	    }
+	    else{
+	    	$("#datErrMsg").removeClass("error");
+	    }
+	    return true;
+	}
+	
+	// 用户输入时，取消错误提示
+	$("form input").on('focus', function(){
+		if($(this).parent().hasClass('error')){
+			$(this).parent().removeClass('error');
+		}
+	});
+	
+	// 添加响应事件
+	$("#autoamt").on("blur",check_amt);
+	
+	// 表单提交时，验证	
+	$("#submit").on("click", function(){
+		if(!(check_amt()&&check_date())){
+			return false;
+		}
 	});
 });
 </script>
@@ -146,7 +171,5 @@ $(function(){
         </div>
     </div>
 </div>
-<script src="${staticDomain}/family/scripts/load.js"></script>
-<script src="${staticDomain}/family/scripts/family-common.js"></script>
 </body>
 </html>
