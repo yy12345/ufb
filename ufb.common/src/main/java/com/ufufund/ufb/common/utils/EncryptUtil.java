@@ -1,7 +1,6 @@
 package com.ufufund.ufb.common.utils;
 
 import java.io.UnsupportedEncodingException;
-import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -117,4 +116,14 @@ public class EncryptUtil {
         }  
         return sb.toString();  
     }  
+    
+    public static void main(String args[]){
+    	
+    	String str = "abc321";
+    	String value1 = EncryptUtil.md5(str);
+    	String value2 = EncryptUtil.md5(str, "utf-8");
+    	
+    	System.out.println("value1="+value1);
+    	System.out.println("value2="+value2);
+    }
 }

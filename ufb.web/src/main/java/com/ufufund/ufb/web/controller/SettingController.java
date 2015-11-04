@@ -315,17 +315,17 @@ public class SettingController {
 				levels.add("1"); // 
 				levels.add("2"); // 
 			}
-			List<TradeAccoinfoOfMore> tradeAccoList_Y = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, levels, tradeaccosts);
-			if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
-				// 获取用户总资产
-				Assets assets = queryManager.queryAssets(tradeAccoList_Y, null);
-				List<TradeAccoVo> list_y =  assets.getAccoList();
-				
-				model.addAttribute("cardList_Y", list_y);
-			} else {
-				model.addAttribute("cardList_Y", null);
-			}
+//			List<TradeAccoinfoOfMore> tradeAccoList_Y = 
+//					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, levels, tradeaccosts);
+//			if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
+//				// 获取用户总资产
+//				Assets assets = queryManager.queryAssets(tradeAccoList_Y, null);
+//				List<TradeAccoVo> list_y =  assets.getAccoList();
+//				
+//				model.addAttribute("cardList_Y", list_y);
+//			} else {
+//				model.addAttribute("cardList_Y", null);
+//			}
 			
 			// 获取交易账户列表
 			//List<BankCardWithTradeAcco> tradeAccoList_N = 
@@ -335,13 +335,13 @@ public class SettingController {
 			tradeaccosts.add("C"); // 
 			tradeaccosts.add("F"); // 
 			//tradeaccosts.add("N"); // 
-			List<TradeAccoinfoOfMore> tradeAccoList_N = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, levels, tradeaccosts);
-			if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
-				model.addAttribute("cardList_N", tradeAccoList_N);
-			} else {
-				model.addAttribute("cardList_N", null);
-			}
+//			List<TradeAccoinfoOfMore> tradeAccoList_N = 
+//					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, levels, tradeaccosts);
+//			if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
+//				model.addAttribute("cardList_N", tradeAccoList_N);
+//			} else {
+//				model.addAttribute("cardList_N", null);
+//			}
 			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch (BizException e){
 			LOG.error(e.getErrmsg(), e);

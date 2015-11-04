@@ -71,21 +71,21 @@ public class TradeController {
 			levels.add("0"); 
 			levels.add("2");
 			
-			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
-					custno, 
-					Constant.HftSysConfig.HftFundCorpno, 
-					levels,
-					tradeaccosts);
+//			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
+//					custno, 
+//					Constant.HftSysConfig.HftFundCorpno, 
+//					levels,
+//					tradeaccosts);
 			
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
 			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
 			String profitArriveDay = DateUtil.getNextDay(nextWorkDay, 1);
 			
-			if(null != tradeAccoList && tradeAccoList.size() > 0){
-				model.addAttribute("curCard", tradeAccoList.get(0));
-				model.addAttribute("cardList", tradeAccoList);
-			}
+//			if(null != tradeAccoList && tradeAccoList.size() > 0){
+//				model.addAttribute("curCard", tradeAccoList.get(0));
+//				model.addAttribute("cardList", tradeAccoList);
+//			}
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
@@ -121,21 +121,21 @@ public class TradeController {
 			List<String> levels = new ArrayList<String>();
 			levels.add("1"); 
 			
-			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
-					custno, 
-					Constant.HftSysConfig.HftFundCorpno, 
-					levels,
-					tradeaccosts);
+//			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
+//					custno, 
+//					Constant.HftSysConfig.HftFundCorpno, 
+//					levels,
+//					tradeaccosts);
 			
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
 			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
 			String profitArriveDay = DateUtil.getNextDay(nextWorkDay, 1);
 			
-			if(null != tradeAccoList && tradeAccoList.size() > 0){
-				model.addAttribute("curCard", tradeAccoList.get(0));
-				model.addAttribute("cardList", tradeAccoList);
-			}
+//			if(null != tradeAccoList && tradeAccoList.size() > 0){
+//				model.addAttribute("curCard", tradeAccoList.get(0));
+//				model.addAttribute("cardList", tradeAccoList);
+//			}
 			model.addAttribute("today", DateUtil.convert(today.getDate(), DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("nextWorkDay", DateUtil.convert(nextWorkDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
 			model.addAttribute("profitArriveDay", DateUtil.convert(profitArriveDay, DateUtil.DATE_PATTERN_1, DateUtil.DATE_PATTERN_2));
@@ -251,13 +251,14 @@ public class TradeController {
 			levels.add("0"); 
 			levels.add("2"); 
 			
-			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
-					custno, 
-					Constant.HftSysConfig.HftFundCorpno, 
-					levels,
-					tradeaccosts);
+//			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
+//					custno, 
+//					Constant.HftSysConfig.HftFundCorpno, 
+//					levels,
+//					tradeaccosts);
 			// 获取用户总资产
-			Assets assets = queryManager.queryAssets(tradeAccoList, BasicFundinfo.YFB.getFundCode());
+//			Assets assets = queryManager.queryAssets(tradeAccoList, BasicFundinfo.YFB.getFundCode());
+			Assets assets = null;
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
 			String nextWorkDay = workDayManager.getNextWorkDay(today.getWorkday(), 1);
@@ -314,11 +315,12 @@ public class TradeController {
 			List<String> levels = new ArrayList<String>();
 			levels.add("1"); 
 			
-			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
-					custno, 
-					Constant.HftSysConfig.HftFundCorpno, 
-					levels,
-					tradeaccosts);
+			List<TradeAccoinfoOfMore> tradeAccoList = null;
+//			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
+//					custno, 
+//					Constant.HftSysConfig.HftFundCorpno, 
+//					levels,
+//					tradeaccosts);
 			// 获取用户总资产
 			Assets assets = queryManager.queryAssets(tradeAccoList, BasicFundinfo.YFB.getFundCode());
 			// 获取工作日信息等
