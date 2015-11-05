@@ -239,7 +239,7 @@
 				通过快捷方式绑定缴费卡，通过银行卡号加手机验证码即可完成验证，幼富通将逐步支持更多银行卡。
              </p>
         </div>
-        <form class="common-form bgFFF" method="post">
+        <form id="myform" class="common-form bgFFF" method="post" action="${ufbDomain}/family/setting/card_result.htm">
                <div class="panel">
                     <ul class="safeInfo">
                         <li>
@@ -264,9 +264,11 @@
                             <div class="input-select">
                                 <div class="bank bank-current"><img src="${staticDomain}/family/images/bank_${firstBank.bankno}.png"></div>
                                 <div class="input-options">
-                                    <div class="bank-list clearfix mb10">
+                                    <div class="bank-list clearfix mb10" style="width: 620px;">
                                         #foreach($bank in $ufbBankList)
-								        	<a bankno="${bank.bankno}" class="bank" href="javascript:;"><img src="${staticDomain}/family/images/bank_${bank.bankno}.png"></a>
+								        	<a bankno="${bank.bankno}" class="bank" style="width: 142px;" href="javascript:;">
+								        		<img src="${staticDomain}/family/images/bank_${bank.bankno}.png">
+								        	</a>
 								        #end
                                     </div>
                                 </div>
