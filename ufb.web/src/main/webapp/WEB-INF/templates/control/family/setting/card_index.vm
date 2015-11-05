@@ -43,7 +43,7 @@ $(function(){
 			}
 			if(setting_mainCard(null,$(this).attr("serialid"),$(this).attr("tradeacco"),"U")){
 			//	alert("解绑银行卡成功");
-				window.location.href="${ufbDomain}/family/setting/bankcard_index.htm";
+				window.location.href="${ufbDomain}/family/setting/card_index.htm";
 			}
 		}
 	});
@@ -55,7 +55,7 @@ $(function(){
 			//$("#serialid").val($(this).attr("serialid"));
 			if(setting_mainCard(null,$(this).attr("serialid"),null,"D")){
 			//	alert("删除银行卡成功");
-				window.location.href="${ufbDomain}/family/setting/bankcard_index.htm";
+				window.location.href="${ufbDomain}/family/setting/card_index.htm";
 			}
 	});
  
@@ -88,7 +88,7 @@ $(function(){
 <body>
 
     <div class="body">
-		<form id="form-settingCard" action="${ufbDomain}/family/setting/bankcard_index.htm" method="post">
+		<form id="form-settingCard" action="${ufbDomain}/family/setting/card_index.htm" method="post">
     	<input id="bankacco" name="bankacco" value="$!{bankacco}" type="hidden"/>
 		<input id="serialid" name="serialid" value="$!{serialid}" type="hidden"/>
 		<input id="tradeacco" name="tradeacco" value="$!{tradeacco}" type="hidden"/>
@@ -100,7 +100,7 @@ $(function(){
                 <ul>
                     <li><a href="${ufbDomain}/family/setting/account_index.htm"><b class="icon01"></b>账户信息</a></li>
                     <li><a href="${ufbDomain}/family/setting/password_index.htm"><b class="icon02"></b>密码设置</a></li>
-                    <li><a  class="current" href="${ufbDomain}/family/setting/bankcard_index.htm"><b class="icon03"></b>银行卡管理</a></li>
+                    <li><a  class="current" href="${ufbDomain}/family/setting/card_index.htm"><b class="icon03"></b>我的银行卡</a></li>
                     <li><a href="${ufbDomain}/family/ufb/autotrade_index.htm"><b class="icon04"></b>自动理财设置</a></li>
                 </ul>
             </div>

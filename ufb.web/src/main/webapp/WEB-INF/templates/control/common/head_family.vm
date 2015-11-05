@@ -8,23 +8,14 @@
 	    $!{title}
 	#end
 	<link rel="shortcut icon" href="${staticDomain}/favicon.ico" type="image/x-icon">
-	#if(${family_module} == "index" || ${family_module} == "account")
-		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
-		<link rel="stylesheet" href="${staticDomain}/family/css/main.css">
-	#elseif(${family_module} == "uft")
+	#if(${family_module} == "uft")
 		<link rel="stylesheet" href="${staticDomain}/family/css/style.css">
 		<link rel="stylesheet" href="${staticDomain}/family/css/family.css">
-	#elseif(${family_module} == "ufb")
+	#elseif(${family_module} == "index" || ${family_module} == "account"
+			|| ${family_page} == "ufb_index")
 		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
-    	#if(${family_page} == "ufb_index")
-    		<link rel="stylesheet" href="${staticDomain}/family/css/main.css">
-    	#else
-    		<link rel="stylesheet" href="${staticDomain}/family/css/common.css">
-    	#end
-	#elseif(${family_module} == "setting")
-		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
-    	<link rel="stylesheet" href="${staticDomain}/family/css/common.css">
-    #elseif(${family_module} == "help")
+		<link rel="stylesheet" href="${staticDomain}/family/css/main.css">
+	#elseif(${family_module} == "ufb" || ${family_module} == "setting" || ${family_module} == "help")
 		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
     	<link rel="stylesheet" href="${staticDomain}/family/css/common.css">
 	#end

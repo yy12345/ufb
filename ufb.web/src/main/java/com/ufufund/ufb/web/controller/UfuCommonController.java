@@ -5,14 +5,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
+import com.ufufund.ufb.common.exception.SysException;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.StringUtils;
@@ -20,6 +19,7 @@ import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankCardbin;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.vo.BankCardVo;
+import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.MsgCodeUtils.MsgCode;
@@ -240,39 +240,41 @@ public class UfuCommonController {
 		}
 		return resultMap;
 	}
+	
 	/**
-	 * 银行快捷鉴权
+	 * 海富通银行鉴权
 	 * @param bankCardVo
-	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "addBankCardCheck", method = RequestMethod.GET)
+	@RequestMapping(value = "bank_auth")
 	@ResponseBody
-	public Map<String,String> addBankCardAjax(BankCardVo bankCardVo, Model model){
+	public Map<String,String> bankAuth(BankCardVo bankCardVo){
 
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try{
+			// 1.注册场景
+			CustinfoVo custinfoVo = (CustinfoVo)ServletHolder.getSession().getAttribute("register_vo");
+			// 2.登录场景
+			if(custinfoVo == null)custinfoVo = UserHelper.getCustinfoVo();
+			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setBankno(bankCardVo.getBankno());//银行编号
-			openAccountAction.setBankacnm(bankCardVo.getBankacnm());//银行用户名
-			bankCardVo.setBankidtp("0");//银行证件类型
-			openAccountAction.setBankidtp(bankCardVo.getBankidtp());//银行证件类型
-			openAccountAction.setBankidno(bankCardVo.getBankidno());//银行证件号
+			openAccountAction.setBankacnm(custinfoVo.getInvnm());//银行用户名
+			openAccountAction.setBankidtp("0");					//银行证件类型
+			openAccountAction.setBankidno(custinfoVo.getIdno());//银行证件号
 			openAccountAction.setBankacco(bankCardVo.getBankacco());//银行卡号码
 			openAccountAction.setBankmobile(bankCardVo.getBankmobile());//银行手机号
 			
-			//调用银行快捷鉴权
+			// 海富通快捷鉴权
 			bankCardManager.openAccount2(openAccountAction);
+			// 对方序列号
+			ServletHolder.getSession().setAttribute("otherserial", openAccountAction.getAccoreqserial());
 			
 			resultMap.put("errCode", "0000");
-			resultMap.put("errMsg", "银行卡鉴权成功");
-			// 对方序列号
-			resultMap.put("otherserial", openAccountAction.getAccoreqserial());
-			
-		}catch (UserException e) {
-			log.error(e.getMessage(), e);
-			resultMap.put("errCode", e.getCode());
-			resultMap.put("errMsg", e.getMessage());
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
 		}catch (Exception e) {
 			log.error(e.getMessage(), e);
 			resultMap.put("errCode", "9999");

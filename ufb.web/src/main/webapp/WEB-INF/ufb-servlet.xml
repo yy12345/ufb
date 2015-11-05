@@ -90,7 +90,7 @@
 		<!-- 定义需要特殊处理的异常，用类名或完全路径名作为key，异常也页名作为值 -->
 		<property name="exceptionMappings">
 			<props>
-				<prop key="Exception">error/500</prop>
+				<prop key="Exception">error/error</prop>
 			</props>
 		</property>
 	</bean>

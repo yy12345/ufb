@@ -15,6 +15,7 @@ import com.ufufund.ufb.biz.manager.impl.helper.CustManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.common.utils.StringUtils;
@@ -362,10 +363,10 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		
 		// 查询手机号是否注册
 		if(this.isMobileRegister(registerAction.getLogincode())){
-			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, BisConst.Register.MOBILE);
+			throw new UserException("手机号码已注册！");
 		}
 		if(this.isIdnoRegister(registerAction.getIdno())){
-			throw new BizException(processId, ErrorInfo.ALREADY_REGISTER, BisConst.Register.IDNO);
+			throw new UserException("身份证号码已注册！");
 		}
 	}
 

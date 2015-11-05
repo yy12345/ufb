@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+<html>
 <head>
-<title>幼富通-注册-设置支付方式</title>
+<title>幼富通-我的银行卡-升级幼富宝卡</title>
  
 <script type="text/javascript">
 //$(function(){
@@ -48,6 +48,11 @@
 	
 	        });
 	   });
+	   
+	   // 关闭头部提示
+	   $(".notice .v2_1").click(function(){
+            $(".notice").hide();
+       });
         
        // 银行卡列表-样式控制
        $(".input-options .bank").on('click', function(){
@@ -79,14 +84,12 @@
 	   		
 	   		var obj = $('#bankacco').closest('li').children('.tips-check');
 	   		if($('#bankacco').val() == ''){
-	   			obj.parent().removeClass('ok');
-				obj.parent().addClass('error');
+	   			obj.parent().addClass('error');
 	   			obj.find('font').text('请填写银行卡号！');
 	   			obj.css('display', 'inline');
 	   			return false;
 	   		}else if($('#bankacco').val().length < 14 || $('#bankacco').val().length > 21){
-	   			obj.parent().removeClass('ok');
-				obj.parent().addClass('error');
+	   			obj.parent().addClass('error');
 	   			obj.find('font').text('请填写正确的银行卡号！');
 	   			obj.css('display', 'inline');
 	   			return false;
@@ -94,19 +97,13 @@
 	   			var result = readCardbin($('#bankacco').val());
 	   			if(result.errCode == '0000' && result.cardbin
 	   				&& result.cardbin.bankno != $("#bankno").val()){
-	   				obj.parent().removeClass('ok');
-					obj.parent().addClass('error');
+	   				obj.parent().addClass('error');
 		   			obj.find('font').text('对不起，银行卡号与所选银行不符！');
 		   			obj.css('display', 'inline');
 		   			return false;
-	   			}else{
-	   				obj.parent().addClass('ok');
-					obj.parent().removeClass('error');
-		   			obj.find('font').html('&nbsp;');
-		   			obj.css('display', 'inline');
-		   			return true;
 	   			}
 	   		}
+	   		return true;
 	   }
 	   
 	   // 检查银行预留手机号
@@ -117,21 +114,14 @@
 				$("#bankmobile").next().find('font').text('银行预留手机号码不能为空！');
 				$("#bankmobile").next().css('display', 'inline');
 				$("#bankmobile").closest('li').addClass('error');
-				$("#bankmobile").closest('li').removeClass('ok');
 				return false;
 			}else if(!$("#bankmobile").val().match(regex)){
 				$("#bankmobile").next().find('font').text('银行预留手机号码格式不正确！');
 				$("#bankmobile").next().css('display', 'inline');
 				$("#bankmobile").closest('li').addClass('error');
-				$("#bankmobile").closest('li').removeClass('ok');
 				return false;
-			}else{
-		 		$("#bankmobile").next().find('font').html('&nbsp;');
-				$("#bankmobile").next().css('display', 'inline');
-				$("#bankmobile").closest('li').removeClass('error');
-				$("#bankmobile").closest('li').addClass('ok');
-				return true;
-		 	}
+			}
+			return true;
 	   }
 	   
 	   // 检查验证码
@@ -237,156 +227,131 @@
 	   
     });
 </script>
-
-<style>
-    .num{
-        z-index:1000;
-        z-index:1000\9;
-    }    
-</style>
 </head>
 <body>  
-<div id="body">
-    <div class="container">
-        <div class="u2 mt20">
-            <div class="a4">
-               <ul class="v1">
-                    <li>创建账户</li>
-                    <li>身份安全信息</li>
-                    <li class="v1_hover">设置支付方式</li>
-                    <li>成功</li>
-                </ul>
-               <div class="v2">
-                    <i class="v2_1"></i>
-                    <p><i></i>为了给您提供完善便捷的缴费、理财及其他金融服务，请您设置支付方式。成功后即可使用幼富宝、学费通等贴心服务。</p>
-               </div>
-                <div class="b3">
-                    <form id="myform" class="common-form" method="post" action="${ufbDomain}/family/account/register_success.htm">
-						${refreshTools.genInputHtml()}
-						<input id="bankno" name="bankno" type="hidden">
-							
-						<div class="panel">
-                            <ul class="safeInfo">
-                                <li>
-                                    <span class="form-title">家长姓名</span>
-                                    <input class="ipt-text input-text" type="text" name="bankacnm" id="bankacnm" style="background-color:#cbcbcb;" readonly="readonly" value="$!{custinfoVo.invnm}">
-                                    <span class="tips-normal" style="display: none;"></span>
-                                  	<span class="tips-check"><i class="icon"></i></span> 
-                                </li>
-                                <li>
-                                    <span class="form-title">身份证号</span>
-                                    <input class="ipt-idCardno input-text" type="text" name="bankidno" id="bankidno" style="background-color:#cbcbcb;" readonly="readonly" value="$!{custinfoVo.idno}" >
-                                    <span class="tips-normal" style="display: none;"></span>
-                                    <span class="tips-check"><i class="icon"></i></span>
-                                </li>
-                            </ul>
-                            <ul class="safeInfo">
-                                <li class="anotherArea">
-                                    <span class="form-title title-font">设置支付方式</span>
-                                 <p>选择银行</p>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="input-select">
-                                        <div class="bank bank-current"><img src="${staticDomain}/family/images/bank_${firstBank.bankno}.png"></div>
-                                        <div class="input-options">
-                                            <div class="bank-list clearfix mb10 ufbCard">
-												#foreach($bank in $ufbBankList)
-										        <a bankno="${bank.bankno}" class="bank" href="javascript:;"><img src="${staticDomain}/family/images/bank_${bank.bankno}.png"></a>
-    									        #end
-                                                <div class="banktip">
-                                                    <p>其他银行<span>（可缴费，不支持幼富宝）</span><i class="down"></i></p>
-                                                </div>
-                                            </div>
-                                            <div class="bank-list clearfix bgGray">
-												#foreach($bank in $uftBankList)
-                                                <a class="bank" bankno="${bank.bankno}" href="javascript:;">
-												<img src="${staticDomain}/family/images/bank_${bank.bankno}.png"></a>
-												#end
-                                                <div class="banktip">
-                                                    <p>隐藏其他银行<i class="up"></i></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="tips-normal"></span>
-                                    <span class="tips-check"><i class="icon"></i><font></font></span>
-                                </li>
-                            </ul>
-                            <ul class="safeInfo">
-                                <li class="cardNum">
-                                   <span class="form-title">银行卡号</span>
-                                   <div class="cardFormat" id="card2">
-                                       <input class="ipt-bankCard input-text ipt-focus" maxlength="22"  type="text" id="bankacco" name="bankacco">
-                                   </div>
-                                   <span class="tips-check"><i class="icon"></i><font></font></span>
-                                   <p>
-                                   	         此卡默认缴费卡，仅支持借记卡，<a id="cardRequirement" href="javascript:;">绑卡须知</a>。
-	                               </p>
-	                               <div class="trip" style="display:none">
-	                                	 填写以你自己姓名开户的银行卡<br>
-						                                                幼富通平台快捷缴费：共支持超过15家全国及地方银行借记卡<br>
-						                                                充值幼富宝（理财+缴费）目前共支持9家银行，仅限借记卡<b></b>
-	                               </div>
-                               </li>
-                               <li class="sureAddr" style="display:none;"><b>请明确银行开户地点</b></li>
-                               <li class="Addr zIndex" style="display:none;">
-                                   <span class="form-title">地址</span>
-                                   <div class="inputL">
-                                       <div class="inputS provinces">省份</div>
-                                       <div class="chose">
-                                           <ul>
-                                               <li>省份</li>
-                                               <li>吉林省</li>
-                                               <li>江苏省</li>
-                                               <li>山东省</li>
-                                               <li>江西省</li>
-                                               <li>海南省</li>
-                                           </ul>
-                                       </div>
-                                   </div>
-                                   <div class="inputR">
-                                       <div class="inputS city">城市</div>
-                                       <div class="choseCity">
-                                           <ul>
-                                               <li>城市</li>
-                                               <li>长春市</li>
-                                               <li>吉林市</li>
-                                               <li>四平市</li>
-                                           </ul>
-                                       </div>
-                                   </div>
-                               </li>
-                            </ul>
-                            <ul class="safeInfo borderNone">
-                                <li>
-                                    <span class="form-title">银行预留手机号码</span>
-                                    <input class="ipt-phoneNum input-text" type="text" id="bankmobile" name="bankmobile" maxlength="11">
-                                   <span class="tips-check"><i class="icon"></i><font></font></span>
-                                </li>
-                               	<li>
-                                    <span class="form-title">验证码</span>
-                                    <input class="ipt-phoneCode input-code" type="text" maxlength="6" id="mobileautocode" name="mobileautocode" >
-                                    <input id="btn-getMsgCode" class="input-button" type="button" value="获取验证码">
-                                    <span class="tips-check"><i class="icon"></i><font></font></span>
-                                </li>
-                                 <li class="anotherArea anotherTips">
-                                 <p>免费开通幼富宝服务，海富通基金（海富通货币）</p>
-                                 <p class="fontP">点击下一步表示同意<a href="javascript:;" id="ufbAgreement">《幼富宝服务协议》 </a><a href="javascript:;" id="hftAgreement">《海富通基金管理有限公司网上交易直销自助式前台服务协议》</a></p>
-                                </li>
-                                <li>
-                                    <input id="btn-submit" class="input-button btnB" type="button" value="同意协议并确定" > 
-                                    <p class="fontP"><a href="javascript:;" id="uftName">《幼富通实名认证服务协议》</a></p>                
-                                </li>
-                            </ul>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<div class="body">
+    <div class="inner clearfix">
+        <div class="title clearfix">
+            <h2 class="title-main fl">绑定银行卡</h2>
         </div>
-      </div>
+        <div class="notice">
+             <i class="v2_1"></i><p>所有银行卡仅支持借记卡，需事先开通网银！<br>
+				通过快捷方式绑定缴费卡，通过银行卡号加手机验证码即可完成验证，幼富通将逐步支持更多银行卡。
+             </p>
+        </div>
+        <form class="common-form bgFFF" method="post">
+               <div class="panel">
+                    <ul class="safeInfo">
+                        <li>
+                            <span class="form-title">家长姓名</span>
+                            <input class="ipt-text input-text" type="text" value="">
+                            <span class="tips-normal" style="display: block;">王杰</span>
+                            <span class="tips-check"><i class="icon"></i>错误提示</span>
+                        </li>
+                        <li class="error">
+                            <span class="form-title">身份证号</span>
+                            <input class="ipt-idCard input-text" type="text" value="">
+                            <span class="tips-normal" style="display: block;">310109198008243410</span>
+                             <span class="tips-check"><i class="icon"></i>错误提示</span>
+                        </li>
+                    </ul>
+                    <ul class="safeInfo">
+                        <li class="anotherArea">
+                            <span class="form-title title-font">设置支付方式</span>
+                         <p>选择银行</p>
+                        </li>
+                        <li class="clearfix">
+                            <div class="input-select">
+                                <div class="bank bank-current"><img src="${staticDomain}/family/images/bank_${firstBank.bankno}.png"></div>
+                                <div class="input-options">
+                                    <div class="bank-list clearfix mb10">
+                                        #foreach($bank in $ufbBankList)
+								        	<a bankno="${bank.bankno}" class="bank" href="javascript:;"><img src="${staticDomain}/family/images/bank_${bank.bankno}.png"></a>
+								        #end
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="tips-normal"></span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                    </ul>
+                    <ul class="safeInfo">
+                        <li class="cardNum">
+                           <span class="form-title">银行卡号</span>
+                               <div class="cardFormat" id="card2">
+                                   <input class="ipt-bankCard input-text ipt-focus" type="text">
+                               <div class="num" style="top: -31px; width: 220px;">&nbsp;</div></div>
+                           <span>仅支持借记卡，<a href="">银行卡要求。
+                           <div class="trip">
+                               <div>填写以你自己姓名开户的银行卡<br>
+                                   	 幼富通平台快捷缴费：共支持超过25家全国及地方银行借记卡<br>
+                                    	充值幼富宝（理财+缴费）目前共支持9家银行，仅限借记卡，需事先开通网银<b></b>
+                                </div>
+                            </div>
+                           </a></span>
+                           <p>此卡将设为默认缴费卡</p>
+                       </li>
+                       <li class="sureAddr"><b>请明确银行开户地点</b></li>
+                       <li class="Addr zIndex">
+                       <span class="form-title">地址</span>
+                       <div class="inputL">                               
+                           <div class="inputS provinces">省份</div>
+                           <div class="chose">
+                               <ul>
+                                   <li>省份</li>
+                                   <li>吉林省</li>
+                                   <li>江苏省</li>
+                                   <li>山东省</li>
+                                   <li>江西省</li>
+                                   <li>海南省</li>
+                               </ul>
+                           </div>
+                       </div>
+                       <div class="inputR">
+                           <div class="inputS city">城市</div>
+                           <div class="choseCity">
+                               <ul>
+                                   <li>城市</li>
+                                   <li>长春市</li>
+                                   <li>吉林市</li>
+                                   <li>四平市</li>
+                               </ul>
+                           </div>
+                       </div>                                     
+                       </li>
+                       <li>
+                           <span class="form-title">开户网点</span>
+                           <input class="ipt-bankCard input-text inputL" type="text" value="">
+                           <span class="tips-normal" style="display: block;">如：浦建路支行</span>
+                           <span>如果不明确开户网点，请拨打相应银行客服电话询问</span>                                   
+                       </li>                                    
+                    </ul>
+                    <ul class="safeInfo borderNone">
+                        <li>
+                            <span class="form-title">银行预留手机号码</span>
+                            <input class="ipt-idCard input-text" type="text" value="">
+                        </li>
+                       <li>
+                            <span class="form-title">验证码</span>
+                            <input class="ipt-phoneCode input-code" type="text" value="">
+                            <input class="input-button" type="button" value="获取验证码">
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                         <li class="anotherArea anotherTips">
+                         <p>免费开通幼富宝服务，海富通基金（海富通货币）</p>
+                         <p class="fontP">点击下一步表示同意<a href="javascript:;" id="ufbAgreement">《幼富宝服务协议》 </a><a href="javascript:;" id="hftAgreement">《海富通基金管理有限公司网上交易直销自助式前台服务协议》</a></p>
+                        </li>
+                        <li>
+                            <input class="input-button btnB" type="submit" value="返回" onclick="window.open('createAccount_04.html')"> 
+                            <input class="input-button btnB" type="submit" value="提交" onclick="window.open('createAccount_04.html')"> 
+                            <p class="fontP"><a href="javascript:;" id="ufbFast">《幼富宝快捷支付服务协议》</a><a href="javascript:;" id="uftName">《幼富通实名认证服务协议》</a></p>                
+                        </li>
+                    </ul>
+                </div>
+           </form>    
     </div>
 </div>
- 
+
 <!----------------弹层------------------------->       
 <div class="bgBox"></div>	
 <!--《幼富宝服务协议》-->
@@ -417,7 +382,6 @@
     </div>
 </div> 
 
-
 <!--《海富通基金管理有限公司网上交易直销自助式前台服务协议》-->
 <div class="layerpop" id="hft">	
     <b class="close"></b>
@@ -436,7 +400,6 @@
     </div>
 </div>     
             
- 
 <!--《《幼富宝快捷支付服务协议》》-->
 <div class="layerpop" id="ufb02">	
     <b class="close"></b>
@@ -457,7 +420,6 @@
         <a href="javascript:;" class="btnKnow closebox">我知道了</a>
     </div>
 </div>
-
 
 <!--《《幼富通实名认证服务协议》》-->
 <div class="layerpop" id="uft">	

@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+<html>
 <head>
-<title>幼富通-注册-设置支付方式</title>
+<title>幼富通-我的银行卡-升级幼富宝卡</title>
  
 <script type="text/javascript">
 //$(function(){
@@ -79,14 +79,12 @@
 	   		
 	   		var obj = $('#bankacco').closest('li').children('.tips-check');
 	   		if($('#bankacco').val() == ''){
-	   			obj.parent().removeClass('ok');
-				obj.parent().addClass('error');
+	   			obj.parent().addClass('error');
 	   			obj.find('font').text('请填写银行卡号！');
 	   			obj.css('display', 'inline');
 	   			return false;
 	   		}else if($('#bankacco').val().length < 14 || $('#bankacco').val().length > 21){
-	   			obj.parent().removeClass('ok');
-				obj.parent().addClass('error');
+	   			obj.parent().addClass('error');
 	   			obj.find('font').text('请填写正确的银行卡号！');
 	   			obj.css('display', 'inline');
 	   			return false;
@@ -94,19 +92,13 @@
 	   			var result = readCardbin($('#bankacco').val());
 	   			if(result.errCode == '0000' && result.cardbin
 	   				&& result.cardbin.bankno != $("#bankno").val()){
-	   				obj.parent().removeClass('ok');
-					obj.parent().addClass('error');
+	   				obj.parent().addClass('error');
 		   			obj.find('font').text('对不起，银行卡号与所选银行不符！');
 		   			obj.css('display', 'inline');
 		   			return false;
-	   			}else{
-	   				obj.parent().addClass('ok');
-					obj.parent().removeClass('error');
-		   			obj.find('font').html('&nbsp;');
-		   			obj.css('display', 'inline');
-		   			return true;
 	   			}
 	   		}
+	   		return true;
 	   }
 	   
 	   // 检查银行预留手机号
@@ -117,21 +109,14 @@
 				$("#bankmobile").next().find('font').text('银行预留手机号码不能为空！');
 				$("#bankmobile").next().css('display', 'inline');
 				$("#bankmobile").closest('li').addClass('error');
-				$("#bankmobile").closest('li').removeClass('ok');
 				return false;
 			}else if(!$("#bankmobile").val().match(regex)){
 				$("#bankmobile").next().find('font').text('银行预留手机号码格式不正确！');
 				$("#bankmobile").next().css('display', 'inline');
 				$("#bankmobile").closest('li').addClass('error');
-				$("#bankmobile").closest('li').removeClass('ok');
 				return false;
-			}else{
-		 		$("#bankmobile").next().find('font').html('&nbsp;');
-				$("#bankmobile").next().css('display', 'inline');
-				$("#bankmobile").closest('li').removeClass('error');
-				$("#bankmobile").closest('li').addClass('ok');
-				return true;
-		 	}
+			}
+			return true;
 	   }
 	   
 	   // 检查验证码
@@ -237,13 +222,6 @@
 	   
     });
 </script>
-
-<style>
-    .num{
-        z-index:1000;
-        z-index:1000\9;
-    }    
-</style>
 </head>
 <body>  
 <div id="body">
@@ -261,7 +239,7 @@
                     <p><i></i>为了给您提供完善便捷的缴费、理财及其他金融服务，请您设置支付方式。成功后即可使用幼富宝、学费通等贴心服务。</p>
                </div>
                 <div class="b3">
-                    <form id="myform" class="common-form" method="post" action="${ufbDomain}/family/account/register_success.htm">
+                    <form id="myform" class="common-form" method="post" action="${ufbDomain}/family/setting/card_result.htm">
 						${refreshTools.genInputHtml()}
 						<input id="bankno" name="bankno" type="hidden">
 							
@@ -287,24 +265,12 @@
                                 </li>
                                 <li class="clearfix">
                                     <div class="input-select">
-                                        <div class="bank bank-current"><img src="${staticDomain}/family/images/bank_${firstBank.bankno}.png"></div>
+                                        <div class="bank bank-current"><img src="${staticDomain}/family/images/bank_${firstBank.bankno}.png" id="firstbankno" bankno="${firstBank.bankno}"></div>
                                         <div class="input-options">
                                             <div class="bank-list clearfix mb10 ufbCard">
 												#foreach($bank in $ufbBankList)
 										        <a bankno="${bank.bankno}" class="bank" href="javascript:;"><img src="${staticDomain}/family/images/bank_${bank.bankno}.png"></a>
     									        #end
-                                                <div class="banktip">
-                                                    <p>其他银行<span>（可缴费，不支持幼富宝）</span><i class="down"></i></p>
-                                                </div>
-                                            </div>
-                                            <div class="bank-list clearfix bgGray">
-												#foreach($bank in $uftBankList)
-                                                <a class="bank" bankno="${bank.bankno}" href="javascript:;">
-												<img src="${staticDomain}/family/images/bank_${bank.bankno}.png"></a>
-												#end
-                                                <div class="banktip">
-                                                    <p>隐藏其他银行<i class="up"></i></p>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

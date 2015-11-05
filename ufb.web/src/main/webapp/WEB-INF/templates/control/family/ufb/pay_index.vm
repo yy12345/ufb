@@ -80,11 +80,10 @@ $(function(){
  
     <div class="body">
         <div class="inner clearfix">
-            <div class="title clearfix">
-                <h2 class="title-main fl">资产总览 | 充值</h2>
-            </div>
-<!--            <div class="notice">公告：15:00前转入资金（以支付成功时间为准），第二个工作日确认份额，收益将在确认后次日发放，15:00后转入资金顺延1个工作日发放收益。双休日及国家法定假期，基金公司不进行份额确认。</div>-->
-            <div class="notice">
+	      <div class="title clearfix">
+	          	<h2 class="title-main fl">资产总览 | 充值</h2>
+	      </div>
+          <div class="notice">
                 <i class="v2_1"></i>
                 <p><i></i>公告：15:00前转入资金（以支付成功时间为准），第二个工作日确认份额，收益将在确认后次日发放，15:00后转入资金顺延1个工作日发放收益。双休日及国家法定假期，基金公司不进行份额确认。</p>
            </div>

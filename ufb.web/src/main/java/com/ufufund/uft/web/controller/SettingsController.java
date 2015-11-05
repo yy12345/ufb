@@ -5,39 +5,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.ufufund.ufb.biz.exception.BizException;
-import com.ufufund.ufb.biz.manager.AutotradeManager;
+
 import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
+import com.ufufund.ufb.biz.manager.ChinapayManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
-import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.EncryptUtil;
-import com.ufufund.ufb.common.utils.StringUtils;
-import com.ufufund.ufb.model.action.cust.ChangeAutoStateAction;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
-import com.ufufund.ufb.model.action.cust.ModifyAutotradeAction;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
-import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.BankBaseInfo;
-import com.ufufund.ufb.model.db.BankCardbin;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
-import com.ufufund.ufb.model.enums.AutoTradeType;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
-import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.AutotradeVo;
 import com.ufufund.ufb.model.vo.BankCardVo;
@@ -45,9 +37,8 @@ import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.StudentVo;
 import com.ufufund.ufb.model.vo.TradeAccoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
-import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.UserHelper;
-import com.ufufund.ufb.web.util.VerifyCodeUtils;
+
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -56,8 +47,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SettingsController {
 	private static final Logger LOG = LoggerFactory.getLogger(SettingsController.class);
-	private static final String BANKCARD_INDEX="family/setting/bankcard_index.htm";
-	private static final String SETTING_CARD_NAME="银行卡管理";
+	private static final String CARD_INDEX="family/setting/bankcard_index.htm";
+	private static final String CARD_INDEX_NAME="我的银行卡";
 	private static final String ACCOUNT_INDEX="family/setting/account_index.htm";
 	private static final String PASSWORD_INDEX="family/setting/password_index.htm";
 	@Autowired
@@ -68,6 +59,10 @@ public class SettingsController {
 	private TradeAccoManager tradeAccoManager;
 	@Autowired
 	private QueryManager queryManager;
+	@Autowired
+	private BankBaseManager bankBaseManager;
+	@Autowired
+	private ChinapayManager chinapayManager;
 	
 	/**
 	 * 账户信息
@@ -253,8 +248,8 @@ public class SettingsController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="bankcard_index")
-	public String settingBankcard(CustinfoVo custinfoVo, Model model){
+	@RequestMapping(value="card_index")
+	public String cardIndex(CustinfoVo custinfoVo, Model model){
 		try{
 			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
 			custinfoVo.setCustno(s_custinfo.getCustno());;                      
@@ -301,13 +296,13 @@ public class SettingsController {
 			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
-			model.addAttribute("message_title", "银行卡管理");
-			model.addAttribute("message_url", BANKCARD_INDEX);
+			model.addAttribute("message_title", "操作失败");
 			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("message_url", CARD_INDEX);
 			model.addAttribute("back_module", "返回");
 			return "error/error";
 		}
-		return "family/setting/bankcard_index";
+		return "family/setting/card_index";
 	}
 	
 	/**
@@ -380,6 +375,104 @@ public class SettingsController {
 			resultMap.put("errMsg", "系统出现异常！");
 		}
 		return resultMap;
+	}
+	
+	/**
+	 * 银行卡，升级至幼富宝卡，首页
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "card_update")
+	public String cardUpdate(Model model) {
+		
+		try{
+			CustinfoVo custinfoVo = UserHelper.getCustinfoVo();
+			
+			// 业务规则校验
+			boolean isUfb = false;
+			// 获取用户是否已为幼富宝用户，coding later...
+			if(isUfb){
+				throw new UserException("您已为幼富宝用户！");
+			}
+			
+			//获得所有的银行
+			List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
+			// 支持幼富宝的银行
+			List<BankBaseInfo> ufbBankList= new ArrayList<BankBaseInfo>();
+			for(BankBaseInfo bankinfo:bankBaseList){
+				if("1".equals(bankinfo.getLevel())){
+					ufbBankList.add(bankinfo);
+				}
+			}
+			model.addAttribute("ufbBankList", ufbBankList);
+			model.addAttribute("custinfoVo", custinfoVo);
+			model.addAttribute("firstBank", ufbBankList.get(0));
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "操作失败");
+			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("message_url", CARD_INDEX);
+			model.addAttribute("back_module", CARD_INDEX_NAME);
+			return "error/error";
+		}
+		return "family/setting/card_update";
+	}
+	
+	/**
+	 * 升级银行卡，确认
+	 * @param bankCardVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "card_result")
+	public String cardResult(BankCardVo bankCardVo, Model model) {
+		
+		try{
+			CustinfoVo custinfoVo = UserHelper.getCustinfoVo();
+			String otherserial = (String) ServletHolder.getSession().getAttribute("otherserial");
+			
+			// 数据验证
+			// 1.传入参数验证
+			// coding later...
+			
+			// 2.业务规则验证
+			String banklevel = bankBaseManager.getLevelByBankno(bankCardVo.getBankno());
+			if(!"1".equals(banklevel)){
+				throw new UserException("您选择的银行卡，不支持幼富宝！");
+			}
+		
+			// 对象组装
+			OpenAccountAction openAccountAction = new OpenAccountAction();
+			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			openAccountAction.setBankno(bankCardVo.getBankno());
+			openAccountAction.setBankacnm(custinfoVo.getInvnm());
+			openAccountAction.setBankacco(bankCardVo.getBankacco());
+			openAccountAction.setBankidtp("0");
+			openAccountAction.setBankidno(custinfoVo.getIdno());
+			openAccountAction.setBankmobile(bankCardVo.getBankmobile());
+			openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
+//			openAccountAction.setBankcitynm(StringUtils.isNotBlank(bankCardVo.getBankcitynm())?bankCardVo.getBankcitynm():null);
+//			openAccountAction.setBankprovincenm(StringUtils.isNotBlank(bankCardVo.getBankprovincenm())?bankCardVo.getBankprovincenm():null);
+//			openAccountAction.setBankadd(StringUtils.isNotBlank(bankCardVo.getBankadd())?bankCardVo.getBankadd():null);
+			openAccountAction.setOtherserial(otherserial);
+			
+			// 幼富宝卡，海富通开户
+			bankCardManager.openAccount3(openAccountAction);
+			bankCardManager.openAccount4(openAccountAction);
+			// 银联账户验证
+			chinapayManager.checkAccount(openAccountAction);
+			
+			// 新幼富宝卡，基金开户成功，银联账户验证成功，添加bankcardinfo、tradeaccoinfo记录
+			// coding later...
+//			String custno = custManager.register(registerAction, openAccountAction);
+				
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "操作失败");
+			model.addAttribute("message_content", ue.getMessage());
+			return "error/error";
+		}
+		return "redirect:/family/setting/card_index.htm";
 	}
 	
 	/**

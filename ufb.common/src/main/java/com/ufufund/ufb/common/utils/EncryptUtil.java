@@ -121,7 +121,7 @@ public class EncryptUtil {
     	
     	String str = "abc321";
     	String value1 = EncryptUtil.md5(str);
-    	String value2 = EncryptUtil.md5(str, "utf-8");
+    	String value2 = EncryptUtil.md5(str, "iso-8859-1");
     	
     	System.out.println("value1="+value1);
     	System.out.println("value2="+value2);

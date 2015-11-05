@@ -66,9 +66,6 @@ public class TradeManagerImpl implements TradeManager{
 	@Autowired
 	private TradeManagerHelper helper;
 	
-//	@Autowired
-//	private TradeNotesMapper tradeNotesMapper;
-	
 	@Override
 	public String subApply(ApplyVo vo) {
 		//  参数及业务规则验证
@@ -131,27 +128,6 @@ public class TradeManagerImpl implements TradeManager{
 		vo.setAppdate(today.getDate());
 		vo.setApptime(today.getTime());
 		vo.setWorkday(today.getWorkday());
-		
-//		/*
-//		 * 写交易流水 
-//		 * 没有更新交易流水 gaoxin
-//		 */
-//		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
-//		fdacfinalresult.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-//		fdacfinalresult.setApkind(Apkind.BUYAPPLY.getValue());
-//		fdacfinalresult.setWorkdate(today.getWorkday());
-//		fdacfinalresult.setApdt(today.getDate());
-//		fdacfinalresult.setAptm(today.getTime());
-//		fdacfinalresult.setCustno(vo.getCustno());
-//		fdacfinalresult.setFromtradeacco(vo.getTradeacco());
-//		fdacfinalresult.setFrombankserialid(vo.getBankid());
-//		fdacfinalresult.setTofundcode(vo.getFundcode());
-//		fdacfinalresult.setTofundcorpno(vo.getFundcorpno());
-//		fdacfinalresult.setAppamt(vo.getAppamt());
-//		fdacfinalresult.setAppvol(vo.getAppvol());
-//		fdacfinalresult.setStatus("I");
-//		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
-		
 		
 		/** 生成本地交易流水 **/
 		TradeRequest tradeRequest = helper.toTradeRequest4BuyApply(vo);
@@ -271,29 +247,7 @@ public class TradeManagerImpl implements TradeManager{
 		vo.setSerialno(serialno);
 		vo.setAppdate(today.getDate());
 		vo.setApptime(today.getTime());
-		vo.setWorkday(today.getWorkday());
-		
-		
-//		/*
-//		 * 写交易流水   gaoxin 
-//		 * 没有更新交易流水
-//		 */
-//		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
-//		fdacfinalresult.setSerialno(tradeNotesMapper.getFdacfinalresultSeq());
-//		fdacfinalresult.setApkind(Apkind.REALREDEEM.getValue());
-//		fdacfinalresult.setWorkdate(today.getWorkday());
-//		fdacfinalresult.setApdt(today.getDate());
-//		fdacfinalresult.setAptm(today.getTime());
-//		fdacfinalresult.setCustno(vo.getCustno());
-//		fdacfinalresult.setTotradeacco(vo.getTradeacco());
-//		fdacfinalresult.setTobankserialid(vo.getBankid());
-//		fdacfinalresult.setFromfundcode(vo.getFundcode());
-//		fdacfinalresult.setFromfundcorpno(vo.getFundcorpno());
-//		fdacfinalresult.setAppamt(vo.getAppamt());
-//		fdacfinalresult.setAppvol(vo.getAppvol());
-//		fdacfinalresult.setStatus("I");
-//		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
-		
+		vo.setWorkday(today.getWorkday());	
 		
 		/** 生成本地交易流水 **/
 		TradeRequest tradeRequest = helper.toTradeRequest4RealRedeem(vo);
