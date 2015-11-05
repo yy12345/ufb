@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>幼富通 - 自动充值</title>
+<title>幼富通 - 修改自动充值</title>
 <script src="${staticDomain}/family/scripts/load.js"></script>
 <script src="${staticDomain}/family/scripts/family-common.js"></script>
 <script>

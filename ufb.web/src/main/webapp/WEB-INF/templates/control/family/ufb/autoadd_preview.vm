@@ -2,6 +2,37 @@
 <html>
 <head>
     <title>幼富通 - 预览自动充值计划</title>
+<script src="${staticDomain}/family/scripts/load.js"></script>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>
+<script type="text/javascript">
+   $(function(){
+       $("#hft").click(function(){
+           $(".layerpop , .bgBox").fadeIn();
+       });
+       $(".layerpop b.close , .layerpop .btnKnow").click(function(){
+           $(".layerpop , .bgBox").fadeOut();
+       });
+   });
+</script>
+<script>
+		(function($){
+			$(window).load(function(){
+				$("#content_1").mCustomScrollbar({
+					theme:"dark", //主题颜色
+					scrollButtons:{
+						enable:true //是否使用上下滚动按钮
+					},
+					autoHideScrollbar: false, //是否自动隐藏滚动条
+					scrollInertia :0,//滚动延迟
+					horizontalScroll : false//水平滚动条
+					
+				});
+					
+			});
+			
+		})(jQuery);
+	
+	</script>
 <script>
 $(function(){
 	$('.nav a:eq(1)').addClass('active');
@@ -125,7 +156,7 @@ $(function(){
                             </li>
                             <li>
                                 <span class="form-title" style="top: 50%;">备注</span>
-                                <span class="form-text">#if(${AutoTradeVo.summary}) $!{AutoTradeVo.summary} #else &nbsp;&nbsp; #end</span>
+                                <span class="form-text">$!{AutoTradeVo.summary}</span>
                             </li>
                             <li id="tradepwdErrMsg">
                                 <span class="form-title">交易密码</span>
@@ -180,36 +211,5 @@ $(function(){
                 </div>
 </div>
 <!----------弹层--end----------->
-<script src="${staticDomain}/family/scripts/load.js"></script>
-<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>
-<script type="text/javascript">
-   $(function(){
-       $("#hft").click(function(){
-           $(".layerpop , .bgBox").fadeIn();
-       });
-       $(".layerpop b.close , .layerpop .btnKnow").click(function(){
-           $(".layerpop , .bgBox").fadeOut();
-       });
-   });
-</script>
-<script>
-		(function($){
-			$(window).load(function(){
-				$("#content_1").mCustomScrollbar({
-					theme:"dark", //主题颜色
-					scrollButtons:{
-						enable:true //是否使用上下滚动按钮
-					},
-					autoHideScrollbar: false, //是否自动隐藏滚动条
-					scrollInertia :0,//滚动延迟
-					horizontalScroll : false//水平滚动条
-					
-				});
-					
-			});
-			
-		})(jQuery);
-	
-	</script>
 </body>
 </html>

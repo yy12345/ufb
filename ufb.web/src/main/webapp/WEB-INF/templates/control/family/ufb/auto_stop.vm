@@ -2,11 +2,20 @@
 <html>
 <head>
     <title>幼富通 - 终止自动充值计划</title>
-	<script>
-$(function(){
+<script type="text/javascript">
+  $(function(){
 	$('.nav a:eq(1)').addClass('active');
 	
 	$("#container").removeClass("setting");
+    $(".center .body .notice .v2_1").click(function(){
+        $(".center .body .notice").hide();
+    });
+    $("#tradepwd").on("focus",function(){
+    	$("#tradepwd").siblings(".tips-normal").hide();
+    })
+    $("#tradepwd").on("blur",function(){
+    	$("#tradepwd").siblings(".tips-normal").show();
+    })
 	
 	// 用户输入时，取消错误提示
 	$("form input").on('focus', function(){
@@ -75,7 +84,7 @@ $(function(){
                             </li>
                             <li>
                                 <span class="form-title">充值金额</span>
-                                <span class="form-text">${AutoTradeVo.autoamt}元</span>
+                                <span class="form-text">$!{AutoTradeVo.autoamt}元</span>
                             </li>
                             <li>
                                 <span class="form-title">收费模式</span>
@@ -83,15 +92,15 @@ $(function(){
                             </li>
                             <li>
                                 <span class="form-title">充值周期</span>
-                                <span class="form-text">每月${AutoTradeVo.dat}日（遇节假日顺延至下个基金工作日）</span>
+                                <span class="form-text">每月$!{AutoTradeVo.dat}日（遇节假日顺延至下个基金工作日）</span>
                             </li>
                             <li>
                                 <span class="form-title">下次充值日期</span>
                                 <span class="form-text">$!{AutoTradeVo.nextdate}</span>
                             </li>
                             <li>
-                                <span class="form-title">备注</span>
-                                <span class="form-text">${AutoTradeVo.summary}</span>
+                                <span class="form-title" style="top: 50%;">备注</span>
+                                <span class="form-text">$!{AutoTradeVo.summary}</span>
                             </li>
                             <li id="tradepwdErrMsg">
                                 <span class="form-title">交易密码</span>
@@ -110,18 +119,5 @@ $(function(){
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function(){
-        $(".center .body .notice .v2_1").click(function(){
-            $(".center .body .notice").hide();
-        });
-        $("#tradepwd").on("focus",function(){
-        	$("#tradepwd").siblings(".tips-normal").hide();
-        })
-        $("#tradepwd").on("blur",function(){
-        	$("#tradepwd").siblings(".tips-normal").show();
-        })
-    });
-</script>
 </body>
 </html>

@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--
 <title>幼富通 - 预览自动充值计划</title>
--->
 <script>
 $(function(){
 	$('.nav a:eq(1)').addClass('active');
@@ -100,7 +98,7 @@ $(function(){
                         </li>
                         <li>
                             <span class="form-title" style="top: 50%;">备注</span>
-                            <span class="form-text">#if(${AutoTradeVo.summary}) $!{AutoTradeVo.summary} #else &nbsp;&nbsp; #end</span>
+                            <span class="form-text">$!{AutoTradeVo.summary}</span>
                         </li>
                         <li id="tradepwdErrMsg">
                             <span class="form-title">交易密码</span>

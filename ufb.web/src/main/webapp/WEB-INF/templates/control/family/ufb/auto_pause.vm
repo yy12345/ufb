@@ -7,6 +7,17 @@ $(function(){
 	$('.nav a:eq(1)').addClass('active');
 	
 	$("#container").removeClass("setting");
+	
+    $(".center .body .notice .v2_1").click(function(){
+        $(".center .body .notice").hide();
+    });
+    $("#tradepwd").on("focus",function(){
+    	$("#tradepwd").siblings(".tips-normal").hide();
+    })
+    $("#tradepwd").on("blur",function(){
+    	$("#tradepwd").siblings(".tips-normal").show();
+    })
+    
 	// 用户输入时，取消错误提示
 	$("form input").on('focus', function(){
 		if($(this).parent().hasClass('error')){
@@ -91,8 +102,8 @@ $(function(){
                                 <span class="form-text">$!{AutoTradeVo.nextdate}</span>
                             </li>
                             <li>
-                                <span class="form-title">备注</span>
-                                <span class="form-text">${AutoTradeVo.summary}</span>
+                                <span class="form-title" style="top: 50%;">备注</span>
+                                <span class="form-text">$!{AutoTradeVo.summary}</span>
                             </li>
                             <li id="tradepwdErrMsg">
                                 <span class="form-title">交易密码</span>
@@ -111,18 +122,5 @@ $(function(){
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function(){
-        $(".center .body .notice .v2_1").click(function(){
-            $(".center .body .notice").hide();
-        });
-        $("#tradepwd").on("focus",function(){
-        	$("#tradepwd").siblings(".tips-normal").hide();
-        })
-        $("#tradepwd").on("blur",function(){
-        	$("#tradepwd").siblings(".tips-normal").show();
-        })
-    });
-</script>
 </body>
 </html>
