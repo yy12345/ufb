@@ -165,16 +165,18 @@
 		 	}
 		});
 		
-		// 表单提交
-		$("#submit").on("click",function(){
-			if(checkBankacco() && checkBankMobile() && checkMobileCode()){
-		 		$("#myform").submit();
-		 	}
-		});
-		
 		// 返回
 		$("#back").on("click",function(){
 			location = '${ufbDomain}/family/setting/card_index.htm'
+		});
+		
+		// 表单提交
+		$("#submit").on("click",function(){
+			if(checkBankacco() && checkBankMobile() && checkMobileCode()){
+		 		return true;
+		 	}else{
+		 		return false;
+		 	}
 		});
 		
 		// 海富通银行鉴权
@@ -357,7 +359,7 @@
                     </li>
                     <li>
                         <input id="back"class="input-button btnB" type="button" value="返回"> 
-                        <input id="submit" class="input-button btnB" type="button" value="提交"> 
+                        <input id="submit" class="input-button btnB" type="submit" value="提交"> 
                         <p class="fontP"><a href="javascript:;" id="uftName">《幼富通实名认证服务协议》</a></p>                
                     </li>
                 </ul>
