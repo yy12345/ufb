@@ -23,12 +23,15 @@ import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.EncryptUtil;
+import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.ChangePasswordAction;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankBaseInfo;
+import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
+import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.AutotradeVo;
@@ -251,48 +254,14 @@ public class SettingsController {
 	@RequestMapping(value="card_index")
 	public String cardIndex(CustinfoVo custinfoVo, Model model){
 		try{
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			custinfoVo.setCustno(s_custinfo.getCustno());;                      
-			custinfoVo.setMobileno(s_custinfo.getMobileno());                    
-			custinfoVo.setInvtp(s_custinfo.getInvtp()); 
-			custinfoVo.setInvnm(s_custinfo.getInvnm());        
-			custinfoVo.setIdtp(s_custinfo.getIdtp());     
-			custinfoVo.setIdno(s_custinfo.getIdno());             
-			custinfoVo.setCustst(s_custinfo.getCustst());
-			custinfoVo.setLevel(s_custinfo.getLevel());
+			CustinfoVo custinfo = UserHelper.getCustinfoVo();
 			
-			// 获取交易账户列表
-			List<String> tradeaccosts = new ArrayList<String>();
-			tradeaccosts.add("Y");  
-			tradeaccosts.add("N");  
+			// 查询用户的银行卡信息
+	        Bankcardinfo bankcardinfo=bankCardManager.getBankCardInfo(custinfo.getCustno());
+			List<Bankcardinfo> list_bank=new ArrayList<Bankcardinfo>();
+			list_bank.add(bankcardinfo);
 			
-			List<TradeAccoinfoOfMore> tradeAccoList_Y = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null, tradeaccosts);
-			if(null != tradeAccoList_Y && tradeAccoList_Y.size() > 0){
-				// 获取用户总资产
-				Assets assets = queryManager.queryAssets(tradeAccoList_Y, BasicFundinfo.YFB.getFundCode());//20151011添加基金编码
-				List<TradeAccoVo> list_y =  assets.getAccoList();
-				
-				model.addAttribute("cardList_Y", list_y);
-				for(TradeAccoVo tradeAccoVo:list_y){
-					if(tradeAccoVo.getClevel().equals("1")){
-						model.addAttribute("isUfbCard", true);
-						break;
-					}
-				}
-			} else {
-				model.addAttribute("cardList_Y", null);
-			}
-			tradeaccosts = new ArrayList<String>();
-			tradeaccosts.add("C");  
-			tradeaccosts.add("F");  
-			List<TradeAccoinfoOfMore> tradeAccoList_N = 
-					tradeAccoManager.getTradeAccoList(s_custinfo.getCustno(), null,tradeaccosts);
-			if(null != tradeAccoList_N && tradeAccoList_N.size() > 0){
-				model.addAttribute("cardList_N", tradeAccoList_N);
-			} else {
-				model.addAttribute("cardList_N", null);
-			}
+			model.addAttribute("cardList_Y", list_bank);
 			model.addAttribute("CustinfoVo", custinfoVo);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
@@ -390,7 +359,16 @@ public class SettingsController {
 			
 			// 业务规则校验
 			boolean isUfb = false;
-			// 获取用户是否已为幼富宝用户，coding later...
+			
+			// 获取用户是否已为幼富宝用户
+			List<String> tradeaccosts = new ArrayList<String>();
+			tradeaccosts.add("Y");  
+			tradeaccosts.add("N");  
+			List<TradeAccoinfoOfMore> list=tradeAccoManager.getTradeAccoList(custinfoVo.getCustno(),null,tradeaccosts);
+			if(list.size()>0&&null!=list){
+				isUfb=true;
+			}
+			
 			if(isUfb){
 				throw new UserException("您已为幼富宝用户！");
 			}
@@ -433,7 +411,10 @@ public class SettingsController {
 			
 			// 数据验证
 			// 1.传入参数验证
-			// coding later...
+			if(StringUtils.isBlank(bankCardVo.getBankno())||StringUtils.isBlank(bankCardVo.getBankacco())
+					||StringUtils.isBlank(bankCardVo.getBankmobile())||StringUtils.isBlank(bankCardVo.getMobileautocode())){
+				throw new UserException("您所填写的信息含空值！");
+			}
 			
 			// 2.业务规则验证
 			String banklevel = bankBaseManager.getLevelByBankno(bankCardVo.getBankno());
@@ -451,10 +432,8 @@ public class SettingsController {
 			openAccountAction.setBankidno(custinfoVo.getIdno());
 			openAccountAction.setBankmobile(bankCardVo.getBankmobile());
 			openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
-//			openAccountAction.setBankcitynm(StringUtils.isNotBlank(bankCardVo.getBankcitynm())?bankCardVo.getBankcitynm():null);
-//			openAccountAction.setBankprovincenm(StringUtils.isNotBlank(bankCardVo.getBankprovincenm())?bankCardVo.getBankprovincenm():null);
-//			openAccountAction.setBankadd(StringUtils.isNotBlank(bankCardVo.getBankadd())?bankCardVo.getBankadd():null);
 			openAccountAction.setOtherserial(otherserial);
+			openAccountAction.setCustno(custinfoVo.getCustno());
 			
 			// 幼富宝卡，海富通开户
 			bankCardManager.openAccount3(openAccountAction);
@@ -463,8 +442,7 @@ public class SettingsController {
 			chinapayManager.checkAccount(openAccountAction);
 			
 			// 新幼富宝卡，基金开户成功，银联账户验证成功，添加bankcardinfo、tradeaccoinfo记录
-			// coding later...
-//			String custno = custManager.register(registerAction, openAccountAction);
+			bankCardManager.updateCard(openAccountAction);
 				
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);

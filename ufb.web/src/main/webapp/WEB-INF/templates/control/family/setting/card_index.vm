@@ -107,7 +107,7 @@ $(function(){
             <div class="main fr">
                 <div class="setting-content content-card">
                     <div>银行卡信息：<span class="mark">仅支持绑定借记卡进行快捷充值、取现或缴费</span>
-						#if($cardList_Y.size()==0)
+						#if(!${cardList_Y})
     					<span class="mark">您还没有绑定的银行卡噢</span>
     					#end
 					</div>
@@ -129,17 +129,8 @@ $(function(){
                             <div class="card-setting">
 							        #if($!{card.clevel}=="1")	<span id="ufbCard">*幼富宝 </span> #end
         							#if($!{card.mainflag}!="Y")
-        							#if($!{card.clevel}!="1")<a bankacco="${card.bankacco}" class="set-main" href="javascript:;">升级幼富宝卡</a>#end
+        							#if($!{card.clevel}!="1")<a  class="set-main" href="${ufbDomain}/family/setting/card_update.htm">升级幼富宝卡</a>#end
         							#end
-        							<a bankacco="${card.bankacco}" class="set-unbind" href="javascript:;"
-    									serialid="${card.serialid}"
-    								    tradeacco="${card.tradeacco}"
-    									level="${card.level}"
-    									total="${card.total}"
-    									available="${card.available}"
-    									realavailable="${card.realavailable}"
-    									frozen="${card.frozen}"
-    									>解绑</a>
     						</div>
                         </li>
     					#end

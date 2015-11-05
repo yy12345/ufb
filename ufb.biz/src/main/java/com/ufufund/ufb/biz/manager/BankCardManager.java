@@ -43,4 +43,7 @@ public interface BankCardManager {
 	public PicInfo getPicInfo(PicInfo picInfo) throws BizException;
 	// 银联账户验证
 	public void checkAccount(OpenAccountAction openAccountAction);
+	public Bankcardinfo getBankCardInfo(String custno);
+	public void updateCard(OpenAccountAction openAccountAction);
+	
 }

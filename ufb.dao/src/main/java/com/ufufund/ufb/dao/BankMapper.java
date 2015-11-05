@@ -8,7 +8,7 @@ import com.ufufund.ufb.common.dao.BaseDao;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.PicInfo;
 
-public interface BankMapper extends BaseDao {
+public interface BankMapper{
 
 	public void insterBankcardinfo(Bankcardinfo bankcardinfo);
 
@@ -19,7 +19,8 @@ public interface BankMapper extends BaseDao {
 	public void unbindBankCard(@Param("custno")String custno, @Param("serialid")String serialid, @Param("state")String state);
 	public void deleteCard(@Param("custno")String custno, @Param("serialid")String serialid);
 	public void deleteTradeacc(@Param("custno")String custno, @Param("serialid")String bankserialid);
-	
+	public void removeCard(String custno);
+	public Bankcardinfo getBankCardInfo(String custno);
 	//public String getBankcardinfoSequence();
 	
 	public void updatePicInfo(PicInfo picinfo);

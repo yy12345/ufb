@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankCardManager;
@@ -440,5 +441,20 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		}catch(BizException e){
 			log.warn(e.getErrmsg(),e);
 		}
+	}
+
+	@Override
+	public Bankcardinfo getBankCardInfo(String custno) {
+		return bankCardMapper.getBankCardInfo(custno);
+	}
+
+	@Override
+	@Transactional
+	public void updateCard(OpenAccountAction openAccountAction) {
+		bankCardMapper.removeCard(openAccountAction.getCustno());
+		// 添加银行卡及基金交易账户
+		openAccountAction.setCustno(openAccountAction.getCustno());
+		String bankSerialid = addBankCardinfo(openAccountAction);
+		addTradeaccoinfo(openAccountAction, bankSerialid);
 	}
 }

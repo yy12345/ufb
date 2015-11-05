@@ -387,4 +387,13 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		return custinfoMapper.getCustinfo(custinfo);
 		
 	}
+
+	@Override
+	public void insertBankCardAndTradeAcco(OpenAccountAction openAccountAction) throws BizException {
+		// 添加银行卡
+		openAccountAction.setCustno(openAccountAction.getCustno());
+		String bankSerialid = bankCardManager.addBankCardinfo(openAccountAction);
+		// 添加幼富宝基金交易账户
+		bankCardManager.addTradeaccoinfo(openAccountAction, bankSerialid);
+	}
 }

@@ -103,4 +103,6 @@ public interface CustManager extends CustInterface{
 	public StudentVo  queryOrgsByCid(String cid) throws BizException;
 	
 	public Custinfo getCustInfoByMobileno(String mobileno) throws BizException;
+	
+	public void insertBankCardAndTradeAcco(OpenAccountAction openAccountAction) throws BizException;;
 }

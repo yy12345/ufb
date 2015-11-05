@@ -269,5 +269,23 @@
            WHERE BANKSERIALID=#{serialid,jdbcType=VARCHAR}
            AND CUSTNO=#{custno,jdbcType=VARCHAR}
     </delete>
-    
+      <select id="getBankCardInfo" parameterType="String"	resultType="com.ufufund.ufb.model.db.Bankcardinfo">
+
+		SELECT
+		b.SERIALID,
+		b.CUSTNO,
+		b.BANKNO,
+		b.BANKACCO,
+		b.MAINFLAG,
+		c.level as clevel
+		FROM
+		bankcardinfo b,bankbase c
+		WHERE b.bankno=c.bankno and
+		b.CUSTNO = #{custno,jdbcType=VARCHAR} and
+		b.STATE &lt;&gt; 'N'
+	</select>
+    <update id="removeCard"  parameterType="String">
+    	update bankcardinfo set state = 'N'
+    	where custno = #{custno,jdbcType=VARCHAR} and state = 'Y'
+    </update>
 </mapper>
