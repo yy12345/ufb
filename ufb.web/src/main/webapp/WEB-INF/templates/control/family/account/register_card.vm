@@ -167,7 +167,7 @@
 		});
 		
 		// 表单提交
-		$("#btn-submit").on("click",function(){
+		$("#submit").on("click",function(){
 			if(checkBankacco() && checkBankMobile() && checkMobileCode()){
 		 		$("#myform").submit();
 		 	}
@@ -210,7 +210,7 @@
 				$("#btn-getMsgCode").val("重新发送"); 
 				$("#btn-getMsgCode").removeClass("off");
 				$("#btn-getMsgCode").removeAttr("disabled"); 
-				clearTimeout(countdown); 
+				clearTimeout(countDown); 
 			}else{
 				count--; 
 				setTimeout(countDown, 1000);
@@ -263,19 +263,19 @@
                 <div class="b3">
                     <form id="myform" class="common-form" method="post" action="${ufbDomain}/family/account/register_success.htm">
 						${refreshTools.genInputHtml()}
-						<input id="bankno" name="bankno" type="hidden">
+						<input id="bankno" name="bankno" type="hidden" value="${firstBank.bankno}">
 							
 						<div class="panel">
                             <ul class="safeInfo">
                                 <li>
                                     <span class="form-title">家长姓名</span>
-                                    <input class="ipt-text input-text" type="text" name="bankacnm" id="bankacnm" style="background-color:#cbcbcb;" readonly="readonly" value="$!{custinfoVo.invnm}">
+                                    <input class="ipt-text input-text" type="text" style="background-color:#cbcbcb;" readonly="readonly" value="$!{custinfoVo.invnm}">
                                     <span class="tips-normal" style="display: none;"></span>
                                   	<span class="tips-check"><i class="icon"></i></span> 
                                 </li>
                                 <li>
                                     <span class="form-title">身份证号</span>
-                                    <input class="ipt-idCardno input-text" type="text" name="bankidno" id="bankidno" style="background-color:#cbcbcb;" readonly="readonly" value="$!{custinfoVo.idno}" >
+                                    <input class="ipt-idCardno input-text" type="text" style="background-color:#cbcbcb;" readonly="readonly" value="$!{custinfoVo.idno}" >
                                     <span class="tips-normal" style="display: none;"></span>
                                     <span class="tips-check"><i class="icon"></i></span>
                                 </li>
@@ -361,7 +361,7 @@
                                 <li>
                                     <span class="form-title">银行预留手机号码</span>
                                     <input class="ipt-phoneNum input-text" type="text" id="bankmobile" name="bankmobile" maxlength="11">
-                                   <span class="tips-check"><i class="icon"></i><font></font></span>
+                                   	<span class="tips-check"><i class="icon"></i><font></font></span>
                                 </li>
                                	<li>
                                     <span class="form-title">验证码</span>
@@ -369,12 +369,12 @@
                                     <input id="btn-getMsgCode" class="input-button" type="button" value="获取验证码">
                                     <span class="tips-check"><i class="icon"></i><font></font></span>
                                 </li>
-                                 <li class="anotherArea anotherTips">
-                                 <p>免费开通幼富宝服务，海富通基金（海富通货币）</p>
-                                 <p class="fontP">点击下一步表示同意<a href="javascript:;" id="ufbAgreement">《幼富宝服务协议》 </a><a href="javascript:;" id="hftAgreement">《海富通基金管理有限公司网上交易直销自助式前台服务协议》</a></p>
+                                <li class="anotherArea anotherTips">
+	                                <p>免费开通幼富宝服务，海富通基金（海富通货币）</p>
+	                                <p class="fontP">点击下一步表示同意<a href="javascript:;" id="ufbAgreement">《幼富宝服务协议》 </a><a href="javascript:;" id="hftAgreement">《海富通基金管理有限公司网上交易直销自助式前台服务协议》</a></p>
                                 </li>
                                 <li>
-                                    <input id="btn-submit" class="input-button btnB" type="button" value="同意协议并确定" > 
+                                    <input id="submit" class="input-button btnB" type="button" value="同意协议并确定" > 
                                     <p class="fontP"><a href="javascript:;" id="uftName">《幼富通实名认证服务协议》</a></p>                
                                 </li>
                             </ul>
