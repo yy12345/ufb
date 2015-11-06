@@ -62,90 +62,6 @@
 	    )
 	 ]]>
 	</insert>
-
-	<select id="getBankcardinfo" parameterType="com.ufufund.ufb.model.db.Bankcardinfo"
-		resultType="com.ufufund.ufb.model.db.Bankcardinfo">
-
-		SELECT
-		bankcardinfo.SERIALID,
-		bankcardinfo.CUSTNO,
-		
-		bankcardinfo.BANKNO,
-		bankcardinfo.BANKACCO,
-		bankcardinfo.BANKACCODISPLAY,
-		bankcardinfo.BANKIDTP,
-		bankcardinfo.BANKIDNO,
-		bankcardinfo.BANKIDVALIDDT,
-		bankcardinfo.BANKACNM,
-		bankcardinfo.BANKMOBILE,
-		bankcardinfo.SUBBANKNO,
-		bankcardinfo.BANKLONGNAME,
-		bankcardinfo.ISSIGN,
-		bankcardinfo.SIGNNO,
-		bankcardinfo.BANKPROEXISTS,
-		bankcardinfo.PROTOCOL_NO,
-		bankcardinfo.STATE,
-		bankcardinfo.OPENDT,
-		bankcardinfo.CLOSEDT,
-		bankcardinfo.DISORDER
-		FROM
-		bankcardinfo
-		WHERE
-		<if test="custno != null and custno !=''">
-			bankcardinfo.CUSTNO = #{custno,jdbcType=VARCHAR} AND
-		</if>
-		<if test="serialid != null and serialid !=''">
-			bankcardinfo.SERIALID = #{serialid,jdbcType=VARCHAR} AND
-		</if>
-		
-		bankcardinfo.STATE &lt;&gt; 'N'
-	</select>
-	
-	<update id="setBankCardMainFlag" parameterType="String">
-		UPDATE bankcardinfo T1
-			SET 
-			T1.MAINFLAG = #{mainflag,jdbcType=VARCHAR}
-	     WHERE 
-	     	T1.CUSTNO = #{custno,jdbcType=VARCHAR}
-	     	<if test="bankacco != null and bankacco !=''" >
-	     	and T1.BANKACCO = #{bankacco,jdbcType=VARCHAR}
-	     	</if>
-	</update>
-	
-	<update id="unbindBankCard" parameterType="String">
-	<!-- 
-		UPDATE bankcardinfo T1
-			SET 
-			T1.STATE = #{state,jdbcType=VARCHAR}
-	     WHERE 
-	     	T1.CUSTNO = #{custno,jdbcType=VARCHAR}
-	     	and T1.BANKACCO = #{bankacco,jdbcType=VARCHAR}
-	 -->
-	 	UPDATE 
-	 		tradeaccoinfo a inner join (
-	 			SELECT TRADEACCO
-	     		FROM ufu_dev.tradeaccoinfo 
-	     		WHERE 
-	     		BANKSERIALID = #{serialid,jdbcType=VARCHAR}) b 
-	     		on a.TRADEACCO = b.TRADEACCO
-			SET 
-			tradeaccost = #{state,jdbcType=VARCHAR}
-	     WHERE 
-	     	CUSTNO = #{custno,jdbcType=VARCHAR}
-	     	AND LEVEL &lt;&gt; '1'
-	</update>
-
-	
-	
-	<select id="getPicInfo" parameterType="com.ufufund.ufb.model.db.PicInfo"
-		resultType="com.ufufund.ufb.model.db.PicInfo">
-		SELECT
-			*
-		FROM
-			picinfo
-		WHERE
-			CUSTNO = #{custno,jdbcType=VARCHAR}
-	</select>
 	
 	<update id="updatePicInfo" parameterType="com.ufufund.ufb.model.db.PicInfo">
 		UPDATE picinfo T1
@@ -270,19 +186,17 @@
            AND CUSTNO=#{custno,jdbcType=VARCHAR}
     </delete>
       <select id="getBankCardInfo" parameterType="String"	resultType="com.ufufund.ufb.model.db.Bankcardinfo">
-
 		SELECT
-		b.SERIALID,
-		b.CUSTNO,
-		b.BANKNO,
-		b.BANKACCO,
-		b.MAINFLAG,
-		c.level as clevel
-		FROM
-		bankcardinfo b,bankbase c
-		WHERE b.bankno=c.bankno and
-		b.CUSTNO = #{custno,jdbcType=VARCHAR} and
-		b.STATE &lt;&gt; 'N'
+			b.SERIALID,
+			b.CUSTNO,
+			b.BANKNO,
+			b.BANKACCO,
+			b.MAINFLAG,
+			c.level 
+		FROM bankcardinfo b,bankbase c
+		WHERE 
+			b.bankno=c.bankno and b.STATE = 'Y' 
+			and b.custno = #{custno,jdbcType=VARCHAR}
 	</select>
     <update id="removeCard"  parameterType="String">
     	update bankcardinfo set state = 'N'

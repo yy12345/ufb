@@ -1966,6 +1966,7 @@ a.link-underline {
 }
 .setting .card .card-setting a {
 	margin-left: 20px;
+	color: #2f8fbf;
 }
 .setting .card.card-add a {
 	display: block;

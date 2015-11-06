@@ -1,98 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 账户管理 - 银行卡管理</title>
-	<script>
-$(function(){
-
-	var setting_mainCard=function(bankacco,serialid,tradeacco,type){
-		 var result=false;
-		$.ajax({
-			type:"POST",
-			url:"${ufbDomain}/family/setting/setting_cards.htm",
-			data:"bankacco="+bankacco+"&serialid="+serialid+"&tradeacco="+tradeacco+"&type="+type,
-			async:false,
-			success:function(data){
-				var json=$.parseJSON(data);
-				if(json.errCode=="0000"){
-					result= true;
-				}
-		     },
-			error:function(XMLHttpRequest, textStatus, errorThrown) {
-				$.alert({title:'系统出现异常！'});
-		     }
-			
-		})
-		return result;
-	}
-	
-	$(".set-main").on("click", function(){
-			window.location.href="${ufbDomain}/family/accout/card_update.htm";
-	});
-	
-	$(".set-unbind").on("click", function(){
-		if($(this).attr("total")>0 ||
-		   	$(this).attr("available")>0 ||
-		   	$(this).attr("realavailable")>0 ||
-		   	$(this).attr("frozen")>0 ){
-		   	alert("对不起，您的银行卡有资金交易，暂时不能解绑！");
-			return false;
-		}else{
-			if(!confirm("您确定要解绑你的银行卡吗？")){
-				return false;
-			}
-			if(setting_mainCard(null,$(this).attr("serialid"),$(this).attr("tradeacco"),"U")){
-			//	alert("解绑银行卡成功");
-				window.location.href="${ufbDomain}/family/setting/card_index.htm";
-			}
-		}
-	});
- 
-	$(".set-del").on("click", function(){
-			if(!confirm("您确定要删除你的银行卡吗？")){
-				return false;
-			}
-			//$("#serialid").val($(this).attr("serialid"));
-			if(setting_mainCard(null,$(this).attr("serialid"),null,"D")){
-			//	alert("删除银行卡成功");
-				window.location.href="${ufbDomain}/family/setting/card_index.htm";
-			}
-	});
- 
-/*	$("#addCard").on("click",function(){
-		 if($(this).attr("cardcount")>=2){
-			 alert("对不起，您只能添加两张银行卡！");
-			return false;
-		}else if($("#ufbCard").html()!=undefined){
-			alert("对不起，您只能添加一张幼富通银行卡！");
-			return false;
-		} 
-			$("#form-settingCard").attr("action", "../family/card_add.htm");
-			$("#form-settingCard").submit();
-		
-	});*/
-	$(".set-bind").on("click", function(){
-		 if($(this).attr("cardcount")>=2){
-			 alert("对不起，您只能添加两张银行卡！");
-			return false;
-		}
-		$("#serialid").val($(this).attr("serialid"));
-		$("#bankacco").val($(this).attr("bankacco"));
-		$("#form-settingCard").attr("action", "${ufbDomain}/family/ufb/card_add.htm");
-		$("#form-settingCard").submit();
-	});
-	
-});
-</script>
+<title>幼富通 - 账户管理 - 银行卡管理</title>
 </head>
 <body>
 
     <div class="body">
 		<form id="form-settingCard" action="${ufbDomain}/family/setting/card_index.htm" method="post">
-    	<input id="bankacco" name="bankacco" value="$!{bankacco}" type="hidden"/>
-		<input id="serialid" name="serialid" value="$!{serialid}" type="hidden"/>
-		<input id="tradeacco" name="tradeacco" value="$!{tradeacco}" type="hidden"/>
-        <div class="inner clearfix">
+    	<div class="inner clearfix">
             <div class="title">
                 <h2 class="title-main">账户设置</h2>
             </div>
@@ -106,56 +21,21 @@ $(function(){
             </div>
             <div class="main fr">
                 <div class="setting-content content-card">
-                    <div>银行卡信息：<span class="mark">仅支持绑定借记卡进行快捷充值、取现或缴费</span>
-						#if(!${cardList_Y})
-    					<span class="mark">您还没有绑定的银行卡噢</span>
-    					#end
-					</div>
+                    <div>银行卡信息：<span class="mark">仅支持绑定借记卡进行快捷充值、取现或缴费</span></div>
                     <ul class="card-list clearfix">
-                    #if(${cardList_Y})
-						#foreach($card in $cardList_Y)
-    					#set($tailStr=$card.bankacco)
-    					#set($start=$tailStr.length() - 4)
-    					#set($end=$tailStr.length())
-    					<li class="card cardCount
-    						#if($!{card.mainflag}=="Y")
-    						card-main	
-    						#end
-    						"> 
-                            <div class="card-info">
-    							<img src="${staticDomain}/family/images/bank_${card.bankno}.png">
-    							<span>尾号：$tailStr.substring($start,$end)</span>
-    						</div>
-                            <div class="card-setting">
-							        #if($!{card.clevel}=="1")	<span id="ufbCard">*幼富宝 </span> #end
-        							#if($!{card.mainflag}!="Y")
-        							#if($!{card.clevel}!="1")<a  class="set-main" href="${ufbDomain}/family/setting/card_update.htm">升级幼富宝卡</a>#end
-        							#end
-    						</div>
-                        </li>
-    					#end
-                        #else
-                        	<li class="card card-add cardM3"><a id="addCard" href="#" cardcount="${cardList_Y.size()}">添加银行卡</a></li>
-                        #end
-                    </ul>
-                    <div style="display:none">已解绑银行卡：</div>
-                    <ul class="card-list clearfix" style="display:none">
-						
-						#foreach($card in $cardList_N)
-    					#set($tailStr=$card.bankacco)
-    					#set($start=$tailStr.length() - 4)
-    					#set($end=$tailStr.length())
-    					<li class="card">
-                            <div class="card-info">
-    							<img src="${staticDomain}/family/images/bank_${card.bankno}.png">
-    							<span>尾号：$tailStr.substring($start,$end)</span>
-    						</div>
-                            <div class="card-setting">
-        							<a class="set-bind" bankacco="${card.bankacco}" cardcount="${cardList_Y.size()}" serialid="${card.serialid}" href="javascript:;">重新绑定</a>
-									<a class="set-del" bankacco="${card.bankacco}" serialid="${card.serialid}" href="javascript:;">删除</a>
-    						</div>
-                        </li>
-						#end
+	                    #set($tailStr=$card.bankacco)
+						#set($start=$tailStr.length() - 4)
+						#set($end=$tailStr.length())
+						<li class="card cardCount"> 
+	                        <div class="card-info">
+								<img src="${staticDomain}/family/images/bank_${card.bankno}.png">
+								<span>尾号：$tailStr.substring($start,$end)</span>
+							</div>
+	                        <div class="card-setting">
+						        #if(${card.level}=="1") <span id="ufbCard">*幼富宝 </span>
+								#else <a class="set-main" href="${ufbDomain}/family/setting/card_update.htm">此卡暂不支持幼富宝充值，请升级</a>#end
+	    					</div>
+	                    </li>
                     </ul>
                 </div>
             </div>

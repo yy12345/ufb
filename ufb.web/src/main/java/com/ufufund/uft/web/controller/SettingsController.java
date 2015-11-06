@@ -31,9 +31,6 @@ import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
-import com.ufufund.ufb.model.db.Tradeaccoinfo;
-import com.ufufund.ufb.model.enums.BasicFundinfo;
-import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.AutotradeVo;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
@@ -49,8 +46,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value="family/setting")
 @Slf4j
 public class SettingsController {
-	private static final Logger LOG = LoggerFactory.getLogger(SettingsController.class);
-	private static final String CARD_INDEX="family/setting/bankcard_index.htm";
+	private static final String CARD_INDEX="family/setting/card_index.htm";
 	private static final String CARD_INDEX_NAME="我的银行卡";
 	private static final String ACCOUNT_INDEX="family/setting/account_index.htm";
 	private static final String PASSWORD_INDEX="family/setting/password_index.htm";
@@ -257,12 +253,9 @@ public class SettingsController {
 			CustinfoVo custinfo = UserHelper.getCustinfoVo();
 			
 			// 查询用户的银行卡信息
-	        Bankcardinfo bankcardinfo=bankCardManager.getBankCardInfo(custinfo.getCustno());
-			List<Bankcardinfo> list_bank=new ArrayList<Bankcardinfo>();
-			list_bank.add(bankcardinfo);
+	        Bankcardinfo card = bankCardManager.getBankCardInfo(custinfo.getCustno());
 			
-			model.addAttribute("cardList_Y", list_bank);
-			model.addAttribute("CustinfoVo", custinfoVo);
+			model.addAttribute("card", card);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "操作失败");
@@ -272,78 +265,6 @@ public class SettingsController {
 			return "error/error";
 		}
 		return "family/setting/card_index";
-	}
-	
-	/**
-	 * 设置银行卡为主卡、解绑银行卡、删除银行卡
-	 * @param bankacco
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="setting_cards")
-	@ResponseBody
-	public Map<String,Object> setMainCard(String bankacco,String serialid,String tradeacco,String type){
-		Map<String,Object> resultMap=new HashMap<String, Object>();
-		try{
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			if("M".equals(type)){
-				bankCardManager.setBankCardMainFlag(
-						s_custinfo.getCustno(), 
-						null, 
-						"N");
-				bankCardManager.setBankCardMainFlag(
-						s_custinfo.getCustno(), 
-						ServletHolder.getRequest().getParameter("bankacco"), 
-						"Y");
-			}
-			else if("U".equals(type)){
-				TradeAccoVo tradeAccoVo = queryManager.queryAssets(tradeacco, null);
-				BigDecimal total = tradeAccoVo.getTotal();
-				BigDecimal available = tradeAccoVo.getAvailable();
-				BigDecimal realavailable = tradeAccoVo.getRealavailable();
-				BigDecimal frozen = tradeAccoVo.getFrozen();
-				
-				if (total.compareTo(BigDecimal.ZERO) > 0
-						|| available.compareTo(BigDecimal.ZERO) > 0
-						|| realavailable.compareTo(BigDecimal.ZERO) > 0
-						|| frozen.compareTo(BigDecimal.ZERO) > 0) {
-					
-					throw new UserException("对不起，您的银行卡有资金交易，暂时不能解绑！");
-				}
-				bankCardManager.unbindBankCard(
-						s_custinfo.getCustno(), 
-						ServletHolder.getRequest().getParameter("serialid"), 
-						"C");
-			}
-			else if("D".equals(type)){
-				TradeAccoVo tradeAccoVo = queryManager.queryAssets(tradeacco, null);
-				BigDecimal total = tradeAccoVo.getTotal();
-				BigDecimal available = tradeAccoVo.getAvailable();
-				BigDecimal realavailable = tradeAccoVo.getRealavailable();
-				BigDecimal frozen = tradeAccoVo.getFrozen();
-				
-				if (total.compareTo(BigDecimal.ZERO) > 0
-						|| available.compareTo(BigDecimal.ZERO) > 0
-						|| realavailable.compareTo(BigDecimal.ZERO) > 0
-						|| frozen.compareTo(BigDecimal.ZERO) > 0) {
-					
-					throw new UserException("对不起，您的银行卡有资金交易，暂时不能删除！");
-				}
-				bankCardManager.deleteCard(
-						s_custinfo.getCustno(), 
-						serialid);
-			}
-			resultMap.put("errCode", "0000");
-		}catch(UserException ue){
-			log.warn(ue.getMessage(), ue);
-			resultMap.put("errCode", ue.getCode());
-			resultMap.put("errMsg", ue.getMessage());
-		}catch (Exception e) {
-			log.error(e.getMessage(), e);
-			resultMap.put("errCode", "9999");
-			resultMap.put("errMsg", "系统出现异常！");
-		}
-		return resultMap;
 	}
 	
 	/**

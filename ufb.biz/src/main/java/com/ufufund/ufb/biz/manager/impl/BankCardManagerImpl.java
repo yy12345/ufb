@@ -65,9 +65,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	@Autowired
 	private CustinfoMapper custinfoMapper;
 	@Autowired
-	private BankBaseMapper bankBaseMapper;
-	@Autowired
-	private BankMapper bankCardMapper;
+	private BankMapper bankMapper;
 	@Autowired
 	private TradeAccoinfoMapper tradeAccoinfoMapper;
 	@Autowired
@@ -81,21 +79,21 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	
 	@Override
 	public PicInfo getPicInfo(PicInfo picinfo) throws BizException {
-		return bankCardMapper.getPicInfo(picinfo);
+		return bankMapper.getPicInfo(picinfo);
 	}
 	
 	@Override
 	public void insertPicInfo(PicInfo picinfo) throws BizException {
-		bankCardMapper.insertPicInfo(picinfo);
+		bankMapper.insertPicInfo(picinfo);
 	}
 	
 	@Override
 	public void updatePicInfo(PicInfo picinfo) throws BizException {
-		PicInfo check = bankCardMapper.getPicInfo(picinfo);
+		PicInfo check = bankMapper.getPicInfo(picinfo);
 		if(null == check){
-			bankCardMapper.insertPicInfo(picinfo);
+			bankMapper.insertPicInfo(picinfo);
 		}else{
-			bankCardMapper.updatePicInfo(picinfo);
+			bankMapper.updatePicInfo(picinfo);
 		}
 	}
 	
@@ -105,7 +103,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		Bankcardinfo bankcardinfo = new Bankcardinfo();
 		bankcardinfo.setCustno(custno);
 		
-		return bankCardMapper.getBankcardinfo(bankcardinfo);
+		return bankMapper.getBankcardinfo(bankcardinfo);
 	}
 	
 	@Override
@@ -113,7 +111,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		if(null == custno || "".equals(custno)){
 			throw new BizException(this.getProcessId(custno), ErrorInfo.NO_IDCARDNO, BisConst.Register.CUSTNO);
 		}
-		bankCardMapper.setBankCardMainFlag(custno, bankacco, mainflag);
+		bankMapper.setBankCardMainFlag(custno, bankacco, mainflag);
 	}
 	
 	@Override
@@ -121,7 +119,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		if(null == custno || "".equals(custno)){
 			throw new BizException(this.getProcessId(custno), ErrorInfo.NO_IDCARDNO, BisConst.Register.CUSTNO);
 		}
-		bankCardMapper.unbindBankCard(custno, serialid, state);
+		bankMapper.unbindBankCard(custno, serialid, state);
 	}
 	
 	/**
@@ -209,7 +207,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		Bankcardinfo bankcardinfodef = null;
 		Bankcardinfo bankcardinfoqey = new Bankcardinfo();
 		bankcardinfoqey.setCustno(custinfo.getCustno());
-		List<Bankcardinfo> bankList = bankCardMapper.getBankcardinfo(bankcardinfoqey);
+		List<Bankcardinfo> bankList = bankMapper.getBankcardinfo(bankcardinfoqey);
 		for(Bankcardinfo bankcardinfo : bankList){
 			if(bankcardinfo.getBankno()!=null && 
 			   bankcardinfo.getBankno().equals(openAccountAction.getBankno())&&
@@ -225,7 +223,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 			bankcardinfodef.setSerialid(bankSeq);
 			bankcardinfodef.setState("Y");
 			// **** 添加银行卡
-			bankCardMapper.insterBankcardinfo(bankcardinfodef);
+			bankMapper.insterBankcardinfo(bankcardinfodef);
 			Changerecordinfo changerecordinfo1 = bankCardManagerHelper.toBankcardinfo(bankcardinfodef);
 			changerecordinfo1.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 			changerecordinfo1.setRefserialno(openAccountAction.getSerialno());
@@ -370,7 +368,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		Bankcardinfo bankcardinfo = bankCardManagerHelper.toBankcardinfo(openAccountAction);
 		bankcardinfo.setSerialid(sequenceManager.getBankcardinfoSequence());
 		bankcardinfo.setState("Y");
-		bankCardMapper.insterBankcardinfo(bankcardinfo);
+		bankMapper.insterBankcardinfo(bankcardinfo);
 		
 		return bankcardinfo.getSerialid();
 	}
@@ -398,8 +396,8 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		if(null == custno || "".equals(custno)){
 			throw new BizException(this.getProcessId(custno), ErrorInfo.NO_IDCARDNO, BisConst.Register.CUSTNO);
 		}
-		bankCardMapper.deleteCard(custno, serialid);
-		bankCardMapper.deleteTradeacc(custno, serialid);
+		bankMapper.deleteCard(custno, serialid);
+		bankMapper.deleteTradeacc(custno, serialid);
 		
 	}
 	
@@ -445,13 +443,13 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 
 	@Override
 	public Bankcardinfo getBankCardInfo(String custno) {
-		return bankCardMapper.getBankCardInfo(custno);
+		return bankMapper.getBankCardInfo(custno);
 	}
 
 	@Override
 	@Transactional
 	public void updateCard(OpenAccountAction openAccountAction) {
-		bankCardMapper.removeCard(openAccountAction.getCustno());
+		bankMapper.removeCard(openAccountAction.getCustno());
 		// 添加银行卡及基金交易账户
 		openAccountAction.setCustno(openAccountAction.getCustno());
 		String bankSerialid = addBankCardinfo(openAccountAction);

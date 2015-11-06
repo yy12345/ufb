@@ -169,7 +169,9 @@
 		// 表单提交
 		$("#submit").on("click",function(){
 			if(checkBankacco() && checkBankMobile() && checkMobileCode()){
-		 		$("#myform").submit();
+		 		return true;
+		 	}else{
+		 		return false;
 		 	}
 		});
 		
@@ -374,7 +376,7 @@
 	                                <p class="fontP">点击下一步表示同意<a href="javascript:;" id="ufbAgreement">《幼富宝服务协议》 </a><a href="javascript:;" id="hftAgreement">《海富通基金管理有限公司网上交易直销自助式前台服务协议》</a></p>
                                 </li>
                                 <li>
-                                    <input id="submit" class="input-button btnB" type="button" value="同意协议并确定" > 
+                                    <input id="submit" class="input-button btnB" type="submit" value="同意协议并确定" > 
                                     <p class="fontP"><a href="javascript:;" id="uftName">《幼富通实名认证服务协议》</a></p>                
                                 </li>
                             </ul>
