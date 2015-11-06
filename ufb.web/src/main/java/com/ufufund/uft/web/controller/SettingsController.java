@@ -241,6 +241,89 @@ public class SettingsController {
 		}
 		return resultMap;
 	}
+	
+	/**
+	 * 修改登录密码    未登录状态step1
+	 * @param autotradeVo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="findpwd_index")
+	public String findpwdIndex(AutotradeVo autotradeVo, Model model){
+		try{
+			
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "修改登录密码");
+			model.addAttribute("message_content", ue.getMessage());
+			return "error/error";
+		}
+		return "family/setting/findpwd_index";
+	}
+	/**
+	 * 修改登录密码   未登录状态step2
+	 * 20151002
+	 */
+	@RequestMapping(value="findpwd_confirm")
+	public String findpwdConfirm(CustinfoVo custinfoVo, Model model){
+		try{
+			
+			model.addAttribute("CustInfoVo", custinfoVo);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "修改登录密码");
+			model.addAttribute("message_url", "family/setting/findpwd_index.htm");
+			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("back_module", "返回");
+			return "error/error";
+		}
+		return "family/setting/findpwd_confirm";
+	}
+	/**
+	 * 修改登录密码   未登录状态step3
+	 * 20151002
+	 */
+	@RequestMapping(value="findpwd_success")
+	@ResponseBody
+	public Map<String,Object> findpwdSuccess(String mobileno,String password1, Model model){
+		Map<String,Object> resultMap= new HashMap<String, Object>();
+		try{
+			Custinfo custinfo=custManager.getCustInfoByMobileno(mobileno);
+			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
+			changePasswordAction.setActionType("LOGIN");
+			changePasswordAction.setCustno(custinfo.getCustno());
+			changePasswordAction.setPassword1(password1);
+			/** 修改登录密码 **/
+			custManager.changePassword(changePasswordAction);
+			resultMap.put("errCode", "0000");
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
+	/**
+	 * 修改登录密码结果   未登录状态step3
+	 * 20151002
+	 */
+	@RequestMapping(value="findpwd_result")
+	public String findpwdResult(AutotradeVo autotradeVo, Model model){
+		try{
+			
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "修改登录密码");
+			model.addAttribute("message_content", ue.getMessage());
+			return "error/error";
+		}
+		return "family/setting/findpwd_success";
+	}
+	
 	/**
 	 * 银行卡管理
 	 * @param custinfoVo
@@ -373,88 +456,5 @@ public class SettingsController {
 		}
 		return "redirect:/family/setting/card_index.htm";
 	}
-	
-	/**
-	 * 修改登录密码    未登录状态step1
-	 * @param autotradeVo
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="findpwd_index")
-	public String findpasswordIndex(AutotradeVo autotradeVo, Model model){
-		try{
-			
-		}catch(UserException ue){
-			log.warn(ue.getMessage(), ue);
-			model.addAttribute("message_title", "修改登录密码");
-			model.addAttribute("message_content", ue.getMessage());
-			return "error/error";
-		}
-		return "family/setting/findpwd_index";
-	}
-	/**
-	 * 修改登录密码   未登录状态step2
-	 * 20151002
-	 */
-	@RequestMapping(value="findpwd_confirm")
-	public String findpasswordConfirm(CustinfoVo custinfoVo, Model model){
-		try{
-			
-			model.addAttribute("CustInfoVo", custinfoVo);
-		}catch(UserException ue){
-			log.warn(ue.getMessage(), ue);
-			model.addAttribute("message_title", "修改登录密码");
-			model.addAttribute("message_url", "family/setting/findpwd_index.htm");
-			model.addAttribute("message_content", ue.getMessage());
-			model.addAttribute("back_module", "返回");
-			return "error/error";
-		}
-		return "family/setting/findpwd_confirm";
-	}
-	/**
-	 * 修改登录密码   未登录状态step3
-	 * 20151002
-	 */
-	@RequestMapping(value="findpwd_success")
-	@ResponseBody
-	public Map<String,Object> findPasswordStep3(String mobileno,String password1, Model model){
-		Map<String,Object> resultMap= new HashMap<String, Object>();
-		try{
-			Custinfo custinfo=custManager.getCustInfoByMobileno(mobileno);
-			ChangePasswordAction changePasswordAction = new ChangePasswordAction();
-			changePasswordAction.setActionType("LOGIN");
-			changePasswordAction.setCustno(custinfo.getCustno());
-			changePasswordAction.setPassword1(password1);
-			/** 修改登录密码 **/
-			custManager.changePassword(changePasswordAction);
-			resultMap.put("errCode", "0000");
-		}catch(UserException ue){
-			log.warn(ue.getMessage(), ue);
-			resultMap.put("errCode", ue.getCode());
-			resultMap.put("errMsg", ue.getMessage());
-		}catch (Exception e) {
-			log.error(e.getMessage(), e);
-			resultMap.put("errCode", "9999");
-			resultMap.put("errMsg", "系统出现异常！");
-		}
-		return resultMap;
-	}
-	/**
-	 * 修改登录密码结果   未登录状态step3
-	 * 20151002
-	 */
-	@RequestMapping(value="findpwd_result")
-	public String findpasswordResult(AutotradeVo autotradeVo, Model model){
-		try{
-			
-		}catch(UserException ue){
-			log.warn(ue.getMessage(), ue);
-			model.addAttribute("message_title", "修改登录密码");
-			model.addAttribute("message_content", ue.getMessage());
-			return "error/error";
-		}
-		return "family/setting/findpwd_success";
-	}
-	
 
 }

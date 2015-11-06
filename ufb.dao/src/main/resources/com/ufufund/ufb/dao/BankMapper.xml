@@ -63,6 +63,43 @@
 	 ]]>
 	</insert>
 	
+	<select id="getBankcardinfo" parameterType="com.ufufund.ufb.model.db.Bankcardinfo"
+		resultType="com.ufufund.ufb.model.db.Bankcardinfo">
+
+		SELECT
+		bankcardinfo.SERIALID,
+		bankcardinfo.CUSTNO,
+		
+		bankcardinfo.BANKNO,
+		bankcardinfo.BANKACCO,
+		bankcardinfo.BANKACCODISPLAY,
+		bankcardinfo.BANKIDTP,
+		bankcardinfo.BANKIDNO,
+		bankcardinfo.BANKIDVALIDDT,
+		bankcardinfo.BANKACNM,
+		bankcardinfo.BANKMOBILE,
+		bankcardinfo.SUBBANKNO,
+		bankcardinfo.BANKLONGNAME,
+		bankcardinfo.ISSIGN,
+		bankcardinfo.SIGNNO,
+		bankcardinfo.BANKPROEXISTS,
+		bankcardinfo.PROTOCOL_NO,
+		bankcardinfo.STATE,
+		bankcardinfo.OPENDT,
+		bankcardinfo.CLOSEDT,
+		bankcardinfo.DISORDER
+		FROM
+		bankcardinfo
+		WHERE
+		<if test="custno != null and custno !=''">
+			bankcardinfo.CUSTNO = #{custno,jdbcType=VARCHAR} AND
+		</if>
+		<if test="serialid != null and serialid !=''">
+			bankcardinfo.SERIALID = #{serialid,jdbcType=VARCHAR} AND
+		</if>
+		bankcardinfo.STATE &lt;&gt; 'N'
+	</select>
+	
 	<update id="updatePicInfo" parameterType="com.ufufund.ufb.model.db.PicInfo">
 		UPDATE picinfo T1
 			SET 

@@ -271,8 +271,6 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 					throw new UserException("您可通过自动取现计划列表确认！");
 				}
 			
-			
-			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		this.insertFdacfinalresult(dbautotrade,apkind);
 	}
