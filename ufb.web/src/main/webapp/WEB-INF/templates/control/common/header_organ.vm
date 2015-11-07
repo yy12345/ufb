@@ -6,8 +6,10 @@
 				<a href="${ufbDomain}/family/index.htm">家庭版</a>
 			</div>
 			<div class="b2">
-				#if(${S_CUSTINFO.invnm})
-			   		<span>你好，<label>${S_CUSTINFO.invnm}</label></span><a href="${ufbDomain}/organ/logout.htm" class="quit">退出</a>
+				#if(${CUSTINFO.invnm})
+			   		<span>你好，<label>
+			   		<a href="${ufbDomain}/organ/setting/account_index.htm" class="c1">${CUSTINFO.invnm}</a></label></span>
+			   		<a href="${ufbDomain}/organ/logout.htm" class="quit">退出</a>
 				#else
 				   <div class="b2">
 		               <a href="${ufbDomain}/organ/index.htm" class="c1" id="login">登录</a>

@@ -5,8 +5,8 @@
 	<div ${family_container}>	
 		#parse("control/common/header_family.vm")
 		$body
-		#if(${S_CUSTINFO})
-			##parse("control/common/slider_family.vm")
+		#if(${CUSTINFO} && ${family_module} != "index")
+			#parse("control/common/slider_family.vm")
 		#end
 		#parse("control/common/footer.vm")
 	</div>

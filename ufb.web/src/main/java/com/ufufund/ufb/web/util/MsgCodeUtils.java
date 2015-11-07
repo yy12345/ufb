@@ -34,63 +34,6 @@ public class MsgCodeUtils {
 	// 用户短信动态码有效时间，单位：分钟
 	private static final int ACTIVE_TIME = 5;
 
-	/**
-	 * 发送短信动态码<br/>
-	 * 控制规则： 1.每两次发送时间间隔控制：<code>SECONDS</code> 2.时间段内发送次数控制：在
-	 * <code>MINUTES</code>内，最多<code>MAX_COUNT</code>次
-	 * @param template 短信模版
-	 */
-	public static void sendMsg(String template, String mobileNo) {
-
-		long now = System.currentTimeMillis();
-		MsgCode msgCode = (MsgCode) ServletHolder.getSession()
-				.getAttribute("MSGCODE");
-		if (msgCode != null) {
-			// session中已存在
-			List<Long> timeList = msgCode.getTimeList();
-			/** 判断与上次发送的时间间隔 **/
-			long last = timeList.get(timeList.size() - 1).longValue();
-			
-			if (now - last <= SECONDS * 1000) {
-				long t = SECONDS - ((now-last)/1000);
-				throw new UserException(SECONDS + "秒之内只能发送一次，请稍后[" + t + "]秒再试！");
-			}
-			/** 判断时间段内，发送次数 **/
-			for (int i = 0; i < timeList.size();) {
-				if (now - timeList.get(i).longValue() > MINUTES * 60 * 1000) {
-					timeList.remove(i);
-				} else {
-					i++;
-				}
-			}
-			if (timeList.size() >= MAX_COUNT) {
-				throw new UserException(MINUTES + "分钟之内只能发送" + MAX_COUNT + "次，请稍后再试！");
-			}
-		} else {
-			// session中不存在
-			msgCode = new MsgCode();
-		}
-
-		// 设置或者重新设置短信码
-		int n = new Random().nextInt(1000000);
-		if (n < 100000) {
-			n += 100000;
-		}
-		
-		msgCode.setMobileNo(mobileNo);
-		msgCode.setMsgCode(String.valueOf(n));
-		msgCode.getTimeList().add(now);
-		ServletHolder.getSession().setAttribute("MSGCODE", msgCode);
-
-		LOG.debug("MsgCode=" + msgCode.getMsgCode() + ", timeList="
-				+ msgCode.getTimeList());
-
-		// 调用短信接口，发送短信
-		MobileMsgManager mobileMsgManager = getMobileMsgManager();
-		String content = String.format(MsgTemplate.templateMap.get(template), msgCode.getMsgCode());
-		mobileMsgManager.sendMobile(mobileNo, content);
-	}
-	
 	
 	/**
 	 * 检验短信验证码-后台使用
@@ -130,15 +73,62 @@ public class MsgCodeUtils {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * 发送短信动态码<br/>
+	 * 控制规则： 1.每两次发送时间间隔控制：<code>SECONDS</code> 2.时间段内发送次数控制：在
+	 * <code>MINUTES</code>内，最多<code>MAX_COUNT</code>次
+	 * @param template 短信模版
 	 */
-	public static String getMsgCode(){
+	public static void sendMsg(String mobileNo, String template) {
+		
+		if(StringUtils.isBlank(mobileNo) || StringUtils.isBlank(template)){
+			throw new UserException("参数为空！");
+		}
+		long now = System.currentTimeMillis();
 		MsgCode msgCode = (MsgCode) ServletHolder.getSession().getAttribute("MSGCODE");
-		return msgCode.getMsgCode();
+		if (msgCode != null) {
+			// session中已存在
+			List<Long> timeList = msgCode.getTimeList();
+			/** 判断与上次发送的时间间隔 **/
+			long last = timeList.get(timeList.size() - 1).longValue();
+			if (now - last <= SECONDS * 1000) {
+				throw new UserException("您发送的次数过于频繁，请稍后秒再试！");
+			}
+			/** 判断时间段内，发送次数 **/
+			for (int i = 0; i < timeList.size();) {
+				if (now - timeList.get(i).longValue() > MINUTES * 60 * 1000) {
+					timeList.remove(i);
+				} else {
+					i++;
+				}
+			}
+			if (timeList.size() >= MAX_COUNT) {
+				throw new UserException("您发送的次数过于频繁，请稍后秒再试！");
+			}
+		} else {
+			// session中不存在
+			msgCode = new MsgCode();
+		}
+
+		// 设置或者重新设置短信码
+		int n = new Random().nextInt(1000000);
+		if (n < 100000) {
+			n += 100000;
+		}
+		
+		msgCode.setMobileNo(mobileNo);
+		msgCode.setMsgCode(String.valueOf(n));
+		msgCode.getTimeList().add(now);
+		ServletHolder.getSession().setAttribute("MSGCODE", msgCode);
+
+		LOG.info("MsgCode: mobileno=" + msgCode.getMobileNo() +",code=" + msgCode.getMsgCode() + ", timeList="
+				+ msgCode.getTimeList());
+
+		// 调用短信接口，发送短信
+		MobileMsgManager mobileMsgManager = getMobileMsgManager();
+		String content = String.format(MsgTemplate.templateMap.get(template), msgCode.getMsgCode());
+		mobileMsgManager.sendMobile(mobileNo, content);
 	}
 	
-
 	public static class MsgCode {
 		private String mobileNo;
 		// 短信码

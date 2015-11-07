@@ -93,6 +93,9 @@ public class UfuCommonController {
 	
 	/**
 	 * 检验短信验证码是否正确
+	 * 场景：
+	 * 	1.未登录状态时，传送mobileno参数；
+	 * 	2.登录状态时，可不传送mobileno参数
 	 * @param msgcode
 	 * @return
 	 */
@@ -102,8 +105,13 @@ public class UfuCommonController {
 		
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		try{
+			CustinfoVo custinfo = UserHelper.getCustinfoVo();
+			if(StringUtils.isBlank(mobileno)){
+				mobileno = custinfo.getMobileno();
+			}
+			
 			VerifyCodeUtils.validate(verifycode);
-			MsgCodeUtils.sendMsg("0J001", mobileno);
+			MsgCodeUtils.sendMsg(mobileno, "0J001");
 			resultMap.put("errCode", "0000");
 			
 			// this is test code ... removed later...

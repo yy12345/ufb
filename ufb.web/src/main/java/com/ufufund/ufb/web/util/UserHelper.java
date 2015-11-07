@@ -1,7 +1,6 @@
 package com.ufufund.ufb.web.util;
 
-import org.apache.commons.lang.StringUtils;
-
+import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 
@@ -12,7 +11,7 @@ public class UserHelper {
 	 * @return
 	 */
 	public static CustinfoVo getCustinfoVo(){
-		return (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
+		return (CustinfoVo)ServletHolder.getSession().getAttribute("CUSTINFO");
 	}
 	
 	/**
@@ -20,31 +19,7 @@ public class UserHelper {
 	 * @return
 	 */
 	public static void saveCustinfoVo(CustinfoVo custinfoVo){
-		ServletHolder.getSession().setAttribute("S_CUSTINFO", custinfoVo);
-	}
-	
-	/**
-	 * 保存当前绑卡状态
-	 * @return
-	 */
-	public static void setAddBankCardStatus(String status){
-		ServletHolder.getSession().setAttribute("S_ADDBANKCARDSTATUS", status);
-	}
-	
-	/**
-	 * 获取当前绑卡状态
-	 * @return
-	 */
-	public static String getAddBankCardStatus(){
-		return (String)ServletHolder.getSession().getAttribute("S_ADDBANKCARDSTATUS");
-	}
-	
-	/**
-	 * 登出当前客户信息
-	 * @return
-	 */
-	public static void removeCustinfoVo(){
-		ServletHolder.getSession().removeAttribute("S_CUSTINFO");
+		ServletHolder.getSession().setAttribute("CUSTINFO", custinfoVo);
 	}
 	
 	/**
@@ -62,7 +37,7 @@ public class UserHelper {
 	}
 	
 	/**
-	 * 保存当前绑卡状态
+	 * 设置session属性
 	 * @return
 	 */
 	public static void setSessionAttr(String name, String value){
@@ -70,7 +45,7 @@ public class UserHelper {
 	}
 	
 	/**
-	 * 获取当前绑卡状态
+	 * 获取session属性
 	 * @return
 	 */
 	public static String getSessionAttr(String name){

@@ -1,13 +1,10 @@
 package com.ufufund.uft.web.controller;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +15,6 @@ import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.ChinapayManager;
 import com.ufufund.ufb.biz.manager.CustManager;
-import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
@@ -35,7 +31,6 @@ import com.ufufund.ufb.model.vo.AutotradeVo;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.StudentVo;
-import com.ufufund.ufb.model.vo.TradeAccoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.UserHelper;
 
@@ -56,8 +51,6 @@ public class SettingsController {
 	private BankCardManager bankCardManager;
 	@Autowired
 	private TradeAccoManager tradeAccoManager;
-	@Autowired
-	private QueryManager queryManager;
 	@Autowired
 	private BankBaseManager bankBaseManager;
 	@Autowired

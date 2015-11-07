@@ -6,11 +6,13 @@
 				<a href="javascript:;" class="active">家庭版</a>
 			</div>
 			<div class="b2">
-				#if(${S_CUSTINFO})
-			   		<span>你好，<label>${S_CUSTINFO.invnm}</label></span><a href="${ufbDomain}/family/account/logout.htm" class="quit">退出</a>
+				#if(${CUSTINFO})
+			   		<span>你好，<label>
+			   		<a href="${ufbDomain}/family/setting/account_index.htm" class="c1">${CUSTINFO.invnm}</a></label></span>
+			   		<a href="${ufbDomain}/family/account/logout.htm" class="quit">退出</a>
 				#else
 				   <div class="b2">
-		               <a href="${ufbDomain}/family/index.htm" class="c1" id="login">登录</a>
+		               <a href="${ufbDomain}/family/index.htm" class="c1">登录</a>
 		               <a href="${ufbDomain}/family/register_index.htm" class="c1">注册</a>
 				   </div>
 				#end

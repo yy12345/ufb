@@ -41,10 +41,10 @@ public class PaymentController {
 		
 		ArrayList<List<QueryCustplandetail>> planlistlist = new ArrayList<List<QueryCustplandetail>>();
 		try{
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			String custno = s_custinfo.getCustno();
+			CustinfoVo custinfo = UserHelper.getCustinfoVo();
+			String custno = custinfo.getCustno();
 			
-			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(s_custinfo.getCustno());
+			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(custinfo.getCustno());
 			List<QueryCustplandetail> planlist = null;
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
 			int plancount = 0;
@@ -88,8 +88,8 @@ public class PaymentController {
 		
 		ArrayList<List<QueryCustplandetail>> planlistlistchecked = new ArrayList<List<QueryCustplandetail>>();
 		try{
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-			String custno = s_custinfo.getCustno();
+			CustinfoVo custinfo = UserHelper.getCustinfoVo();
+			String custno = custinfo.getCustno();
 			
 			/**  **/
 			String allplanids = paynoticevo.getAllplanids();
@@ -99,7 +99,7 @@ public class PaymentController {
 			//}
 			/**  **/
 			
-			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(s_custinfo.getCustno());
+			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(custinfo.getCustno());
 			List<QueryCustplandetail> planlist = null;
 			List<QueryCustplandetail> planlistchecked = null;
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;

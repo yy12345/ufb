@@ -112,7 +112,7 @@ $(function(){
                 </ul>
 			</div>
 			<div class="profileBox">
-				<div class="b2" #if(${S_CUSTINFO})style="display:none"#end>
+				<div class="b2" #if(${CUSTINFO})style="display:none"#end>
 					<div class="loginForm">
 						<h2>登录幼富通</h2>
 						<div class="wrongTips" style="display:none;">
