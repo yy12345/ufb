@@ -111,16 +111,6 @@ public class SettingsController {
 	 */
 	@RequestMapping(value="password_index")
 	public String passwordIndex(CustinfoVo custinfoVo, Model model){
-		try{
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-		}catch(UserException ue){
-			log.warn(ue.getMessage(), ue);
-			model.addAttribute("message_title", "密码设置");
-			model.addAttribute("message_url", PASSWORD_INDEX);
-			model.addAttribute("message_content", ue.getMessage());
-			model.addAttribute("back_module", "返回");
-			return "error/error";
-		}
 		return "family/setting/password_index";
 	}
 	
@@ -163,6 +153,8 @@ public class SettingsController {
 		 
 		return resultMap;
 	}
+ 	
+
 	 
 	/**
 	 * 修改交易密码
@@ -174,7 +166,7 @@ public class SettingsController {
 	 */
 	@RequestMapping(value="update_tradePwd")
 	@ResponseBody
-	public Map<String,Object> setUTradePwd(String password0, String password1,String password2){
+	public Map<String,Object> updateTradePwd(String password0, String password1,String password2){
 		String custno=UserHelper.getCustno();
 		Map<String,Object> resultMap=new HashMap<String, Object>();
 		try{
@@ -241,6 +233,7 @@ public class SettingsController {
 		}
 		return resultMap;
 	}
+		
 	
 	/**
 	 * 修改登录密码    未登录状态step1
@@ -308,22 +301,14 @@ public class SettingsController {
 		return resultMap;
 	}
 	/**
-	 * 修改登录密码结果   未登录状态step3
-	 * 20151002
+	 * 修改登录密码结果   未登录状态
 	 */
 	@RequestMapping(value="findpwd_result")
 	public String findpwdResult(AutotradeVo autotradeVo, Model model){
-		try{
-			
-		}catch(UserException ue){
-			log.warn(ue.getMessage(), ue);
-			model.addAttribute("message_title", "修改登录密码");
-			model.addAttribute("message_content", ue.getMessage());
-			return "error/error";
-		}
 		return "family/setting/findpwd_success";
 	}
 	
+		
 	/**
 	 * 银行卡管理
 	 * @param custinfoVo
