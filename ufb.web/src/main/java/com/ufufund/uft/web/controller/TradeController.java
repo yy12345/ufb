@@ -49,7 +49,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping(value="family/ufb")
 @Slf4j
-public class TradedController {
+public class TradeController {
 	
 	private static final String PAY_INDEX = "family/ufb/pay_index.htm";
 	private static final String CASH_INDEX = "family/ufb/cash_index.htm";
