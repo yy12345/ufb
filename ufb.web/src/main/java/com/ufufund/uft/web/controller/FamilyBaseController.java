@@ -26,6 +26,7 @@ import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgStudent;
+import com.ufufund.ufb.model.vo.QueryStudentsPayVo;
 import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -75,7 +76,7 @@ public class FamilyBaseController {
 	@RequestMapping(value = "uft/uft_index")
 	public String uftIndex(Model model) throws IOException {
 		try{
-			CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+			CustinfoVo custinfo = UserHelper.getCustinfoVo();
 			/** 货基信息显示 **/
 			// 海富通
 			FundInfo hftFundInfo = new FundInfo();
@@ -111,62 +112,50 @@ public class FamilyBaseController {
 			}
 			
 			//机构、学生缴费信息
-			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(s_custinfo.getCustno());
-			List<QueryOrgStudent> studentlist = null;
-			List<QueryCustplandetail> planlist = null;
-			List dataList=new ArrayList();
+			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(custinfo.getCustno());
+			List<QueryStudentsPayVo> paylist = new ArrayList<QueryStudentsPayVo>();
 			int allcount=0;
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
 			if(orglist != null && orglist.size() > 0){
-				int count = 1;
 				for(QueryOrgStudent org: orglist){
-					int plancount=0;
+					BigDecimal monthtotalamt = BigDecimal.ZERO;
+					int count=0;
+					QueryStudentsPayVo stuPayVo=new QueryStudentsPayVo();
 					String orgid = org.getOrgid();
-					String custno = s_custinfo.getCustno();
+					String custno = custinfo.getCustno();
 					
-					log.info("CusterController==.loginIn==orgQueryManager.getQueryStudentByOrgid "
-							+ "orgid = " + orgid
-							+ ",custno = " +custno);
-					
-					studentlist = orgQueryManager.getQueryStudentByOrgid(orgid, custno);
-					model.addAttribute("studentlist" + count, studentlist);
+					List<QueryOrgStudent>  studentlist = orgQueryManager.getQueryStudentByOrgid(orgid, custno);
+					stuPayVo.setStudentList(studentlist);
 					
 					// 个人用户查询收费计划详情
-					planlist = orgQueryManager.getQueryCustplandetail(custno, orgid);
-					dataList.add(studentlist);
-					dataList.add(planlist);
- 					log.error("dataList==="+dataList);
-					model.addAttribute("planlist" + count, planlist);
-					BigDecimal paydiscount=BigDecimal.ZERO;
-					BigDecimal planmonthamt = BigDecimal.ZERO;
-					for(QueryCustplandetail plan:planlist){
-						allcount=allcount+1;
-						plancount = plancount + 1;
-						if(null != plan.getPaydiscount()){
-							planmonthamt = new BigDecimal(plan.getPaydiscount());
-						}
-						if(null!=plan.getPayackamount()){
-							paydiscount=new BigDecimal(plan.getPayackamount());
-						}
-						planmonthamt=planmonthamt.add(planmonthamt);
-						paydiscount=paydiscount.add(paydiscount);
-						totalplanmonthamt = totalplanmonthamt.add(planmonthamt);
-					}
+					List<QueryCustplandetail> planlist = orgQueryManager.getQueryCustplandetail(custno, orgid);
+					stuPayVo.setPlanList(planlist);
 					
-					model.addAttribute("planmonthamt"+ count, planmonthamt);
-					model.addAttribute("paydiscount"+ count, paydiscount);
-					model.addAttribute("plancount"+ count, plancount);
-					count = count + 1;
+					for(QueryCustplandetail plan:planlist){
+						BigDecimal planmonthamt = BigDecimal.ZERO;
+						count=count+1;
+						allcount=allcount+1;
+						if(null!=plan.getPayappamount()){
+							planmonthamt=new BigDecimal(plan.getPayappamount());
+						}
+						monthtotalamt=monthtotalamt.add(planmonthamt);
+					}
+					//上个月的退费  later....
+					
+					stuPayVo.setPlancount(count);
+					stuPayVo.setMonthtotalamt(monthtotalamt);
+					paylist.add(stuPayVo);
+					totalplanmonthamt = totalplanmonthamt.add(monthtotalamt);
 				}
-				
 			}
 			
+			model.addAttribute("paylist", paylist);
 			model.addAttribute("orglist", orglist);
 			model.addAttribute("allcount", allcount);
 			model.addAttribute("totalplanmonthamt", totalplanmonthamt);
 
 			/** 资产 **/
-			this.setModel(s_custinfo, model);
+			this.setModel(custinfo, model);
 			
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
@@ -263,7 +252,7 @@ public class FamilyBaseController {
 				custinfoVo.getCustno(),
 				null,//Constant.HftSysConfig.HftFundCorpno, 
 				tradeaccosts);
-		String isufbCard="";
+	/*	String isufbCard="";
 		if(null!=hft_family_trade){
 			for(TradeAccoinfoOfMore tradeacco:hft_family_trade){
 				if(tradeacco.getClevel().equals("1")){
@@ -272,7 +261,7 @@ public class FamilyBaseController {
 				}
 			}
 		}
-		model.addAttribute("isufbCard", isufbCard);
+		model.addAttribute("isufbCard", isufbCard);*/
 			// 家庭
 			if(null != hft_family_trade && hft_family_trade.size() > 0){
 				// 海富通资产显示

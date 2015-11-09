@@ -252,6 +252,18 @@
     	from custinfo a, clazz b where a.custno = b.orgid
     		and b.cid=#{cid,jdbcType=VARCHAR}
     </select>
-	
+		<select id="queryOrgConfirm" parameterType="String" resultType="com.ufufund.ufb.model.vo.ConfirmOrgInfoVo">
+	    select 
+	       b.bankacco,
+	       b.bankadd as openbankaddr,
+	       c.ORGANIZATION as orgnm,
+	       c.BUSINESS as business,
+	       c.ORGADD as  orgaddr,
+           c.TELNO
+	    from ufu_dev.bankcardinfo b,ufu_dev.custinfo c
+	        where b.custno=c.custno
+	        and c.custno=#{custno,jdbcType=VARCHAR}
+	        and b.state='Y'
+	</select>
 </mapper>
 

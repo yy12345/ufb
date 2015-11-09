@@ -1,25 +1,71 @@
-<!doctype html>
+<!doctype>
 <html>
-<body>
-<div id="page">
-    <div id="header">
-		<div class="topNav">
-			<div class="container">
-				<div class="b1"><a href="#">机构版</a><a href="#" class="active">家庭版</a></div>
-				<div class="b2"><!--<a href="javascript:;" class="c1" id="login">登录</a>--><span>柔软的大牛</span><a href="#"></a></div>
-			</div>
-		</div>
-        <div class="container">
-            <a href="#" class="logo"></a>
-			<div class="nav">
-				<a href="${staticDomain}/family/session.htm" class="active">我的账户</a>
-				<a href="${staticDomain}/family/myufb.htm">幼富宝</a>
-				<a href="#">缴费明细</a>
-				<a href="${staticDomain}/family/helpAbout.htm">帮助中心</a>
-			</div>
-        </div>
-    </div>
+<head>
+<title>幼富通-确认缴费</title>
+<script type="text/javascript" src="${staticDomain}/family/scripts/jquery.js"></script>
+<script type="text/javascript" src="${staticDomain}/family/libs/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${staticDomain}/family/scripts/jquery.mCustomScrollbar.concat.min.js"></script> 
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>  <!--scroll美化-->
+<script type="text/javascript">
+    $(function(){
+        // 关闭广告 
+        $(".advertise-close").on("click", function () {
+            $(this).parent(".advertise").hide();
+        });
+        
+        // radio 模拟点击事件 
+        $(".li2 .costpay label").on("click",function(){
+            $(this).parents(".li2").find("input[type='radio']").attr("checked",false);
+            $(this).parents(".li2").find("i").removeClass("check");
+            $(this).children("input[type='radio']").attr("checked",true);
+            $(this).children("i").addClass("check");
+            $(this).parent().find(".payMoney").addClass("showNow")
+                .parent().siblings().find(".payMoney").removeClass("showNow");
+        });
+        
+        // 点击具体班级的头部（灰色条）收放事件  
+        $(".grades-item-title").on("click",function(){
+            var thisReduce = $(this).children(".reduce");
+            var nextTable = $(this).next("table");
+            if(thisReduce.text() == "+"){
+                nextTable.show();
+                thisReduce.text("-");
+            }
+            else{
+                nextTable.hide();
+                thisReduce.text("+");
+            }
+        });
+        
+        // 点击弹层出现消失 
+       $("#xftService").click(function(){
+           $(".bgBox , #xft").fadeIn();       
+       });
+       $("#xft .close , .btnKnow").click(function(){
+           $(".bgBox , #xft").fadeOut();       
+       });
+        $("#ufbAuto").click(function(){
+           $(".bgBox , #ufb").fadeIn();       
+       });
+       $("#ufb .close , .btnKnow").click(function(){
+           $(".bgBox , #ufb").fadeOut();       
+       });
     
+    $(window).load(function(){
+        $(".content_scroll").mCustomScrollbar({
+            theme:"dark", //主题颜色
+            scrollButtons:{
+                enable:true //是否使用上下滚动按钮
+            },
+            autoHideScrollbar: false, //是否自动隐藏滚动条
+            scrollInertia :0,//滚动延迟
+            horizontalScroll : false//水平滚动条
+        });
+    });
+  }) 
+</script>
+</head>
+<body>
     <div id="body">
         <div class="container familyPayAffirm">
             <div class="advertise">
@@ -30,25 +76,27 @@
             <div class="a1" style="margin: 16px 0;height: 22px">
                 <h1 class="fl">确认缴费</h1>
                 <div class="fr f14">
-                    已选<span>$plancountchecked</span>条收费通知，总计： <span class="num-color">$totalplanmonthamt</span> 元
+                    已选<span>$allcount</span>条收费通知，总计： <span class="num-color">$totalplanmonthamt</span> 元
                 </div>
             </div>
             <div class="select-account select-account-v2">
                 <div class="select-account-top">
                     <h3 class="fl">选择付费账户</h3>
-                    <a href="../UFB/settingCard.html" class="fr f14 hoverLine">管理银行卡</a>
+                    <a href="${ufbDomain}/family/setting/card_index.htm" class="fr f14 hoverLine">我的银行卡</a>
                 </div>
                 <div class="select-account-body">
                     <ul>
                         <li class="li1">使用</li>
                         <li class="li2">
-                            <div class="costpay"><label class="cost-type"><input type="radio" name="paybank" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span>42250元</span>
+                            <div class="costpay" #if(${isufbCard}==true) style="display:block;" #else style="display:none;" #end><label class="cost-type"><input type="radio" name="ufb" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span>$availableBalance 元</span>
                             <div class="payMoney showNow">支付<span class="num-color paymoney">$totalplanmonthamt元</span></div>
                             </div>
-                            <div class="costpay"><label class="cost-type"><input type="radio" name="paybank" style="display: none;"/><i class="imitate-radio"></i>招商银行 尾号[5338]</label><span>储蓄卡</span><i class="middel-wire">|</i><span class="num-blue">快捷</span>
-                            <div class="payMoney">支付<span class="num-color paymoney">$totalplanmonthamt元</span></div>
-                            </div>
-                            <div class="costpay"><label class="cost-type"><input type="radio" name="paybank" style="display: none;"/><i class="imitate-radio"></i>工商银行 尾号[5338]</label><span>储蓄卡</span><i class="middel-wire">|</i><span class="num-blue">快捷</span>
+                            <div class="costpay"><label class="cost-type"><input type="radio" name="paybank" style="display: none;" #if(${isufbCard}==false) checked="checked"#end /><i class="imitate-radio"></i>
+                            ${bankcard.banknm} 尾号
+                            #set($tailStr=$bankcard.bankacco)
+							#set($start=$tailStr.length() - 4)
+							#set($end=$tailStr.length())
+                            [$tailStr.substring($start,$end)]</label><span>储蓄卡</span><i class="middel-wire">|</i><span class="num-blue">快捷</span>
                             <div class="payMoney">支付<span class="num-color paymoney">$totalplanmonthamt元</span></div>
                             </div>
                         </li>
@@ -58,29 +106,26 @@
                     </ul>
                 </div>
             </div>
-			<!--
-			model.addAttribute("orglist", orglist);
-			model.addAttribute("planlistlistchecked", planlistlistchecked);
-			model.addAttribute("plancountchecked", plancountchecked);
-			model.addAttribute("totalplanmonthamt", totalplanmonthamt);
-			-->
-			#foreach($planlistchecked in $planlistlistchecked)
+			#foreach($planlist in $planlistchecked)
+			#set($list=$planlist.planList)
+			#if($list.size()>0)
 			<div class="affirm-organiz">
                 <div class="affirm-organiz-top">
                     <h3>确认收费机构</h3>
                 </div>
                 <div class="affirm-organiz-body">
+                  #set($org = $planlist.orginfo)
                        <div class="organiz-group">
                            <label>收费机构名称</label>
-                           <p>海富幼儿园</p>
+                           <p>$!{org.orgnm}</p>
                        </div>
                        <div class="organiz-group">
                            <label>营业执照号</label>
-                           <p>123456789</p>
+                           <p>$!{org.business}</p>
                        </div>
                        <div class="organiz-group">
                            <label>地址</label>
-                           <p>上海市浦东新区峨山路999弄11号</p>
+                           <p>$!{org.orgaddr}</p>
                        </div>
                        <div class="organiz-group">
                            <label>开户银行</label>
@@ -88,17 +133,18 @@
                        </div>
                        <div class="organiz-group">
                            <label>银行账号</label>
-                           <p>2333344556678890</p>
+                           <p>$!{org.bankacco}</p>
                        </div>
                        <div class="organiz-group">
                            <label>咨询电话</label>
-                           <p>021-32322323</p>
+                           <p>$!{org.telno}</p>
                        </div>
 
                        <div class="logoimg">
                            幼儿园LOGO图片
                            <img src="" alt=""/>
                        </div>
+                       
                         <div class="affirm-content">
                             <div class="grades-item-title">
                                 <label>缴费明细</label>
@@ -112,11 +158,11 @@
                                     <th width="18%">姓名</th>
                                     <th width="16%">应收金额(元)</th>
                                 </tr>
-								#foreach($planchecked in $planlistchecked)
+								#foreach($planchecked in $planlist.planList)
                                 <tr>
                                     <td>$planchecked.planid</td>
-                                    <td>2015年09月 代扣收费01</td>
-                                    <td><span class="tip">单笔</span></td>
+                                    <td>$planchecked.palnname</td>
+                                    <td><span class="tip">#if($plan.cycletype=='S')单次 #else 多次 #end</span></td>
                                     <td>$planchecked.studentnm</td>
                                     <td class="num-color">$planchecked.payappamount</td>
                                 </tr>
@@ -125,6 +171,7 @@
                         </div>
                 </div>
             </div>
+			#end
 			#end
             <div class="affirm-organiz-form">
                 <form action="">
@@ -141,35 +188,13 @@
                         <p>点击确认表示同意<a href="javascript:;" id="xftService">《学费通服务协议》</a>、<a href="javascript:;" id="ufbAuto">《幼富宝定时取现服务协议》</a></p>
                     </div>
                     <div class="control-review">
-                        <a href="familyPaySuccess.html""javascript:;" class="btn btn-red">确 认</a>
+                        <a href="javascript:;" class="btn btn-red">确 认</a>
                     </div>
                 </form>
-            </div><!--end of affirm-organiz-form-->
-        </div><!--end of container-->
-    </div><!--end of body-->
-</div><!--end of page-->
-<div class="footer footer-simple">
-    <div class="inner clearfix">
-        <div class="logo fl">
-            <img src="${staticDomain}/static/familypay/images/logo_130x55.png">
-        </div>
-        <div class="info fl">
-            <ul class="list">
-                <li>微信服务号：UFUfund</li>
-                <li>服务邮箱：<a href="mailto:service@ufufund.com">service@ufufund.com</a></li>
-                <li>海富通产品：400-8840-099</li>
-            </ul>
-        </div>
-        <div class="copyright fr">
-            <ul class="list">
-                <li>幼富通版权所有 ©2014</li>
-                <li><a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备14054347号</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-
+            </div> 
+        </div> 
+    </div> 
+</div> 
 <!--弹层-->
 <div class="bgBox"></div>	
 <!--《学费通服务协议》-->
@@ -227,85 +252,5 @@
         <a href="javascript:;" class="btnKnow closebox">我知道了</a>
     </div>
 </div> 
-
-
-
-
-
-
-
-
-
-<script type="text/javascript" src="${staticDomain}/static/public/js/jquery.js"></script>
-<script type="text/javascript" src="${staticDomain}/static/familypay/libs/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="${staticDomain}/static/public/js/jquery.mCustomScrollbar.concat.min.js"></script> 
-<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>  <!--scroll美化-->
-<script type="text/javascript">
-    $(function(){
-        /*关闭广告*/
-        $(".advertise-close").on("click", function () {
-            $(this).parent(".advertise").hide();
-        });
-        /* radio 模拟点击事件 */
-        $(".li2 .costpay label").on("click",function(){
-            $(this).parents(".li2").find("input[type='radio']").attr("checked",false);
-            $(this).parents(".li2").find("i").removeClass("check");
-            $(this).children("input[type='radio']").attr("checked",true);
-            $(this).children("i").addClass("check");
-            $(this).parent().find(".payMoney").addClass("showNow")
-                .parent().siblings().find(".payMoney").removeClass("showNow");
-//            alert("12");
-        });
-        /* 点击具体班级的头部（灰色条）收放事件 */
-        $(".grades-item-title").on("click",function(){
-            var thisReduce = $(this).children(".reduce");
-            var nextTable = $(this).next("table");
-            if(thisReduce.text() == "+"){
-                nextTable.show();
-                thisReduce.text("-");
-            }
-            else{
-                nextTable.hide();
-                thisReduce.text("+");
-            }
-        });
-        
-        /*点击弹层出现消失*/
-        //        ①
-       $("#xftService").click(function(){
-           $(".bgBox , #xft").fadeIn();       
-       });
-       $("#xft .close , .btnKnow").click(function(){
-           $(".bgBox , #xft").fadeOut();       
-       });
-//        ②
-        $("#ufbAuto").click(function(){
-           $(".bgBox , #ufb").fadeIn();       
-       });
-       $("#ufb .close , .btnKnow").click(function(){
-           $(".bgBox , #ufb").fadeOut();       
-       });
-    })
-</script>
-<!--滚动条美化-->
-<script>
-    (function($){
-        $(window).load(function(){
-            $(".content_scroll").mCustomScrollbar({
-                theme:"dark", //主题颜色
-                scrollButtons:{
-                    enable:true //是否使用上下滚动按钮
-                },
-                autoHideScrollbar: false, //是否自动隐藏滚动条
-                scrollInertia :0,//滚动延迟
-                horizontalScroll : false//水平滚动条
-
-            });
-
-        });
-
-    })(jQuery);
-</script>
-
 </body>
 </html>

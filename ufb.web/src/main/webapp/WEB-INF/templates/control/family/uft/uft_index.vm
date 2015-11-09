@@ -40,22 +40,24 @@
             $(".every-account").find("#change0"+ex).addClass("showNow").siblings().removeClass("showNow");
         });
 
-		$("#addBankCard").on("click",function(){
-		    var isufbCard=$(this).attr("isufbCard");
-		   
-			var cardcount=$(".num-blue").html();
-			if(cardcount>=2){
-				alert("对不起，您最多只能添加两张银行卡");
-				return false;
-			}
-			 else{
-			  	if(isufbCard=="Y"){
-					alert("对不起，您只能添加一张幼富通银行卡");
-					return false;
-				} 
-			 }
-			window.location.href="${staticDomain}/family/ufb/card_adds.htm";
-		});	
+        // 缴费    1.总的缴费记录  2.每个机构的缴费记录
+        var orgid="";
+        $(".btn-red").on("click",function(){
+        	$(".organization .fl a").each(function(){
+        		orgid=orgid+$(this).attr("id")+",";
+        		$("#orgids").val(orgid);
+        		$("#sub-form").submit();
+        	}) 
+        });
+        
+        $(".orgcharge").each(function(){
+        	$(this).on("click",function(){
+        		orgid=$(".organization .fl").find(".on").attr("id");
+        		$("#orgids").val(orgid);
+        		$("#sub-form").submit();
+        	});
+        })
+
     });
 </script>
 </head>
@@ -68,11 +70,14 @@
             </p>
         </div>
 		<div class="myaccount">
+		<form id="sub-form" name="sub-form" method="post" action="http://localhost:8080/ufb/family/uft/pay_notice.htm">
+    	<input type="hidden" name="orgids" id="orgids" value="" />
+        </form>
             <div class="myleft fl">
                   <p class="magtb">本月共<strong class="num-red">$allcount</strong>个缴费通知，总计（元）</p>
                   <p class="magtb">
                   	  <strong class="num-red" style="font-size: 45px;">$totalplanmonthamt</strong>
-                      <a href="${ufbDomain}/family/uft/pay_notice.htm" class="btn btn-red btn-pay">缴费</a>
+                      <a href="javascript:;" class="btn btn-red btn-pay">缴费</a>
                   </p>
                   <p><a href="${ufbDomain}/setting/familyPayHistory.html" class="hoverLine">历史明细</a></p>
             </div>
@@ -110,27 +115,28 @@
                   <p class="fl">
 					#foreach($org in $orglist)
 						#if($!{velocityCount}==1)
-						<a href="javascript:;" class="on">$org.orgnm<i class="up-arrow showNow"></i></a>
+						<a href="javascript:;" class="on" id="${org.orgid}">$org.orgnm<i class="up-arrow showNow"></i></a>
 						#else
-						<a href="javascript:;" class="on">$org.orgnm<i class="up-arrow"></i></a>	
+						<a href="javascript:;" id="${org.orgid}">$org.orgnm<i class="up-arrow"></i></a>	
 						#end
 					#end
 				  </p>
                   <a href="${ufbDomain}/family/uft/code_index.htm" class="fr add-organiz hoverLine">+新收费机构</a>
               </div>
-              <div><!--切换-->
-                   <!--第一个幼儿园-->
-                   <div class="exchange showNow" id="change01"> 
+              <div>
+			  #foreach($pay in $paylist)
+			  #set($index = ${velocityCount})
+                   <div class="exchange showNow" id="change0$index"> 
                       <div class="student">
                           <ul>
                               <li class="sli1"><p>学生：
-									#foreach($student in $studentlist1)
+									#foreach($student in $pay.studentList)
 									$student.studentnm
 									#end
 							  </p></li>
-                              <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">#if($!{plancount1}) $!{plancount1} #else 0 #end</strong>个缴费通知，总计（元）</p><p class="sli2-p2">  #if($!{planmonthamt1})$!{planmonthamt1} #else 0.00 #end</p></li>
-                              <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">#if($!{paydiscount1})+$!{paydiscount1} #else 0.00 #end</p></li>
-                              <li class="sli4"><a href="${ufbDomain}/family/uft/pay_notice.htm" class="btn btn-white">缴费</a></li>
+                              <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">#if($!{pay.plancount}) $!{pay.plancount} #else 0 #end</strong>个缴费通知，总计（元）</p><p class="sli2-p2">  #if($!{pay.monthtotalamt})$!{pay.monthtotalamt} #else 0.00 #end</p></li>
+                              <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">#if($!{pay.monthbackamt})+$!{pay.monthbackamt} #else 0.00 #end</p></li>
+                              <li class="sli4"><a href="javascript:;" class="btn btn-white orgcharge">缴费</a></li>
                           </ul>
 					  </div>
                       <div class="pay-detail">
@@ -146,12 +152,12 @@
 							  <th>缴费日期</th>
                               <th>缴费状态</th>
                           </tr>						  
-						  #foreach($plan1 in $planlist1)
+						  #foreach($plan1 in $plan.planList)
                           <tr>
                               <td>$plan1.planid</td>
                               <td>$plan1.studentnm</td>
                               <td>$plan1.orgnm</td>
-                              <td>2015年6月话剧<span class="tip">月代扣</span></td>
+                              <td>$plan1.planname<span class="tip">#if(${plan1.type}=="AT")月代扣 #else 年代扣 #end</span></td>
                               <td class="num-green">$plan1.payappamount</td>
                               <td>$!{plan1.paydate}</td>
 							  <td>$!{plan1.plandate}</td>
@@ -161,49 +167,7 @@
                       </table>
                   </div>
                   </div>
-                   <!--第二个幼儿园-->
-                   <div class="exchange" id="change02"> 
-                      <div class="student">
-                          <ul>
-                              <li class="sli1">
-								<p>学生：
-									#foreach($student in $studentlist2)
-									$student.studentnm
-									#end
-								</p></li>
-                              <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">#if($!{plancount2}) $!{plancount2} #else 0 #end</strong>个缴费通知，总计（元）</p><p class="sli2-p2">#if($planmonthamt2)$!{planmonthamt2} #else 0.00 #end</p></li>
-                              <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">#if($!{paydiscount2})+$!{paydiscount2} #else 0.00 #end</p></li>
-                              <li class="sli4"><a href="" class="btn btn-white">缴费</a></li>
-                          </ul>
-					  </div>
-                      <div class="pay-detail">
-                      <h3>缴费通知明细</h3>
-                      <table>
-                          <tr>
-                              <th>缴费交易号</th>
-                              <th>缴费学生</th>
-                              <th>收费机构</th>
-                              <th>费用类型</th>
-                              <th>应收金额（元）</th>
-                              <th>截止日期</th>
-							  <th>缴费日期</th>
-                              <th>缴费状态</th>
-                          </tr>
-                          #foreach($plan2 in $planlist2)
-                          <tr>
-                              <td>$plan2.planid</td>
-                              <td>$plan2.studentnm</td>
-                              <td>$plan2.orgnm</td>
-                              <td>2015年6月话剧<span class="tip">月代扣</span></td>
-                              <td class="num-green">$plan2.payappamount</td>
-                              <td>$!{plan2.paydate}</td>
-							  <td>$!{plan2.plandate}</td>
-                              <td>#if($!{plan2.ispay}=='Y') 已缴费 #else 等待缴费 #end</td>
-                          </tr>
-						  #end
-                      </table>
-                  </div>
-                  </div>
+				  #end
               </div>
         </div>        
     </div> 

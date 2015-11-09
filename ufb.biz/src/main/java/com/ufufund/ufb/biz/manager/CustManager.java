@@ -9,6 +9,7 @@ import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Student;
+import com.ufufund.ufb.model.vo.ConfirmOrgInfoVo;
 import com.ufufund.ufb.model.vo.StudentVo;
 import com.ufufund.ufb.service.CustInterface;
 
@@ -104,5 +105,6 @@ public interface CustManager extends CustInterface{
 	
 	public Custinfo getCustInfoByMobileno(String mobileno) throws BizException;
 	
-	public void insertBankCardAndTradeAcco(OpenAccountAction openAccountAction) throws BizException;;
+	public void insertBankCardAndTradeAcco(OpenAccountAction openAccountAction) throws BizException;
+	public ConfirmOrgInfoVo queryOrgConfirm(String custno);
 }

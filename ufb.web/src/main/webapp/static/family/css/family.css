@@ -79,11 +79,11 @@
 
 .checkbox{
     cursor: pointer;
-    background: url(images/tuition-icons.png) -10px -72px no-repeat;
+    background: url(images/tuition-icons.png) -10px -66px no-repeat;
     font-size: 14px;
 }
 .checkbox.active {
-    background: url(images/tuition-icons.png) -10px -105px no-repeat;
+    background: url(images/tuition-icons.png) -10px -101px no-repeat;
 }
 .magtb{
     margin-top: 30px;

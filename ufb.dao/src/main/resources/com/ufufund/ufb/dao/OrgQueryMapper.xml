@@ -8,7 +8,8 @@
 			SELECT
 				DISTINCT
 				T.CUSTNO AS orgid,
-				T.INVNM AS orgnm
+				T.INVNM ,
+				T.ORGANIZATION AS orgnm
 			FROM 
 				STUDENT S, CLAZZ C, CUSTINFO T
 			WHERE 
@@ -210,7 +211,8 @@
     <select id="getQueryCustplandetail" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryCustplandetail">
 			SELECT
 			a.org_id as orgid,
-			c.invnm as orgnm,
+			c.invnm as invnm,
+			c.organization as orgnm,
 			b.name as studentnm,
 			a.student_id as studentid,
 			a.detail_id as detailid,
@@ -220,15 +222,20 @@
 			a.pay_ack_amount as payackamount,
 			a.is_pay as ispay,
 			a.pay_custno as paycustno,
-			date_format(a.pay_date,'%Y-%m-%d %H:%i:%s')  as paydate,
-			date_format(a.plan_date,'%Y-%m-%d')  as plandate
+			date_format(a.pay_date,'%Y-%m-%d')  as paydate,
+			date_format(a.plan_date,'%Y-%m-%d')  as plandate,
+			d.plan_name as palnname,
+			d.plan_type as plantype,
+			d.cycle_type as cycletype,
+			d.type
 			FROM
 			student b,
 			org_plan_datail a,
-			custinfo c
+			custinfo c,
+			org_plan d
 			where 
 			a.student_id =b.sid
-			and a.org_id = c.custno
+			and a.org_id = c.custno and a.plan_id=d.plan_id
 			and date_format(a.plan_date,'%Y-%m')  = date_format(sysdate(),'%Y-%m') 
 			<if test="orgid != null">
 			and a.org_id = #{orgid,jdbcType=VARCHAR}

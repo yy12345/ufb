@@ -214,13 +214,13 @@ $(function(){
                                     <span class="form-title">家长姓名</span>
                                     <input class="ipt-invnm input-text" type="text" name="invnm" id="invnm" value="$!{CustinfoVo.invnm}" >
                                     <span class="tips-normal" style="display: block;">#if(${CustinfoVo.invnm}) #else 请填写家长姓名 #end </span>
-                                    <span class="tips-check"><i class="icon"><font></font></i></span>
+                                    <span class="tips-check"><i class="icon"></i><font></font></span>
                                 </li>
                                 <li>
                                     <span class="form-title">身份证号码</span>
                                     <input class="ipt-idCard input-text" type="text" name="idno" id="idno" maxlength="18">
                                     <span class="tips-normal" style="display: block;">请填写身份证号码</span>
-                                     <span class="tips-check"><i class="icon"><font></font></i></span>
+                                     <span class="tips-check"><i class="icon"></i><font></font></span>
                                 </li>
                                 <li>
                                     <input id="btn-subbutton" class="input-button" type="button" value="下一步">                 
