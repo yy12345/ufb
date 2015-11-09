@@ -67,14 +67,12 @@
             var thisattr =  $(this).children("input:[type='checkbox']").attr("checked");
             var allcblabels = $(".checkbox");
             var allcb =  $("input:[type='checkbox']");
-
             if( thisattr == "checked") {
             	$(".checkcount").show();
     			$(".allcount").hide();
                 allcblabels.addClass("active");
                 allcb.attr("checked", true);
-            }
-            else{
+            }else{
             	amt=0.00;
             	$(".checkcount").hide();
     			$(".allcount").show();
@@ -157,6 +155,7 @@
     			$(".allamt").text(parseFloat($totalplanmonthamt).toFixed(2));
     		}
         }
+        
         // 选中事件
     	$("input[name='checkid']").click(function(){
     		// 机构全选
@@ -216,7 +215,7 @@
                 </div>
 				#foreach($plans in $planLists)
                 <div class="notice-content">
-			    	#foreach($plan in $!plans.planList)
+			    	#foreach($plan in ${plans.planList})
                     <div class="item-title" #if($!{velocityCount}==1) style="display:blcok;" #else style="display:none;"  #end>
                         <label class="checkbox" orgid="$plan.orgid"><input type="checkbox" />$plan.orgnm</label>
                     </div>
@@ -227,7 +226,7 @@
                                     <label class="checkbox cb-one"><input type="checkbox" name="checkid" planid="$plan.planid"/></label>
                                 </li>
                                 <li class="width2">
-                                    <p class="project">$plan.palnname<span class="tip">#if($plan.type=='AT')月代扣 #else 年代扣 #end</span></p>
+                                    <p class="project">$plan.planname<span class="tip">#if($plan.type=='AT')月代扣 #else 年代扣 #end</span></p>
                                     <p>缴费交易号：  <span>$plan.planid</span></p>
                                 </li>
                                 <li class="width3">
@@ -258,7 +257,7 @@
             <label class="checkbox cb-allselect"><input type="checkbox"/>全选</label>
         </div>
         <div class="fr">
-            <p> <font class="checkcount" style="display:none;">已选</font><font class="allcount"> 共</font><strong class="num-red count">$plancount</strong>条通知，总计（元）：<strong class="num-red allamt">$totalplanmonthamt</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <p><font class="checkcount" style="display:none;">已选</font><font class="allcount">共</font><strong class="num-red count">$plancount</strong>条通知，总计（元）：<strong class="num-red allamt">$totalplanmonthamt</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="javascript:;" class="payreview btn btn-red btnBigR">缴费</a>
             </p>
         </div>

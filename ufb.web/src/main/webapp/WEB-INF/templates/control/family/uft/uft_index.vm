@@ -41,6 +41,7 @@
         });
 
         // 缴费    1.总的缴费记录  2.每个机构的缴费记录
+        var orgids=$("#orgids").val();
         var orgid="";
         $(".btn-red").on("click",function(){
         	$(".organization .fl a").each(function(){
@@ -64,15 +65,15 @@
 <body>
 <div id="body">
     <div class="container familyMyAccount">
-		<div class="myaccount-top">
-            <p class="fr">
-                <a href="${ufbDomain}/family/setting/card_index.htm" class="addMargin">我的银行卡</a>
-            </p>
-        </div>
-		<div class="myaccount">
-		<form id="sub-form" name="sub-form" method="post" action="http://localhost:8080/ufb/family/uft/pay_notice.htm">
-    	<input type="hidden" name="orgids" id="orgids" value="" />
-        </form>
+			<div class="myaccount-top">
+	            <p class="fr">
+	                <a href="${ufbDomain}/family/setting/card_index.htm" class="addMargin">我的银行卡</a>
+	            </p>
+	        </div>
+			<div class="myaccount">
+			<form id="sub-form" name="sub-form" method="post" action="${ufbDomain}/family/uft/pay_notice.htm">
+				<input type="hidden" name="orgids" id="orgids" value="" />
+	        </form>
             <div class="myleft fl">
                   <p class="magtb">本月共<strong class="num-red">$allcount</strong>个缴费通知，总计（元）</p>
                   <p class="magtb">
@@ -88,23 +89,23 @@
                 </div>
                 <div class="myright-down">
                     <ul>
-                        <li >
+                        <li>
                             <p class="magb">资产总额（元）</p>
-                            <p class="font"><strong>#if($hftTotalBalanceDisplay)$!{hftTotalBalanceDisplay}#else 0.00#end</strong></p>
+                            <p class="font"><strong>#if($hftTotalBalanceDisplay)$hftTotalBalanceDisplay #else 0.00 #end</strong></p>
                         </li>
 
                         <li class="mli2">
                             <p class="magb">累计收益（元）</p>
-                            <p class="font font-red">#if($hftTotalincome) $!{hftTotalincome} #else 0.00 #end</p>
+                            <p class="font font-red">#if($hftTotalincome) $hftTotalincome #else 0.00 #end</p>
                         </li>
                         <li class="mli3">
                             <p class="magb"><a href="${ufbDomain}/family/ufb/pay_index.htm" class="btn btn-white" id="recharge">充 值</a></p>
                             <p> <a href="${ufbDomain}/family/ufb/query_index.htm" class="assets">资产明细</a></p>
                         </li>
-                        <li class="" style="position: relative;">
-                                <p class="magb"><a href="${ufbDomain}/family/ufb/cash_index.htm" class="btn btn-white" id="enchash">取 现</a></p>
-                                <p><a href="${ufbDomain}/family/ufb/autotrade_index.htm" class="hoverLine">自动理财设置<i class="question"></i></a></p>
-                                <p class="question-content" style="display: none">可绑定工资卡，设<br/>置固定期限或固定<br/>金额的自动充值</p>
+                        <li style="position: relative;">
+                            <p class="magb"><a href="${ufbDomain}/family/ufb/cash_index.htm" class="btn btn-white" id="enchash">取 现</a></p>
+                            <p><a href="${ufbDomain}/family/ufb/autotrade_index.htm" class="hoverLine">自动理财设置<i class="question"></i></a></p>
+                            <p class="question-content" style="display: none">可绑定工资卡，设<br/>置固定期限或固定<br/>金额的自动充值</p>
                         </li>
                     </ul>
                 </div>
@@ -115,27 +116,27 @@
                   <p class="fl">
 					#foreach($org in $orglist)
 						#if($!{velocityCount}==1)
-						<a href="javascript:;" class="on" id="${org.orgid}">$org.orgnm<i class="up-arrow showNow"></i></a>
+						<a href="javascript:;" class="on" id="$org.orgid">$org.orgnm<i class="up-arrow showNow"></i></a>
 						#else
-						<a href="javascript:;" id="${org.orgid}">$org.orgnm<i class="up-arrow"></i></a>	
+						<a href="javascript:;" id="$org.orgid">$org.orgnm<i class="up-arrow"></i></a>	
 						#end
 					#end
 				  </p>
-                  <a href="${ufbDomain}/family/uft/code_index.htm" class="fr add-organiz hoverLine">+新收费机构</a>
+                  <a href="${ufbDomain}/family/uft/code_index.htm" class="fr add-organiz hoverLine">+添加缴费学生</a>
               </div>
               <div>
+              #set($i = 1)
 			  #foreach($pay in $paylist)
-			  #set($index = ${velocityCount})
-                   <div class="exchange showNow" id="change0$index"> 
+                   <div class="exchange #if($i==1) showNow #end" id="change0$i"> 
                       <div class="student">
                           <ul>
                               <li class="sli1"><p>学生：
-									#foreach($student in $pay.studentList)
-									$student.studentnm
-									#end
+								 #foreach($student in ${pay.studentList})
+								 $student.studentnm
+								 #end
 							  </p></li>
-                              <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">#if($!{pay.plancount}) $!{pay.plancount} #else 0 #end</strong>个缴费通知，总计（元）</p><p class="sli2-p2">  #if($!{pay.monthtotalamt})$!{pay.monthtotalamt} #else 0.00 #end</p></li>
-                              <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">#if($!{pay.monthbackamt})+$!{pay.monthbackamt} #else 0.00 #end</p></li>
+                              <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">#if($pay.plancount) $pay.plancount #else 0 #end</strong>个缴费通知，总计（元）</p><p class="sli2-p2">  #if($pay.monthtotalamt)$pay.monthtotalamt #else 0.00 #end</p></li>
+                              <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">#if($pay.monthbackamt)+$pay.monthbackamt #else 0.00 #end</p></li>
                               <li class="sli4"><a href="javascript:;" class="btn btn-white orgcharge">缴费</a></li>
                           </ul>
 					  </div>
@@ -152,22 +153,23 @@
 							  <th>缴费日期</th>
                               <th>缴费状态</th>
                           </tr>						  
-						  #foreach($plan1 in $plan.planList)
+						  #foreach($plan in ${pay.planList})
                           <tr>
-                              <td>$plan1.planid</td>
-                              <td>$plan1.studentnm</td>
-                              <td>$plan1.orgnm</td>
-                              <td>$plan1.planname<span class="tip">#if(${plan1.type}=="AT")月代扣 #else 年代扣 #end</span></td>
-                              <td class="num-green">$plan1.payappamount</td>
-                              <td>$!{plan1.paydate}</td>
-							  <td>$!{plan1.plandate}</td>
-                              <td>#if($!{plan1.ispay}=='Y') 已缴费 #else 等待缴费 #end</td>
+                              <td>$plan.planid</td>
+                              <td>$plan.studentnm</td>
+                              <td>$plan.orgnm</td>
+                              <td>$plan.planname<span class="tip">#if(${plan.type}=="AT")月代扣  #else 年代扣  #end</span></td>
+                              <td class="num-red">$plan.payappamount</td>
+                              <td>$plan.paydate</td>
+							  <td>$plan.plandate</td>
+                              <td>#if(${plan.ispay}=='Y') 已缴费 #else 等待缴费 #end</td>
                           </tr>
 						  #end		  
                       </table>
                   </div>
                   </div>
-				  #end
+                  #set($i = $i+1)
+			  #end
               </div>
         </div>        
     </div> 

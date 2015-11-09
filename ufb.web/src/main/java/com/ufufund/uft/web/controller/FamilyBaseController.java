@@ -26,7 +26,7 @@ import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgStudent;
-import com.ufufund.ufb.model.vo.QueryStudentsPayVo;
+import com.ufufund.ufb.model.vo.PayListVo;
 import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -100,27 +100,17 @@ public class FamilyBaseController {
 				FundNav curHtfFundNav = hftNavList.get(0);
 				model.addAttribute("curHtfFundNav", curHtfFundNav);
 			}
-			// 银联
-			FundNav cpFundNav = new FundNav();
-			hftFundNav.setFundcorpno(null);
-			hftFundNav.setFundcode(null);
-			List<FundNav> cpNavList = queryManager.qryFundNavList(cpFundNav);
-			model.addAttribute("cpNavList", cpNavList);
-			if(null != cpNavList && cpNavList.size() >0){
-				FundNav curCpFundNav = cpNavList.get(0);
-				model.addAttribute("curCpFundNav", curCpFundNav);
-			}
 			
 			//机构、学生缴费信息
 			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(custinfo.getCustno());
-			List<QueryStudentsPayVo> paylist = new ArrayList<QueryStudentsPayVo>();
+			List<PayListVo> paylist = new ArrayList<PayListVo>();
 			int allcount=0;
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
 			if(orglist != null && orglist.size() > 0){
 				for(QueryOrgStudent org: orglist){
 					BigDecimal monthtotalamt = BigDecimal.ZERO;
 					int count=0;
-					QueryStudentsPayVo stuPayVo=new QueryStudentsPayVo();
+					PayListVo stuPayVo=new PayListVo();
 					String orgid = org.getOrgid();
 					String custno = custinfo.getCustno();
 					
@@ -128,7 +118,7 @@ public class FamilyBaseController {
 					stuPayVo.setStudentList(studentlist);
 					
 					// 个人用户查询收费计划详情
-					List<QueryCustplandetail> planlist = orgQueryManager.getQueryCustplandetail(custno, orgid);
+					List<QueryCustplandetail> planlist = orgQueryManager.getQueryCustplandetail(custno, orgid,null);
 					stuPayVo.setPlanList(planlist);
 					
 					for(QueryCustplandetail plan:planlist){
@@ -154,7 +144,7 @@ public class FamilyBaseController {
 			model.addAttribute("allcount", allcount);
 			model.addAttribute("totalplanmonthamt", totalplanmonthamt);
 
-			/** 资产 **/
+			// 资产 
 			this.setModel(custinfo, model);
 			
 		}catch(UserException ue){
@@ -205,16 +195,6 @@ public class FamilyBaseController {
 				FundNav curHtfFundNav = hftNavList.get(0);
 				model.addAttribute("curHtfFundNav", curHtfFundNav);
 			}
-			// 银联
-			FundNav cpFundNav = new FundNav();
-			hftFundNav.setFundcorpno(null);
-			hftFundNav.setFundcode(null);
-			List<FundNav> cpNavList = queryManager.qryFundNavList(cpFundNav);
-			model.addAttribute("cpNavList", cpNavList);
-			if(null != cpNavList && cpNavList.size() >0){
-				FundNav curCpFundNav = cpNavList.get(0);
-				model.addAttribute("curCpFundNav", curCpFundNav);
-			}
 
 			/** 资产 **/
 			this.setModel(s_custinfo, model);
@@ -248,38 +228,24 @@ public class FamilyBaseController {
 		tradeaccosts.add("Y");   
 		tradeaccosts.add("N");  
 		
-		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(
-				custinfoVo.getCustno(),
-				null,//Constant.HftSysConfig.HftFundCorpno, 
-				tradeaccosts);
-	/*	String isufbCard="";
-		if(null!=hft_family_trade){
-			for(TradeAccoinfoOfMore tradeacco:hft_family_trade){
-				if(tradeacco.getClevel().equals("1")){
-					isufbCard="Y";
-					break;
-				}
-			}
+		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno(),null,tradeaccosts);
+		
+		// 海富通资产显示
+		if(null != hft_family_trade && hft_family_trade.size() > 0){
+			Assets htfAssets = queryManager.queryAssets(hft_family_trade, BasicFundinfo.YFB.getFundCode());
+			model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotal()));// 总资产
+			model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getAvailable()));// 可用资产
+			model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFrozen()));// 冻结资产
+			model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFunddayincome()));// 昨日收益
+			model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotalincome()));// 累计受益
+			model.addAttribute("hft_family_trade_size", hft_family_trade.size());
+		}else{
+			model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+			model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+			model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
+			model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
+			model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计收益
+			model.addAttribute("hft_family_trade_size", "0");
 		}
-		model.addAttribute("isufbCard", isufbCard);*/
-			// 家庭
-			if(null != hft_family_trade && hft_family_trade.size() > 0){
-				// 海富通资产显示
-				Assets htfAssets = queryManager.queryAssets(hft_family_trade, BasicFundinfo.YFB.getFundCode());
-				model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotal()));// 总资产
-				model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getAvailable()));// 可用资产
-				model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFrozen()));// 冻结资产
-				model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getFunddayincome()));// 昨日收益
-				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getTotalincome()));// 累计受益
-				model.addAttribute("hft_family_trade_size", hft_family_trade.size());
-			} else {
-				// 资产显示
-				model.addAttribute("hftTotalBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-				model.addAttribute("hftAvailableBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-				model.addAttribute("hftFrozenBalanceDisplay", NumberUtils.DF_CASH_CONMMA.format(0));
-				model.addAttribute("hftFunddayincome", NumberUtils.DF_CASH_CONMMA.format(0));// 昨日收益
-				model.addAttribute("hftTotalincome", NumberUtils.DF_CASH_CONMMA.format(0));// 累计收益
-				model.addAttribute("hft_family_trade_size", "0");
-			}
 	}
 }

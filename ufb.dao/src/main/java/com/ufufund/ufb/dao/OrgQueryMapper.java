@@ -64,6 +64,8 @@ public interface OrgQueryMapper extends BaseDao {
 	
 	public List<QueryCustplandetail> getQueryCustplandetail(
 			@Param("custno")String custno,
-			@Param("orgid")String orgid
+			@Param("orgid")String orgid,
+			@Param("planid")String plan
 			);
+	public String getOrgidByPlanid(String planid);
 }

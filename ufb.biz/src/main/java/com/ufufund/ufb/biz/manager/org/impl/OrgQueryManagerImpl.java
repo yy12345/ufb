@@ -93,9 +93,14 @@ public class OrgQueryManagerImpl extends ImplCommon implements OrgQueryManager {
 	}
 
 	@Override
-	public List<QueryCustplandetail> getQueryCustplandetail(String custno, String orgid) {
+	public List<QueryCustplandetail> getQueryCustplandetail(String custno, String orgid,String planid) {
 		// TODO Auto-generated method stub
-		return orgQueryMapper.getQueryCustplandetail(custno, orgid);
+		return orgQueryMapper.getQueryCustplandetail(custno, orgid, planid);
+	}
+
+	@Override
+	public String getOrgidByPlanid(String planid) {
+		return orgQueryMapper.getOrgidByPlanid(planid);
 	}
 
 	

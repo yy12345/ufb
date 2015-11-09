@@ -32,7 +32,7 @@ import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.enums.TableName;
-import com.ufufund.ufb.model.vo.ConfirmOrgInfoVo;
+import com.ufufund.ufb.model.vo.OrgBankInfoVo;
 import com.ufufund.ufb.model.vo.StudentVo;
 import com.ufufund.ufb.model.vo.Today;
 
@@ -399,7 +399,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	}
 
 	@Override
-	public ConfirmOrgInfoVo queryOrgConfirm(String custno) {
-		return custinfoMapper.queryOrgConfirm(custno);
+	public OrgBankInfoVo queryOrgBankInfo(String custno) {
+		return custinfoMapper.queryOrgBankInfo(custno);
 	}
 }

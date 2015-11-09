@@ -224,7 +224,7 @@
 			a.pay_custno as paycustno,
 			date_format(a.pay_date,'%Y-%m-%d')  as paydate,
 			date_format(a.plan_date,'%Y-%m-%d')  as plandate,
-			d.plan_name as palnname,
+			d.plan_name as planname,
 			d.plan_type as plantype,
 			d.cycle_type as cycletype,
 			d.type
@@ -240,10 +240,15 @@
 			<if test="orgid != null">
 			and a.org_id = #{orgid,jdbcType=VARCHAR}
 			</if>
+			<if test="planid != null">
+			and a.plan_id = #{planid,jdbcType=VARCHAR}
+			</if>
 			and b.p_custno  = #{custno,jdbcType=VARCHAR} 
 			order by a.student_id, a.plan_date  desc
     </select>
-    
+    <select id="getOrgidByPlanid" parameterType="java.lang.String" resultType="java.lang.String">
+    	select org_id from ufu_dev.org_plan where plan_id=#{planid,jdbcType=VARCHAR}
+    </select>
     
 </mapper>
 

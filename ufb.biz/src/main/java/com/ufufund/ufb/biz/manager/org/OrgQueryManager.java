@@ -91,5 +91,9 @@ public interface OrgQueryManager {
 	/*
 	 * 个人用户查询收费计划详情
 	 */
-	public List<QueryCustplandetail> getQueryCustplandetail(String custno, String orgid);
+	public List<QueryCustplandetail> getQueryCustplandetail(String custno, String orgid,String planid);
+	/**
+	 * 根据planid 查询机构信息
+	 */
+	public String getOrgidByPlanid(String planid);
 }

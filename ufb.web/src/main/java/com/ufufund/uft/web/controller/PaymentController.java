@@ -28,11 +28,11 @@ import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
-import com.ufufund.ufb.model.vo.ConfirmOrgInfoVo;
+import com.ufufund.ufb.model.vo.OrgBankInfoVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgStudent;
-import com.ufufund.ufb.model.vo.QueryStudentsPayVo;
+import com.ufufund.ufb.model.vo.PayListVo;
 import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -224,7 +224,7 @@ public class PaymentController {
 	@RequestMapping(value = "pay_notice")
 	public String payNotice(String orgids,Model model) {
 		
-		List<QueryStudentsPayVo> planLists = new ArrayList<QueryStudentsPayVo>();
+		List<PayListVo> planLists = new ArrayList<PayListVo>();
 		try{
 			CustinfoVo custinfoVo = UserHelper.getCustinfoVo();
 			
@@ -238,9 +238,8 @@ public class PaymentController {
 			for(int i=0;i<orgidArr.length;i++){
 				String orgid=orgidArr[i];
 				List<QueryCustplandetail> planlist=new ArrayList<QueryCustplandetail>();
-				QueryStudentsPayVo stuPayVo=new QueryStudentsPayVo();
-				planlist = orgQueryManager.getQueryCustplandetail(custinfoVo.getCustno(), orgid);
-				stuPayVo.setPlanList(planlist);
+				PayListVo stuPayVo=new PayListVo();
+				planlist = orgQueryManager.getQueryCustplandetail(custinfoVo.getCustno(), orgid,null);
 				if(null!=planlist && planlist.size()>0){
 					for(QueryCustplandetail plan:planlist){
 						plancount = plancount + 1;
@@ -251,6 +250,7 @@ public class PaymentController {
 						totalplanmonthamt = totalplanmonthamt.add(planmonthamt);
 					}
 				}
+				stuPayVo.setPlanList(planlist);
 				planLists.add(stuPayVo);
 			}
 			model.addAttribute("planLists", planLists);
@@ -271,56 +271,54 @@ public class PaymentController {
 	@RequestMapping(value = "pay_confirm")
 	public String payReview(String  allplanids, Model model) {
 		
-		List<QueryStudentsPayVo> planlistchecked = new ArrayList<QueryStudentsPayVo>();
+		List<PayListVo> planlistchecked = new ArrayList<PayListVo>();
 		try{
 			CustinfoVo custinfoVo = UserHelper.getCustinfoVo();
 			
 			if(StringUtils.isBlank(allplanids)){
 				throw new UserException("系统异常！");
 			}
-			
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
-			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(custinfoVo.getCustno());
-			int allcount = 0;
 			List<QueryCustplandetail> planchecked = new ArrayList<QueryCustplandetail>();
-			for(QueryOrgStudent org: orglist){
-				ConfirmOrgInfoVo orginfo = new ConfirmOrgInfoVo();
-				String orgid = org.getOrgid();
-				QueryStudentsPayVo payVo = new QueryStudentsPayVo();
-				List<QueryCustplandetail> planlist = orgQueryManager.getQueryCustplandetail(custinfoVo.getCustno(), orgid);
-				 List<QueryCustplandetail> planOrglist=new  ArrayList<QueryCustplandetail>();
-				if(planlist != null && planlist.size()>0){
-					 orginfo=custManager.queryOrgConfirm(orgid);
-					for(QueryCustplandetail detail : planlist){
-						if(allplanids != null){
-							if(allplanids.indexOf(detail.getPlanid())>-1){
-								planchecked.add(detail);
-								planOrglist.add(detail);
-								payVo.setOrginfo(orginfo);
-							}
-						}
-					}
-					payVo.setPlanList(planOrglist);
-					planlistchecked.add(payVo);
+			String[] planids=allplanids.split(",");
+			for(int i=0;i<planids.length;i++){
+				String planid=planids[i];
+				String orgid=orgQueryManager.getOrgidByPlanid(planid);
+				List<QueryCustplandetail> planlist = orgQueryManager.getQueryCustplandetail(custinfoVo.getCustno(),orgid,planid);
+				if(planlist.size()>0){
+					QueryCustplandetail plan  = planlist.get(0);
+					planchecked.add(plan);
 				}
 			}
-			for(QueryCustplandetail plan:planchecked){
-				allcount = allcount + 1;
-				BigDecimal planmonthamt = BigDecimal.ZERO;
-				if(null != plan.getPayappamount()){
-					planmonthamt = new BigDecimal(plan.getPayappamount());
+			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(custinfoVo.getCustno());
+			for(QueryOrgStudent org: orglist){
+				String orgid=org.getOrgid();
+				List<QueryCustplandetail> planOrglist=new  ArrayList<QueryCustplandetail>();
+				OrgBankInfoVo orginfo=custManager.queryOrgBankInfo(orgid);
+				PayListVo payVo = new PayListVo();
+				for(QueryCustplandetail plan:planchecked){
+					if(orgid.equals(plan.getOrgid())){
+						BigDecimal planmonthamt = BigDecimal.ZERO;
+						if(null != plan.getPayappamount()){
+							planmonthamt = new BigDecimal(plan.getPayappamount());
+						}
+						totalplanmonthamt = totalplanmonthamt.add(planmonthamt);
+						planOrglist.add(plan);
+					}
 				}
-				totalplanmonthamt = totalplanmonthamt.add(planmonthamt);
+				payVo.setOrginfo(orginfo);
+				payVo.setPlanList(planOrglist);
+				planlistchecked.add(payVo);
 			}
 			
-			// yihangxinxi 
+			// 银行、账户信息 
 			this.setModel(custinfoVo, model);
 			Bankcardinfo bankcard=bankCardManager.getBankCardInfo(custinfoVo.getCustno());
 			
-			model.addAttribute("bankcard", bankcard);
-			model.addAttribute("planlistchecked", planlistchecked);
-			model.addAttribute("allcount", allcount);
-			model.addAttribute("totalplanmonthamt", totalplanmonthamt);
+			model.addAttribute("bankcard",bankcard);
+			model.addAttribute("planlistchecked",planlistchecked);
+			model.addAttribute("allcount",planids.length);
+			model.addAttribute("totalplanmonthamt",totalplanmonthamt);
 			
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
@@ -339,10 +337,7 @@ public class PaymentController {
 		tradeaccosts.add("Y");   
 		tradeaccosts.add("N");  
 		
-		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(
-				custinfoVo.getCustno(),
-				null, 
-				tradeaccosts);
+		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno(),null,tradeaccosts);
 		boolean isufbCard=false;
 		if(null != hft_family_trade && hft_family_trade.size() > 0){
 			isufbCard=true;

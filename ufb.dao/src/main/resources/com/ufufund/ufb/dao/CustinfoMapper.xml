@@ -252,7 +252,7 @@
     	from custinfo a, clazz b where a.custno = b.orgid
     		and b.cid=#{cid,jdbcType=VARCHAR}
     </select>
-		<select id="queryOrgConfirm" parameterType="String" resultType="com.ufufund.ufb.model.vo.ConfirmOrgInfoVo">
+		<select id="queryOrgBankInfo" parameterType="String" resultType="com.ufufund.ufb.model.vo.OrgBankInfoVo">
 	    select 
 	       b.bankacco,
 	       b.bankadd as openbankaddr,

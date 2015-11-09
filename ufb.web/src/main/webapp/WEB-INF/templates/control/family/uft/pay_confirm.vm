@@ -61,6 +61,7 @@
     });
   }) 
 </script>
+    
 </head>
 <body>
     <div id="body">
@@ -73,7 +74,7 @@
             <div class="a1" style="margin: 16px 0;height: 22px">
                 <h1 class="fl">确认缴费</h1>
                 <div class="fr f14">
-                    已选<span>$allcount</span>条收费通知，总计： <span class="num-color">$totalplanmonthamt</span> 元
+                	已选<span>$allcount</span>条收费通知，总计： <span class="num-color">$totalplanmonthamt</span> 元
                 </div>
             </div>
             <div class="select-account select-account-v2">
@@ -136,36 +137,34 @@
                            <label>咨询电话</label>
                            <p>$!{org.telno}</p>
                        </div>
-
                        <div class="logoimg">
-                           幼儿园LOGO图片
-                           <img src="" alt=""/>
+                                                                             幼儿园LOGO图片
+                          <img src="" alt=""/>
                        </div>
-                       
-                        <div class="affirm-content">
-                            <div class="grades-item-title">
-                                <label>缴费明细</label>
-                                <i class="reduce">+</i>
-                            </div>
-                            <table  style="display: none;">
-                                <tr>
-                                    <th width="20%">缴费交易号</th>
-                                    <th width="30%">收费名称</th>
-                                    <th width="18%">收费方式</th>
-                                    <th width="18%">姓名</th>
-                                    <th width="16%">应收金额(元)</th>
-                                </tr>
-								#foreach($planchecked in $planlist.planList)
-                                <tr>
-                                    <td>$planchecked.planid</td>
-                                    <td>$planchecked.palnname</td>
-                                    <td><span class="tip">#if($plan.cycletype=='S')单次 #else 多次 #end</span></td>
-                                    <td>$planchecked.studentnm</td>
-                                    <td class="num-color">$planchecked.payappamount</td>
-                                </tr>
-								#end
-                            </table>
+                      <div class="affirm-content">
+                        <div class="grades-item-title">
+                            <label>缴费明细</label>
+                            <i class="reduce">+</i>
                         </div>
+                        <table  style="display: none;">
+                            <tr>
+                                <th width="20%">缴费交易号</th>
+                                <th width="30%">收费名称</th>
+                                <th width="18%">收费方式</th>
+                                <th width="18%">姓名</th>
+                                <th width="16%">应收金额(元)</th>
+                            </tr>
+							#foreach($planchecked in $planlist.planList)
+                            <tr>
+                                <td>$planchecked.planid</td>
+                                <td>$planchecked.planname</td>
+                                <td><span class="tip">#if($plan.cycletype=='S')单次 #else 多次 #end</span></td>
+                                <td>$planchecked.studentnm</td>
+                                <td class="num-color">$planchecked.payappamount</td>
+                            </tr>
+							#end
+                        </table>
+                      </div>
                 </div>
             </div>
 			#end

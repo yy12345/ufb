@@ -6,9 +6,9 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class QueryStudentsPayVo {
+public class PayListVo {
 
-	private ConfirmOrgInfoVo orginfo;       //某机构信息集合
+	private OrgBankInfoVo orginfo;       //某机构信息集合
 	private List<QueryOrgStudent> studentList;   //某机构学生信息集合
 	private List<QueryCustplandetail> planList;  //当月某机构缴费计划
 	private int plancount;                       //当月某机构总的缴费计划数

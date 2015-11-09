@@ -2353,7 +2353,7 @@ i.triangle-down {
 .control-group {
     margin: 2em 0;
     font-size:14px;
-    display:none;
+   /*  display:none; */
 }
 .control-group input[type=text],
 .control-group input[type=password] {
