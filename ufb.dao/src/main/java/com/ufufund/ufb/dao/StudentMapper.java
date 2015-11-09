@@ -27,6 +27,8 @@ public interface StudentMapper {
 	int adjustStudent(@Param("vo")AdjustStudentVo vo, @Param("cidList")List<String> cidList,
 			@Param("sidList")List<String> sidList);
 	
+	int bindStudent(Student s);
+	
 	int getCountByClazz(String cid);
 	
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.FamilyCodesMapper">
+	
+	<sql id="baseColumn">
+		code         ,
+		sid          ,
+		parent_name  ,
+		parent_mobile,
+		state        ,
+		createtime   
+	</sql>
+	
+	<select id="get" parameterType="FamilyCodes" resultType="FamilyCodes">
+    	select <include refid="baseColumn"/> from family_codes where
+    		code = #{code, jdbcType=VARCHAR}
+    	<if test="parent_name != null">
+    		and parent_name = #{parent_name, jdbcType=VARCHAR}
+    	</if>
+    </select>
+    
+    <update id="useFamilyCodes" parameterType="String">
+    	update family_codes set state = '1' 
+    	where code = #{code, jdbcType=VARCHAR} and state = '0'
+    </update>
+	
+</mapper>

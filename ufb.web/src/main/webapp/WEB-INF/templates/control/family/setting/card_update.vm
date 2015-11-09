@@ -369,6 +369,6 @@
 </div>
 
 <!-- 家庭用户协议  -->
-#parse("control/family/account/user_contract.vm")   	
+#parse("control/family/account/contract_card.vm")   	
 </body>
 </html>

@@ -229,6 +229,7 @@
 			b.BANKNO,
 			b.BANKACCO,
 			b.MAINFLAG,
+			c.banknm,
 			c.level 
 		FROM bankcardinfo b,bankbase c
 		WHERE 

@@ -37,19 +37,35 @@ public class UserHelper {
 	}
 	
 	/**
-	 * 设置session属性
-	 * @return
-	 */
-	public static void setSessionAttr(String name, String value){
-		ServletHolder.getSession().setAttribute(name, value);
-	}
-	
-	/**
 	 * 获取session属性
 	 * @return
 	 */
-	public static String getSessionAttr(String name){
-		return (String)ServletHolder.getSession().getAttribute(name);
+	public static Object getSessionAttr(String name){
+		return ServletHolder.getSession().getAttribute(name);
 	}
 	
+	/**
+	 * 设置session属性
+	 * @return
+	 */
+	public static void setSessionAttr(String name, Object value){
+		ServletHolder.getSession().setAttribute(name, value);
+	}	
+	
+	/**
+	 * 移除session属性
+	 * @return
+	 */
+	public static void removeSessionAttr(String name){
+		ServletHolder.getSession().removeAttribute(name);
+	}
+	
+	
+	/**
+	 * 设置request属性
+	 * @return
+	 */
+	public static void setRequestAttr(String name, Object value){
+		ServletHolder.getRequest().setAttribute(name, value);
+	}	
 }

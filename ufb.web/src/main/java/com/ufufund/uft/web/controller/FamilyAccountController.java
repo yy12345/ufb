@@ -253,7 +253,7 @@ public class FamilyAccountController {
 			// 注册成功，保存用户至session
 			Custinfo custinfo = custManager.getCustinfo(custno);
 			UserHelper.saveCustinfoVo(this.convertCustInfo2Vo(custinfo));
-				
+			ServletHolder.getSession().removeAttribute(REGISTER_VO);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "操作失败");

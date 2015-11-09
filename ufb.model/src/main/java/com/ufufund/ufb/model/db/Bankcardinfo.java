@@ -34,5 +34,6 @@ public class Bankcardinfo{
 	private String bankcitynm;
 	private String bankadd; // 支行网点
 	
+	private String banknm;  // 银行名称
 	private String level;   // 银行卡级别:1-幼富宝卡；2-普通卡
 }

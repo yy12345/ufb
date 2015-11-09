@@ -246,6 +246,12 @@
     	join custinfo u on c.orgid=u.custno 
     	 where cid=#{cid,jdbcType=VARCHAR}
     </select>
+    
+    <select id="getCustinfoByCid" parameterType="String" resultType="Custinfo">
+    	select a.custno, a.invnm, a.ORGANIZATION orgnm, a.BUSINESS orgbusiness, a.orgadd 
+    	from custinfo a, clazz b where a.custno = b.orgid
+    		and b.cid=#{cid,jdbcType=VARCHAR}
+    </select>
 	
 </mapper>
 

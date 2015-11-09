@@ -1,4 +1,3 @@
-<!doctype html>
 <html>
 <head>
 <title>我的账户</title>
@@ -117,7 +116,7 @@
 						#end
 					#end
 				  </p>
-                  <a href="#" class="fr add-organiz hoverLine">+新收费机构</a>
+                  <a href="${ufbDomain}/family/uft/code_index.htm" class="fr add-organiz hoverLine">+新收费机构</a>
               </div>
               <div><!--切换-->
                    <!--第一个幼儿园-->
@@ -131,7 +130,7 @@
 							  </p></li>
                               <li class="sli2"><p class="sli2-p1">本月共<strong class="num-red">#if($!{plancount1}) $!{plancount1} #else 0 #end</strong>个缴费通知，总计（元）</p><p class="sli2-p2">  #if($!{planmonthamt1})$!{planmonthamt1} #else 0.00 #end</p></li>
                               <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">#if($!{paydiscount1})+$!{paydiscount1} #else 0.00 #end</p></li>
-                              <li class="sli4"><a href="${ufbDomain}/family/pay_notice.htm" class="btn btn-white">缴费</a></li>
+                              <li class="sli4"><a href="${ufbDomain}/family/uft/pay_notice.htm" class="btn btn-white">缴费</a></li>
                           </ul>
 					  </div>
                       <div class="pay-detail">
