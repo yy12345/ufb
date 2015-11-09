@@ -54,9 +54,7 @@
        padding: 0 4px 0 21px;
    }
 </style>
-<script type="text/javascript" src="${staticDomain}/family/scripts/jquery.js"></script>
-<script type="text/javascript" src="${staticDomain}/family/scripts/plug1.js"></script><!--自定义插件-->
-<script type="text/javascript" src="${staticDomain}/family/libs/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${staticDomain}/family/scripts/plug.js"></script><!--自定义插件-->
 <script type="text/javascript">
     $(function(){
         $(".checkbox").checkbox();
