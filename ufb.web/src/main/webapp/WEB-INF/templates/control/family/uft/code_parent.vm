@@ -71,6 +71,6 @@ $(function(){
    </div>
 </div>
 
-#parse("control/family/uft/uft_index_inner.vm")
+#parse("control/family/uft/code_inner.vm")
 </body>
 </html>
