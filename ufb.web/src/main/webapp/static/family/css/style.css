@@ -3698,12 +3698,14 @@ grades-item{
 .grades-item-title .reduce{
     width:14px;
     height:14px;
-    background:url(../images/12.png) no-repeat;
+//    background:url(../images/12.png) no-repeat;
     top:50%;
-    margin:-7px 20px 0 0;
+    margin:-20px 20px 0 0;
     cursor:pointer;
     position:absolute;
     right:0;
+    font-size: 22px;
+    color: #666;
 }
 .grades-item-title .reduce.active{
     background:url(../images/12.png) no-repeat 0 100%;
