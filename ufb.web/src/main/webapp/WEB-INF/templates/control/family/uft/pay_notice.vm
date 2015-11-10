@@ -67,6 +67,7 @@
             var thisattr =  $(this).children("input:[type='checkbox']").attr("checked");
             var allcblabels = $(".checkbox");
             var allcb =  $("input:[type='checkbox']");
+            var zdkf=$("input:[type='checkbox'][name='zdkf']");
             if( thisattr == "checked") {
             	$(".checkcount").show();
     			$(".allcount").hide();
@@ -78,6 +79,8 @@
     			$(".allcount").show();
                 allcblabels.removeClass("active");
                 allcb.attr("checked", false);
+                zdkf.attr("checked", "checked");
+                zdkf.parent().addClass("active");
             }
             $(".count").html($plancount);
 			$(".allamt").text(parseFloat($totalplanmonthamt).toFixed(2));
@@ -99,30 +102,7 @@
             }
             var length1=$(".familyPayNotice").find("input[type='checkbox'][name='checkid']").length;
             var length2=$(".familyPayNotice").find("input[name='checkid']:checked").length;
-            $(".familyPayNotice").find("input[name='checkid']").each(function(){
-            	var appamt=parseFloat($(this).parent().parent().siblings(".width4").find(".payappamt").text()).toFixed(2);
-            	if($(this).attr("checked")=="checked"){
-            		allamt=parseFloat((allamt-0)+(appamt-0)).toFixed(2);
-            		amt=allamt;
-            	}
-            })
-            if(length2==0){
-            	amt=0.00;
-    			$(".count").html($plancount);
-    			$(".checkcount").hide();
-    			$(".allcount").show();
-    			$(".allamt").text(parseFloat($totalplanmonthamt).toFixed(2));
-            }else{
-            	$(".checkcount").show();
-    			$(".allcount").hide();
-            	$(".allamt").html(amt);
-            	$(".count").html(length2);
-            }
-        	if(length1 ==length2 ){
-    			$(".cb-allselect").addClass("active");
-    		}else{
-    			$(".cb-allselect").removeClass("active");
-    		}
+            change_count(length1,length2);
         });
         
         // 底部缴费总结
@@ -135,25 +115,35 @@
 			}
 	   });
         
-        var change_count=function(ipt,check){
-        	// 已选中的个数
-    		$(".count").html(ipt);
-    		$(".checkcount").show();
-			$(".allcount").hide();
-    		// 已选中的金额
-    		var currentamt=parseFloat($(check).parent().parent().siblings(".width4").find(".payappamt").text()).toFixed(2);
-    		if($(check).attr("checked")=="checked"){
-    			amt=parseFloat((amt-0)+(currentamt-0)).toFixed(2);
-    		}else{
-    			amt=parseFloat((amt-0)-(currentamt-0)).toFixed(2);
-    		}
+        // 选中的个数和金额
+        var change_count=function(length1,length2){
+		   var allamt=0.00;
+		   $(".familyPayNotice").find("input[name='checkid']").each(function(){
+            	var appamt=parseFloat($(this).parent().parent().siblings(".width4").find(".payappamt").text()).toFixed(2);
+            	if($(this).attr("checked")=="checked"){
+            		allamt=parseFloat((allamt-0)+(appamt-0)).toFixed(2);
+            		amt=allamt;
+            	}
+            })
     		$(".allamt").html(amt);
-    		if(ipt==0){
-    			$(".count").html($plancount);
-    			$(".checkcount").hide();
-    			$(".allcount").show();
-    			$(".allamt").text(parseFloat($totalplanmonthamt).toFixed(2));
-    		}
+		    if(length2==0){
+	   			$(".count").html($plancount);
+	   			$(".checkcount").hide();
+	   			$(".allcount").show();
+	   			$(".allamt").text(parseFloat($totalplanmonthamt).toFixed(2));
+	        }else{
+	           	$(".checkcount").show();
+	   			$(".allcount").hide();
+	           	$(".allamt").html(amt);
+	           	$(".count").html(length2);
+           }
+           if(length1 ==length2 ){
+   			   $(".cb-allselect").addClass("active");
+   			   $(".cb-allselect").children("input:[type='checkbox']").attr("checked",true);
+   		   }else{
+   			   $(".cb-allselect").removeClass("active");
+   			   $(".cb-allselect").children("input:[type='checkbox']").attr("checked",false);
+   		   }
         }
         
         // 选中事件
@@ -167,16 +157,10 @@
     		}else{
     			$(parent_item).find(".item-title .checkbox").removeClass("active");
     		}
-    		// 全选
-    		var parents_item=$(".familyPayNotice");
-    		var length1=$(parents_item).find("input[type='checkbox'][name='checkid']").length;
-    		var length2=$(parents_item).find("input[name='checkid']:checked").length;
-    		if(length1 ==length2 ){
-    			$(".cb-allselect").addClass("active");
-    		}else{
-    			$(".cb-allselect").removeClass("active");
-    		}
-    		change_count(length2,$(this));
+    		
+    		var length1=$(".familyPayNotice").find("input[type='checkbox'][name='checkid']").length;
+            var length2=$(".familyPayNotice").find("input[name='checkid']:checked").length;
+            change_count(length1,length2);
          });
     	
         // 确认缴费事件
@@ -249,11 +233,11 @@
                                 </li>
                                 <li class="width4">
                                     <p>应收金额(元) ：  <span class="num-color f14 payappamt">$plan.payappamount</span>
-                                    <p class="mgtop">确认截止日：  <span>$!{plan.plandate}</span></p>
+                                    <p class="mgtop">确认截止日：  <span>$plan.plandate</span></p>
                                 </li>
                                 <li>
                                     <a href="javascript:;" class="payment btn btn-white">缴&nbsp;费</a>
-                                    <p class="f14 mgtop10"><label class="checkbox"><input type="checkbox" checked="checked"/>自动扣费</label></p>
+                                    #if($plan.type=='AT') <p class="f14 mgtop10"><label class="checkbox"><input type="checkbox"  name="zdkf" checked="checked"  disabled/>自动扣费</label></p> #end
                                 </li>
                             </ul>
                         </div>

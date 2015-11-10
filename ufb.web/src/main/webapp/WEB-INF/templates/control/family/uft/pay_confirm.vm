@@ -86,10 +86,10 @@
                     <ul>
                         <li class="li1">使用</li>
                         <li class="li2">
-                            <div class="costpay"><label class="cost-type"><input type="radio" name="ufb" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span>$availableBalance 元</span>
+                            <div class="costpay"><label class="cost-type"><input type="radio" name="paytype" type="U" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span>$availableBalance 元</span>
                             <div class="payMoney showNow">支付<span class="num-color paymoney">$totalplanmonthamt元</span></div>
                             </div>
-                            <div class="costpay"><label class="cost-type"><input type="radio" name="paybank" style="display: none;"/><i class="imitate-radio"></i>
+                            <div class="costpay"><label class="cost-type"><input type="radio" name="paytype" type="B" style="display: none;"/><i class="imitate-radio"></i>
                             ${bankcard.banknm} 尾号
                             #set($tailStr=$bankcard.bankacco)
 							#set($start=$tailStr.length() - 4)
@@ -131,15 +131,21 @@
                        </div>
                        <div class="organiz-group">
                            <label>银行账号</label>
-                           <p>$!{org.bankacco}</p>
+                           #if ($org.bankacco)
+       						#set($tailStr=$org.bankacco)
+       						#set($start=$tailStr.substring(0,6))
+       						#set($l_0=$tailStr.length() - 4)
+       						#set($l_1=$tailStr.length())
+       						#set($end=$tailStr.substring($l_0,$l_1))
+       						<p>$start************$end</p>
+       						#end
                        </div>
                        <div class="organiz-group">
                            <label>咨询电话</label>
                            <p>$!{org.telno}</p>
                        </div>
                        <div class="logoimg">
-                                                                             幼儿园LOGO图片
-                          <img src="" alt=""/>
+                          <img src="${staticDomain}/family/images/orglogo.jpg" alt="幼儿园LOGO"/>
                        </div>
                       <div class="affirm-content">
                         <div class="grades-item-title">
@@ -170,10 +176,11 @@
 			#end
 			#end
             <div class="affirm-organiz-form">
-                <form action="">
+                <form action="${ufbDomain}/family/uft/confirm_result.htm" method="post">
+                <input type="hidden" name="planids" id="planids" />
                     <div class="control-group" style="margin-top: 2em;margin-bottom: 1em;">
                         <label class="form-lbl" style="width:10em;">请输入交易密码</label>
-                        <input type="password" class="tradepw" placeholder="6位数字密码" maxlength="6" style="width: 190px;"/>
+                        <input type="password" class="tradepw" placeholder="6位数字密码" name="tradePwd" id="tradePwd" maxlength="6" style="width: 190px;"/>
                         <a href="${ufbDomain}/family/setting/password_index.htm" class="forgetpw hoverLine">忘记密码？</a>
                     </div>
                     <div class="control-review">

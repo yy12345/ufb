@@ -161,7 +161,7 @@
                               <td class="num-red">$plan.payappamount</td>
                               <td>$plan.paydate</td>
 							  <td>$plan.plandate</td>
-                              <td>#if(${plan.ispay}=='Y') 已缴费 #else 等待缴费 #end</td>
+                              <td>#if(${plan.ispay}=='Y') 已缴费 #elseif(${plan.ispay}=='F') 等待缴费 #else 等待扣款  #end</td>
                           </tr>
 						  #end		  
                       </table>
