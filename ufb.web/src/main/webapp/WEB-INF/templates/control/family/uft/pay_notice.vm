@@ -106,14 +106,16 @@
         });
         
         // 底部缴费总结
-        $(window).scroll(function(){
-			if(parseInt($('.bottom-fix').offset().top) >= parseInt($('.footer').offset().top)){
+        var bottomfix = function(){
+			if(parseInt($('.bottom-fix').offset().top) >= parseInt($('.LowFoot').offset().top)){
 				$('.bottom-fix').css({'position':'static','margin-bottom':100});
 			}
-			if( $(window).scrollTop() < parseInt($('.footer').offset().top)-100-$(window).height()){
+			if( $(window).scrollTop() < parseInt($('.LowFoot').offset().top)-100-$(window).height()){
 				$('.bottom-fix').css({'position':'fixed','margin-bottom':0});
 			}
-	   });
+	   	}
+        bottomfix();
+        $(window).scroll(bottomfix);
         
         // 选中的个数和金额
         var change_count=function(length1,length2){
