@@ -237,8 +237,13 @@ public class PaymentController {
 			int plancount = 0;
 			for(int i=0;i<orgidArr.length;i++){
 				String orgid=orgidArr[i];
-				List<QueryCustplandetail> planlist=new ArrayList<QueryCustplandetail>();
+				Custinfo orgcust=custManager.getCustinfo(orgid);
+				OrgBankInfoVo orginfo=new OrgBankInfoVo();
+				orginfo.setOrgnm(orgcust.getOrgnm());
+				orginfo.setOrgid(orgid);
+				
 				PayListVo stuPayVo=new PayListVo();
+				List<QueryCustplandetail> planlist=new ArrayList<QueryCustplandetail>();
 				planlist = orgQueryManager.getQueryCustplandetail(custinfoVo.getCustno(), orgid,null);
 				if(null!=planlist && planlist.size()>0){
 					for(QueryCustplandetail plan:planlist){
@@ -250,6 +255,7 @@ public class PaymentController {
 						totalplanmonthamt = totalplanmonthamt.add(planmonthamt);
 					}
 				}
+				stuPayVo.setOrginfo(orginfo);
 				stuPayVo.setPlanList(planlist);
 				planLists.add(stuPayVo);
 			}
@@ -338,14 +344,11 @@ public class PaymentController {
 		tradeaccosts.add("N");  
 		
 		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno(),null,tradeaccosts);
-		boolean isufbCard=false;
 		if(null != hft_family_trade && hft_family_trade.size() > 0){
-			isufbCard=true;
 			Assets htfAssets = queryManager.queryAssets(hft_family_trade, BasicFundinfo.YFB.getFundCode());
 			model.addAttribute("availableBalance", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getAvailable()));// 可用资产
 		}else {
 			model.addAttribute("availableBalance", NumberUtils.DF_CASH_CONMMA.format(0));
 		}
-		model.addAttribute("isufbCard", isufbCard); 
 	}
 }

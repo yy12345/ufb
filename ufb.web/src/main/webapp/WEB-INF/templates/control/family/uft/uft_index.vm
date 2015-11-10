@@ -41,7 +41,6 @@
         });
 
         // 缴费    1.总的缴费记录  2.每个机构的缴费记录
-        var orgids=$("#orgids").val();
         var orgid="";
         $(".btn-red").on("click",function(){
         	$(".organization .fl a").each(function(){

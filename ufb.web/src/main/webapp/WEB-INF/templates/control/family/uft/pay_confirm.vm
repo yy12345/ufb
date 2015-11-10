@@ -86,10 +86,10 @@
                     <ul>
                         <li class="li1">使用</li>
                         <li class="li2">
-                            <div class="costpay" #if(${isufbCard}==true) style="display:block;" #else style="display:none;" #end><label class="cost-type"><input type="radio" name="ufb" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span>$availableBalance 元</span>
+                            <div class="costpay"><label class="cost-type"><input type="radio" name="ufb" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span>$availableBalance 元</span>
                             <div class="payMoney showNow">支付<span class="num-color paymoney">$totalplanmonthamt元</span></div>
                             </div>
-                            <div class="costpay"><label class="cost-type"><input type="radio" name="paybank" style="display: none;" #if(${isufbCard}==false) checked="checked"#end /><i class="imitate-radio"></i>
+                            <div class="costpay"><label class="cost-type"><input type="radio" name="paybank" style="display: none;"/><i class="imitate-radio"></i>
                             ${bankcard.banknm} 尾号
                             #set($tailStr=$bankcard.bankacco)
 							#set($start=$tailStr.length() - 4)
@@ -105,7 +105,7 @@
                 </div>
             </div>
 			#foreach($planlist in $planlistchecked)
-			#set($list=$planlist.planList)
+			#set($list=${planlist.planList})
 			#if($list.size()>0)
 			<div class="affirm-organiz">
                 <div class="affirm-organiz-top">
@@ -146,7 +146,7 @@
                             <label>缴费明细</label>
                             <i class="reduce">+</i>
                         </div>
-                        <table  style="display: none;">
+                        <table style="display: none;">
                             <tr>
                                 <th width="20%">缴费交易号</th>
                                 <th width="30%">收费名称</th>
@@ -154,7 +154,7 @@
                                 <th width="18%">姓名</th>
                                 <th width="16%">应收金额(元)</th>
                             </tr>
-							#foreach($planchecked in $planlist.planList)
+							#foreach($planchecked in ${planlist.planList})
                             <tr>
                                 <td>$planchecked.planid</td>
                                 <td>$planchecked.planname</td>

@@ -125,7 +125,7 @@
     		}
         });
         
-      // 底部缴费总结
+        // 底部缴费总结
         $(window).scroll(function(){
 			if(parseInt($('.bottom-fix').offset().top) >= parseInt($('.footer').offset().top)){
 				$('.bottom-fix').css({'position':'static','margin-bottom':100});
@@ -179,9 +179,9 @@
     		change_count(length2,$(this));
          });
     	
-        // 确认缴费的提交
+        // 确认缴费事件
+    	var allplanids = "";
     	$(".payreview").on("click",function(){
-			var allplanids = "";
 			$(".checkbox.cb-one :checked").each(function(){
 				allplanids = allplanids + $(this).attr("planid") + ",";
 			})
@@ -192,6 +192,19 @@
 			$("#allplanids").val(allplanids);
 			$("#form-payNotice").submit();
 		});
+    	
+    	// 单个缴费事件
+    	$(".payment").on("click",function(){
+    		var check=$(this).parent().siblings(".width1").find(".checkbox.cb-one").children("input:[type='checkbox']");
+    		if(check.attr("checked")=="checked"){
+    			allplanids=check.attr("planid");
+    		}else{
+    			alert("请选择需要缴费的计划！");
+				return false;
+    		}
+    		$("#allplanids").val(allplanids);
+			$("#form-payNotice").submit();
+    	})
     })
 </script>
    
@@ -215,10 +228,11 @@
                 </div>
 				#foreach($plans in $planLists)
                 <div class="notice-content">
-			    	#foreach($plan in ${plans.planList})
-                    <div class="item-title" #if($!{velocityCount}==1) style="display:blcok;" #else style="display:none;"  #end>
-                        <label class="checkbox" orgid="$plan.orgid"><input type="checkbox" />$plan.orgnm</label>
+			    	#set($org = ${plans.orginfo})
+                    <div class="item-title">
+                        <label class="checkbox" orgid="$org.orgid"><input type="checkbox" />$org.orgnm</label>
                     </div>
+                    #foreach($plan in ${plans.planList})
                     <div class="item">
                         <div class="fix-content">
                             <ul>
@@ -230,7 +244,7 @@
                                     <p>缴费交易号：  <span>$plan.planid</span></p>
                                 </li>
                                 <li class="width3">
-                                    <p class="">$plan.studentnm</p>
+                                    <p>$plan.studentnm</p>
                                     <p class="mgtop">$plan.orgnm</p>
                                 </li>
                                 <li class="width4">
@@ -238,8 +252,8 @@
                                     <p class="mgtop">确认截止日：  <span>$!{plan.plandate}</span></p>
                                 </li>
                                 <li>
-                                    <a href="javascript:;" class="payreview btn btn-white">缴&nbsp;费</a>
-                                    <p class="f14 mgtop10"><label class="checkbox"><input type="checkbox"/>自动扣费</label></p>
+                                    <a href="javascript:;" class="payment btn btn-white">缴&nbsp;费</a>
+                                    <p class="f14 mgtop10"><label class="checkbox"><input type="checkbox" checked="checked"/>自动扣费</label></p>
                                 </li>
                             </ul>
                         </div>
