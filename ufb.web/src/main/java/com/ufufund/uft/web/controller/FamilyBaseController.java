@@ -75,68 +75,46 @@ public class FamilyBaseController {
 	 */
 	@RequestMapping(value = "uft/uft_index")
 	public String uftIndex(Model model) throws IOException {
+		
+		CustinfoVo custinfo = UserHelper.getCustinfoVo();
 		try{
-			CustinfoVo custinfo = UserHelper.getCustinfoVo();
-			/** 货基信息显示 **/
-			// 海富通
-			FundInfo hftFundInfo = new FundInfo();
-			hftFundInfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-			hftFundInfo.setFundcode(BasicFundinfo.YFB.getFundCode());
-			model.addAttribute("hftFundInfo", fundManager.getFundInfo(hftFundInfo));
-			// 银联
-			FundInfo cpFundInfo = new FundInfo();
-			cpFundInfo.setFundcorpno(null);
-			cpFundInfo.setFundcode(null);
-			model.addAttribute("cpFundInfo", null);
-			
-			/** NAV **/
-			// 海富通
-			FundNav hftFundNav = new FundNav();
-			hftFundNav.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-			hftFundNav.setFundcode(BasicFundinfo.YFB.getFundCode());
-			List<FundNav> hftNavList = queryManager.qryFundNavList(hftFundNav);
-			model.addAttribute("hftNavList", hftNavList);
-			if(null != hftNavList && hftNavList.size() >0){
-				FundNav curHtfFundNav = hftNavList.get(0);
-				model.addAttribute("curHtfFundNav", curHtfFundNav);
+			// 获取绑定机构信息
+			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(custinfo.getCustno());
+			if(orglist == null || orglist.size() == 0){
+				return "redirect:/family/uft/code_index.htm";
 			}
 			
-			//机构、学生缴费信息
-			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(custinfo.getCustno());
+			// 学生缴费信息
 			List<PayListVo> paylist = new ArrayList<PayListVo>();
 			int allcount=0;
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
-			if(orglist != null && orglist.size() > 0){
-				for(QueryOrgStudent org: orglist){
-					BigDecimal monthtotalamt = BigDecimal.ZERO;
-					int count=0;
-					PayListVo stuPayVo=new PayListVo();
-					String orgid = org.getOrgid();
-					String custno = custinfo.getCustno();
-					
-					List<QueryOrgStudent>  studentlist = orgQueryManager.getQueryStudentByOrgid(orgid, custno);
-					stuPayVo.setStudentList(studentlist);
-					
-					// 个人用户查询收费计划详情
-					List<QueryCustplandetail> planlist = orgQueryManager.getQueryCustplandetail(custno, orgid,null);
-					stuPayVo.setPlanList(planlist);
-					
-					for(QueryCustplandetail plan:planlist){
-						BigDecimal planmonthamt = BigDecimal.ZERO;
-						count=count+1;
-						allcount=allcount+1;
-						if(null!=plan.getPayappamount()){
-							planmonthamt=new BigDecimal(plan.getPayappamount());
-						}
-						monthtotalamt=monthtotalamt.add(planmonthamt);
+			for(QueryOrgStudent org: orglist){
+				BigDecimal monthtotalamt = BigDecimal.ZERO;
+				int count=0;
+				PayListVo stuPayVo=new PayListVo();
+				
+				List<QueryOrgStudent>  studentlist = orgQueryManager.getQueryStudentByOrgid(org.getOrgid(), custinfo.getCustno());
+				stuPayVo.setStudentList(studentlist);
+				
+				// 个人用户查询收费计划详情
+				List<QueryCustplandetail> planlist = orgQueryManager.getQueryCustplandetail(custinfo.getCustno(), org.getOrgid(),null);
+				stuPayVo.setPlanList(planlist);
+				
+				for(QueryCustplandetail plan:planlist){
+					BigDecimal planmonthamt = BigDecimal.ZERO;
+					count=count+1;
+					allcount=allcount+1;
+					if(null!=plan.getPayappamount()){
+						planmonthamt=new BigDecimal(plan.getPayappamount());
 					}
-					//上个月的退费  later....
-					
-					stuPayVo.setPlancount(count);
-					stuPayVo.setMonthtotalamt(monthtotalamt);
-					paylist.add(stuPayVo);
-					totalplanmonthamt = totalplanmonthamt.add(monthtotalamt);
+					monthtotalamt=monthtotalamt.add(planmonthamt);
 				}
+				//上个月的退费  later....
+				
+				stuPayVo.setPlancount(count);
+				stuPayVo.setMonthtotalamt(monthtotalamt);
+				paylist.add(stuPayVo);
+				totalplanmonthamt = totalplanmonthamt.add(monthtotalamt);
 			}
 			
 			model.addAttribute("paylist", paylist);
@@ -224,11 +202,7 @@ public class FamilyBaseController {
 	
 	private void setModel(CustinfoVo custinfoVo, Model model){
 		// 海富通
-		List<String> tradeaccosts = new ArrayList<String>();
-		tradeaccosts.add("Y");   
-		tradeaccosts.add("N");  
-		
-		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno(),null,tradeaccosts);
+		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 		
 		// 海富通资产显示
 		if(null != hft_family_trade && hft_family_trade.size() > 0){

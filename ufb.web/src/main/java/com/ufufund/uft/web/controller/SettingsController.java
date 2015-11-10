@@ -336,22 +336,11 @@ public class SettingsController {
 	@RequestMapping(value = "card_update")
 	public String cardUpdate(Model model) {
 		
+		CustinfoVo custinfoVo = UserHelper.getCustinfoVo();
 		try{
-			CustinfoVo custinfoVo = UserHelper.getCustinfoVo();
-			
-			// 业务规则校验
-			boolean isUfb = false;
-			
-			// 获取用户是否已为幼富宝用户
-			List<String> tradeaccosts = new ArrayList<String>();
-			tradeaccosts.add("Y");  
-			tradeaccosts.add("N");  
-			List<TradeAccoinfoOfMore> list=tradeAccoManager.getTradeAccoList(custinfoVo.getCustno(),null,tradeaccosts);
+			// 业务规则校验:是否已为幼富宝用户
+			List<TradeAccoinfoOfMore> list=tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 			if(list.size()>0&&null!=list){
-				isUfb=true;
-			}
-			
-			if(isUfb){
 				throw new UserException("您已为幼富宝用户！");
 			}
 			

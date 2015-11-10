@@ -85,14 +85,8 @@ public class TradeController {
 		try{
 			String custno = UserHelper.getCustno();
 			// 获取交易账户列表
-			List<String> tradeaccosts = new ArrayList<String>();
-			tradeaccosts.add("Y");  
-			tradeaccosts.add("N");  
-			
-			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
-					custno, 
-					Constant.HftSysConfig.HftFundCorpno, 
-					tradeaccosts);
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno, 
+					Constant.HftSysConfig.HftFundCorpno);
 			
 			// 获取工作日信息等
 			Today today = workDayManager.getSysDayInfo();
@@ -169,14 +163,8 @@ public class TradeController {
 			String custno = UserHelper.getCustno();
 			
 			// 获取交易账户列表
-			List<String> tradeaccosts = new ArrayList<String>();
-			tradeaccosts.add("Y");  
-			tradeaccosts.add("N");  
-			
-			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
-					custno, 
-					Constant.HftSysConfig.HftFundCorpno, 
-					tradeaccosts);
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno, 
+					Constant.HftSysConfig.HftFundCorpno);
 			// 获取用户总资产
 			Assets assets = queryManager.queryAssets(tradeAccoList, BasicFundinfo.YFB.getFundCode());
 			// 获取工作日信息等
@@ -365,13 +353,8 @@ public class TradeController {
 					400
 					);
 			// 获取交易账户列表
-			List<String> tradeaccosts = new ArrayList<String>();
-			tradeaccosts.add("Y");   
-			tradeaccosts.add("N");  
-			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(
-					custno, 
-					Constant.HftSysConfig.HftFundCorpno, 
-					tradeaccosts);
+			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(custno, 
+					Constant.HftSysConfig.HftFundCorpno);
 			// 获取用户总资产
 			Assets assets = queryManager.queryAssets(tradeAccoList, BasicFundinfo.YFB.getFundCode());
 			
@@ -835,168 +818,5 @@ public class TradeController {
 		ServletHolder.forward("/family/ufb/autotrade_index.htm?TAB=DR");
 		return "family/ufb/autotrade_index";
 	}
-	/**
-	 * 重新绑定银行卡
-	 * @param bankCardVo
-	 * @param bankacco
-	 * @param serialid
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="card_add")
-	public String cardAdd(BankCardVo bankCardVo,String bankacco, String serialid,Model model){
-		
-		try{
-				 CustinfoVo custinfoVo=UserHelper.getCustinfoVo();
-				 String ivnname=custinfoVo.getInvnm();
-				 String idno=custinfoVo.getIdno();
-				 //用户信息
-				 model.addAttribute("ivnname", ivnname);
-				 model.addAttribute("idno", idno);
-			    //获得所有的银行卡
-				List<BankBaseInfo> bankBaseList = bankBaseManager.getBankBaseInfoList(null);
-				//支持幼富通的银行 
-				List<BankBaseInfo> yftBankList= new ArrayList<BankBaseInfo>();
-				//其它的银行
-				List<BankBaseInfo> qtBankList= new ArrayList<BankBaseInfo>();
-				for(BankBaseInfo bankinfo:bankBaseList){
-					if("2".equals(bankinfo.getLevel())){
-						qtBankList.add(bankinfo);
-					}
-					else if("1".equals(bankinfo.getLevel())){
-						yftBankList.add(bankinfo);
-					}
-				}
-				String banknbinno="";
-				 if(null!=bankacco&&!"".equals(bankacco)){//重新绑定的交易账号
-					 bankCardVo.setBankacco(bankacco);
-					BankCardbin banknbin=bankBaseManager.getBankCardbin(bankacco.substring(0, 6));
-					if(null!=banknbin){
-						banknbinno=banknbin.getBankno();
-					}
-				 }
-				 if(""!=banknbinno&&null!=banknbinno){
-					 bankCardVo.setBankno(banknbinno);
-				 }else if(StringUtils.isBlank(bankCardVo.getBankno())){
-					 // 默认第一个
-				     bankCardVo.setBankno(yftBankList.get(0).getBankno());
-				} 
-				 
-				model.addAttribute("bankList", yftBankList);
-				model.addAttribute("qtBankList", qtBankList);
-				
-				// 获得用户是否有幼富通卡
-				List<String> tradeaccosts = new ArrayList<String>();
-				tradeaccosts.add("Y");   
-				tradeaccosts.add("N");   
-				
-				List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(
-						custinfoVo.getCustno(),
-						null,//Constant.HftSysConfig.HftFundCorpno, 
-						tradeaccosts);
-				String isufbCard="N";
-				if(null!=hft_family_trade&& hft_family_trade.size() > 0){
-					for(TradeAccoinfoOfMore tradeacco:hft_family_trade){
-						if(tradeacco.getFundcorpno().equals("01")){
-							isufbCard="Y";
-							break;
-						}
-					}
-				}
-				else{
-					isufbCard="Y";
-				}
-				model.addAttribute("hasTadeacco", isufbCard);
-				if(""!=serialid&&null!=serialid){
-					model.addAttribute("serialid", serialid);
-				}
-				
-				model.addAttribute("BankCardVo", bankCardVo);
-		}catch(UserException ue){
-			log.warn(ue.getMessage(), ue);
-			model.addAttribute("message_title", "操作失败");
-			model.addAttribute("message_content", ue.getMessage());
-			model.addAttribute("message_url", BANKCARD_INDEX);
-			model.addAttribute("back_module", SETTING_CARD_NAME);
-			return "error/error";
-		}
-		return "family/ufb/card_add";
-	}
 	
-	/**
-	 * 银行卡:重新绑定成功页
-	 * @param bankCardVo
-	 * @param serialid
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="card_addResult")
-	public String cardAddResult(BankCardVo bankCardVo, String serialid,Model model){
-		
-		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
-		bankCardVo.setBankidtp("0"); // 身份证绑卡
-		try{		
-			
-		        if(""!=serialid&&null!=serialid){
-					bankCardManager.unbindBankCard(
-							s_custinfo.getCustno(), 
-							ServletHolder.getRequest().getParameter("serialid"), 
-							"Y");
-	            }else{
-					//验证手机验证码
-					OpenAccountAction openAccountAction = new OpenAccountAction();
-					/** 开户所属基金单位 **/
-					openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-					/** 开户标志 **/
-					if(s_custinfo.getIdno() !=null && s_custinfo.getInvnm() != null){
-						openAccountAction.setOpenaccoflag(true);
-					}else{
-						openAccountAction.setOpenaccoflag(false);
-					}
-					// 个人
-					openAccountAction.setCustno(s_custinfo.getCustno());
-					openAccountAction.setInvnm(bankCardVo.getBankacnm());
-					openAccountAction.setIdno(bankCardVo.getBankidno());
-					/** 家庭**/
-					openAccountAction.setLevel(Invtp.PERSONAL.getValue());
-					openAccountAction.setTradepwd(s_custinfo.getTradepwd());
-					openAccountAction.setTradepwd2(s_custinfo.getTradepwd2());
-					// 银行
-					openAccountAction.setBankno(bankCardVo.getBankno());
-					openAccountAction.setBankacnm(bankCardVo.getBankacnm());
-					openAccountAction.setBankacco(bankCardVo.getBankacco());
-					openAccountAction.setBankidtp(bankCardVo.getBankidtp());
-					openAccountAction.setBankidno(bankCardVo.getBankidno());
-					openAccountAction.setBankmobile(bankCardVo.getBankmobile());
-					openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
-					openAccountAction.setOtherserial(bankCardVo.getOtherserial());
-					openAccountAction.setBankcitynm(StringUtils.isNotBlank(bankCardVo.getBankcitynm())?bankCardVo.getBankcitynm():null);
-					openAccountAction.setBankprovincenm(StringUtils.isNotBlank(bankCardVo.getBankprovincenm())?bankCardVo.getBankprovincenm():null);
-					openAccountAction.setBankadd(StringUtils.isNotBlank(bankCardVo.getBankadd())?bankCardVo.getBankadd():null);
-					openAccountAction.setOtherserial(bankCardVo.getOtherserial());
-					//String banklevel=bankCardManager.getLevelByBankno(bankCardVo.getBankno());//add
-					 
-					/** 需要验证手机验证码标志 **/
-					openAccountAction.setCheckautocodeflag(true);
-						
-					bankCardManager.openAccount3(openAccountAction);
-//					//其他的银行卡的银联验证
-//					String banklevel=bankCardManager.getLevelByBankno(openAccountAction.getBankno());
-//					if("2".equals(banklevel)){
-//						bankCardManager.checkYinLian(openAccountAction);  	
-//					}
-//					/** 开户 **/
-//					bankCardManager.openAccountPerson(openAccountAction);
-					
-		       } 
-		}catch(UserException ue){
-			log.warn(ue.getMessage(), ue);
-			model.addAttribute("message_title", "操作失败");
-			model.addAttribute("message_content", ue.getMessage());
-			model.addAttribute("message_url", BANKCARD_INDEX);
-			model.addAttribute("back_module", SETTING_CARD_NAME);
-			return "error/error";
-		}
-		return "redirect:/"+BANKCARD_INDEX;
-	}
 }

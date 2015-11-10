@@ -18,10 +18,8 @@ public interface TradeAccoinfoMapper {
 	
 	public List<TradeAccoinfoOfMore> getBankCardWithTradeAccoList();
 
-	public List<TradeAccoinfoOfMore> getTradeAccoList(
-			@Param("custno")String custno, 
-			@Param("fundcorpno")String fundcorpno, 
-			@Param("tradeaccosts") List<String> tradeaccosts);
+	public List<TradeAccoinfoOfMore> getTradeAccoList(@Param("custno")String custno, 
+			@Param("fundcorpno")String fundcorpno);
 	
 	public TradeAccoinfoOfMore getTradeAcco(
 			@Param("custno")String custno, 

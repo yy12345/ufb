@@ -1,6 +1,5 @@
 package com.ufufund.ufb.biz.manager.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +19,12 @@ public class TradeAccoManagerImpl implements TradeAccoManager{
 
 	@Override
 	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno) {
-		List<String> tradeaccosts = new ArrayList<String>();
-		tradeaccosts.add("Y"); // 
-		tradeaccosts.add("N"); // 
-		
-		List<String> levels = new ArrayList<String>();
-		levels.add("0"); // 
-		levels.add("2"); // 
-		return tradeAccoinfoMapper.getTradeAccoList(custno, Constant.HftSysConfig.HftFundCorpno, tradeaccosts);
+		return tradeAccoinfoMapper.getTradeAccoList(custno, Constant.HftSysConfig.HftFundCorpno);
 	}
 	
 	@Override
-	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno, String fundcorpno, List<String> tradeaccosts) {
-		return tradeAccoinfoMapper.getTradeAccoList(custno, fundcorpno, tradeaccosts);
+	public List<TradeAccoinfoOfMore> getTradeAccoList(String custno, String fundcorpno) {
+		return tradeAccoinfoMapper.getTradeAccoList(custno, fundcorpno);
 	}
 	
 	public TradeAccoinfoOfMore getTradeAcco(String custno, String fundcorpno, String bankserialid){

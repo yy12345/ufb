@@ -339,11 +339,7 @@ public class PaymentController {
 	
 	private void setModel(CustinfoVo custinfoVo, Model model){
 		// 海富通
-		List<String> tradeaccosts = new ArrayList<String>();
-		tradeaccosts.add("Y");   
-		tradeaccosts.add("N");  
-		
-		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno(),null,tradeaccosts);
+		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
 		if(null != hft_family_trade && hft_family_trade.size() > 0){
 			Assets htfAssets = queryManager.queryAssets(hft_family_trade, BasicFundinfo.YFB.getFundCode());
 			model.addAttribute("availableBalance", NumberUtils.DF_CASH_CONMMA.format(htfAssets.getAvailable()));// 可用资产

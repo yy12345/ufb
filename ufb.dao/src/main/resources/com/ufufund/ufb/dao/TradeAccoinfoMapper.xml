@@ -118,15 +118,11 @@
 		from tradeaccoinfo t, bankcardinfo b,bankbase c
 		where 
 			b.serialid  = t.bankserialid and b.bankno=c.bankno
-			and t.tradeaccost in 
-			<foreach item="tradeaccost" index="index" collection="tradeaccosts" open="(" separator="," close=")">
- 		   	#{tradeaccost, jdbcType=VARCHAR}
- 			</foreach>
+			and t.tradeaccost = 'N'
 			<if test="fundcorpno != null and fundcorpno !=''" >
-  			and t.fundcorpno = #{fundcorpno,jdbcType=VARCHAR}
+  				and t.fundcorpno = #{fundcorpno,jdbcType=VARCHAR}
   			</if>
 			and b.custno = #{custno,jdbcType=VARCHAR}
-		order by b.mainflag desc
 	</select>
 	
 	<select id="getTradeAcco" resultType="TradeAccoinfoOfMore">

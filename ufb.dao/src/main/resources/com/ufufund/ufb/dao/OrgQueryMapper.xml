@@ -30,8 +30,6 @@
 				S.CID = C.CID
 				AND C.ORGID = #{orgid,JDBCTYPE=VARCHAR}   
 				AND S.P_CUSTNO = #{custno,JDBCTYPE=VARCHAR}   
-
-;
     </select>
     
     <select id="getQueryStudentByCustno" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrgStudent">

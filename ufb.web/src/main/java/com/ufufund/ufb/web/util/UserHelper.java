@@ -28,10 +28,10 @@ public class UserHelper {
 	 */
 	public static String getCustno(){
 //		if(true)return "CU201508165661EKDYBIBS22";
-		CustinfoVo s_custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("S_CUSTINFO");
+		CustinfoVo custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("CUSTINFO");
 		
-		if(s_custinfo != null && !StringUtils.isBlank(s_custinfo.getCustno())){
-			return s_custinfo.getCustno();
+		if(custinfo != null && !StringUtils.isBlank(custinfo.getCustno())){
+			return custinfo.getCustno();
 		}
 		return null;
 	}
@@ -60,12 +60,4 @@ public class UserHelper {
 		ServletHolder.getSession().removeAttribute(name);
 	}
 	
-	
-	/**
-	 * 设置request属性
-	 * @return
-	 */
-	public static void setRequestAttr(String name, Object value){
-		ServletHolder.getRequest().setAttribute(name, value);
-	}	
 }
