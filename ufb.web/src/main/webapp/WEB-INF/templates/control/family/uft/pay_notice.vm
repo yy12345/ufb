@@ -57,6 +57,8 @@
 <script type="text/javascript" src="${staticDomain}/family/scripts/plug.js"></script><!--自定义插件-->
 <script type="text/javascript">
     $(function(){
+    	$('.nav a:eq(0)').addClass('active');
+    	
         $(".checkbox").checkbox();
         
         // 被选中的金额

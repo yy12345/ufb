@@ -224,11 +224,12 @@
     </delete>
       <select id="getBankCardInfo" parameterType="String"	resultType="com.ufufund.ufb.model.db.Bankcardinfo">
 		SELECT
-			b.SERIALID,
-			b.CUSTNO,
-			b.BANKNO,
-			b.BANKACCO,
-			b.MAINFLAG,
+			b.serialid,
+			b.custno,
+			b.bankno,
+			b.bankacco,
+			b.mainflag,
+            b.bankadd,
 			c.banknm,
 			c.level 
 		FROM bankcardinfo b,bankbase c

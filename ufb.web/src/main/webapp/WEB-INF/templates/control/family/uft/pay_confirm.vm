@@ -5,6 +5,8 @@
 <script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>  <!--scroll美化-->
 <script type="text/javascript">
     $(function(){
+    	$('.nav a:eq(0)').addClass('active');
+    	
         // 关闭广告 
         $(".advertise-close").on("click", function () {
             $(this).parent(".advertise").hide();
@@ -127,7 +129,7 @@
                        </div>
                        <div class="organiz-group">
                            <label>开户银行</label>
-                           <p>招商银行上海市分行世纪大道支行</p>
+                           <p>$!{org.bankadd}</p>
                        </div>
                        <div class="organiz-group">
                            <label>银行账号</label>
