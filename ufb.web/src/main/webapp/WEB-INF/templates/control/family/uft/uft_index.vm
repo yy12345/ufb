@@ -79,7 +79,7 @@
                   	  <strong class="num-red" style="font-size: 45px;">$totalplanmonthamt</strong>
                       <a href="javascript:;" class="btn btn-red btn-pay">缴费</a>
                   </p>
-                  <p><a href="${ufbDomain}/setting/familyPayHistory.html" class="hoverLine">历史明细</a></p>
+                  <p><a href="${ufbDomain}/family/uft/pay_records.htm" class="hoverLine">历史明细</a></p>
             </div>
             <div class="myright fl">
                 <div class="myright-top">

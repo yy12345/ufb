@@ -66,7 +66,7 @@
       var orgmsg="";
       var getPayMsg_org=function(){
     	  $(".affirm-organiz-body").each(function(){
-    		  orgmsg=orgmsg+$(this).find(".orgnm").html()+","+$(this).find(".telno").html()+"|";
+    		  orgmsg=orgmsg+$(this).find(".orgnm").html()+",";
     	  })
     	  return orgmsg;
       }

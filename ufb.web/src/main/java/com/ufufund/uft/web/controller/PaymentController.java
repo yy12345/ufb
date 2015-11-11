@@ -360,26 +360,16 @@ public class PaymentController {
 			}
 			
 			// 机构信息
-			String name="";
-			String telno="";
-			String[] orgs=orgmsg.split("\\|");
+			String[] orgs=orgmsg.split(",");
+			List<String> orgnamelist=new ArrayList<String>();
 			for(int i=0;i<orgs.length;i++){
-				String[] org=orgs[i].split(",");
-				name=name+org[0]+"、";
-				if(org.length>1){
-					telno=telno+org[1]+"、";
-				}
-			}
-			name=name.substring(0, name.lastIndexOf("、"));
-			if(telno!=null&&!"".equals(telno)){
-				telno=telno.substring(0, telno.lastIndexOf("、"));
+				orgnamelist.add(orgs[i]);
 			}
 			
 			// 支付方式  :幼富宝    快捷方式    
 			String paydate=orgPlanManager.confirmDetail(detailids, custinfo.getCustno(), paytype);
 			
-			model.addAttribute("orgname", name);
-			model.addAttribute("telno", telno);
+			model.addAttribute("orgnamelist", orgnamelist);
 			model.addAttribute("paytype", paytype);
 			model.addAttribute("allpayconfirm", allpayconfirm);
 			model.addAttribute("paydate", paydate);

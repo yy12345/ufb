@@ -85,10 +85,12 @@
                         <div class="title">您已确认付费<span style="color: #cb3849;font-size: 24px;">$allpayconfirm 元</span>！</div>
                         <div class="pay-info">
                             <dl>
-                                <dt>收费机构</dt>
-                                <dd> $orgname </dd>
-                                <dt>付费咨询电话</dt>
-                                <dd>#if($telno!='') $telno  #else &nbsp;-- &nbsp; #end </dd>
+                              #set($i = 1)
+                              #foreach($org in $orgnamelist)
+                                <dt>#if($i==1) 收费机构 #else &nbsp;&nbsp; #end</dt>
+                                <dd>$org </dd>
+                                #set($i = $i+1)
+                              #end
                                 <dt>付费账户</dt>
                                 <dd> #if($paytype=='U')幼富宝 #else 银行快捷  #end </dd>
                                 <dt>扣款日</dt>
@@ -103,7 +105,7 @@
                         </div>
                         <div class="btn-control">
                             <a class="btn" href="${ufbDomain}/family/ufb/ufb_index.htm" style="display: inline-block;">充值幼富宝</a>
-                            <a href="#" class="lookup-detail hoverLine">查看付费明细</a>
+                            <a href="${ufbDomain}/family/uft/pay_records.htm" class="lookup-detail hoverLine">查看付费明细</a>
                         </div>
                     </div>
                 </div>
