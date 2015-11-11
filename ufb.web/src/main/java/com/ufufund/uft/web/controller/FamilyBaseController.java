@@ -88,6 +88,9 @@ public class FamilyBaseController {
 			List<PayListVo> paylist = new ArrayList<PayListVo>();
 			int allcount=0;
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
+			List ispaylist=new ArrayList();
+			ispaylist.add("0");
+			ispaylist.add("1");
 			for(QueryOrgStudent org: orglist){
 				BigDecimal monthtotalamt = BigDecimal.ZERO;
 				int count=0;
@@ -97,7 +100,7 @@ public class FamilyBaseController {
 				stuPayVo.setStudentList(studentlist);
 				
 				// 个人用户查询收费计划详情
-				List<QueryCustplandetail> planlist = orgQueryManager.getQueryCustplandetail(custinfo.getCustno(), org.getOrgid(),null);
+				List<QueryCustplandetail> planlist = orgQueryManager.getQueryCustplandetail(custinfo.getCustno(), org.getOrgid(),null,ispaylist);
 				stuPayVo.setPlanList(planlist);
 				
 				for(QueryCustplandetail plan:planlist){

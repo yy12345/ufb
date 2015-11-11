@@ -96,7 +96,7 @@ public class OrgDeployTest {
 	}
 	@Test
 	public void testgetQueryCustplandetail() {
-		List<QueryCustplandetail>  list = orgQueryManager.getQueryCustplandetail("001", null,null);
+		List<QueryCustplandetail>  list = orgQueryManager.getQueryCustplandetail("001", null,null,null);
 		System.out.println(list.size());
 		for (QueryCustplandetail queryCustplandetail : list) {
 			System.out.println(queryCustplandetail.toString());

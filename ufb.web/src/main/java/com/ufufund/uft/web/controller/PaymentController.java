@@ -235,6 +235,8 @@ public class PaymentController {
 			String[] orgidArr=orgids.split(",");
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
 			int plancount = 0;
+			List ispaylist=new ArrayList();
+			ispaylist.add("0");
 			for(int i=0;i<orgidArr.length;i++){
 				String orgid=orgidArr[i];
 				Custinfo orgcust=custManager.getCustinfo(orgid);
@@ -244,7 +246,7 @@ public class PaymentController {
 				
 				PayListVo stuPayVo=new PayListVo();
 				List<QueryCustplandetail> planlist=new ArrayList<QueryCustplandetail>();
-				planlist = orgQueryManager.getQueryCustplandetail(custinfoVo.getCustno(), orgid,null);
+				planlist = orgQueryManager.getQueryCustplandetail(custinfoVo.getCustno(), orgid,null,ispaylist);
 				if(null!=planlist && planlist.size()>0){
 					for(QueryCustplandetail plan:planlist){
 						plancount = plancount + 1;
@@ -275,22 +277,24 @@ public class PaymentController {
 	}
 	
 	@RequestMapping(value = "pay_confirm")
-	public String payReview(String  allplanids, Model model) {
+public String payReview(String  detailids, Model model) {
 		
 		List<PayListVo> planlistchecked = new ArrayList<PayListVo>();
 		try{
 			CustinfoVo custinfoVo = UserHelper.getCustinfoVo();
 			
-			if(StringUtils.isBlank(allplanids)){
+			if(StringUtils.isBlank(detailids)){
 				throw new UserException("系统异常！");
 			}
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
 			List<QueryCustplandetail> planchecked = new ArrayList<QueryCustplandetail>();
-			String[] planids=allplanids.split(",");
-			for(int i=0;i<planids.length;i++){
-				String planid=planids[i];
-				String orgid=orgQueryManager.getOrgidByPlanid(planid);
-				List<QueryCustplandetail> planlist = orgQueryManager.getQueryCustplandetail(custinfoVo.getCustno(),orgid,planid);
+			String[] detailid=detailids.split(",");
+			List ispaylist=new ArrayList();
+			ispaylist.add("0");
+			for(int i=0;i<detailid.length;i++){
+				String detail=detailid[i];
+				String orgid=orgQueryManager.getOrgidByDetailid(detail);
+				List<QueryCustplandetail> planlist = orgQueryManager.getQueryCustplandetail(custinfoVo.getCustno(),orgid,detail,ispaylist);
 				if(planlist.size()>0){
 					QueryCustplandetail plan  = planlist.get(0);
 					planchecked.add(plan);
@@ -316,14 +320,13 @@ public class PaymentController {
 				payVo.setPlanList(planOrglist);
 				planlistchecked.add(payVo);
 			}
-			
 			// 银行、账户信息 
 			this.setModel(custinfoVo, model);
 			Bankcardinfo bankcard=bankCardManager.getBankCardInfo(custinfoVo.getCustno());
 			
 			model.addAttribute("bankcard",bankcard);
 			model.addAttribute("planlistchecked",planlistchecked);
-			model.addAttribute("allcount",planids.length);
+			model.addAttribute("allcount",detailid.length);
 			model.addAttribute("totalplanmonthamt",totalplanmonthamt);
 			
 		}catch(UserException ue){

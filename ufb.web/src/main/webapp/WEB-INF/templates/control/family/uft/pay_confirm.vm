@@ -50,7 +50,7 @@
            $(".bgBox , #ufb").fadeOut();       
        });
     
-    $(window).load(function(){
+      $(window).load(function(){
         $(".content_scroll").mCustomScrollbar({
             theme:"dark", //主题颜色
             scrollButtons:{
@@ -59,8 +59,13 @@
             autoHideScrollbar: false, //是否自动隐藏滚动条
             scrollInertia :0,//滚动延迟
             horizontalScroll : false//水平滚动条
-        });
-    });
+         });
+      });
+      
+      // 提交
+      $(".orgFormSub").on("click",function(){
+    	  
+      })
   }) 
 </script>
     
@@ -88,10 +93,10 @@
                     <ul>
                         <li class="li1">使用</li>
                         <li class="li2">
-                            <div class="costpay"><label class="cost-type"><input type="radio" name="paytype" type="U" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span>$availableBalance 元</span>
+                            <div class="costpay"><label class="cost-type"><input type="radio" name="paytype" type="ufb" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span>$availableBalance 元</span>
                             <div class="payMoney showNow">支付<span class="num-color paymoney">$totalplanmonthamt元</span></div>
                             </div>
-                            <div class="costpay"><label class="cost-type"><input type="radio" name="paytype" type="B" style="display: none;"/><i class="imitate-radio"></i>
+                            <div class="costpay"><label class="cost-type"><input type="radio" name="paytype" type="bank" style="display: none;"/><i class="imitate-radio"></i>
                             ${bankcard.banknm} 尾号
                             #set($tailStr=$bankcard.bankacco)
 							#set($start=$tailStr.length() - 4)
@@ -164,7 +169,7 @@
                             </tr>
 							#foreach($planchecked in ${planlist.planList})
                             <tr>
-                                <td>$planchecked.planid</td>
+                                <td>$planchecked.detailid</td>
                                 <td>$planchecked.planname</td>
                                 <td><span class="tip">#if($plan.cycletype=='S')单次 #else 多次 #end</span></td>
                                 <td>$planchecked.studentnm</td>
@@ -178,8 +183,7 @@
 			#end
 			#end
             <div class="affirm-organiz-form">
-                <form action="${ufbDomain}/family/uft/confirm_result.htm" method="post">
-                <input type="hidden" name="planids" id="planids" />
+                <form id="subForm" action="${ufbDomain}/family/uft/confirm_result.htm" method="post">
                     <div class="control-group" style="margin-top: 2em;margin-bottom: 1em;">
                         <label class="form-lbl" style="width:10em;">请输入交易密码</label>
                         <input type="password" class="tradepw" placeholder="6位数字密码" name="tradePwd" id="tradePwd" maxlength="6" style="width: 190px;"/>
@@ -193,7 +197,7 @@
                         <p>点击确认表示同意<a href="javascript:;" id="xftService">《学费通服务协议》</a>、<a href="javascript:;" id="ufbAuto">《幼富宝定时取现服务协议》</a></p>
                     </div>
                     <div class="control-review">
-                        <a href="javascript:;" class="btn btn-red">确 认</a>
+                        <a href="javascript:;" class="btn btn-red orgFormSub">确 认</a>
                     </div>
                 </form>
             </div> 

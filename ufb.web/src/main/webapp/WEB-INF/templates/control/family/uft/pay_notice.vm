@@ -168,16 +168,16 @@
          });
     	
         // 确认缴费事件
-    	var allplanids = "";
+    	var detailids = "";
     	$(".payreview").on("click",function(){
 			$(".checkbox.cb-one :checked").each(function(){
-				allplanids = allplanids + $(this).attr("planid") + ",";
+				detailids = detailids + $(this).attr("detailid") + ",";
 			})
-			if(allplanids==''){
+			if(detailids==''){
 				alert("请选择需要缴费的计划！");
 				return false;
 			}
-			$("#allplanids").val(allplanids);
+			$("#detailids").val(detailids);
 			$("#form-payNotice").submit();
 		});
     	
@@ -185,12 +185,12 @@
     	$(".payment").on("click",function(){
     		var check=$(this).parent().siblings(".width1").find(".checkbox.cb-one").children("input:[type='checkbox']");
     		if(check.attr("checked")=="checked"){
-    			allplanids=check.attr("planid");
+    			detailids=check.attr("detailid");
     		}else{
     			alert("请选择需要缴费的计划！");
 				return false;
     		}
-    		$("#allplanids").val(allplanids);
+    		$("#detailids").val(detailids);
 			$("#form-payNotice").submit();
     	})
     })
@@ -201,7 +201,7 @@
     <div id="body">
 		<form id="form-payNotice" class="vote" method="post" action="${ufbDomain}/family/uft/pay_confirm.htm">
 			<input type="hidden" id="totalplanmonthamt" name="totalplanmonthamt" value="${totalplanmonthamt}">
-			<input type="hidden" id="allplanids" name="allplanids" value="">
+			<input type="hidden" id="detailids" name="detailids" value="">
 		</form>
         <div class="container familyPayNotice">
                 <div class="notice-title">
@@ -225,11 +225,11 @@
                         <div class="fix-content">
                             <ul>
                                 <li class="width1">
-                                    <label class="checkbox cb-one"><input type="checkbox" name="checkid" planid="$plan.planid"/></label>
+                                    <label class="checkbox cb-one"><input type="checkbox" name="checkid" detailid="$plan.detailid"/></label>
                                 </li>
                                 <li class="width2">
                                     <p class="project">$plan.planname<span class="tip">#if($plan.type=='AT')月代扣 #else 年代扣 #end</span></p>
-                                    <p>缴费交易号：  <span>$plan.planid</span></p>
+                                    <p>缴费交易号：  <span>$plan.detailid</span></p>
                                 </li>
                                 <li class="width3">
                                     <p>$plan.studentnm</p>

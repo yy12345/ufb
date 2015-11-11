@@ -148,20 +148,18 @@
                               <th>收费机构</th>
                               <th>费用类型</th>
                               <th>应收金额（元）</th>
-                              <th>截止日期</th>
-							  <th>缴费日期</th>
+                              <th>确认时间</th>
                               <th>缴费状态</th>
                           </tr>						  
 						  #foreach($plan in ${pay.planList})
                           <tr>
-                              <td>$plan.planid</td>
+                              <td>$plan.detailid</td>
                               <td>$plan.studentnm</td>
                               <td>$plan.orgnm</td>
                               <td>$plan.planname<span class="tip">#if(${plan.type}=="AT")月代扣  #else 年代扣  #end</span></td>
                               <td class="num-red">$plan.payappamount</td>
-                              <td>$plan.paydate</td>
-							  <td>$plan.plandate</td>
-                              <td>#if(${plan.ispay}=='Y') 已缴费 #elseif(${plan.ispay}=='F') 等待缴费 #else 等待扣款  #end</td>
+                              <td>#if($plan.ackdate!='0000-00-00')$plan.ackdate #else -- #end</td>
+                              <td>#if(${plan.ispay}=='0') 等待缴费 #elseif(${plan.ispay}=='1') 等待扣款 #else 缴费成功   #end</td>
                           </tr>
 						  #end		  
                       </table>

@@ -27,6 +27,7 @@ public class QueryCustplandetail extends PrintableModel implements Serializable 
 	private String paycustnonm;//` char(24) DEFAULT NULL COMMENT '缴费客户NM',
 	private String paydate;//` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP CO
 	private String plandate;//` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP CO
+	private String ackdate; 
 	private String planname;
 	private String plantype;
 	private String cycletype;

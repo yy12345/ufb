@@ -202,7 +202,7 @@
 			    and  d.sid = b.student_id 
 			    and  d.p_custno = #{custno,jdbcType=VARCHAR} 
 			    <if test="type == 'NOPAY'">
-	       	  		and b.is_pay = 'F'
+	       	  		and b.is_pay = '0'
 	       		</if>
 			    GROUP BY  d.p_custno
     </select>
@@ -222,6 +222,7 @@
 			a.pay_custno as paycustno,
 			date_format(a.pay_date,'%Y-%m-%d')  as paydate,
 			date_format(a.plan_date,'%Y-%m-%d')  as plandate,
+			date_format(a.ack_date,'%Y-%m-%d')  as ackdate,
 			d.plan_name as planname,
 			d.plan_type as plantype,
 			d.cycle_type as cycletype,
@@ -233,19 +234,23 @@
 			org_plan d
 			where 
 			a.student_id =b.sid
-			and a.org_id = c.custno and a.plan_id=d.plan_id
+			and a.org_id = c.custno  and a.plan_id=d.plan_id
 			and date_format(a.plan_date,'%Y-%m')  = date_format(sysdate(),'%Y-%m') 
 			<if test="orgid != null">
 			and a.org_id = #{orgid,jdbcType=VARCHAR}
 			</if>
-			<if test="planid != null">
-			and a.plan_id = #{planid,jdbcType=VARCHAR}
+			<if test="detailid != null">
+			and a.detail_id = #{detailid,jdbcType=VARCHAR}
 			</if>
+			and a.is_pay in
+			<foreach item="ispay" collection="ispaylist" separator="," open="(" close=")" index="">
+	    		#{ispay,jdbcType=VARCHAR}
+	    	</foreach>
 			and b.p_custno  = #{custno,jdbcType=VARCHAR} 
 			order by a.student_id, a.plan_date  desc
     </select>
-    <select id="getOrgidByPlanid" parameterType="java.lang.String" resultType="java.lang.String">
-    	select org_id from ufu_dev.org_plan where plan_id=#{planid,jdbcType=VARCHAR}
+    <select id="getOrgidByDetailid" parameterType="java.lang.String" resultType="java.lang.String">
+    	select org_id from org_plan_datail where detail_id=#{detailid,jdbcType=VARCHAR}
     </select>
     
 </mapper>
