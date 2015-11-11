@@ -212,7 +212,7 @@
 			#end
 			#end
             <div class="affirm-organiz-form">
-                <form id="subForm" action="${ufbDomain}/family/uft/payconfirm_result.htm" method="post">
+                <form id="subForm" action="${ufbDomain}/family/uft/pay_result.htm" method="post">
 	                <input type="hidden" name="orgmsg" id="orgmsg"/>
 	                <input type="hidden" name="detailids" id="detailids"/>
 	                <input type="hidden" name="paytype" id="paytype"/>

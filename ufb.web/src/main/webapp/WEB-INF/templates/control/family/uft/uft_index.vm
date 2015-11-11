@@ -159,7 +159,7 @@
                               <td>$plan.planname<span class="tip">#if(${plan.type}=="AT")月代扣  #else 年代扣  #end</span></td>
                               <td class="num-red">$plan.payappamount</td>
                               <td>#if($plan.ackdate!='0000-00-00')$plan.ackdate #else -- #end</td>
-                              <td>#if(${plan.ispay}=='0') 等待缴费 #elseif(${plan.ispay}=='1') 等待扣款 #else 缴费成功   #end</td>
+                              <td >#if(${plan.ispay}=='0') 等待缴费 #elseif(${plan.ispay}=='1')<strong class="num-green"> 等待扣款 </strong> #else 缴费成功   #end</td>
                           </tr>
 						  #end		  
                       </table>

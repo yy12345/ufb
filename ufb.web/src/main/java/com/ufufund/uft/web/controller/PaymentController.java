@@ -344,8 +344,8 @@ public class PaymentController {
 		return "family/uft/pay_confirm";
 	}
 	
-	@RequestMapping(value="payconfirm_result")
-	public String payConfirmResult(String paytype,String orgmsg,String detailids,String allpayconfirm,String tradePwd,Model model){
+	@RequestMapping(value="pay_result")
+	public String payResult(String paytype,String orgmsg,String detailids,String allpayconfirm,String tradePwd,Model model){
 		
 			CustinfoVo custinfo=UserHelper.getCustinfoVo();
 		
@@ -391,7 +391,7 @@ public class PaymentController {
 			model.addAttribute("back_module", UFT_INDEX_NAME);
 			return "error/error";
 		}
-		return "family/uft/payconfirm_result";
+		return "family/uft/pay_result";
 	}
 	
 	private void setModel(CustinfoVo custinfoVo, Model model){

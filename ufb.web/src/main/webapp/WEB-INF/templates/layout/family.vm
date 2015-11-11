@@ -5,7 +5,7 @@
 	<div ${family_container}>	
 		#parse("control/common/header_family.vm")
 		$body
-		#if(${CUSTINFO} && ${family_module} == "uft")
+		#if(${CUSTINFO} && ${family_module} == "uft" && ${family_page} != "pay_result")
 			#parse("control/common/slider_family.vm")
 		#end
 		#parse("control/common/footer.vm")
