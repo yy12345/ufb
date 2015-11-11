@@ -18,8 +18,10 @@ import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.FamilyManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
+import com.ufufund.ufb.biz.manager.org.OrgPlanManager;
 import com.ufufund.ufb.biz.manager.org.OrgQueryManager;
 import com.ufufund.ufb.common.exception.UserException;
+import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Custinfo;
@@ -28,11 +30,11 @@ import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
-import com.ufufund.ufb.model.vo.OrgBankInfoVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.model.vo.OrgBankInfoVo;
+import com.ufufund.ufb.model.vo.PayListVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgStudent;
-import com.ufufund.ufb.model.vo.PayListVo;
 import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -62,6 +64,8 @@ public class PaymentController {
 	private QueryManager queryManager;
 	@Autowired
 	private TradeAccoManager tradeAccoManager;
+	@Autowired
+	private OrgPlanManager orgPlanManager;
 	
 	/**
 	 * 识别码绑定学生，首页
@@ -235,7 +239,7 @@ public class PaymentController {
 			String[] orgidArr=orgids.split(",");
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
 			int plancount = 0;
-			List ispaylist=new ArrayList();
+			List<String> ispaylist=new ArrayList<String>();
 			ispaylist.add("0");
 			for(int i=0;i<orgidArr.length;i++){
 				String orgid=orgidArr[i];
@@ -277,7 +281,7 @@ public class PaymentController {
 	}
 	
 	@RequestMapping(value = "pay_confirm")
-public String payReview(String  detailids, Model model) {
+	public String payReview(String  detailids, Model model) {
 		
 		List<PayListVo> planlistchecked = new ArrayList<PayListVo>();
 		try{
@@ -289,7 +293,7 @@ public String payReview(String  detailids, Model model) {
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
 			List<QueryCustplandetail> planchecked = new ArrayList<QueryCustplandetail>();
 			String[] detailid=detailids.split(",");
-			List ispaylist=new ArrayList();
+			List<String> ispaylist=new ArrayList<String>();
 			ispaylist.add("0");
 			for(int i=0;i<detailid.length;i++){
 				String detail=detailid[i];
@@ -338,6 +342,56 @@ public String payReview(String  detailids, Model model) {
 			return "error/error";
 		}
 		return "family/uft/pay_confirm";
+	}
+	
+	@RequestMapping(value="payconfirm_result")
+	public String payConfirmResult(String paytype,String orgmsg,String detailids,String allpayconfirm,String tradePwd,Model model){
+		
+			CustinfoVo custinfo=UserHelper.getCustinfoVo();
+		
+		try{
+			// 交易密码校验
+			if(!custinfo.getTradepwd().equals(EncryptUtil.md5(tradePwd))){
+				throw new UserException("交易密码错误！");
+			}
+			
+			if(StringUtils.isBlank(detailids)||StringUtils.isBlank(paytype)||StringUtils.isBlank(orgmsg)){
+				throw new UserException("获得的信息为空！");
+			}
+			
+			// 机构信息
+			String name="";
+			String telno="";
+			String[] orgs=orgmsg.split("\\|");
+			for(int i=0;i<orgs.length;i++){
+				String[] org=orgs[i].split(",");
+				name=name+org[0]+"、";
+				if(org.length>1){
+					telno=telno+org[1]+"、";
+				}
+			}
+			name=name.substring(0, name.lastIndexOf("、"));
+			if(telno!=null&&!"".equals(telno)){
+				telno=telno.substring(0, telno.lastIndexOf("、"));
+			}
+			
+			// 支付方式  :幼富宝    快捷方式    
+			String paydate=orgPlanManager.confirmDetail(detailids, custinfo.getCustno(), paytype);
+			
+			model.addAttribute("orgname", name);
+			model.addAttribute("telno", telno);
+			model.addAttribute("paytype", paytype);
+			model.addAttribute("allpayconfirm", allpayconfirm);
+			model.addAttribute("paydate", paydate);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "操作失败");
+			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("message_url", UFT_INDEX);
+			model.addAttribute("back_module", UFT_INDEX_NAME);
+			return "error/error";
+		}
+		return "family/uft/payconfirm_result";
 	}
 	
 	private void setModel(CustinfoVo custinfoVo, Model model){

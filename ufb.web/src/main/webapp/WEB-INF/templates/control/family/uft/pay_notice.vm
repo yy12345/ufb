@@ -216,10 +216,13 @@
                 </div>
 				#foreach($plans in $planLists)
                 <div class="notice-content">
+				#set($list = ${plans.planList})
+				#if($list.size()>0)
 			    	#set($org = ${plans.orginfo})
                     <div class="item-title">
                         <label class="checkbox" orgid="$org.orgid"><input type="checkbox" />$org.orgnm</label>
                     </div>
+                #end
                     #foreach($plan in ${plans.planList})
                     <div class="item">
                         <div class="fix-content">

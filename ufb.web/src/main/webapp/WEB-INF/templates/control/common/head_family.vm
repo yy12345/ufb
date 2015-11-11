@@ -9,8 +9,14 @@
 	#end
 	<link rel="shortcut icon" href="${staticDomain}/favicon.ico" type="image/x-icon">
 	#if(${family_module} == "uft")
-		<link rel="stylesheet" href="${staticDomain}/family/css/style.css">
-		<link rel="stylesheet" href="${staticDomain}/family/css/family.css">
+		#if(${family_page} == "payconfirm_result")
+			<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
+	    	<link rel="stylesheet" href="${staticDomain}/family/css/common.css">
+	    	<link rel="stylesheet" href="${staticDomain}/family/css/family.css">
+	    #else
+			<link rel="stylesheet" href="${staticDomain}/family/css/style.css">
+			<link rel="stylesheet" href="${staticDomain}/family/css/family.css">
+		#end
 	#elseif(${family_module} == "index" || ${family_module} == "account"
 			|| ${family_page} == "ufb_index")
 		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">

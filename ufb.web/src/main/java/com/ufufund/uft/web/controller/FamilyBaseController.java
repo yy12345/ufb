@@ -88,7 +88,7 @@ public class FamilyBaseController {
 			List<PayListVo> paylist = new ArrayList<PayListVo>();
 			int allcount=0;
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
-			List ispaylist=new ArrayList();
+			List<String> ispaylist=new ArrayList<String>();
 			ispaylist.add("0");
 			ispaylist.add("1");
 			for(QueryOrgStudent org: orglist){

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.SequenceManager;
+import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.ImplCommon;
 import com.ufufund.ufb.biz.manager.org.OrgPlanManager;
@@ -18,15 +20,18 @@ import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.OrgDeployMapper;
+import com.ufufund.ufb.dao.PlanDetailMapper;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction2;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction3;
 import com.ufufund.ufb.model.action.org.PersonConfirmAction;
 import com.ufufund.ufb.model.action.org.PersonConfirmList;
 import com.ufufund.ufb.model.action.org.UpdateOrgPlanAction1;
+import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Orgplan;
 import com.ufufund.ufb.model.db.Orgplandetail;
 import com.ufufund.ufb.model.db.Orgplandetailcharge;
+import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 
 @Service
@@ -43,6 +48,12 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 
 	@Autowired
 	private OrgDeployMapper orgDeployMapper;
+	@Autowired
+	private TradeAccoManager tradeAccoManager;
+	@Autowired
+	private BankCardManager bankCardManager;
+	@Autowired
+	private PlanDetailMapper planDetailMapper;
 
 	// @Autowired
 	// private AutotradeManager autotradeManager;
@@ -206,7 +217,7 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		for(PersonConfirmList detail : datailList){
 			orgplandetail = new Orgplandetail();
 			orgplandetail.setDetailid(detail.getDetailid());
-			orgplandetail.setStats("F");
+			orgplandetail.setStats("1");
 			orgplandetail.setAcktype(action.getAcktype());
 			orgplandetail.setAckcustno(action.getAckcustno());
 			orgplandetail.setAckbankcardid(action.getAckbankcardid());
@@ -214,6 +225,34 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 			orgplandetail.setAcktradeacco(action.getAcktradeacco());
 			orgDeployMapper.updatePlandetail(orgplandetail);
 		}
+	}
+
+	@Override
+	public String confirmDetail(String detailids,String custno,String paytype) {
+		String[] detailidArr=detailids.split(",");
+		String paydate="";
+		for(int i=0;i<detailidArr.length;i++){
+			Orgplandetail detail = new Orgplandetail();
+			String detailid=detailidArr[i];
+			detail.setDetailid(detailid);
+			detail.setAckcustno(custno);
+			detail.setAcktype(paytype);
+			detail.setStats("Y");
+			detail.setIspay("1");
+			if(paytype.equals("U")){
+				Tradeaccoinfo tradeAcco=tradeAccoManager.getTradeaccoinfo(custno);
+				detail.setAckbankcardid(tradeAcco.getBankserialid());
+				detail.setAcktradeaccoid(tradeAcco.getAccoid());
+				detail.setAcktradeacco(tradeAcco.getTradeacco());
+			}else{
+				Bankcardinfo bankcard =	bankCardManager.getBankCardInfo(custno);
+				detail.setAckbankcardid(bankcard.getSerialid());
+			}
+			planDetailMapper.updateDetail(detail);
+		}
+		paydate=planDetailMapper.selectPayDate(detailidArr[0]);//later....
+		
+		return paydate;
 	}
 
 	

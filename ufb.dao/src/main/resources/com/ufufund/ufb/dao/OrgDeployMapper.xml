@@ -363,7 +363,9 @@
     
     <update id="updatePlandetail" parameterType="com.ufufund.ufb.model.db.Orgplandetail">
 		UPDATE org_plan_datail a
-	       SET a.stats = #{stats,jdbcType=VARCHAR},
+	       SET 
+	       ack_custno = #{ackcustno,jdbcType=VARCHAR},
+	       a.stats = #{stats,jdbcType=VARCHAR},
 	       a.ack_type = #{acktype,jdbcType=VARCHAR},
 	       a.ack_custno = #{ackcustno,jdbcType=VARCHAR},
 	       a.ack_bankcardid = #{ackbankcardid,jdbcType=VARCHAR},
@@ -372,7 +374,5 @@
 	       a.ack_date =  sysdate()
 	     WHERE a.detail_id = #{detailid,jdbcType=VARCHAR}
 	 </update>
-	 
-	 
 </mapper>
 

@@ -47,7 +47,12 @@ public class UfuVelocityView extends VelocityToolboxView {
 			model.put("family_container", "id=\"page\"");
 		}else if(uri.indexOf("family/uft/") > 0){
 			model.put("family_module", "uft");
-			model.put("family_container", "id=\"page\"");
+			if(uri.endsWith("payconfirm_result.htm")){
+				model.put("family_page", "payconfirm_result");
+				model.put("family_container", "class=\"container\"");
+			}else{
+				model.put("family_container", "id=\"page\"");
+			}
 		}else if(uri.indexOf("family/ufb/") > 0){
 			model.put("family_module", "ufb");
 			model.put("family_container", "class=\"container\"");

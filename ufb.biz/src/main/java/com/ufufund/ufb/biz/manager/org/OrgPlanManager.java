@@ -21,18 +21,16 @@ public interface OrgPlanManager {
 	 */
 	public void createOrgPlanAction2(CreateOrgPlanAction1 action) throws BizException;
 	
-	
 	/*
 	 * 修改收费计划
 	 */
 	public void updateOrgPlanAction2(UpdateOrgPlanAction1 action) throws BizException;
-	
-	
-	
 	
 	/*
 	 * 
 	 * 家庭确认发起收费
 	 */
 	public void personConfirmPlandetail(PersonConfirmAction action) throws BizException;
+	
+	public String confirmDetail(String detailids,String custno,String paytype);
 }

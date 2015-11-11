@@ -62,9 +62,38 @@
          });
       });
       
+      // 获得缴费机构信息
+      var orgmsg="";
+      var getPayMsg_org=function(){
+    	  $(".affirm-organiz-body").each(function(){
+    		  orgmsg=orgmsg+$(this).find(".orgnm").html()+","+$(this).find(".telno").html()+"|";
+    	  })
+    	  return orgmsg;
+      }
+      // 获得缴费详细
+      var detailids="";
+      var getDetailid=function(){
+    	  $(".detail_id").each(function(){
+    		  detailids=detailids+$(this).html()+",";
+    	  })
+    	  return detailids;
+      }
       // 提交
       $(".orgFormSub").on("click",function(){
-    	  
+    	 var type= $("input[name='pay_type']:checked").attr("paytype");
+    	 var amt=$("#allpayamt").html();
+    	 var ufbamt=$("#ufbamt").html();
+    	 if(type=='ufb'){
+    		 if(ufbamt<amt){
+    			 alert("余额不足，请预先充值！");
+    			 return false;
+    		 }
+    	 }
+    	 $("#detailids").val(getDetailid());
+    	 $("#orgmsg").val(getPayMsg_org());
+    	 $("#paytype").val(type);
+    	 $("#allpayconfirm").val(amt);
+    	 $("#subForm").submit();
       })
   }) 
 </script>
@@ -93,16 +122,16 @@
                     <ul>
                         <li class="li1">使用</li>
                         <li class="li2">
-                            <div class="costpay"><label class="cost-type"><input type="radio" name="paytype" type="ufb" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span>$availableBalance 元</span>
+                            <div class="costpay"><label class="cost-type"><input type="radio" name="pay_type" paytype="U" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span> <font id="ufbamt">$availableBalance</font> 元</span>
                             <div class="payMoney showNow">支付<span class="num-color paymoney">$totalplanmonthamt元</span></div>
                             </div>
-                            <div class="costpay"><label class="cost-type"><input type="radio" name="paytype" type="bank" style="display: none;"/><i class="imitate-radio"></i>
+                            <div class="costpay"><label class="cost-type"><input type="radio" name="pay_type" paytype="B" style="display: none;"/><i class="imitate-radio"></i>
                             ${bankcard.banknm} 尾号
                             #set($tailStr=$bankcard.bankacco)
 							#set($start=$tailStr.length() - 4)
 							#set($end=$tailStr.length())
                             [$tailStr.substring($start,$end)]</label><span>储蓄卡</span><i class="middel-wire">|</i><span class="num-blue">快捷</span>
-                            <div class="payMoney">支付<span class="num-color paymoney">$totalplanmonthamt元</span></div>
+                            <div class="payMoney">支付<span class="num-color paymoney"><font id="allpayamt">$totalplanmonthamt</font>元</span></div>
                             </div>
                         </li>
                         <li class="li3 li3-v2">
@@ -122,7 +151,7 @@
                   #set($org = $planlist.orginfo)
                        <div class="organiz-group">
                            <label>收费机构名称</label>
-                           <p>$!{org.orgnm}</p>
+                           <p><font class="orgnm">$!{org.orgnm}</font></p>
                        </div>
                        <div class="organiz-group">
                            <label>营业执照号</label>
@@ -149,7 +178,7 @@
                        </div>
                        <div class="organiz-group">
                            <label>咨询电话</label>
-                           <p>$!{org.telno}</p>
+                           <p><font class="telno">$!{org.telno}</font></p>
                        </div>
                        <div class="logoimg">
                           <img src="${staticDomain}/family/images/orglogo.jpg" alt="幼儿园LOGO"/>
@@ -169,7 +198,7 @@
                             </tr>
 							#foreach($planchecked in ${planlist.planList})
                             <tr>
-                                <td>$planchecked.detailid</td>
+                                <td><font class="detail_id">$planchecked.detailid</font></td>
                                 <td>$planchecked.planname</td>
                                 <td><span class="tip">#if($plan.cycletype=='S')单次 #else 多次 #end</span></td>
                                 <td>$planchecked.studentnm</td>
@@ -183,7 +212,11 @@
 			#end
 			#end
             <div class="affirm-organiz-form">
-                <form id="subForm" action="${ufbDomain}/family/uft/confirm_result.htm" method="post">
+                <form id="subForm" action="${ufbDomain}/family/uft/payconfirm_result.htm" method="post">
+	                <input type="hidden" name="orgmsg" id="orgmsg"/>
+	                <input type="hidden" name="detailids" id="detailids"/>
+	                <input type="hidden" name="paytype" id="paytype"/>
+	                <input type="hidden" name="allpayconfirm" id="allpayconfirm"/>
                     <div class="control-group" style="margin-top: 2em;margin-bottom: 1em;">
                         <label class="form-lbl" style="width:10em;">请输入交易密码</label>
                         <input type="password" class="tradepw" placeholder="6位数字密码" name="tradePwd" id="tradePwd" maxlength="6" style="width: 190px;"/>

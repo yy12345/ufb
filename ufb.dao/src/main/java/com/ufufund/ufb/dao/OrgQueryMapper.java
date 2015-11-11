@@ -66,6 +66,6 @@ public interface OrgQueryMapper extends BaseDao {
 			@Param("custno")String custno,
 			@Param("orgid")String orgid,
 			@Param("detailid")String detailid,
-			@Param("ispaylist")List ispaylist);
+			@Param("ispaylist")List<String> ispaylist);
 	public String getOrgidByDetailid(String detailid);
 }
