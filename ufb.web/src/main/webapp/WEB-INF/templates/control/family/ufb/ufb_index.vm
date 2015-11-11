@@ -6,20 +6,61 @@
 <script type="text/javascript">
 		$('.nav a:eq(1)').addClass('active');
 		
-		var getYeild=function(){
-			var yeilds="";
-			#set($i = 1)
-    		#foreach($nav in $hftNavList)
-    		#if($i == $hftNavList.size())
-    			yeilds=yeilds+$nav.yield
-    		#else
-    			yeilds=yeilds+$nav.yield+","
-			#end
-				#set($i=$i+1)
-			#end
-			return yeilds;
-		   
-		}
+		// 7日年化收益率边界值计算
+		var min_yield = Math.min.apply(null, 
+    		  [ #set($i = 1)
+           		#foreach($nav in $hftNavList)
+               		#if($i == $hftNavList.size())
+               			$nav.yield
+               		#else
+               			$nav.yield,
+           			#end
+           			#set($i=$i+1)
+       			#end
+       		  ]
+   			);
+       var max_yield = Math.max.apply(null, 
+    		   [#set($i = 1)
+        		#foreach($nav in $hftNavList)
+            		#if($i == $hftNavList.size())
+            			$nav.yield
+            		#else
+            			$nav.yield,
+        			#end
+    				#set($i=$i+1)
+    			#end
+        		]
+    		   );
+		max_yield = max_yield + (max_yield - min_yield)*0.2;
+		min_yield = min_yield - (max_yield - min_yield)*0.2;
+		
+		// 万份收益边界值计算
+		var min_income = Math.min.apply(null, 
+    		  [ #set($i = 1)
+           		#foreach($nav in $hftNavList)
+               		#if($i == $hftNavList.size())
+               			$nav.income
+               		#else
+               			$nav.income,
+           			#end
+           			#set($i=$i+1)
+       			#end
+   			]
+   			);
+       var max_income = Math.max.apply(null, 
+    		   [#set($i = 1)
+        		#foreach($nav in $hftNavList)
+            		#if($i == $hftNavList.size())
+            			$nav.income
+            		#else
+            			$nav.income,
+        			#end
+    				#set($i=$i+1)
+    			#end
+        		]
+    		   );
+    	max_income = max_income + (max_income - min_income)*0.2;
+		min_income = min_income - (max_income - min_income)*0.2;
 		
         // 路径配置
         require.config({
@@ -28,7 +69,7 @@
             }
         });
         
-        // 使用
+        /* 7日年化收益率 */
         require(
             [
                 'echarts',
@@ -94,32 +135,9 @@
                                    width: 1
                                }
                            },
-                           min: Math.min.apply(null, 
-                        		  [ #set($i = 1)
-	                           		#foreach($nav in $hftNavList)
-		                           		#if($i == $hftNavList.size())
-		                           			$nav.yield
-		                           		#else
-		                           			$nav.yield,
-		                       			#end
-		                       			#set($i=$i+1)
-	                       			#end
-	                       		  ]
-                       			) ,
-                           max: Math.max.apply(null, 
-                        		   [#set($i = 1)
-                            		#foreach($nav in $hftNavList)
-	                            		#if($i == $hftNavList.size())
-	                            			$nav.yield
-	                            		#else
-	                            			$nav.yield,
-	                        			#end
-                        				#set($i=$i+1)
-                        			#end
-                            		]
-                        		   ),
+                           min: min_yield,
+                           max: max_yield,
                            splitNumber: 4
-
                        }
                    ],
                    calculable: true,
@@ -154,7 +172,7 @@
             }
         });
         
-        // 使用
+        /* 万份收益曲线图  */
         require(
             [
                 'echarts',
@@ -220,30 +238,8 @@
                                    width: 1
                                }
                            },
-                           min: Math.min.apply(null, 
-                        		  [ #set($i = 1)
-	                           		#foreach($nav in $hftNavList)
-		                           		#if($i == $hftNavList.size())
-		                           			$nav.income
-		                           		#else
-		                           			$nav.income,
-		                       			#end
-		                       			#set($i=$i+1)
-	                       			#end
-                       			]
-                       			) ,
-                           max: Math.max.apply(null, 
-                        		   [#set($i = 1)
-                            		#foreach($nav in $hftNavList)
-	                            		#if($i == $hftNavList.size())
-	                            			$nav.income
-	                            		#else
-	                            			$nav.income,
-	                        			#end
-                        				#set($i=$i+1)
-                        			#end
-                            		]
-                        		   ) + 0.405,
+                           min: min_income ,
+                           max: max_income,
                            splitNumber: 4
                        }
                    ],
