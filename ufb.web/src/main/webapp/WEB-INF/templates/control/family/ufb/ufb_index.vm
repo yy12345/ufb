@@ -6,6 +6,21 @@
 <script type="text/javascript">
 		$('.nav a:eq(1)').addClass('active');
 		
+		var getYeild=function(){
+			var yeilds="";
+			#set($i = 1)
+    		#foreach($nav in $hftNavList)
+    		#if($i == $hftNavList.size())
+    			yeilds=yeilds+$nav.yield
+    		#else
+    			yeilds=yeilds+$nav.yield+","
+			#end
+				#set($i=$i+1)
+			#end
+			return yeilds;
+		   
+		}
+		
         // 路径配置
         require.config({
             paths: {
@@ -35,6 +50,9 @@
                        x: 'left',
                        data: [""]
                    },
+                    grid:{
+               		x:90,
+                    }, 
                    xAxis: [
                        {
                            type: "category",
@@ -48,19 +66,78 @@
                    ],
                    yAxis: [
                        {
-                           type: "log"
+                    	   type: 'value',
+                           axisLine : {
+                               show: true,
+                               lineStyle: {
+                                   color: '#2f8ebe',
+                                   type: 'solid',
+                                   width: 2
+                               }
+                           },
+                           axisLabel : {
+                               show: true,
+                               formatter: function(value) {
+                                   	return value.toFixed(3);
+                               },
+                               textStyle: {
+                                   color: '#999',
+                                   fontFamily: 'arial',
+                                   fontSize: 10
+                               }
+                           },
+                           splitLine : {
+                               show:true,
+                               lineStyle: {
+                                   color: '#dbdcdc',
+                                   type: 'solid',
+                                   width: 1
+                               }
+                           },
+                           min: Math.min.apply(null, 
+                        		  [ #set($i = 1)
+	                           		#foreach($nav in $hftNavList)
+		                           		#if($i == $hftNavList.size())
+		                           			$nav.yield
+		                           		#else
+		                           			$nav.yield,
+		                       			#end
+		                       			#set($i=$i+1)
+	                       			#end
+	                       		  ]
+                       			) ,
+                           max: Math.max.apply(null, 
+                        		   [#set($i = 1)
+                            		#foreach($nav in $hftNavList)
+	                            		#if($i == $hftNavList.size())
+	                            			$nav.yield
+	                            		#else
+	                            			$nav.yield,
+	                        			#end
+                        				#set($i=$i+1)
+                        			#end
+                            		]
+                        		   ),
+                           splitNumber: 4
+
                        }
                    ],
                    calculable: true,
                    series: [
                        {
-                           name: "1的指数",
+                           name: "7日年化收益率",
                            type: "line",
                            data: [
-						   	#foreach($nav in $hftNavList)
-							$nav.yield,
-							#end
-						   ]
+                              	#set($i = 1)
+                        		#foreach($nav in $hftNavList)
+	                        		#if($i == $hftNavList.size())
+	                        			$nav.yield
+	                        		#else
+	                        			$nav.yield,
+	                    			#end
+                    			#set($i=$i+1)
+                    			#end
+                                  ]
 
                        }
                    ]
@@ -99,6 +176,9 @@
                        x: 'left',
                        data: [""]
                    },
+                   grid:{
+                  		x:90,
+                        }, 
                    xAxis: [
                        {
                            type: "category",
@@ -112,13 +192,65 @@
                    ],
                    yAxis: [
                        {
-                           type: "log"
+                    	   type: 'value',
+                           axisLine : {
+                               show: true,
+                               lineStyle: {
+                                   color: '#2f8ebe',
+                                   type: 'solid',
+                                   width: 2
+                               }
+                           },
+                           axisLabel : {
+                               show: true,
+                               formatter: function(value) {
+                                   	return value.toFixed(3);
+                               },
+                               textStyle: {
+                                   color: '#999',
+                                   fontFamily: 'arial',
+                                   fontSize: 10
+                               }
+                           },
+                           splitLine : {
+                               show:true,
+                               lineStyle: {
+                                   color: '#dbdcdc',
+                                   type: 'solid',
+                                   width: 1
+                               }
+                           },
+                           min: Math.min.apply(null, 
+                        		  [ #set($i = 1)
+	                           		#foreach($nav in $hftNavList)
+		                           		#if($i == $hftNavList.size())
+		                           			$nav.income
+		                           		#else
+		                           			$nav.income,
+		                       			#end
+		                       			#set($i=$i+1)
+	                       			#end
+                       			]
+                       			) ,
+                           max: Math.max.apply(null, 
+                        		   [#set($i = 1)
+                            		#foreach($nav in $hftNavList)
+	                            		#if($i == $hftNavList.size())
+	                            			$nav.income
+	                            		#else
+	                            			$nav.income,
+	                        			#end
+                        				#set($i=$i+1)
+                        			#end
+                            		]
+                        		   ) + 0.405,
+                           splitNumber: 4
                        }
                    ],
                    calculable: true,
                    series: [
                        {
-                           name: "2的指数",
+                           name: "万份收益(元)",
                            type: "line",
                            data: [
 						   #foreach($nav in $hftNavList)
@@ -148,23 +280,6 @@ $(function(){
 		$("#form").submit();
 	});
 		
-	$("#addBankCard").on("click",function(){
-	
-		var cardcount=$(".cBlue").html();
-		if(cardcount>=2){
-			alert("对不起，您最多只能添加两张银行卡");
-			return false;
-		}
-		 else{
-		 	var isufbCard=$(this).attr("isufbCard");
-    	    if(isufbCard=="Y"){
-    			alert("对不起，您只能添加一张幼富通银行卡");
-    			return false;
-    		} 
-		 }
-		window.location.href="${ufbDomain}/family/ufb/card_adds.htm";
-	});
-	
 	$("#showYield").html("7日年化收益率（%)"+ parseFloat('${hftFundInfo.yield}').toFixed(4)+"");
 	$("#showIncome").html("万份收益（元）"+ parseFloat('${hftFundInfo.income}').toFixed(4) +"");
 
