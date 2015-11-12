@@ -105,12 +105,14 @@ public class FamilyBaseController {
 				
 				for(QueryCustplandetail plan:planlist){
 					BigDecimal planmonthamt = BigDecimal.ZERO;
-					count=count+1;
-					allcount=allcount+1;
 					if(null!=plan.getPayappamount()){
 						planmonthamt=new BigDecimal(plan.getPayappamount());
 					}
-					monthtotalamt=monthtotalamt.add(planmonthamt);
+					if("0".equals(plan.getIspay())){
+						allcount=allcount+1;
+						count=count+1;
+						monthtotalamt=monthtotalamt.add(planmonthamt);
+					}
 				}
 				//上个月的退费  later....
 				

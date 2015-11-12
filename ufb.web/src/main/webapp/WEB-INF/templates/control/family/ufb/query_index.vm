@@ -2,7 +2,78 @@
 <html>
 <head>
     <title>幼富通 - 资产总览 - 资金明细</title>
-   
+    <!--日历-->
+    <script type="text/javascript">
+        $('nav a:eq(1)').addClass('active');
+        
+        $(".datepicker input").datepicker({
+            showOn: "button",
+            buttonImage: "${staticDomain}/family/images/calendar.png",
+            buttonImageOnly: true,
+            onSelect:function(dateText,inst){
+        	$(".item-date a").each(function(){
+        		$(this).removeClass("on");
+        	})
+    		$("#appdateindex").val("4");
+    		$("#form-index").submit();
+        }
+        });
+        $('.select').selectMenu();
+        $('.checkbox').checkbox();
+        $('.itemL .a5 tr:even td').css({'background':'#eaf4f8'});
+        $('.itemL .a5 tr:odd td').css({'background':'#fff'});
+    </script>
+  <script>
+    $(function(){
+	
+		$('.nav a:eq(1)').addClass('active');
+		
+		$(".search-con a").removeClass("on");
+		#if(${TradeQueryVo.appdateindex})
+			$(".item-date a:eq(${TradeQueryVo.appdateindex})").addClass("on");
+		
+		#end
+	
+		#if(${TradeQueryVo.appcateindex})
+			$(".item-cate a:eq(${TradeQueryVo.appcateindex})").addClass("on");
+		#else
+			$(".item-cate a:eq(0)").addClass("on");
+		#end
+	
+		#if(${TradeQueryVo.apptypeindex})
+			$(".item-type a:eq(${TradeQueryVo.apptypeindex})").addClass("on");
+		#else
+			$(".item-type a:eq(0)").addClass("on");
+		#end
+		
+		$(".item-date a").on("click",function(){
+			$(".item-date a").removeClass("on");
+			$(this).addClass("on");
+			$("#appdateindex").val($(this).attr("index"));
+			$("#form-index").submit();
+		});
+		
+		$(".item-cate a").on("click",function(){
+			$(".item-cate a").removeClass("on");
+			$(this).addClass("on");
+			$("#appcateindex").val($(this).attr("index"));
+			$("#form-index").submit();
+		});
+		
+		$(".item-type a").on("click",function(){
+			$(".item-type a").removeClass("on");
+			$(this).addClass("on");
+			$("#apptypeindex").val($(this).attr("index"));
+			$("#form-index").submit();
+		});
+		
+		$(".link").on("click",function(){
+			$("#serialno").val($(this).attr("serialno"));
+			$("#form-index").attr("action", "${ufbDomain}/family/ufb/query_detail.htm");
+			$("#form-index").submit();
+		});
+    });
+</script> 
 </head>
 <body>
     <div class="body">
@@ -14,7 +85,7 @@
 		
         <div class="inner clearfix">
             <div class="title clearfix">
-                <h2 class="title-main fl">资金明细</h2><a href="javascript:;" class="e-bill fr">电子对账单</a>
+                <h2 class="title-main fl">资金明细</h2>
             </div>
             <div class="bill-header clearfix">
                 <ul class="search-con fl">
@@ -114,81 +185,5 @@
     </div>
     </form>
 </div>
-<!--日历-->
-    <script type="text/javascript">
-        $('nav a:eq(1)').addClass('active');
-        $(".datepicker input").datepicker({
-            showOn: "button",
-            buttonImage: "${staticDomain}/family/images/calendar.png",
-            buttonImageOnly: true,
-            onSelect:function(dateText,inst){
-        	$(".item-date a").each(function(){
-        		$(this).removeClass("on");
-        	})
-    		$("#appdateindex").val("4");
-    		$("#form-index").submit();
-        }
-        });
-        $('.select').selectMenu();
-        $('.checkbox').checkbox();
-        $('.itemL .a5 tr:even td').css({'background':'#eaf4f8'});
-        $('.itemL .a5 tr:odd td').css({'background':'#fff'});
-    </script>
-	<script>
-$(function(){
-
-	$('.nav a:eq(1)').addClass('active');
-	
-	$(".search-con a").removeClass("on");
-	#if(${TradeQueryVo.appdateindex})
-		$(".item-date a:eq(${TradeQueryVo.appdateindex})").addClass("on");
-	//#else
-	//	$(".item-date a:eq(0)").addClass("on");
-	#end
-
-	#if(${TradeQueryVo.appcateindex})
-		$(".item-cate a:eq(${TradeQueryVo.appcateindex})").addClass("on");
-	#else
-		$(".item-cate a:eq(0)").addClass("on");
-	#end
-
-	#if(${TradeQueryVo.apptypeindex})
-		$(".item-type a:eq(${TradeQueryVo.apptypeindex})").addClass("on");
-	#else
-		$(".item-type a:eq(0)").addClass("on");
-	#end
-	
-	$(".item-date a").on("click",function(){
-		$(".item-date a").removeClass("on");
-		$(this).addClass("on");
-		$("#appdateindex").val($(this).attr("index"));
-		$("#form-index").submit();
-	});
-	
-	$(".item-cate a").on("click",function(){
-		$(".item-cate a").removeClass("on");
-		$(this).addClass("on");
-		$("#appcateindex").val($(this).attr("index"));
-		$("#form-index").submit();
-	});
-	
-	$(".item-type a").on("click",function(){
-		$(".item-type a").removeClass("on");
-		$(this).addClass("on");
-		$("#apptypeindex").val($(this).attr("index"));
-		$("#form-index").submit();
-	});
-	
-	  //$("#btn-search").on("click",function(){
-	 //	$("#form-index").submit();
-	//});
-	
-	$(".link").on("click",function(){
-		$("#serialno").val($(this).attr("serialno"));
-		$("#form-index").attr("action", "${ufbDomain}/family/ufb/query_detail.htm");
-		$("#form-index").submit();
-	});
-});
-</script>
 </body>
 </html>
