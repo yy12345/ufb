@@ -1486,8 +1486,7 @@ a {
 	font-size:16px;
 	color:#878787;
 	border:1px solid #9bcbdd;
-    z-index:1000;
-    z-index:1000\9;
+    z-index:1;
 }
 
 /*creatAnAccount_04.html*/

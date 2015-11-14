@@ -181,7 +181,8 @@
 			}else{
 				that.append('<div class="num">'+num+'</div>');
 			}
-			that.find('.num').css({top:-that.outerHeight()+1,width:that.outerWidth()-22});
+			that.find('.num').css({top:-that.outerHeight()+1,width:that.outerWidth()-27});
+			that.find('.num').css("font-size","16px");
 			that.find('input').on('focus',function(){
 				$(this).parent().find('.num').show();
 			}).on('blur',function(){

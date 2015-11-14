@@ -614,8 +614,10 @@ i.imitate-radio.check{
     padding-left: 20px;
 }
 .familyMyAccount .btn-pay{
-    margin-left: 90px;
     vertical-align: text-bottom;
+    position: absolute;
+	left: 255px;
+	top: 128px;
 }
 .familyMyAccount .myaccount .myright{
     height: 215px;

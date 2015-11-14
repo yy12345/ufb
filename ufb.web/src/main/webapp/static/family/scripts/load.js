@@ -159,14 +159,7 @@ $(function(){
         $(".alert-con").show();
     });
     
-
-});
-
-
-
-
-// by Tracy 09-12 
-$(function(){
+	// by Tracy 09-12 
     $(".container .u2 .v2_1").click(function(){
         $(".container .u2 .v2").hide();
     });
@@ -184,12 +177,12 @@ $(function(){
     });
       $(".liBox .trip").mouseout(function(){
         $(this).find("div").hide();
+    });  
+    $(".common-form .safeInfo li span a").mouseover(function(){
+        $(this).find("div").show();
     });
-    $("#cardRequirement").mouseover(function(){
-        $(this).parent().next().show();
-    });
-    $("#cardRequirement").mouseout(function(){
-        $(this).parent().next().hide();
+    $(".common-form .safeInfo li span a").mouseout(function(){
+        $(this).find("div").hide();
     });
     
     $(".common-form .safeInfo .provinces").click(function(){
@@ -210,9 +203,7 @@ $(function(){
         $(".common-form .safeInfo .inputR .choseCity").hide();
 
     });
-    
-
-    
+   
     var ex;
     $(".a3 .b2 .tabs").find("a").click(function(){
         $(this).addClass("active")
@@ -232,11 +223,7 @@ $(function(){
     $(".profile .a5 #bx-pager a").click(function(){
         $(this).addClass("active").siblings().removeClass("active");
     });
-    
-});
 
-
-$(function(){
     $(".help .side-nav li").find("a").click(function(){
         $(this).addClass("current").parents().siblings().find("a").removeClass("current");
     });
@@ -244,4 +231,6 @@ $(function(){
     $(".nav a").click(function(){
         $(this).addClass("active").siblings().removeClass("active");
     });
+    
+    $('#card2').cardFormat("####,####,####,####,###");
 });
