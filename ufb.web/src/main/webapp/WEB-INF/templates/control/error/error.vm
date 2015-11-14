@@ -5,7 +5,7 @@
         </div>
         <div class="find-panels">
             <div class="panel">
-                <div class="form-done">
+                <div class="form-error form-done">
                     <div class="title">#if(${message_content})${message_content}#else系统繁忙，您的申请提交失败！#end</div>
                     <a class="btn" #if(${message_url}) href="${ufbDomain}/${message_url}" #else href="${ufbDomain}/family/index.htm" #end>
                     	#if(${back_module})${back_module}#else幼富通首页#end

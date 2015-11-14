@@ -982,6 +982,17 @@ a.link-underline {
 	background: url("../images/img_27.png") no-repeat 10px 45px;
     background-size:;
 }
+.form-error {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	height: 250px;
+	margin-top: -140px;
+	margin-left: -180px;
+	padding: 50px 0 0 70px;
+	background: url("../images/img_27_error.png") no-repeat 10px 45px;
+    background-size:;
+}
 .form-done.form-mt{
     margin-top:-200px;
 }

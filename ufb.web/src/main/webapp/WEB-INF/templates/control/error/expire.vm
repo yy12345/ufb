@@ -5,7 +5,7 @@
         </div>
         <div class="find-panels">
             <div class="panel">
-                <div class="form-done">
+                <div class="form-error form-done">
                     <div class="title">你的申请已提交，请勿重复操作！</div>
                     <a class="btn" href="${ufbDomain}/family/uft/uft_index.htm">
                     	我的账户

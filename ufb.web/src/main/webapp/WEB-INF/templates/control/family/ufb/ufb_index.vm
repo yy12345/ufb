@@ -265,17 +265,6 @@
 <script type="text/javascript">
 $(function(){
 	
-    $(".link").on("click",function(){
-		$("#serialno").val($(this).attr("serialno"));
-		$("#form").attr("action", "${ufbDomain}/family/ufb/query_detail.htm");
-		$("#form").submit();
-	});
-	
-	$("#btn-queryIndex").on("click",function(){
-		$("#form").attr("action", "${ufbDomain}/family/ufb/query_index.htm");
-		$("#form").submit();
-	});
-		
 	$("#showYield").html("7日年化收益率（%)"+ parseFloat('${hftFundInfo.yield}').toFixed(4)+"");
 	$("#showIncome").html("万份收益（元）"+ parseFloat('${hftFundInfo.income}').toFixed(4) +"");
 
@@ -284,8 +273,6 @@ $(function(){
 </head>
 <body>
 <div id="body">
-	<form id="form" method="post" action="${ufbDomain}/family/ufb/query_index.htm">
-		<input type="hidden" id="serialno" name="serialno" value="">
     <div class="container">
 		<div class="a1 height22">
 		     幼富宝
@@ -318,7 +305,7 @@ $(function(){
 		</div>
 		<div class="a3 mt15 mb30">
 			<div class="b1">
-				<div class="c1">资金明细<a id="btn-queryIndex" href="#">查看更多</a></div>
+				<div class="c1">资金明细<a id="btn-queryIndex" href="${ufbDomain}/family/ufb/query_index.htm">查看更多</a></div>
 				<div class="c2">
 					<table>
 						<tr>
@@ -369,7 +356,7 @@ $(function(){
 							${tradeRequest.banknm}（尾号$tailStr.substring($start,$end)）	
 							</td>
                             <td>
-								<a serialno="${tradeRequest.serialno}" class="link" href="javascript:;">查看</a>
+								<a class="link" href="${ufbDomain}/family/ufb/query_detail.htm?serialno=${tradeRequest.serialno}">查看</a>
 							</td>
 						</tr>
 	                	#end

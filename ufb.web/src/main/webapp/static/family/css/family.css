@@ -845,7 +845,7 @@ i.up-arrow-grey{
     font-family: microsoft yahei;
     padding-top:40px;
 }
-.addAdv .advTitle.advBox{
+.addAdv .advTitle ,.advBox{
     padding-left:150px;
     width:810px;
 }

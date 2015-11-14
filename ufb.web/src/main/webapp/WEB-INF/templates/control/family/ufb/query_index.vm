@@ -67,11 +67,6 @@
 			$("#form-index").submit();
 		});
 		
-		$(".link").on("click",function(){
-			$("#serialno").val($(this).attr("serialno"));
-			$("#form-index").attr("action", "${ufbDomain}/family/ufb/query_detail.htm");
-			$("#form-index").submit();
-		});
     });
 </script> 
 </head>
@@ -81,7 +76,6 @@
 		<input type="hidden" id="appdateindex" name="appdateindex" value="$!{TradeQueryVo.appdateindex}">
 		<input type="hidden" id="appcateindex" name="appcateindex" value="$!{TradeQueryVo.appcateindex}">
 		<input type="hidden" id="apptypeindex" name="apptypeindex" value="$!{TradeQueryVo.apptypeindex}">
-		<input type="hidden" id="serialno" name="serialno" value="">
 		
         <div class="inner clearfix">
             <div class="title clearfix">
@@ -174,7 +168,7 @@
 					#set($end=$tailStr.length())
 					${tradeRequest.banknm}（尾号$tailStr.substring($start,$end)）	
 					</td>
-                    <td class="tc"><a serialno="${tradeRequest.serialno}" class="link" href="javascript:;">查看</a></td>
+                    <td class="tc"><a class="link" href="${ufbDomain}/family/ufb/query_detail.htm?serialno=${tradeRequest.serialno}">查看</a></td>
                 </tr>
 				#end
 						

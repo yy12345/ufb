@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
     <link rel="stylesheet" href="${staticDomain}/family/css/common.css?t=6">
     <link rel="stylesheet" href="${staticDomain}/family/css/header.css?t=4">
+    <link rel="stylesheet" href="${staticDomain}/family/css/footer.css?t=1">
     
     <script type='text/javascript' src='${staticDomain}/family/libs/jquery.min.js'></script>
     <!--[if lt IE 9]>
