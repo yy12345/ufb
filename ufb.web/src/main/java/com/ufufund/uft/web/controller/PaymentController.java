@@ -2,6 +2,8 @@ package com.ufufund.uft.web.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,7 @@ import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.org.OrgPlanManager;
 import com.ufufund.ufb.biz.manager.org.OrgQueryManager;
 import com.ufufund.ufb.common.exception.UserException;
+import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.NumberUtils;
 import com.ufufund.ufb.model.db.Bankcardinfo;
@@ -33,6 +36,7 @@ import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.OrgBankInfoVo;
 import com.ufufund.ufb.model.vo.PayListVo;
+import com.ufufund.ufb.model.vo.PayRecordQryVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgStudent;
 import com.ufufund.ufb.web.util.UserHelper;
@@ -225,8 +229,14 @@ public class PaymentController {
 		return "redirect:/"+UFT_INDEX;
 	}
 	
-	@RequestMapping(value = "pay_notice")
-	public String payNotice(String orgids,Model model) {
+	/**
+	 * 家长确认缴费：预览页
+	 * @param orgids
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "pay_preview")
+	public String payPreview(String orgids,Model model) {
 		
 		List<PayListVo> planLists = new ArrayList<PayListVo>();
 		try{
@@ -280,8 +290,14 @@ public class PaymentController {
 		return "family/uft/pay_notice";
 	}
 	
+	/**
+	 * 家长确认缴费：确认页
+	 * @param detailids
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "pay_confirm")
-	public String payReview(String  detailids, Model model) {
+	public String payConfirm(String  detailids, Model model) {
 		
 		List<PayListVo> planlistchecked = new ArrayList<PayListVo>();
 		try{
@@ -344,19 +360,27 @@ public class PaymentController {
 		return "family/uft/pay_confirm";
 	}
 	
+	/**
+	 * 家长确认缴费：结果页
+	 * @param paytype
+	 * @param orgmsg
+	 * @param detailids
+	 * @param allpayconfirm
+	 * @param tradePwd
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="pay_result")
 	public String payResult(String paytype,String orgmsg,String detailids,String allpayconfirm,String tradePwd,Model model){
 		
-			CustinfoVo custinfo=UserHelper.getCustinfoVo();
-		
+		CustinfoVo custinfo = UserHelper.getCustinfoVo();
 		try{
 			// 交易密码校验
 			if(!custinfo.getTradepwd().equals(EncryptUtil.md5(tradePwd))){
 				throw new UserException("交易密码错误！");
-			}
-			
+			}		
 			if(StringUtils.isBlank(detailids)||StringUtils.isBlank(paytype)||StringUtils.isBlank(orgmsg)){
-				throw new UserException("获得的信息为空！");
+				throw new UserException("输入参数为空！");
 			}
 			
 			// 机构信息
@@ -365,7 +389,6 @@ public class PaymentController {
 			for(int i=0;i<orgs.length;i++){
 				orgnamelist.add(orgs[i]);
 			}
-			
 			// 支付方式  :幼富宝    快捷方式    
 			String paydate=orgPlanManager.confirmDetail(detailids, custinfo.getCustno(), paytype);
 			
@@ -384,6 +407,164 @@ public class PaymentController {
 		return "family/uft/pay_result";
 	}
 	
+	/**
+	 * 缴费明细:记录列表
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="pay_records")
+	public String payRecords(PayRecordQryVo vo, Model model){
+		
+		String custno = UserHelper.getCustno();	
+		try{
+			// 获取绑定机构信息
+			List<QueryOrgStudent> orglist = orgQueryManager.getQueryOrgByCustno(custno);
+			if(orglist == null || orglist.size() == 0){
+				return "redirect:/family/uft/code_index.htm";
+			}
+			
+			if(vo == null){
+				vo = new PayRecordQryVo();
+			}
+			vo.setCustno(custno);
+			// 选中机构
+			if(StringUtils.isBlank(vo.getOrgid())){
+				vo.setOrgid(orglist.get(0).getOrgid());
+			}
+			// 选中展示机构下的学生信息
+			List<QueryOrgStudent> studentlist = orgQueryManager.getQueryStudentByOrgid(vo.getOrgid(), custno);
+			// 起、止日期
+			if(StringUtils.isBlank(vo.getStartTime())){
+				vo.setStartTime(DateUtil.format(getStartTime(), DateUtil.DATE_PATTERN_2));
+			}
+			if(StringUtils.isBlank(vo.getEndTime())){
+				vo.setEndTime(DateUtil.format(getEndTime(), DateUtil.DATE_PATTERN_2));
+			}
+			/** 分页参数  **/
+			// total
+			vo.setTotal(orgQueryManager.getPayRecordCount(vo));
+			// pageSize
+			if(vo.getPageSize() == 0){
+				vo.setPageSize(5);
+			}else if(vo.getPageSize() > 20){
+				vo.setPageSize(20);
+			}
+			int pageSize = vo.getPageSize();
+			// page参数
+			if(vo.getPage() < 1){
+				vo.setPage(1);
+			}
+			if((vo.getPage()-1) * pageSize <= vo.getTotal()){
+				vo.setStart((vo.getPage()-1)*pageSize + 1);
+				vo.setEnd(vo.getPage()*pageSize);
+			}
+			/** 校验  **/
+			if(vo.getStartTime().compareTo(vo.getEndTime()) > 0){
+				throw new UserException("查询时间错误！");
+			}
+			if((vo.getPage()-1) * pageSize > vo.getTotal()){
+				throw new UserException("分页参数page已超出范围！");
+			}
+			
+			List<QueryCustplandetail> detailList = orgQueryManager.getPayRecords(vo);
+			BigDecimal paidTotal = orgQueryManager.getPaidTotalAmt(vo);
+			BigDecimal reversedTotal = orgQueryManager.getReversedTotalAmt(vo);
+			
+			
+			model.addAttribute("orglist", orglist);
+			model.addAttribute("vo", vo);
+			model.addAttribute("studentlist", studentlist);
+			model.addAttribute("detailList", detailList);
+			model.addAttribute("paidTotal", NumberUtils.DF_CASH_CONMMA.format(paidTotal.doubleValue()));
+			model.addAttribute("reversedTotal", NumberUtils.DF_CASH_CONMMA.format(reversedTotal.doubleValue()));
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "操作失败");
+			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("message_url", UFT_INDEX);
+			model.addAttribute("back_module", UFT_INDEX_NAME);
+			return "error/error";
+		}
+		return "family/uft/pay_records";
+	}
+	
+	/**
+	 * 缴费明细:记录单元查询
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="record_unit")
+	public String recordUnit(PayRecordQryVo vo, Model model){
+		
+		String custno = UserHelper.getCustno();	
+		try{
+			vo.setCustno(custno);
+			/** 分页参数  **/
+			// total
+			vo.setTotal(orgQueryManager.getPayRecordCount(vo));
+			// total
+			vo.setTotal(orgQueryManager.getPayRecordCount(vo));
+			// pageSize
+			if(vo.getPageSize() == 0){
+				vo.setPageSize(5);
+			}else if(vo.getPageSize() > 20){
+				vo.setPageSize(20);
+			}
+			int pageSize = vo.getPageSize();
+			// page参数
+			if(vo.getPage() < 1){
+				vo.setPage(1);
+			}
+			if((vo.getPage()-1) * pageSize <= vo.getTotal()){
+				vo.setStart((vo.getPage()-1)*pageSize + 1);
+				vo.setEnd(vo.getPage()*pageSize);
+			}
+			/** 校验  **/
+			if(vo.getStartTime().compareTo(vo.getEndTime()) > 0){
+				throw new UserException("查询时间错误！");
+			}
+			if((vo.getPage()-1) * pageSize > vo.getTotal()){
+				throw new UserException("分页参数page已超出范围！");
+			}
+			
+			List<QueryCustplandetail> detailList = orgQueryManager.getPayRecords(vo);
+			
+			model.addAttribute("vo", vo);
+			model.addAttribute("detailList", detailList);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "操作失败");
+			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("message_url", UFT_INDEX);
+			model.addAttribute("back_module", UFT_INDEX_NAME);
+			return "error/error";
+		}
+		return "family/uft/record_unit";
+	}
+	
+	/**
+	 * 缴费记录：缴费通知书
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="pay_notice")
+	public String payNotice(Model model){
+		
+		CustinfoVo custinfo = UserHelper.getCustinfoVo();	
+		try{
+			
+			
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "操作失败");
+			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("message_url", UFT_INDEX);
+			model.addAttribute("back_module", UFT_INDEX_NAME);
+			return "error/error";
+		}
+		return "family/uft/pay_notice";
+	}
+	
 	private void setModel(CustinfoVo custinfoVo, Model model){
 		// 海富通
 		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
@@ -394,4 +575,28 @@ public class PaymentController {
 			model.addAttribute("availableBalance", NumberUtils.DF_CASH_CONMMA.format(0));
 		}
 	}
+	
+	/**
+	 * 获取缴费明细查询起始日期
+	 * @return
+	 */
+	private Date getStartTime(){
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.MONTH, c.get(Calendar.MONTH) -2);
+		c.set(Calendar.DAY_OF_MONTH, 1);
+		return c.getTime();
+	}
+	
+	/**
+	 * 获取缴费明细查询截止日期
+	 * @return
+	 */
+	private Date getEndTime(){
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.MONTH, c.get(Calendar.MONTH) + 1);
+		c.set(Calendar.DAY_OF_MONTH, 1);
+		c.add(Calendar.DAY_OF_MONTH, -1);
+		return c.getTime();
+	}
+	
 }

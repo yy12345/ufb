@@ -3,6 +3,28 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ufufund.ufb.dao.OrgQueryMapper">
+	
+	<sql id="planDetailSql">
+		a.org_id as orgid,
+		c.invnm as invnm,
+		c.organization as orgnm,
+		b.name as studentnm,
+		a.student_id as studentid,
+		a.detail_id as detailid,
+		a.plan_id as planid,
+		a.pay_app_amount as payappamount,
+		a.pay_discount as paydiscount,
+		a.pay_ack_amount as payackamount,
+		a.is_pay as ispay,
+		a.pay_custno as paycustno,
+		date_format(a.pay_date,'%Y-%m-%d')  as paydate,
+		date_format(a.plan_date,'%Y-%m-%d')  as plandate,
+		date_format(a.ack_date,'%Y-%m-%d')  as ackdate,
+		d.plan_name as planname,
+		d.plan_type as plantype,
+		d.cycle_type as cycletype,
+		d.type
+	</sql>
 
 	<select id="getQueryOrgByCustno" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrgStudent">
 			SELECT
@@ -206,51 +228,103 @@
 	       		</if>
 			    GROUP BY  d.p_custno
     </select>
+    
+    <select id="getOrgidByDetailid" parameterType="java.lang.String" resultType="java.lang.String">
+    	select org_id from org_plan_datail where detail_id=#{detailid,jdbcType=VARCHAR}
+    </select>
+    
+    <!-- 查询缴费详单 -->
     <select id="getQueryCustplandetail" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryCustplandetail">
-			SELECT
-			a.org_id as orgid,
-			c.invnm as invnm,
-			c.organization as orgnm,
-			b.name as studentnm,
-			a.student_id as studentid,
-			a.detail_id as detailid,
-			a.plan_id as planid,
-			a.pay_app_amount as payappamount,
-			a.pay_discount as paydiscount,
-			a.pay_ack_amount as payackamount,
-			a.is_pay as ispay,
-			a.pay_custno as paycustno,
-			date_format(a.pay_date,'%Y-%m-%d')  as paydate,
-			date_format(a.plan_date,'%Y-%m-%d')  as plandate,
-			date_format(a.ack_date,'%Y-%m-%d')  as ackdate,
-			d.plan_name as planname,
-			d.plan_type as plantype,
-			d.cycle_type as cycletype,
-			d.type
-			FROM
-			student b,
-			org_plan_datail a,
-			custinfo c,
-			org_plan d
-			where 
-			a.student_id =b.sid
-			and a.org_id = c.custno  and a.plan_id=d.plan_id
-			and date_format(a.plan_date,'%Y-%m')  = date_format(sysdate(),'%Y-%m') 
+			SELECT <include refid="planDetailSql"/>
+			FROM org_plan_datail a, student b, custinfo c, org_plan d
+			where a.student_id =b.sid and a.org_id = c.custno and a.plan_id=d.plan_id 
+			and a.pay_custno  = #{custno,jdbcType=VARCHAR} 
 			<if test="orgid != null">
-			and a.org_id = #{orgid,jdbcType=VARCHAR}
+				and a.org_id = #{orgid,jdbcType=VARCHAR}
 			</if>
 			<if test="detailid != null">
-			and a.detail_id = #{detailid,jdbcType=VARCHAR}
+				and a.detail_id = #{detailid,jdbcType=VARCHAR}
 			</if>
 			and a.is_pay in
 			<foreach item="ispay" collection="ispaylist" separator="," open="(" close=")" index="">
 	    		#{ispay,jdbcType=VARCHAR}
 	    	</foreach>
-			and b.p_custno  = #{custno,jdbcType=VARCHAR} 
 			order by a.student_id, a.plan_date  desc
     </select>
-    <select id="getOrgidByDetailid" parameterType="java.lang.String" resultType="java.lang.String">
-    	select org_id from org_plan_datail where detail_id=#{detailid,jdbcType=VARCHAR}
+    <!-- 缴费明细:分页查询 -->
+    <select id="getPayRecords" parameterType="PayRecordQryVo" resultType="QueryCustplandetail">
+		select * from (
+			SELECT
+				<include refid="planDetailSql"/>, (@rownum:=@rownum+1) as rownum 
+			FROM org_plan_datail a, student b, custinfo c, org_plan d, (select (@rownum:=0) ) e
+			where a.student_id =b.sid and a.org_id = c.custno and a.plan_id=d.plan_id 
+			and a.pay_custno  = #{custno,jdbcType=VARCHAR} and a.is_pay in ('2','4','5')
+			<if test="orgid != null and orgid != ''">
+				and a.org_id = #{orgid,jdbcType=VARCHAR}
+			</if>
+			<if test="sid != null and sid != ''">
+				and a.student_id = #{sid,jdbcType=VARCHAR}
+			</if>
+			<if test="startTime != null">
+				and date_format(a.ack_date,'%Y-%m-%d') &gt;= #{startTime,jdbcType=VARCHAR}
+			</if>
+			<if test="endTime != null">
+				and date_format(a.ack_date,'%Y-%m-%d') &lt;= #{endTime,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null and type != ''">
+				and d.plan_type = #{type,jdbcType=VARCHAR}
+			</if>
+			order by a.ack_date desc, a.plan_date desc
+		) t where t.rownum &gt;= #{start,jdbcType=VARCHAR} 
+			and t.rownum &lt;= #{end,jdbcType=VARCHAR}
+    </select>
+    <!-- 缴费明细：总数 -->
+    <select id="getPayRecordCount" parameterType="PayRecordQryVo" resultType="int">
+    		SELECT count(*)
+			FROM org_plan_datail a, student b, custinfo c, org_plan d 
+			where a.student_id =b.sid and a.org_id = c.custno and a.plan_id=d.plan_id 
+			and a.pay_custno  = #{custno,jdbcType=VARCHAR} and a.is_pay in ('2','4','5')
+			<if test="orgid != null and orgid != ''">
+				and a.org_id = #{orgid,jdbcType=VARCHAR}
+			</if>
+			<if test="sid != null and sid != ''">
+				and a.student_id = #{sid,jdbcType=VARCHAR}
+			</if>
+			<if test="startTime != null">
+				and date_format(a.ack_date,'%Y-%m-%d') &gt;= #{startTime,jdbcType=VARCHAR}
+			</if>
+			<if test="endTime != null">
+				and date_format(a.ack_date,'%Y-%m-%d') &lt;= #{endTime,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null and type != ''">
+				and d.plan_type = #{type,jdbcType=VARCHAR}
+			</if>
+    </select>
+    <!-- 家长累计付费 -->
+    <select id="getPaidTotalAmt" parameterType="PayRecordQryVo" resultType="BigDecimal">
+    	select ifnull(sum(a.pay_ack_amount), 0) 
+    	from org_plan_datail a left join org_plan b on a.plan_id = b.plan_id
+    	where a.is_pay in ('2', '5') and b.plan_type in ('F','T')
+    		and a.pay_custno = #{custno,jdbcType=VARCHAR} 
+    		<if test="orgid != null and orgid != ''">
+				and a.org_id = #{orgid,jdbcType=VARCHAR}
+			</if>
+			<if test="sid != null and sid != ''">
+				and a.student_id = #{sid,jdbcType=VARCHAR}
+			</if>
+    </select>
+    <!-- 家长累计收到退费 -->
+    <select id="getReversedTotalAmt" parameterType="PayRecordQryVo" resultType="BigDecimal">
+    	select ifnull(sum(a.pay_ack_amount), 0) 
+    	from org_plan_datail a left join org_plan b on a.plan_id = b.plan_id
+    	where a.is_pay in ('2', '5') and b.plan_type = 'R'
+    		and a.pay_custno = #{custno,jdbcType=VARCHAR}
+    		<if test="orgid != null and orgid != ''">
+				and a.org_id = #{orgid,jdbcType=VARCHAR}
+			</if>
+			<if test="sid != null and sid != ''">
+				and a.student_id = #{sid,jdbcType=VARCHAR}
+			</if>
     </select>
     
 </mapper>

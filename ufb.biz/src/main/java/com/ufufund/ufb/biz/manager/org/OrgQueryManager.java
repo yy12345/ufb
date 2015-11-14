@@ -1,7 +1,9 @@
 package com.ufufund.ufb.biz.manager.org;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import com.ufufund.ufb.model.vo.PayRecordQryVo;
 import com.ufufund.ufb.model.vo.QueryCustPayInfo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgPayInfo;
@@ -51,6 +53,34 @@ public interface OrgQueryManager {
 			String detailid
 			);
 
+	/**
+	 * 缴费明细查询:分页查询
+	 * @param vo
+	 * @return
+	 */
+	public List<QueryCustplandetail> getPayRecords(PayRecordQryVo vo);
+	
+	/**
+	 * 缴费明细查询：总数
+	 * @param vo
+	 * @return
+	 */
+	public int getPayRecordCount(PayRecordQryVo vo);
+	
+	/**
+	 * 查询已缴费用总额
+	 * @param custno
+	 * @return
+	 */
+	public BigDecimal getPaidTotalAmt(PayRecordQryVo vo);
+	
+	/**
+	 * 查询已收到的退费总额
+	 * @param custno
+	 * @return
+	 */
+	public BigDecimal getReversedTotalAmt(PayRecordQryVo vo);
+	
 	/*
 	 * 学年缴费查询
 	 */

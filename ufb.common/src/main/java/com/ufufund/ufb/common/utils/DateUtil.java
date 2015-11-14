@@ -56,6 +56,17 @@ public class DateUtil {
 	}
 	
 	/**
+	 * 格式化Date型时间
+	 * @param time Date型时间
+	 * @param sourcePattern 源模式
+	 * @param destPattern 目标模式
+	 * @return
+	 */
+	public static String format(String time, String sourcePattern, String destPattern){	
+		return format(parse(time, sourcePattern), destPattern);
+	}
+	
+	/**
 	 * 时间转型
 	 * @param time 时间
 	 * @param sourcePattern 源模式

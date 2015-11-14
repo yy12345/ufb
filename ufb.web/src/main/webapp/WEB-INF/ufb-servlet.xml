@@ -98,11 +98,12 @@
 	<!-- 1.拦截器按照先后顺序进行拦截，2.拦截全部请求时使用"/**"， 3.拦截只针对controller -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**/*.htm" />
+			<mvc:mapping path="/no/*.htm" />
 			<mvc:exclude-mapping path="/error/*.htm" />
 			<mvc:exclude-mapping path="/common/*.htm" />
 			<mvc:exclude-mapping path="/family/index.htm" />
 			<mvc:exclude-mapping path="/family/account/*.htm" />
+			<mvc:exclude-mapping path="/family/help/*.htm" />
 			<mvc:exclude-mapping path="/family/setting/findpwd_*.htm" />
 			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.LoginInterceptor">
 				<property name="loginUrl">

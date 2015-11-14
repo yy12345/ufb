@@ -161,13 +161,18 @@
                           </tr>						  
 						  #foreach($plan in ${pay.planList})
                           <tr>
-                              <td>${plan.detailid}</td>
-                              <td>${plan.studentnm}</td>
-                              <td>${plan.orgnm}</td>
-                              <td>${plan.planname}<span class="tip">#if(${plan.type}=="AT")月代扣  #else 年代扣  #end</span></td>
-                              <td #if(${plan.ispay}=='0') class="num-red" #elseif(${plan.ispay}=='1') class="num-green" #end>${plan.payappamount}</td>
-                              <td>#if($plan.ackdate!='0000-00-00')${plan.ackdate} #else -- #end</td>
-                              <td >#if(${plan.ispay}=='0') 等待缴费 #elseif(${plan.ispay}=='1')<strong class="num-green"> 等待扣款 </strong> #else 缴费成功   #end</td>
+                              <td>$plan.detailid</td>
+                              <td>$plan.studentnm</td>
+                              <td>$plan.orgnm</td>
+                              <td>$plan.planname<span class="tip">#if(${plan.type}=="AT")月代扣#else单笔#end</span></td>
+                              <td class="num-red">$plan.payappamount</td>
+                              <td>$plan.ackdate</td>
+                              <td >
+	                              #if(${plan.ispay}=='0')等待缴费
+	                              #elseif(${plan.ispay}=='1')<strong class="num-green">等待扣款 </strong>
+	                              #elseif(${plan.ispay}=='3')待补扣
+	                              #end
+                              </td>
                           </tr>
 						  #end		  
                       </table>
