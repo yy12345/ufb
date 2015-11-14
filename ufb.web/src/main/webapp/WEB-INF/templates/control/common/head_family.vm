@@ -17,7 +17,7 @@
 		<link rel="stylesheet" href="${staticDomain}/family/css/main.css?t=14">
 	#elseif(${family_module} == "ufb" || ${family_module} == "setting" || ${family_module} == "help" || ${family_page} == "pay_result")
 		<link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
-    	<link rel="stylesheet" href="${staticDomain}/family/css/common.css?t=16">
+    	<link rel="stylesheet" href="${staticDomain}/family/css/common.css?t=20">
 	#end
 	<link rel="stylesheet" href="${staticDomain}/family/css/header.css?t=4">
 	<link rel="stylesheet" href="${staticDomain}/family/css/footer.css?t=1">

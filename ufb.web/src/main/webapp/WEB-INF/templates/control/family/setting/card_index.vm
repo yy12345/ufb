@@ -2,6 +2,11 @@
 <html>
 <head>
 <title>幼富通 - 账户管理 - 银行卡管理</title>
+<script>
+$(function(){
+	$('.nav a:eq(0)').addClass('active');
+})
+</script>
 </head>
 <body>
 
@@ -43,6 +48,5 @@
     </div>
 	</form>
 </div>
-<script src="${staticDomain}/family/scripts/load.js"></script>
 </body>
 </html>

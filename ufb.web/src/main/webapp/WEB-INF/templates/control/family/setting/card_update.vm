@@ -1,19 +1,12 @@
 <html>
 <head>
 <title>幼富通-我的银行卡-升级幼富宝卡</title>
- 
-<script type="text/javascript">
-//$(function(){
-//	$('.inputText').inputText();
-//});
-//$(function(){
-//    $('#card2').cardFormat('###,###,####,####,####');//身份证
-//});
-</script>
+<script type="text/javascript" src="${staticDomain}/family/scripts/plug.js"></script>
 <script type="text/javascript" src="${staticDomain}/family/scripts/load.js"></script>
 <script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>  <!--scroll美化-->
 <script type="text/javascript">
     $(function(){
+    	$('.nav a:eq(0)').addClass('active');
 	   // 幼富宝协议    
        $("#ufbAgreement").click(function(){
            $(".bgBox , #ufb01").fadeIn();       
@@ -281,11 +274,11 @@
                     </li>
                     <li class="clearfix">
                         <div class="input-select">
-                            <div class="bank bank-current"><img src="${staticDomain}/family/images/bank_${firstBank.bankno}.png"></div>
+                            <div class="bank bank-current"><img height="33" class="mrcard" src="${staticDomain}/family/images/bank_${firstBank.bankno}.png"></div>
                             <div class="input-options">
-                                <div class="bank-list clearfix mb10 ufbCard" style="width: 620px;">
+                                <div class="bank-list clearfix mb10 ufbCard">
                                     #foreach($bank in $ufbBankList)
-							        	<a bankno="${bank.bankno}" class="bank" style="width: 142px;" href="javascript:;">
+							        	<a bankno="${bank.bankno}" class="bank" href="javascript:;">
 							        		<img src="${staticDomain}/family/images/bank_${bank.bankno}.png">
 							        	</a>
 							        #end
@@ -297,21 +290,21 @@
                     </li>
                 </ul>
                 <ul class="safeInfo">
-                    <li class="cardNum">
-                       <span class="form-title">银行卡号</span>
-                       <div class="cardFormat" id="card2">
-                           <input class="ipt-bankCard input-text ipt-focus" maxlength="22"  type="text" id="bankacco" name="bankacco">
-                       </div>
-                       <span class="tips-check"><i class="icon"></i><font></font></span>
-                       <p>
-                       	         此卡默认缴费卡，仅支持借记卡，<a id="cardRequirement" href="javascript:;">绑卡须知</a>。
-                       </p>
-                       <div class="trip" style="display:none">
-                        	 填写以你自己姓名开户的银行卡<br>
-			                                                幼富通平台快捷缴费：共支持超过15家全国及地方银行借记卡<br>
-			                                                充值幼富宝（理财+缴费）目前共支持9家银行，仅限借记卡<b></b>
-                       </div>
-                   </li>
+	               <li class="cardNum">
+		                <span class="form-title">银行卡号</span>
+		                    <div class="cardFormat" id="card2">
+		                        <input class="ipt-bankCard input-text ipt-focus" maxlength="19"  type="text" id="bankacco" name="bankacco">
+		                    </div>
+		                <span style="position:absolute;top:45px;left:120px;z-index:1000">此卡将设为默认缴费卡，仅支持借记卡，<a href="javascript:;">银行卡要求。
+		                    <div class="trip" >
+		                        <div>填写以你自己姓名开户的银行卡<br>
+						               幼富通平台快捷缴费：共支持超过15家全国及地方银行借记卡<br>
+				                       充值幼富宝（理财+缴费）目前共支持9家银行，仅限借记卡<b></b>
+		                         </div>
+		                     </div></a>
+		                </span>
+		                <span class="tips-check"><i class="icon"></i><font></font></span>
+	               </li>
                    <li class="sureAddr" style="display:none;"><b>请明确银行开户地点</b></li>
                    <li class="Addr zIndex" style="display:none;">
                        <span class="form-title">地址</span>

@@ -2,6 +2,11 @@
 <html>
 <head>
     <title>幼富通 - 账户管理 - 账户信息</title>
+    <script>
+	    $(function(){
+	    	$('.nav a:eq(0)').addClass('active');
+	    })
+    </script>
 </head>
 <body>
     <div class="body">
@@ -61,6 +66,5 @@
         </div>
     </div>
 </div>
-<script src="${staticDomain}/family/scripts/load.js"></script>
 </body>
 </html>

@@ -922,7 +922,7 @@ a.link-underline {
 }
 /* input - bank */
 .input-select .bank {
-	height:34px;
+	height:45px;
 	position: relative;
 	padding-left: 12px;
 }
@@ -934,7 +934,7 @@ a.link-underline {
 	z-index:4;
 }
 .input-options .bank-list {
-	/*width:620px;*/
+	width:620px;
 	padding-bottom: 10px;
 	background-color:#ffffff;
 	border: 1px solid #cbcbcb;
@@ -942,7 +942,7 @@ a.link-underline {
     position:relative;
 }
 .input-options .bank {
-	width: 92%;
+	width: 140px;
 	margin-top:10px;
 	margin-left:10px;
 	padding: 0;
@@ -2505,10 +2505,15 @@ a.link-underline {
     z-index:1000;
     z-index:1000\9;
 }  
-.bgFFF .input-select .bank img{
+.bgFFF .input-select .bank-list img{
     top:0;
     margin:0;
-    height:30px;
+    height:45px;
+}
+.mrcard{
+	top:0;
+    margin:0;
+    height:33px;
 }
 .cardFormat{
 	position:relative;

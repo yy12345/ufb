@@ -5,7 +5,7 @@
 	<script>
 $(function(){
 	
-	$('.nav a:eq(1)').addClass('active');
+	$('.nav a:eq(0)').addClass('active');
 	
 	$(".container").addClass("setting");
 	
