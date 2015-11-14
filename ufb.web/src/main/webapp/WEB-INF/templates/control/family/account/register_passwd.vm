@@ -5,7 +5,8 @@
 <script type="text/javascript" src="${staticDomain}/family/scripts/family-common.js"></script>
 <script >
 $(function(){
-
+	$('.nav a:eq(0)').addClass('active');
+	
 	// 检验密码1
 	var checkPwd1 = function(obj, type){
 		var errorMsg = '';

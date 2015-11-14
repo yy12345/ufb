@@ -6,6 +6,8 @@
 <script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>  <!--scroll美化-->
 <script type="text/javascript">
     $(function(){
+       $('.nav a:eq(0)').addClass('active');
+       
 	   // 幼富宝协议    
        $("#ufbAgreement").click(function(){
            $(".bgBox , #ufb01").fadeIn();       

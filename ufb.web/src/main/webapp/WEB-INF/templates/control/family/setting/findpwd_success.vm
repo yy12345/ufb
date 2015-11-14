@@ -17,7 +17,7 @@
                     <div class="form-done">
                         <div class="title">新密码设置成功</div>
                         <div class="tips">请牢记新密码，并重新登录！</div>
-                        <a class="btn" href="${ufbDomain}/family/uft/uft_index.htm">登&nbsp;&nbsp;录</a>
+                        <a class="btn" href="${ufbDomain}/family/index.htm">登&nbsp;&nbsp;录</a>
                     </div>
                 </div>
             </div>

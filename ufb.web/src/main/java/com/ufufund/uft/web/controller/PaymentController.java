@@ -107,9 +107,11 @@ public class PaymentController {
 			}else if(!custinfo.getInvnm().equals(familyCodes.getParent_name())){
 				resultMap.put("errCode", "0003");
 				UserHelper.setSessionAttr("code", familyCodes.getCode());
+				UserHelper.setSessionAttr("changeParent", true);
 			}else{
 				resultMap.put("errCode", "0000");
 				UserHelper.setSessionAttr("familyCodes", familyCodes);
+				UserHelper.setSessionAttr("changeParent", false);
 			}
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
@@ -155,7 +157,6 @@ public class PaymentController {
 			}else{
 				resultMap.put("errCode", "0000");
 				UserHelper.setSessionAttr("familyCodes", familyCodes);
-				UserHelper.setSessionAttr("changeParent", true);
 			}
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);

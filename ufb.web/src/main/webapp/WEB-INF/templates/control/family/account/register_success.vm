@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
 <title>幼富通-注册-成功</title>
+<script type="text/javascript">
+$(function(){
+   $('.nav a:eq(0)').addClass('active');
+});
+</script>
 </head>
 <body>
 <div id="body">
