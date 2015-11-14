@@ -602,13 +602,6 @@ i.email-notice{
     position:absolute;
     vertical-align:middle;
 }
-.container{
-	position:relative;
-	text-align:left;
-	width:960px;
-	margin-left:auto;
-	margin-right:auto;
-}
 .loading{
 	position:absolute;
 	left:0;top:0;
@@ -2412,86 +2405,18 @@ i.triangle-down {
 #page{
     position:relative;
 }
-#header, #body, #footer{
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    text-align: left;
+    width: 960px;
+}
+#body, #footer{
     position:relative;
     text-align:center;
 }
-#header{
-	z-index:30;
-	height:108px;
-	background:#fff;
-	border-bottom:1px solid #dbdcdc;
-}
-#header .container{
-    height:80px;
-}
-.topNav{
-	background:#3e3a39;
-	height:28px;
-}
-.topNav .b1{
-	float:left;
-	width:50%;
-}
-.topNav .b2{
-	margin-left:500px;
-	text-align:right;
-}
-.topNav .b1 a{
-	color:#fff;
-	line-height:28px;
-	margin-right:10px;
-}
-.topNav .b1 .active,.topNav .b1 a:hover{
-	color:#29abe2;
-}
-.topNav .b2 span{
-	display:inline-block;
-	zoom:1;
-	line-height:28px;
-/*	background:url(../images/2.png) no-repeat 0 50%;*/
-	padding-left:15px;
-	color:#fff;
-/*	vertical-align:middle;*/
-}
-.topNav .b2 a.quit{
-	margin:0 0 0 10px;
-    color:#29abe2;
-/*    vertical-align: middle;*/
-}
-.topNav .b2 a.c1{
-	width:auto;
-	height:28px;
-	display:inline-block;
-	zoom:1;
-/*	vertical-align:middle;*/
-	background:none;
-	line-height:28px;
-}
 .copyright{text-align:center;color:#ccc;padding:10px;}
-.logo{
-	font-size:26px;
-	position:absolute;
-	top:20px;
-	background:url(../images/1.png) no-repeat;
-	width:98px;height:43px;
-}
-.nav{
-	font-size:16px;
-	position:absolute;
-	bottom:12px;
-	right:0;
-}
-.nav a{
-	margin-left:35px;
-	float:left;
-	border-bottom:2px solid #fff;
-	color:#666;
-	padding-bottom:5px;
-}
-.nav a:hover,.nav a.active{
-	border-bottom:2px solid #cb3849;
-}
 
 .trip{
 	display:inline-block;

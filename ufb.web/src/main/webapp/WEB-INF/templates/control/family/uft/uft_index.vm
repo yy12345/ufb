@@ -78,7 +78,7 @@
 	            </p>
 	        </div>
 			<div class="myaccount">
-			<form id="sub-form" name="sub-form" method="post" action="${ufbDomain}/family/uft/pay_notice.htm">
+			<form id="sub-form" name="sub-form" method="post" action="${ufbDomain}/family/uft/pay_preview.htm">
 				<input type="hidden" name="orgids" id="orgids" value="" />
 	        </form>
             <div class="myleft fl">

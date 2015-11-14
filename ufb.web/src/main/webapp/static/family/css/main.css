@@ -89,7 +89,7 @@ body {
 	font-family: "microsoft yahei";
 }
 a {
-	color: #808080;
+	color: #29abe2;
 }
 .containerBox {
 	font-size: 12px;
@@ -104,123 +104,6 @@ a {
 }
 #body{
     margin:30px 0 60px;
-}
-
-                         /*common.css中的header*/
-#header{
-	z-index:30;
-	height:108px;
-	background:#fff;
-	border-bottom:1px solid #dbdcdc;
-}
-#header .container{
-	height:80px !important;
-	position:relative;
-	margin:0 auto;
-	text-align:left;
-	width:960px;
-	height:100%;
-	background-color:transparent;
-}
-.topNav{
-	background:#3e3a39;
-	height:28px;
-}
-.topNav .b1{
-	float:left;
-	width:50%;
-}
-.topNav .b2{
-	margin-left:500px;
-	text-align:right;
-}
-.topNav .b1 a{
-	color:#fff;
-	line-height:28px;
-	margin-right:10px;
-    font-size:12px;
-}
-.topNav .b1 .active,.topNav .b1 a:hover{
-	color:#29abe2;
-}
-.topNav .b2 span{
-	display:inline-block;
-	zoom:1;
-	line-height:28px;
-	background:url(../images/2.png) no-repeat 0 50%;
-	padding-left:15px;
-	color:#fff;
-	margin-right:5px;
-	vertical-align:middle;
-    font-size:12px;
-}
-.topNav .b2 i{
-    display:inline-block;
-    line-height:28px;
-    vertical-align: middle;
-    color:#29abe2;
-    margin:0 0 0 20px;
-    font-style: normal;
-    cursor: pointer;
-}
-.topNav .b2 a{
-	width:12px;
-	height:28px;
-	display:inline-block;
-	zoom:1;
-	background:url(../images/3.png) no-repeat 0 50%;
-	vertical-align:middle;
-}
-.topNav .b2 a.c1{
-	width:auto;
-	height:28px;
-	display:inline-block;
-	zoom:1;
-	vertical-align:middle;
-	background:none;
-	line-height:28px;
-}
-.topNav .b3{
-    margin-left:500px;
-    text-align:right;
-    font-size:12px;
-    color:#fff;
-    line-height:28px;
-}
-.topNav .b3 a{
-    color:#fff;
-    display:inline-block;
-    margin:0 5px;
-}
-.topNav .b3 a:hover{
-    color:#cb3849;
-}
-.logo{
-	font-size:26px;
-	position:absolute;
-	top:20px;
-	background:url(../images/1.png) no-repeat;
-	width:98px;height:43px;
-}
-.nav{
-	font-size:16px;
-	position:absolute;
-	bottom:12px;
-	right:0;
-}
-.nav a{
-	margin-left:35px;
-	float:left;
-	border-bottom:2px solid #fff;
-	color:#666;
-	padding-bottom:5px;
-}
-.nav a:hover,.nav a.active{
-	border-bottom:2px solid #cb3849;
-}
-.nav a.active{
-    border-bottom:2px solid #cb3849;
-    color:#cb3849;
 }
 
 
@@ -608,11 +491,11 @@ a {
 
 /*creatAnAccount.html  style.css中取出*/
 .container{
-	position:relative;
-	margin:0 auto;
-	text-align:left;
-	width:960px;
-	height:100%;
+	margin-left: auto;
+    margin-right: auto;
+    position: relative; 
+    text-align: left;
+    width: 960px;
 }
 .a4{
 	background:#fff;

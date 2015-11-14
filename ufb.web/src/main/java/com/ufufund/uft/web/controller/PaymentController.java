@@ -287,7 +287,7 @@ public class PaymentController {
 			model.addAttribute("back_module", UFT_INDEX_NAME);
 			return "error/error";
 		}
-		return "family/uft/pay_notice";
+		return "family/uft/pay_preview";
 	}
 	
 	/**
@@ -376,7 +376,8 @@ public class PaymentController {
 		CustinfoVo custinfo = UserHelper.getCustinfoVo();
 		try{
 			// 交易密码校验
-			if(!custinfo.getTradepwd().equals(EncryptUtil.md5(tradePwd))){
+			Custinfo d_custinfo=custManager.getCustinfo(custinfo.getCustno());
+			if(!d_custinfo.getTradepwd().equals(EncryptUtil.md5(tradePwd))){
 				throw new UserException("交易密码错误！");
 			}		
 			if(StringUtils.isBlank(detailids)||StringUtils.isBlank(paytype)||StringUtils.isBlank(orgmsg)){
