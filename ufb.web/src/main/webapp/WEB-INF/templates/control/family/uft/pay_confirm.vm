@@ -107,10 +107,10 @@
                    <p>超活期10-15倍稳健收益；随存随取；安全保障；每月自动缴学费！</p>
                    <button type="button" class="advertise-close">&times;</button>
             </div>
-            <div class="a1" style="margin: 16px 0;height: 22px">
+            <div class="pay_confirm" style="margin: 16px 0;height: 22px">
                 <h1 class="fl">确认缴费</h1>
                 <div class="fr f14">
-                	已选<span>$allcount</span>条收费通知，总计： <span class="num-color">$totalplanmonthamt</span> 元
+                	已选<span>$allcount</span>条收费通知，总计： <span class="pay_amount">$totalplanmonthamt</span> 元
                 </div>
             </div>
             <div class="select-account select-account-v2">
@@ -123,7 +123,7 @@
                         <li class="li1">使用</li>
                         <li class="li2">
                             <div class="costpay"><label class="cost-type"><input type="radio" name="pay_type" paytype="U" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span> <font id="ufbamt">$availableBalance</font> 元</span>
-                            <div class="payMoney showNow">支付<span class="num-color paymoney">$totalplanmonthamt元</span></div>
+                            <div class="payMoney showNow">支付<span class="pay_amount paymoney">$totalplanmonthamt元</span></div>
                             </div>
                             <div class="costpay"><label class="cost-type"><input type="radio" name="pay_type" paytype="B" style="display: none;"/><i class="imitate-radio"></i>
                             ${bankcard.banknm} 尾号

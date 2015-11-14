@@ -232,5 +232,7 @@ $(function(){
         $(this).addClass("active").siblings().removeClass("active");
     });
     
-    $('#card2').cardFormat("####,####,####,####,###");
+    if($.fn.cardFormat){
+    	$('#card2').cardFormat("####,####,####,####,###");
+    }
 });

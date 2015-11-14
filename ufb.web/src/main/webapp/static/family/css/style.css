@@ -959,6 +959,13 @@ i.email-notice{
 	background:url(../images/1.png) no-repeat;
 	width:98px;height:43px;
 }
+.pay_confirm {
+    border-left: 3px solid #ca3849;
+    font-size: 16px;
+    line-height: 22px;
+    margin: 9px 0;
+    padding-left: 10px;
+}
 nav{
 	position:absolute;
 	right:0;bottom:10px;
@@ -1320,6 +1327,11 @@ nav>b{
 .itemF .a2 .b2{
 	color:#888;
 	*zoom:1;
+}
+.inner {
+    margin: 0 auto;
+    position: relative;
+    width: 960px;
 }
 .itemF .a2 .b2 .c1 .d1{
 	line-height:20px;
@@ -1938,12 +1950,6 @@ i.triangle-down {
 
 /***********************************09-08 by Tracy***start***********************/
 /*index.html 添加验证条*/
-.inner{
-    width:960px;
-    margin:0 auto;
-    position:relative;
-    overflow:hidden;
-}
 .Verification{
   text-align:left;
 }
@@ -2490,20 +2496,6 @@ i.triangle-down {
 }
 .MainFoot dd a:hover{
     color:#fff;
-}
-
-.LowFoot{
-    width:100%;
-    background:#202231;
-    overflow:hidden;
-    border-top:1px solid #65656a;
-}
-.LowFoot .contentFoot{
-    text-align:center;
-    font-size:12px;
-    color:#808080;
-    height:60px;
-    line-height:60px;
 }
 
 /*common*/

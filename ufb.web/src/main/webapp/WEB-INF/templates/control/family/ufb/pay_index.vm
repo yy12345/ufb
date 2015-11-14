@@ -110,7 +110,7 @@ $(function(){
                     </div>
                 </div>
             </div>
-            <div class="form-payInto">
+            <div class="recharge">
                 <form class="common-form" action="${ufbDomain}/family/ufb/pay_result.htm" method="post">
                 ${refreshTools.genInputHtml()}    
                 <input id="tradeacco" name="tradeacco" value="$!{curCard.tradeacco}" type="hidden"/>

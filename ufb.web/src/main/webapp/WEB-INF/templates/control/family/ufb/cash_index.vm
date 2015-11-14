@@ -102,7 +102,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-cash">
+            <div class="recharge">
                 <form class="common-form" action="${ufbDomain}/family/ufb/cash_result.htm" method="post">
 					${refreshTools.genInputHtml()}
 					<input id="tradeacco" name="tradeacco" value="${card.tradeacco}" type="hidden"/>

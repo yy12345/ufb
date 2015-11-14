@@ -262,7 +262,7 @@ $(function(){
                                 <li>
                                     <span class="form-title">验证码</span>
                                      <input class="ipt-code input-code" type="text"  name="verifycode"  id="verifycode" maxlength="4" value="$!{CustinfoVo.verifycode}" placeholder="输入图形验证码">
-                                    <span style="display:block;float:right;padding-right:55px;"><img style="width: 80px;height: 35px;display: block;padding-top: 3px;" id="btn-verifycode" src="${ufbDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())" ></span>
+                                    <span style="display:block;float:right;padding-right:55px;"><img style="width: 80px;height: 35px;display: block;padding-top: 1px;" id="btn-verifycode" src="${ufbDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())" ></span>
                                     <span class="tips-check" style="float:right;width: 120px;display: none; position: absolute; top:10px;right: -90px"><i class="icon"></i><font>请输入图形验证码！</font></span>
                                 </li>
                                 <li>

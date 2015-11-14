@@ -97,22 +97,8 @@ a {
 	background-color: #f3f3f1;
 	overflow: hidden;
 }
-.inner {
-	width: 960px;
-	margin: 0 auto;
-    position:relative;   /*+*/
-}
 #body{
     margin:30px 0 60px;
-}
-
-
-/*common.css中的footer*/
-.MainFoot{
-    width:100%;
-    background:#202231;
-    overflow:hidden;
-    padding:40px 0;
 }
 .MainFoot dl{
     overflow:hidden;
@@ -141,21 +127,6 @@ a {
 .MainFoot dd a:hover{
     color:#fff;
 }
-
-.LowFoot {
-    border-top: 1px solid #cfcfcf;
-    overflow: hidden;
-    width: 100%;
-}
-.LowFoot .contentFoot{
-    text-align:center;
-    font-size:12px;
-    color:#808080;
-    height:60px;
-    line-height:60px;
-}
-
-
 
 /*profileFamily.html    从identification.css中*/
 .profile{

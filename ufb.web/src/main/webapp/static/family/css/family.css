@@ -10,6 +10,10 @@
 .num-color{
     color: #cb3849;
 }
+.pay_amount{
+    color: #cb3849;
+    font-size: 22px;
+}
 .num-red{
     color: #cb3849;
 }
@@ -432,7 +436,6 @@ span.tip{
     background-color: #fbb03b;
 }
 .select-account{
-    background-color: #fff;
     padding: 12px 10px;
     height: 200px;
 }
@@ -812,7 +815,6 @@ i.up-arrow{
 }
 .familyMyAccount .btn-grey{
     background:#808080;
-    margin-left:175px;
 }
 i.bothno-grey{
     background:url(../images/img_01.png) no-repeat;

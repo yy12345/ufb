@@ -313,13 +313,14 @@
                                            <input class="ipt-bankCard input-text ipt-focus" maxlength="19"  type="text" id="bankacco" name="bankacco">
                                        </div>
                                    <span style="position:absolute;top:45px;left:140px;z-index:1000">此卡将设为默认缴费卡，仅支持借记卡，<a href="javascript:;">银行卡要求。
-                                   <div class="trip" >
-                                       <div>填写以你自己姓名开户的银行卡<br>
-							                                                 幼富通平台快捷缴费：共支持超过15家全国及地方银行借记卡<br>
-					                                                                         充值幼富宝（理财+缴费）目前共支持9家银行，仅限借记卡<b></b>
-                                        </div>
-                                    </div>
-                                   </a></span>
+	                                   <div class="trip" >
+	                                       <div>填写以你自己姓名开户的银行卡<br>
+								                                                 幼富通平台快捷缴费：共支持超过15家全国及地方银行借记卡<br>
+						                                                                         充值幼富宝（理财+缴费）目前共支持9家银行，仅限借记卡<b></b>
+	                                        </div>
+	                                    </div></a>
+	                               </span>
+	                               <span class="tips-check"><i class="icon"></i><font></font></span>
                                 </li>
                                <li class="sureAddr" style="display:none;"><b>请明确银行开户地点</b></li>
                                <li class="Addr zIndex" style="display:none;">
