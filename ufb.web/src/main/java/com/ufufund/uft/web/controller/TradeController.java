@@ -5,14 +5,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
+import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.TradeManager;
@@ -25,25 +31,22 @@ import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.cust.ChangeAutoStateAction;
 import com.ufufund.ufb.model.action.cust.ModifyAutotradeAction;
-import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.Autotrade;
-import com.ufufund.ufb.model.db.BankBaseInfo;
-import com.ufufund.ufb.model.db.BankCardbin;
+import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.AutoTradeType;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
-import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.vo.ApplyVo;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.AutotradeVo;
-import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.model.vo.RedeemVo;
 import com.ufufund.ufb.model.vo.Today;
 import com.ufufund.ufb.model.vo.TradeQueryVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.UserHelper;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -73,6 +76,8 @@ public class TradeController {
 	private BankBaseManager bankBaseManager;
 	@Autowired
 	private BankCardManager bankCardManager;
+	@Autowired
+	private CustManager custManager;
 	/**
 	 * 充值
 	 * @param vo
@@ -410,9 +415,13 @@ public class TradeController {
 			// 获取自动充值计划列表
 			List<Autotrade> list = autotradeManager.getAutotradeList(s_custinfo.getCustno());
 			List<Autotrade> clist=autotradeManager.getAutotradeCList(s_custinfo.getCustno());
-			 
+			
+			// 获取自动缴费的信息 getCashtradeList
+			List<Autotrade> autoPayList=autotradeManager.getCashtradeList(s_custinfo.getCustno());
+			
 			model.addAttribute("LIST", list);
 			model.addAttribute("CLIST", clist);
+			model.addAttribute("autoPayList", autoPayList);
 			if(StringUtils.isNotBlank(TAB)){
 				model.addAttribute("TAB", TAB);
 			}
@@ -819,4 +828,37 @@ public class TradeController {
 		return "family/ufb/autotrade_index";
 	}
 	
+	/**
+	 * 暂停自动缴费
+	 * @param autoid
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="autopay_stop")
+	@ResponseBody
+	public Map<String,String> autopayStop(String autoid,Model model){
+		Map<String,String> resultMap = new HashMap<String, String>();
+		
+		CustinfoVo custinfo = UserHelper.getCustinfoVo();
+		try{
+			ChangeAutoStateAction action = new ChangeAutoStateAction();
+			Custinfo s_custinfo=custManager.getCustinfo(custinfo.getCustno());
+			
+			action.setCustno(s_custinfo.getCustno());
+			action.setAutoid(autoid);
+			action.setState(Constant.Autotrade.STATE$P);
+			action.setTradepwd(s_custinfo.getTradepwd());
+			autotradeManager.changestatus(action);
+			resultMap.put("errCode", "0000");
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
 }

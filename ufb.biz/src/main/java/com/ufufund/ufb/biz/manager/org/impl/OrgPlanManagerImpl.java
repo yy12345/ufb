@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
+import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
@@ -20,7 +21,9 @@ import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.OrgDeployMapper;
+import com.ufufund.ufb.dao.OrgQueryMapper;
 import com.ufufund.ufb.dao.PlanDetailMapper;
+import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction2;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction3;
@@ -28,11 +31,15 @@ import com.ufufund.ufb.model.action.org.PersonConfirmAction;
 import com.ufufund.ufb.model.action.org.PersonConfirmList;
 import com.ufufund.ufb.model.action.org.UpdateOrgPlanAction1;
 import com.ufufund.ufb.model.db.Bankcardinfo;
+import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Orgplan;
 import com.ufufund.ufb.model.db.Orgplandetail;
 import com.ufufund.ufb.model.db.Orgplandetailcharge;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
+import com.ufufund.ufb.model.enums.AutoTradeType;
+import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.enums.ErrorInfo;
+import com.ufufund.ufb.model.vo.QueryCustplandetail;
 
 @Service
 public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
@@ -53,7 +60,11 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 	@Autowired
 	private BankCardManager bankCardManager;
 	@Autowired
+	private AutotradeManager autotradeManager;
+	@Autowired
 	private PlanDetailMapper planDetailMapper;
+	@Autowired
+	private OrgQueryMapper orgQueryMapper;
 
 	// @Autowired
 	// private AutotradeManager autotradeManager;
@@ -228,27 +239,66 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 	}
 
 	@Override
-	public String confirmDetail(String detailids,String custno,String paytype) {
+	public String confirmDetail(String detailids,Custinfo d_custinfo,String paytype) {
 		String[] detailidArr=detailids.split(",");
 		String paydate="";
+		List<String> ispaylist=new ArrayList<String>();
+		ispaylist.add("0");
+		ispaylist.add("1");
 		for(int i=0;i<detailidArr.length;i++){
 			Orgplandetail detail = new Orgplandetail();
 			String detailid=detailidArr[i];
 			detail.setDetailid(detailid);
-			detail.setAckcustno(custno);
+			detail.setAckcustno(d_custinfo.getCustno());
 			detail.setAcktype(paytype);
 			detail.setStats("Y");
 			detail.setIspay("1");
+			Tradeaccoinfo tradeAcco=tradeAccoManager.getTradeaccoinfo(d_custinfo.getCustno());
 			if(paytype.equals("U")){
-				Tradeaccoinfo tradeAcco=tradeAccoManager.getTradeaccoinfo(custno);
 				detail.setAckbankcardid(tradeAcco.getBankserialid());
 				detail.setAcktradeaccoid(tradeAcco.getAccoid());
 				detail.setAcktradeacco(tradeAcco.getTradeacco());
 			}else{
-				Bankcardinfo bankcard =	bankCardManager.getBankCardInfo(custno);
+				Bankcardinfo bankcard =	bankCardManager.getBankCardInfo(d_custinfo.getCustno());
 				detail.setAckbankcardid(bankcard.getSerialid());
 			}
+			
+			// 修改计划详情
 			planDetailMapper.updateDetail(detail);
+			
+			// 如果是月代扣的计划，则进行自动取现的设置
+			if(paytype.equals("U")){
+				List<QueryCustplandetail> plan_detilList=orgQueryMapper.getQueryCustplandetail(d_custinfo.getCustno(), null, detailid,ispaylist);
+				if(plan_detilList.size()>0&&plan_detilList!=null){
+					QueryCustplandetail detail_y=(QueryCustplandetail)plan_detilList.get(0);
+					if(detail_y.getType().equals("AT")){
+						AddAutotradeAction action = new AddAutotradeAction();
+						// 用户信息
+						action.setCustno(d_custinfo.getCustno());
+						action.setFromfundcorpno(Constant.HftSysConfig.HftFundCorpno);
+						action.setFromfundcode(BasicFundinfo.YFB.getFundCode());
+						action.setFromchargetype("A");
+						action.setTobankacco(tradeAcco.getTradeacco());
+						action.setTobankserialid(tradeAcco.getBankserialid());
+						// 交易类型
+						action.setTradetype(AutoTradeType.AUTOWITHDRAWAL);
+						// 取现周期
+						action.setType("E");
+						action.setCycle("MM");
+						action.setDat("25");
+						String nextdate=autotradeManager.getNextdate(action.getCycle(), action.getDat());
+						action.setNextdate(nextdate);
+						// 取现金额
+						action.setAutovol(new BigDecimal(detail_y.getPayackamount()));
+						// 备注
+						action.setSummary(detail_y.getStudentnm()+detail_y.getPlanname());
+						// 交易密码
+						action.setTradepwd(d_custinfo.getTradepwd());
+						
+						autotradeManager.addAutotrade(action);
+					}
+				}
+			}
 		}
 		paydate=planDetailMapper.selectPayDate(detailidArr[0]);//later....
 		

@@ -87,5 +87,13 @@ public interface AutotradeManager { // extends CustInterface{
 	 * @return 
 	 */
 	public void deleteAutotrade(String custno,String frombankserialid,String autoid) throws BizException;
+	/**
+	 * 暂停自动缴费交易
+	 * 
+	 * @param state
+	 *            P-暂停 
+	 * @return
+	 */
+	public void changeAutoPaystatus(ChangeAutoStateAction action) throws BizException;
 
 }

@@ -56,4 +56,25 @@ public class UserModuleValidator {
 		}
 		return true;
 	}
+	/**
+	 * 验证自动取现（自动缴费）时的交易密码
+	 * @param custno
+	 * @param tradePwd
+	 * @return 成功，返回true；否则返回false
+	 */
+	public boolean checkAutoCashTradePwd(String custno, String tradePwd){
+		
+		if(StringUtils.isBlank(custno) || StringUtils.isBlank(tradePwd) ){
+			return false;
+		}
+		
+		Custinfo custinfo = new Custinfo();
+		custinfo.setCustno(custno);
+		custinfo = custinfoMapper.getCustinfo(custinfo);
+		
+		if(custinfo == null ||!tradePwd.equals(custinfo.getTradepwd())){
+			return false;
+		}
+		return true;
+	}
 }

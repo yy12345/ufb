@@ -2,8 +2,9 @@
 <html>
 <head>
     <title>幼富通 - 账户管理 - 自动理财设置</title>
-	<script>
-$(function(){
+    <script src="${staticDomain}/family/scripts/load.js"></script>
+<script>
+  $(function(){
 	
 	$('.nav a:eq(0)').addClass('active');
 	
@@ -229,13 +230,22 @@ $(function(){
                     </div>
                     
                     <div class="FundList02">
-                       <div class="item-title">进行中<!--<a class="link">添加自动缴费计划</a></div>-->
+                       <div class="item-title">进行中 
                        <ul class="autoFund-list">
+					   #foreach($pay in $autoPayList)
                         <li class="autoFund-item">
                             <div class="item-table">
                                 <table width="100%">
                                     <tr>
-                                        <th class="item-name" width="78" rowspan="2"><span class="item-type">暂停</span>幼富宝</th>
+                                        <th class="item-name" width="78" rowspan="2"><span class="item-type">
+										    #if("P"==$!{pay.state})
+												暂停
+											#elseif("N"==$!{pay.state})
+												进行中
+											#else
+												未知状态
+											#end
+										</span>幼富宝</th>
                                         <th>设置时间</th>
                                         <th>金额（元）</th>
                                         <th>自动取现周期</th>
@@ -244,126 +254,41 @@ $(function(){
                                         <th>备注</th>
                                         <th width="60">
                                             <div class="item-do">
-                                                <a href="javascript:;" class="do-title">查看</a>
-                                                </ul>
+                                                <a href="javascript:;" autoid="${pay.autoid}" class="do-title">查看</a>
+                                              
                                             </div>
                                         </th>
                                     </tr>
                                     <tr>
-                                        <td>2015-05-12</td>
-                                        <td>10,000</td>
+                                        <td>
+	                                        #set($updatetime=$!{pay.updatetime})
+											$!updatetime.substring(0,10)
+                                        </td>
+                                        <td>${pay.autovol}</td>
                                         <td>每月20日</td>
-                                        <td>9月25日</td>
-                                        <td>招商银行 9527</td>
-                                        <td>张二宝缴费</td>
+                                        <td>
+	                                        #set($nextdate=$!{pay.nextdate})
+	                						#set($nextdate_yyyy=$nextdate.substring(0,4))
+	                						#set($nextdate_mm=$nextdate.substring(4,6))
+	            							#set($nextdate_dd=$nextdate.substring(6,8))
+											#set($nextdate=$nextdate_mm+"月"+$nextdate_dd+"日")
+											$nextdate
+                                        </td>
+                                        <td>
+	                                        #set($tailStr=$!{pay.frombankacco})
+	        								#set($start=$tailStr.length() - 4)
+	        								#set($end=$tailStr.length())
+	        								${pay.tobanknm}$tailStr.substring($start,$end)	
+                                        </td>
+                                        <td>$!{pay.summary}</td>
                                         <td></td>
                                     </tr>
                                 </table>
                             </div>
                             <div class="item-tips">*自动取现日，遇节假日将提前至上个基金工作日；自动缴费日为自然日，节假日照常扣费</div>
                         </li>
-                        <li class="autoFund-item">
-                            <div class="item-table">
-                                <table width="100%">
-                                    <tr>
-                                        <th class="item-name" width="78" rowspan="2"><span class="item-type">暂停</span>幼富宝</th>
-                                        <th>设置时间</th>
-                                        <th>金额（元）</th>
-                                        <th>自动取现周期</th>
-                                        <th>自动缴费日</th>
-                                        <th>银行卡</th>
-                                        <th>备注</th>
-                                        <th width="60">
-                                            <div class="item-do">
-                                                <a href="javascript:;" class="do-title">查看</a>
-                                                </ul>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td>2015-05-12</td>
-                                        <td>10,000</td>
-                                        <td>每月20日</td>
-                                        <td>9月25日</td>
-                                        <td>招商银行 9527</td>
-                                        <td>张一宝缴费</td>
-                                        <td></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="item-tips">*遇节假日将提前至上个基金工作日发起自动取现，确保缴费卡内余额充足；自动缴费日为自然日，节假日照常扣费</div>
-                        </li>
-
-                    </ul>
-                       <div class="item-title">已终止</div>
-                       <ul class="autoFund-list">
-                        <li class="autoFund-item">
-                            <div class="item-table">
-                                <table width="100%">
-                                    <tr>
-                                        <th class="item-name" width="78" rowspan="2">幼富宝</th>
-                                        <th>设置时间</th>
-                                        <th>金额（元）</th>
-                                        <th>自动取现周期</th>
-                                        <th>自动缴费日</th>
-                                        <th>银行卡</th>
-                                        <th>备注</th>
-                                        <th width="60">
-                                            <div class="item-do">
-                                                <span class="do-title">操作</span>
-                                                <ul class="do-list">
-                                                    <li><a  href="javascript:;" class="link mlNone">查看</a></li>
-                                                    <li><a  href="javascript:;" class="link mlNone">删除</a></li>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td>2015-05-12</td>
-                                        <td>10,000</td>
-                                        <td>每月20日</td>
-                                        <td>9月25日</td>
-                                        <td>招商银行 9527</td>
-                                        <td>张二宝缴费</td>
-                                        <td></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </li>
-                        <li class="autoFund-item">
-                            <div class="item-table">
-                                <table width="100%">
-                                    <tr>
-                                        <th class="item-name" width="78" rowspan="2">幼富宝</th>
-                                        <th>设置时间</th>
-                                        <th>金额（元）</th>
-                                        <th>自动取现周期</th>
-                                        <th>自动缴费日</th>
-                                        <th>银行卡</th>
-                                        <th>备注</th>
-                                        <th width="60">
-                                            <div class="item-do">
-                                                <span class="do-title">操作</span>
-                                                <ul class="do-list">
-                                                    <li><a href="javascript:;" class="link mlNone">查看</a></li>
-                                                    <li><a href="javascript:;" class="link mlNone">删除</a></li>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td>2015-05-12</td>
-                                        <td>10,000</td>
-                                        <td>每月20日</td>
-                                        <td>9月25日</td>
-                                        <td>招商银行 9527</td>
-                                        <td>张一宝缴费</td>
-                                        <td></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </li>
-
-                    </ul>
-                        
+					   #end
+                    </ul>     
                     </div>
                 </div>
             </div>
@@ -371,7 +296,5 @@ $(function(){
 			 </div>
         </div>
     </div>
-
-<script src="${staticDomain}/family/scripts/load.js"></script>
 </body>
 </html>

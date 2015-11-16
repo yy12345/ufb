@@ -62,8 +62,10 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		autoTradeManagerValidator.validator(action);
 		
 		/** 验证交易密码 **/
-		if(!userModuleValidator.checkTradePwd(action.getCustno(), action.getTradepwd())){
-			throw new UserException("交易密码错误！");
+		if(action.getTradetype().equals(AutoTradeType.AUTORECHARGE.value())){
+			if(!userModuleValidator.checkTradePwd(action.getCustno(), action.getTradepwd())){
+				throw new UserException("交易密码错误！");
+			}
 		}
 		
 		/** 序列号 **/
@@ -89,7 +91,6 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 				
 				throw new UserException("您可通过自动充值计划列表确认！");
 			}
-			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		
 		/** 记录交易流水 **/
@@ -123,7 +124,6 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 				throw new UserException("您可通过自动取现计划列表确认！");
 				
 			}
-			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		dbautotrade = list.get(0);
 		// 暂停/终止/交易状态的交易不能修改，请先恢复
@@ -137,7 +137,6 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 				
 			}
 		
-			//throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
 		}
 		// 扣款日当日不能修改
 		String workdate = workDayManager.getCurrentWorkDay();
@@ -149,7 +148,6 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 					throw new UserException("当前工作日的自动取现计划不能修改！");
 				}
 			
-			//throw new BizException(processId, ErrorInfo.AUTO_NEXTDAY_ISWORKDAY); 
 		}
 		
 		/*
@@ -172,9 +170,6 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 				else if(action.getTradetype().equals(AutoTradeType.AUTOWITHDRAWAL)){
 					throw new UserException("您可通过自动取现计划列表确认！");
 				}
-			
-		
-			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		
 		/** 记录交易流水 **/
@@ -200,7 +195,6 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		List<Autotrade> list = autotradeMapper.getAutotradeList(dbautotrade);
 		if(list.isEmpty()||list.size()!=1){
 			throw new UserException("您可通过自动充值计划列表确认！");
-			//throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		//state  P-暂停 ,C 终止 删除 ,N 恢复
 		String apkind = "";
@@ -209,7 +203,6 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 			// N状态-〉P暂停、C终止
 			if(!Constant.Autotrade.STATE$P.equals(action.getState())
 					&& !Constant.Autotrade.STATE$C.equals(action.getState()) ){
-				//throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
 				 if(dbautotrade.getTradetype().equals(AutoTradeType.AUTORECHARGE)){
 					 throw new UserException("您的自动充值计划修改失败，非正常业务范围！");
 					}
@@ -223,7 +216,6 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 			// P暂停-> N状态、C终止
 			if(!Constant.Autotrade.STATE$N.equals(action.getState())
 					&& !Constant.Autotrade.STATE$C.equals(action.getState())){
-				//throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
 				if(dbautotrade.getTradetype().equals(AutoTradeType.AUTORECHARGE)){
 					throw new UserException("您的自动充值计划修改失败，非正常业务范围！");
 					}
@@ -241,14 +233,12 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 				else if(dbautotrade.getTradetype().equals(AutoTradeType.AUTOWITHDRAWAL)){
 					throw new UserException("您的自动取现计划修改失败，非正常业务范围！");
 				}
-			//throw new BizException(processId, ErrorInfo.AUTO_STATE_ERROR); 
 		}else{
 			apkind = dbautotrade.getTradetype()+"4";
 		}
 		// 扣款日当日不能修改
 		String workdate = workDayManager.getCurrentWorkDay();
 		if(dbautotrade.getNextdate().equals(workdate)){
-			//throw new BizException(processId, ErrorInfo.AUTO_NEXTDAY_ISWORKDAY); 
 			if(dbautotrade.getTradetype().equals(AutoTradeType.AUTORECHARGE)){
 				throw new UserException("当前工作日的自动充值计划不能修改！");
 				}
@@ -375,9 +365,9 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		}
 		return autotrade;
 	}
-/**
- * 获得取现的数据
- */
+	/**
+	 * 获得取现的数据
+	 */
 	@Override
 	public List<Autotrade> getCashtradeList(String custno) throws BizException {
 		this.getProcessId(custno);
@@ -386,12 +376,82 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		autotrade.setTradetype(AutoTradeType.AUTOWITHDRAWAL.value());
 		return autotradeMapper.getAutotradeList(autotrade);
 	}
-/**
- * 删除自动充值业务
- */
-@Override
-public void deleteAutotrade(String custno, String frombankserialid, String autoid) throws BizException {
-	autotradeMapper.deleteAutotrade(custno, frombankserialid, autoid);
-}
-	
+	/**
+	 * 删除自动充值业务
+	 */
+	@Override
+	public void deleteAutotrade(String custno, String frombankserialid, String autoid) throws BizException {
+		autotradeMapper.deleteAutotrade(custno, frombankserialid, autoid);
+	}
+	@Override
+	public void changeAutoPaystatus(ChangeAutoStateAction action) throws BizException {
+		this.getProcessId(action);
+		
+		// 业务验证  
+		autoTradeManagerValidator.validator(action);
+		
+		// 验证交易密码  
+		if(!userModuleValidator.checkAutoCashTradePwd(action.getCustno(), action.getTradepwd())){
+			throw new UserException("交易密码错误！");
+		}
+		
+		// 验证暂停状态、扣款日当日不能修改  
+		Autotrade dbautotrade = new Autotrade();
+		dbautotrade.setAutoid(action.getAutoid());
+		List<Autotrade> list = autotradeMapper.getAutotradeList(dbautotrade);
+		if(list.isEmpty()||list.size()!=1){
+			throw new UserException("您可通过自动缴费计划列表确认！");
+		}
+		String apkind = "";
+		dbautotrade = list.get(0);
+		if(Constant.Autotrade.STATE$N.equals(dbautotrade.getState())){
+			// P暂停 
+			if(!Constant.Autotrade.STATE$P.equals(action.getState())
+					&& !Constant.Autotrade.STATE$C.equals(action.getState()) ){
+			 if(dbautotrade.getTradetype().equals(AutoTradeType.AUTOWITHDRAWAL)){
+					throw new UserException("您的自动缴费计划修改失败，非正常业务范围！");
+			  }
+				
+			}
+			apkind = dbautotrade.getTradetype()+"2";
+		}else if(Constant.Autotrade.STATE$P.equals(dbautotrade.getState())){
+			// P暂停 
+			if(!Constant.Autotrade.STATE$N.equals(action.getState())
+					&& !Constant.Autotrade.STATE$C.equals(action.getState())){
+				 if(dbautotrade.getTradetype().equals(AutoTradeType.AUTOWITHDRAWAL)){
+						throw new UserException("您的自动缴费计划修改失败，非正常业务范围！");
+				 }
+				
+			}
+			apkind = dbautotrade.getTradetype()+"3";
+		}else if(Constant.Autotrade.STATE$C.equals(dbautotrade.getState())){
+			// P暂停 
+			if(dbautotrade.getTradetype().equals(AutoTradeType.AUTOWITHDRAWAL)){
+				throw new UserException("您的自动缴费计划修改失败，非正常业务范围！");
+			}
+		}else{
+			apkind = dbautotrade.getTradetype()+"4";
+		}
+		// 扣款日当日不能修改
+		String workdate = workDayManager.getCurrentWorkDay();
+		if(dbautotrade.getNextdate().equals(workdate)){
+			if(dbautotrade.getTradetype().equals(AutoTradeType.AUTOWITHDRAWAL)){
+					throw new UserException("当前工作日的自动缴费计划不能修改！");
+			}
+			
+		}
+		
+		/** 数据包装 **/
+		String nextdate = this.getNextdate(dbautotrade.getCycle(), dbautotrade.getDat());// 下一扣款日
+		dbautotrade.setNextdate(nextdate);
+		dbautotrade.setState(action.getState());
+		int n = autotradeMapper.updateAutotrade(dbautotrade);
+		if(n!=1){
+		    if(dbautotrade.getTradetype().equals(AutoTradeType.AUTOWITHDRAWAL)){
+				throw new UserException("您可通过自动计划列表确认！");
+			}
+			
+		}
+		this.insertFdacfinalresult(dbautotrade,apkind);
+	}
 }

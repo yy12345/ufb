@@ -1,11 +1,10 @@
 package com.ufufund.ufb.biz.manager.org;
 
-import java.util.List;
-
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.PersonConfirmAction;
 import com.ufufund.ufb.model.action.org.UpdateOrgPlanAction1;
+import com.ufufund.ufb.model.db.Custinfo;
 
 
 public interface OrgPlanManager { 
@@ -32,5 +31,5 @@ public interface OrgPlanManager {
 	 */
 	public void personConfirmPlandetail(PersonConfirmAction action) throws BizException;
 	
-	public String confirmDetail(String detailids,String custno,String paytype);
+	public String confirmDetail(String detailids,Custinfo d_custinfo,String paytype);
 }
