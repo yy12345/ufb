@@ -19,9 +19,9 @@
                     <li><a href="${ufbDomain}/family/help/payment.htm"><b class="icon01"></b>缴费退费</a></li>
                     <li><a href="${ufbDomain}/family/help/security.htm"><b class="icon02"></b>安全性</a></li>
                     <li><a href="${ufbDomain}/family/help/benefits.htm"><b class="icon03"></b>收益</a></li>
-                    <li><a href="${ufbDomain}/family/help/cashandPay.htm"><b class="icon04"></b>充值取现</a></li>
+                    <li><a href="${ufbDomain}/family/help/cash_center.htm"><b class="icon04"></b>充值取现</a></li>
                     <li><a  class="current" href="${ufbDomain}/family/help/question.htm"><b class="icon05"></b>常见问题汇总</a></li>
-                    <li><a href="${ufbDomain}/family/help/aboutuft.htm"><b class="icon06"></b>关于幼富通</a></li>
+                    <li><a href="${ufbDomain}/family/help/about.htm"><b class="icon06"></b>关于幼富通</a></li>
                     <li><a href="${ufbDomain}/family/help/contact.htm"><b class="icon07"></b>联系我们</a></li>
                 </ul>
             </div>

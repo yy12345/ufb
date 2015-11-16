@@ -27,7 +27,7 @@
 			<a href="${ufbDomain}/family/uft/uft_index.htm">我的账户</a>
 			<a href="${ufbDomain}/family/ufb/ufb_index.htm">幼富宝</a>
 			<a href="${ufbDomain}/family/uft/pay_records.htm">缴费明细</a>
-			<a href="${ufbDomain}/family/help/aboutuft.htm">帮助中心</a>
+			<a href="${ufbDomain}/family/help/about.htm">帮助中心</a>
 		</div>
     </div>
 </div>

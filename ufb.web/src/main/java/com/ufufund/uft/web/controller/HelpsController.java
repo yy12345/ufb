@@ -3,24 +3,21 @@ package com.ufufund.uft.web.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.ufufund.ufb.biz.exception.BizException;
 
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping(value="family/help")
-@Slf4j
 public class HelpsController {
 	//帮助中心--关于幼富通
-	@RequestMapping(value="aboutuft")
+	@RequestMapping(value="about")
 	public String aboutuft(Model model){
 		try {
 			
 		} catch (BizException e) {
-			return "family/help/aboutuft";
+			return "family/help/about";
 		}
-		return "family/help/aboutuft";
+		return "family/help/about";
 	}
 	//帮助中心--收益
 	@RequestMapping(value="benefits")
@@ -53,14 +50,14 @@ public class HelpsController {
 		return "family/help/security";
 	}
 	 // 帮助中心--充值取现
-	@RequestMapping(value="cashandPay")
-	public String cashandPay(Model model){
+	@RequestMapping(value="cash_center")
+	public String cashCenter(Model model){
 		try {
 			
 		} catch (BizException e) {
-			return "family/help/cashandPay";
+			return "family/help/cash_center";
 		}
-		return "family/help/cashandPay";
+		return "family/help/cash_center";
 	}
 	// 帮助中心--常见问题
 	@RequestMapping(value="question")
