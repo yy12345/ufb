@@ -5,6 +5,7 @@ import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.PersonConfirmAction;
 import com.ufufund.ufb.model.action.org.UpdateOrgPlanAction1;
 import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.vo.QueryCustplandetail;
 
 
 public interface OrgPlanManager { 
@@ -39,4 +40,9 @@ public interface OrgPlanManager {
 	 * @return
 	 */
 	public String confirmDetail(String detailids,Custinfo d_custinfo,String paytype);
+	
+	/**
+	 * 查询缴费通知书详情
+	 */
+	public QueryCustplandetail getDetailNotice(String custno,String detailid);
 }

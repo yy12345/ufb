@@ -2,9 +2,11 @@
 <html>
 <head>
     <title>幼富通 - 资产总览 - 详情页</title>
-    $(function(){
-    	$('.nav a:eq(1)').addClass('active');
-    })
+<script>
+	$(function(){
+		$('.nav a:eq(1)').addClass('active');
+	})
+</script>
 </head>
 <body>
     <div class="body">

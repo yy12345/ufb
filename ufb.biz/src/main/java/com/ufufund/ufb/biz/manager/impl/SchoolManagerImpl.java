@@ -1,6 +1,5 @@
 package com.ufufund.ufb.biz.manager.impl;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +23,7 @@ import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.enums.NormalClazzType;
 import com.ufufund.ufb.model.vo.AdjustStudentVo;
+import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.StudentVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -291,6 +291,13 @@ public class SchoolManagerImpl implements SchoolManager{
 	public int removeStudent(StudentVo s){
 		smValidator.validateRemoveStudent(s);
 		return studentMapper.remove(s);
+	}
+	
+	/**
+	 * 根据学生id查询班级名、识别码
+	 */
+	public QueryCustplandetail getClassName(String studentid) {
+		return studentMapper.getClassNmBySid(studentid);
 	}
 	
 }

@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>幼富通 - 暂停自动充值计划</title>
-	<script>
+<script>
 $(function(){
 	$('.nav a:eq(1)').addClass('active');
 	

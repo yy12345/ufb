@@ -197,5 +197,10 @@
     <select id="getCountByClazz" parameterType="String" resultType="int">
     	select count(*) from Student where cid = #{cid, jdbcType=VARCHAR}
     </select>
+    <select id="getClassNmBySid" parameterType="String" resultType="com.ufufund.ufb.model.vo.QueryCustplandetail">
+    	select s.cname,f.code 
+    		from ufu_dev.Student s,ufu_dev.family_codes f
+    	 where s.sid =  #{sid, jdbcType=VARCHAR} and s.sid=f.sid
+    </select>
     
 </mapper>

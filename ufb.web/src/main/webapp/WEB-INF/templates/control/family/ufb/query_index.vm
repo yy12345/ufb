@@ -4,7 +4,7 @@
 <title>幼富通 - 资产总览 - 资金明细</title>
 <script>
 $(function(){
-	$('nav a:eq(1)').addClass('active');
+	$('.nav a:eq(1)').addClass('active');
     
     <!--日历-->
     $(".datepicker input").datepicker({
@@ -19,8 +19,6 @@ $(function(){
     		$("#form-index").submit();
         }
     });
-    $('.select').selectMenu();
-    $('.checkbox').checkbox();
     $('.itemL .a5 tr:even td').css({'background':'#eaf4f8'});
     $('.itemL .a5 tr:odd td').css({'background':'#fff'});
 
@@ -85,26 +83,25 @@ $(function(){
                             <span style="margin:0 15px;">--</span>
                             <label class="datepicker  endDate"><input type="text" name="endappdate" id="endappdate"  value="${TradeQueryVo.endappdate}"></label>
                             <a class="on" href="javascript:;" index="0">今天</a>
-							<a class="on" href="javascript:;" index="1">最近1个月</a>
-							<a class="on" href="javascript:;" index="2">最近3个月</a>
-							<a class="on" href="javascript:;" index="3">1年</a>
+							<a  href="javascript:;" index="1">最近1个月</a>
+							<a  href="javascript:;" index="2">最近3个月</a>
+							<a  href="javascript:;" index="3">1年</a>
                        </div>
                     </li>
                     <li class="search-item item-cate"><span class="item-title">交易类型</span>
                         <div class="clearfix">
 							<a href="javascript:;" class="on" index="0">全部</a>
-							<a class="on" href="javascript:;" index="1">转入</a>
-							<a class="on" href="javascript:;" index="2">转出</a>
-							<a class="on" href="javascript:;" index="3">其他</a>
+							<a href="javascript:;" index="1">转入</a>
+							<a href="javascript:;" index="2">转出</a>
+							<a href="javascript:;" index="3">其他</a>
 						</div>
                     </li>
                     <li class="search-item item-type"><span class="item-title">交易状态</span>
                         <div class="clearfix">
 							<a href="javascript:;" class="on" index="0">全部</a>
-							<a class="on" href="javascript:;" index="1">处理中</a>
-							<a class="on" href="javascript:;" index="2">成功</a>
-							<a class="on" href="javascript:;" index="3">失败</a>
-						<!--	<input id="btn-search" class="input-button ok" type="button" value="查&nbsp;询">-->
+							<a  href="javascript:;" index="1">处理中</a>
+							<a  href="javascript:;" index="2">成功</a>
+							<a  href="javascript:;" index="3">失败</a>
 						</div>
                     </li>
                 </ul>

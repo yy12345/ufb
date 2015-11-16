@@ -1,188 +1,208 @@
-<div class="popup-box" id="notice_3" style="display:none;">
-	<div class="close"></div>
-	    <div class="bg"></div>
-	    <div class="content tabs" id="print-content">
-	        <div class="content-body">
-	             <h1 class="print-title">收费通知书（预览样式）</h1>
-	             <h2 class="print-call">亲爱的<span>大一</span>班<span> 张小宝 </span>同学家长您好！</h2>
-	            <br>
-	            <div class="print-info">
-	              <table>
-	                  <tbody><tr>
-	                      <td width="12%">缴费交易号</td>
-	                      <td width="38%">SV201505050100010001</td>
-	                      <td width="10%">发起时间</td>
-	                      <td width="40%">2015-04-14  18:30</td>
-	                  </tr>
-	                  <tr>
-	                      <td>收费名称</td>
-	                      <td>15年9月学费</td>
-	                      <td>记账周期</td>
-	                      <td>2015学年9月账单（20150901-20160706）</td>
-	                  </tr>
-	                  <tr>
-	                      <td>费用类型</td>
-	                      <td>固定周期费用</td>
-	                      <td>收费方式</td>
-	                      <td><span class="tip">月代扣</span></td>
-	                  </tr>
-	              </tbody></table>
-	              </div>
-	              <hr>
-	              <div class="content-middle">
-	                 <div class="content-middle-left fl">
-	                  <div class="control-group">
-	                      <label class="form-lbl">标准金额</label>
-	                      <p class="inline-block">3960元</p>
-	                  </div>
-	                  <div class="control-group">
-	                      <label class="form-lbl">已计折扣</label>
-	                      <p class="inline-block"><span style="color: #1ea939;">-60</span>元</p>
-	                  </div>
-	                  <div class="control-group">
-	                      <label class="form-lbl">应收金额</label>
-	                      <p class="inline-block"><span style="color:#cb3849;font-size: 16px">3960</span>元</p>
-	                  </div>
-	                  <div class="control-group">
-	                      <label class="form-lbl">每月扣款日</label>
-	                      <p class="inline-block">每月<span>25</span>日</p>
-	                  </div>
-	                  <div class="control-group">
-	                      <label class="form-lbl">确认截止日</label>
-	                      <p class="inline-block num-red">2015年8月20日</p>
-	                  </div>
-	                  <p>家长须知：</p>
-	                  <p>请及时确认缴费，将于每月固定日期自动扣款，请确保缴费账户内余额充足。以后每月收款通知书仅作为收款凭证使用，无需进行手工确认。</p>
-	              </div>
-	              <div class="content-middle-right fr">
-	              <h4>收费明细</h4>
-	              <table>
-	                  <tbody><tr>
-	                      <th>类别</th>
-	                      <th>项目</th>
-	                      <th>余额</th>
-	                      <th>计费单位</th>
-	                  </tr>
-	                  <tr>
-	                      <td>保育费</td>
-	                      <td>保育费</td>
-	                      <td>1200元</td>
-	                      <td>月</td>
-	                  </tr>
-	                  <tr>
-	                      <td>膳食费</td>
-	                      <td>膳食费</td>
-	                      <td>600元</td>
-	                      <td>月</td>
-	                  </tr>
-	                  <tr>
-	                      <td>短期培训班费</td>
-	                      <td>15暑期钢琴班</td>
-	                      <td>800元</td>
-	                      <td>课时</td>
-	                  </tr>
-	                  <tr>
-	                      <td>短期培训班费</td>
-	                      <td>日常美术兴趣班</td>
-	                      <td>300元</td>
-	                      <td>月</td>
-	                  </tr>
-	                  <tr>
-	                      <td>短期培训班费</td>
-	                      <td>13秋季奥数提高班</td>
-	                      <td>800元</td>
-	                      <td>学期</td>
-	                  </tr>
-	                  <tr>
-	                      <td>代收代缴费</td>
-	                      <td>保险费</td>
-	                      <td>15元</td>
-	                      <td>月</td>
-	                  </tr>
-	                  <tr>
-	                      <td>代收代缴费</td>
-	                      <td>温控费</td>
-	                      <td>600元</td>
-	                      <td>月</td>
-	                  </tr>
-	                  <tr>
-	                      <td>代收代缴费</td>
-	                      <td>服装费</td>
-	                      <td>600元</td>
-	                      <td>学期</td>
-	                  </tr>
-	                  <tr>
-	                      <td>代收代缴费</td>
-	                      <td>体检费</td>
-	                      <td>600元</td>
-	                      <td>学年</td>
-	                  </tr>
-	                  <tr>
-	                      <td>代收代缴费</td>
-	                      <td>教材费</td>
-	                      <td>600元</td>
-	                      <td>学期</td>
-	                  </tr>
-	                  <tr>
-	                      <td>其他</td>
-	                      <td>补扣</td>
-	                      <td>6元</td>
-	                      <td>月</td>
-	                  </tr>
-	                  <tr>
-	                      <td>其他</td>
-	                      <td>补扣</td>
-	                      <td>23元</td>
-	                      <td>月</td>
-	                  </tr>
-	              </tbody></table>
-	          </div>
-	          </div><!--end of content-middle-->
-	          <hr>
-	          <div class="content-pennlt">
-	              <div class="control-group">
-	                  <label class="form-lbl">收费机构名称</label>
-	                  <p class="inline-block">海富幼儿园</p>
-	              </div>
-	              <div class="control-group">
-	                  <label class="form-lbl">营业执照号</label>
-	                  <p class="inline-block">1234567890</p>
-	              </div>
-	              <div class="control-group">
-	                  <label class="form-lbl">地址</label>
-	                  <p class="inline-block">上海市浦东新区峨山路999弄11号</p>
-	              </div>
-	              <div class="control-group">
-	                  <label class="form-lbl">开户银行</label>
-	                  <p class="inline-block">招商银行上海市分行世纪大道支行</p>
-	              </div>
-	              <div class="control-group">
-	                  <label class="form-lbl">银行账号</label>
-	                  <p class="inline-block">6226777788889999</p>
-	              </div>
-	              <div class="control-group">
-	                  <label class="form-lbl">咨询电话</label>
-	                  <p class="inline-block">020-32323232</p>
-	              </div>
-	              <div class="pennlt-right">
-	                  <div class="pennlt-right-img"></div>
-	                  <p style="text-align: center;margin-top: 10px;">识别码：<span class="num-red">234599</span></p>
-	              </div>
-	          </div>
-	    </div><!--end of content-body-->
-	    <div class="content-bottom">
-	        <h2>请家长登录幼富通官网 www.ufufund.com确认缴费。 </h2>
-	        <p style="margin-top: 16px;margin-bottom: 40px;">若家庭首次使用幼富通服务：填写收费通知书所附识别码，按指引绑定收费机构后即可便捷缴费</p>
-	        <p>幼富通是专注为幼教机构提供金融服务的互联网平台。</p>
-	        <p>中国银联为您的幼儿提供安全、稳定、便捷的缴费服务，请放心使用。</p>
-	        <div class="weixin"></div>
-	    </div>
-	</div>
-	<div class="bottom-btn" style="z-index:5;">
-	    <div class="btmBtn">
-	        <a href="javscript:;" class="btn btn-red" id="goback">返回</a>
-	        <a href="javscript:;" class="btn btn-red" id="printnotice">打印</a>
-	        <a href="javscript:;" class="btn btn-red" id="savetopc">保存到电脑</a>
-	    </div>
-	</div>
+<div class="popup-box" id="notice_${planDetail.detailid}" style="display:none;">
+<div class="close"></div>
+    <div class="bg"></div>
+    <div class="content tabs" id="print-content">
+        <div class="content-body">
+             <h1 class="print-title">收费通知书（预览样式）</h1>
+             <h2 class="print-call">亲爱的
+             #set($c = ${planDetail.cname})
+             <span>$c.substring(0,2)</span>$c.substring(2,3)<span> $!{planDetail.studentnm} </span>同学家长您好！</h2>
+            <br>
+            <div class="print-info">
+              <table>
+                  <tbody><tr>
+                      <td width="12%">缴费交易号</td>
+                      <td width="38%">$!{planDetail.detailid}</td>
+                      <td width="10%">发起时间</td>
+                      <td width="40%">$!{planDetail.startdate}</td>
+                  </tr>
+                  <tr>
+                      <td>收费名称</td>
+                      <td>$!{planDetail.planname}</td>
+                      <td>记账周期</td>
+                      <td>$!{planDetail.billdate}</td>
+                  </tr>
+                  <tr>
+                      <td>费用类型</td>
+                      <td>#if(${planDetail.plantype}=="F")固定周期费用 #elseif(${planDetail.plantype}=="T") 临时费用 #else 退费 #end</td>
+                      <td>收费方式</td>
+                      <td><span class="tip">#if(${planDetail.type}=="AT")月代扣#else单笔#end</span></td>
+                  </tr>
+              </tbody></table>
+              </div>
+              <hr>
+              <div class="content-middle">
+                 <div class="content-middle-left fl">
+                  <div class="control-group">
+                      <label class="form-lbl">标准金额</label>
+                      <p class="inline-block">${planDetail.payappamount}元</p>
+                  </div>
+                  <div class="control-group">
+                      <label class="form-lbl">已计折扣</label>
+                      <p class="inline-block"><span style="color: #1ea939;">-${planDetail.paydiscount}</span>元</p>
+                  </div>
+                  <div class="control-group">
+                      <label class="form-lbl">应收金额</label>
+                      <p class="inline-block"><span style="color:#cb3849;font-size: 16px">${planDetail.payackamount}</span>元</p>
+                  </div>
+                  <div class="control-group">
+                      <label class="form-lbl">每月扣款日</label>
+                      <p class="inline-block">每月<span>${planDetail.dat}</span>日</p>
+                  </div>
+                  <div class="control-group">
+                      <label class="form-lbl">确认截止日</label>
+                      <p class="inline-block num-red">
+                        #set($tailStr = ${planDetail.ackdate})
+                        #set($year=$tailStr.substring(0,4))
+                        #set($month=$tailStr.substring(5,7))
+                        #set($day=$tailStr.substring(8,10))
+                        $year 年 $month 月 $day 日
+                      </p>
+                  </div>
+                  <p>家长须知：</p>
+                  <p>请及时确认缴费，将于每月固定日期自动扣款，请确保缴费账户内余额充足。以后每月收款通知书仅作为收款凭证使用，无需进行手工确认。</p>
+              </div>
+              <div class="content-middle-right fr">
+              <h4>收费明细</h4>
+              <table>
+                  <tbody><tr>
+                      <th>类别</th>
+                      <th>项目</th>
+                      <th>余额</th>
+                      <th>计费单位</th>
+                  </tr>
+                  <tr>
+                      <td>保育费</td>
+                      <td>保育费</td>
+                      <td>1200元</td>
+                      <td>月</td>
+                  </tr>
+                  <tr>
+                      <td>膳食费</td>
+                      <td>膳食费</td>
+                      <td>600元</td>
+                      <td>月</td>
+                  </tr>
+                  <tr>
+                      <td>短期培训班费</td>
+                      <td>15暑期钢琴班</td>
+                      <td>800元</td>
+                      <td>课时</td>
+                  </tr>
+                  <tr>
+                      <td>短期培训班费</td>
+                      <td>日常美术兴趣班</td>
+                      <td>300元</td>
+                      <td>月</td>
+                  </tr>
+                  <tr>
+                      <td>短期培训班费</td>
+                      <td>13秋季奥数提高班</td>
+                      <td>800元</td>
+                      <td>学期</td>
+                  </tr>
+                  <tr>
+                      <td>代收代缴费</td>
+                      <td>保险费</td>
+                      <td>15元</td>
+                      <td>月</td>
+                  </tr>
+                  <tr>
+                      <td>代收代缴费</td>
+                      <td>温控费</td>
+                      <td>600元</td>
+                      <td>月</td>
+                  </tr>
+                  <tr>
+                      <td>代收代缴费</td>
+                      <td>服装费</td>
+                      <td>600元</td>
+                      <td>学期</td>
+                  </tr>
+                  <tr>
+                      <td>代收代缴费</td>
+                      <td>体检费</td>
+                      <td>600元</td>
+                      <td>学年</td>
+                  </tr>
+                  <tr>
+                      <td>代收代缴费</td>
+                      <td>教材费</td>
+                      <td>600元</td>
+                      <td>学期</td>
+                  </tr>
+                  <tr>
+                      <td>其他</td>
+                      <td>补扣</td>
+                      <td>6元</td>
+                      <td>月</td>
+                  </tr>
+                  <tr>
+                      <td>其他</td>
+                      <td>补扣</td>
+                      <td>23元</td>
+                      <td>月</td>
+                  </tr>
+              </tbody></table>
+          </div>
+          </div>
+          <hr>
+          #set($org = ${planDetail.orginfo})
+          <div class="content-pennlt">
+              <div class="control-group">
+                  <label class="form-lbl">收费机构名称</label>
+                  <p class="inline-block">$!{org.orgnm}</p>
+              </div>
+              <div class="control-group">
+                  <label class="form-lbl">营业执照号</label>
+                  <p class="inline-block">$!{org.business}</p>
+              </div>
+              <div class="control-group">
+                  <label class="form-lbl">地址</label>
+                  <p class="inline-block">$!{org.orgaddr}</p>
+              </div>
+              <div class="control-group">
+                  <label class="form-lbl">开户银行</label>
+                  <p class="inline-block">$!{org.bankadd}</p>
+              </div>
+              <div class="control-group">
+                  <label class="form-lbl">银行账号</label>
+                  <p class="inline-block">
+                  	#if ($org.bankacco)
+					#set($tailStr=$org.bankacco)
+					#set($start=$tailStr.substring(0,6))
+					#set($l_0=$tailStr.length() - 4)
+					#set($l_1=$tailStr.length())
+					#set($end=$tailStr.substring($l_0,$l_1))
+					$start************$end
+					#end
+                  </p>
+              </div>
+              <div class="control-group">
+                  <label class="form-lbl">咨询电话</label>
+                  <p class="inline-block">$!{org.telno}</p>
+              </div>
+              <div class="pennlt-right">
+                  <div class="pennlt-right-img"></div>
+                  <p style="text-align: center;margin-top: 10px;">识别码：<span class="num-red">$!{planDetail.code}</span></p>
+              </div>
+          </div>
+    </div>
+
+    <div class="content-bottom">
+        <h2>请家长登录幼富通官网 www.ufufund.com确认缴费。 </h2>
+        <p style="margin-top: 16px;margin-bottom: 40px;">若家庭首次使用幼富通服务：填写收费通知书所附识别码，按指引绑定收费机构后即可便捷缴费</p>
+        <p>幼富通是专注为幼教机构提供金融服务的互联网平台。</p>
+        <p>中国银联为您的幼儿提供安全、稳定、便捷的缴费服务，请放心使用。</p>
+        <div class="weixin"></div>
+    </div>
+
+</div>
+<div class="bottom-btn" style="z-index: 5;">
+    <div class="btmBtn">
+        <a href="javscript:;" class="btn btn-red" id="goback">返回</a>
+        <a href="javscript:;" class="btn btn-red" id="printnotice">打印</a>
+        <a href="javscript:;" class="btn btn-red" id="savetopc">保存到电脑</a>
+    </div>
+</div>
 </div>

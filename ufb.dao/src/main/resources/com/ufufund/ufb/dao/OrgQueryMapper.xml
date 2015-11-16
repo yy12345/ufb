@@ -23,7 +23,10 @@
 		d.plan_name as planname,
 		d.plan_type as plantype,
 		d.cycle_type as cycletype,
-		d.type
+		d.type,
+		d.bill_date as billdate,
+		d.dat,
+		date_format(d.start_date,'%Y-%m-%d %H:%i') as startdate
 	</sql>
 
 	<select id="getQueryOrgByCustno" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.vo.QueryOrgStudent">

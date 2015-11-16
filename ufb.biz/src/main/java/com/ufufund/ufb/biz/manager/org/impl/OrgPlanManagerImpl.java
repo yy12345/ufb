@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
+import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.ImplCommon;
 import com.ufufund.ufb.biz.manager.org.OrgPlanManager;
+import com.ufufund.ufb.biz.manager.org.OrgQueryManager;
 import com.ufufund.ufb.biz.manager.org.impl.helper.OrgPlanHelper;
 import com.ufufund.ufb.biz.manager.org.impl.validator.OrgPlanValidator;
 import com.ufufund.ufb.common.constant.BisConst;
@@ -23,6 +25,7 @@ import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.dao.OrgDeployMapper;
 import com.ufufund.ufb.dao.OrgQueryMapper;
 import com.ufufund.ufb.dao.PlanDetailMapper;
+import com.ufufund.ufb.dao.StudentMapper;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction1;
 import com.ufufund.ufb.model.action.org.CreateOrgPlanAction2;
@@ -39,6 +42,7 @@ import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.AutoTradeType;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.enums.ErrorInfo;
+import com.ufufund.ufb.model.vo.OrgBankInfoVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 
 @Service
@@ -65,6 +69,12 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 	private PlanDetailMapper planDetailMapper;
 	@Autowired
 	private OrgQueryMapper orgQueryMapper;
+	@Autowired
+	private OrgQueryManager orgQueryManager;
+	@Autowired
+	private CustManager custManager;
+	@Autowired
+	private StudentMapper studentMapper;
 
 	// @Autowired
 	// private AutotradeManager autotradeManager;
@@ -303,7 +313,28 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		return paydate;
 	}
 
-	
+	@Override
+	public QueryCustplandetail getDetailNotice(String custno,String detailid) {
+		List<String> ispayList = new ArrayList<String>();
+		ispayList.add("2");
+		ispayList.add("5");
+		List<QueryCustplandetail> detailList = orgQueryManager.getQueryCustplandetail(custno, null, detailid, ispayList);
+		QueryCustplandetail payVo = new QueryCustplandetail();
+		if(detailList.size()>0&&null!=detailList){
+			payVo=detailList.get(0);
+			String orgid=payVo.getOrgid();
+			OrgBankInfoVo org=custManager.queryOrgBankInfo(orgid);
+			payVo.setOrginfo(org);
+			String studentid=payVo.getStudentid();
+			QueryCustplandetail stu=studentMapper.getClassNmBySid(studentid);
+			if(null!=stu){
+				payVo.setCname(stu.getCname());
+				payVo.setCode(stu.getCode());
+			}
+		}
+		return payVo;
+	}
+
 	
 
 }

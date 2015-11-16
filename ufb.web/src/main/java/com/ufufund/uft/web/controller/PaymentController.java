@@ -59,11 +59,11 @@ public class PaymentController {
 	@Autowired
 	private OrgQueryManager orgQueryManager;
 	@Autowired
+	private CustManager custManager;
+	@Autowired
 	private FamilyManager familyManager;
 	@Autowired
 	private BankCardManager bankCardManager;
-	@Autowired
-	private CustManager custManager;
 	@Autowired
 	private QueryManager queryManager;
 	@Autowired
@@ -415,7 +415,7 @@ public class PaymentController {
 	 * @return
 	 */
 	@RequestMapping(value="record_index")
-	public String payRecords(PayRecordQryVo vo, Model model){
+	public String recordIndex(PayRecordQryVo vo, Model model){
 		
 		String custno = UserHelper.getCustno();	
 		try{
@@ -550,12 +550,13 @@ public class PaymentController {
 	 * @return
 	 */
 	@RequestMapping(value="record_notice")
-	public String payNotice(Model model){
+	public String recordNotice(String detailid,Model model){
 		
 		CustinfoVo custinfo = UserHelper.getCustinfoVo();	
 		try{
-			
-			
+			// 获得缴费详情信息
+			QueryCustplandetail  payVo = orgPlanManager.getDetailNotice(custinfo.getCustno(), detailid);
+			model.addAttribute("planDetail", payVo);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "操作失败");
@@ -567,15 +568,6 @@ public class PaymentController {
 		return "family/uft/record_notice";
 	}
 	
-	/**
-	 * 缴费通知书弹层
-	 * @param detailid
-	 * @param model
-	 */
-	public String getPayPopup(String detailid,Model model){
-		
-		return "family/uft/pay_notice";
-	}
 	private void setModel(CustinfoVo custinfoVo, Model model){
 		// 海富通
 		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());

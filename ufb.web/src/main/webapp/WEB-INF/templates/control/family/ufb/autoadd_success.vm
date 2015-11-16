@@ -2,10 +2,11 @@
 <html>
 <head>
     <title>幼富通 - 开通结果</title>
-    $(function(){
-    	$('.nav a:eq(1)').addClass('active');
-    })
-    
+    <script>
+	    $(function(){
+	    	$('.nav a:eq(1)').addClass('active');
+	    })
+    </script>
 </head>
 <body>
     <div class="body">

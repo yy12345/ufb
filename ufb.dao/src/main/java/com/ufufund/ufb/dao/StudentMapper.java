@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.vo.AdjustStudentVo;
+import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.StudentVo;
 
 public interface StudentMapper {
@@ -30,5 +31,5 @@ public interface StudentMapper {
 	int bindStudent(Student s);
 	
 	int getCountByClazz(String cid);
-	
+	QueryCustplandetail getClassNmBySid(String sid);
 }

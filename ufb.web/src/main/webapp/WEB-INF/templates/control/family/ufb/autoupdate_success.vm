@@ -5,9 +5,9 @@
 <title>幼富通 - 开通结果</title>
 
 <script>
-$(function(){
-	$('.nav a:eq(1)').addClass('active');
-});
+	$(function(){
+		$('.nav a:eq(1)').addClass('active');
+	});
 </script>
 </head>
 <body>
@@ -24,22 +24,6 @@ $(function(){
                 <div class="form-done">
                     <div class="title">你的自动充值计划已修改完成</div>
                     <div class="text">
-						<!--
-                        <table width="300">
-                            <tr>
-                                <td>设置时间</td>
-                                <td>2015-04-14  18:30</td>
-                            </tr>
-                            <tr>
-                                <td>下次充值日期</td>
-                                <td>2015年5月14日</td>
-                            </tr>
-                            <tr>
-                                <td>每期充值金额</td>
-                                <td>10,000元</td>
-                            </tr>
-                        </table>
-						-->
                     </div>
                     <a class="btn" href="${ufbDomain}/family/ufb/autotrade_index.htm">查看自动充值计划</a>
                 </div>

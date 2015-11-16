@@ -7,9 +7,11 @@
             margin-top:0;
         }
     </style>
-    $(function(){
-    	$('.nav a:eq(1)').addClass('active');
-    })
+<script>
+	$(function(){
+		$('.nav a:eq(1)').addClass('active');
+	})
+</script>
 </head>
 <body>
     <div class="body">

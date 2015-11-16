@@ -1302,7 +1302,7 @@ i.up-arrow-grey{
     right: 20px;
     top: 20px;
     z-index: 2;
-    background: url(../../public/images/13.png) no-repeat;
+    background: url(../images/13.png) no-repeat;
     cursor: pointer;
 }
 .popup-box .bg {
@@ -1474,7 +1474,7 @@ i.up-arrow-grey{
     right: 22px;
     top: 22px;
     display: block;
-    background: url("../../images/weixin.png") no-repeat;
+    background: url("../images/weixin.png") no-repeat;
     height: 138px;
     width: 100px;
     background-size: 100px 138px;

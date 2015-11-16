@@ -6,6 +6,7 @@ import com.ufufund.ufb.model.db.Clazz;
 import com.ufufund.ufb.model.db.ClazzType;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.vo.AdjustStudentVo;
+import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.StudentVo;
 
 public interface SchoolManager {
@@ -134,4 +135,9 @@ public interface SchoolManager {
 	 * @return
 	 */
 	int removeStudent(StudentVo s);
+	
+	/**
+	 * 根据学生id查询班级名、识别码
+	 */
+	QueryCustplandetail getClassName(String studentid);
 }
