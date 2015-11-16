@@ -23,7 +23,7 @@ $(function(){
 		if(dest == 'orgid'){
 			$('#sid').val('');
 		}
-		$('#myform').attr('action','${ufbDomain}/family/uft/pay_records.htm');
+		$('#myform').attr('action','${ufbDomain}/family/uft/record_index.htm');
 		$('#myform').submit();
 	});
 	

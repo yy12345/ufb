@@ -186,7 +186,7 @@ $(function(){
                   <a data-slide-index="1" href="javascript:;">安全<i></i></a>
                   <a data-slide-index="2" href="javascript:;">收益<i></i></a>
                   <a data-slide-index="3" href="javascript:;">充值取现<i></i></a>
-               </div>  
+               </div>
                <ul class="bxslider">
                    <li>
                        <dl>
@@ -209,7 +209,7 @@ $(function(){
                            <dt>家长确认幼儿园收费账单后，何时缴费？</dt>
                            <dd>通常每月20日前必须确认收费机构发出的收费通知，账务系统将在每月25日统一扣缴各类固定或临时性费用并支付退费。</dd>
                        </dl>
-                       <div class="help"><a href="helpFee.html">帮助中心</a></div>
+                       <div class="help"><a href="${ufbDomain}/family/help/payment.htm">帮助中心</a></div>
                    </li>
                    <li>
                        <dl>
@@ -228,7 +228,7 @@ $(function(){
                            <dt>如何确保每月自动扣款的资金安全？</dt>
                            <dd>由中国银联全程进行账户安全审验及资金支付服务，为收费机构与家庭提供多重数据安全保护</dd>
                        </dl>
-                       <div class="help"><a href="helpFee.html">帮助中心</a></div>
+                       <div class="help"><a href="${ufbDomain}/family/help/security.htm">帮助中心</a></div>
                    </li>
                    <li>
                        <dl>
@@ -243,7 +243,7 @@ $(function(){
                            <dt>幼富宝的收益结算有什么规则？</dt>
                            <dd>幼富宝的收益每日结算，每天下午15:00左右前一天的收益到账。您缴费或转出到银行卡的那部分资金，当天没有收益。</dd>
                        </dl>
-                       <div class="help"><a href="helpFee.html">帮助中心</a></div>
+                       <div class="help"><a href="${ufbDomain}/family/help/benefits.htm">帮助中心</a></div>
                    </li>
                    <li>
                        <dl>
@@ -266,7 +266,7 @@ $(function(){
                            <dt>幼富宝转出当天有收益吗？</dt>
                            <dd>幼富宝转出到银行卡当日起至到账日不再产生收益。</dd>
                        </dl>
-                       <div class="help"><a href="helpFee.html">帮助中心</a></div> 
+                       <div class="help"><a href="${ufbDomain}/family/help/cash_center.htm">帮助中心</a></div> 
                    </li>
                    <li></li>
                    <li></li>

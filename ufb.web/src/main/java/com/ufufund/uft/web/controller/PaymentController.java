@@ -414,7 +414,7 @@ public class PaymentController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="pay_records")
+	@RequestMapping(value="record_index")
 	public String payRecords(PayRecordQryVo vo, Model model){
 		
 		String custno = UserHelper.getCustno();	
@@ -487,7 +487,7 @@ public class PaymentController {
 			model.addAttribute("back_module", UFT_INDEX_NAME);
 			return "error/error";
 		}
-		return "family/uft/pay_records";
+		return "family/uft/record_index";
 	}
 	
 	/**
@@ -549,7 +549,7 @@ public class PaymentController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="pay_notice")
+	@RequestMapping(value="record_notice")
 	public String payNotice(Model model){
 		
 		CustinfoVo custinfo = UserHelper.getCustinfoVo();	
@@ -564,7 +564,7 @@ public class PaymentController {
 			model.addAttribute("back_module", UFT_INDEX_NAME);
 			return "error/error";
 		}
-		return "family/uft/pay_notice";
+		return "family/uft/record_notice";
 	}
 	
 	/**

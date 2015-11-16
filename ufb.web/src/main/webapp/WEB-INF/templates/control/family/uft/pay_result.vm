@@ -105,7 +105,7 @@
                         </div>
                         <div class="btn-control">
                             <a class="btn" href="${ufbDomain}/family/ufb/ufb_index.htm" style="display: inline-block;">充值幼富宝</a>
-                            <a href="${ufbDomain}/family/uft/pay_records.htm" class="lookup-detail hoverLine">查看付费明细</a>
+                            <a href="${ufbDomain}/family/uft/record_index.htm" class="lookup-detail hoverLine">查看付费明细</a>
                         </div>
                     </div>
                 </div>

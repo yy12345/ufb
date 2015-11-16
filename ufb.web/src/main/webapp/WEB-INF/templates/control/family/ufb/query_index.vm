@@ -1,73 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 资产总览 - 资金明细</title>
+<title>幼富通 - 资产总览 - 资金明细</title>
+<script>
+$(function(){
+	$('nav a:eq(1)').addClass('active');
+    
     <!--日历-->
-    <script type="text/javascript">
-        $('nav a:eq(1)').addClass('active');
-        
-        $(".datepicker input").datepicker({
-            showOn: "button",
-            buttonImage: "${staticDomain}/family/images/calendar.png",
-            buttonImageOnly: true,
-            onSelect:function(dateText,inst){
+    $(".datepicker input").datepicker({
+        showOn: "button",
+        buttonImage: "${staticDomain}/family/images/calendar.png",
+        buttonImageOnly: true,
+        onSelect:function(dateText,inst){
         	$(".item-date a").each(function(){
         		$(this).removeClass("on");
         	})
     		$("#appdateindex").val("4");
     		$("#form-index").submit();
         }
-        });
-        $('.select').selectMenu();
-        $('.checkbox').checkbox();
-        $('.itemL .a5 tr:even td').css({'background':'#eaf4f8'});
-        $('.itemL .a5 tr:odd td').css({'background':'#fff'});
-    </script>
-  <script>
-    $(function(){
-	
-		$('.nav a:eq(1)').addClass('active');
-		
-		$(".search-con a").removeClass("on");
-		#if(${TradeQueryVo.appdateindex})
-			$(".item-date a:eq(${TradeQueryVo.appdateindex})").addClass("on");
-		
-		#end
-	
-		#if(${TradeQueryVo.appcateindex})
-			$(".item-cate a:eq(${TradeQueryVo.appcateindex})").addClass("on");
-		#else
-			$(".item-cate a:eq(0)").addClass("on");
-		#end
-	
-		#if(${TradeQueryVo.apptypeindex})
-			$(".item-type a:eq(${TradeQueryVo.apptypeindex})").addClass("on");
-		#else
-			$(".item-type a:eq(0)").addClass("on");
-		#end
-		
-		$(".item-date a").on("click",function(){
-			$(".item-date a").removeClass("on");
-			$(this).addClass("on");
-			$("#appdateindex").val($(this).attr("index"));
-			$("#form-index").submit();
-		});
-		
-		$(".item-cate a").on("click",function(){
-			$(".item-cate a").removeClass("on");
-			$(this).addClass("on");
-			$("#appcateindex").val($(this).attr("index"));
-			$("#form-index").submit();
-		});
-		
-		$(".item-type a").on("click",function(){
-			$(".item-type a").removeClass("on");
-			$(this).addClass("on");
-			$("#apptypeindex").val($(this).attr("index"));
-			$("#form-index").submit();
-		});
-		
     });
+    $('.select').selectMenu();
+    $('.checkbox').checkbox();
+    $('.itemL .a5 tr:even td').css({'background':'#eaf4f8'});
+    $('.itemL .a5 tr:odd td').css({'background':'#fff'});
+
+	$(".search-con a").removeClass("on");
+	#if(${TradeQueryVo.appdateindex})
+		$(".item-date a:eq(${TradeQueryVo.appdateindex})").addClass("on");
+	
+	#end
+
+	#if(${TradeQueryVo.appcateindex})
+		$(".item-cate a:eq(${TradeQueryVo.appcateindex})").addClass("on");
+	#else
+		$(".item-cate a:eq(0)").addClass("on");
+	#end
+
+	#if(${TradeQueryVo.apptypeindex})
+		$(".item-type a:eq(${TradeQueryVo.apptypeindex})").addClass("on");
+	#else
+		$(".item-type a:eq(0)").addClass("on");
+	#end
+	
+	$(".item-date a").on("click",function(){
+		$(".item-date a").removeClass("on");
+		$(this).addClass("on");
+		$("#appdateindex").val($(this).attr("index"));
+		$("#form-index").submit();
+	});
+	
+	$(".item-cate a").on("click",function(){
+		$(".item-cate a").removeClass("on");
+		$(this).addClass("on");
+		$("#appcateindex").val($(this).attr("index"));
+		$("#form-index").submit();
+	});
+	
+	$(".item-type a").on("click",function(){
+		$(".item-type a").removeClass("on");
+		$(this).addClass("on");
+		$("#apptypeindex").val($(this).attr("index"));
+		$("#form-index").submit();
+	});
+	
+});
 </script> 
 </head>
 <body>
