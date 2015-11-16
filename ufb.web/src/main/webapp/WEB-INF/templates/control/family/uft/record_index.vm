@@ -43,6 +43,34 @@ $(function(){
 			}
 		})
 	});
+	
+	// 点击弹出收费通知书
+	$(".item").click(function(){
+		var detailid = $(this).attr('detailid');
+		if($("#notice_"+detailid).length == 0){
+			// 加载通知书页
+			$.ajax({
+				type: "get",
+				url: '${ufbDomain}/family/uft/record_notice.htm',
+				data:'detailid='+detailid,
+				async:false,
+				success: function(data){
+					$('.itemAll').after(data);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log('系统出现异常！');
+				}
+			});
+			
+			// 注册close事件
+	       	$("#notice_"+detailid).click(function(){
+		       $("#notice_"+detailid).fadeOut();       
+		    });
+		}
+        
+       	$("#notice_"+detailid).fadeIn(); 
+    });
+    
 
 });
 </script>
@@ -124,10 +152,6 @@ $(function(){
             </div>
         </div><!--end of notice-content-->
     </div><!--end of container-->
-</div>
-
-<!-- 收费通知书弹层 -->
-<div class="popup-box" id="print-box01" style="display:none;">
 </div>
 </body>
 </html>

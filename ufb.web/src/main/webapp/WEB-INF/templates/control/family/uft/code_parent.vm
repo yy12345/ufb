@@ -64,7 +64,7 @@ $(function(){
        <div class="advBtn advMag">
            <p id="title">识别码<span class="parentN">收费通知家长名</span></p>
            <p id="errorMsg" style="display:none;color:#CB3849;">错误信息！</p>
-           <input id="code" type="text" value="${code}" class="inputMid">
+           <input id="code" type="text" value="${code}" class="inputMid" readonly>
            <input id="parent_name" type="text" value="" class="inputSm">
            <a id="verifyParent" href="javascript:;" class="Advbtn">验 证</a>
        </div>

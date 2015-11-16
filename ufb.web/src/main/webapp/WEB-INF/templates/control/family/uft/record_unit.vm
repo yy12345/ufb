@@ -1,5 +1,5 @@
 #foreach($d in ${detailList})
-<div class="item">
+<div class="item" detailid="${d.detailid}">
     <div class="fix-content">
         <ul>
             <li class="width2">

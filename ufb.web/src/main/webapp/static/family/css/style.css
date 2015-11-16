@@ -2537,25 +2537,6 @@ i.triangle-down {
 .dspBlock.mb1em{
     margin-bottom:1em!important;
 }
-.popup-box .bottom-btn{
-    width: 680px!important;
-    height: 70px!important;
-    position: absolute;
-    left:50%!important;
-    margin-left:-340px;    
-    bottom: -100px!important;
-    *bottom: -130px;
-    z-index: 2;
-/*    background:#fff;*/
-    padding-top:30px;
-}
-.popup-box .bottom-btn .btmBtn{
-   text-align:center;
-}
-.popup-box .bottom-btn a{
-    margin-right: 25px;
-}
-
 /*refund_1*/
 .boxB .itemJ .v1.stepNav li{
     width:33.333%;
@@ -2890,58 +2871,6 @@ i.triangle-down {
     font-weight:bold;
     color:#369b31;
 }
-
-/*退费弹层*/
-.popup-box {
-    position: absolute;
-    overflow-y: scroll;
-    width: 100%;
-    height: 1100px;
-    left: 0;
-    top: 0;
-    z-index: 100;
-    display: none;
-}
-.popup-box .close {
-    width: 50px;
-    height: 50px;
-    position: fixed;
-    right: 20px;
-    top: 20px;
-    z-index: 2;
-    background: url(../../public/images/icon_closeb.png) no-repeat;
-    cursor: pointer;
-}
-.popup-box .bg {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    -webkit-opacity: 0.9;
-    -moz-opacity: 0.9;
-    -ms-opacity: 0.9;
-    opacity: 0.9;
-    filter: alpha(opacity=90);
-}
-#pop01 , #pop02 , #pop03{
-    display:none;
-}
-.content#print-content , .content#print , .content#print2 {
-    width: 680px;
-    height: auto;
-    overflow: visible;
-    top:50%;
-    left: 50%;
-    position: absolute;
-    z-index:1000;
-    margin-left: -340px;
-    margin-top:-340px;
-/*    background: #fff;*/
-    display:none;
-}
 .sum-right{
     margin-right: 5em;
 }
@@ -3032,13 +2961,6 @@ i.triangle-down {
 .content-middle-right h4{
     margin-bottom: 6px;
 }
-#print-content hr{
-    border-bottom: 1px dashed #666;
-    border-top:none ;
-}
-#print-content .content-body .content-middle{
-    height:auto;
-}
 .content-body .content-middle-right table{
     width: 100%;
 }
@@ -3095,24 +3017,6 @@ i.triangle-down {
 }
 .content-bottom h2{
     font-size: 18px;
-}
-.bottom-btn{
-    width: 680px;
-    height: 70px;
-/*    position: absolute;*/
-    left:50%;
-/*    margin-left:-340px;    */
-    bottom: -100px;
-    *bottom: -130px;
-    z-index: 2;
-/*    background:#fff;*/
-    padding-top:30px;
-}
-.bottom-btn .btmBtn{
-   text-align:center;
-}
-.bottom-btn a{
-    margin-right: 25px;
 }
 .control-group.dspBlock p{
     display:inline;

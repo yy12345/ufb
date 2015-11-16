@@ -265,8 +265,8 @@
 <script type="text/javascript">
 $(function(){
 	
-	$("#showYield").html("7日年化收益率（%)"+ parseFloat('${hftFundInfo.yield}').toFixed(4)+"");
-	$("#showIncome").html("万份收益（元）"+ parseFloat('${hftFundInfo.income}').toFixed(4) +"");
+	$("#showYield").html("7日年化收益率（%）"+ (parseFloat('${hftFundInfo.yield}')*100).toFixed(4));
+	$("#showIncome").html("万份收益（元）"+ parseFloat('${hftFundInfo.income}').toFixed(4));
 
 });
 </script>

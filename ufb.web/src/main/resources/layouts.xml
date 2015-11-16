@@ -17,6 +17,7 @@
     <layout page="layout/blank.vm">
         <pattern>school/student_list.vm</pattern>
         <pattern>family/uft/record_unit.vm</pattern>
+        <pattern>family/uft/record_notice.vm</pattern>
     </layout> 
 	
 	<!-- family -->
