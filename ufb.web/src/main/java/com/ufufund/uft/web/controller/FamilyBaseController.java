@@ -24,9 +24,10 @@ import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.vo.Assets;
 import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.model.vo.PayListVo;
+import com.ufufund.ufb.model.vo.PayRecordQryVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
 import com.ufufund.ufb.model.vo.QueryOrgStudent;
-import com.ufufund.ufb.model.vo.PayListVo;
 import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -93,6 +94,7 @@ public class FamilyBaseController {
 			ispaylist.add("1");
 			for(QueryOrgStudent org: orglist){
 				BigDecimal monthtotalamt = BigDecimal.ZERO;
+				BigDecimal monthbackamt = BigDecimal.ZERO;
 				int count=0;
 				PayListVo stuPayVo=new PayListVo();
 				
@@ -114,10 +116,16 @@ public class FamilyBaseController {
 						monthtotalamt=monthtotalamt.add(planmonthamt);
 					}
 				}
-				//上个月的退费  later....
+				
+				//当月的退费   
+				PayRecordQryVo payRecordQryVo = new PayRecordQryVo();
+				payRecordQryVo.setCustno(custinfo.getCustno());
+				payRecordQryVo.setOrgid(org.getOrgid());
+				monthbackamt=orgQueryManager.getReversedMonthAmt(payRecordQryVo);
 				
 				stuPayVo.setPlancount(count);
 				stuPayVo.setMonthtotalamt(monthtotalamt);
+				stuPayVo.setMonthbackamt(monthbackamt);
 				paylist.add(stuPayVo);
 				totalplanmonthamt = totalplanmonthamt.add(monthtotalamt);
 			}

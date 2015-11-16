@@ -330,5 +330,16 @@
 			</if>
     </select>
     
+    <!-- 当月的退费 -->
+    <select id="getReversedMonthAmt" parameterType="PayRecordQryVo" resultType="BigDecimal">
+  		  select ifnull(sum(a.pay_ack_amount), 0) 
+  		     from ufu_dev.org_plan_datail a,ufu_dev.org_plan b  
+  		  where a.plan_id = b.plan_id and a.is_pay in('2','5') and b.plan_type='R' 
+  		 	 and date_format(pay_date,'%y-%m')=date_format(sysdate(),'%y-%m')
+  		 	 <if test="orgid != null and orgid != ''">
+				and a.org_id = #{orgid,jdbcType=VARCHAR}
+			</if>
+  		 	 and a.pay_custno = #{custno,jdbcType=VARCHAR}
+    </select>
 </mapper>
 

@@ -142,7 +142,7 @@
 								 $student.studentnm
 								 #end
 							  </p></li>
-                              <li class="sli2"><p class="sli2-p1">当前共<strong class="num-red">#if($pay.plancount) ${pay.plancount}#else 0 #end</strong>个待确认缴费通知，总计（元）</p><p class="sli2-p2">  #if($pay.monthtotalamt)${pay.monthtotalamt}#else 0.00 #end</p></li>
+                              <li class="sli2"><p class="sli2-p1">当前共<strong class="num-red">#if($pay.plancount) ${pay.plancount}#else 0 #end</strong>个待确认缴费通知，总计（元）</p><p class="sli2-p2">  #if($pay.monthtotalamt>0)${pay.monthtotalamt}#else 0.00 #end</p></li>
                               <li class="sli3"><p class="sli3-p1">退费（元）</p><p class="sli3-p2">#if($pay.monthbackamt)+${pay.monthbackamt}#else 0.00 #end</p></li>
                               <li class="sli4"><a href="javascript:;" class="btn btn-white orgcharge">缴费</a></li>
                           </ul>

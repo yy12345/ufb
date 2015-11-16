@@ -145,5 +145,10 @@ public class OrgQueryManagerImpl extends ImplCommon implements OrgQueryManager {
 		return result;
 	}
 
+	@Override
+	public BigDecimal getReversedMonthAmt(PayRecordQryVo vo) {
+		return orgQueryMapper.getReversedMonthAmt(vo);
+	}
+
 	
 }

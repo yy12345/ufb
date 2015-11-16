@@ -108,4 +108,11 @@ public interface OrgQueryMapper extends BaseDao {
 	 */
 	public BigDecimal getReversedTotalAmt(PayRecordQryVo vo);
 	
+	/**
+	 * 查询当月的退费金额
+	 * @param vo
+	 * @return
+	 */
+	public BigDecimal getReversedMonthAmt(PayRecordQryVo vo);
+	
 }
