@@ -31,5 +31,12 @@ public interface OrgPlanManager {
 	 */
 	public void personConfirmPlandetail(PersonConfirmAction action) throws BizException;
 	
+	/**
+	 * 家长确认缴费
+	 * @param detailids
+	 * @param d_custinfo
+	 * @param paytype
+	 * @return
+	 */
 	public String confirmDetail(String detailids,Custinfo d_custinfo,String paytype);
 }

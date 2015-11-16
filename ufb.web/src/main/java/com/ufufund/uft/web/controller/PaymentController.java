@@ -377,8 +377,8 @@ public class PaymentController {
 		CustinfoVo custinfo = UserHelper.getCustinfoVo();
 		try{
 			// 交易密码校验
-			Custinfo d_custinfo=custManager.getCustinfo(custinfo.getCustno());
-			if(!d_custinfo.getTradepwd().equals(EncryptUtil.md5(tradePwd))){
+			Custinfo s_custinfo=custManager.getCustinfo(custinfo.getCustno());
+			if(!s_custinfo.getTradepwd().equals(EncryptUtil.md5(tradePwd))){
 				throw new UserException("交易密码错误！");
 			}		
 			if(StringUtils.isBlank(detailids)||StringUtils.isBlank(paytype)||StringUtils.isBlank(orgmsg)){
@@ -392,7 +392,7 @@ public class PaymentController {
 				orgnamelist.add(orgs[i]);
 			}
 			// 支付方式  :幼富宝    快捷方式    
-			String paydate=orgPlanManager.confirmDetail(detailids, custinfo.getCustno(), paytype);
+			String paydate=orgPlanManager.confirmDetail(detailids,s_custinfo, paytype);
 			
 			model.addAttribute("orgnamelist", orgnamelist);
 			model.addAttribute("paytype", paytype);
@@ -567,6 +567,15 @@ public class PaymentController {
 		return "family/uft/pay_notice";
 	}
 	
+	/**
+	 * 缴费通知书弹层
+	 * @param detailid
+	 * @param model
+	 */
+	public String getPayPopup(String detailid,Model model){
+		
+		return "family/uft/pay_notice";
+	}
 	private void setModel(CustinfoVo custinfoVo, Model model){
 		// 海富通
 		List<TradeAccoinfoOfMore> hft_family_trade = tradeAccoManager.getTradeAccoList(custinfoVo.getCustno());
