@@ -188,7 +188,6 @@
               </div>
           </div>
     </div>
-
     <div class="content-bottom">
         <h2>请家长登录幼富通官网 www.ufufund.com确认缴费。 </h2>
         <p style="margin-top: 16px;margin-bottom: 40px;">若家庭首次使用幼富通服务：填写收费通知书所附识别码，按指引绑定收费机构后即可便捷缴费</p>
@@ -196,7 +195,6 @@
         <p>中国银联为您的幼儿提供安全、稳定、便捷的缴费服务，请放心使用。</p>
         <div class="weixin"></div>
     </div>
-
 </div>
 <div class="bottom-btn" style="z-index: 5;">
     <div class="btmBtn">

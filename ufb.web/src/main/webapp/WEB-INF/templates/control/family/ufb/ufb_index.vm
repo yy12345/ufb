@@ -4,269 +4,267 @@
 <title>幼富宝</title>
 <script type="text/javascript" src="${staticDomain}/family/scripts/load.js"></script>
 <script type="text/javascript">
-		$('.nav a:eq(1)').addClass('active');
-		
-		// 7日年化收益率边界值计算
-		var min_yield = Math.min.apply(null, 
-    		  [ #set($i = 1)
-           		#foreach($nav in $hftNavList)
-               		#if($i == $hftNavList.size())
-               			$nav.yield
-               		#else
-               			$nav.yield,
-           			#end
-           			#set($i=$i+1)
-       			#end
-       		  ]
-   			);
-       var max_yield = Math.max.apply(null, 
-    		   [#set($i = 1)
-        		#foreach($nav in $hftNavList)
-            		#if($i == $hftNavList.size())
-            			$nav.yield
-            		#else
-            			$nav.yield,
-        			#end
-    				#set($i=$i+1)
-    			#end
-        		]
-    		   );
-		max_yield = max_yield + (max_yield - min_yield)*0.2;
-		min_yield = min_yield - (max_yield - min_yield)*0.2;
-		
-		// 万份收益边界值计算
-		var min_income = Math.min.apply(null, 
-    		  [ #set($i = 1)
-           		#foreach($nav in $hftNavList)
-               		#if($i == $hftNavList.size())
-               			$nav.income
-               		#else
-               			$nav.income,
-           			#end
-           			#set($i=$i+1)
-       			#end
-   			]
-   			);
-       var max_income = Math.max.apply(null, 
-    		   [#set($i = 1)
-        		#foreach($nav in $hftNavList)
-            		#if($i == $hftNavList.size())
-            			$nav.income
-            		#else
-            			$nav.income,
-        			#end
-    				#set($i=$i+1)
-    			#end
-        		]
-    		   );
-    	max_income = max_income + (max_income - min_income)*0.2;
-		min_income = min_income - (max_income - min_income)*0.2;
-		
-        // 路径配置
-        require.config({
-            paths: {
-                   echarts: 'http://echarts.baidu.com/build/dist'
-            }
-        });
-        
-        /* 7日年化收益率 */
-        require(
-            [
-                'echarts',
-                'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function (ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('main1')); 
-                
-               option = {
-                   title: {
-                       x: "center"
-                   },
-                   tooltip: {
-                       trigger: "item",
-                       formatter: "{a} <br/>{b} : {c}"
-                   },
-                   legend: {
-                       x: 'left',
-                       data: [""]
-                   },
-                    grid:{
-               		x:90,
-                    }, 
-                   xAxis: [
-                       {
-                           type: "category",
-                           splitLine: {show: false},
-                           data: [
-						  #foreach($nav in $hftNavList)
-							'$nav.date.substring(4,6)/$nav.date.substring(6,8)',
-							#end
-						   ]
-                       }
-                   ],
-                   yAxis: [
-                       {
-                    	   type: 'value',
-                           axisLine : {
-                               show: true,
-                               lineStyle: {
-                                   color: '#2f8ebe',
-                                   type: 'solid',
-                                   width: 2
-                               }
-                           },
-                           axisLabel : {
-                               show: true,
-                               formatter: function(value) {
-                                   	return value.toFixed(3);
-                               },
-                               textStyle: {
-                                   color: '#999',
-                                   fontFamily: 'arial',
-                                   fontSize: 10
-                               }
-                           },
-                           splitLine : {
-                               show:true,
-                               lineStyle: {
-                                   color: '#dbdcdc',
-                                   type: 'solid',
-                                   width: 1
-                               }
-                           },
-                           min: min_yield,
-                           max: max_yield,
-                           splitNumber: 4
-                       }
-                   ],
-                   calculable: true,
-                   series: [
-                       {
-                           name: "7日年化收益率",
-                           type: "line",
-                           data: [
-                              	#set($i = 1)
-                        		#foreach($nav in $hftNavList)
-	                        		#if($i == $hftNavList.size())
-	                        			$nav.yield
-	                        		#else
-	                        			$nav.yield,
-	                    			#end
-                    			#set($i=$i+1)
-                    			#end
-                                  ]
-
-                       }
-                   ]
-                };
-                // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
-        );
-    
-     	// 路径配置
-        require.config({
-            paths: {
-                   echarts: 'http://echarts.baidu.com/build/dist'
-            }
-        });
-        
-        /* 万份收益曲线图  */
-        require(
-            [
-                'echarts',
-                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function (ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('main2')); 
-                
-               option = {
-                   title: {
-                       x: "center"
-                   },
-                   tooltip: {
-                       trigger: "item",
-                       formatter: "{a} <br/>{b} : {c}"
-                   },
-                   legend: {
-                       x: 'left',
-                       data: [""]
-                   },
-                   grid:{
-                  		x:90,
-                        }, 
-                   xAxis: [
-                       {
-                           type: "category",
-                           splitLine: {show: false},
-                           data: [
-						   #foreach($nav in $hftNavList)
-							'$nav.date.substring(4,6)/$nav.date.substring(6,8)',
-							#end
-						   ]
-                       }
-                   ],
-                   yAxis: [
-                       {
-                    	   type: 'value',
-                           axisLine : {
-                               show: true,
-                               lineStyle: {
-                                   color: '#2f8ebe',
-                                   type: 'solid',
-                                   width: 2
-                               }
-                           },
-                           axisLabel : {
-                               show: true,
-                               formatter: function(value) {
-                                   	return value.toFixed(3);
-                               },
-                               textStyle: {
-                                   color: '#999',
-                                   fontFamily: 'arial',
-                                   fontSize: 10
-                               }
-                           },
-                           splitLine : {
-                               show:true,
-                               lineStyle: {
-                                   color: '#dbdcdc',
-                                   type: 'solid',
-                                   width: 1
-                               }
-                           },
-                           min: min_income ,
-                           max: max_income,
-                           splitNumber: 4
-                       }
-                   ],
-                   calculable: true,
-                   series: [
-                       {
-                           name: "万份收益(元)",
-                           type: "line",
-                           data: [
-						   #foreach($nav in $hftNavList)
-							$nav.income,
-							#end
-						   ]
-
-                       }
-                   ]
-                };
-                // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
-        );
-</script>
-<script type="text/javascript">
 $(function(){
+	$('.nav a:eq(1)').addClass('active');
 	
-	$("#showYield").html("7日年化收益率（%）"+ (parseFloat('${hftFundInfo.yield}')*100).toFixed(4));
-	$("#showIncome").html("万份收益（元）"+ parseFloat('${hftFundInfo.income}').toFixed(4));
+	// 7日年化收益率边界值计算
+	var min_yield = Math.min.apply(null, 
+		  [ #set($i = 1)
+       		#foreach($nav in $hftNavList)
+           		#if($i == $hftNavList.size())
+           			$nav.yield
+           		#else
+           			$nav.yield,
+       			#end
+       			#set($i=$i+1)
+   			#end
+   		  ]
+		);
+   var max_yield = Math.max.apply(null, 
+		   [#set($i = 1)
+    		#foreach($nav in $hftNavList)
+        		#if($i == $hftNavList.size())
+        			$nav.yield
+        		#else
+        			$nav.yield,
+    			#end
+				#set($i=$i+1)
+			#end
+    		]
+		   );
+	max_yield = max_yield + (max_yield - min_yield)*0.2;
+	min_yield = min_yield - (max_yield - min_yield)*0.2;
+	
+	// 万份收益边界值计算
+	var min_income = Math.min.apply(null, 
+		  [ #set($i = 1)
+       		#foreach($nav in $hftNavList)
+           		#if($i == $hftNavList.size())
+           			$nav.income
+           		#else
+           			$nav.income,
+       			#end
+       			#set($i=$i+1)
+   			#end
+		]
+		);
+   var max_income = Math.max.apply(null, 
+		   [#set($i = 1)
+    		#foreach($nav in $hftNavList)
+        		#if($i == $hftNavList.size())
+        			$nav.income
+        		#else
+        			$nav.income,
+    			#end
+				#set($i=$i+1)
+			#end
+    		]
+		   );
+	max_income = max_income + (max_income - min_income)*0.2;
+	min_income = min_income - (max_income - min_income)*0.2;
+	
+    // 路径配置
+    require.config({
+        paths: {
+               echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });
+    
+    /* 7日年化收益率 */
+    require(
+        [
+            'echarts',
+            'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+        ],
+        function (ec) {
+            // 基于准备好的dom，初始化echarts图表
+            var myChart = ec.init(document.getElementById('main1')); 
+            
+           option = {
+               title: {
+                   x: "center"
+               },
+               tooltip: {
+                   trigger: "item",
+                   formatter: "{a} <br/>{b} : {c}"
+               },
+               legend: {
+                   x: 'left',
+                   data: [""]
+               },
+                grid:{
+           		x:90,
+                }, 
+               xAxis: [
+                   {
+                       type: "category",
+                       splitLine: {show: false},
+                       data: [
+					  #foreach($nav in $hftNavList)
+						'$nav.date.substring(4,6)/$nav.date.substring(6,8)',
+						#end
+					   ]
+                   }
+               ],
+               yAxis: [
+                   {
+                	   type: 'value',
+                       axisLine : {
+                           show: true,
+                           lineStyle: {
+                               color: '#2f8ebe',
+                               type: 'solid',
+                               width: 2
+                           }
+                       },
+                       axisLabel : {
+                           show: true,
+                           formatter: function(value) {
+                               	return value.toFixed(3);
+                           },
+                           textStyle: {
+                               color: '#999',
+                               fontFamily: 'arial',
+                               fontSize: 10
+                           }
+                       },
+                       splitLine : {
+                           show:true,
+                           lineStyle: {
+                               color: '#dbdcdc',
+                               type: 'solid',
+                               width: 1
+                           }
+                       },
+                       min: min_yield,
+                       max: max_yield,
+                       splitNumber: 4
+                   }
+               ],
+               calculable: true,
+               series: [
+                   {
+                       name: "7日年化收益率",
+                       type: "line",
+                       data: [
+                          	#set($i = 1)
+                    		#foreach($nav in $hftNavList)
+                        		#if($i == $hftNavList.size())
+                        			$nav.yield
+                        		#else
+                        			$nav.yield,
+                    			#end
+                			#set($i=$i+1)
+                			#end
+                              ]
+
+                   }
+               ]
+            };
+            // 为echarts对象加载数据 
+            myChart.setOption(option); 
+        }
+    );
+
+ 	// 路径配置
+    require.config({
+        paths: {
+               echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });
+    
+    /* 万份收益曲线图  */
+    require(
+        [
+            'echarts',
+            'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+        ],
+        function (ec) {
+            // 基于准备好的dom，初始化echarts图表
+            var myChart = ec.init(document.getElementById('main2')); 
+            
+           option = {
+               title: {
+                   x: "center"
+               },
+               tooltip: {
+                   trigger: "item",
+                   formatter: "{a} <br/>{b} : {c}"
+               },
+               legend: {
+                   x: 'left',
+                   data: [""]
+               },
+               grid:{
+              		x:90,
+                    }, 
+               xAxis: [
+                   {
+                       type: "category",
+                       splitLine: {show: false},
+                       data: [
+					   #foreach($nav in $hftNavList)
+						'$nav.date.substring(4,6)/$nav.date.substring(6,8)',
+						#end
+					   ]
+                   }
+               ],
+               yAxis: [
+                   {
+                	   type: 'value',
+                       axisLine : {
+                           show: true,
+                           lineStyle: {
+                               color: '#2f8ebe',
+                               type: 'solid',
+                               width: 2
+                           }
+                       },
+                       axisLabel : {
+                           show: true,
+                           formatter: function(value) {
+                               	return value.toFixed(3);
+                           },
+                           textStyle: {
+                               color: '#999',
+                               fontFamily: 'arial',
+                               fontSize: 10
+                           }
+                       },
+                       splitLine : {
+                           show:true,
+                           lineStyle: {
+                               color: '#dbdcdc',
+                               type: 'solid',
+                               width: 1
+                           }
+                       },
+                       min: min_income ,
+                       max: max_income,
+                       splitNumber: 4
+                   }
+               ],
+               calculable: true,
+               series: [
+                   {
+                       name: "万份收益(元)",
+                       type: "line",
+                       data: [
+					   #foreach($nav in $hftNavList)
+						$nav.income,
+						#end
+					   ]
+
+                   }
+               ]
+            };
+            // 为echarts对象加载数据 
+            myChart.setOption(option); 
+        }
+    );
+	
+	$("#showYield").html("7日年化收益率（%）"+(parseFloat('${hftFundInfo.yield}')*100).toFixed(4));
+	$("#showIncome").html("万份收益（元）"+parseFloat('${hftFundInfo.income}').toFixed(4));
 
 });
 </script>
