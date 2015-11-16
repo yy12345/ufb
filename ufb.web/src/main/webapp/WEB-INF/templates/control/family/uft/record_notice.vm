@@ -4,9 +4,7 @@
     <div class="content tabs" id="print-content">
         <div class="content-body">
              <h1 class="print-title">收费通知书（预览样式）</h1>
-             <h2 class="print-call">亲爱的
-             #set($c = ${planDetail.cname})
-             <span>$c.substring(0,2)</span>$c.substring(2,3)<span> $!{planDetail.studentnm} </span>同学家长您好！</h2>
+             <h2 class="print-call">亲爱的<span>${planDetail.cname}</span><span> $!{planDetail.studentnm} </span>同学家长您好！</h2>
             <br>
             <div class="print-info">
               <table>
