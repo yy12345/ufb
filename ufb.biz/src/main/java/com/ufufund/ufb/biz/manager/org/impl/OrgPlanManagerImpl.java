@@ -292,8 +292,6 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 						action.setAutovol(new BigDecimal(detail_y.getPayackamount()));
 						// 备注
 						action.setSummary(detail_y.getStudentnm()+detail_y.getPlanname());
-						// 交易密码
-						action.setTradepwd(d_custinfo.getTradepwd());
 						
 						autotradeManager.addAutotrade(action);
 					}
