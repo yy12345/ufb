@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 账户管理 - 自动理财设置</title>
-    <script src="${staticDomain}/family/scripts/load.js"></script>
+<title>幼富通，托富未来 - 自动计划</title>
+<script src="${staticDomain}/family/scripts/load.js"></script>
 <script>
   $(function(){
 	

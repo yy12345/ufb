@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 资产总览 - 详情页</title>
+<title>幼富通，托富未来 - 资产明细</title>
 <script>
 	$(function(){
 		$('.nav a:eq(1)').addClass('active');
@@ -12,7 +12,7 @@
     <div class="body">
         <div class="inner clearfix">
             <div class="title clearfix">
-                <h2 class="title-main fl">交易详情</h2><a href="javascript:;" class="e-bill fr">电子对账单</a>
+                <h2 class="title-main fl">交易详情</h2><!--<a href="javascript:;" class="e-bill fr">电子对账单</a>-->
             </div>
             <div class="bill-detail">
                 <div class="clearfix">

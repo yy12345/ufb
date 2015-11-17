@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 帮助中心 - 安全性</title>
+    <title>幼富通，托富未来 - 帮助中心</title>
 <script>
     $(function(){
     	$('.nav a:eq(3)').addClass('active');

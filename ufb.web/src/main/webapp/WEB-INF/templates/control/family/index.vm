@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>幼富金融，一站通</title>
+<title>幼富通，托富未来</title>
 <script type="text/javascript">
 $(function(){ 
  	$('.nav a:eq(0)').addClass('active');

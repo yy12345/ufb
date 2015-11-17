@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 终止自动充值计划</title>
+<title>幼富通，托富未来 - 终止自动充值计划</title>
 <script type="text/javascript">
   $(function(){
 	$('.nav a:eq(1)').addClass('active');
@@ -47,7 +47,6 @@
              <i class="v2_1"></i><p>确认终止本次自动充值计划吗？若终止，最近一次自动充值也将终止。
              </p>
              </div>
-
             <div class="form-cash">
                <form id="form-autoTrade-result" class="common-form" action="${ufbDomain}/family/ufb/autostop_result.htm" method="post">
 				${refreshTools.genInputHtml()}

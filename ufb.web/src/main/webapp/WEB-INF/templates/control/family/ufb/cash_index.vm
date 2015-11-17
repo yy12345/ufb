@@ -1,83 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>幼富通 - 资产总览 - 取现</title>
+<title>幼富通，托富未来 - 取现</title>
 <script src="${staticDomain}/family/scripts/load.js"></script>
 <script src="${staticDomain}/family/scripts/family-common.js"></script>
 <script type="text/javascript">
-    $(function(){
-        $(".body .notice .v2_1").click(function(){
-            $(".body .notice").hide();
-        });
-        
-		$('.nav a:eq(1)').addClass('active');
-		
-		// 点击银行卡
-		$(".card-list a").on("click", function(){
-			$("#tradeacco").val($(this).attr("cardTradeacco"));
-			$("#cardAvailable").val($(this).attr("cardAvailable"));
-			$("#cardAvailableDisplay").html(formatCurrency2($(this).attr("cardAvailable")));
-			$("#cardRealAvailable").val($(this).attr("cardRealAvailable"));
-			$("#cardRealAvailableDisplay").html(formatCurrency2($(this).attr("cardRealAvailable")));
-		});
-		
-		// 校验取现金额
-		var check_amt=function(){
-			var appvol=$("#appvol").val();
-			if(appvol==''){
-				$("#appvolErrMsg").addClass("error");
-				$("#appvolTips").html("取现金额不能为空！");
-				return false;
-			}
-			appvol=formatCurrency1(appvol);
-			if(appvol == '0.00'){
-				$("#appvol").val('0.00');
-				$("#appvolErrMsg").addClass("error");
-				$("#appvolTips").html("请输入正确的金额，比如1000.00！");
-				return false;
-			}else if($("#appvol").val() - $("#cardAvailable").val() > 0){
-				$("#appvolErrMsg").addClass("error");
-				$("#appvolTips").html("取现金额大于可用金额！");
-    			return false;
-    		}else if(appvol<1){
-    			$("#appvolErrMsg").addClass("error");
-				$("#appvolTips").html("取现金额不能小于1.00元！");
-    			return false;
-    		}else{
-				$("#appvol").val(appvol);
-				$("#appvolErrMsg").removeClass("error");
-			}
-			return true;
-		}
-		// 校验交易密码
-		var check_tradepwd=function(){
-			var tradepwd=$("#tradePwd").val();
-			if(tradepwd==''){
-				$("#tradePwdErrMsg").addClass("error");
-				$("#tradeTips").html("交易密码不能为空！");
-				return false;
-			}
-			return true;
-		}
-		
-		// 用户输入时，取消错误提示
-		$("form input").on('focus', function(){
-			if($(this).parent().hasClass('error')){
-				$(this).parent().removeClass('error');
-			}
-		});
-		
-		// 添加响应事件
-		$("#appvol").on("blur",check_amt);
-		
-		// 表单提交时，验证	
-		$("#submit").on("click", function(){
-			if(!(check_amt()&&check_tradepwd())){
-				return false;
-			}
-		});
-		
+$(function(){
+	
+	$('.nav a:eq(1)').addClass('active');
+	
+    $(".body .notice .v2_1").click(function(){
+        $(".body .notice").hide();
+    });
+    
+	// 点击银行卡
+	$(".card-list a").on("click", function(){
+		$("#tradeacco").val($(this).attr("cardTradeacco"));
+		$("#cardAvailable").val($(this).attr("cardAvailable"));
+		$("#cardAvailableDisplay").html(formatCurrency2($(this).attr("cardAvailable")));
+		$("#cardRealAvailable").val($(this).attr("cardRealAvailable"));
+		$("#cardRealAvailableDisplay").html(formatCurrency2($(this).attr("cardRealAvailable")));
 	});
+	
+	// 校验取现金额
+	var check_amt=function(){
+		var appvol=$("#appvol").val();
+		if(appvol==''){
+			$("#appvolErrMsg").addClass("error");
+			$("#appvolTips").html("取现金额不能为空！");
+			return false;
+		}
+		appvol=formatCurrency1(appvol);
+		if(appvol == '0.00'){
+			$("#appvol").val('0.00');
+			$("#appvolErrMsg").addClass("error");
+			$("#appvolTips").html("请输入正确的金额，比如1000.00！");
+			return false;
+		}else if($("#appvol").val() - $("#cardAvailable").val() > 0){
+			$("#appvolErrMsg").addClass("error");
+			$("#appvolTips").html("取现金额大于可用金额！");
+			return false;
+		}else if(appvol<1){
+			$("#appvolErrMsg").addClass("error");
+			$("#appvolTips").html("取现金额不能小于1.00元！");
+			return false;
+		}else{
+			$("#appvol").val(appvol);
+			$("#appvolErrMsg").removeClass("error");
+		}
+		return true;
+	}
+	
+	// 校验交易密码
+	var check_tradepwd=function(){
+		var tradepwd=$("#tradePwd").val();
+		if(tradepwd==''){
+			$("#tradePwdErrMsg").addClass("error");
+			$("#tradeTips").html("交易密码不能为空！");
+			return false;
+		}
+		return true;
+	}
+	
+	// 用户输入时，取消错误提示
+	$("form input").on('focus', function(){
+		if($(this).parent().hasClass('error')){
+			$(this).parent().removeClass('error');
+		}
+	});
+	
+	// 添加响应事件
+	$("#appvol").on("blur",check_amt);
+	
+	// 表单提交时，验证	
+	$("#submit").on("click", function(){
+		if(!(check_amt()&&check_tradepwd())){
+			return false;
+		}
+	});
+});
 </script>
 </head>
 <body>

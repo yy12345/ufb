@@ -1,48 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 预览自动充值计划</title>
+<title>幼富通，托富未来 - 添加自动充值计划</title>
 <script src="${staticDomain}/family/scripts/load.js"></script>
 <script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>
 <script type="text/javascript">
-   $(function(){
-       $("#hft").click(function(){
-           $(".layerpop , .bgBox").fadeIn();
-       });
-       $(".layerpop b.close , .layerpop .btnKnow").click(function(){
-           $(".layerpop , .bgBox").fadeOut();
-       });
-   });
-</script>
-<script>
-		(function($){
-			$(window).load(function(){
-				$("#content_1").mCustomScrollbar({
-					theme:"dark", //主题颜色
-					scrollButtons:{
-						enable:true //是否使用上下滚动按钮
-					},
-					autoHideScrollbar: false, //是否自动隐藏滚动条
-					scrollInertia :0,//滚动延迟
-					horizontalScroll : false//水平滚动条
-					
-				});
-					
-			});
-			
-		})(jQuery);
-	
-	</script>
-<script>
 $(function(){
-	$('.nav a:eq(1)').addClass('active');
+	
+   $('.nav a:eq(1)').addClass('active');
+   
+   $("#hft").click(function(){
+       $(".layerpop , .bgBox").fadeIn();
+   });
+   $(".layerpop b.close , .layerpop .btnKnow").click(function(){
+       $(".layerpop , .bgBox").fadeOut();
+   });
+   
+   $(window).load(function(){
+		$("#content_1").mCustomScrollbar({
+			theme:"dark", //主题颜色
+			scrollButtons:{
+				enable:true //是否使用上下滚动按钮
+			},
+			autoHideScrollbar: false, //是否自动隐藏滚动条
+			scrollInertia :0,//滚动延迟
+			horizontalScroll : false//水平滚动条
+			
+		});
+	});
 	
 	// 用户输入时，取消错误提示
-		$("form input").on('focus', function(){
-			if($(this).parent().hasClass('error')){
-				$(this).parent().removeClass('error');
-			}
-		});
+	$("form input").on('focus', function(){
+		if($(this).parent().hasClass('error')){
+			$(this).parent().removeClass('error');
+		}
+	});
 		
 	// 点击银行卡
 	$(".card-list").on("click", function(){
@@ -69,7 +61,6 @@ $(function(){
 });
 </script>
 </head>
-
 <body>
     <div class="body">
         <div class="inner container-step">
@@ -81,7 +72,6 @@ $(function(){
             </div>
             <div class="step-panels">
                 <form class="common-form" id="form-autoTrade-result"  action="${ufbDomain}/family/ufb/autoadd_success.htm" method="post">
-					
 				${refreshTools.genInputHtml()}
 				<input id="custno" name="custno" value="${AutoTradeVo.custno}" type="hidden"/>
 				<input id="frombankserialid" name="frombankserialid" value="${AutoTradeVo.frombankserialid}" type="hidden"/>
@@ -97,7 +87,6 @@ $(function(){
 				<input id="nextdate" name="nextdate" value="${AutoTradeVo.nextdate}" type="hidden"/>
 				<input id="autoamt" name="autoamt" value="${AutoTradeVo.autoamt}" type="hidden"/>
 				<input id="summary" name="summary" value="${AutoTradeVo.summary}" type="hidden"/>
-				
                     <div class="panel">
                         <ul class="txtAuto width600">
                             <li>

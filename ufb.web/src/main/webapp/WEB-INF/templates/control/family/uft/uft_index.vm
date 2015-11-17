@@ -1,72 +1,72 @@
 <html>
 <head>
-<title>我的账户</title>
+<title>幼富通，托富未来</title>
 <script type="text/javascript">
-    $(function(){
-    	$('.nav a:eq(0)').addClass('active');
-    	
-        var lys = {
-            timeId: "delayTime",
-            delayedHide: function(elem){
-                lys.timeId = setTimeout(function(){
-                    $(elem).css("display", "none");
-                }, 100);
-            },
-            styleShow: function(elem){
-                $(elem).css("display", "block");
-            },
-            showMessage: function(source, target){
-                $(source).mouseover(function(){
+$(function(){
+	$('.nav a:eq(0)').addClass('active');
+	
+    var lys = {
+        timeId: "delayTime",
+        delayedHide: function(elem){
+            lys.timeId = setTimeout(function(){
+                $(elem).css("display", "none");
+            }, 100);
+        },
+        styleShow: function(elem){
+            $(elem).css("display", "block");
+        },
+        showMessage: function(source, target){
+            $(source).mouseover(function(){
+                clearTimeout(lys.timeId);
+                lys.styleShow($(target));
+            }).mouseout(function(){
+                lys.delayedHide($(target));
+                $(target).mouseenter(function(){
                     clearTimeout(lys.timeId);
-                    lys.styleShow($(target));
-                }).mouseout(function(){
+                }).mouseleave(function() {
+                    clearTimeout(lys.timeId);
                     lys.delayedHide($(target));
-                    $(target).mouseenter(function(){
-                        clearTimeout(lys.timeId);
-                    }).mouseleave(function() {
-                        clearTimeout(lys.timeId);
-                        lys.delayedHide($(target));
-                    });
                 });
-            }
-        };
-        lys.showMessage($(".question"), $(".question-content"));   
-        
-		// 幼儿园切换信息
-        $(".organization .fl a").click(function(){
-            var ex = $(this).index()+1;
-            $(this).addClass("on").siblings().removeClass("on");
-            $(this).find("i").addClass("showNow").parents().siblings().find("i").removeClass("showNow");
-            $(".every-account").find("#change0"+ex).addClass("showNow").siblings().removeClass("showNow");
-        });
-
-        // 缴费    1.总的缴费记录  2.每个机构的缴费记录
-        var orgid="";
-        $(".btn-pay").on("click",function(){
-        	if($("#noconfirmcount").html()==0){
-        		alert("对不起，您暂无待缴费信息！");
-        		return false;
-        	}
-        	$(".organization .fl a").each(function(){
-        		orgid=orgid+$(this).attr("id")+",";
-        		$("#orgids").val(orgid);
-        		$("#sub-form").submit();
-        	}) 
-        });
-        
-        $(".orgcharge").each(function(){
-        	$(this).on("click",function(){
-        		if($(this).parent().siblings(".sli2").find(".num-red").html()==0){
-        			alert("对不起，您暂无待缴费信息！");
-        			return false;
-        		}
-        		orgid=$(".organization .fl").find(".on").attr("id");
-        		$("#orgids").val(orgid);
-        		$("#sub-form").submit();
-        	});
-        })
-
+            });
+        }
+    };
+    lys.showMessage($(".question"), $(".question-content"));   
+    
+	// 幼儿园切换信息
+    $(".organization .fl a").click(function(){
+        var ex = $(this).index()+1;
+        $(this).addClass("on").siblings().removeClass("on");
+        $(this).find("i").addClass("showNow").parents().siblings().find("i").removeClass("showNow");
+        $(".every-account").find("#change0"+ex).addClass("showNow").siblings().removeClass("showNow");
     });
+
+    // 缴费    1.总的缴费记录  2.每个机构的缴费记录
+    var orgid="";
+    $(".btn-pay").on("click",function(){
+    	if($("#noconfirmcount").html()==0){
+    		alert("对不起，您暂无待缴费信息！");
+    		return false;
+    	}
+    	$(".organization .fl a").each(function(){
+    		orgid=orgid+$(this).attr("id")+",";
+    		$("#orgids").val(orgid);
+    		$("#sub-form").submit();
+    	}) 
+    });
+    
+    $(".orgcharge").each(function(){
+    	$(this).on("click",function(){
+    		if($(this).parent().siblings(".sli2").find(".num-red").html()==0){
+    			alert("对不起，您暂无待缴费信息！");
+    			return false;
+    		}
+    		orgid=$(".organization .fl").find(".on").attr("id");
+    		$("#orgids").val(orgid);
+    		$("#sub-form").submit();
+    	});
+    })
+
+});
 </script>
 </head>
 <body>

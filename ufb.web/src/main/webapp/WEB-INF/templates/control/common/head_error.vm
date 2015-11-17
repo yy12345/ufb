@@ -1,14 +1,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     #if("$!{title}"=="")
-	    <title>幼富通</title>
+	    <title>幼富通,托富未来</title>
 	#else
 	    $!{title}
 	#end
     <link rel="stylesheet" href="${staticDomain}/family/css/reset.css">
-    <link rel="stylesheet" href="${staticDomain}/family/css/common.css?t=6">
-    <link rel="stylesheet" href="${staticDomain}/family/css/header.css?t=4">
-    <link rel="stylesheet" href="${staticDomain}/family/css/footer.css?t=1">
+    <link rel="stylesheet" href="${staticDomain}/family/css/common.css">
+    <link rel="stylesheet" href="${staticDomain}/family/css/header.css">
+    <link rel="stylesheet" href="${staticDomain}/family/css/footer.css">
     
     <script type='text/javascript' src='${staticDomain}/family/libs/jquery.min.js'></script>
     <!--[if lt IE 9]>

@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>幼富通-收费识别码验证</title>
+<title>幼富通，托富未来 - 添加缴费学生</title>
 <script type="text/javascript">
 $(function(){
 	$('.nav a:eq(0)').addClass('active');

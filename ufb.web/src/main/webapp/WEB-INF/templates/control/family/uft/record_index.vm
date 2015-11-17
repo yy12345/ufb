@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>我的账户</title>
+<title>幼富通，托富未来 - 缴费明细</title>
 <script type="text/javascript">
 $(function(){
 	$('.nav a:eq(2)').addClass('active');
@@ -70,8 +70,6 @@ $(function(){
         
        	$("#notice_"+detailid).fadeIn(); 
     });
-    
-
 });
 </script>
 </head>
@@ -136,8 +134,8 @@ $(function(){
             </form>
             <div class="history-top">
                 <p class="fr f14">
-                                                                累计付费：<span class="num-red">${paidTotal}</span>元<span class="middel-wire">|</span>
-                                                                累计收到退费：<span class="num-green">+${reversedTotal}</span>元
+                    累计付费：<span class="num-red">${paidTotal}</span>元<span class="middel-wire">|</span>
+                    累计收到退费：<span class="num-green">+${reversedTotal}</span>元
                 </p>
             </div>
             <div class="itemAll">

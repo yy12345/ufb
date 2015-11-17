@@ -1,12 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 绑定流程</title>
-    <style type="text/css">
-        .title.clearfix{
-            margin-top:0;
-        }
-    </style>
+<title>幼富通，托富未来 - 取现</title>
+<style type="text/css">
+    .title.clearfix{
+        margin-top:0;
+    }
+</style>
 <script>
 	$(function(){
 		$('.nav a:eq(1)').addClass('active');

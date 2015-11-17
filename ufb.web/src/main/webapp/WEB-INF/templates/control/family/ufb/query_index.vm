@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>幼富通 - 资产总览 - 资金明细</title>
+<title>幼富通，托富未来 - 资产明细</title>
 <script>
 $(function(){
 	$('.nav a:eq(1)').addClass('active');

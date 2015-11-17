@@ -1,6 +1,7 @@
 <!doctype>
 <html>
 <head>
+<title>幼富通，托富未来 - 缴费</title>
 <style>
 /*本页面的覆盖样式*/
    .all-top-v2{
@@ -195,7 +196,6 @@
     	})
     })
 </script>
-   
 </head>
 <body>
     <div id="body">

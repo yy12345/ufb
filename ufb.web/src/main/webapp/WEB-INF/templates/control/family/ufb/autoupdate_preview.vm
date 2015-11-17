@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>幼富通 - 预览自动充值计划</title>
+<title>幼富通，托富未来 - 修改自动充值计划</title>
 <script>
 $(function(){
 	$('.nav a:eq(1)').addClass('active');

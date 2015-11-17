@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>幼富通 - 资产总览 - 充值</title>
+<title>幼富通，托富未来 - 充值</title>
 <script src="${staticDomain}/family/scripts/load.js"></script>
 <script src="${staticDomain}/family/scripts/family-common.js"></script>
 <script type="text/javascript">
 $(function(){
+	
+	$('.nav a:eq(1)').addClass('active');
+	
     $(".body .notice .v2_1").click(function(){
         $(".body .notice").hide();
     });
@@ -14,7 +17,6 @@ $(function(){
         $(this).addClass("active").siblings().removeClass("active");
     });
  
-	$('.nav a:eq(1)').addClass('active');
 	// 点击银行卡
 	$(".card-list a").on("click", function(){
 		$("#tradeacco").val($(this).attr("tradeacco"));

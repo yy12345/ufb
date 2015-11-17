@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 开通结果</title>
-    <script>
-	    $(function(){
-	    	$('.nav a:eq(1)').addClass('active');
-	    })
-    </script>
+<title>幼富通，托富未来 - 添加自动充值计划</title>
+<script>
+    $(function(){
+    	$('.nav a:eq(1)').addClass('active');
+    })
+</script>
 </head>
 <body>
     <div class="body">

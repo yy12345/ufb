@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>幼富通 - 修改自动充值</title>
+<title>幼富通，托富未来 - 修改自动充值计划</title>
 <script src="${staticDomain}/family/scripts/load.js"></script>
 <script src="${staticDomain}/family/scripts/family-common.js"></script>
 <script>
@@ -83,7 +83,6 @@ $(function(){
 		if(!(check_amt()&&check_date())){
 			return false;
 		}
-		
 	});
 });
 </script>

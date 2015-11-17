@@ -1,10 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 忘记密码</title>
+<title>幼富通，托富未来 - 找回密码</title>
+<script src="${staticDomain}/family/scripts/load.js"></script>
 </head>
 <body>
-
     <div class="body">
         <div class="inner container-find">
             <div class="find-tabs tabs-step3 clearfix">
@@ -23,8 +23,6 @@
             </div>
         </div>
     </div>
-
 </div>
-<script src="${staticDomain}/family/scripts/load.js"></script>
 </body>
 </html>

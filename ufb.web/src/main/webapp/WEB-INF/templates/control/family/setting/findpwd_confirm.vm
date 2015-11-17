@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>幼富通 - 忘记密码</title>
-
+<title>幼富通，托富未来 - 找回密码</title>
 <script src="${staticDomain}/family/scripts/load.js"></script>
 <script src="${staticDomain}/family/scripts/family-common.js"></script>
 <script >
@@ -94,7 +93,6 @@ $(function(){
 </script>
 </head>
 <body>
-
     <div class="body">
         <div class="inner container-find">
             <div class="find-tabs tabs-step2 clearfix">
