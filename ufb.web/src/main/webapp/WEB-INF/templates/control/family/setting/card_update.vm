@@ -66,8 +66,10 @@
 		  // 是否需要通联验证码
 		  if($(this).parent().hasClass('ufbCard')){
 		  	$('#mobileautocode').closest('li').show();
+		  	$('#ufb_contract').show();
 		  }else{
 		  	$('#mobileautocode').closest('li').hide();
+		  	$('#ufb_contract').hide();
 		  }
 	   });
 	   
@@ -190,7 +192,7 @@
 				}
 	        });
 	        if(result.errCode == '0000'){
-	        	alert("通联手机验证码已发送！");
+	        	alert("手机验证码已发送！");
 	            setTimeout(countDown, 1000);
 	            return true;
 	        }else{
@@ -346,9 +348,9 @@
                         <input id="btn-getMsgCode" class="input-button" type="button" value="获取验证码">
                         <span class="tips-check"><i class="icon"></i><font></font></span>
                     </li>
-                    <li class="anotherArea anotherTips">
-	                    <p>免费开通幼富宝服务，海富通基金（海富通货币）</p>
-	                    <p class="fontP">点击下一步表示同意<a href="javascript:;" id="ufbAgreement">《幼富宝服务协议》 </a><a href="javascript:;" id="hftAgreement">《海富通基金管理有限公司网上交易直销自助式前台服务协议》</a></p>
+                    <li id="ufb_contract" class="anotherArea anotherTips">
+                        <p>免费开通幼富宝服务（海富通货币基金），将由通联支付向您发送手机验证码</p>
+                        <p class="fontP">点击下一步表示同意<a href="javascript:;" id="ufbAgreement">《幼富宝服务协议》 </a><a href="javascript:;" id="hftAgreement">《海富通基金管理有限公司网上交易直销自助式前台服务协议》</a></p>
                     </li>
                     <li>
                         <input id="back" class="input-button btnB" type="button" value="返回"> 
