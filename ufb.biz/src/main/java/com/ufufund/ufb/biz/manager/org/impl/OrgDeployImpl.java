@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
-import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.ImplCommon;
 import com.ufufund.ufb.biz.manager.org.OrgDeploy;
@@ -15,6 +14,7 @@ import com.ufufund.ufb.biz.manager.org.impl.validator.OrgDeployValidator;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
+import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.dao.OrgDeployMapper;
 import com.ufufund.ufb.model.action.org.CreateOrgchargeinfoAction;
 import com.ufufund.ufb.model.action.org.SaveOrgGradeAction;
@@ -32,12 +32,6 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 
 	@Autowired
 	private OrgDeployValidator orgDeployValidator;
-
-	// @Autowired
-	// private OrgDeployHelper orgDeployHelper;
-
-	@Autowired
-	private SequenceManager sequenceManager;
 
 	@Autowired
 	private WorkDayManager workDayManager;
@@ -83,7 +77,7 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 		Orggrade retOrg = this.getOrgGradeOpen(action.getOrgid());
 		String gradeid = "";
 		if (retOrg == null) {
-			gradeid = sequenceManager.getGradeid();
+			gradeid = SequenceUtil.getSerial();
 			retOrg = new Orggrade();
 			retOrg.setOrgid(action.getOrgid());
 			retOrg.setIsopen(Constant.Orggrade.ISOPEN$Y);
@@ -177,7 +171,7 @@ public class OrgDeployImpl extends ImplCommon implements OrgDeploy {
 			/*
 			 * 生成新的学年
 			 */
-			String gradeid = sequenceManager.getGradeid();
+			String gradeid = SequenceUtil.getSerial();
 			Orggrade org = new Orggrade();
 			org.setOrgid(orgId);
 			org.setIsopen(Constant.Orggrade.ISOPEN$Y);

@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.AutotradeManager;
-import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.ImplCommon;
 import com.ufufund.ufb.biz.manager.impl.helper.AutotradeManagerHelper;
 import com.ufufund.ufb.biz.manager.op.AutotradeManagerOP;
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.common.utils.SysoutCommon;
 import com.ufufund.ufb.dao.AutotradeMapper;
 import com.ufufund.ufb.dao.JobcontralMapper;
@@ -48,9 +48,6 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 	@Autowired
 	private JobcontralMapper jobcontralMapper;
 	
-	@Autowired
-	private SequenceManager sequenceManager;
-
 	@Override
 	public void startAutotrade(AutoTradeType tradetype, String workDate) throws BizException {
 		String processId = this.getProcessId(tradetype.value());
@@ -186,7 +183,7 @@ public class AutotradeManagerOPImpl extends ImplCommon implements AutotradeManag
 
 	private void insertFdacfinalresult(Autotrade autotrade, String apkind) {
 		Fdacfinalresult fdacfinalresult = AutotradeManagerHelper.toFdacfinalresult(autotrade);
-		fdacfinalresult.setSerialno(sequenceManager.getFdacfinalresultSeq());
+		fdacfinalresult.setSerialno(SequenceUtil.getSerial());
 		fdacfinalresult.setApkind(apkind);
 		Today today = workDayManager.getSysDayInfo();
 		fdacfinalresult.setWorkdate(today.getWorkday());

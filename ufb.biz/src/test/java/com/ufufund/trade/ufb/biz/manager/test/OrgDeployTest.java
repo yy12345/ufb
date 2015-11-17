@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-
-import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.org.OrgQueryManager;
 import com.ufufund.ufb.model.vo.QueryCustPayInfo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
@@ -24,24 +22,7 @@ import com.ufufund.ufb.model.vo.QueryOrgplandetailcharge;
 public class OrgDeployTest {
 
 	@Autowired
-	private SequenceManager sequenceMapper;
-
-	@Autowired
 	private OrgQueryManager orgQueryManager;
-
-	/*
-	 * 
-	 * 测试getAutotradeSequence
-	 */
-	// @Test
-	public void testrisMobileRegister() {
-		System.out.println("autotradeMapper.getGradeid :" + sequenceMapper.getGradeid());
-	}
-
-	// @Test
-	public void testsgetPlanDetailid() {
-		System.out.println("autotradeMapper.getPlanDetailid :" + sequenceMapper.getPlanDetailid());
-	}
 
 	// @Test
 	public void testgetQueryOrggplan() {

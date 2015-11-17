@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
-import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.CustManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
@@ -18,6 +17,7 @@ import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.RegexUtil;
+import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
@@ -50,8 +50,6 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	private CustinfoMapper custinfoMapper;
 	@Autowired
 	private TradeNotesMapper tradeNotesMapper;
-	@Autowired
-	private SequenceManager sequenceManager;
 	@Autowired
 	private BankCardManager bankCardManager;
 	
@@ -136,7 +134,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 		
 		// 添加用户信息
 		Custinfo custinfo = custManagerHelper.toCustinfo(registerAction, openAccountAction);
-		custinfo.setCustno(sequenceManager.getCustinfoSequence());
+		custinfo.setCustno(SequenceUtil.getSerial());
 		custinfoMapper.insertCustinfo(custinfo);
 		// 添加银行卡
 		openAccountAction.setCustno(custinfo.getCustno());
@@ -262,7 +260,7 @@ public class CustManagerImpl extends ImplCommon implements CustManager {
 	 * @throws BizException
 	 */
 	private void insterSerialno(Custinfo custinfo, String apkind) throws BizException {
-		String seq = sequenceManager.getFdacfinalresultSeq();
+		String seq = SequenceUtil.getSerial();
 		/*
 		 * 插入流水表
 		 */

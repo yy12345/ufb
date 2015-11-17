@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankCardManager;
-import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.BankCardManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.helper.CustManagerHelper;
@@ -19,7 +18,7 @@ import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.EncryptUtil;
-import com.ufufund.ufb.dao.BankBaseMapper;
+import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.dao.BankMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeAccoinfoMapper;
@@ -72,8 +71,6 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	private TradeNotesMapper tradeNotesMapper;
 	@Autowired
 	private WorkDayManager workDayManager;
-	@Autowired
-	private SequenceManager sequenceManager;
 	@Autowired
 	private ChinapayService chinapayService;
 	
@@ -176,7 +173,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		}
 		
 		// 执行开户交易
-		openAccountAction.setSerialno(sequenceManager.getFdacfinalresultSeq());
+		openAccountAction.setSerialno(SequenceUtil.getSerial());
 		OpenAccountOrgRequest request = bankCardManagerHelper.toOpenAccountOrgRequest(openAccountAction);
 		OpenAccountOrgResponse response = hftCustService.openAccountOrg(request);
 		
@@ -219,7 +216,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// 如果此银行卡没有记录，添加银行卡
 		if(bankcardinfodef==null){
 			bankcardinfodef = bankCardManagerHelper.toBankcardinfo(openAccountAction);
-			String bankSeq = sequenceManager.getBankcardinfoSequence();
+			String bankSeq = SequenceUtil.getSerial();
 			bankcardinfodef.setSerialid(bankSeq);
 			bankcardinfodef.setState("Y");
 			// **** 添加银行卡
@@ -233,7 +230,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// 添加tradeacco表
 		Today today = workDayManager.getSysDayInfo();
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
-		tradeaccoinfo.setAccoid(sequenceManager.getTradeaccoinfoSeq());// char(10) not null comment '客户编号',
+		tradeaccoinfo.setAccoid(SequenceUtil.getSerial());// char(10) not null comment '客户编号',
 		tradeaccoinfo.setCustno(openAccountAction.getCustno());// char(10) not null comment '客户编号',
 		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// char(2) not null default '' comment '交易账号类型：归属基金公司',
 		tradeaccoinfo.setLevel(openAccountAction.getLevel());
@@ -303,8 +300,8 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
 		// 生成流水号
-		openAccountAction.setSerialno(sequenceManager.getFdacfinalresultSeq());
-		openAccountAction.setAccoreqserial(sequenceManager.getAccoreqSerialSeq());
+		openAccountAction.setSerialno(SequenceUtil.getSerial());
+		openAccountAction.setAccoreqserial(SequenceUtil.getSerial());
 		
 		// 执行鉴权交易
 		BankAuthRequest request = bankCardManagerHelper.toBankAuthRequest(openAccountAction);
@@ -328,7 +325,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 //		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
 		// 执行银行验证交易
-		openAccountAction.setSerialno(sequenceManager.getFdacfinalresultSeq());
+		openAccountAction.setSerialno(SequenceUtil.getSerial());
 		BankVeriRequest request = bankCardManagerHelper.toBankVeriRequest(openAccountAction);
 		BankVeriResponse response = hftCustService.bankVeri(request);
 		
@@ -350,7 +347,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 //		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
 		// 执行开户交易
-		openAccountAction.setSerialno(sequenceManager.getFdacfinalresultSeq());
+		openAccountAction.setSerialno(SequenceUtil.getSerial());
 		OpenAccountRequest request = bankCardManagerHelper.toOpenAccountRequest(openAccountAction);
 		OpenAccountResponse response = hftCustService.openAccount(request);
 		
@@ -366,7 +363,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 */
 	public String addBankCardinfo(OpenAccountAction openAccountAction){
 		Bankcardinfo bankcardinfo = bankCardManagerHelper.toBankcardinfo(openAccountAction);
-		bankcardinfo.setSerialid(sequenceManager.getBankcardinfoSequence());
+		bankcardinfo.setSerialid(SequenceUtil.getSerial());
 		bankcardinfo.setState("Y");
 		bankMapper.insterBankcardinfo(bankcardinfo);
 		
@@ -377,7 +374,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		
 		Today today = workDayManager.getSysDayInfo();
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
-		tradeaccoinfo.setAccoid(sequenceManager.getTradeaccoinfoSeq());
+		tradeaccoinfo.setAccoid(SequenceUtil.getSerial());
 		tradeaccoinfo.setCustno(openAccountAction.getCustno());
 		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
 		tradeaccoinfo.setLevel(openAccountAction.getLevel());

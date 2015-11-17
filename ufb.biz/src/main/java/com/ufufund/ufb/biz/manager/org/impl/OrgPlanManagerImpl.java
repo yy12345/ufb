@@ -11,7 +11,6 @@ import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
-import com.ufufund.ufb.biz.manager.SequenceManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.ImplCommon;
@@ -22,6 +21,7 @@ import com.ufufund.ufb.biz.manager.org.impl.validator.OrgPlanValidator;
 import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.utils.RegexUtil;
+import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.dao.OrgDeployMapper;
 import com.ufufund.ufb.dao.OrgQueryMapper;
 import com.ufufund.ufb.dao.PlanDetailMapper;
@@ -50,9 +50,6 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 
 	@Autowired
 	private OrgPlanValidator orgPlanValidator;
-
-	@Autowired
-	private SequenceManager sequenceManager;
 
 	@Autowired
 	private WorkDayManager workDayManager;
@@ -115,7 +112,7 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		this.createOrgPlanAction1(action);
 		log.debug(processId + " 收费计划学生数 ：" + action.getStudentList().size());
 		this.validator(action, processId);
-		String planid = sequenceManager.getPlanid();
+		String planid = SequenceUtil.getSerial();
 		String groupid = planid;
 		this.saveAction(action, planid, groupid,  processId);
 	}
@@ -180,7 +177,7 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		BigDecimal payappamount = BigDecimal.ZERO;
 		BigDecimal payackamount = BigDecimal.ZERO;
 		for (CreateOrgPlanAction2 action2 : action.getStudentList()) {
-			detailid = sequenceManager.getPlanDetailid();
+			detailid = SequenceUtil.getSerial();
 			payappamount = BigDecimal.ZERO;
 			for (CreateOrgPlanAction3 action3 : action2.getChargeList()) {
 				orggplandetailcharge = OrgPlanHelper.converntOrggplandetailcharge(action3);
