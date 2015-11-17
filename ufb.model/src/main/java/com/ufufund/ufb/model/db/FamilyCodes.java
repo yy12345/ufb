@@ -13,7 +13,6 @@ public class FamilyCodes {
 	private String code         ;
 	private String sid          ;
 	private String parent_name  ;
-	private String parent_mobile;
 	private String state        ;
 	private String createtime   ;
 }

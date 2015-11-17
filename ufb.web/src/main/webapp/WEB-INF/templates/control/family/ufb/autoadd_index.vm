@@ -56,13 +56,13 @@ $(function(){
 			$("#datTips").html("充值时间为2位数字");
 			return false;
 	    }
-	    var regex2 = /^[0-8]+$/;
+	    var regex2 = /^[0-9]+$/;
 	    if (!regex2.test(dat)) {
 	    	$("#datErrMsg").addClass("error");
 			$("#datTips").html("充值时间范围为1至28日");
 			return false;
 	    }
-	    if (dat>29 || dat<1) {
+	    if (dat>28 || dat<1) {
 	    	$("#datErrMsg").addClass("error");
 			$("#datTips").html("充值时间范围为1至28日");
 			return false;

@@ -166,7 +166,7 @@ $(function(){
                               <td>$plan.orgnm</td>
                               <td>$plan.planname<span class="tip">#if(${plan.type}=="AT")月代扣#else单笔#end</span></td>
                               <td class="num-red">$plan.payappamount</td>
-                              <td>$plan.ackdate</td>
+                              <td>#if($plan.ackdate)${plan.ackdate}#else -- #end</td>
                               <td >
 	                              #if(${plan.ispay}=='0')等待缴费
 	                              #elseif(${plan.ispay}=='1')<strong class="num-green">等待扣款 </strong>

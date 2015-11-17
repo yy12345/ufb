@@ -83,11 +83,15 @@
     	 var type= $("input[name='pay_type']:checked").attr("paytype");
     	 var amt=$("#allpayamt").html();
     	 var ufbamt=$("#ufbamt").html();
-    	 if(type=='ufb'){
-    		 if(ufbamt<amt){
+    	 if(type=='U'){
+    		 if(parseInt(ufbamt)<parseInt(amt)){
     			 alert("余额不足，请预先充值！");
     			 return false;
     		 }
+    	 }
+    	 if($("#tradePwd").val()==''){
+    		 alert("交易密码不能为空！");
+			 return false;
     	 }
     	 $("#detailids").val(getDetailid());
     	 $("#orgmsg").val(getPayMsg_org());
@@ -123,7 +127,7 @@
                         <li class="li1">使用</li>
                         <li class="li2">
                             <div class="costpay"><label class="cost-type"><input type="radio" name="pay_type" paytype="U" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span> <font id="ufbamt">$availableBalance</font> 元</span>
-                            <div class="payMoney showNow">支付<span class="pay_amount paymoney">$totalplanmonthamt元</span></div>
+                            <div class="payMoney showNow">支付<span class="pay_amount paymoney"><font id="allpayamt">$totalplanmonthamt</font>元</span></div>
                             </div>
                             <div class="costpay"><label class="cost-type"><input type="radio" name="pay_type" paytype="B" style="display: none;"/><i class="imitate-radio"></i>
                             ${bankcard.banknm} 尾号
@@ -131,7 +135,7 @@
 							#set($start=$tailStr.length() - 4)
 							#set($end=$tailStr.length())
                             [$tailStr.substring($start,$end)]</label><span>储蓄卡</span><i class="middel-wire">|</i><span class="num-blue">快捷</span>
-                            <div class="payMoney">支付<span class="num-color paymoney"><font id="allpayamt">$totalplanmonthamt</font>元</span></div>
+                            <div class="payMoney">支付<span class="num-color paymoney">$totalplanmonthamt元</span></div>
                             </div>
                         </li>
                         <li class="li3 li3-v2">
