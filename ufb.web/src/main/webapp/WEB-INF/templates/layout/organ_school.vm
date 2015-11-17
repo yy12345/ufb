@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-#parse("control/common/head_org.vm")
+#parse("control/common/head_organ.vm")
 <body>	
 <div class="page">
 <div class="main">
 	<section class="loadmain">
-	#parse("control/common/header_org.vm")
+	#parse("control/common/header_organ.vm")
 	$body
 	</section>
 </div>
-#parse("control/common/slider_org.vm")
+#parse("control/common/slider_organ.vm")
 #parse("control/common/footer.vm")
 </div>
 $!{script}
