@@ -112,10 +112,10 @@
 			</bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/family/ufb-no/*.htm" />
+			<mvc:mapping path="/family/ufb/*.htm" />
 			<bean id="hftTradeInterceptor" class="com.ufufund.ufb.web.interceptor.HftTradeInterceptor">
 				<property name="redirectUrl">
-					<value>http://localhost:8080/ufb/family/ufb/ufb_index.htm</value>
+					<value>http://localhost:8080/ufb/family/setting/card_index.htm</value>
 				</property>
 			</bean>
 		</mvc:interceptor>

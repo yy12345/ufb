@@ -17,7 +17,7 @@ public class HftTradeInterceptor extends HandlerInterceptorAdapter{
 	private TradeAccoManager tradeAccoManager;
 
 	/**
-	 * 进入交易页面前拦截处理：判断是否有交易账户等
+	 * 进入ufb模块前拦截处理：判断是否有交易账户等
 	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

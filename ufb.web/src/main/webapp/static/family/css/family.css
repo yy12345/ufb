@@ -886,12 +886,14 @@ i.up-arrow-grey{
 }
 .Verification .advBtn .inputMid{
     width:136px;
-    color:#ec1c24;
+    color:#333333;
+    font-weight: bold;
 }
 .Verification .advBtn .inputSm{
     width:76px;
-    color:#ec1c24;
     left:155px;
+    color:#333333;
+    font-weight: bold;
 }
 .Verification .advBtn p{
     font-size:14px;
