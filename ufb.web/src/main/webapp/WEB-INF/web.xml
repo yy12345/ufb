@@ -61,6 +61,7 @@
 	<servlet-mapping>
 		<servlet-name>ufb</servlet-name>
 		<url-pattern>*.htm</url-pattern>
+		<url-pattern>*.ajax</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
