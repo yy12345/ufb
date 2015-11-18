@@ -35,13 +35,13 @@ public class AutoTradeManagerValidator {
 		if (RegexUtil.isNull(action.getType())) {
 			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.TYPE);
 		}
-		if (RegexUtil.isNull(action.getCycle())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.CYCLE);
-		}
-		if (RegexUtil.isNull(action.getDat())) {
-			throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.DAT);
-		}
 		if (action.getTradetype().equals(AutoTradeType.AUTORECHARGE)) {
+			if (RegexUtil.isNull(action.getCycle())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.CYCLE);
+			}
+			if (RegexUtil.isNull(action.getDat())) {
+				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.DAT);
+			}
 			if (RegexUtil.isNull(action.getFrombankserialid())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.AutoTrade.FROMBANKSERIALID);
 			}

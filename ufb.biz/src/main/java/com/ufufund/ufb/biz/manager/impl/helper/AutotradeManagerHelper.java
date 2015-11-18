@@ -24,6 +24,7 @@ public  class AutotradeManagerHelper {
 		reaction.setDat(action.getDat());// char(2) default null comment '扣款日',
 		// 备注
 		reaction.setSummary(action.getSummary());// varchar(100) default null comment '备注',
+		reaction.setDetailid(action.getDetailid());
 		
 		if(AutoTradeType.AUTORECHARGE.equals(action.getTradetype())){
 			// 银行信息

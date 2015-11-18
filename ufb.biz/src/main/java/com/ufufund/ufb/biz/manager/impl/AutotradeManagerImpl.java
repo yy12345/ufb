@@ -75,7 +75,11 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		Autotrade autotrade = AutotradeManagerHelper.toAutotrade(action);
 		autotrade.setState(Constant.Autotrade.STATE$N); // 状态
 		autotrade.setAutoid(seq); // 序列号
-		autotrade.setNextdate(this.getNextdate(autotrade.getCycle(), autotrade.getDat())); // 下一扣款日
+		if(autotrade.getDat()!=null&&autotrade.getDat()!=""){
+			autotrade.setNextdate(this.getNextdate(autotrade.getCycle(), autotrade.getDat())); // 下一扣款日
+		}else{
+			autotrade.setNextdate(action.getNextdate());
+		}
 		autotrade = this.getOtherInfo(action.getTradetype(), autotrade); // 根据业务获取冗余字段（交易账号、银行卡号）
 		
 		/** 插入 **/
@@ -366,10 +370,11 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	 * 获得取现的数据
 	 */
 	@Override
-	public List<Autotrade> getCashtradeList(String custno) throws BizException {
+	public List<Autotrade> getCashtradeList(String custno,String autoid) throws BizException {
 		this.getProcessId(custno);
 		Autotrade autotrade = new Autotrade();
 		autotrade.setCustno(custno);
+		autotrade.setAutoid(autoid);
 		autotrade.setTradetype(AutoTradeType.AUTOWITHDRAWAL.value());
 		return autotradeMapper.getAutotradeList(autotrade);
 	}

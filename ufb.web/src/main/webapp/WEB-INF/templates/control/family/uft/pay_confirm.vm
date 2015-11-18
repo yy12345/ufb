@@ -81,8 +81,8 @@
       // 提交
       $(".orgFormSub").on("click",function(){
     	 var type= $("input[name='pay_type']:checked").attr("paytype");
-    	 var amt=$("#allpayamt").html();
-    	 var ufbamt=$("#ufbamt").html();
+    	 var amt=$("#allpayamt").html().replace(",","");
+    	 var ufbamt=$("#ufbamt").html().replace(",","");
     	 if(type=='U'){
     		 if(parseInt(ufbamt)<parseInt(amt)){
     			 alert("余额不足，请预先充值！");
@@ -204,7 +204,7 @@
                             <tr>
                                 <td><font class="detail_id">$planchecked.detailid</font></td>
                                 <td>$planchecked.planname</td>
-                                <td><span class="tip">#if($plan.cycletype=='S')单次 #else 多次 #end</span></td>
+                                <td><span class="tip">#if($planchecked.type=='1')多次 #else 单次 #end</span></td>
                                 <td>$planchecked.studentnm</td>
                                 <td class="num-color">$planchecked.payappamount</td>
                             </tr>

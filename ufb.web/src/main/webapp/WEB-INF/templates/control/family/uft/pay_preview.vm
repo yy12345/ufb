@@ -231,7 +231,7 @@
                                     <label class="checkbox cb-one"><input type="checkbox" name="checkid" detailid="$plan.detailid"/></label>
                                 </li>
                                 <li class="width2">
-                                    <p class="project">$plan.planname<span class="tip">#if($plan.type=='AT')月代扣 #else 年代扣 #end</span></p>
+                                    <p class="project">$plan.planname<span class="tip">#if($plan.type=='1')月代扣 #else 单笔 #end</span></p>
                                     <p>缴费交易号：  <span>$plan.detailid</span></p>
                                 </li>
                                 <li class="width3">

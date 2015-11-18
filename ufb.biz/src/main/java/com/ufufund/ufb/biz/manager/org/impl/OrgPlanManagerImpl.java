@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.AutotradeManager;
@@ -246,6 +247,7 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 	}
 
 	@Override
+	@Transactional
 	public String confirmDetail(String detailids,Custinfo d_custinfo,String paytype) {
 		String[] detailidArr=detailids.split(",");
 		String paydate="";
@@ -277,9 +279,15 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 			if(paytype.equals("U")){
 				List<QueryCustplandetail> plan_detilList=orgQueryMapper.getQueryCustplandetail(d_custinfo.getCustno(), null, detailid,ispaylist);
 				if(plan_detilList.size()>0&&plan_detilList!=null){
-					QueryCustplandetail detail_y=(QueryCustplandetail)plan_detilList.get(0);
-					if(detail_y.getType().equals("AT")){
+						QueryCustplandetail detail_y=(QueryCustplandetail)plan_detilList.get(0);
 						AddAutotradeAction action = new AddAutotradeAction();
+						if(detail_y.getType().equals("1")){
+							action.setCycle("MM");
+							action.setDat(detail_y.getDat());
+							action.setType("E");
+						}else{
+							action.setType("S");
+						}
 						// 用户信息
 						action.setCustno(d_custinfo.getCustno());
 						action.setFromfundcorpno(Constant.HftSysConfig.HftFundCorpno);
@@ -289,23 +297,21 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 						action.setTobankserialid(tradeAcco.getBankserialid());
 						// 交易类型
 						action.setTradetype(AutoTradeType.AUTOWITHDRAWAL);
-						// 取现周期
-						action.setType("E");
-						action.setCycle("MM");
-						action.setDat("25");
-						String nextdate=autotradeManager.getNextdate(action.getCycle(), action.getDat());
-						action.setNextdate(nextdate);
+						// 扣款日期(计划的默认扣款日期)
+						action.setNextdate(detail_y.getPlanpaydate().replace("-", ""));
 						// 取现金额
 						action.setAutovol(new BigDecimal(detail_y.getPayackamount()));
 						// 备注
 						action.setSummary(detail_y.getStudentnm()+detail_y.getPlanname());
+						// 计划详情id
+						action.setDetailid(detail_y.getDetailid());
 						
 						autotradeManager.addAutotrade(action);
-					}
+					
 				}
 			}
 		}
-		paydate=planDetailMapper.selectPayDate(detailidArr[0]);//later....
+		paydate=planDetailMapper.selectPayDate(detailidArr[0]); 
 		
 		return paydate;
 	}

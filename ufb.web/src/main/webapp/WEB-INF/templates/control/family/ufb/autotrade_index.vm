@@ -254,7 +254,7 @@
                                         <th>备注</th>
                                         <th width="60">
                                             <div class="item-do">
-                                                <a href="javascript:;" autoid="${pay.autoid}" class="do-title">查看</a>
+                                                <a href="${ufbDomain}/family/ufb/autopay_detail.htm?autoid=${pay.autoid}" class="do-title">查看</a>
                                               
                                             </div>
                                         </th>
@@ -265,17 +265,18 @@
 											$!updatetime.substring(0,10)
                                         </td>
                                         <td>${pay.autovol}</td>
-                                        <td>每月20日</td>
-                                        <td>
+                                        <td>#if($pay.type=='S')单笔 #else 按月 #end</td>
+                                        <td>#if($pay.type=='E')每月${pay.dat}日 #else
 	                                        #set($nextdate=$!{pay.nextdate})
 	                						#set($nextdate_yyyy=$nextdate.substring(0,4))
 	                						#set($nextdate_mm=$nextdate.substring(4,6))
 	            							#set($nextdate_dd=$nextdate.substring(6,8))
 											#set($nextdate=$nextdate_mm+"月"+$nextdate_dd+"日")
 											$nextdate
+											#end
                                         </td>
                                         <td>
-	                                        #set($tailStr=$!{pay.frombankacco})
+	                                        #set($tailStr=$!{pay.tobankacco})
 	        								#set($start=$tailStr.length() - 4)
 	        								#set($end=$tailStr.length())
 	        								${pay.tobanknm}$tailStr.substring($start,$end)	
@@ -285,8 +286,34 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="item-tips">*自动取现日，遇节假日将提前至上个基金工作日；自动缴费日为自然日，节假日照常扣费</div>
+                            <div class="item-tips">*自动缴费日，遇节假日将提前至上个基金工作日；自动缴费日为自然日，节假日照常扣费</div>
                         </li>
+					   #end
+					   #if($autoPayList.size()==0)
+						   <li class="autoFund-item">
+		                       <div class="item-table">
+		                           <table width="100%">
+		                               <tr>
+		                                   <th class="item-name" width="78" rowspan="2">幼富宝</th>
+		                                   <th>设置时间</th>
+		                                   <th>金额（元）</th>
+		                                   <th>自动取现周期</th>
+		                                   <th>自动缴费日</th>
+		                                   <th>银行卡</th>
+		                                   <th>备注</th>
+		                                   <th width="60">
+		                                       <div class="item-do">
+		                                           <span class="do-title">操作</span>
+		                                       </div>
+		                                   </th>
+		                               </tr>
+		                               <tr>
+		                                   <td colspan="7"><div class="no-result">您最近没有自动缴费计划哦</div></td>
+		                               </tr>
+		                           </table>
+		                       </div>
+		                       <div class="item-tips">*自动取现日，遇节假日将提前至上个基金工作日；自动缴费日为自然日，节假日照常扣费</div>
+		                   </li>
 					   #end
                     </ul>     
                     </div>

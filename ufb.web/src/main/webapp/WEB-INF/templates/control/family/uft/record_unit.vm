@@ -3,7 +3,7 @@
     <div class="fix-content">
         <ul>
             <li class="width2">
-                <p class="project">${d.planname}<span class="tip">#if(${d.type}=="AT")月代扣#else单笔#end</span></p>
+                <p class="project">${d.planname}<span class="tip">#if(${d.type}=="1")月代扣#else单笔#end</span></p>
                 <p>缴费交易号：  <span>${d.detailid}</span></p>
             </li>
             <li class="width3">

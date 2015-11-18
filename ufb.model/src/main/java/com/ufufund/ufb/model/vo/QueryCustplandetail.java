@@ -30,6 +30,7 @@ public class QueryCustplandetail extends PrintableModel implements Serializable 
 	private String cycletype;//类型 S单次，M多次
 	private String type;     //其他类型  AT-月代扣按学期 AW-月代扣按学年 
 	private String billdate;//记账周期
+	private String planpaydate;
 	private String cname;// 班级名
 	private String code;//识别码
 	private String startdate;//计划发起时间

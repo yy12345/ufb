@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>幼富通，托富未来 - 自动计划</title>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>
+<script type="text/javascript">
+   $(function(){
+	   
+	   $('.nav a:eq(1)').addClass('active');
+	   
+       $("#hft").click(function(){
+           $(".layerpop , .bgBox").fadeIn();
+       });
+       $(".layerpop b.close , .layerpop .btnKnow").click(function(){
+           $(".layerpop , .bgBox").fadeOut();
+       });
+       
+	  $(window).load(function(){
+			$("#content_1").mCustomScrollbar({
+				theme:"dark", //主题颜色
+				scrollButtons:{
+					enable:true //是否使用上下滚动按钮
+				},
+				autoHideScrollbar: false, //是否自动隐藏滚动条
+				scrollInertia :0,//滚动延迟
+				horizontalScroll : false//水平滚动条
+				
+			});
+				
+		});
+   });
+</script>
+</head>
+<body>
+    <div class="body">
+        <div class="inner container-step">
+            <div class="step-panels">
+                <form class="common-form" method="post" action="autoFundStep3.html">
+                    <div class="panel">
+                        <ul class="txtAuto width600">
+                            <li>
+                                <span class="form-title">绑定货币基金</span>
+                                <span class="form-text">海富通货币A    代码： 519505</span>
+                            </li>
+                            <li>
+                                <span class="form-title">收费模式</span>
+                                <span class="form-text">0费率</span>
+                            </li>
+                            <li>
+                            <span class="form-title">银行选择</span>
+                            <div class="input-card">
+	                            #set($tailStr=$autotrade.tobankacco)
+	            				#set($start=$tailStr.length() - 4)
+	            				#set($end=$tailStr.length())
+								<img src="${staticDomain}/family/images/bank_${autotrade.bankno}.png">
+									<span class="card-number">尾号：$tailStr.substring($start,$end)</span>
+								</div>
+							</li>
+                            <li>
+                                <span class="form-title">充值金额</span>
+                                <span class="form-text">${autotrade.autovol}元</span>
+                            </li>
+                            <li>
+	                            <span class="form-title">自动取现周期</span>
+	                            <span class="form-text">#if($autotrade.type=='S')单笔 #else 按月 #end</span>
+                            </li>
+                            <li>
+                                <span class="form-title">自动缴费日</span>
+                                <span class="form-text">
+                                	#if($autotrade.type=='E')每月${autotrade.dat}日 #else
+                                    #set($nextdate=${autotrade.nextdate})
+            						#set($nextdate_yyyy=$nextdate.substring(0,4))
+            						#set($nextdate_mm=$nextdate.substring(4,6))
+        							#set($nextdate_dd=$nextdate.substring(6,8))
+									#set($nextdate=$nextdate_mm+"月"+$nextdate_dd+"日")
+									$nextdate
+									#end
+                                </span>
+                            </li>
+                            <li>
+                                <span class="form-title">备注</span>
+                                <span class="form-text">${autotrade.summary}</span>
+                            </li>
+                            <li class="clearfix">
+                                <a class="input-button fl" href="#" onclick="window.history.go(-1);return fasle">返回</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

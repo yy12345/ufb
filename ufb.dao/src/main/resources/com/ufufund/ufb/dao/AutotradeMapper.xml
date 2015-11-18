@@ -41,7 +41,8 @@
 				SUMMARY,
 				
 				CREATETIME,
-				UPDATETIME
+				UPDATETIME,
+				DETAILID
 		  )
 		VALUES (
 			#{autoid,jdbcType=VARCHAR},
@@ -76,7 +77,8 @@
 			#{summary,jdbcType=VARCHAR},
 			
 			sysdate(),
-			sysdate()
+			sysdate(),
+			#{detailid,jdbcType=VARCHAR}
 			)
 	 ]]>
   	</insert>
@@ -193,7 +195,7 @@
 			t.TO_BANKSERIALID AS TOBANKSERIALID,
 			t.TO_BANKACCO AS TOBANKACCO,
 			BS1.BANKNM AS TOBANKNM,
-			
+			BS1.BANKNO AS BANKNO,
 			t.TO_ACCOID AS TOACCOID,
 			t.TO_TRADEACCO TOTRADEACCO,
 			t.AUTOAMT,

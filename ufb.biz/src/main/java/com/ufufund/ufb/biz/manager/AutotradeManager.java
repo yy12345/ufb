@@ -80,7 +80,7 @@ public interface AutotradeManager { // extends CustInterface{
 	 * @param String
 	 * @return 
 	 */
-	public List<Autotrade> getCashtradeList(String custno) throws BizException;
+	public List<Autotrade> getCashtradeList(String custno,String autoid) throws BizException;
 	/**
 	 * 删除自动充值业务
 	 * @param String

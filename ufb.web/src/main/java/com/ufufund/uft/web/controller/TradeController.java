@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.BankBaseManager;
-import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
+import com.ufufund.ufb.biz.manager.org.OrgPlanManager;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.DateUtil;
@@ -60,8 +60,6 @@ public class TradeController {
 	private static final String AUTOTRADE_INDEX = "family/ufb/autotrade_index.htm";
 	private static final String AUTOTRADE_NAME = "自动充值";
 	private static final String AUTOTRADEADD_INDEX = "family/ufb/autoadd_index.htm";
-	private static final String BANKCARD_INDEX="family/setting/bankcard_index.htm";
-	private static final String SETTING_CARD_NAME="银行卡管理";
 	@Autowired
 	private TradeManager tradeManager;
 	@Autowired
@@ -73,9 +71,7 @@ public class TradeController {
 	@Autowired
 	private AutotradeManager autotradeManager;
 	@Autowired
-	private BankBaseManager bankBaseManager;
-	@Autowired
-	private BankCardManager bankCardManager;
+	private OrgPlanManager orgPlanManager;
 	@Autowired
 	private CustManager custManager;
 	/**
@@ -117,6 +113,7 @@ public class TradeController {
 		
 		return "family/ufb/pay_index";
 	}
+
 	/**
 	 * 充值成功页	
 	 * @param vo
@@ -410,14 +407,14 @@ public class TradeController {
 	 */
 	@RequestMapping(value="autotrade_index")
 	public String autotradeIndex(CustinfoVo custinfoVo,String TAB, Model model){
-		CustinfoVo s_custinfo = UserHelper.getCustinfoVo();
+		CustinfoVo custinfo = UserHelper.getCustinfoVo();
 		try{
 			// 获取自动充值计划列表
-			List<Autotrade> list = autotradeManager.getAutotradeList(s_custinfo.getCustno());
-			List<Autotrade> clist=autotradeManager.getAutotradeCList(s_custinfo.getCustno());
+			List<Autotrade> list = autotradeManager.getAutotradeList(custinfo.getCustno());
+			List<Autotrade> clist=autotradeManager.getAutotradeCList(custinfo.getCustno());
 			
-			// 获取自动缴费的信息 getCashtradeList
-			List<Autotrade> autoPayList=autotradeManager.getCashtradeList(s_custinfo.getCustno());
+			// 获取自动缴费的信息  
+			List<Autotrade> autoPayList=autotradeManager.getCashtradeList(custinfo.getCustno(),null);
 			
 			model.addAttribute("LIST", list);
 			model.addAttribute("CLIST", clist);
@@ -434,6 +431,32 @@ public class TradeController {
 			return "error/error";
 		}
 		return "family/ufb/autotrade_index";
+	}
+	/**
+	 * 自动缴费查看详情页面
+	 * @param model
+	 * @param autoid
+	 * @return
+	 */
+	@RequestMapping(value="autopay_detail")
+	public String autopayDetail(String autoid,Model model){
+		CustinfoVo custinfo = UserHelper.getCustinfoVo();
+		try{
+			List<Autotrade> autoPayList=autotradeManager.getCashtradeList(custinfo.getCustno(),autoid);
+			Autotrade	autotrade = new Autotrade();
+			if(autoPayList.size()>0&&null!=autoPayList){
+				autotrade=autoPayList.get(0);
+			}
+			model.addAttribute("autotrade", autotrade);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "自动缴费结果");
+			model.addAttribute("message_url", AUTOTRADE_INDEX);
+			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("back_module", AUTOTRADE_NAME);
+			return "error/error";
+		}
+		return "family/ufb/autopay_detail";
 	}
 	/**
 	 * 添加自动充值第一步

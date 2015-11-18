@@ -24,7 +24,7 @@
                       <td>费用类型</td>
                       <td>#if(${planDetail.plantype}=="F")固定周期费用 #elseif(${planDetail.plantype}=="T") 临时费用 #else 退费 #end</td>
                       <td>收费方式</td>
-                      <td><span class="tip">#if(${planDetail.type}=="AT")月代扣#else单笔#end</span></td>
+                      <td><span class="tip">#if(${planDetail.type}=="1")月代扣#else单笔#end</span></td>
                   </tr>
               </tbody></table>
               </div>
