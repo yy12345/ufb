@@ -19,7 +19,7 @@ import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.SequenceUtil;
-import com.ufufund.ufb.dao.BankMapper;
+import com.ufufund.ufb.dao.BankCardInfoMapper;
 import com.ufufund.ufb.dao.CustinfoMapper;
 import com.ufufund.ufb.dao.TradeAccoinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
@@ -30,7 +30,6 @@ import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Changerecordinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
-import com.ufufund.ufb.model.db.PicInfo;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.ErrorInfo;
@@ -64,7 +63,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	@Autowired
 	private CustinfoMapper custinfoMapper;
 	@Autowired
-	private BankMapper bankMapper;
+	private BankCardInfoMapper bankCardInfoMapper;
 	@Autowired
 	private TradeAccoinfoMapper tradeAccoinfoMapper;
 	@Autowired
@@ -75,48 +74,12 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	private ChinapayService chinapayService;
 	
 	@Override
-	public PicInfo getPicInfo(PicInfo picinfo) throws BizException {
-		return bankMapper.getPicInfo(picinfo);
-	}
-	
-	@Override
-	public void insertPicInfo(PicInfo picinfo) throws BizException {
-		bankMapper.insertPicInfo(picinfo);
-	}
-	
-	@Override
-	public void updatePicInfo(PicInfo picinfo) throws BizException {
-		PicInfo check = bankMapper.getPicInfo(picinfo);
-		if(null == check){
-			bankMapper.insertPicInfo(picinfo);
-		}else{
-			bankMapper.updatePicInfo(picinfo);
-		}
-	}
-	
-	@Override
 	public List<Bankcardinfo> getBankcardinfoList(String custno){
 		
 		Bankcardinfo bankcardinfo = new Bankcardinfo();
 		bankcardinfo.setCustno(custno);
 		
-		return bankMapper.getBankcardinfo(bankcardinfo);
-	}
-	
-	@Override
-	public void setBankCardMainFlag(String custno, String bankacco, String mainflag){
-		if(null == custno || "".equals(custno)){
-			throw new BizException(this.getProcessId(custno), ErrorInfo.NO_IDCARDNO, BisConst.Register.CUSTNO);
-		}
-		bankMapper.setBankCardMainFlag(custno, bankacco, mainflag);
-	}
-	
-	@Override
-	public void unbindBankCard(String custno, String serialid, String state){
-		if(null == custno || "".equals(custno)){
-			throw new BizException(this.getProcessId(custno), ErrorInfo.NO_IDCARDNO, BisConst.Register.CUSTNO);
-		}
-		bankMapper.unbindBankCard(custno, serialid, state);
+		return bankCardInfoMapper.getBankcardinfo(bankcardinfo);
 	}
 	
 	/**
@@ -133,8 +96,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @return
 	 */
 	public OpenAccountAction openAccoStep2(OpenAccountAction openAccountAction) throws BizException {
-		//String processId = 
-				this.getProcessId(openAccountAction);
+		this.getProcessId(openAccountAction);
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
 		bankCardManagerValidator.validator(openAccountAction, "OrgBase");
 		// 用户注册、冻结、已开户验证
@@ -187,24 +149,22 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		custinfo.setInvtp(Invtp.ORGANIZATION.getValue());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		
-		//if(custinfo.getTradepwd() == null){
-		    custinfo = custManagerHelper.toOpenAccountOrgAction(openAccountAction);
-			custinfoMapper.updateCustinfo(custinfo);
-			Changerecordinfo changerecordinfo2 = new Changerecordinfo();
-			changerecordinfo2.setCustno(custinfo.getCustno());
-			changerecordinfo2.setRecordafter(custinfo.toString());
-			changerecordinfo2.setTablename(TableName.CUSTINFO.value());
-			changerecordinfo2.setApkind(Apkind.OPEN_ACCOUNT.getValue());
-			changerecordinfo2.setRefserialno(openAccountAction.getSerialno());
-			// **** 变更表
-			tradeNotesMapper.insterChangerecordinfo(changerecordinfo2);	
-		//}
+	    custinfo = custManagerHelper.toOpenAccountOrgAction(openAccountAction);
+		custinfoMapper.updateCustinfo(custinfo);
+		Changerecordinfo changerecordinfo2 = new Changerecordinfo();
+		changerecordinfo2.setCustno(custinfo.getCustno());
+		changerecordinfo2.setRecordafter(custinfo.toString());
+		changerecordinfo2.setTablename(TableName.CUSTINFO.value());
+		changerecordinfo2.setApkind(Apkind.OPEN_ACCOUNT.getValue());
+		changerecordinfo2.setRefserialno(openAccountAction.getSerialno());
+		// **** 变更表
+		tradeNotesMapper.insterChangerecordinfo(changerecordinfo2);	
 		
 		// 检查此银行卡是否已有记录
 		Bankcardinfo bankcardinfodef = null;
 		Bankcardinfo bankcardinfoqey = new Bankcardinfo();
 		bankcardinfoqey.setCustno(custinfo.getCustno());
-		List<Bankcardinfo> bankList = bankMapper.getBankcardinfo(bankcardinfoqey);
+		List<Bankcardinfo> bankList = bankCardInfoMapper.getBankcardinfo(bankcardinfoqey);
 		for(Bankcardinfo bankcardinfo : bankList){
 			if(bankcardinfo.getBankno()!=null && 
 			   bankcardinfo.getBankno().equals(openAccountAction.getBankno())&&
@@ -220,7 +180,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 			bankcardinfodef.setSerialid(bankSeq);
 			bankcardinfodef.setState("Y");
 			// **** 添加银行卡
-			bankMapper.insterBankcardinfo(bankcardinfodef);
+			bankCardInfoMapper.insterBankcardinfo(bankcardinfodef);
 			Changerecordinfo changerecordinfo1 = bankCardManagerHelper.toBankcardinfo(bankcardinfodef);
 			changerecordinfo1.setApkind(Apkind.OPEN_ACCOUNT.getValue());
 			changerecordinfo1.setRefserialno(openAccountAction.getSerialno());
@@ -230,17 +190,16 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		// 添加tradeacco表
 		Today today = workDayManager.getSysDayInfo();
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
-		tradeaccoinfo.setAccoid(SequenceUtil.getSerial());// char(10) not null comment '客户编号',
-		tradeaccoinfo.setCustno(openAccountAction.getCustno());// char(10) not null comment '客户编号',
-		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);// char(2) not null default '' comment '交易账号类型：归属基金公司',
+		tradeaccoinfo.setCustno(openAccountAction.getCustno()); 
+		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno); 
 		tradeaccoinfo.setLevel(openAccountAction.getLevel());
-		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid());// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
-		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionaccountid());// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
+		tradeaccoinfo.setBankserialid(bankcardinfodef.getSerialid()); 
+		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionaccountid()); 
 		tradeaccoinfo.setOpendt(today.getWorkday());
 		tradeAccoinfoMapper.insterTradeaccoinfo(tradeaccoinfo);
 
 		// *** 插入流水表
-		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult();//helper.toFdacfinalresult(custinfo);
+		Fdacfinalresult fdacfinalresult = new  Fdacfinalresult(); 
 		fdacfinalresult.setCustno(custinfo.getCustno());
 		fdacfinalresult.setTobankserialid(bankcardinfodef.getSerialid());
 		fdacfinalresult.setTotradeacco(openAccountAction.getTransactionaccountid());
@@ -365,7 +324,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		Bankcardinfo bankcardinfo = bankCardManagerHelper.toBankcardinfo(openAccountAction);
 		bankcardinfo.setSerialid(SequenceUtil.getSerial());
 		bankcardinfo.setState("Y");
-		bankMapper.insterBankcardinfo(bankcardinfo);
+		bankCardInfoMapper.insterBankcardinfo(bankcardinfo);
 		
 		return bankcardinfo.getSerialid();
 	}
@@ -374,7 +333,6 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		
 		Today today = workDayManager.getSysDayInfo();
 		Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
-		tradeaccoinfo.setAccoid(SequenceUtil.getSerial());
 		tradeaccoinfo.setCustno(openAccountAction.getCustno());
 		tradeaccoinfo.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
 		tradeaccoinfo.setLevel(openAccountAction.getLevel());
@@ -382,20 +340,6 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		tradeaccoinfo.setTradeacco(openAccountAction.getTransactionaccountid());
 		tradeaccoinfo.setOpendt(today.getWorkday());
 		tradeAccoinfoMapper.insterTradeaccoinfo(tradeaccoinfo);
-	}
-	
-
-	/**
-	 * 删除银行卡
-	 */
-	@Override
-	public void deleteCard(String custno, String serialid) {
-		if(null == custno || "".equals(custno)){
-			throw new BizException(this.getProcessId(custno), ErrorInfo.NO_IDCARDNO, BisConst.Register.CUSTNO);
-		}
-		bankMapper.deleteCard(custno, serialid);
-		bankMapper.deleteTradeacc(custno, serialid);
-		
 	}
 	
 	/**
@@ -439,17 +383,24 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	}
 
 	@Override
-	public Bankcardinfo getBankCardInfo(String custno) {
-		return bankMapper.getBankCardInfo(custno);
-	}
-
-	@Override
 	@Transactional
 	public void updateCard(OpenAccountAction openAccountAction) {
-		bankMapper.removeCard(openAccountAction.getCustno());
+		bankCardInfoMapper.removeCard(openAccountAction.getCustno());
 		// 添加银行卡及基金交易账户
 		openAccountAction.setCustno(openAccountAction.getCustno());
 		String bankSerialid = addBankCardinfo(openAccountAction);
 		addTradeaccoinfo(openAccountAction, bankSerialid);
 	}
+
+	@Override
+	public Bankcardinfo getBankcardinfo(String custno) {
+		Bankcardinfo bankcardinfo = new Bankcardinfo();
+		bankcardinfo.setCustno(custno);
+		List<Bankcardinfo> list=bankCardInfoMapper.getBankcardinfo(bankcardinfo);
+		if(list.size()>0&&null!=list){
+			return (Bankcardinfo)list.get(0);
+		}
+		return null;
+	}
+
 }

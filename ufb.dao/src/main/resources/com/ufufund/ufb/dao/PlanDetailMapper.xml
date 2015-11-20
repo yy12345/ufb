@@ -12,7 +12,6 @@
 	        stats = #{stats,jdbcType=VARCHAR},
 	        ack_date = sysdate(),
 	        ack_bankcardid = #{ackbankcardid,jdbcType=VARCHAR},
-	        ack_tradeaccoid = #{acktradeaccoid,jdbcType=VARCHAR},
 	        ack_tradeacco = #{acktradeacco,jdbcType=VARCHAR},
 	        is_pay = #{ispay,jdbcType=VARCHAR}
     	where detail_id = #{detailid,jdbcType=VARCHAR} 

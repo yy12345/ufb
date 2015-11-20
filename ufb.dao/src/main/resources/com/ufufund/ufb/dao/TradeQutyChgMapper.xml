@@ -69,19 +69,4 @@
 			#{oldserialno,jdbctype=varchar},        
 			now())
   	</insert>
-	
-	<!-- 
-	<select id="qryRecentTradeList" resultType="TradeRequest">
-		select t4.banknm,t1.* from traderequest t1,tradeaccoinfo t2, bankcardinfo t3,bankbase t4
-		where 
-		(t1.state = 'Y' or t1.state = 'F' or t1.state = 'I') 
-		and t1.custno = #{custno,jdbcType=VARCHAR} 
-		and t1.apkind = #{apkind,jdbcType=VARCHAR} 
-		and t1.tradeacco = t2.tradeacco
-        and t2.bankSERIALID = t3.SERIALID        
-        and t3.bankno = t4.bankno
-		order by t1.updatetime desc limit #{n,jdbcType=INTEGER} 
-	</select>
-	 -->
-	
 </mapper>

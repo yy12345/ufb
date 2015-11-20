@@ -221,9 +221,6 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		String processId = this.getProcessId(action);
 		orgPlanValidator.validator(action);
 		if("U".equals(action.getAcktype())){
-			if (RegexUtil.isNull(action.getAcktradeaccoid())) {
-				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, "Acktradeaccoid");
-			}
 			if (!RegexUtil.isNull(action.getAcktradeacco())) {
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, "Acktradeacco");
 			}
@@ -240,7 +237,6 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 			orgplandetail.setAcktype(action.getAcktype());
 			orgplandetail.setAckcustno(action.getAckcustno());
 			orgplandetail.setAckbankcardid(action.getAckbankcardid());
-			orgplandetail.setAcktradeaccoid(action.getAcktradeaccoid());
 			orgplandetail.setAcktradeacco(action.getAcktradeacco());
 			orgDeployMapper.updatePlandetail(orgplandetail);
 		}
@@ -265,10 +261,9 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 			Tradeaccoinfo tradeAcco=tradeAccoManager.getTradeaccoinfo(d_custinfo.getCustno());
 			if(paytype.equals("U")){
 				detail.setAckbankcardid(tradeAcco.getBankserialid());
-				detail.setAcktradeaccoid(tradeAcco.getAccoid());
 				detail.setAcktradeacco(tradeAcco.getTradeacco());
 			}else{
-				Bankcardinfo bankcard =	bankCardManager.getBankCardInfo(d_custinfo.getCustno());
+				Bankcardinfo bankcard =	bankCardManager.getBankcardinfo(d_custinfo.getCustno());
 				detail.setAckbankcardid(bankcard.getSerialid());
 			}
 			

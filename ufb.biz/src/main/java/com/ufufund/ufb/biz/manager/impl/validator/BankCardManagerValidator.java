@@ -84,15 +84,15 @@ public class BankCardManagerValidator {
 				//银行编码
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKNO);
 			}
-			if (RegexUtil.isNull(action.getBankacnm())) {
+			if (RegexUtil.isNull(action.getBanknm())) {
 				//银行开户户名
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACNM);
 			}
-//			if (RegexUtil.isNull(action.getBankidtp())) {
+//			if (RegexUtil.isNull(action.getCerttype())) {
 //				//银行证件类型
 //				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDTP);
 //			}
-			if (RegexUtil.isNull(action.getBankidno())) {
+			if (RegexUtil.isNull(action.getCertno())) {
 				//银行证件号码
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKIDNO);
 			}
@@ -100,11 +100,11 @@ public class BankCardManagerValidator {
 				//银行卡号
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACCO);
 			}
-			if (RegexUtil.isNull(action.getBankmobile())) {
+			if (RegexUtil.isNull(action.getMobile())) {
 				//银行开户手机号
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKMOBILE);
 			}
-			if(!RegexUtil.isMobile(action.getBankmobile())){
+			if(!RegexUtil.isMobile(action.getMobile())){
 				//银行开户手机号 isMobile
 				throw new BizException(processId, ErrorInfo.FIELD_FORMAT_WRONG, BisConst.Register.BANKMOBILE);
 			}
@@ -164,7 +164,7 @@ public class BankCardManagerValidator {
 		
 		//银行基本信息验证
 		if("OrgBankBase".equals(actionName)){
-			if (RegexUtil.isNull(action.getBankacnm())) {
+			if (RegexUtil.isNull(action.getBanknm())) {
 				// 银行开户户名
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACNM);
 			}
@@ -172,17 +172,13 @@ public class BankCardManagerValidator {
 				// 银行编码
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKNO);
 			}
-			if (RegexUtil.isNull(action.getBankadd())) {
+			if (RegexUtil.isNull(action.getSubbank())) {
 				// 支行网点
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKADD);
 			}
 			if (RegexUtil.isNull(action.getBankacco())) {
 				// 银行卡号
 				throw new BizException(processId, ErrorInfo.NECESSARY_EMPTY, BisConst.Register.BANKACCO);
-			}
-			if (!action.getBankacco().equals(action.getBankacco2())) {
-				// 银行卡号2
-				throw new BizException(processId, ErrorInfo.NOT_EQUALS_BANKACCO, BisConst.Register.BANKACCO2);
 			}
 			
 			// 机构

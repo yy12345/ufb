@@ -114,11 +114,11 @@ public class CustManagerTest {
 		openAccountAction.setTradepwd2("1234567");
 		openAccountAction = bankCardManager.openAccount1(openAccountAction);
 		openAccountAction.setBankno("002");
-		openAccountAction.setBankacnm("尼玛");
-		openAccountAction.setBankidtp("0");
-		openAccountAction.setBankidno("123456789");
+		openAccountAction.setBanknm("尼玛");
+		openAccountAction.setCerttype("0");
+		openAccountAction.setCertno("123456789");
 		openAccountAction.setBankacco("1234567890");
-		openAccountAction.setBankmobile("13611686341");
+		openAccountAction.setMobile("13611686341");
 		openAccountAction = bankCardManager.openAccount2(openAccountAction);
 		openAccountAction.setMobileautocode("12345678");	
 		openAccountAction = bankCardManager.openAccount3(openAccountAction);

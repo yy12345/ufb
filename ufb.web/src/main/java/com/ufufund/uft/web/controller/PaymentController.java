@@ -185,7 +185,7 @@ public class PaymentController {
 			}
 			Student student = familyManager.getStudent(familyCodes.getSid());
 			Custinfo organ = familyManager.getOrgan(student.getCid());
-			Bankcardinfo organCard = bankCardManager.getBankCardInfo(organ.getCustno());
+			Bankcardinfo organCard = bankCardManager.getBankcardinfo(organ.getCustno());
 			
 			model.addAttribute("student", student);
 			model.addAttribute("organ", organ);
@@ -343,7 +343,7 @@ public class PaymentController {
 			}
 			// 银行、账户信息 
 			this.setModel(custinfoVo, model);
-			Bankcardinfo bankcard=bankCardManager.getBankCardInfo(custinfoVo.getCustno());
+			Bankcardinfo bankcard=bankCardManager.getBankcardinfo(custinfoVo.getCustno());
 			
 			model.addAttribute("bankcard",bankcard);
 			model.addAttribute("planlistchecked",planlistchecked);

@@ -267,11 +267,11 @@ public class UfuCommonController {
 			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setBankno(bankCardVo.getBankno());//银行编号
-			openAccountAction.setBankacnm(custinfoVo.getInvnm());//银行用户名
-			openAccountAction.setBankidtp("0");					//银行证件类型
-			openAccountAction.setBankidno(custinfoVo.getIdno());//银行证件号
+			openAccountAction.setBanknm(custinfoVo.getInvnm());//银行用户名
+			openAccountAction.setCerttype("0");					//银行证件类型
+			openAccountAction.setCertno(custinfoVo.getIdno());//银行证件号
 			openAccountAction.setBankacco(bankCardVo.getBankacco());//银行卡号码
-			openAccountAction.setBankmobile(bankCardVo.getBankmobile());//银行手机号
+			openAccountAction.setMobile(bankCardVo.getMobile());//银行手机号
 			
 			// 海富通快捷鉴权
 			bankCardManager.openAccount2(openAccountAction);

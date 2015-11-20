@@ -21,13 +21,11 @@ public class BankCardManagerHelper {
 		bankcardinfo.setCustno(openAccountAction.getCustno());
 		bankcardinfo.setBankno(openAccountAction.getBankno());
 		bankcardinfo.setBankacco(openAccountAction.getBankacco());
-		bankcardinfo.setBankidtp(openAccountAction.getBankidtp());
-		bankcardinfo.setBankidno(openAccountAction.getBankidno());
-		bankcardinfo.setBankacnm(openAccountAction.getBankacnm());
-		bankcardinfo.setBankmobile(openAccountAction.getBankmobile());
-		bankcardinfo.setBankcitynm(openAccountAction.getBankcitynm());
-		bankcardinfo.setBankprovincenm(openAccountAction.getBankprovincenm());
-		bankcardinfo.setBankadd(openAccountAction.getBankadd());
+		bankcardinfo.setCerttype(openAccountAction.getCerttype());
+		bankcardinfo.setCertno(openAccountAction.getCertno());
+		bankcardinfo.setProvince(openAccountAction.getProvince());
+		bankcardinfo.setCity(openAccountAction.getCity());
+		bankcardinfo.setSubbank(openAccountAction.getSubbank());
 		return bankcardinfo;
 	}
 	
@@ -56,11 +54,11 @@ public class BankCardManagerHelper {
 		req.setBusinType(Constant.HftBusiType.BankAuth);
 		req.setApplicationNo(openAccountAction.getSerialno());
 		req.setClearingAgencyCode(openAccountAction.getBankno());
-		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());
+		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBanknm());
 		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());
-		req.setCertificateType(openAccountAction.getBankidtp());
-		req.setCertificateNo(openAccountAction.getBankidno());
-		req.setMobileTelNo(openAccountAction.getBankmobile());
+		req.setCertificateType(openAccountAction.getCerttype());
+		req.setCertificateNo(openAccountAction.getCertno());
+		req.setMobileTelNo(openAccountAction.getMobile());
 		req.setAccoreqSerial(openAccountAction.getAccoreqserial());
 		return req;
 	}
@@ -73,11 +71,11 @@ public class BankCardManagerHelper {
 		req.setBusinType(Constant.HftBusiType.BankVeri);
 		req.setApplicationNo(openAccountAction.getSerialno());
 		req.setClearingAgencyCode(openAccountAction.getBankno());
-		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());
+		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBanknm());
 		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());
-		req.setCertificateType(openAccountAction.getBankidtp());
-		req.setCertificateNo(openAccountAction.getBankidno());
-		req.setMobileTelNo(openAccountAction.getBankmobile());
+		req.setCertificateType(openAccountAction.getCerttype());
+		req.setCertificateNo(openAccountAction.getCertno());
+		req.setMobileTelNo(openAccountAction.getMobile());
 		req.setMobileAuthCode(openAccountAction.getMobileautocode());
 		req.setOtherSerial(openAccountAction.getOtherserial());
 		return req;
@@ -91,12 +89,12 @@ public class BankCardManagerHelper {
 		req.setBusinType(Constant.HftBusiType.OpenAccount);
 		req.setApplicationNo(openAccountAction.getSerialno());
 		req.setClearingAgencyCode(openAccountAction.getBankno());
-		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());
+		req.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBanknm());
 		req.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());
-		req.setInvestorName(openAccountAction.getBankacnm());
-		req.setCertificateType(openAccountAction.getBankidtp());
-		req.setCertificateNo(openAccountAction.getBankidno());
-		req.setMobileTelNo(openAccountAction.getBankmobile());
+		req.setInvestorName(openAccountAction.getBanknm());
+		req.setCertificateType(openAccountAction.getCerttype());
+		req.setCertificateNo(openAccountAction.getCertno());
+		req.setMobileTelNo(openAccountAction.getMobile());
 //		req.setCertValidDate("20181022");
 //		req.setEmailAddress("15211827360@163.com");
 //		req.setOfficeTelNo("02188592231");
@@ -117,16 +115,16 @@ public class BankCardManagerHelper {
 		request.setBusinType(Constant.HftBusiType.OpenAccountOrg);
 		request.setApplicationNo(openAccountAction.getSerialno());
 		request.setClearingAgencyCode(openAccountAction.getBankno());
-		request.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBankacnm());
+		request.setAcctNameOfInvestorInClearingAgency(openAccountAction.getBanknm());
 		request.setAcctNoOfInvestorInClearingAgency(openAccountAction.getBankacco());
 		request.setProvince("320");
 		request.setCity("581");
-		request.setInvestorName(openAccountAction.getBankacnm());//孙桥小学
-		request.setCertificateType(openAccountAction.getBankidtp());//0
-		request.setCertificateNo(openAccountAction.getBankidno());//66251638X
+		request.setInvestorName(openAccountAction.getBanknm());//孙桥小学
+		request.setCertificateType(openAccountAction.getCerttype());//0
+		request.setCertificateNo(openAccountAction.getCertno());//66251638X
 		request.setCertValidDate("20181022");
 		request.setEmailAddress("15211827361@163.com");
-		request.setMobileTelNo(openAccountAction.getBankmobile());//15211827361
+		request.setMobileTelNo(openAccountAction.getMobile());//15211827361
 		request.setOfficeTelNo("02188592231");
 		request.setFaxNo("02188592231");
 		request.setAddress("孙桥路");

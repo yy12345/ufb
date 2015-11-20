@@ -6,7 +6,6 @@
 
 	<select id="getTradeaccoinfo" parameterType="com.ufufund.ufb.model.db.Tradeaccoinfo" resultType="com.ufufund.ufb.model.db.Tradeaccoinfo">
 		SELECT
-			tradeaccoinfo.ACCOID,
 			tradeaccoinfo.CUSTNO,
 			tradeaccoinfo.FUNDCORPNO,
 			tradeaccoinfo.LEVEL,
@@ -14,14 +13,10 @@
 			tradeaccoinfo.TRADEACCO,
 			tradeaccoinfo.TRADEACCOST,
 			tradeaccoinfo.OPENDT,
-			tradeaccoinfo.CLOSEDT,
 			tradeaccoinfo.UPDATETIME
 		FROM
 			tradeaccoinfo
 		WHERE 
-		<if test="accoid != null and accoid !=''" >
-			tradeaccoinfo.ACCOID = #{accoid,jdbcType=INTEGER} AND
-		</if>
   		<if test="custno != null and custno !=''" >
   		 	tradeaccoinfo.CUSTNO = #{custno,jdbcType=VARCHAR} AND
   		</if>
@@ -40,7 +35,6 @@
 	<insert id="insterTradeaccoinfo" parameterType="com.ufufund.ufb.model.db.Tradeaccoinfo">
   	 <![CDATA[
 	 	insert into tradeaccoinfo (
-			  ACCOID,
 			  CUSTNO,
 			  FUNDCORPNO,
 			  LEVEL,
@@ -48,11 +42,10 @@
 			  TRADEACCO,
 			  TRADEACCOST,
 			  OPENDT,
-			  CLOSEDT,
+			  ACKDATE,
 			  UPDATETIME				
 		)
 		values (
-				#{accoid,jdbcType=VARCHAR},
 				#{custno,jdbcType=VARCHAR},
 				#{fundcorpno,jdbcType=VARCHAR},
 				#{level,jdbcType=VARCHAR},
@@ -60,7 +53,7 @@
 				#{tradeacco,jdbcType=VARCHAR},
 				#{tradeaccost,jdbcType=VARCHAR},
 				#{opendt,jdbcType=VARCHAR},
-				#{closedt,jdbcType=VARCHAR},
+				#{ackdate,jdbcType=VARCHAR},
 				sysdate()
 	    )
 	 ]]>
@@ -68,20 +61,20 @@
 	
 	<select id="isTradeaccoinfoBind" parameterType="com.ufufund.ufb.model.action.cust.OpenAccountAction" resultType="java.lang.Integer">
 		SELECT
-			count(tradeaccoinfo.ACCOID)
+			count(t.tradeacco)
 		FROM
-			tradeaccoinfo, bankcardinfo
+			tradeaccoinfo t, bankcardinfo b
 		WHERE 
-			tradeaccoinfo.BANKSERIALID = bankcardinfo.SERIALID
-			AND tradeaccoinfo.TRADEACCOST &lt;&gt; 'F'
+			t.BANKSERIALID = b.SERIALID
+			AND t.TRADEACCOST &lt;&gt; 'F'
   		<if test="fundcorpno != null and fundcorpno !=''" >
-  			AND tradeaccoinfo.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR}
+  			AND t.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR}
   		</if>
   		<if test="bankno != null and bankno !=''" >
-  		 	AND bankcardinfo.BANKNO = #{bankno,jdbcType=VARCHAR}
+  		 	AND b.BANKNO = #{bankno,jdbcType=VARCHAR}
   		</if>
   		<if test="bankacco != null and bankacco !=''" >
-  		 	AND bankcardinfo.BANKACCO = #{bankacco,jdbcType=VARCHAR}
+  		 	AND b.bankacco = #{bankacco,jdbcType=VARCHAR}
   		</if>
   	</select>
 	
@@ -96,24 +89,13 @@
 			b.CUSTNO,
 			b.BANKNO,
 			b.BANKACCO,
-			b.BANKACCODISPLAY,
-			b.BANKIDTP,
-			b.BANKIDNO,
-			b.BANKIDVALIDDT,
-			b.BANKACNM,
-			b.BANKMOBILE,
-			b.SUBBANKNO,
-			b.BANKLONGNAME,
-			b.ISSIGN,
-			b.SIGNNO,
-			b.BANKPROEXISTS,
-			b.PROTOCOL_NO,
+			b.CERTTYPE,
+			b.CERTNO,
 			b.STATE,
-			b.OPENDT,
-			b.CLOSEDT,
-			b.DISORDER,
-			b.MAINFLAG,
-			b.UPDATETIMESTAMP,
+			b.PROVINCE,
+            b.CITY,
+            b.SUBBANK,
+			b.UPDATETIME,
             c.level as clevel 
 		from tradeaccoinfo t, bankcardinfo b,bankbase c
 		where 
@@ -134,24 +116,13 @@
 			b.CUSTNO,
 			b.BANKNO,
 			b.BANKACCO,
-			b.BANKACCODISPLAY,
-			b.BANKIDTP,
-			b.BANKIDNO,
-			b.BANKIDVALIDDT,
-			b.BANKACNM,
-			b.BANKMOBILE,
-			b.SUBBANKNO,
-			b.BANKLONGNAME,
-			b.ISSIGN,
-			b.SIGNNO,
-			b.BANKPROEXISTS,
-			b.PROTOCOL_NO,
+			b.CERTTYPE,
+			b.CERTNO,
 			b.STATE,
-			b.OPENDT,
-			b.CLOSEDT,
-			b.DISORDER,
-			b.MAINFLAG,
-			b.UPDATETIMESTAMP
+			b.PROVINCE,
+            b.CITY,
+            b.SUBBANK,
+			b.UPDATETIME
 		from tradeaccoinfo t, bankcardinfo b
 		where 
 			b.SERIALID  = t.BANKSERIALID

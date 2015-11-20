@@ -21,7 +21,7 @@ $(function(){
             	#set($sname = $sname.substring(1, $sname.length()))
             	<li class="fontBold"><span>学生姓名：</span><label>*${sname}</label></li>
                 <li><span>所在班级：</span><label>${student.cname}</label></li>
-                <li><span>学生性别：</span><label>${student.sex}</label></li>
+                <li><span>学生性别：</span><label>#if(${student.sex}=='1')男 #else 女 #end</label></li>
                 <li><span>出生日期：</span><label>${student.birthday}</label></li>
                 <li><span></span><label></label></li>
                 #set($p1_name = ${student.p1_name})

@@ -3,12 +3,9 @@ package com.ufufund.ufb.model.vo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-/**
- * 
- * 
- * @author GH
- * 
- */
+import lombok.Data;
+
+@Data
 public class AutotradeVo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,11 +18,10 @@ public class AutotradeVo implements Serializable {
 	private String apkind;
 	private String cycle;
 	private String dat;
-	private String fromfundcode;// varchar(6) default null comment '源基金代码',
-	private String fromfundcorpno;// char(24) default null comment '源归属基金公司',
+	private String fromfundcode;   // 源基金代码
+	private String fromfundcorpno; // 源归属基金公司
 	private String frombankserialid;
 	private String frombankacco;
-	private String fromaccoid;
 	private String fromtradeacco;
 	private String fromchargetype;
 	private String frombankno;
@@ -33,290 +29,20 @@ public class AutotradeVo implements Serializable {
 	private String tradepwd;
 	
 
-	private String tofundcode;// varchar(6) default null comment '目标基金代码',
-	private String tofundcorpno;// char(24) default null comment '目标归属基金公司',
+	private String tofundcode;   // 目标基金代码
+	private String tofundcorpno; // 目标归属基金公司
 	private String tobankserialid;
 	private String tobankacco;
-	private String toaccoid;
 	private String totradeacco;
 	private String tochargetype;
 	 
 	private String tobankno;
 	private String tobanktail;
-	private BigDecimal autovol;//份额
+	private BigDecimal autovol; // 份额
 	
-	private String lastdate;// char(8) default null comment '最近扣款日期',
-	private String nextdate;// char(8) default null comment '下一扣款日期',
+	private String lastdate;   // 最近扣款日期
+	private String nextdate;   // 下一扣款日期
 	
 	private String step;
 	
-	public String getStep() {
-		return step;
-	}
-
-	public void setStep(String step) {
-		this.step = step;
-	}
-
-	public String getTradepwd() {
-		return tradepwd;
-	}
-
-	public void setTradepwd(String tradepwd) {
-		this.tradepwd = tradepwd;
-	}
-
-	public String getFrombankno() {
-		return frombankno;
-	}
-
-	public void setFrombankno(String frombankno) {
-		this.frombankno = frombankno;
-	}
-
-	public String getFrombanktail() {
-		return frombanktail;
-	}
-
-	public void setFrombanktail(String frombanktail) {
-		this.frombanktail = frombanktail;
-	}
-
-	public String getAutoid() {
-		return autoid;
-	}
-
-	public void setAutoid(String autoid) {
-		this.autoid = autoid;
-	}
-
-	public String getCustno() {
-		return custno;
-	}
-
-	public void setCustno(String custno) {
-		this.custno = custno;
-	}
-
-	public BigDecimal getAutoamt() {
-		return autoamt;
-	}
-
-	public void setAutoamt(BigDecimal autoamt) {
-		this.autoamt = autoamt;
-	}
-
-	public String getSummary() {
-		return summary;
-	}
-
-	public void setSummary(String summary) {
-		this.summary = summary;
-	}
-
-	public String getApkind() {
-		return apkind;
-	}
-
-	public void setApkind(String apkind) {
-		this.apkind = apkind;
-	}
-
-	public String getCycle() {
-		return cycle;
-	}
-
-	public void setCycle(String cycle) {
-		this.cycle = cycle;
-	}
-
-	public String getDat() {
-		return dat;
-	}
-
-	public void setDat(String dat) {
-		this.dat = dat;
-	}
-
-	public String getFromfundcode() {
-		return fromfundcode;
-	}
-
-	public void setFromfundcode(String fromfundcode) {
-		this.fromfundcode = fromfundcode;
-	}
-
-	public String getFromfundcorpno() {
-		return fromfundcorpno;
-	}
-
-	public void setFromfundcorpno(String fromfundcorpno) {
-		this.fromfundcorpno = fromfundcorpno;
-	}
-
-	public String getFrombankserialid() {
-		return frombankserialid;
-	}
-
-	public void setFrombankserialid(String frombankserialid) {
-		this.frombankserialid = frombankserialid;
-	}
-
-	public String getFrombankacco() {
-		return frombankacco;
-	}
-
-	public void setFrombankacco(String frombankacco) {
-		this.frombankacco = frombankacco;
-	}
-
-	public String getFromaccoid() {
-		return fromaccoid;
-	}
-
-	public void setFromaccoid(String fromaccoid) {
-		this.fromaccoid = fromaccoid;
-	}
-
-	public String getFromtradeacco() {
-		return fromtradeacco;
-	}
-
-	public void setFromtradeacco(String fromtradeacco) {
-		this.fromtradeacco = fromtradeacco;
-	}
-
-	public String getTofundcode() {
-		return tofundcode;
-	}
-
-	public void setTofundcode(String tofundcode) {
-		this.tofundcode = tofundcode;
-	}
-
-	public String getTofundcorpno() {
-		return tofundcorpno;
-	}
-
-	public void setTofundcorpno(String tofundcorpno) {
-		this.tofundcorpno = tofundcorpno;
-	}
-
-	public String getTobankserialid() {
-		return tobankserialid;
-	}
-
-	public void setTobankserialid(String tobankserialid) {
-		this.tobankserialid = tobankserialid;
-	}
-
-	public String getTobankacco() {
-		return tobankacco;
-	}
-
-	public void setTobankacco(String tobankacco) {
-		this.tobankacco = tobankacco;
-	}
-
-	public String getToaccoid() {
-		return toaccoid;
-	}
-
-	public void setToaccoid(String toaccoid) {
-		this.toaccoid = toaccoid;
-	}
-
-	public String getTotradeacco() {
-		return totradeacco;
-	}
-
-	public void setTotradeacco(String totradeacco) {
-		this.totradeacco = totradeacco;
-	}
-
-	public String getLastdate() {
-		return lastdate;
-	}
-
-	public void setLastdate(String lastdate) {
-		this.lastdate = lastdate;
-	}
-
-	public String getNextdate() {
-		return nextdate;
-	}
-
-	public void setNextdate(String nextdate) {
-		this.nextdate = nextdate;
-	}
-
-	public String getFromchargetype() {
-		return fromchargetype;
-	}
-
-	public void setFromchargetype(String fromchargetype) {
-		this.fromchargetype = fromchargetype;
-	}
-
-	public String getTochargetype() {
-		return tochargetype;
-	}
-
-	public void setTochargetype(String tochargetype) {
-		this.tochargetype = tochargetype;
-	}
-	
-	
-	
-	
-	
-	public String getTobankno() {
-		return tobankno;
-	}
-	
-	public void setTobankno(String tobankno) {
-		this.tobankno = tobankno;
-	}
-	public String getTobanktail() {
-		return tobanktail;
-	}
-	
-	public void setTobanktail(String tobanktail) {
-		this.tobanktail = tobanktail;
-	}
-
-	public BigDecimal getAutovol() {
-		return autovol;
-	}
-	
-	public void setAutovol(BigDecimal autovol) {
-		this.autovol = autovol;
-	}
-
-	@Override
-	public String toString() {
-		return "AutotradeVo [custno=" + custno
-				+ ", autoamt=" + autoamt
-				+ ", summary=" + summary
-				+ ", apkind=" + apkind
-				+ ", cycle=" + cycle
-				+ ", dat=" + dat
-				+ ", fromfundcorpno=" + fromfundcorpno
-				+ ", fromfundcode=" + fromfundcode
-				+ ", frombankserialid=" + frombankserialid
-				+ ", frombankacco=" + frombankacco
-				+ ", fromaccoid=" + fromaccoid
-				+ ", fromtradeacco=" + fromtradeacco
-				+ ", fromchargetype=" + fromchargetype
-				+ ", tofundcorpno=" + tofundcorpno
-				+ ", tofundcode=" + tofundcode
-				+ ", tobankserialid=" + tobankserialid
-				+ ", tobankacco=" + tobankacco
-				+ ", toaccoid=" + toaccoid
-				+ ", totradeacco=" + totradeacco
-				+ ", tochargetype=" + tochargetype
-				+ ", nextdate=" + nextdate
-				+ ", lastdate=" + lastdate
-				+ "]";
-	}
 }

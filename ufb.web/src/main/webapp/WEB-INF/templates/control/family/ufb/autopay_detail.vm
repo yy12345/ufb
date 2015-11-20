@@ -82,7 +82,7 @@
                                 <span class="form-text">${autotrade.summary}</span>
                             </li>
                             <li class="clearfix">
-                                <a class="input-button fl" href="#" onclick="window.history.go(-1);return fasle">返回</a>
+                                <a class="input-button fl" href="#" onclick="window.history.go(-1);">返回</a>
                             </li>
                         </ul>
                     </div>

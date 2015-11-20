@@ -37,14 +37,12 @@
 		    APTM,
 		    STATUS,
 		    FROM_BANKSERIALID,
-		    FROM_ACCOID,
 		    FROM_TRADEACCO,
 		    
 		    FROM_FUNDCODE,
 		    FROM_FUNDCORPNO,
 		    FROM_CHARGETYPE,
 		    TO_BANKSERIALID,
-		    TO_ACCOID,
 		    
 		    TO_TRADEACCO,
 		    TO_FUNDCODE,
@@ -69,14 +67,12 @@
 			#{aptm,jdbcType=VARCHAR},
 			#{status,jdbcType=VARCHAR},
 			#{frombankserialid,jdbcType=VARCHAR},
-			#{fromaccoid,jdbcType=VARCHAR},
 			#{fromtradeacco,jdbcType=VARCHAR},
 			
 			#{fromfundcode,jdbcType=VARCHAR},
 			#{fromfundcorpno,jdbcType=VARCHAR},
 			#{fromchargetype,jdbcType=VARCHAR},
 			#{tobankserialid,jdbcType=VARCHAR},
-			#{toaccoid,jdbcType=VARCHAR},
 			
 			#{totradeacco,jdbcType=VARCHAR},
 			#{tofundcode,jdbcType=VARCHAR},

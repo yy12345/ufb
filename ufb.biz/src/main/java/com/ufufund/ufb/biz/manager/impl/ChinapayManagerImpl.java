@@ -57,7 +57,7 @@ public class ChinapayManagerImpl implements ChinapayManager{
 		if("0000".equals(response.getINFO().getRET_CODE())){
 			if("0000".equals(response.getBODY().getRET_DETAIL().get(0).getRET_CODE())){
 				log.info("认证成功：bankno="+openAccountAction.getBankno()
-					+",bankacco="+openAccountAction.getBankacco()+",name="+openAccountAction.getBankacnm());
+					+",bankacco="+openAccountAction.getBankacco()+",name="+openAccountAction.getBanknm());
 			}else{
 				throw new UserException(response.getBODY().getRET_DETAIL().get(0).getRET_CODE(),
 						response.getBODY().getRET_DETAIL().get(0).getERR_MSG());

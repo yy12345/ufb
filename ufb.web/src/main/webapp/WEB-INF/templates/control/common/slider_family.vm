@@ -1,7 +1,7 @@
 <div class="sideFixed">
 	<div class="a1">
 		<a href="${ufbDomain}/family/uft/code_index.htm" class="b1"><div>绑定收费机构<b></b></div></a>
-		<a href="${ufbDomain}/family/uft/record_index.htm" class="b2">缴费<br>记录</a>
+		<a href="${ufbDomain}/family/uft/record_index.htm" class="b2">缴费<br>明细</a>
 		<a href="${ufbDomain}/family/ufb/query_index.htm" class="b3">充值<br>明细</a>
 		<a href="${ufbDomain}/family/setting/account_index.htm" class="b4">账户<br>设置</a>
 	</div>

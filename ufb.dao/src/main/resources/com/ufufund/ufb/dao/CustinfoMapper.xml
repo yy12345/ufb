@@ -81,7 +81,6 @@
 			custinfo.LEVEL,
 			custinfo.ORGANIZATION AS ORGNM,
 			custinfo.BUSINESS AS ORGBUSINESS,
-			tradeaccoinfo.ACCOID,
 			tradeaccoinfo.CUSTNO,
 			tradeaccoinfo.FUNDCORPNO,
 			tradeaccoinfo.LEVEL,
@@ -89,7 +88,6 @@
 			tradeaccoinfo.TRADEACCO,
 			tradeaccoinfo.TRADEACCOST,
 			tradeaccoinfo.OPENDT,
-			tradeaccoinfo.CLOSEDT,
 			tradeaccoinfo.UPDATETIME
 		FROM
 			tradeaccoinfo,custinfo
@@ -255,7 +253,7 @@
 		<select id="queryOrgBankInfo" parameterType="String" resultType="com.ufufund.ufb.model.vo.OrgBankInfoVo">
 	    select 
 	       b.bankacco,
-	       b.bankadd as openbankaddr,
+	       b.subbank as openbankaddr,
 	       c.ORGANIZATION as orgnm,
 	       c.BUSINESS as business,
 	       c.ORGADD as  orgaddr,

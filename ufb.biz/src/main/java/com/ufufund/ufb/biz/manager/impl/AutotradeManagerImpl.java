@@ -17,7 +17,7 @@ import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.dao.AutotradeMapper;
-import com.ufufund.ufb.dao.BankMapper;
+import com.ufufund.ufb.dao.BankCardInfoMapper;
 import com.ufufund.ufb.dao.TradeAccoinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
@@ -45,7 +45,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	@Autowired
 	private AutotradeMapper autotradeMapper;
 	@Autowired
-	private BankMapper bankMapper;
+	private BankCardInfoMapper bankCardInfoMapper;
 	@Autowired
 	private TradeAccoinfoMapper tradeAccoinfoMapper;
 	@Autowired
@@ -336,11 +336,10 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 			tradeaccoinfo.setFundcorpno(autotrade.getTofundcorpno());
 			tradeaccoinfo = tradeAccoinfoMapper.getTradeaccoinfo(tradeaccoinfo);
 			// 交易账号
-			autotrade.setToaccoid(tradeaccoinfo.getAccoid());
 			autotrade.setTotradeacco(tradeaccoinfo.getTradeacco());		
 			
 			bankcardinfo.setSerialid(autotrade.getFrombankserialid());
-			List<Bankcardinfo> list = bankMapper.getBankcardinfo(bankcardinfo);
+			List<Bankcardinfo> list = bankCardInfoMapper.getBankcardinfo(bankcardinfo);
 			String bankacco = null;
 			if(null != list && list.size() > 0){
 				bankacco = list.get(0).getBankacco();
@@ -352,11 +351,10 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 			tradeaccoinfo.setBankserialid(autotrade.getTobankserialid());
 			tradeaccoinfo.setFundcorpno(autotrade.getFromfundcorpno());
 			tradeaccoinfo = tradeAccoinfoMapper.getTradeaccoinfo(tradeaccoinfo);
-			autotrade.setFromaccoid(tradeaccoinfo.getAccoid());
 			autotrade.setFromtradeacco(tradeaccoinfo.getTradeacco());
 			//
 			bankcardinfo.setSerialid(autotrade.getTobankserialid());
-			List<Bankcardinfo> list = bankMapper.getBankcardinfo(bankcardinfo);
+			List<Bankcardinfo> list = bankCardInfoMapper.getBankcardinfo(bankcardinfo);
 			String bankacco = null;
 			if(null != list && list.size() > 0){
 				bankacco = list.get(0).getBankacco();

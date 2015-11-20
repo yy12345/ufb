@@ -16,10 +16,7 @@ public interface BankCardManager {
 	 */
 	public List<Bankcardinfo> getBankcardinfoList(String custno);
 	
-	public void setBankCardMainFlag(String custno, String bankacco, String mainflag);
-	
-	public void unbindBankCard(String custno, String bankacco, String state);
-	public void deleteCard(String custno, String bankacco);
+	public Bankcardinfo getBankcardinfo(String custno);
 	/**
 	 *  
 	 * 开户绑卡 1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户
@@ -38,12 +35,8 @@ public interface BankCardManager {
 	public OpenAccountAction openAccoStep2(OpenAccountAction openAccountAction) throws BizException;
 	public OpenAccountAction openAccoStep3(OpenAccountAction openAccountAction) throws BizException;
 	
-	public void updatePicInfo(PicInfo picInfo) throws BizException;
-	public void insertPicInfo(PicInfo picInfo) throws BizException;
-	public PicInfo getPicInfo(PicInfo picInfo) throws BizException;
 	// 银联账户验证
 	public void checkAccount(OpenAccountAction openAccountAction);
-	public Bankcardinfo getBankCardInfo(String custno);
 	public void updateCard(OpenAccountAction openAccountAction);
 	
 }

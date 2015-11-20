@@ -109,21 +109,21 @@
 	   var checkBankMobile = function(){
 	   		var regex = /^(((13[0-9]{1})|145|147|(15[0-9]{1})|170|17[6-8]{1}|(18[0-9]{1}))+\d{8})$/;
 	 	
-			if($("#bankmobile").val() == ''){
-				$("#bankmobile").next().find('font').text('银行预留手机号码不能为空！');
-				$("#bankmobile").next().css('display', 'inline');
-				$("#bankmobile").closest('li').addClass('error');
+			if($("#mobile").val() == ''){
+				$("#mobile").next().find('font').text('银行预留手机号码不能为空！');
+				$("#v").next().css('display', 'inline');
+				$("#mobile").closest('li').addClass('error');
 				return false;
-			}else if(!$("#bankmobile").val().match(regex)){
-				$("#bankmobile").next().find('font').text('银行预留手机号码格式不正确！');
-				$("#bankmobile").next().css('display', 'inline');
-				$("#bankmobile").closest('li').addClass('error');
+			}else if(!$("#mobile").val().match(regex)){
+				$("#mobile").next().find('font').text('银行预留手机号码格式不正确！');
+				$("#mobile").next().css('display', 'inline');
+				$("#mobile").closest('li').addClass('error');
 				return false;
 			}else{
-		 		$("#bankmobile").next().find('font').html('&nbsp;');
-				$("#bankmobile").next().css('display', 'inline');
-				$("#bankmobile").closest('li').removeClass('error');
-				//$("#bankmobile").closest('li').addClass('ok');
+		 		$("#mobile").next().find('font').html('&nbsp;');
+				$("#mobile").next().css('display', 'inline');
+				$("#mobile").closest('li').removeClass('error');
+				//$("#mobile").closest('li').addClass('ok');
 				return true;
 		 	}
 	   }
@@ -156,7 +156,7 @@
 		$("#btn-getMsgCode").on("click",function(){
 		 	if(checkBankacco() && checkBankMobile() && bank_auth()){
 		 		$('#bankacco').attr('readonly', true);
-		 		$('#bankmobile').attr('readonly', true);
+		 		$('#mobile').attr('readonly', true);
 		 	}
 		});
 		
@@ -182,7 +182,7 @@
 			$.ajax({
 	     		type: "get",
 	    		url: "${ufbDomain}/common/bank_auth.htm",
-	    		data: 'bankno='+$("#bankno").val()+'&bankacco='+$("#bankacco").val()+'&bankmobile='+$('#bankmobile').val(),
+	    		data: 'bankno='+$("#bankno").val()+'&bankacco='+$("#bankacco").val()+'&mobile='+$('#mobile').val(),
 	    		async: false,
 	    		success: function(data) {
 	    			result = $.parseJSON(data);
@@ -339,7 +339,7 @@
                 <ul class="safeInfo borderNone">
                     <li>
                         <span class="form-title">银行预留手机号码</span>
-                        <input class="ipt-phoneNum input-text" type="text" id="bankmobile" name="bankmobile" maxlength="11">
+                        <input class="ipt-phoneNum input-text" type="text" id="mobile" name="mobile" maxlength="11">
                        	<span class="tips-check"><i class="icon"></i><font></font></span>
                     </li>
                    	<li>

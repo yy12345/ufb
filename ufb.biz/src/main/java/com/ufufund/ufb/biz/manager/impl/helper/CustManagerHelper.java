@@ -49,7 +49,7 @@ public class CustManagerHelper {
 			custinfo.setTradepwd(EncryptUtil.md5(openAccountAction.getTradepwd()));
 		}
 		custinfo.setInvtp(Invtp.PERSONAL.getValue());
-		custinfo.setIdtp(openAccountAction.getBankidtp());
+		custinfo.setIdtp(openAccountAction.getCerttype());
 		return custinfo;
 	}
 	
@@ -61,7 +61,7 @@ public class CustManagerHelper {
 			custinfo.setIdno(openAccountAction.getIdno());
 			custinfo.setTradepwd(EncryptUtil.md5(openAccountAction.getTradepwd()));
 			custinfo.setInvtp(Invtp.ORGANIZATION.getValue());
-			custinfo.setIdtp(openAccountAction.getBankidtp());
+			custinfo.setIdtp(openAccountAction.getCerttype());
 		}
 		
 		custinfo.setTelno(openAccountAction.getTelno());

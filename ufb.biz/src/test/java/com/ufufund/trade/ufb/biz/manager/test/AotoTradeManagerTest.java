@@ -10,7 +10,7 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.dao.AutotradeMapper;
-import com.ufufund.ufb.dao.BankMapper;
+import com.ufufund.ufb.dao.BankCardInfoMapper;
 import com.ufufund.ufb.dao.TradeAccoinfoMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
@@ -33,27 +33,12 @@ public class AotoTradeManagerTest {
 	private AutotradeMapper autotradeMapper;
 	
 	@Autowired
-	private BankMapper bankMapper;
+	private BankCardInfoMapper bankCardInfoMapper;
 	@Autowired
 	private TradeAccoinfoMapper tradeAccoinfoMapper;
 	
 	@Autowired
 	private TradeNotesMapper tradeNotesMapper;
-//	@Autowired
-//	private CustinfoMapper custinfoMapper;
-//	
-//	
-	
-	/*
-	 * 
-	 * 测试getAutotradeSequence
-	 */
-	//Test
-//	public void testrisMobileRegister(){
-//		System.out.println("autotradeMapper.getAutotradeSequence :" + autotradeMapper.getAutotradeSequence());
-//	}
-	
-	
 	/*
 	 * 
 	 * 测试BankMapper
@@ -65,7 +50,6 @@ public class AotoTradeManagerTest {
 		tradeaccoinfo.setFundcorpno("01");
 		tradeaccoinfo = tradeAccoinfoMapper.getTradeaccoinfo(tradeaccoinfo);
 		System.out.println(tradeaccoinfo.toString());	
-		//Tradeaccoinfo[accoid=45,custno=CU1505211705370DKHD5EA15,fundcorpno=01,bankserialid=BA150521170501RGNLSXWJP4,tradeacco=Tan20150521171201,tradeaccost=N,opendt=<null>,closedt=<null>]
 
 	}
 	
@@ -73,16 +57,14 @@ public class AotoTradeManagerTest {
 	//@Test
 	public void insterTradeaccoinfo(){
 			Tradeaccoinfo tradeaccoinfo = new Tradeaccoinfo();
-			tradeaccoinfo.setCustno("1");// char(10) not null comment '客户编号',
-			tradeaccoinfo.setFundcorpno("2");// char(2) not null default '' comment '交易账号类型：归属基金公司',
-			tradeaccoinfo.setBankserialid("3");// varchar(24) not null comment '银行账号serialid(银行账号表pk)',
-			tradeaccoinfo.setTradeacco("4");// varchar(17) not null comment '交易账号(基金公司返回的交易账号)',
-			tradeaccoinfo.setTradeaccost("F");// char(1) not null comment '交易账号状态：n-正常 c-撤销',
-			tradeaccoinfo.setOpendt("6");// char(8) default null comment '开户日期',
-			tradeaccoinfo.setClosedt("7");// char(8) default null comment '销户日期',
+			tradeaccoinfo.setCustno("1"); 
+			tradeaccoinfo.setFundcorpno("2"); 
+			tradeaccoinfo.setBankserialid("3"); 
+			tradeaccoinfo.setTradeacco("4"); 
+			tradeaccoinfo.setTradeaccost("F"); 
+			tradeaccoinfo.setOpendt("6"); 
 			tradeAccoinfoMapper.insterTradeaccoinfo(tradeaccoinfo);
 			System.out.println(tradeaccoinfo.toString());	
-			//Tradeaccoinfo[accoid=45,custno=CU1505211705370DKHD5EA15,fundcorpno=01,bankserialid=BA150521170501RGNLSXWJP4,tradeacco=Tan20150521171201,tradeaccost=N,opendt=<null>,closedt=<null>]
 
 	}
 	
@@ -103,14 +85,12 @@ public class AotoTradeManagerTest {
 		action.setAptm("6");// char(6) not null comment '申请时间',
 		action.setStatus("7");// char(1) not null comment '状态',	
 		action.setFrombankserialid("8");// varchar(24) default null comment '银行卡id',
-		action.setFromaccoid("9");// int(11) default null comment '交易账号编号',
 		action.setFromtradeacco("A");// varchar(17) default null comment '交易账号',
 		
 		action.setFromfundcode("B");// varchar(6) default null comment '基金代码',
 		action.setFromfundcorpno("C");// varchar(24) default null comment '归属基金公司',
 		action.setFromchargetype("D");// varchar(1) default null comment 'A：前收费 B：后收费',
 		action.setTobankserialid("E");// varchar(24) default null,
-		action.setToaccoid("F");// int(11) default null,
 		
 		action.setTotradeacco("G");// varchar(17) default null,
 		action.setTofundcode("H");// varchar(6) default null comment '基金代码',

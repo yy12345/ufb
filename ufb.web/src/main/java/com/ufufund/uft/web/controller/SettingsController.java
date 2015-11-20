@@ -314,7 +314,7 @@ public class SettingsController {
 			CustinfoVo custinfo = UserHelper.getCustinfoVo();
 			
 			// 查询用户的银行卡信息
-	        Bankcardinfo card = bankCardManager.getBankCardInfo(custinfo.getCustno());
+	        Bankcardinfo card = bankCardManager.getBankcardinfo(custinfo.getCustno());
 			
 			model.addAttribute("card", card);
 		}catch(UserException ue){
@@ -383,7 +383,7 @@ public class SettingsController {
 			// 数据验证
 			// 1.传入参数验证
 			if(StringUtils.isBlank(bankCardVo.getBankno())||StringUtils.isBlank(bankCardVo.getBankacco())
-					||StringUtils.isBlank(bankCardVo.getBankmobile())||StringUtils.isBlank(bankCardVo.getMobileautocode())){
+					||StringUtils.isBlank(bankCardVo.getMobile())||StringUtils.isBlank(bankCardVo.getMobileautocode())){
 				throw new UserException("您所填写的信息含空值！");
 			}
 			
@@ -397,11 +397,11 @@ public class SettingsController {
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
 			openAccountAction.setBankno(bankCardVo.getBankno());
-			openAccountAction.setBankacnm(custinfoVo.getInvnm());
+			openAccountAction.setBanknm(custinfoVo.getInvnm());
 			openAccountAction.setBankacco(bankCardVo.getBankacco());
-			openAccountAction.setBankidtp("0");
-			openAccountAction.setBankidno(custinfoVo.getIdno());
-			openAccountAction.setBankmobile(bankCardVo.getBankmobile());
+			openAccountAction.setCerttype("0");
+			openAccountAction.setCertno(custinfoVo.getIdno());
+			openAccountAction.setMobile(bankCardVo.getMobile());
 			openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
 			openAccountAction.setOtherserial(otherserial);
 			openAccountAction.setCustno(custinfoVo.getCustno());

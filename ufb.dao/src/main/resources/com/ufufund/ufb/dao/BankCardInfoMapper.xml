@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.BankCardInfoMapper">
+
+	<insert id="insterBankcardinfo" parameterType="com.ufufund.ufb.model.db.Bankcardinfo">
+  	 <![CDATA[
+	 	insert into bankcardinfo (
+				serialid,
+				custno,
+				bankno,
+				bankacco,
+				certtype,
+				certno,
+				state,
+				province,
+				city,
+				subbank,
+				createtime,
+				updatetime
+				)
+		values(
+				#{serialid,jdbcType=VARCHAR},
+				#{custno,jdbcType=VARCHAR},
+				#{bankno,jdbcType=VARCHAR},
+				#{bankacco,jdbcType=VARCHAR},
+				#{certtype,jdbcType=VARCHAR},
+				#{certno,jdbcType=VARCHAR},
+				#{state,jdbcType=VARCHAR},
+				#{province,jdbcType=VARCHAR},
+				#{city,jdbcType=VARCHAR},
+				#{subbank,jdbcType=VARCHAR},
+				sysdate(),
+				sysdate()
+	    )
+	 ]]>
+	</insert>
+	
+	<select id="getBankcardinfo" parameterType="com.ufufund.ufb.model.db.Bankcardinfo"
+		resultType="com.ufufund.ufb.model.db.Bankcardinfo">
+
+			select
+				b.serialid,
+				b.custno,
+				b.bankno,
+				b.bankacco,
+				b.certtype,
+				b.certno,
+				b.state,
+				b.province,
+				b.city,
+				b.subbank,
+				date_format(b.createtime,'%Y-%m-%d') as createtime,
+				c.banknm,
+				c.level 
+			from bankcardinfo b,bankbase c
+			where b.bankno=c.bankno and
+			<if test="custno != null and custno !=''">
+				b.custno = #{custno,jdbctype=varchar} and
+			</if>
+			<if test="serialid != null and serialid !=''">
+				b.serialid = #{serialid,jdbctype=varchar} and
+			</if>
+			b.state='Y'
+	</select>
+	
+    <update id="removeCard"  parameterType="String">
+    	update bankcardinfo set state = 'N',UPDATETIME=sysdate()
+    	where custno = #{custno,jdbcType=VARCHAR} and state = 'Y'
+    </update>
+</mapper>

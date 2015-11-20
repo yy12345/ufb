@@ -23,7 +23,6 @@
 				FROM_CHARGETYPE,
 				FROM_BANKSERIALID,
 				FROM_BANKACCO,
-				FROM_ACCOID,
 				FROM_TRADEACCO,
 			
 				TO_FUNDCORPNO,
@@ -31,7 +30,6 @@
 				TO_CHARGETYPE,
 				TO_BANKSERIALID,
 				TO_BANKACCO,
-				TO_ACCOID,
 				TO_TRADEACCO,
 				
 				AUTOAMT,
@@ -59,7 +57,6 @@
 			#{fromchargetype,jdbcType=VARCHAR},
 			#{frombankserialid,jdbcType=VARCHAR},
 			#{frombankacco,jdbcType=VARCHAR},
-			#{fromaccoid,jdbcType=INTEGER},
 			#{fromtradeacco,jdbcType=VARCHAR},
 			
 			#{tofundcorpno,jdbcType=VARCHAR},
@@ -67,7 +64,6 @@
 			#{tochargetype,jdbcType=VARCHAR},
 			#{tobankserialid,jdbcType=VARCHAR},
 			#{tobankacco,jdbcType=VARCHAR},
-			#{toaccoid,jdbcType=INTEGER},
 			#{totradeacco,jdbcType=VARCHAR},
 			
 			#{autoamt,jdbcType=DECIMAL},
@@ -110,11 +106,6 @@
 			<if test="frombankserialid != null">
 	       	  ,T1.FROM_BANKSERIALID = #{frombankserialid,jdbcType=VARCHAR}
 	       	</if>
-			<if test="fromaccoid != null">
-	       	  ,T1.FROM_ACCOID = #{fromaccoid,jdbcType=INTEGER}
-	       	</if>
-	       	
-	      
 
 			<if test="fromtradeacco != null">
 	       	  ,T1.FROM_TRADEACCO = #{fromtradeacco,jdbcType=VARCHAR}
@@ -132,10 +123,6 @@
 	       	  ,T1.TO_BANKSERIALID = #{tobankserialid,jdbcType=VARCHAR}
 	       	</if>
 	       	
-	       	
-	        <if test="toaccoid != null">
-	       	  ,T1.TO_ACCOID = #{toaccoid,jdbcType=INTEGER}
-	       	</if>
 	        <if test="totradeacco != null">
 	       	  ,T1.TO_TRADEACCO = #{totradeacco,jdbcType=VARCHAR}
 	       	</if>
@@ -187,7 +174,6 @@
 			t.FROM_BANKSERIALID AS FROMBANKSERIALID,
 			t.FROM_BANKACCO AS FROMBANKACCO,
 			BS2.BANKNM AS FROMBANKNM,
-			t.FROM_ACCOID AS FROMACCOID,
 			t.FROM_TRADEACCO AS FROMTRADEACCO,
 			t.TO_FUNDCORPNO AS TOFUNDCORPNO,
 			t.TO_FUNDCODE AS TOFUNDCODE,
@@ -196,7 +182,6 @@
 			t.TO_BANKACCO AS TOBANKACCO,
 			BS1.BANKNM AS TOBANKNM,
 			BS1.BANKNO AS BANKNO,
-			t.TO_ACCOID AS TOACCOID,
 			t.TO_TRADEACCO TOTRADEACCO,
 			t.AUTOAMT,
 			t.AUTOVOL,
@@ -244,7 +229,6 @@
 			t.FROM_BANKSERIALID AS FROMBANKSERIALID,
 			t.FROM_BANKACCO AS FROMBANKACCO,
 			BS2.BANKNM AS FROMBANKNM,
-			t.FROM_ACCOID AS FROMACCOID,
 			t.FROM_TRADEACCO AS FROMTRADEACCO,
 			t.TO_FUNDCORPNO AS TOFUNDCORPNO,
 			t.TO_FUNDCODE AS TOFUNDCODE,
@@ -252,7 +236,6 @@
 			t.TO_BANKSERIALID AS TOBANKSERIALID,
 			t.TO_BANKACCO AS TOBANKACCO,
 			BS1.BANKNM AS TOBANKNM,
-			t.TO_ACCOID AS TOACCOID,
 			t.TO_TRADEACCO TOTRADEACCO,
 			t.AUTOAMT,
 			t.AUTOVOL,
@@ -298,7 +281,6 @@
 			t.FROM_BANKSERIALID AS FROMBANKSERIALID,
 			t.FROM_BANKACCO AS FROMBANKACCO,
 			BS2.BANKNM AS FROMBANKNM,
-			t.FROM_ACCOID AS FROMACCOID,
 			t.FROM_TRADEACCO AS FROMTRADEACCO,
 			t.TO_FUNDCORPNO AS TOFUNDCORPNO,
 			t.TO_FUNDCODE AS TOFUNDCODE,
@@ -307,7 +289,6 @@
 			t.TO_BANKACCO AS TOBANKACCO,
 			BS1.BANKNM AS TOBANKNM,
 			
-			t.TO_ACCOID AS TOACCOID,
 			t.TO_TRADEACCO TOTRADEACCO,
 			t.AUTOAMT,
 			t.AUTOVOL,

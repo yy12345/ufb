@@ -15,17 +15,13 @@ import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.ChinapayManager;
 import com.ufufund.ufb.biz.manager.CustManager;
-import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
-import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.LoginAction;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.BankBaseInfo;
-import com.ufufund.ufb.model.db.BankCardbin;
 import com.ufufund.ufb.model.db.Custinfo;
-import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.model.vo.CustinfoVo;
@@ -222,17 +218,13 @@ public class FamilyAccountController {
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
 			openAccountAction.setBankno(bankCardVo.getBankno());
-			openAccountAction.setBankacnm(r_custinfoVo.getInvnm());
+			openAccountAction.setBanknm(r_custinfoVo.getInvnm());
 			openAccountAction.setBankacco(bankCardVo.getBankacco());
-			openAccountAction.setBankidtp("0");
-			openAccountAction.setBankidno(r_custinfoVo.getIdno());
-			openAccountAction.setBankmobile(bankCardVo.getBankmobile());
+			openAccountAction.setCerttype("0");
+			openAccountAction.setCertno(r_custinfoVo.getIdno());
+			openAccountAction.setMobile(bankCardVo.getMobile());
 			openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
-//			openAccountAction.setBankcitynm(StringUtils.isNotBlank(bankCardVo.getBankcitynm())?bankCardVo.getBankcitynm():null);
-//			openAccountAction.setBankprovincenm(StringUtils.isNotBlank(bankCardVo.getBankprovincenm())?bankCardVo.getBankprovincenm():null);
-//			openAccountAction.setBankadd(StringUtils.isNotBlank(bankCardVo.getBankadd())?bankCardVo.getBankadd():null);
 			openAccountAction.setOtherserial(otherserial);
-//			openAccountAction.setCheckautocodeflag(true);
 			
 			String banklevel = bankBaseManager.getLevelByBankno(openAccountAction.getBankno());
 			// 幼富宝卡，海富通开户
@@ -278,8 +270,6 @@ public class FamilyAccountController {
 		custinfoVo.setLoginpwd2(custinfo.getLoginpwd()); // 注意，页面上不能放密码信息                         
 		custinfoVo.setTradepwd(custinfo.getTradepwd()); // 注意，页面上不能放密码信息                             
 		custinfoVo.setTradepwd2(custinfo.getTradepwd()); // 注意，页面上不能放密码信息         
-//		custinfoVo.setOrgnm(custinfo.getOrgnm()); 
-//		custinfoVo.setOrgbusiness(custinfo.getOrgbusiness()); 
 		custinfoVo.setCustst(custinfo.getCustst());
 		custinfoVo.setLevel(custinfo.getLevel());
 		return custinfoVo;

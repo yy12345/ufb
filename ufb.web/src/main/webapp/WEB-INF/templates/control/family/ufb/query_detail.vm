@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="detail-btn clearfix">
-                    <a href="#" onclick="window.history.go(-1);return fasle" class="btn fl">返回</a>
+                    <a href="#" onclick="window.history.go(-1);" class="btn fl">返回</a>
                 </div>
             </div>
         </div>
