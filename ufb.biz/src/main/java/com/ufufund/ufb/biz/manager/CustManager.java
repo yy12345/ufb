@@ -11,9 +11,8 @@ import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.vo.OrgBankInfoVo;
 import com.ufufund.ufb.model.vo.StudentVo;
-import com.ufufund.ufb.service.CustInterface;
 
-public interface CustManager extends CustInterface{
+public interface CustManager{
 	
 	/**
 	 * 注册
