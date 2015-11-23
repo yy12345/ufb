@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.OrgCodesMapper">
+
+<insert id="addOrgCodes" parameterType="OrgCodes">
+	insert into org_codes 
+	(
+		id         ,
+		code       ,
+		orgid      ,
+		amt_code   ,
+		createtime  
+	)
+	values
+	<foreach item="item" collection="list" separator="," open="" close="" index=""> 
+		(
+			#{item.id      ,jdbcType=VARCHAR}, 
+			#{item.code    ,jdbcType=VARCHAR}, 
+			#{item.orgid   ,jdbcType=VARCHAR}, 
+			#{item.amt_code,jdbcType=VARCHAR}, 
+			now() 
+		)
+	</foreach>
+</insert>
+
+<select id="getMoreOrgCodes" parameterType="OrgCodes" resultType="OrgCodes">
+	select 
+	    t.id         ,
+		t.code       ,
+		t.orgid      ,
+		t.amt_code   ,
+		date_format(t.createtime,'%Y-%m-%d') as createtime
+	from org_codes t
+	where 1=1 
+	<if test="code!=null and code!=''">
+		and t.code=#{code,jdbcType=VARCHAR}
+	</if>
+	<if test="orgid!=null and orgid!=''">
+		and t.orgid=#{orgid,jdbcType=VARCHAR}
+	</if>
+</select>
+
+<update id="updateOrgCodes" parameterType="OrgCodes">
+	update org_codes t set
+		t.id=#{id             ,jdbcType=VARCHAR},     
+		t.code=#{code         ,jdbcType=VARCHAR},   
+		t.orgid=#{orgid       ,jdbcType=VARCHAR},  
+		t.amt_code=#{amt_code ,jdbcType=VARCHAR}
+	where  t.code=#{code.jdbcType=VARCHAR}
+	<if test="id!=null and id!=''">
+		and t.id=#{id,jdbcType=VARCHAR}
+	</if>
+</update>
+
+</mapper>
