@@ -5,7 +5,6 @@ import java.util.List;
 import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.Bankcardinfo;
-import com.ufufund.ufb.model.db.PicInfo;
 
 public interface BankCardManager {
 

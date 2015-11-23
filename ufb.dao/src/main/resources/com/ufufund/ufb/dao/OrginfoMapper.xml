@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.OrginfoMapper">
+
+<insert id="addOrginfo" parameterType="Orginfo">
+   insert into orginfo values(
+		#{orgid           ,jdbcType=VARCHAR},
+		#{orgname         ,jdbcType=VARCHAR},
+		#{type            ,jdbcType=VARCHAR},
+		#{license         ,jdbcType=VARCHAR},
+		#{province        ,jdbcType=VARCHAR},
+		#{city            ,jdbcType=VARCHAR},
+		#{address         ,jdbcType=VARCHAR},
+		#{license_address ,jdbcType=VARCHAR},
+		#{operator_name   ,jdbcType=VARCHAR},
+		#{operator_certno ,jdbcType=VARCHAR},
+		#{operator_mobile ,jdbcType=VARCHAR},
+		#{operator_tel    ,jdbcType=VARCHAR},
+		#{operator_mail   ,jdbcType=VARCHAR},
+		#{legal_name      ,jdbcType=VARCHAR},
+		#{legal_certno    ,jdbcType=VARCHAR},
+		#{state           ,jdbcType=VARCHAR},
+		#{passwd          ,jdbcType=VARCHAR},
+		#{passwd_err      ,jdbcType=VARCHAR},
+		#{tradepwd        ,jdbcType=VARCHAR},
+		now(),
+		now(),
+		now()
+   )
+</insert>
+</mapper>
