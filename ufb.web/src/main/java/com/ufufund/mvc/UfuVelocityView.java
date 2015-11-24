@@ -76,16 +76,16 @@ public class UfuVelocityView extends VelocityToolboxView {
 			model.put("family_container", "class=\"container help\"");
 		}
 		
-		if(uri.indexOf("organ/account/") > 0){
-			model.put("organ_module", "account");
-			model.put("organ_container", "id=\"page\"");
+		if(uri.indexOf("corp/account/") > 0){
+			model.put("corp_module", "account");
+			model.put("corp_container", "id=\"page\"");
 			if(uri.endsWith("index.htm")){
-				model.put("organ_container", "class=\"container\"");
+				model.put("corp_container", "class=\"container\"");
 			}else if(uri.endsWith("auth_index.htm")){
-				model.put("organ_container", "class=\"container\"");
+				model.put("corp_container", "class=\"container\"");
 			}
-			String organ_page = uri.substring(uri.lastIndexOf('/')+1, uri.lastIndexOf('.'));
-			model.put("organ_page", organ_page);
+			String corp_page = uri.substring(uri.lastIndexOf('/')+1, uri.lastIndexOf('.'));
+			model.put("corp_page", corp_page);
 		}
 		
 		

@@ -1,204 +1,284 @@
-<div class="body">
-    <div class="profile">
-           <div class="a1">
-               <div class="profileBox">
-                   <div class="ImgScroll b3">
-                       <div class="bx-wrapper" style="max-width: 100%;"><div class="bx-viewport" style="width: 100%; overflow: hidden; position: relative; height: 338px;"><ul id="marquee" style="width: 430%; position: relative; -webkit-transition: 0s; transition: 0s; -webkit-transform: translate3d(-1920px, 0px, 0px);"><li style="float: left; list-style: none; position: relative; width: 960px;" class="bx-clone"><img src="${staticDomain}/public/images/img_03_1.png" alt=""></li>
-                           <li style="float: left; list-style: none; position: relative; width: 960px;"><img src="${staticDomain}/public/images/img_03.png" alt=""></li>
-                           <li style="float: left; list-style: none; position: relative; width: 960px;"><img src="${staticDomain}/public/images/img_03_1.png" alt=""></li>
-                       <li style="float: left; list-style: none; position: relative; width: 960px;" class="bx-clone"><img src="${staticDomain}/public/images/img_03.png" alt=""></li></ul></div><div class="bx-controls bx-has-pager"><div class="bx-pager bx-default-pager"><div class="bx-pager-item"><a href="" data-slide-index="0" class="bx-pager-link">1</a></div><div class="bx-pager-item"><a href="" data-slide-index="1" class="bx-pager-link active">2</a></div></div></div></div>
-                   </div>
-                    <div class="swiper-pagination"></div> 
-                    <div class="b2">
-                        <div class="loginForm">
-                           <h2>登录幼富通</h2>
-                           <div class="wrongTips">
-                               <span></span>您输入的验证码错误<b></b>
-                           </div>
-                            <ul>
-                                <li class="li01"><img src="${staticDomain}/public/images/img_08.png"><input type="text" placeholder="邮箱/手机号/用户名"></li>
-                                <li class="li02"><img src="${staticDomain}/public/images/img_09.png"><input type="passwords"></li>
-                                <li class="li03"><img src="${staticDomain}/public/images/img_10.png"><input type="text"><span class="yanZ"><img src="${staticDomain}/public/images/img_11.png"></span></li>
-								<!--
-                                <li class="tips">
-                                      <div class="tipsErr"><span></span>验证错误</div>
-                                </li>
-								-->
-                                <li class="li04"><a href="">立即登录</a></li>
-                                <li class="li05"><a href="${ufbDomain}/organ/account/register.htm" class="freeRegistered">免费注册</a><a href="" class="fogetPassword">忘记密码？</a></li>
-                            </ul>
-                        </div>
-                    </div>
-               </div>    
-            </div>
-            <div class="a2">
-                 <div class="profileBox">
-                    <div class="b1">
-                        <h2>便利</h2>
-                        <p>全校收/退费，1键通知、1日完成，<br>
-                        资金提速</p>
-                    </div>
-                    <div class="b2">
-                        <img src="${staticDomain}/public/images/img_04.png" alt="">
-                    </div>
-                </div>    
-            </div>
-            <div class="a3">
-                <div class="profileBox">   
-                    <div class="b1">
-                        <img src="${staticDomain}/public/images/img_05.png" alt="">
-                    </div>
-                    <div class="b2">
-                        <h2>安全</h2>
-                        <p>中国银联全程提供代收/付款与资金监管<br>
-                        六重账户安全审核与数据信息防火墙</p>
-                    </div>
-                 </div>    
-            </div>
-            <div class="a4">
-                <div class="profileBox">   
-                    <div class="b1">
-                        <h2>0费率</h2>
-                        <p>每月收/退费定期执行，节省财务成本<br>
-                        低至“零”手续费<a href="">详参费率说明</a></p>
-                    </div>
-                    <div class="b2">
-                        <img src="${staticDomain}/public/images/img_06.png" alt="">
-                    </div>
-                </div>    
-            </div>
-            <div class="a5">
-                <div class="profileBox">   
-                    <div class="b1">
-                        <img src="${staticDomain}/public/images/img_07.png" alt="">
-                    </div>
-                    <div class="b2">
-                        <h2>规范</h2>
-                        <p>自动对接学生档案、高效对账<br>
-                            生动报表、准确查询</p>
-                    </div>
-                </div>    
-            </div>
-            <div class="a6">
-                <div class="profileBox" id="boxTab"> 
-                   <div id="bx-pager">
-                      <a data-slide-index="0" href="javascript:;" class="active">收费退费<i></i></a>
-                      <a data-slide-index="1" href="javascript:;">安全保障<i></i></a>
-                      <a data-slide-index="2" href="javascript:;">账户管理<i></i></a>
-                      <a data-slide-index="3" href="javascript:;">其他问题<i></i></a>
-                   </div>  
-                   <div class="bx-wrapper" style="max-width: 100%;"><div class="bx-viewport" style="width: 100%; overflow: hidden; position: relative; height: 296px;"><ul class="bxslider" style="width: 1290%; position: relative; -webkit-transition: 0s; transition: 0s; -webkit-transform: translate3d(-25px, 0px, 0px);"><li style="float: left; list-style: none; position: relative; width: 960px;" class="bx-clone"></li>
-                       <li style="float: left; list-style: none; position: relative; width: 960px;">
-                           <dl>
-                               <dt>收费前需要做哪些准备工作？</dt>
-                               <dd>通过幼富通的安全认证的幼教机构，进行如学年学期、收费价目、导入学生档案等快速设置，即可一键发起收费，一日完成收费退费。</dd>
-                           </dl>
-                           <dl>
-                               <dt>如何发起收费？</dt>
-                               <dd>通过认证的幼教机构，可以在每月1-15日建立固定周期收费计划或临时性收费计划，批量或逐个设置收费明细，一次性发出收费通知即可完成收费。</dd>
-                           </dl>
-                            <dl>
-                               <dt>如何发起退费？</dt>
-                               <dd>只有已经完成的收费项目才能发起退费。每月1-15日可根据上月实际考勤情况批量或逐个设置退费明细，建立退费计划即可在一日内完成退费。</dd>
-                           </dl>
-                           <dl>
-                               <dt>为何收费仅用一天？</dt>
-                               <dd>幼富通系统将向家长发送短信（后续将支持微信通知）、邮件，配合幼儿园传统的纸质收费通知书，邀请家长绑定收费机构与银行卡，系统将在每月固定日发起收费扣款或退费。（若选择使用“月代扣”模式，学费将每月自动扣清，无需重复发起收费）</dd>
-                           </dl>
-                           <div class="help"><a href="">帮助中心</a></div>
-                       </li>
-                       <li style="float: left; list-style: none; position: relative; width: 960px;">
-                           <dl>
-                               <dt>资金划付是否安全？</dt>
-                               <dd>中国银联全程代收/付款并严格执行资金监管，幼教机构设定的收款银行账户每月只进不出，资金安全无忧。</dd>
-                           </dl>
-                           <dl>
-                               <dt>账户是否安全？</dt>
-                               <dd>幼教机构账户在注册、认证时即经过多重人工及系统审验；同时由幼教机构多重密码管理，配合幼富通与银联多重数据信息防火墙，确保账户安全、交易稳定准确。</dd>
-                           </dl>
-                           <dl>
-                               <dt>全校学生、多重费项是否会扣错？</dt>
-                               <dd>幼富通为幼儿园提供学生档案导入及管理的快捷工具、配合后台设置的多重校验程序，避免缴费家长错绑漏绑。</dd>
-                           </dl>
-                           <div class="help"><a href="">帮助中心</a></div>
-                       </li>
-                       <li style="float: left; list-style: none; position: relative; width: 960px;">
-                           <dl>
-                               <dt>为何注册后还要进行机构账户安全认证？</dt>
-                               <dd>注册获得幼富通基础账户后，还须完成机构账户安全认证，才能获得幼富通平台内相关金融机构服务的使用权限，发起收费提现或贷款等服务，同时获得了如银联等金融机构极为严格的系统安全保障。账户安全认证包含以人工及系统结合的方式进行对公银行账户验证、资质证照审验、实地调查等多重严格审核机制，提高账户真实性及安全性。</dd>
-                           </dl>
-                           <dl>
-                               <dt>为何要设登录与交易两道密码？</dt>
-                               <dd>双重密码设定确保操作者权限与实际资金交易决策的安全，能够大大减少机构经办人错误操作几率。</dd>
-                           </dl>
-                           <dl>
-                               <dt>是否提供不同管理权限？</dt>
-                               <dd>幼富通1.0暂时不提供高级账户管理权限或二级子账户，请以幼富通2.0版升级后实际业务说明为准。</dd>
-                           </dl>
-                           <dl>
-                               <dt>目前机构是否能绑定多个收款账户？</dt>
-                               <dd>幼富通1.0仅支持对公基本户收款，暂不支持多个一般户或个体工商户类私人银行卡绑定。请以幼富通2.0版升级后实际业务说明为准。</dd>
-                           </dl>
-                           <div class="help"><a href="">帮助中心</a></div>
-                       </li>
-                       <li style="float: left; list-style: none; position: relative; width: 960px;">
-                           <dl>
-                               <dt>退费是否接考勤系统？</dt>
-                               <dd>幼富通1.0暂时未连接考勤系统，退费计算器请以幼富通2.0版升级后实际业务说明为准。</dd>
-                           </dl>
-                           <dl>
-                               <dt>备用金账户是什么？</dt>
-                               <dd>是银联在指定商业银行为您的幼教机构开立的资金账户，所有代收学费收齐后，可以十分便捷地发起取现到对公银行收款账户、发起退费或向厂商支付货款（分期购功能请以幼富通2.0版升级后实际业务说明为准）。</dd>
-                           </dl>
-                           <dl>
-                               <dt>代扣如果失败怎么办？</dt>
-                               <dd>通常由于家长所绑定的缴费卡过期或余额不足，可能会出现扣款失败，系统将在本自然月结束前分别向幼教机构经办人发送补扣提醒、向对应家长发送补扣通知并自动发起补扣一次。</dd>
-                           </dl>
-                           <dl>
-                               <dt>收费退费都可以在同一天完成吗？</dt>
-                               <dd>系统会自动处理预先设定好的不同收费计划与退费计划，并在同一天发起清算，完成从家长卡中扣款及退费付款的资金交易。</dd>
-                           </dl>
-                           <div class="help"><a href="">帮助中心</a></div>
-                       </li>
-                       <li style="float: left; list-style: none; position: relative; width: 960px;"></li>
-                       <li style="float: left; list-style: none; position: relative; width: 960px;"></li>
-                    <li style="float: left; list-style: none; position: relative; width: 960px;" class="bx-clone">
-                           <dl>
-                               <dt>收费前需要做哪些准备工作？</dt>
-                               <dd>通过幼富通的安全认证的幼教机构，进行如学年学期、收费价目、导入学生档案等快速设置，即可一键发起收费，一日完成收费退费。</dd>
-                           </dl>
-                           <dl>
-                               <dt>如何发起收费？</dt>
-                               <dd>通过认证的幼教机构，可以在每月1-15日建立固定周期收费计划或临时性收费计划，批量或逐个设置收费明细，一次性发出收费通知即可完成收费。</dd>
-                           </dl>
-                            <dl>
-                               <dt>如何发起退费？</dt>
-                               <dd>只有已经完成的收费项目才能发起退费。每月1-15日可根据上月实际考勤情况批量或逐个设置退费明细，建立退费计划即可在一日内完成退费。</dd>
-                           </dl>
-                           <dl>
-                               <dt>为何收费仅用一天？</dt>
-                               <dd>幼富通系统将向家长发送短信（后续将支持微信通知）、邮件，配合幼儿园传统的纸质收费通知书，邀请家长绑定收费机构与银行卡，系统将在每月固定日发起收费扣款或退费。（若选择使用“月代扣”模式，学费将每月自动扣清，无需重复发起收费）</dd>
-                           </dl>
-                           <div class="help"><a href="">帮助中心</a></div>
-                       </li></ul></div><div class="bx-controls"></div></div>
-                </div> 
-            </div>
-    </div>
-</div>
-
+<html>
+<title>幼富通，幼富未来 - 登录</title>
+<head>
 <script type="text/javascript">
-  $(function(){ 
-     $('#marquee').bxSlider({ 
-      displaySlideQty:1,//显示li的个数 
-      moveSlideQty: 1,//移动li的个数  
-      captions: true,//自动控制 
-      auto: true, 
-      controls: false//隐藏左右按钮 
-     });
-      
-    $('.bxslider').bxSlider({
-        pagerCustom: "#bx-pager",
-        controls: false
-    });  
+$(function(){ 
+	$('.nav a:eq(0)').addClass('active');
+	
+   $('#marquee').bxSlider({ 
+    displaySlideQty:1,//显示li的个数 
+    moveSlideQty: 1,//移动li的个数  
+    captions: true,//自动控制 
+    auto: true, 
+    controls: false//隐藏左右按钮 
+   });
+    
+  $('.bxslider').bxSlider({
+      pagerCustom: "#bx-pager",
+      controls: false
+  });  
+  
+  $("#submit").on('click', function(){
+		 
+		 if($("#operator_mobile").val() == ''){
+			 $("#error_text").html("请输入登录账号！");
+			 $(".wrongTips").fadeIn();
+			 return false;
+		 }else if($("#passwd").val() == ''){
+			 $("#error_text").html("请输入密码！");
+			 $(".wrongTips").fadeIn();
+			 return false;
+		 }if($("#verifycode").val() == ''){
+			 $("#error_text").html("请输入图形验证码！");
+			 $(".wrongTips").fadeIn();
+			 return false;
+		 }else if(!verifycode_check($("#verifycode").val())){
+		 	 $("#error_text").html("输入的验证码有误！");
+			 $(".wrongTips").fadeIn();
+			 return false;
+		 }
+		 
+		 if(!login()){
+		 	$("#error_text").html("登录账号或密码有误！");
+			$("#verifyImg").trigger('click');
+			$("#passwd").val('');
+			$("#verifycode").val('');
+			$("#mobileno").select();
+			$(".wrongTips").fadeIn();
+			return false;
+		 }else{
+		 	location.href = '${ufbDomain}/family/uft/uft_index.htm';
+		 	return true;
+		 }  
+	});
+	
+	$("#myform input").on('focus', function(){
+		$(".wrongTips").fadeOut();
+	});
+
+	// 检验图形验证码
+	var verifycode_check = function(verifycode){
+		var result = false;
+		$.ajax({
+			type: "POST",
+			url: '${ufbDomain}/common/verifycode_check.htm',
+			data:'verifycode='+verifycode,
+			async:false,
+			success: function(data){
+				var json = $.parseJSON(data);
+				if(json.errCode=='0000'){
+					result = true;
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'系统出现异常！'});
+			}
+		});
+		return result;
+	}
+	
+	// 登录
+	var login = function(){
+		 var result = false;
+		 return result;
+		 $('#myform').ajaxSubmit({
+			async:false,
+			resetForm:false,
+			clearForm:false,
+			success: function(data){
+				var json = $.parseJSON(data);
+				if(json.errCode=='0000'){
+					result = true;
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				$.alert({title:'系统出现异常！'});
+			}
+		 });
+		 return result;
+	}
 });
 </script>
+</head>
+<body>
+<div class="body">
+        <div class="profile">
+               <div class="a1">
+                   <div class="profileBox">
+                       <div class="ImgScroll b3">
+                           <ul id="marquee">
+                               <li><img src="${staticDomain}/public/images/img_03.png" alt=""></li>
+                               <li><img src="${staticDomain}/public/images/img_03_1.png" alt=""></li>
+                           </ul>
+                       </div>
+                        <div class="swiper-pagination"></div> 
+                        <div class="b2">
+                            <div class="loginForm">
+                               <h2>登录幼富通</h2>
+                               <div class="wrongTips" style="display:none;">
+                                   <span></span><font id="error_text">您输入的验证码错误</font><b></b>
+                               </div>
+                                <form id="myform" method="post" action="#">
+                                <ul>
+                                    <li class="li01"><img src="${staticDomain}/public/images/img_08.png">
+                                    	<input type="text" placeholder="手机号" name="operator_mobile" id="operator_mobile" maxlength="11">
+                                    </li>
+                                    <li class="li02"><img src="${staticDomain}/public/images/img_09.png">
+                                    	<input type="password" name="passwd" id="passwd">
+                                    </li>
+                                    <li class="li03"><img src="${staticDomain}/public/images/img_10.png">
+	                                    <input type="text" name="verifycode" id="verifycode" maxlength="4">
+	                                    <span class="yanZ"><img id="verifyImg" src="${ufbDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())" /></span>
+                                    </li>
+                                    <li class="li04"><a href="#" id="submit">立即登录</a></li>
+                                    <li class="li05">
+	                                    <a href="${ufbDomain}/corp/account/register.htm" class="freeRegistered">免费注册</a>
+	                                    <a href="" class="fogetPassword">忘记密码？</a>
+                                    </li>
+                                </ul>
+                                </form>
+                            </div>
+                        </div>
+                   </div>    
+                </div>
+                <div class="a2">
+                     <div class="profileBox">
+                        <div class="b1">
+                            <h2>便利</h2>
+                            <p>全校收/退费，1键通知、1日完成，<br>
+                            资金提速</p>
+                        </div>
+                        <div class="b2">
+                            <img src="${staticDomain}/public/images/img_04.png" alt="">
+                        </div>
+                    </div>    
+                </div>
+                <div class="a3">
+                    <div class="profileBox">   
+                        <div class="b1">
+                            <img src="${staticDomain}/public/images/img_05.png" alt="">
+                        </div>
+                        <div class="b2">
+                            <h2>安全</h2>
+                            <p>中国银联全程提供代收/付款与资金监管<br>
+                            六重账户安全审核与数据信息防火墙</p>
+                        </div>
+                     </div>    
+                </div>
+                <div class="a4">
+                    <div class="profileBox">   
+                        <div class="b1">
+                            <h2>0费率</h2>
+                            <p>每月收/退费定期执行，节省财务成本<br>
+                            低至“零”手续费<a href="">详参费率说明</a></p>
+                        </div>
+                        <div class="b2">
+                            <img src="${staticDomain}/public/images/img_06.png" alt="">
+                        </div>
+                    </div>    
+                </div>
+                <div class="a5">
+                    <div class="profileBox">   
+                        <div class="b1">
+                            <img src="${staticDomain}/public/images/img_07.png" alt="">
+                        </div>
+                        <div class="b2">
+                            <h2>规范</h2>
+                            <p>自动对接学生档案、高效对账<br>
+                                生动报表、准确查询</p>
+                        </div>
+                    </div>    
+                </div>
+                <div class="a6">
+                    <div class="profileBox" id="boxTab"> 
+                       <div id="bx-pager">
+                          <a data-slide-index="0" href="javascript:;" class="active">收费退费<i></i></a>
+                          <a data-slide-index="1" href="javascript:;">安全保障<i></i></a>
+                          <a data-slide-index="2" href="javascript:;">账户管理<i></i></a>
+                          <a data-slide-index="3" href="javascript:;">其他问题<i></i></a>
+                       </div>  
+                       <ul class="bxslider">
+                           <li>
+                               <dl>
+                                   <dt>收费前需要做哪些准备工作？</dt>
+                                   <dd>通过幼富通的安全认证的幼教机构，进行如学年学期、收费价目、导入学生档案等快速设置，即可一键发起收费，一日完成收费退费。</dd>
+                               </dl>
+                               <dl>
+                                   <dt>如何发起收费？</dt>
+                                   <dd>通过认证的幼教机构，可以在每月1-15日建立固定周期收费计划或临时性收费计划，批量或逐个设置收费明细，一次性发出收费通知即可完成收费。</dd>
+                               </dl>
+                                <dl>
+                                   <dt>如何发起退费？</dt>
+                                   <dd>只有已经完成的收费项目才能发起退费。每月1-15日可根据上月实际考勤情况批量或逐个设置退费明细，建立退费计划即可在一日内完成退费。</dd>
+                               </dl>
+                               <dl>
+                                   <dt>为何收费仅用一天？</dt>
+                                   <dd>幼富通系统将向家长发送短信（后续将支持微信通知）、邮件，配合幼儿园传统的纸质收费通知书，邀请家长绑定收费机构与银行卡，系统将在每月固定日发起收费扣款或退费。（若选择使用“月代扣”模式，学费将每月自动扣清，无需重复发起收费）</dd>
+                               </dl>
+                               <div class="help"><a href="">帮助中心</a></div>
+                           </li>
+                           <li>
+                               <dl>
+                                   <dt>资金划付是否安全？</dt>
+                                   <dd>中国银联全程代收/付款并严格执行资金监管，幼教机构设定的收款银行账户每月只进不出，资金安全无忧。</dd>
+                               </dl>
+                               <dl>
+                                   <dt>账户是否安全？</dt>
+                                   <dd>幼教机构账户在注册、认证时即经过多重人工及系统审验；同时由幼教机构多重密码管理，配合幼富通与银联多重数据信息防火墙，确保账户安全、交易稳定准确。</dd>
+                               </dl>
+                               <dl>
+                                   <dt>全校学生、多重费项是否会扣错？</dt>
+                                   <dd>幼富通为幼儿园提供学生档案导入及管理的快捷工具、配合后台设置的多重校验程序，避免缴费家长错绑漏绑。</dd>
+                               </dl>
+                               <div class="help"><a href="">帮助中心</a></div>
+                           </li>
+                           <li>
+                               <dl>
+                                   <dt>为何注册后还要进行机构账户安全认证？</dt>
+                                   <dd>注册获得幼富通基础账户后，还须完成机构账户安全认证，才能获得幼富通平台内相关金融机构服务的使用权限，发起收费提现或贷款等服务，同时获得了如银联等金融机构极为严格的系统安全保障。账户安全认证包含以人工及系统结合的方式进行对公银行账户验证、资质证照审验、实地调查等多重严格审核机制，提高账户真实性及安全性。</dd>
+                               </dl>
+                               <dl>
+                                   <dt>为何要设登录与交易两道密码？</dt>
+                                   <dd>双重密码设定确保操作者权限与实际资金交易决策的安全，能够大大减少机构经办人错误操作几率。</dd>
+                               </dl>
+                               <dl>
+                                   <dt>是否提供不同管理权限？</dt>
+                                   <dd>幼富通1.0暂时不提供高级账户管理权限或二级子账户，请以幼富通2.0版升级后实际业务说明为准。</dd>
+                               </dl>
+                               <dl>
+                                   <dt>目前机构是否能绑定多个收款账户？</dt>
+                                   <dd>幼富通1.0仅支持对公基本户收款，暂不支持多个一般户或个体工商户类私人银行卡绑定。请以幼富通2.0版升级后实际业务说明为准。</dd>
+                               </dl>
+                               <div class="help"><a href="">帮助中心</a></div>
+                           </li>
+                           <li>
+                               <dl>
+                                   <dt>退费是否接考勤系统？</dt>
+                                   <dd>幼富通1.0暂时未连接考勤系统，退费计算器请以幼富通2.0版升级后实际业务说明为准。</dd>
+                               </dl>
+                               <dl>
+                                   <dt>备用金账户是什么？</dt>
+                                   <dd>是银联在指定商业银行为您的幼教机构开立的资金账户，所有代收学费收齐后，可以十分便捷地发起取现到对公银行收款账户、发起退费或向厂商支付货款（分期购功能请以幼富通2.0版升级后实际业务说明为准）。</dd>
+                               </dl>
+                               <dl>
+                                   <dt>代扣如果失败怎么办？</dt>
+                                   <dd>通常由于家长所绑定的缴费卡过期或余额不足，可能会出现扣款失败，系统将在本自然月结束前分别向幼教机构经办人发送补扣提醒、向对应家长发送补扣通知并自动发起补扣一次。</dd>
+                               </dl>
+                               <dl>
+                                   <dt>收费退费都可以在同一天完成吗？</dt>
+                                   <dd>系统会自动处理预先设定好的不同收费计划与退费计划，并在同一天发起清算，完成从家长卡中扣款及退费付款的资金交易。</dd>
+                               </dl>
+                               <div class="help"><a href="">帮助中心</a></div>
+                           </li>
+                           <li></li>
+                           <li></li>
+                        </ul>
+                    </div> 
+                </div>
+        </div>
+    </div>
+</div>
+        </div>
+</div>
+</body>
+</html>

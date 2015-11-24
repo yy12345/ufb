@@ -10,5 +10,7 @@ public interface OrgCodesMapper {
 	
 	List<OrgCodes> getOrgCodeList(OrgCodes orgCodes);
 	
-	int updateOrgCodes(OrgCodes orgCodes);
+	int bindOrgid(OrgCodes orgCodes);
+	
+	int updateAmtCode(OrgCodes orgCodes);
 }

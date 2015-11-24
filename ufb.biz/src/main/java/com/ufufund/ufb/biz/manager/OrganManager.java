@@ -18,4 +18,18 @@ public interface OrganManager {
 	 * @return
 	 */
 	int addPicinfo(Picinfo picinfo);
+	
+	/**
+	 * 获得机构信息
+	 * @param orginfo
+	 * @return
+	 */
+	Orginfo getOrginfo(Orginfo orginfo);
+	
+	/**
+	 * 手机号是否注册
+	 * @param orginfo
+	 * @return
+	 */
+	boolean isMobileRegister(Orginfo orginfo);
 }

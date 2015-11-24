@@ -42,16 +42,15 @@
 	</if>
 </select>
 
-<update id="updateOrgCodes" parameterType="OrgCodes">
+<update id="bindOrgid" parameterType="OrgCodes">
 	update org_codes t set
-		t.id=#{id             ,jdbcType=VARCHAR},     
-		t.code=#{code         ,jdbcType=VARCHAR},   
-		t.orgid=#{orgid       ,jdbcType=VARCHAR},  
-		t.amt_code=#{amt_code ,jdbcType=VARCHAR}
-	where  t.code=#{code.jdbcType=VARCHAR}
-	<if test="id!=null and id!=''">
-		and t.id=#{id,jdbcType=VARCHAR}
-	</if>
+		t.orgid=#{orgid ,jdbcType=VARCHAR}
+	where  t.code=#{code,jdbcType=VARCHAR}
 </update>
 
+<update id="updateAmtCode" parameterType="OrgCodes">
+	update org_codes t set
+		t.amt_code=#{amt_code ,jdbcType=VARCHAR}
+	where  t.orgid=#{orgid,jdbcType=VARCHAR}
+</update>
 </mapper>

@@ -30,4 +30,13 @@
 		now()
    )
 </insert>
+
+<select id="getOrginfo" parameterType="Orginfo" resultType="Orginfo">
+	select * from orginfo t
+		where 1=1
+	<if test="operator_mobile!=null and operator_mobile!=''">
+		and operator_mobile=#{operator_mobile,jdbcType=VARCHAR}
+	</if>
+	 
+</select>
 </mapper>

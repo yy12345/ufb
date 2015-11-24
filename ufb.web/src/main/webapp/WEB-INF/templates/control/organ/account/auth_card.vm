@@ -1,107 +1,219 @@
+<html>
+<title>幼富通，幼富未来 - 机构认证</title>
+<head>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>
+<script type="text/javascript">
+   $(function(){
+	   $('.nav a:eq(0)').addClass('active');
+	   
+       $("#AccountWt").click(function(){
+           $(".layerpop , .bgBox").fadeIn();
+       });
+       $(".layerpop b.close , .layerpop .btnKnow , .bgBox").click(function(){
+           $(".layerpop , .bgBox").fadeOut();
+       });
+       
+       $(".proofFile").click(function(){
+           $(".bgBox , .layerBank").fadeIn();       
+       });
+       $(".layerBank .close , .bgBox").click(function(){
+           $(".bgBox , .layerBank").fadeOut();       
+       });
+       
+	   $(window).load(function(){
+			$("#content_1").mCustomScrollbar({
+				theme:"dark", //主题颜色
+				scrollButtons:{
+					enable:true //是否使用上下滚动按钮
+				},
+				autoHideScrollbar: false, //是否自动隐藏滚动条
+				scrollInertia :0,//滚动延迟
+				horizontalScroll : false//水平滚动条
+				
+			});
+				
+		});
+	   
+       $(".selectmenu .list li").click(function(){
+           $(this).addClass("hover").siblings().removeClass("hover");
+       });
+   });
+</script>	
+</head>
+<body>
 <div id="body">
-        <div class="container">
-			<div class="a1">机构账户安全认证</div>
-			<div class="u2">
-				<ul class="v1">
-					<li>1 基本资料</li>
-					<li>2 提交材料</li>
-					<li class="v1_hover">3 银行账户</li>
-					<li>4 开户完成 </li>
-				</ul>
-			<div class="a4 mt20 mb60">
-            	<div class="b4">此处填写的对公银行账户，将设为默认的收款账户。</div>
-				<div class="b3 mb15">
-					<table>
-						<tbody><tr>
-							<td>*银行户名</td>
-							<td><label class="inputText"><input type="text"></label></td>
-							<td>跟组织机构代码证上的机构名称一致（基本户、一般户均可），<a href="javascript:;" id="AccountWt">对公账户填写指引</a> </td>
-						</tr>
-						<tr>
-							<td>*开户银行</td>
-							<td>
-                            	<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">					<select class="select">
-                                    <option>招商银行</option>
-                                    <option>建设银行</option>
-                                    <option>农业银行</option>
-                                    <option>工商银行</option>
-                                </select>					<div class="title">						<div class="text">招商银行</div>						<div class="ico"></div>					</div>					<ul class="list" style="width: 218px;"><li>招商银行</li><li>建设银行</li><li>农业银行</li><li>工商银行</li></ul>				</div>
-                            </td>
-<!--
-                          <td>
-                            	<div class="selectmenu" style="z-index: 1000; width: 220px; margin-right: 0px;">					
-                                    <select class="select">
-                                        <option>招商银行</option>
-                                        <option>建设银行</option>
-                                        <option>农业银行</option>
-                                        <option>工商银行</option>
-                                    <select>					
-                                <div class="title">						
-                                    <div class="text">招商银行</div>						
-                                    <div class="ico"></div>					
-                                </div>					
-                                        <ul class="list"><li>招商银行</li>><li>建设银行</li>><li>农业银行</li>><li>工商银行</li>></ul>				
-                                </div>
-                            </td>
--->
+    <div class="container">
+		<div class="a1">机构账户安全认证</div>
+		<div class="u2">
+			<ul class="v1">
+				<li>1 基本资料</li>
+				<li>2 提交材料</li>
+				<li class="v1_hover">3 银行账户</li>
+				<li>4 开户完成 </li>
+			</ul>
+		<div class="a4 mt20 mb60">
+        	<div class="b4">此处填写的对公银行账户，将设为默认的收款账户。</div>
+			<div class="b3 mb15">
+				<table>
+					<tbody><tr>
+						<td>*银行户名</td>
+						<td><label class="inputText"><input type="text"></label></td>
+						<td>跟组织机构代码证上的机构名称一致（基本户、一般户均可），<a href="javascript:;" id="AccountWt">对公账户填写指引</a> </td>
+					</tr>
+					<tr>
+						<td>*开户银行</td>
+						<td>
+                        	<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">
+	                        	<select class="select">
+	                                <option>招商银行</option>
+	                                <option>建设银行</option>
+	                                <option>农业银行</option>
+	                                <option>工商银行</option>
+	                            </select>
+	                            <div class="title">
+		                            <div class="text">招商银行</div>
+		                            <div class="ico"></div>
+	                            </div>
+		                            <ul class="list" style="width: 218px;">
+			                            <li>招商银行</li>
+			                            <li>建设银行</li>
+			                            <li>农业银行</li>
+			                            <li>工商银行</li>
+		                            </ul>
+                            </div>
+                        </td>
+						<td>须与<a href="javascript:;" class="proofFile">银行账户证明文件</a>一致</td>
+					</tr>
+					<tr>
+						<td>地址</td>
+						<td>
+							<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">
+								<select class="select">
+	                                <option>省份</option>
+	                                <option>浙江省</option>
+	                                <option>福建省</option>
+	                                <option>安徽省</option>
+	                            </select>
+	                            <div class="title">		
+		                            <div class="text">省份</div>	
+		                            <div class="ico"></div>		
+		                            </div>				
+		                            <ul class="list" style="width: 218px;">
+			                            <li>省份</li>
+			                            <li>浙江省</li>
+			                            <li>福建省</li>
+			                            <li>安徽省</li>
+		                            </ul>			
+                            </div>
+						</td>
+						<td>
+							<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">
+								<select class="select">
+	                                <option>城市</option>
+	                                <option>北京市</option>
+	                                <option>上海市</option>
+	                            </select>					
+	                            <div class="title">		
+		                            <div class="text">城市</div>	
+		                            <div class="ico"></div>			
+		                            </div>					
+		                            <ul class="list" style="width: 218px;">
+			                            <li>城市</li>
+			                            <li>北京市</li>
+			                            <li>上海市</li>
+		                            </ul>			
+                            </div>
+						</td>
+					</tr>
+					<tr>
+						<td>*支行网点</td>
+						<td><label class="inputText"><input type="text"></label></td>
+						<td>须与<a href="javascript:;" class="proofFile">银行账户证明文件</a>一致</td>
+					</tr>
+					<tr>
+						<td>*银行账号</td>
+						<td><label class="cardFormat" id="card1"><input type="text"><div class="num" style="top: -31px; width: 198px;">&nbsp;</div></label></td>
+						<td>请务必正确填写，填错会造成取现打款失败</td>
+					</tr>
+                    <tr>
+						<td>*重复银行账号</td>
+						<td><label class="cardFormat" id="card2"><input type="text"><div class="num" style="top: -31px; width: 198px;">&nbsp;</div></label></td>
+						<td><div class="formSuc"></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+            <div class="b3">
+			<div class="b4 b4Mag"><span class="form-title title-font">设置<label>交易密码</label></span>涉及资金交易或账户信息修改时输入，确保资金安全</div>
 
-							<td>须与<a href="javascript:;" class="proofFile">银行账户证明文件</a>一致</td>
-						</tr>
-						<tr>
-							<td>地址</td>
-							<td>
-								<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">					<select class="select">
-                                    <option>省份</option>
-                                    <option>浙江省</option>
-                                    <option>福建省</option>
-                                    <option>安徽省</option>
-                                </select>					<div class="title">						<div class="text">省份</div>						<div class="ico"></div>					</div>					<ul class="list" style="width: 218px;"><li>省份</li><li>浙江省</li><li>福建省</li><li>安徽省</li></ul>				</div>
-							</td>
-							<td>
-								<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">					<select class="select">
-                                    <option>城市</option>
-                                    <option>北京市</option>
-                                    <option>上海市</option>
-                                </select>					<div class="title">						<div class="text">城市</div>						<div class="ico"></div>					</div>					<ul class="list" style="width: 218px;"><li>城市</li><li>北京市</li><li>上海市</li></ul>				</div>
-							</td>
-						</tr>
-						<tr>
-							<td>*支行网点</td>
-							<td><label class="inputText"><input type="text"></label></td>
-							<td>须与<a href="javascript:;" class="proofFile">银行账户证明文件</a>一致</td>
-						</tr>
-						<tr>
-							<td>*银行账号</td>
-							<td><label class="cardFormat" id="card1"><input type="text"><div class="num" style="top: -31px; width: 198px;">&nbsp;</div></label></td>
-							<td>请务必正确填写，填错会造成取现打款失败</td>
-						</tr>
-                        <tr>
-							<td>*重复银行账号</td>
-							<td><label class="cardFormat" id="card2"><input type="text"><div class="num" style="top: -31px; width: 198px;">&nbsp;</div></label></td>
-							<td><div class="formSuc"></div></td>
-						</tr>
-					</tbody></table>
-				</div>
-                <div class="b3">
-				<div class="b4 b4Mag"><span class="form-title title-font">设置<label>交易密码</label></span>涉及资金交易或账户信息修改时输入，确保资金安全</div>
-					<table>
-						<tbody><tr>
-							<td>设置交易密码</td>
-							<td><label class="inputText"><input type="password"><b>6-20个大小写英文字母、符号或数字</b></label></td>
-							<td>不可与登录密码相同！</td>
-						</tr>
-						<tr>
-							<td>确认交易密码</td>
-							<td><label class="inputText"><input type="password"><b>请再次输入密码</b></label></td>
-							<td></td>
-						</tr>
-					</tbody></table>
-				</div>
-				<div class="b2">
-                    <a href="authentStep_2.html" class="btnA mr10">上一步</a>
-				    <a href="authentStep_4.html" class="btnA">下一步</a>
+				<table>
+					<tbody><tr>
+						<td>设置交易密码</td>
+						<td><label class="inputText"><input type="password"><b>6-20个大小写英文字母、符号或数字</b></label></td>
+						<td>不可与登录密码相同！</td>
+					</tr>
+					<tr>
+						<td>确认交易密码</td>
+						<td><label class="inputText"><input type="password"><b>请再次输入密码</b></label></td>
+						<td></td>
+					</tr>
+				</tbody></table>
+			</div>
+			<div class="b2">
+                <a href="${ufbDomain}/corp/account/auth_certpic.htm" class="btnA mr10">上一步</a>
+			    <a href="${ufbDomain}/corp/account/auth_result.htm" class="btnA">下一步</a>
 				</div>
 			</div>
         </div>
     </div>
 </div>
+
+<!----------弹层--start----------->
+<div class="bgBox"></div>	
+<div class="layerpop">	
+	<b class="close"></b>
+	<div class="layerTitle">无对公账户如何填写？</div>
+	<div id="content_1" class="content mCustomScrollbar _mCS_1 mCS_no_scrollbar">
+		<div id="mCSB_1" class="mCustomScrollBox mCS-dark mCSB_vertical mCSB_inside" tabindex="0">
+			<div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position: relative; top: 0px; left: 0px;" dir="ltr">
+				<p>此处内容通过富文本编辑器进行编辑发布<br>
+				个体工商户无组织机构代码（仅支持个体工商户）<br>
+				目前仅支持中国大陆企业；<br>
+				注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
+
+				<p>对公账户填写（个体工商户）<br>
+				若个体工商户无对公账户，可填写营业执照上法人的个人银行卡号。<br>
+				温馨提示：仅限个体工商户，填写个人银行卡号时需与营业执照上法人保持一致。</p>
+
+				<p>对公账户填写（政府类型）<br>
+				若政府类型若没有对公账号，可以在“机构开户银行”、“机构银行账号”栏填写“无”。</p>
+
+				<p>对公账户填写（企业类型）<br>
+				若企业无对公银行帐号，可以填写营业执照上法人的对私银行卡号及姓名。<br>
+				温馨提示：<br>
+				填写个人银行卡号时需与营业执照上法人保持一致。</p>
+
+				<p>对公账户填写（事业单位）
+				事业单位如无对公账户，可以使用结算中心或财政账户支付验证（如国库集中收付结算中心等）。</p>  
+				<a href="javascript:;" class="btnKnow closebox">我知道了</a>
+			</div>
+			<div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-dark mCSB_scrollTools_vertical" style="display: none;">
+				<a href="#" class="mCSB_buttonUp" oncontextmenu="return false;"></a>
+				<div class="mCSB_draggerContainer">
+					<div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px;" oncontextmenu="return false;">
+						<div class="mCSB_dragger_bar" style="line-height: 30px;"></div>
+					</div>
+					<div class="mCSB_draggerRail"></div>
+				</div>
+				<a href="#" class="mCSB_buttonDown" oncontextmenu="return false;"></a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="layerBank">
+    <b class="close"></b>
+    <img src="${staticDomain}/public/images/img_34.jpg" alt="">
+</div>
+<!---------弹层--end-------------->	
+</div>
+</body>
+</html>

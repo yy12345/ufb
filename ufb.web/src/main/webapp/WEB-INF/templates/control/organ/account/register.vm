@@ -1,59 +1,361 @@
-<div id="body">
-    <div class="container containerbox">
-		<div class="a4 mt30">
-		    <div class="u2">
-                <ul class="v1">
-                    <li class="v1_hover">创建账户</li>
-                    <li>机构账户认证</li>
-                    <li>创建成功</li>
-                </ul>
-            </div>
-			<form class="common-form" method="post">
-                <div class="panel">
-                    <ul>
-                        <li>
-                            <span class="form-title">经办人手机号</span>
-                            <input class="input-text" type="text" value="">
-                            <span class="tips-normal">11位手机号</span>
-                            <span class="tips-check"><i class="icon"></i>验证提示</span>
-                        </li>
-                        <li>
-                            <span class="form-title">邀请码</span>
-                            <input class="ipt-idCard input-text" type="text" value="">
-                            <span class="tips-normal">6位邀请码</span>
-                            <span class="tips-check"><i class="icon"></i>验证提示</span>
-                        </li>
-                        <li class="error">
-                            <span class="form-title">手机验证码</span>
-                            <input class="ipt-bankCard input-code" type="text" value="">
-                            <span class="tips-normal" style="display: block;">6位验证码</span>
-                            <input class="input-button" type="button" value="获取验证码"> 
-                        </li>
-                        <li class="anotherArea">
-                            <span class="form-title title-font">设置登录密码</span>
-                            <span class="tips-font" style="display: block;">登录时需验证，保护账户信息</span>
-                        </li>
-                        <li>
-                            <span class="form-title">登录密码</span>
-                            <input class="ipt-phoneCode input-text" type="password" value="">
-                            <span class="tips-normal" style="display: block;">6-20个大小写英文字母、符号或数字</span>
-                            <span class="tips-check"><i class="icon"></i>验证提示</span>
-                        </li>
-                        <li>
-                            <span class="form-title">重复输入</span>
-                            <input class="ipt-phoneCode input-text" type="password" value="">
-                            <span class="tips-normal" style="display: block;">请再次输入密码</span>
-                            <span class="tips-check"><i class="icon"></i>验证提示</span>
-                        </li>
-                        <li style="width:630px;">
-                            <p>点击下一步表示同意<a href="javascript:;" id="AccountWt">《幼富通服务协议》</a></p>
-                        </li>
-                        <li>
-                            <input class="input-button" type="submit" value="下一步" onclick="location.href='authentPage.html';return false;">
-                        </li>
+<html>
+<title>幼富通，幼富未来 - 注册</title>
+<head>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>
+<script type="text/javascript" src="${staticDomain}/public/js/organ-common.js"></script>
+<script type="text/javascript" src="${staticDomain}/public/js/load.js"></script>
+<script type="text/javascript">
+   $(function(){
+       $("#AccountWt").click(function(){
+           $(".layerpop , .bgBox").fadeIn();
+       });
+       $(".layerpop b.close , .layerpop .btnKnow , .bgBox").click(function(){
+           $(".layerpop , .bgBox").fadeOut();
+       });
+       
+       $(window).load(function(){
+			$("#content_1").mCustomScrollbar({
+				theme:"dark", //主题颜色
+				scrollButtons:{
+					enable:true //是否使用上下滚动按钮
+				},
+				autoHideScrollbar: false, //是否自动隐藏滚动条
+				scrollInertia :0,//滚动延迟
+				horizontalScroll : false//水平滚动条
+				
+			});
+		});
+       
+       // 校验手机号
+       var check_mobile=function(){
+    	   var regex = /^(((13[0-9]{1})|145|147|(15[0-9]{1})|170|17[6-8]{1}|(18[0-9]{1}))+\d{8})$/;
+    	   var mobileno=$("#operator_mobile").val();
+    	   if(mobileno==''){
+    		   $("#operator_mobile").closest("li").find("font").html("手机号不能为空！");
+    		   $("#operator_mobile").closest("li").find(".tips-check").css("display","inline");
+    		   $("#operator_mobile").closest("li").addClass("error");
+    		   $("#operator_mobile").closest("li").removeClass("ok");
+    		   return false;
+    	   }else if(!mobileno.match(regex)){
+    		   $("#operator_mobile").closest("li").find("font").html("手机号格式不正确！");
+    		   $("#operator_mobile").closest("li").find(".tips-check").css("display","inline");
+    		   $("#operator_mobile").closest("li").addClass("error");
+    		   $("#operator_mobile").closest("li").removeClass("ok");
+    		   return false;
+    	   }else if(isMobileRegister()){
+    		   $("#operator_mobile").closest("li").find("font").html("手机号已注册！");
+    		   $("#operator_mobile").closest("li").find(".tips-check").css("display","inline");
+    		   $("#operator_mobile").closest("li").addClass("error");
+    		   $("#operator_mobile").closest("li").removeClass("ok");
+    		   return false;
+    	   }else{
+    		   $("#operator_mobile").closest("li").find("font").html("&nbsp;");
+    		   $("#operator_mobile").closest("li").find(".tips-check").css("display","inline");
+    		   $("#operator_mobile").closest("li").addClass("ok");
+    		   $("#operator_mobile").closest("li").removeClass("error");
+    		   return true;
+    	   }
+       }
+       
+       // 校验邀请码
+       var check_code=function(){
+    	   if($("#code").val()==''){
+    		   $("#code").closest("li").find("font").html("邀请码不能为空！");
+    		   $("#code").closest("li").find(".tips-check").css("display","inline");
+    		   $("#code").closest("li").addClass("error");
+    		   $("#code").closest("li").removeClass("ok");
+    		   return false;
+    	   }else{
+    		   $("#code").closest("li").find("font").html("&nbsp;");
+    		   $("#code").closest("li").find(".tips-check").css("display","inline");
+    		   $("#code").closest("li").addClass("ok");
+    		   $("#code").closest("li").removeClass("error");
+    		   return true;
+    	   }
+       }
+       
+       // 手机验证码
+       var check_msgcode=function(){
+    	   if($("#msgcode").val()==''){
+    		   $("#msgcode").closest("li").find("font").html("验证码不能为空！");
+    		   $("#msgcode").closest("li").find(".tips-check").css("display","inline");
+    		   $("#msgcode").closest("li").addClass("error");
+    		   $("#msgcode").closest("li").removeClass("ok");
+    		   return false;
+    	   }else if(!msgcode_check($("#msgcode").val(),$("#operator_mobile").val())){
+    		   $("#msgcode").closest("li").find("font").html("验证码不正确！");
+    		   $("#msgcode").closest("li").find(".tips-check").css("display","inline");
+    		   $("#msgcode").closest("li").addClass("error");
+    		   $("#msgcode").closest("li").removeClass("ok");
+    		   return false;
+    	   }else{
+    		   $("#msgcode").closest("li").find("font").html("&nbsp;");
+    		   $("#msgcode").closest("li").find(".tips-check").css("display","inline");
+    		   $("#msgcode").closest("li").addClass("ok");
+    		   $("#msgcode").closest("li").removeClass("error");
+    		   return true;
+    	   }
+       }
+       
+       // 校验登录密码
+       var check_passwd1=function(){
+    	   var text=check_pwd1($("#passwd").val());
+    	   if(text!=''){
+    		   $("#passwd").closest("li").find("font").html(text);
+    		   $("#passwd").closest("li").find(".tips-check").css("display","inline");
+    		   $("#passwd").closest("li").addClass("error");
+    		   $("#passwd").closest("li").removeClass("ok");
+    		   return false;
+    	   }else{
+    		   $("#passwd").closest("li").find("font").html("&nbsp;");
+    		   $("#passwd").closest("li").find(".tips-check").css("display","inline");
+    		   $("#passwd").closest("li").addClass("ok");
+    		   $("#passwd").closest("li").removeClass("error");
+    		   return true;
+    	   }
+       }
+       
+       // 校验确认登录密码
+       var check_passwd2=function(){
+    	   var text=check_pwd2($("#passwd").val(),$("#passwd2").val());
+    	   if(text!=''){
+    		   $("#passwd2").closest("li").find("font").html(text);
+    		   $("#passwd2").closest("li").find(".tips-check").css("display","inline");
+    		   $("#passwd2").closest("li").addClass("error");
+    		   $("#passwd2").closest("li").removeClass("ok");
+    		   return false;
+    	   }else{
+    		   $("#passwd2").closest("li").find("font").html("&nbsp;");
+    		   $("#passwd2").closest("li").find(".tips-check").css("display","inline");
+    		   $("#passwd2").closest("li").addClass("ok");
+    		   $("#passwd2").closest("li").removeClass("error");
+    		   return true;
+    	   }
+       }
+       
+       // 添加响应事件
+       $("#operator_mobile").on("blur",check_mobile);
+       $("#passwd").on("blur",check_passwd1);
+       $("#passwd2").on("blur",check_passwd2);
+       
+	   // 用户输入时，取消错误提示
+	   $("form input").on('focus', function(){
+	   		if($(this).parent().hasClass('error')){
+	   			$(this).parent().removeClass('error');
+	   			$(this).siblings('.tips-check').hide();
+	   		}
+	   });
+	   	
+       // 获得手机验证码
+       $("#btn-getMsgCode").on("click",function(){
+    	   if(check_mobile()&&check_code()){
+    		   msgcode_send();
+    	   }
+       })
+       
+       // 校验手机号是否已注册
+       var isMobileRegister=function(){
+    	    var result = false;
+	   		$.ajax({
+	   			type: "get",
+	   			url: '${ufbDomain}/corp/account/isRegister.htm',
+	   			data:'mobile='+$('#operator_mobile').val(),
+	   			async:false,
+	   			success: function(data){
+	   				var json = $.parseJSON(data);
+	   				if(json.errCode=='0000'){
+	   					result = json.isRegister;
+	   				}
+	   			},
+	   			error: function(XMLHttpRequest, textStatus, errorThrown) {
+	   				console.log('系统出现异常！');
+	   			}
+	   		});
+   		return result;
+       }
+       
+       // 发送短信验证码
+       var msgcode_send = function(){
+   		var result = false;
+   		$("#btn-getMsgCode").addClass("off");
+        $("#btn-getMsgCode").attr("disabled","disabled");
+   		$.ajax({
+        	type: "get",
+       		url: "${ufbDomain}/corp/account/msgcode_send.htm",
+       		data: 'mobile='+$("#operator_mobile").val()+'&code='+$("#code").val(),
+       		async: false,
+       		success: function(data) {
+       			var json = $.parseJSON(data);
+   				if(json.errCode=='0000'){
+   					$('#msgcode').val(json.msgcode);
+   					result = true;
+   				}
+   				else if(json.errCode=='0001'){
+   				   $("#code").closest("li").find("font").html(json.errMsg);
+   	    		   $("#code").closest("li").find(".tips-check").css("display","inline");
+   	    		   $("#code").closest("li").addClass("error");
+   	    		   $("#code").closest("li").removeClass("ok");
+   				   result = false;
+   				}
+           	},
+   			error: function(XMLHttpRequest, textStatus, errorThrown) {
+   				console.log('系统出现异常！');
+   			}
+           });
+           if(result){
+        	   $("#msgcode").closest("li").find(".tips-normal").attr("style","display:none;");
+        	   alert("手机验证码已发送！");
+               setTimeout(countDown, 1000);
+           }else{
+	           	$("#btn-getMsgCode").removeClass("off");
+	   			$("#btn-getMsgCode").removeAttr("disabled");
+           }
+           return result;
+   	}
+   	
+   	// 获取短信码按钮倒计时
+   	var count = 60;
+   	var countDown = function() {
+   		$("#btn-getMsgCode").val("等待" + count + "秒!"); 
+   		if (count == 0) { 
+   			$("#btn-getMsgCode").val("重新发送"); 
+   			$("#btn-getMsgCode").removeClass("off");
+   			$("#btn-getMsgCode").removeAttr("disabled"); 
+   			clearTimeout(countDown); 
+   		}else{
+   			count--; 
+   			setTimeout(countDown, 1000);
+   		}
+   	}
+   	
+   	// 检验手机验证码
+ 	var msgcode_check = function(msgcode, mobileno){
+ 		var result = false;
+ 		$.ajax({
+ 			type: "post",
+ 			url: '${ufbDomain}/common/msgcode_check.htm',
+ 			data:'msgcode='+msgcode+'&mobileno='+mobileno,
+ 			async:false,
+ 			success: function(data){
+ 			var json=$.parseJSON(data);
+ 			if(json.errCode=="0000"){
+ 				result = true;
+ 			}
+ 			},
+ 			error: function(XMLHttpRequest, textStatus, errorThrown) {
+ 				console.log('系统出现异常！');
+ 			}
+ 		});
+ 		return result;
+ 	}
+ 	
+ 	// 表单提交
+ 	$("#btn-submit").on("click",function(){
+ 		if(!(check_mobile()&&check_code()&&check_msgcode()&&check_passwd1()&&check_passwd2())){
+ 			return false;
+ 		}
+ 		else{
+ 			return false;//later.....
+ 		}
+ 	})
+   });
+</script>
+</head>
+
+<body>
+    <div id="body">
+        <div class="container containerbox">
+			<div class="a4 mt30">
+			    <div class="u2">
+                    <ul class="v1">
+                        <li class="v1_hover">创建账户</li>
+                        <li>机构账户认证</li>
+                        <li>创建成功</li>
                     </ul>
                 </div>
-            </form>
-		</div>
+				<form class="common-form" method="post">
+                    <div class="panel">
+                        <ul>
+                            <li>
+                                <span class="form-title">经办人手机号</span>
+                                <input class="input-text" type="text" name="operator_mobile" id="operator_mobile" maxlength="11">
+                                <span class="tips-normal">11位手机号</span>
+                                <span class="tips-check"><i class="icon"></i><font></font></span>
+                            </li>
+                            <li>
+                                <span class="form-title">邀请码</span>
+                                <input class="ipt-idCard input-text" type="text" name="code" id="code" maxlength="8">
+                                <span class="tips-normal">8位邀请码</span>
+                                <span class="tips-check"><i class="icon"></i><font></font></span>
+                            </li>
+                            <li>
+                                <span class="form-title">手机验证码</span>
+                                <input class="ipt-bankCard input-code" type="text" name="msgcode" id="msgcode" maxlength="6">
+                                <span class="tips-normal" style="display: block;">6位验证码</span>
+                                <input class="input-button" id="btn-getMsgCode" type="button" value="获取验证码"> 
+                                <span class="tips-check"><i class="icon"></i><font></font></span>
+                            </li>
+                            <li class="anotherArea">
+                                <span class="form-title title-font">设置登录密码</span>
+                                <span class="tips-font" style="display: block;">登录时需验证，保护账户信息</span>
+                            </li>
+                            <li>
+                                <span class="form-title">登录密码</span>
+                                <input class="ipt-phoneCode input-text" type="password" name="passwd" id="passwd">
+                                <span class="tips-normal" style="display: block;">6-20个大小写英文字母、符号或数字</span>
+                                <span class="tips-check"><i class="icon"></i><font></font></span>
+                            </li>
+                             <li>
+                                <span class="form-title">重复输入</span>
+                                <input class="ipt-phoneCode input-text" type="password" name="passwd2" id="passwd2">
+                                <span class="tips-normal" style="display: block;">请再次输入密码</span>
+                                <span class="tips-check"><i class="icon"></i><font></font></span>
+                            </li>
+                            <li style="width:630px;">
+                                <p>点击下一步表示同意<a href="javascript:;" id="AccountWt">《幼富通服务协议》</a></p>
+                            </li>
+                            <li>
+                                <input class="input-button" id="btn-submit" type="submit" value="下一步">
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+			</div>
+        </div>
     </div>
 </div>
+
+<!--协议-->
+<div class="bgBox"></div>
+<div class="layerpop">	
+    <b class="close"></b>
+    <div class="layerTitle">幼富通服务协议</div>
+	<div id="content_1" class="content">
+            <p>本协议是用户（以下简称“您”）与幼富通网站（网址：包括但不限于www.ufufund.com等，简称“本站”）所有者上海幼赋金融信息服务有限公司之间就幼富通网站服务等相关事宜所订立的契约，请您仔细阅读本注册协议，您点击"同意并继续"按钮后，即视为您接受并同意遵守本协议的约定。</p>
+         
+            <h4>第1条 本站服务条款的确认和接纳</h4>
+            
+            <p>1.1本站的各项电子服务的所有权和运作权归幼富通所有。您同意所有注册协议条款并完成注册程序，才能成为本站的正式用户。您确认：本协议条款是处理双方权利义务的依据，始终有效，法律另有强制性规定或双方另有特别约定的，依其规定或约定。</p>
+
+            <p>1.2您点击同意本协议的，即视为您确认自己具有享受本站服务相应的权利能力和行为能力，能够独立承担法律责任。</p>
+
+            <p>1.3您确认，如果您在18周岁以下，您只能在父母或其他监护人的监护参与下才能使用本站。</p>
+
+            <p>1.4幼富通保留在中华人民共和国大陆地区施行之法律允许的范围内独自决定拒绝服务、关闭用户账户、清除或编辑内容的权利。</p>
+
+            <p>1.5您使用本站提供的服务时，应同时接受适用于本站特定服务、活动等的准则、条款和协议（以下统称为“其他条款”）；如果以下使用条件与“其他条款”有不一致之处，则以“其他条款”为准。</p>    
+
+            <p>1.6为表述便利，产品和服务简称为“产品”或“服务”。</p>	
+
+            <h4>第2条 本站服务</h4>	
+
+            <p>2.1幼富通通过互联网依法为您提供互联网信息等服务，您在完全同意本协议及本站相关规定的情况下，方有权使用本站的相关服务。</p>
+
+            <p>2.2您必须自行准备如下设备和承担如下开支：（1）上网设备，包括并不限于电脑或者其他上网终端、调制解调器及其他必备的上网装置；（2）上网开支，包括并不限于网络接入费、上网设备租用费、手机流量费等。</p>
+
+            <p>2.2.1上网设备，包括并不限于电脑或者其他上网终端、调制解调器及其他必备的上网装置；</p>
+            <a href="javascript:;" class="btnKnow closebox">我知道了</a>
+    </div>
+    </div>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html>
 #parse("control/common/head_organ.vm")
 <body>
-	<div ${organ_container}>	
+	<div ${corp_container}>	
 		#parse("control/common/header_organ.vm")
 		$body
 		#parse("control/common/footer.vm")

@@ -1,5 +1,23 @@
+<html>
+<title>幼富通，幼富未来 - 机构认证</title>
+<head>
+<script type="text/javascript">
+	$(function(){
+		$('.nav a:eq(0)').addClass('active');
+		
+	    $(".u2 .v2 .v2_1").click(function(){
+	        $(".u2 .v2").hide();
+	    });
+	    
+	    $(".selectmenu .list li").click(function(){
+	        $(this).addClass("hover").siblings().removeClass("hover");
+	    });
+	});
+</script>
+</head>
+<body>
 <div id="body">
-    <div class="container">
+	<div class="container">
 		<div class="a1">机构账户安全认证</div>
 		<div class="u2">
 			<ul class="v1">
@@ -24,15 +42,29 @@
 					<tr class="tr03">
 						<td>机构类型</td>
 						<td>
-							<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">					<select class="select">
-                                <option>民办幼儿园</option>
-                                <option>公办幼儿园</option>
-                                <option>早教机构（0-3岁）</option>
-                                <option>幼教培训机构（3-6岁）</option>
-                                <option>厂商</option>
-                                <option>通路服务／经销商</option>
-                                <option>其他</option>
-                            </select>					<div class="title">						<div class="text">民办幼儿园</div>						<div class="ico"></div>					</div>					<ul class="list" style="width: 218px;"><li>民办幼儿园</li><li>公办幼儿园</li><li>早教机构（0-3岁）</li><li>幼教培训机构（3-6岁）</li><li>厂商</li><li>通路服务／经销商</li><li>其他</li></ul>				</div>
+							<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">	
+								<select class="select">
+	                                <option>民办幼儿园</option>
+	                                <option>公办幼儿园</option>
+	                                <option>早教机构（0-3岁）</option>
+	                                <option>幼教培训机构（3-6岁）</option>
+	                                <option>厂商</option>
+	                                <option>通路服务／经销商</option>
+	                                <option>其他</option>
+	                            </select>			
+	                            <div class="title">		
+		                            <div class="text">民办幼儿园</div>	
+		                            <div class="ico"></div>				
+	                            </div>				
+	                            <ul class="list" style="width: 218px;">
+		                            <li>民办幼儿园</li>
+		                            <li>公办幼儿园</li>
+		                            <li>早教机构（0-3岁）</li>
+		                            <li>幼教培训机构（3-6岁）</li>
+		                            <li>厂商</li><li>通路服务／经销商</li>
+		                            <li>其他</li>
+	                            </ul>				
+                            </div>
 						</td>
 						<td>信息审核成功后，类型不可修改</td>
 					</tr>
@@ -44,19 +76,42 @@
 					<tr>
 						<td>实际办学/经营地址</td>
 						<td>
-							<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">					<select class="select">
-                                <option>省份</option>
-                                <option>浙江省</option>
-                                <option>福建省</option>
-                                <option>安徽省</option>
-                            </select>					<div class="title">						<div class="text">省份</div>						<div class="ico"></div>					</div>					<ul class="list" style="width: 218px;"><li>省份</li><li>浙江省</li><li>福建省</li><li>安徽省</li></ul>				</div>
+							<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">	
+								<select class="select">
+	                                <option>省份</option>
+	                                <option>浙江省</option>
+	                                <option>福建省</option>
+	                                <option>安徽省</option>
+	                            </select>		
+	                            <div class="title">		
+		                            <div class="text">省份</div>	
+		                            <div class="ico"></div>			
+	                            </div>				
+	                            <ul class="list" style="width: 218px;">
+		                            <li>省份</li>
+		                            <li>浙江省</li>
+		                            <li>福建省</li>
+		                            <li>安徽省</li>
+	                            </ul>			
+                            </div>
 						</td>
 						<td>
-							<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">					<select class="select">
-                                <option>城市</option>
-                                <option>北京市</option>
-                                <option>上海市</option>
-                            </select>					<div class="title">						<div class="text">城市</div>						<div class="ico"></div>					</div>					<ul class="list" style="width: 218px;"><li>城市</li><li>北京市</li><li>上海市</li></ul>				</div>
+							<div class="selectmenu" tabindex="-1" style="z-index: 99; width: 220px; margin-right: 0px; margin-left: 0px; outline: none;">	
+								<select class="select">
+	                                <option>城市</option>
+	                                <option>北京市</option>
+	                                <option>上海市</option>
+	                            </select>				
+	                            <div class="title">		
+		                            <div class="text">城市</div>	
+		                            <div class="ico"></div>			
+	                            </div>					
+	                            <ul class="list" style="width: 218px;">
+		                            <li>城市</li>
+		                            <li>北京市</li>
+		                            <li>上海市</li>
+	                            </ul>			
+                            </div>
 						</td>
 					</tr>
 					<tr>
@@ -131,9 +186,11 @@
 				</tbody></table>
 			</div>
 			<div class="b2">
-                <!--<p>点击下一步表示同意<a href="#" id="AccountWt">《幼富通服务协议》</a></p>-->
-			    <a href="authentStep_2.html" class="btnA">下一步</a>
+			    <a href="${ufbDomain}/corp/account/auth_certpic.htm" class="btnA">下一步</a>
 			</div>
 		</div>
     </div>
+    </div>
 </div>
+</body>
+</html>

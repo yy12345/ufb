@@ -1,3 +1,24 @@
+<html>
+<title>幼富通，幼富未来 - 机构认证</title>
+<head>
+<script type="text/javascript">
+	$(function(){
+		$('.nav a:eq(0)').addClass('active');
+		
+	    $(".u2 .v2 .v2_1").click(function(){
+	        $(".u2 .v2").hide();
+	    });
+	    
+	    $("#demo").click(function(){
+	       $(".bgBox , .layerDemo").fadeIn();       
+	   });
+	   $(".layerDemo .close , .bgBox").click(function(){
+	       $(".bgBox , .layerDemo").fadeOut();       
+	   });
+	});
+</script>
+</head>
+<body>
 <div id="body">
     <div class="container">
 		<div class="a1">机构账户安全认证</div>
@@ -80,9 +101,20 @@
 		                <p> 或数码照片   </p>
 		            </div>
 		        </div>
-                 <div class="x2"><a href="authentStep_1.html" class="btnA">上一步</a><a href="authentStep_3.html" class="btnA">下一步</a></div>
-		    </div>
-		</div>
-		
+                 <div class="x2"><a href="${ufbDomain}/corp/account/auth_base.htm" class="btnA">上一步</a>
+                 <a href="${ufbDomain}/corp/account/auth_card.htm" class="btnA">下一步</a></div>
+			    </div>
+			</div>
+			
+        </div>
     </div>
 </div>
+
+<!---弹层--->
+<div class="bgBox"></div>
+<div class="layerDemo">
+    <b class="close"></b>
+    <img src="${staticDomain}/public/images/img_35.jpg" alt="">
+</div>	
+</body>
+</html>
