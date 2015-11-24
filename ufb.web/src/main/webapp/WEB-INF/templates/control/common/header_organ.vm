@@ -22,9 +22,7 @@
     <div class="container">
         <a href="${ufbDomain}/organ/index.htm" class="logo"></a>
 		<div class="nav">
-			<a href="${ufbDomain}/organ/uft_index.htm" class="active">
-				<b class="icon-enter"></b>我的账户
-			</a>
+			<a href="${ufbDomain}/organ/uft_index.htm">我的账户</a>
 			<a href="javascript:;">收费明细</a>
 			<a href="javascript:;">分期购</a>
 			<a href="javascript:;">帮助中心</a>

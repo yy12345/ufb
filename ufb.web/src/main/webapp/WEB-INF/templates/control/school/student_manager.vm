@@ -89,6 +89,7 @@
 			$('#clazz').selectMenu({change:changeClazz});
 			
 			// 班级options表
+			var all_clazz_count = ${clazzList.size()};
 			var clazzOptions = {};
 			clazzOptions['0'] = '<option value="0">班级（全部）</option>';
 			#foreach($c in $clazzList)
@@ -144,12 +145,32 @@
 			
 			// 下载档案模板
 			$('#downTemplate').on('click', function(){
+			
 				var gradeid = $('#grade').val();
 				var gradename = $('#grade').find('option:selected').text();
 				var cid = $('#clazz').val();
 				var cname = $('#clazz').find('option:selected').text();
-				
 				var msg = '';
+				var to_setting = false;
+				
+				// 验证班级列表是否为空
+				if(gradeid == '0' && all_clazz_count == 0){
+					msg = '班级列表为空，请先进行设置！';
+					to_setting = true;
+				}else if(gradeid != '0' && $('#clazz').children().length <= 1){
+					msg = '您所选年级【'+gradename+'】没有班级，请先进行设置！';
+					to_setting = true;
+				}
+				if(to_setting){
+					$.confirm({
+						title:msg,
+						complete:function(){
+							location = '${ufbDomain}/school/class_setting.htm';
+						}
+					});
+					return false;
+				}
+				
 				if(gradeid == '0' ){
 					msg = '您将下载【全校】班级的学生档案模板';
 				}else if(cid == '0'){
@@ -178,7 +199,7 @@
 				}
 				
 				$('#uploadForm').ajaxSubmit({
-					url:'${ufbDomain}/school/student_upload.ajax',
+					url:'${ufbDomain}/school/student_upload.htm',
 					type:'POST',
 					async:false,
 					resetForm:true,
@@ -288,7 +309,7 @@
 				var result = [];
 				$.ajax({
 					type: "POST",
-					url: '${ufbDomain}/school/student_search.ajax',
+					url: '${ufbDomain}/school/student_search.htm',
 					data:'name='+queryStr,
 					async:false,
 					success: function(data){
@@ -332,7 +353,7 @@
 				var result = false;
 				$.ajax({
 					type: "POST",
-					url: '${ufbDomain}/school/student_remove.ajax',
+					url: '${ufbDomain}/school/student_remove.htm',
 					data:'sid='+sid,
 					async:false,
 					success: function(data){

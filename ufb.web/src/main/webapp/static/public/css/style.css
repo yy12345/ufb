@@ -79,7 +79,7 @@ label,span,a{
 }
 */
 .disNone{
-    display:none!important;
+    display:none;
 }
 .mt20{
     margin-top:20px;
@@ -573,7 +573,7 @@ i.email-notice{
     position:absolute;
 }
 .page{
-	display:none;
+	display:block;
 }
 .page,.main,.header,.body,footer{
 	position:relative;

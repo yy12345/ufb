@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.mousewheel.min.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.form.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/plug.js"></script><!--自定义插件-->
-	<script type="text/javascript" src="${staticDomain}/public/js/global.js"></script><!--全局设置-->
+	<!-- <script type="text/javascript" src="${staticDomain}/public/js/global.js"></script> 全局设置-->
 	<!--日期控件 开始-->
 	<link rel="stylesheet" href="${staticDomain}/public/css/jquery-ui.css" type="text/css">
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.ui.core.js"></script>

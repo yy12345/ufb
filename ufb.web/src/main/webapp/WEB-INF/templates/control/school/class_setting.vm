@@ -109,7 +109,7 @@
 			var cid; 
 			$.ajax({
 				type: "POST",
-				url: '${ufbDomain}/school/class_add.ajax',
+				url: '${ufbDomain}/school/class_add.htm',
 				data:'typeid='+typeid+'&name='+name+'&cno='+cno,
 				async:false,
 				success: function(data){
@@ -132,7 +132,7 @@
 			var result;
 			$.ajax({
 				type: "POST",
-				url: '${ufbDomain}/school/class_remove.ajax',
+				url: '${ufbDomain}/school/class_remove.htm',
 				data:'cid='+cid,
 				async:false,
 				success: function(data){
@@ -255,7 +255,7 @@
 			var id; 
 			$.ajax({
 				type: "POST",
-				url: '${ufbDomain}/school/classtype_add.ajax',
+				url: '${ufbDomain}/school/classtype_add.htm',
 				data:'name='+name,
 				async:false,
 				success: function(data){
@@ -278,7 +278,7 @@
 			var result;
 			$.ajax({
 				type: "POST",
-				url: '${ufbDomain}/school/classtype_remove.ajax',
+				url: '${ufbDomain}/school/classtype_remove.htm',
 				data:'id='+id,
 				async:false,
 				success: function(data){

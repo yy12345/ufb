@@ -41,7 +41,7 @@
         </td>
         <td>${s.p1_name}</td>
         <td>${s.p1_mobile}</td>
-        <td>${s.p1_mail}</td>
+        <td>$!{s.p1_mail}</td>
         <td>
         	<div class="btnTwo">
 		    	<a href="${ufbDomain}/school/student_detail.htm?action=view&sid=${s.sid}&backUrl=${backUrl}" class="btn1">查看</a>

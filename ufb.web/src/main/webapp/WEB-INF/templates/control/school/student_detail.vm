@@ -250,12 +250,11 @@
 		</div>
 		<!--开始 本页面JS-->
 		<script type="text/javascript">
-			$('nav a:eq(1)').addClass('active');
-			
 			$(function(){
+				$('.nav a:eq(0)').addClass('active');
+				
 				// 民族
 				$('#nation').val('$!{vo.nation}');
-				
 				// 控件
 				$('.select').selectMenu();
 				$('.checkbox').checkbox();

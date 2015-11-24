@@ -30,7 +30,7 @@ public class WorkDayManagerTest {
 	 * @param day 日期
 	 * @return
 	 */
-	@Test
+//	@Test
 	public void isWorkDay(){
 		boolean result = workDayManager.isWorkDay();
 		System.out.println("isWorkDay:"+result);
@@ -41,7 +41,7 @@ public class WorkDayManagerTest {
 	 * @param day 日期
 	 * @return
 	 */
-	@Test
+//	@Test
 	public void isWorkDay2(){
 		boolean result = workDayManager.isWorkDay("20150403");
 		System.out.println("isWorkDay2:"+result);
@@ -53,7 +53,7 @@ public class WorkDayManagerTest {
 	 * 		若15点后，则取下一自然的最近一个工作日
 	 * @return
 	 */
-	@Test
+//	@Test
 	public void getCurrentWorkDay(){
 		String workday = workDayManager.getCurrentWorkDay();
 		System.out.println("getCurrentWorkDay:"+workday);
@@ -68,7 +68,7 @@ public class WorkDayManagerTest {
 	 * @param n 
 	 * @return
 	 */
-	@Test
+//	@Test
 	public void getNextWorkDay(){
 		String workday = workDayManager.getNextWorkDay("20150407", 0);
 		System.out.println("getNextWorkDay:"+workday);

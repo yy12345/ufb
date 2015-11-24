@@ -278,7 +278,7 @@
 				// 上送后台请求
 				$.ajax({
 					type: "POST",
-					url: '${ufbDomain}/school/student_adjustAction.ajax',
+					url: '${ufbDomain}/school/student_adjustAction.htm',
 					data:'toCid='+to_cid+'&cidStr='+cidStr+'&sidStr='+sidStr,
 					async:false,
 					success: function(data){
@@ -372,7 +372,7 @@
 				var result = [];
 				$.ajax({
 					type: "POST",
-					url: '${ufbDomain}/school/student_search.ajax',
+					url: '${ufbDomain}/school/student_search.htm',
 					data:'name='+queryStr,
 					async:false,
 					success: function(data){
@@ -418,7 +418,7 @@
 				var result = false;
 				$.ajax({
 					type: "POST",
-					url: '${ufbDomain}/school/student_remove.ajax',
+					url: '${ufbDomain}/school/student_remove.htm',
 					data:'sid='+sid,
 					async:false,
 					success: function(data){
