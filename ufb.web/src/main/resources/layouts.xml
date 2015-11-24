@@ -29,6 +29,9 @@
     <layout page="layout/organ_school.vm">
         <pattern>school/*.vm</pattern>
     </layout>
+    <layout page="layout/organ.vm">
+        <pattern>organ/**/*.vm</pattern>
+    </layout>
     
     <layout page="layout/blank.vm" default="true">
         <pattern>**/*.vm</pattern>

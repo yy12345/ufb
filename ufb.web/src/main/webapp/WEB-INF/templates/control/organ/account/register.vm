@@ -1,0 +1,59 @@
+<div id="body">
+    <div class="container containerbox">
+		<div class="a4 mt30">
+		    <div class="u2">
+                <ul class="v1">
+                    <li class="v1_hover">创建账户</li>
+                    <li>机构账户认证</li>
+                    <li>创建成功</li>
+                </ul>
+            </div>
+			<form class="common-form" method="post">
+                <div class="panel">
+                    <ul>
+                        <li>
+                            <span class="form-title">经办人手机号</span>
+                            <input class="input-text" type="text" value="">
+                            <span class="tips-normal">11位手机号</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">邀请码</span>
+                            <input class="ipt-idCard input-text" type="text" value="">
+                            <span class="tips-normal">6位邀请码</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li class="error">
+                            <span class="form-title">手机验证码</span>
+                            <input class="ipt-bankCard input-code" type="text" value="">
+                            <span class="tips-normal" style="display: block;">6位验证码</span>
+                            <input class="input-button" type="button" value="获取验证码"> 
+                        </li>
+                        <li class="anotherArea">
+                            <span class="form-title title-font">设置登录密码</span>
+                            <span class="tips-font" style="display: block;">登录时需验证，保护账户信息</span>
+                        </li>
+                        <li>
+                            <span class="form-title">登录密码</span>
+                            <input class="ipt-phoneCode input-text" type="password" value="">
+                            <span class="tips-normal" style="display: block;">6-20个大小写英文字母、符号或数字</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li>
+                            <span class="form-title">重复输入</span>
+                            <input class="ipt-phoneCode input-text" type="password" value="">
+                            <span class="tips-normal" style="display: block;">请再次输入密码</span>
+                            <span class="tips-check"><i class="icon"></i>验证提示</span>
+                        </li>
+                        <li style="width:630px;">
+                            <p>点击下一步表示同意<a href="javascript:;" id="AccountWt">《幼富通服务协议》</a></p>
+                        </li>
+                        <li>
+                            <input class="input-button" type="submit" value="下一步" onclick="location.href='authentPage.html';return false;">
+                        </li>
+                    </ul>
+                </div>
+            </form>
+		</div>
+    </div>
+</div>

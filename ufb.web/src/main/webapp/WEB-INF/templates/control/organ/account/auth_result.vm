@@ -1,0 +1,22 @@
+<div id="body">
+        <div class="container">
+			<div class="a1">机构账户安全认证</div>
+			<div class="u2">
+				<ul class="v1">
+					<li>1 基本资料</li>
+					<li>2 提交材料</li>
+					<li>3 银行账户</li>
+					<li class="v1_hover">4 开户完成 </li>
+				</ul>
+			<div class="a7 mt20 mb60">
+            	<div class="b1">机构开户安全审核中...</div>
+                <div class="b2">
+                	<p>为了确保机构收款账户的准确安全，幼富通已给你注册的对公银行账户打款1元以内随机金额，请务必回复收到的实际金额才能通过安全认证。</p>
+					<p>幼富通将在最快24小时内（工作日）严格审核您的开户申请材料，通过即可使用学费通快速发起收费。</p>
+                                        <p>在此期间，你可以根据引导，开始学习如何使用学费通，并预先设置账单周期、价目表及班级。</p>
+                </div>
+				<div class="b3"><a href="verifyIndexEmpty.html" class="btnA">我的账户</a></div>
+			</div>
+        </div>
+    </div>
+</div>

@@ -1,29 +1,54 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
     <meta name="keywords" content="幼富通">
-	<meta name="description" content="幼富通，幼教金融一站通">
+	<meta name="description" content="幼富通，托富未来">
 	#if("$!{title}"=="")
 	    <title>幼富通，托富未来</title>
 	#else
 	    $!{title}
 	#end
 	<link rel="shortcut icon" href="${staticDomain}/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" href="${staticDomain}/public/css/style.css">
-	<link rel="stylesheet" href="${staticDomain}/public/css/jquery.jscrollpane.css">
+	
+	#if(${organ_module} == "account" && ${organ_page} == "index")
+		<link rel="stylesheet" href="${staticDomain}/public/css/reset.css">
+		<link rel="stylesheet" href="${staticDomain}/public/css/common.css">
+		<link rel="stylesheet" href="${staticDomain}/public/css/identification.css">
+	#elseif(${organ_module} == "account" && ${organ_page} == "register")
+		<link rel="stylesheet" href="${staticDomain}/public/css/tcstyle.css">
+		<link rel="stylesheet" href="${staticDomain}/public/css/common.css">
+		<link rel="stylesheet" href="${staticDomain}/public/css/identification.css">
+	#elseif(${organ_module} == "account" && ${organ_page} == "auth_index")
+		<link rel="stylesheet" href="${staticDomain}/public/css/common.css">
+		<link rel="stylesheet" href="${staticDomain}/public/css/identification.css">
+	#elseif(${organ_module} == "account" 
+		&& (${organ_page} == "auth_base" || ${organ_page} == "auth_certpic" || ${organ_page} == "auth_card" || ${organ_page} == "auth_result"))
+		<link rel="stylesheet" href="${staticDomain}/public/css/tcstyle.css">
+	#else
+		<link rel="stylesheet" href="${staticDomain}/public/css/style.css">
+	#end
+	<link rel="stylesheet" href="${staticDomain}/public/css/header.css">
+	<link rel="stylesheet" href="${staticDomain}/public/css/footer.css">
+	
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.js"></script>
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.form.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.easing.js"></script>
-	<script type="text/javascript" src="${staticDomain}/public/js/jquery.bxslider.min.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/dotimeout.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.scrollTo.js"></script>
-	<script type="text/javascript" src="${staticDomain}/public/js/jquery.jscrollpane.min.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="${staticDomain}/public/js/jquery.form.js"></script>
-	<script type="text/javascript" src="${staticDomain}/public/js/plug.js"></script><!--自定义插件-->
-	<!-- <script type="text/javascript" src="${staticDomain}/public/js/global.js"></script> 全局设置-->
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.bxslider.min.js"></script>
+	<link rel="stylesheet" href="${staticDomain}/public/css/jquery.bxslider.css">
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.jscrollpane.min.js"></script>
+	<link rel="stylesheet" href="${staticDomain}/public/css/jquery.jscrollpane.css">
+	<link rel="stylesheet" href="${staticDomain}/public/css/jquery.mCustomScrollbar.css">
+	<script type="text/javascript" src="${staticDomain}/public/js/jquery.mCustomScrollbar.concat.min.js"></script>
 	<!--日期控件 开始-->
 	<link rel="stylesheet" href="${staticDomain}/public/css/jquery-ui.css" type="text/css">
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.ui.core.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.ui.datepicker.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.ui.datepicker-zh-CN.js"></script>
 	<!--日期控件 结束-->
+	<!--自定义插件-->
+	<script type="text/javascript" src="${staticDomain}/public/js/plug.js"></script>
+	
+	$!{style}
 </head>

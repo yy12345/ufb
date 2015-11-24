@@ -105,6 +105,7 @@
 			<mvc:exclude-mapping path="/family/index.htm" />
 			<mvc:exclude-mapping path="/family/account/*.htm" />
 			<mvc:exclude-mapping path="/family/setting/findpwd_*.htm" />
+			<mvc:exclude-mapping path="/organ/account/*.htm" />
 			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.LoginInterceptor">
 				<property name="loginUrl">
 					<value>http://localhost:8080/ufb/family/index.htm</value>

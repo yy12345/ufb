@@ -24,7 +24,7 @@ public class OrganAccountController {
 	 */
 	@RequestMapping(value="index", method=RequestMethod.GET)
 	public String index(Model model){
-		return "organ/index";
+		return "organ/account/index";
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class OrganAccountController {
 		
 		// code ...
 		
-		return "organ/register";
+		return "organ/account/register";
 	}
 	
 	/**
@@ -50,7 +50,7 @@ public class OrganAccountController {
 		
 		// code ...
 		
-		return "redirect:organ/auth_index.htm";
+		return "redirect:organ/account/auth_index.htm";
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public class OrganAccountController {
 		
 		// code ...
 		
-		return "organ/auth_index";
+		return "organ/account/auth_index";
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class OrganAccountController {
 		
 		// code ...
 		
-		return "organ/auth_base";
+		return "organ/account/auth_base";
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class OrganAccountController {
 		
 		// code ...
 		
-		return "organ/auth_certpic";
+		return "organ/account/auth_certpic";
 	}
 	
 	/**
@@ -102,7 +102,7 @@ public class OrganAccountController {
 		
 		// code ...
 		
-		return "organ/auth_card";
+		return "organ/account/auth_card";
 	}
 	
 	/**
@@ -115,7 +115,7 @@ public class OrganAccountController {
 		
 		// code ...
 		
-		return "organ/auth_result";
+		return "organ/account/auth_result";
 	}
 	
 }
