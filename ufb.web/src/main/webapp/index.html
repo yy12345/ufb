@@ -1,0 +1,82 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>幼富通，托富未来</title>
+    <meta name="keywords" content="幼富通">
+    <meta name="description" content="幼富通，托富未来">
+    <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="static/public/css/common.css">
+    <link rel="stylesheet" href="static/public/css/identification.css">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="public/js/libs/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="static/public/js/jquery.js"></script>
+</head>
+<body>
+<div class="loginPage container" id="index">
+    <div class="bgImg">
+        <img src="static/public/images/img_22.jpg">
+    </div>
+    <div id="header">
+		<div class="topNav">
+			<div class="container">
+				  <div class="b1">
+				  	<a href="corp/account/index.htm" class="active">机构版</a>
+				  	<a href="family/index.htm">家庭版</a>
+				  </div>
+			</div>
+		</div>
+    </div>
+    <div class="body">
+        <div class="loginBox">
+            <div class="loginBg">
+                 <div class="InstitutionalUser">
+                     <div class="cartoonBg01" style="opacity:0;"></div>
+                     <a href="corp/account/index.htm"><img src="static/public/images/img_23.png"></a>
+                 </div>
+                <div class="IndividualUser">
+                     <div class="cartoonBg02"></div>
+                     <a href="family/index.htm"><img src="static/public/images/img_24.png"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyRight">
+            <div class="Right">
+                <span></span>幼富通版权所有 ©2015 沪ICP备14054347号-1
+            </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+   $(function(){
+     
+        $(".InstitutionalUser").hover(function(){
+            setInterval(kk(".InstitutionalUser .cartoonBg01"),10);
+        },function(){
+            $(".InstitutionalUser .cartoonBg01").stop(true).animate({opacity:0});
+        });
+        $(".IndividualUser").hover(function(){
+            setInterval(kk(".IndividualUser .cartoonBg02"),10);
+        },function(){
+            $(".IndividualUser .cartoonBg02").stop(true).animate({opacity:0});
+        });
+        function kk(v){
+            $(v).animate({
+                opacity: 0.5
+            },100);
+            $(v).animate({
+                opacity: 1
+            },200);
+            $(v).animate({
+                opacity: 0.5
+            },300);
+            $(v).animate({
+                opacity: 0
+            },500,function(){
+                kk(v);
+            });
+        }
+    });
+</script>
+</body>
+</html>
