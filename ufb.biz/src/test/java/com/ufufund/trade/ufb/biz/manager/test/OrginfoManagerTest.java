@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
-import com.ufufund.ufb.biz.manager.OrginfoManager;
+import com.ufufund.ufb.biz.manager.OrganManager;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.model.db.Orginfo;
@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OrginfoManagerTest {
 	
 	@Autowired
-	private OrginfoManager orginfoManager;
+	private OrganManager orginfoManager;
 	
 	@Test
 	public void addOrginfo(){

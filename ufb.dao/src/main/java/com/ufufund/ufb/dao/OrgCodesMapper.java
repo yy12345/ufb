@@ -8,7 +8,7 @@ public interface OrgCodesMapper {
 
 	int addOrgCodes(List<OrgCodes> orgCodesList);
 	
-	List<OrgCodes> getMoreOrgCodes(OrgCodes orgCodes);
+	List<OrgCodes> getOrgCodeList(OrgCodes orgCodes);
 	
 	int updateOrgCodes(OrgCodes orgCodes);
 }

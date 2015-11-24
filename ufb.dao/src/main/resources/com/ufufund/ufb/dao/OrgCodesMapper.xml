@@ -25,7 +25,7 @@
 	</foreach>
 </insert>
 
-<select id="getMoreOrgCodes" parameterType="OrgCodes" resultType="OrgCodes">
+<select id="getOrgCodeList" parameterType="OrgCodes" resultType="OrgCodes">
 	select 
 	    t.id         ,
 		t.code       ,
