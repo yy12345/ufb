@@ -41,6 +41,19 @@ public class OrganAccountController {
 	}
 	
 	/**
+	 * 注册页，成功
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="register_success", method=RequestMethod.GET)
+	public String registerSuccess(Model model){
+		
+		// code ...
+		
+		return "redirect:organ/auth_index.htm";
+	}
+	
+	/**
 	 * 认证页，首页
 	 * @param model
 	 * @return
