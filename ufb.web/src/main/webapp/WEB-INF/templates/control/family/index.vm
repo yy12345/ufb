@@ -109,8 +109,8 @@ $(function(){
 					<li><div class="bg01"><img src="${staticDomain}/family/images/img_01.png" alt=""></div></li>
 					<!-- 
 					<li><div class="bg02"><img src="${staticDomain}/family/images/img_02.png" alt=""></div></li>
-					 -->
 					<li><div class="bg03"><img src="${staticDomain}/family/images/img_03.png" alt=""></div></li>
+					 -->
                 </ul>
 			</div>
 			<div class="profileBox">
