@@ -277,7 +277,6 @@ $(function(){
                     </form>
                 </div>
                 <div class="b2">
-                    <p class="font12">点击下一步表示同意<a href="#" id="uftRegistered">《幼富通用户注册协议》</a></p>
                     <a href="#"  id="submitForm" class="btnA">下一步</a>
                 </div>
             </div>
@@ -285,8 +284,5 @@ $(function(){
       </div>
     </div>
 </div>
-
-<!-- 用户注册协议  -->
-#parse("control/family/account/contract_register.vm")	            
 </body>
 </html>

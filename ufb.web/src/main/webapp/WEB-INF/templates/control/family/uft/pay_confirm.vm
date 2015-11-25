@@ -20,6 +20,11 @@
             $(this).children("i").addClass("check");
             $(this).parent().find(".payMoney").addClass("showNow")
                 .parent().siblings().find(".payMoney").removeClass("showNow");
+           if($(this).find("input").attr("paytype")=="U"){
+        	   $("#ufbContract").attr("style","display:block");
+           }else{
+        	   $("#ufbContract").attr("style","display:none");
+           }
         });
         
         // 点击具体班级的头部（灰色条）收放事件  
@@ -37,13 +42,7 @@
         });
         
         // 点击弹层出现消失 
-       $("#xftService").click(function(){
-           $(".bgBox , #xft").fadeIn();       
-       });
-       $("#xft .close , .btnKnow").click(function(){
-           $(".bgBox , #xft").fadeOut();       
-       });
-        $("#ufbAuto").click(function(){
+       $("#ufbAuto").click(function(){
            $(".bgBox , #ufb").fadeIn();       
        });
        $("#ufb .close , .btnKnow").click(function(){
@@ -230,8 +229,8 @@
                         <p>幼富通是专注为幼教机构提供金融服务的互联网平台。</p>
                         <p>中国银联为您的幼儿提供安全、稳定、便捷的缴费服务，请放心使用。</p>
                     </div>
-                    <div class="control-review" style="margin-top: 50px">
-                        <p>点击确认表示同意<a href="javascript:;" id="xftService">《学费通服务协议》</a>、<a href="javascript:;" id="ufbAuto">《幼富宝定时取现服务协议》</a></p>
+                    <div class="control-review" style="margin-top: 50px" id="ufbContract">
+                        <p>点击确认表示同意<a href="javascript:;" id="ufbAuto">《幼富宝定时取现服务协议》</a></p>
                     </div>
                     <div class="control-review">
                         <a href="javascript:;" class="btn btn-red orgFormSub">确 认</a>
@@ -241,62 +240,7 @@
         </div> 
     </div> 
 </div> 
-<!--弹层-->
-<div class="bgBox"></div>	
-<!--《学费通服务协议》-->
-<div class="layerpop" id="xft">	
-    <b class="close"></b>
-    <div class="layerTitle">《学费通服务协议》</div>
-	<div id="content_1" class="content content_scroll">
-               <h4>《学费通服务协议》</h4>
-                <p>此处内容通过富文本编辑器进行编辑发布<br>
-                    个体工商户无组织机构代码（仅支持个体工商户）<br>
-                    目前仅支持中国大陆企业；<br>
-                    注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
-                <p>此处内容通过富文本编辑器进行编辑发布<br>
-                个体工商户无组织机构代码（仅支持个体工商户）<br>
-                目前仅支持中国大陆企业；<br>
-                注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
-                <h4>幼富宝服务协议</h4>
-                <p>此处内容通过富文本编辑器进行编辑发布<br>
-                个体工商户无组织机构代码（仅支持个体工商户）<br>
-                目前仅支持中国大陆企业；<br>
-                注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
-                <p>对公账户填写（个体工商户）<br>
-                若个体工商户无对公账户，可填写营业执照上法人的个人银行卡号。<br>
-                温馨提示：仅限个体工商户，填写个人银行卡号时需与营业执照上法人保持一致。</p>
-                <p>对公账户填写（政府类型）<br>
-                若政府类型若没有对公账号，可以在“机构开户银行”、“机构银行账号”栏填写“无”。</p>
-        <a href="javascript:;" class="btnKnow closebox">我知道了</a>
-    </div>
-</div> 
-
-<!--《幼富宝定时取现协议》-->
-<div class="layerpop" id="ufb">	
-    <b class="close"></b>
-    <div class="layerTitle">《幼富宝定时取现协议》</div>
-	<div id="content_1" class="content content_scroll">
-               <h4>《幼富宝定时取现协议》</h4>
-                <p>此处内容通过富文本编辑器进行编辑发布<br>
-                    个体工商户无组织机构代码（仅支持个体工商户）<br>
-                    目前仅支持中国大陆企业；<br>
-                    注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
-                <p>此处内容通过富文本编辑器进行编辑发布<br>
-                个体工商户无组织机构代码（仅支持个体工商户）<br>
-                目前仅支持中国大陆企业；<br>
-                注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
-                <h4>幼富宝服务协议</h4>
-                <p>此处内容通过富文本编辑器进行编辑发布<br>
-                个体工商户无组织机构代码（仅支持个体工商户）<br>
-                目前仅支持中国大陆企业；<br>
-                注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
-                <p>对公账户填写（个体工商户）<br>
-                若个体工商户无对公账户，可填写营业执照上法人的个人银行卡号。<br>
-                温馨提示：仅限个体工商户，填写个人银行卡号时需与营业执照上法人保持一致。</p>
-                <p>对公账户填写（政府类型）<br>
-                若政府类型若没有对公账号，可以在“机构开户银行”、“机构银行账号”栏填写“无”。</p>
-        <a href="javascript:;" class="btnKnow closebox">我知道了</a>
-    </div>
-</div> 
+<!--协议-->
+#parse("control/family/uft/confirm_contract.vm")
 </body>
 </html>

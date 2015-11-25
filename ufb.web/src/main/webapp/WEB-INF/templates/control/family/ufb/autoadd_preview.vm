@@ -154,7 +154,7 @@ $(function(){
                                 <span  class="tips-check"><i class="icon"></i><font id="tradePwdTips">验证提示</font></span>
                             </li>
                             <li>
-                                <label class="tips">点击下一步表示同意<a class="link" href="javascript:;" id="hft">《海富通货币基金申购赎回协议》</a></label>
+                                <label class="tips">点击下一步表示同意<a class="link" href="javascript:;" id="hft">《幼富宝定时充值服务协议》</a></label>
                             </li>
                             <li class="clearfix">
                                 <a id="btn-autoTrade-add" class="input-button fl" href="javascript:;">返回修改</a>
@@ -170,35 +170,6 @@ $(function(){
 </div>
 
 <!----------弹层--start----------->
-<div class="bgBox"></div>	
-	<!-- content block -->
-<div class="layerpop">	
-    <b class="close"></b>
-    <div class="layerTitle">《海富通货币基金申购赎回协议》</div>
-	<div id="content_1" class="content">
-               <h4>《海富通货币基金申购赎回协议》</h4>
-                <p>此处内容通过富文本编辑器进行编辑发布<br>
-个体工商户无组织机构代码（仅支持个体工商户）<br>
-目前仅支持中国大陆企业；<br>
-注：个体工商类，若无组织机构代码，可以在选择项填写“无”，上传附件用营业执照代替即可。</p>
-
-<p>对公账户填写（个体工商户）<br>
-若个体工商户无对公账户，可填写营业执照上法人的个人银行卡号。<br>
-温馨提示：仅限个体工商户，填写个人银行卡号时需与营业执照上法人保持一致。</p>
-
-<p>对公账户填写（政府类型）<br>
-若政府类型若没有对公账号，可以在“机构开户银行”、“机构银行账号”栏填写“无”。</p>
-
-<p>对公账户填写（企业类型）<br>
-若企业无对公银行帐号，可以填写营业执照上法人的对私银行卡号及姓名。<br>
-温馨提示：<br>
-填写个人银行卡号时需与营业执照上法人保持一致。</p>
-
-<p>对公账户填写（事业单位）
-事业单位如无对公账户，可以使用结算中心或财政账户支付验证（如国库集中收付结算中心等）。</p>  
-                <a href="javascript:;" class="btnKnow closebox">我知道了</a>
-                </div>
-</div>
-<!----------弹层--end----------->
+#parse("control/family/ufb/autoadd_contract.vm")
 </body>
 </html>
