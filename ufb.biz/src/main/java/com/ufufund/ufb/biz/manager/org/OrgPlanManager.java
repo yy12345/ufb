@@ -39,7 +39,7 @@ public interface OrgPlanManager {
 	 * @param paytype
 	 * @return
 	 */
-	public String confirmDetail(String detailids,Custinfo d_custinfo,String paytype,String tradePwd);
+	public String confirmDetail(String detailids,Custinfo d_custinfo,String paytype);
 	
 	/**
 	 * 查询缴费通知书详情

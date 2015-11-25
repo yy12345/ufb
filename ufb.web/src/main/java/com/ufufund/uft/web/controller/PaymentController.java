@@ -392,7 +392,7 @@ public class PaymentController {
 				orgnamelist.add(orgs[i]);
 			}
 			// 支付方式  :幼富宝    快捷方式    
-			String paydate=orgPlanManager.confirmDetail(detailids,s_custinfo, paytype,tradePwd);
+			String paydate=orgPlanManager.confirmDetail(detailids,s_custinfo, paytype);
 			
 			model.addAttribute("orgnamelist", orgnamelist);
 			model.addAttribute("paytype", paytype);
