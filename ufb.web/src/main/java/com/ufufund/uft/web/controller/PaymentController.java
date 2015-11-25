@@ -378,8 +378,6 @@ public class PaymentController {
 		try{
 			// 交易密码校验
 			Custinfo s_custinfo=custManager.getCustinfo(custinfo.getCustno());
-			log.info("123=="+s_custinfo.getTradepwd());
-			log.info("456=="+EncryptUtil.md5(tradePwd));
 			if(!s_custinfo.getTradepwd().equals(EncryptUtil.md5(tradePwd))){
 				throw new UserException("交易密码错误！");
 			}		
