@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>幼富通，幼富未来 - 帮助中心</title>
+<script type="text/javascript">
+$(function(){
+	$('.nav a:eq(3)').addClass('active');
+});
+</script>
+</head>
+<body>
+ <div class="body">
+    <div class="inner clearfix">
+        <div class="title">
+            <h2 class="title-main">帮助中心</h2>
+        </div>
+        <div class="side side-nav fl">
+            <ul>
+                <li><a href="${ufbDomain}/corp/help/account.htm"><b class="icon03"></b>账户管理</a></li>
+                <li><a class="current" href="${ufbDomain}/corp/help/charge.htm"><b class="icon01"></b>收费退费</a></li>
+                <li><a href="${ufbDomain}/corp/help/security.htm"><b class="icon02"></b>安全保障</a></li>
+                <li><a href="${ufbDomain}/corp/help/question.htm"><b class="icon05"></b>常见问题</a></li>
+                <li><a href="${ufbDomain}/corp/help/about.htm"><b class="icon06"></b>关于幼富通</a></li>
+                <li><a href="${ufbDomain}/corp/help/contact.htm"><b class="icon07"></b>联系我们</a></li>
+            </ul>
+        </div>
+        <div class="main fr">
+            <div class="help-content">
+                <ul>
+                    <li>
+                        <h3>一、收费前需要做哪些准备工作？</h3>
+                        <br/>
+                        <div>通过幼富通的安全认证的幼教机构，进行如学年学期、收费价目、导入学生档案等快速设置，即可一键发起收费，一日完成收费退费。</div>
+                        <br/>
+                        <div>1.[学年/学期]设置:点击[收费价目表]</div>
+                        <img src="${staticDomain}/public/images/org.help_2(1).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <p></p>
+                        <div>2.点击”修改”即可设置/修改学年及学期起止日期</div>
+                        <img src="${staticDomain}/public/images/org.help_2(2).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <p></p>                            
+                        <div>3.[价目表]设置:点击”+新增收费项目”可新增收费项目,并设置类别、项目、金额、计费周期,设置完毕请点击”保存”;若您需要修改，则点击”修改”进行重新设置</div>
+                        <img src="${staticDomain}/public/images/org.help_2(3).png" style="width:100%"> 
+                        <br/>
+                        <br/>
+                        <p></p>                           
+                        <div>4.[年级/班级]设置:点击[档案管理],进行年级、班级设置（包含常规班级和其他班级设置）</div>
+                        <img src="${staticDomain}/public/images/org.help_2(4).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <img src="${staticDomain}/public/images/org.help_2(5).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>5.[批量导入学生档案]:点击蓝色字体“档案模板”</div>
+                        <img src="${staticDomain}/public/images/org.help_2(6).png"  style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>6.点击”确认”，并将档案模板压缩文件保存到您的电脑上</div>
+                        <img src="${staticDomain}/public/images/org.help_2(7).png"  style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>7.解压缩后打开文件夹，文件夹中含有所有班级，您需要打开每个Excel表格进行编辑。(由于学生档案管理重要且内容较多，可交由各个班主任负责各自班级学生档案的编辑及上传)</div>
+                        <img src="${staticDomain}/public/images/org.help_2(8).png" style="width:100%">
+                            <br/>
+                            <br/>
+                            <div>8.比如，打开大二班Excel表格，您需要填写班级、学号、学生姓名、性别、生日、家庭类型、缴费家长、家长手机及家长邮箱共8项信息。
+（部分电脑如果不能编辑，请点击上方”启用编辑”按钮）</div>
+                            <img src="${staticDomain}/public/images/org.help_2(9).png"  style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>9.填写完所有Excel表格后，请检查所填信息的准确性，然后点击[选择文件]将每个班级的Excel表格逐个上传。（注意：务必逐个上传，假如您所在机构有15个班级，则需要上传15次，为了学生信息的准确性您不能打包一次性上传）</div>
+                        <img src="${staticDomain}/public/images/org.help_2(10).png" style="width:100%">    
+                        <br/>
+                        <br/>                  
+                    </li>
+
+                    <li>
+                        <h3>10.如何单独增加并编辑新档案?</h3>
+                        <br/>
+                        <div>a.点击[档案管理]</div>
+                        <img src="${staticDomain}/public/images/org.help_2.2.4(1).png" alt=" " style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>b.点击[+新档案]，出现学生信息档案页面，点击档案右上角“编辑”按钮可编辑学生基本资料及更多补充资料，点击”确定”进行保存</div>
+                        <img src="${staticDomain}/public/images/org.help_2.2.4(2).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <img src="${staticDomain}/public/images/org.help_2.2.4(3).png" style="width:100%">
+                        <br/>
+                        <br/>
+                    </li>
+
+                    <li>
+                        <h3>二、如何发起收费？</h3>
+                        <div>通过认证的幼教机构，可以在每月1-15日建立固定周期收费计划或临时性收费计划，批量或逐个设置收费明细，一次性发出收费通知即可完成收费。</div>
+                        <br/>
+                        <div>1.点击”收费”</div>
+                        <img src="${staticDomain}/public/images/org.help_3(1).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>2.进入[发起收费/退费]页面:设置[费用类型]、[收费方式]、[收费名称]、[家长确认截止日]、[每月固定扣款日]，点击“下一步”</div>
+                        <img src="${staticDomain}/public/images/org.help_3(2).png" style="width:100%">
+                        <br/>
+
+                    <li>
+                        <h3>请注意：费用类型如何区分?</h3>
+                        <div>费用类型分为[固定周期费用]与[临时性费用],固定周期费用指有计划得在每个收费周期内都会收取的费用，比如保育费、膳食费。临时性费用指临时性的并非每个收费周期都会收取的费用，比如春游费、园服费。</div>
+                    </li>
+
+                    <li>
+                        <h3>请注意：收费方式如何区分?</h3>
+                        <div>收费方式分为：月代扣（学费通）、单笔（按月收）、单笔（按学期收）、单笔（按学年收）四种方式。月代扣是针对已在学费通设置为月代扣的学生的收费方式；单笔（按月收）是指按月收取、需逐笔确认缴付的收费方式；单笔（按学期收）是指按学期收取、需逐笔确认缴付的收费方式；单笔（按学年收）是指按学年收取、需逐笔确认缴付的收费方式</div>
+                    </li>
+
+
+                        <br/>
+                        <div>3.选择收费班级或学生，并点击[设置收费明细]，对选中的学生进行收费明细设置 </div>
+                        <img src="${staticDomain}/public/images/org.help_3(3).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>4.[收费明细]设置：点击[+新增收费项目]，可设置类别、项目、金额及计费周期，并点击”保存”；若您需要修改，则点击”修改”进行重新设置。</div>
+                        <img src="${staticDomain}/public/images/org.help_3(4).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>5.点击”预览”，您可预览该笔收费计划，若您需要修改，则在此页面点击”修改”，若您确认无误则点击“确定”</div>
+                        <img src="${staticDomain}/public/images/org.help_3(5).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>6.输入交易密码，并点击“发送收费通知”</div>
+                        <img src="${staticDomain}/public/images/org.help_3(6).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>7.收费计划已建立，点击[打印收费通知书]</div>
+                        <img src="${staticDomain}/public/images/org.help_3(7).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>8.批量选取学生，并点击[打印收费通知书] ，打印出纸质收费通知书并及时送达学生家长</div>
+                        <img src="${staticDomain}/public/images/org.help_3(8).png" style="width:100%">
+                        <br/>
+                        <br/>
+                    </li>
+
+                    <li>
+                        <h3>三、如何查看所有的收费计划?</h3>
+                        <br/>
+                        <div>1.点击”查看更多”,可见所有收费计划，您也可按照缴费时间，费用类型及收费状态进行筛选</div>
+                        <img src="${staticDomain}/public/images/org.help_3.4(1).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <img src="${staticDomain}/public/images/org.help_3.4(2).png" style="width:100%">
+                        <br/>
+                        <br/>
+                    </li>
+
+
+
+                    <li>
+                        <h3>四、如何查询具体收费计划详情?</h3>
+                        <br/>
+                        <div>1.点击“查看更多”</div>
+                        <img src="${staticDomain}/public/images/org.help_3.4.1(1).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>2.找到所要查看的收费计划，点击”查看”</div>
+                        <img src="${staticDomain}/public/images/org.help_3.4.1(2).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>3.进入[计划详情页]</div>
+                        <img src="${staticDomain}/public/images/org.help_3.4.1(3).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <img src="${staticDomain}/public/images/org.help_3.4.1(4).png" style="width:100%">
+                        <br/>
+                        <br/>
+                    </li>
+
+
+                    <li>
+                        <h3>五、不同收费计划状态的操作权限</h3>
+                        <br/>
+                        <div>1.[草稿]状态：草稿状态即未发出收费通知时该笔收费所处的状态。此时，您可“编辑”或“删除”该笔收费计划。</div>
+                        <div>2.[通知]状态：指已经发出了收费通知，但未到扣款日时该笔收费计划所处的状态。此时，您可“暂停”或“撤销”该笔收费计划，随后会有短信及邮件通知家长。若您“暂停”该笔收费计划，则扣款日不进行扣款，随后该笔收费计划由[通知]状态变为[草稿]状态；您也可以在“暂停”后到扣款日之前的一段时间内“恢复”该笔收费，则扣款日正常扣款。若您“撤销”该收费计划，则该计划作废，且不能恢复。</div>
+                        <div>3.扣款后：在扣款日之后，该笔收费计划则只能进行[再经办]或”退费”。[再经办]指保持学生和收费项目不变的情况下对该笔收费进行一些简单调整，在接下来的收费周期中使用；“退费”则指对该笔收费进行部分退费。</div>
+                     </li>
+
+                    <li>
+                        <h3>六、如何查询本计划内学生个别缴费情况?</h3>
+                        <br/>
+                        <div>1.点击”查看更多”</div>
+                        <img src="${staticDomain}/public/images/org.help_3.4.1.2(1).png" alt=" " style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>2.找到所要查看的收费计划，点击”查看”</div>
+                        <img src="${staticDomain}/public/images/org.help_3.4.1.2(2).png" alt=" " style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>3.进入[计划详情页]</div>
+                        <img src="${staticDomain}/public/images/org.help_3.4.1.2(3).png" alt=" " style="width:100%">
+                        <br/>
+                        <br/>
+                        <img src="${staticDomain}/public/images/org.help_3.4.1.2(4).png" alt=" " style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>4.在[计划详情页]下半部分，找到所要查看的学生，点击“查看”</div>
+                        <img src="${staticDomain}/public/images/org.help_3.4.1.2(5).png" alt=" " style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>5.出现该学生[收费通知书]，可进行查看，打印或保存至电脑</div>
+                        <img src="${staticDomain}/public/images/org.help_3.4.1.2(6).png" alt=" " style="width:100%">
+                        <br/>
+                        <br/>
+                    </li>
+
+                    <li>
+                        <h3>七、如何发起退费？</h3>
+                        <div>只有已经完成的收费项目才能发起退费。每月1-15日可根据上月实际考勤情况批量或逐个设置退费明细，建立退费计划即可在一日内完成退费。</div>
+                        <br/>
+                        <div>1.登录后，页面下半部分即可查看收费计划明细，点击”查看更多”</div>
+                        <img src="${staticDomain}/public/images/org.help_4(1).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>2.找到要进行退费的这笔收费计划，点开“查看”下拉按钮，点击[退费]</div>
+                        <img src="${staticDomain}/public/images/org.help_4(2).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>3.[退费计划名称]:选择记账周期及退款日期，点击“下一步”</div>
+                        <img src="${staticDomain}/public/images/org.help_4(3).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>4.[选择对象及明细]:勾选需要退费的学生，并点击[设置退费金额]</div>
+                        <img src="${staticDomain}/public/images/org.help_4(4).png" style="width:100%">
+                        <div>5.在[本期应退]设置退还金额，检查无误后点击”确认”按钮</div>
+                        <img src="${staticDomain}/public/images/org.help_4(5).png" style="width:100%">
+                        <div>6.[确认退费]:检查无误后，点击”确认退费”，如有错误，点击”返回修改”</div>
+                        <img src="${staticDomain}/public/images/org.help_4(6).png" style="width:100%">
+                        <br/>
+                        <br/>
+                    </li>
+
+                    <li>
+                        <h3>八、如何查询具体退费计划详情?</h3>
+                        <br/>
+                        <div>1.点击“查看更多”</div>
+                        <img src="${staticDomain}/public/images/org.help_4.2(1).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>2.找到费用类型方式为”退费”的计划，点击”查看”</div>
+                        <img src="${staticDomain}/public/images/org.help_4.2(2).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>3.进入[计划详情页]</div>
+                        <img src="${staticDomain}/public/images/org.help_4.2(3).png" style="width:100%">                            
+                        <br/>
+                        <br/>
+                        <img src="${staticDomain}/public/images/org.help_4.2(4).png" style="width:100%">
+                        <br/>
+                        <br/>
+                    </li>
+
+
+                    <li>
+                        <h3>九、如何查询本计划内学生个别退费状态?</h3>
+                        <br/>
+                        <div>1.点击“查看更多”</div>
+                        <img src="${staticDomain}/public/images/org.help_4.2.1(1).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>2.找到费用类型方式为”退费”的计划，点击”查看”</div>
+                        <img src="${staticDomain}/public/images/org.help_4.2.1(2).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>3.进入[计划详情页]</div>
+                        <img src="${staticDomain}/public/images/org.help_4.2.1(3).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <img src="${staticDomain}/public/images/org.help_4.2.1(4).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>4.在[计划详情页]下半部分，找到所要查看的学生，点击“查看”</div>
+                        <img src="${staticDomain}/public/images/org.help_4.2.1(5).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>5.出现该学生[退费通知书]，可进行查看</div>
+                        <img src="${staticDomain}/public/images/org.help_4.2.1(6).png" style="width:100%">
+                        <br/>
+                        <br/>
+                    </li>         
+        
+                    <li class="last">
+                        <h3>十、如何删除收费/退费计划?</h3>
+                        <br/>
+                        <div>1.点击“查看更多”</div>
+                        <img src="${staticDomain}/public/images/org.help_4.3(1).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>2.找到所要删除的收费或退费记录，点击”查看”下拉菜单中”删除”(只有草稿状态的收费/退费计划可以被删除)</div>
+                        <img src="${staticDomain}/public/images/org.help_4.3(2).png" style="width:100%">  
+                            <br/>
+                            <br/>                    
+                        </li>
+
+                        <li>
+                            <h3>其它问题：为何收费仅用一天？</h3>
+                            <div>幼富通系统将向家长发送短信（后续将支持微信通知）、邮件，配合幼儿园传统的纸质收费通知书，邀请家长绑定收费机构与银行卡，系统将在每月固定日发起收费扣款或退费。（若选择使用“月代扣”模式，学费将每月自动扣清，无需重复发起收费）</div>
+                        </li>
+
+                        <li>
+                            <h3>其它问题：批量导入后如何编辑学生档案?</h3>
+                            <br/>
+                            <div>若您已批量导入了学生档案，您就可以点击“查看”了解具体学生的相关信息；
+点击右上角“编辑”按钮可编辑学生基本资料及更多补充资料，点击”确定”进行保存</div>
+                            <img src="${staticDomain}/public/images/org.help_2.2.3(1).png" style="width:100%">
+                        <br/>
+                        <br/>                        <img src="${staticDomain}/public/images/org.help_2.2.3(2).png" style="width:100%">
+                        <br/>
+
+                    <li>
+                        <h3>其它问题：如何查询学生个人缴费记录?</h3>
+                        <br/>
+                        <div>1.进入”学生档案管理”页面，找到目标学生，点击“查看”</div>
+                        <img src="${staticDomain}/public/images/org.help_2.2.5(1).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>2.点击“缴费历史纪录”，即可查看</div>
+                        <img src="${staticDomain}/public/images/org.help_2.2.5(2).png" style="width:100%">
+                        <br/>
+                        <br/>
+                    </li>
+
+                    <li>
+                        <h3>其它问题：如何进行[调班]？</h3>
+                        <br/>
+                        <div>1.进入[学生档案管理],点击[调班]</div>
+                        <img src="${staticDomain}/public/images/org.help_2.2.6(1).png" style="width:100%">
+                        <br/>
+                        <br/>
+                        <div>2.选中需要调整的某学生或某班，选择要进入的班级，并点击“确认调班”</div>
+                        <img src="${staticDomain}/public/images/org.help_2.2.6(2).png" style="width:100%">
+                            <br/>
+                            <br/>
+                        </li>
+
+                            <br/>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

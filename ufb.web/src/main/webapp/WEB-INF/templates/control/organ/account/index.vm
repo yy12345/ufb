@@ -47,7 +47,7 @@ $(function(){
 			$(".wrongTips").fadeIn();
 			return false;
 		 }else{
-		 	location.href = '${ufbDomain}/family/uft/uft_index.htm';
+		 	location.href = '${ufbDomain}/corp/account/uft_index.htm';
 		 	return true;
 		 }  
 	});
@@ -118,7 +118,7 @@ $(function(){
                                <div class="wrongTips" style="display:none;">
                                    <span></span><font id="error_text">您输入的验证码错误</font><b></b>
                                </div>
-                                <form id="myform" method="post" action="#">
+                                <form id="myform" method="post" action="${ufbDomain}/corp/account/login.htm">
                                 <ul>
                                     <li class="li01"><img src="${staticDomain}/public/images/img_08.png">
                                     	<input type="text" placeholder="手机号" name="operator_mobile" id="operator_mobile" maxlength="11">
@@ -133,7 +133,7 @@ $(function(){
                                     <li class="li04"><a href="#" id="submit">立即登录</a></li>
                                     <li class="li05">
 	                                    <a href="${ufbDomain}/corp/account/register.htm" class="freeRegistered">免费注册</a>
-	                                    <a href="" class="fogetPassword">忘记密码？</a>
+	                                 <!--   <a href="" class="fogetPassword">忘记密码？</a>-->
                                     </li>
                                 </ul>
                                 </form>
@@ -215,7 +215,7 @@ $(function(){
                                    <dt>为何收费仅用一天？</dt>
                                    <dd>幼富通系统将向家长发送短信（后续将支持微信通知）、邮件，配合幼儿园传统的纸质收费通知书，邀请家长绑定收费机构与银行卡，系统将在每月固定日发起收费扣款或退费。（若选择使用“月代扣”模式，学费将每月自动扣清，无需重复发起收费）</dd>
                                </dl>
-                               <div class="help"><a href="">帮助中心</a></div>
+                               <div class="help"><a href="${ufbDomain}/corp/help/charge.htm">帮助中心</a></div>
                            </li>
                            <li>
                                <dl>
@@ -230,7 +230,7 @@ $(function(){
                                    <dt>全校学生、多重费项是否会扣错？</dt>
                                    <dd>幼富通为幼儿园提供学生档案导入及管理的快捷工具、配合后台设置的多重校验程序，避免缴费家长错绑漏绑。</dd>
                                </dl>
-                               <div class="help"><a href="">帮助中心</a></div>
+                               <div class="help"><a href="${ufbDomain}/corp/help/security.htm">帮助中心</a></div>
                            </li>
                            <li>
                                <dl>
@@ -249,7 +249,7 @@ $(function(){
                                    <dt>目前机构是否能绑定多个收款账户？</dt>
                                    <dd>幼富通1.0仅支持对公基本户收款，暂不支持多个一般户或个体工商户类私人银行卡绑定。请以幼富通2.0版升级后实际业务说明为准。</dd>
                                </dl>
-                               <div class="help"><a href="">帮助中心</a></div>
+                               <div class="help"><a href="${ufbDomain}/corp/help/account.htm">帮助中心</a></div>
                            </li>
                            <li>
                                <dl>
@@ -268,7 +268,7 @@ $(function(){
                                    <dt>收费退费都可以在同一天完成吗？</dt>
                                    <dd>系统会自动处理预先设定好的不同收费计划与退费计划，并在同一天发起清算，完成从家长卡中扣款及退费付款的资金交易。</dd>
                                </dl>
-                               <div class="help"><a href="">帮助中心</a></div>
+                               <div class="help"><a href="${ufbDomain}/corp/help/question.htm">帮助中心</a></div>
                            </li>
                            <li></li>
                            <li></li>

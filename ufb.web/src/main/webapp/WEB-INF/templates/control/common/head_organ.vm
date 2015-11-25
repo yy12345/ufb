@@ -23,12 +23,17 @@
 	#elseif(${corp_module} == "account" 
 		&& (${corp_page} == "auth_base" || ${corp_page} == "auth_certpic" || ${corp_page} == "auth_card" || ${corp_page} == "auth_result"))
 		<link rel="stylesheet" href="${staticDomain}/public/css/tcstyle.css">
+	#elseif(${corp_module} == "help" )
+		<link rel="stylesheet" href="${staticDomain}/public/css/reset.css">
+		<link rel="stylesheet" href="${staticDomain}/public/css/common.css">
 	#else
 		<link rel="stylesheet" href="${staticDomain}/public/css/style.css">
 	#end
+	
+	#if(${corp_module} != "help")
 	<link rel="stylesheet" href="${staticDomain}/public/css/header.css">
 	<link rel="stylesheet" href="${staticDomain}/public/css/footer.css">
-	
+	#end
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.form.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.easing.js"></script>

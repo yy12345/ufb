@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>幼富通，幼富未来 - 帮助中心</title>
+<script type="text/javascript">
+$(function(){
+	$('.nav a:eq(3)').addClass('active');
+});
+</script>
+</head>
+<body>
+ <div class="body">
+    <div class="inner clearfix">
+        <div class="title">
+            <h2 class="title-main">帮助中心</h2>
+        </div>
+        <div class="side side-nav fl">
+            <ul>
+                <li><a href="${ufbDomain}/corp/help/account.htm"><b class="icon03"></b>账户管理</a></li>
+                <li><a href="${ufbDomain}/corp/help/charge.htm"><b class="icon01"></b>收费退费</a></li>
+                <li><a href="${ufbDomain}/corp/help/security.htm"><b class="icon02"></b>安全保障</a></li>
+                <li><a href="${ufbDomain}/corp/help/question.htm"><b class="icon05"></b>常见问题</a></li>
+                <li><a class="current" href="${ufbDomain}/corp/help/about.htm"><b class="icon06"></b>关于幼富通</a></li>
+                <li><a href="${ufbDomain}/corp/help/contact.htm"><b class="icon07"></b>联系我们</a></li>
+            </ul>
+        </div>
+        <div class="main fr">
+            <div class="help-content">
+                <ul>
+                    <li>
+                        <h3>幼富通使命</h3>
+                        <div>托富未来：通过互联网，让幼教机构轻松使用支付、信贷、理财等专业金融工具，获取信用、提升管理、加强品牌、加速扩张，最终提升中国幼教整体水平！</div>
+                    </li>
+                    <li>
+                        <h3>幼富通合作伙伴</h3>
+                        <div>平台内的金融服务均由中国银联、海富通基金等专业金融机构提供，同时对接全国数百家银行、实力金融租赁机构及众多幼教产品厂商如校车、装修、教玩具等。由幼研社等整合数百家全国幼教通路商提供O2O落地金融服务。</div>
+                    </li>
+                    <li>
+                        <h3>幼富通专业团队</h3>
+                        <div>由来自于公募基金公司、互联网金融上市公司、银行及电子商务系统开发、企业管理咨询与法律界专业人士共同组成，同时由幼教行业专家团担任投资人及产品顾问。</div>
+                    </li>
+                    <li class="last">
+                            <h3>幼富通理念愿景</h3>
+                            <div>成为中国幼教机构最值得托付信赖的幼教金融专门服务机构、建立中国幼教行业专属的信用体系。</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

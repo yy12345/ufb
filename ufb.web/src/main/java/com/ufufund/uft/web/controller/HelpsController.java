@@ -6,15 +6,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value="family/help")
 public class HelpsController {
 	/**
-	 * 帮助中心
+	 * 家庭版帮助中心
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "{page}")
+	@RequestMapping(value = "family/help/{page}")
 	public String index(Model model, @PathVariable ("page") String page) {
 		return "family/help/" + page;
+	}
+	
+	/**
+	 * 机构版帮助中心
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "corp/help/{page}")
+	public String indexCorp(Model model, @PathVariable ("page") String page) {
+		return "organ/help/" + page;
 	}
 }

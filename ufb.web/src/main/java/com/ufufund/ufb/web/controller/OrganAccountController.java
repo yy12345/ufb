@@ -18,6 +18,7 @@ import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.dao.OrgCodesMapper;
 import com.ufufund.ufb.model.db.OrgCodes;
 import com.ufufund.ufb.model.db.Orginfo;
+import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.MsgCodeUtils.MsgCode;
@@ -46,6 +47,30 @@ public class OrganAccountController {
 	@RequestMapping(value="index", method=RequestMethod.GET)
 	public String index(Model model){
 		return "organ/account/index";
+	}
+	
+	/**
+	 * 首页，登录
+	 * @param orginfo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="login")
+	@ResponseBody
+	public Map<String,Object> login(Orginfo orginfo, Model model) {
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		try {
+			
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
 	}
 	
 	/**
@@ -109,7 +134,6 @@ public class OrganAccountController {
 			orgCodes.setCode(code);
 			List<OrgCodes> orgcodeList = orgCodesMapper.getOrgCodeList(orgCodes);
 			if(orgcodeList.size()==0){
-				//throw new BizException("邀请码不正确！");
 				resultMap.put("errCode", "0001");
 				resultMap.put("errMsg", "邀请码不正确！");
 				return resultMap;
