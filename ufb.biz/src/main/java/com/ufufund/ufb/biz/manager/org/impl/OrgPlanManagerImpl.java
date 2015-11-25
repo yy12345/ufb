@@ -13,6 +13,7 @@ import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.CustManager;
 import com.ufufund.ufb.biz.manager.TradeAccoManager;
+import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.ImplCommon;
 import com.ufufund.ufb.biz.manager.org.OrgPlanManager;
@@ -45,6 +46,8 @@ import com.ufufund.ufb.model.enums.BasicFundinfo;
 import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.vo.OrgBankInfoVo;
 import com.ufufund.ufb.model.vo.QueryCustplandetail;
+import com.ufufund.ufb.model.vo.RedeemVo;
+import com.ufufund.ufb.model.vo.Today;
 
 @Service
 public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
@@ -73,6 +76,8 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 	private CustManager custManager;
 	@Autowired
 	private StudentMapper studentMapper;
+	@Autowired
+	private TradeManager tradeManager;
 
 	// @Autowired
 	// private AutotradeManager autotradeManager;
@@ -244,7 +249,7 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 
 	@Override
 	@Transactional
-	public String confirmDetail(String detailids,Custinfo d_custinfo,String paytype) {
+	public String confirmDetail(String detailids,Custinfo d_custinfo,String paytype,String tradePwd) {
 		String[] detailidArr=detailids.split(",");
 		String paydate="";
 		List<String> ispaylist=new ArrayList<String>();
@@ -302,6 +307,18 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 						action.setDetailid(detail_y.getDetailid());
 						
 						autotradeManager.addAutotrade(action);
+						
+						// 资产
+						RedeemVo vo = new RedeemVo();
+						vo.setCustno(d_custinfo.getCustno());
+						vo.setFundcode(BasicFundinfo.YFB.getFundCode());
+						vo.setFee(new BigDecimal("0.00"));
+						vo.setShareclass(BasicFundinfo.YFB.getShareClass());
+						vo.setDividmethod(BasicFundinfo.YFB.getDividMethod());
+						vo.setAppvol(new BigDecimal(detail_y.getPayackamount()));
+						vo.setTradeacco(tradeAcco.getTradeacco());
+						vo.setTradePwd(tradePwd);
+						tradeManager.redeem(vo);
 					
 				}
 			}

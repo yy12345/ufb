@@ -378,6 +378,8 @@ public class PaymentController {
 		try{
 			// 交易密码校验
 			Custinfo s_custinfo=custManager.getCustinfo(custinfo.getCustno());
+			log.info("123=="+s_custinfo.getTradepwd());
+			log.info("456=="+EncryptUtil.md5(tradePwd));
 			if(!s_custinfo.getTradepwd().equals(EncryptUtil.md5(tradePwd))){
 				throw new UserException("交易密码错误！");
 			}		
@@ -392,7 +394,7 @@ public class PaymentController {
 				orgnamelist.add(orgs[i]);
 			}
 			// 支付方式  :幼富宝    快捷方式    
-			String paydate=orgPlanManager.confirmDetail(detailids,s_custinfo, paytype);
+			String paydate=orgPlanManager.confirmDetail(detailids,s_custinfo, paytype,tradePwd);
 			
 			model.addAttribute("orgnamelist", orgnamelist);
 			model.addAttribute("paytype", paytype);
