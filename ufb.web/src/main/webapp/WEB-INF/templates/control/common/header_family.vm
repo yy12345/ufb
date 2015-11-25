@@ -2,7 +2,7 @@
 	<div class="topNav">
 		<div class="container">
 			<div class="b1">
-				<a href="${ufbDomain}/organ/index.htm">机构版</a>
+				<a href="${ufbDomain}/corp/index.htm">机构版</a>
 				<a href="javascript:;" class="active">家庭版</a>
 			</div>
 			<div class="b2">

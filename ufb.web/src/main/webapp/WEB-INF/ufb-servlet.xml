@@ -109,7 +109,7 @@
 			<mvc:exclude-mapping path="/corp/help/*.htm" />
 			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.LoginInterceptor">
 				<property name="loginUrl">
-					<value>http://localhost:8080/ufb/family/index.htm</value>
+					<value>http://localhost:8080/ufb/corp/account/index.htm</value>
 				</property>
 			</bean>
 		</mvc:interceptor>
