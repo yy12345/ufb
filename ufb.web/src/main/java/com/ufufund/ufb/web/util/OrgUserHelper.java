@@ -1,36 +1,35 @@
 package com.ufufund.ufb.web.util;
 
 import com.ufufund.ufb.common.utils.StringUtils;
-import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.model.db.Orginfo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 
-public class UserHelper {
+public class OrgUserHelper {
 
 	/**
 	 * 获取当前客户信息
 	 * @return
 	 */
-	public static CustinfoVo getCustinfoVo(){
-		return (CustinfoVo)ServletHolder.getSession().getAttribute("CUSTINFO");
+	public static Orginfo getOrginfo(){
+		return (Orginfo)ServletHolder.getSession().getAttribute("ORGINFO");
 	}
 	
 	/**
 	 * 保存当前客户信息
 	 * @return
 	 */
-	public static void saveCustinfoVo(CustinfoVo custinfoVo){
-		ServletHolder.getSession().setAttribute("CUSTINFO", custinfoVo);
+	public static void saveOrginfo(Orginfo Orginfo){
+		ServletHolder.getSession().setAttribute("ORGINFO", Orginfo);
 	}
 	
 	/**
 	 * 获取当前客户编号
 	 * @return 返回custno；若没有，则返回null
 	 */
-	public static String getCustno(){
-//		if(true)return "0120151018KBP8SY3C8SYS20";
-		CustinfoVo custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("CUSTINFO");
-		if(custinfo != null && !StringUtils.isBlank(custinfo.getCustno())){
-			return custinfo.getCustno();
+	public static String getOrgid(){
+		Orginfo orginfo = (Orginfo)ServletHolder.getSession().getAttribute("ORGINFO");
+		if(orginfo != null && !StringUtils.isBlank(orginfo.getOrgid())){
+			return orginfo.getOrgid();
 		}
 		return null;
 	}
