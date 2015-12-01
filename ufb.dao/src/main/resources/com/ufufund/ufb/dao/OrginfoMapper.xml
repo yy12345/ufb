@@ -4,27 +4,37 @@
 
 <mapper namespace="com.ufufund.ufb.dao.OrginfoMapper">
 
+<sql id="Base_Columns">
+		orgid           ,
+		orgname         ,
+		type            ,
+		license         ,
+		province        ,
+		city            ,
+		address         ,
+		license_address ,
+		operator_name   ,
+		operator_certno ,
+		operator_mobile ,
+		operator_tel    ,
+		operator_mail   ,
+		legal_name      ,
+		legal_certno    ,
+		state           ,
+		passwd          ,
+		passwd_err      ,
+		tradepwd        ,
+		date_format(last_logintime ,'%Y-%m-%d HH:mm:ss') last_logintime
+</sql>
+	
 <insert id="addOrginfo" parameterType="Orginfo">
-   insert into orginfo values(
+   insert into orginfo
+    (orgid,operator_mobile,state,passwd,last_logintime,createtime,updatetime)
+    values(
 		#{orgid           ,jdbcType=VARCHAR},
-		#{orgname         ,jdbcType=VARCHAR},
-		#{type            ,jdbcType=VARCHAR},
-		#{license         ,jdbcType=VARCHAR},
-		#{province        ,jdbcType=VARCHAR},
-		#{city            ,jdbcType=VARCHAR},
-		#{address         ,jdbcType=VARCHAR},
-		#{license_address ,jdbcType=VARCHAR},
-		#{operator_name   ,jdbcType=VARCHAR},
-		#{operator_certno ,jdbcType=VARCHAR},
 		#{operator_mobile ,jdbcType=VARCHAR},
-		#{operator_tel    ,jdbcType=VARCHAR},
-		#{operator_mail   ,jdbcType=VARCHAR},
-		#{legal_name      ,jdbcType=VARCHAR},
-		#{legal_certno    ,jdbcType=VARCHAR},
-		#{state           ,jdbcType=VARCHAR},
+		'2',
 		#{passwd          ,jdbcType=VARCHAR},
-		#{passwd_err      ,jdbcType=VARCHAR},
-		#{tradepwd        ,jdbcType=VARCHAR},
 		now(),
 		now(),
 		now()
@@ -32,11 +42,71 @@
 </insert>
 
 <select id="getOrginfo" parameterType="Orginfo" resultType="Orginfo">
-	select * from orginfo t
+	select <include refid="Base_Columns"/> from orginfo t
 		where 1=1
-	<if test="operator_mobile!=null and operator_mobile!=''">
-		and operator_mobile=#{operator_mobile,jdbcType=VARCHAR}
+	<if test="orgid!=null and orgid!=''">
+		and t.orgid=#{orgid,jdbcType=VARCHAR}
 	</if>
-	 
+	<if test="operator_mobile!=null and operator_mobile!=''">
+		and t.operator_mobile=#{operator_mobile,jdbcType=VARCHAR}
+	</if>
+    <if test="passwd!=null and passwd!=''">
+		and t.passwd=#{passwd,jdbcType=VARCHAR}
+	</if>
 </select>
+
+<select id="isCertnoRegister" parameterType="Orginfo" resultType="Orginfo">
+	select <include refid="Base_Columns"/> from orginfo t
+		where 1=1
+	<if test="orgid!=null and orgid!=''">
+		and t.orgid=#{orgid,jdbcType=VARCHAR}
+	</if>
+	<if test="operator_certno!=null and operator_certno!=''">
+		and t.operator_certno=#{operator_certno,jdbcType=VARCHAR}
+	</if>
+</select>
+
+<!-- 更新认证用户数据 -->
+<update id="updateOrginfo" parameterType="Orginfo">
+	update orginfo t set 
+		orgname=#{orgname,jdbcType=VARCHAR},
+		type=#{type,jdbcType=VARCHAR},
+		license=#{license,jdbcType=VARCHAR},
+		province=#{province,jdbcType=VARCHAR},
+		city=#{city,jdbcType=VARCHAR},
+		address=#{address,jdbcType=VARCHAR},
+		license_address=#{license_address ,jdbcType=VARCHAR},
+		operator_name=#{operator_name,jdbcType=VARCHAR},
+		operator_certno=#{operator_certno,jdbcType=VARCHAR},
+		operator_mobile=#{operator_mobile,jdbcType=VARCHAR},
+		operator_tel=#{operator_tel,jdbcType=VARCHAR},
+		operator_mail=#{operator_mail,jdbcType=VARCHAR},
+		legal_name=#{legal_name,jdbcType=VARCHAR},
+		legal_certno=#{legal_certno,jdbcType=VARCHAR},
+		tradepwd=#{tradepwd,jdbcType=VARCHAR},
+		updatetime=now()
+	where orgid=#{orgid ,jdbcType=VARCHAR}
+</update>
+
+<!-- 更新机构用户状态 -->
+<update id="updateState" parameterType="Orginfo">
+	update orginfo t set 
+		state=#{state,jdbcType=VARCHAR},
+		updatetime=now()
+	where orgid=#{orgid ,jdbcType=VARCHAR}
+</update>
+
+<!-- 更新登录信息 -->
+<update id="updateForLogin" parameterType="Orginfo">
+	update orginfo set 
+	<if test="passwd_err!=null and passwd_err!=''">
+		 passwd_err=#{passwd_err,jdbcType=INTEGER},
+    </if>
+    <if test="state!=null and state!=''">
+		 state=#{state,jdbcType=INTEGER},
+    </if>
+		 last_logintime=now(),
+		 updatetime=now()
+	where orgid=#{orgid ,jdbcType=VARCHAR}
+</update>
 </mapper>

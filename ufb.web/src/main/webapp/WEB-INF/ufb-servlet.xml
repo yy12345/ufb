@@ -122,11 +122,14 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/corp/**/*.htm" />
 			<mvc:exclude-mapping path="/error/*.htm" />
-			<mvc:exclude-mapping path="/common/*.htm" />
-			<mvc:exclude-mapping path="/corp/account/*.htm" />
-			<bean id="loginInterceptor" class="com.ufufund.ufb.web.interceptor.OrgLoginInterceptor">
+			<mvc:exclude-mapping path="/corp/common/*.htm" />
+			<mvc:exclude-mapping path="/corp/index.htm" />
+			<mvc:exclude-mapping path="/corp/login.htm" />
+			<mvc:exclude-mapping path="/corp/register.htm" />
+			<mvc:exclude-mapping path="/corp/register_success.htm" />
+			<bean id="orgLoginInterceptor" class="com.ufufund.ufb.web.interceptor.OrgLoginInterceptor">
 				<property name="loginUrl">
-					<value>http://localhost:8080/ufb/corp/account/index.htm</value>
+					<value>http://localhost:8080/ufb/corp/index.htm</value>
 				</property>
 			</bean>
 		</mvc:interceptor>

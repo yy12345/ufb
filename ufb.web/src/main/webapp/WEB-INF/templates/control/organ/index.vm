@@ -1,5 +1,5 @@
 <html>
-<title>幼富通，幼富未来 - 登录</title>
+<title>幼富通，托富未来 - 登录</title>
 <head>
 <script type="text/javascript">
 $(function(){ 
@@ -47,7 +47,7 @@ $(function(){
 			$(".wrongTips").fadeIn();
 			return false;
 		 }else{
-		 	location.href = '${ufbDomain}/corp/account/uft_index.htm';
+		 	location.href = '${ufbDomain}/corp/uft/uft_index.htm';
 		 	return true;
 		 }  
 	});
@@ -61,7 +61,7 @@ $(function(){
 		var result = false;
 		$.ajax({
 			type: "POST",
-			url: '${ufbDomain}/common/verifycode_check.htm',
+			url: '${ufbDomain}/corp/common/verifycode_check.htm',
 			data:'verifycode='+verifycode,
 			async:false,
 			success: function(data){
@@ -80,7 +80,6 @@ $(function(){
 	// 登录
 	var login = function(){
 		 var result = false;
-		 return result;
 		 $('#myform').ajaxSubmit({
 			async:false,
 			resetForm:false,
@@ -118,7 +117,7 @@ $(function(){
                                <div class="wrongTips" style="display:none;">
                                    <span></span><font id="error_text">您输入的验证码错误</font><b></b>
                                </div>
-                                <form id="myform" method="post" action="${ufbDomain}/corp/account/login.htm">
+                                <form id="myform" method="post" action="${ufbDomain}/corp/login.htm">
                                 <ul>
                                     <li class="li01"><img src="${staticDomain}/public/images/img_08.png">
                                     	<input type="text" placeholder="手机号" name="operator_mobile" id="operator_mobile" maxlength="11">
@@ -127,12 +126,12 @@ $(function(){
                                     	<input type="password" name="passwd" id="passwd">
                                     </li>
                                     <li class="li03"><img src="${staticDomain}/public/images/img_10.png">
-	                                    <input type="text" name="verifycode" id="verifycode" maxlength="4">
+	                                    <input type="text" name="verifycode" id="verifycode" maxlength="4" placeholder="验证码">
 	                                    <span class="yanZ"><img id="verifyImg" src="${ufbDomain}/createImageservlet"+"?time="+(+new Date())" onclick="javascript:this.src=this.src+'?time='+(+new Date())" /></span>
                                     </li>
                                     <li class="li04"><a href="#" id="submit">立即登录</a></li>
                                     <li class="li05">
-	                                    <a href="${ufbDomain}/corp/account/register.htm" class="freeRegistered">免费注册</a>
+	                                    <a href="${ufbDomain}/corp/register.htm" class="freeRegistered">免费注册</a>
 	                                 <!--   <a href="" class="fogetPassword">忘记密码？</a>-->
                                     </li>
                                 </ul>

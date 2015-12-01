@@ -1,7 +1,7 @@
 <html>
-<title>幼富通，幼富未来 - 机构认证<title>
+<title>幼富通，托富未来 - 机构认证<title>
 <head>
-script type="text/javascript">
+<script type="text/javascript">
 $(function(){
 	$('.nav a:eq(0)').addClass('active');
 });
@@ -25,7 +25,7 @@ $(function(){
 					<p>幼富通将在最快24小时内（工作日）严格审核您的开户申请材料，通过即可使用学费通快速发起收费。</p>
                     <p>在此期间，你可以根据引导，开始学习如何使用学费通，并预先设置账单周期、价目表及班级。</p>
                 </div>
-				<div class="b3"><a href="verifyIndexEmpty.html" class="btnA">我的账户</a></div>
+				<div class="b3"><a href="${ufbDomain}/corp/uft/uft_index.htm" class="btnA">我的账户</a></div>
 			</div>
         </div>
     </div>

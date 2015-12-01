@@ -1,5 +1,5 @@
 <html>
-<title>幼富通，幼富未来 - 注册</title>
+<title>幼富通，托富未来 - 注册</title>
 <head>
 <script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>
 <script type="text/javascript" src="${staticDomain}/public/js/organ-common.js"></script>
@@ -68,7 +68,6 @@
     	   }else{
     		   $("#code").closest("li").find("font").html("&nbsp;");
     		   $("#code").closest("li").find(".tips-check").css("display","inline");
-    		   $("#code").closest("li").addClass("ok");
     		   $("#code").closest("li").removeClass("error");
     		   return true;
     	   }
@@ -158,7 +157,7 @@
     	    var result = false;
 	   		$.ajax({
 	   			type: "get",
-	   			url: '${ufbDomain}/corp/account/isRegister.htm',
+	   			url: '${ufbDomain}/corp/common/isRegister.htm',
 	   			data:'mobile='+$('#operator_mobile').val(),
 	   			async:false,
 	   			success: function(data){
@@ -181,7 +180,7 @@
         $("#btn-getMsgCode").attr("disabled","disabled");
    		$.ajax({
         	type: "get",
-       		url: "${ufbDomain}/corp/account/msgcode_send.htm",
+       		url: "${ufbDomain}/corp/common/msgcode_send.htm",
        		data: 'mobile='+$("#operator_mobile").val()+'&code='+$("#code").val(),
        		async: false,
        		success: function(data) {
@@ -190,7 +189,7 @@
    					$('#msgcode').val(json.msgcode);
    					result = true;
    				}
-   				else if(json.errCode=='0001'){
+   				else if(json.errCode=='0001'||json.errCode=='0002'){
    				   $("#code").closest("li").find("font").html(json.errMsg);
    	    		   $("#code").closest("li").find(".tips-check").css("display","inline");
    	    		   $("#code").closest("li").addClass("error");
@@ -215,7 +214,7 @@
    	
    	// 获取短信码按钮倒计时
    	var count = 60;
-   	var countDown = function() {
+   	var countDown = function(){
    		$("#btn-getMsgCode").val("等待" + count + "秒!"); 
    		if (count == 0) { 
    			$("#btn-getMsgCode").val("重新发送"); 
@@ -233,7 +232,7 @@
  		var result = false;
  		$.ajax({
  			type: "post",
- 			url: '${ufbDomain}/common/msgcode_check.htm',
+ 			url: '${ufbDomain}/corp/common/msgcode_check.htm',
  			data:'msgcode='+msgcode+'&mobileno='+mobileno,
  			async:false,
  			success: function(data){
@@ -254,10 +253,9 @@
  		if(!(check_mobile()&&check_code()&&check_msgcode()&&check_passwd1()&&check_passwd2())){
  			return false;
  		}
- 		else{
- 		   return false;//later.....
- 		}
+ 		$("#sub-form").submit();
  	})
+ 	
    });
 </script>
 </head>
@@ -273,7 +271,7 @@
                         <li>创建成功</li>
                     </ul>
                 </div>
-				<form class="common-form" method="post">
+				<form  id="sub-form" class="common-form" method="post" action="${ufbDomain}/corp/register_success.htm">
                     <div class="panel">
                         <ul>
                             <li>
@@ -324,6 +322,6 @@
         </div>
     </div>
 </div>
-#parse("control/organ/account/register_contract.vm")
+#parse("control/organ/contract/register_contract.vm")
 </body>
 </html>

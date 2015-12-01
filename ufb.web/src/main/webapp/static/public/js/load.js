@@ -262,5 +262,8 @@ $(function(){
      $(".labelA .selectmenu .list li").click(function(){
           $(this).addClass("hover").siblings().removeClass("hover");
      });
-   
+     
+     if($.fn.cardFormat){
+    	 $('#card2,#card3').cardFormat('####,####,####,####,###');//身份证
+     }
 });

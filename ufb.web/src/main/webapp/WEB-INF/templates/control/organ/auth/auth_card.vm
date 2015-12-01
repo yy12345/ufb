@@ -1,0 +1,392 @@
+<html>
+<title>幼富通，托富未来 - 机构认证</title>
+<head>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>
+<script type="text/javascript" src="${staticDomain}/public/js/load.js"></script>
+<script type="text/javascript" src="${staticDomain}/public/js/organ-common.js"></script>
+<script type="text/javascript">
+   $(function(){
+	   $('.nav a:eq(0)').addClass('active');
+	   
+       $("#AccountWt").click(function(){
+           $(".layerpop , .bgBox").fadeIn();
+       });
+       $(".layerpop b.close , .layerpop .btnKnow , .bgBox").click(function(){
+           $(".layerpop , .bgBox").fadeOut();
+       });
+       
+       $(".proofFile").click(function(){
+           $(".bgBox , .layerBank").fadeIn();       
+       });
+       $(".layerBank .close , .bgBox").click(function(){
+           $(".bgBox , .layerBank").fadeOut();       
+       });
+       
+	   $(window).load(function(){
+			$("#content_1").mCustomScrollbar({
+				theme:"dark", //主题颜色
+				scrollButtons:{
+					enable:true //是否使用上下滚动按钮
+				},
+				autoHideScrollbar: false, //是否自动隐藏滚动条
+				scrollInertia :0,//滚动延迟
+				horizontalScroll : false//水平滚动条
+				
+			});
+		});
+	   
+	   $('.checkbox').checkbox();
+	   $('.bankList').selectMenu();
+	   $('#province').selectMenu({change:changeProvince});
+	   $('#city').selectMenu();
+	   $('.inputText').inputText();
+	   
+       $(".selectmenu .list li").click(function(){
+           $(this).addClass("hover").siblings().removeClass("hover");
+       });
+       
+       // 校验开户银行 
+       var check_bankno = function(){
+    	   if($("#bankno").val() == ''){
+    		   $("#bankno_msg").hide();
+    		   $("#bankno_msg").siblings(".formErr").html("请选择开户银行！");
+    		   $("#bankno_msg").siblings(".formErr").show();
+    		   $("#bankno").focus();
+    		   return false;
+    	   }else{
+    		   $("#bankno_msg").show();
+    		   $("#bankno_msg").siblings(".formErr").html("&nbsp;");
+    		   $("#bankno_msg").siblings(".formErr").hide();
+    		   return true;
+    	   }
+       }
+       
+       // 校验开户的省市
+       function check_proOrcity(){
+    	 	var province = $("#province").val();
+        	var city = $("#city").val();
+        	if(province == ''||city == ''){
+        		$("#pro_city").html("请选择银行账户开户省份或城市！");
+    		    $("#pro_city").show();
+    		    $("#province").focus();
+    		    return false;
+        	}else{
+        		$("#pro_city").html("&nbsp;");
+    		    $("#pro_city").hide();
+    		    return true;
+        	}
+       }
+       
+       // 校验支行网点 
+       var check_subbank = function(){
+    	   if($("#subbank").val() == ''){
+    		   $("#subbank_msg").hide();
+    		   $("#subbank_msg").siblings(".formErr").html("支行网点不能为空！");
+    		   $("#subbank_msg").siblings(".formErr").show();
+    		   $("#subbank").focus();
+    		   return false;
+    	   }else{
+    		   $("#subbank_msg").show();
+    		   $("#subbank_msg").siblings(".formErr").html("&nbsp;");
+    		   $("#subbank_msg").siblings(".formErr").hide();
+    		   return true;
+    	   }
+       }
+       
+       // 校验银行账户  
+       var check_bankacco = function(){
+    	   var bankacco = $("#bankacco").val();
+    	   if(bankacco == ''){
+    		   $("#bankacco_msg").hide();
+    		   $("#bankacco_msg").siblings(".formErr").html("银行账户不能为空！");
+    		   $("#bankacco_msg").siblings(".formErr").show();
+    		   $("#bankacco").focus();
+    		   return false;
+    	   }else if(bankacco.length<14||bankacco.length>21){
+    		   $("#bankacco_msg").hide();
+    		   $("#bankacco_msg").siblings(".formErr").html("请填写正确格式的银行卡号！");
+    		   $("#bankacco_msg").siblings(".formErr").show();
+    		   $("#bankacco").focus();
+    		   return false;
+    	   }else{
+    		   var result = readCardbin(bankacco);
+    		   if(result.errCode == '0000' && result.cardbin
+   	   				&& result.cardbin.bankno != $("#bankno").val()){
+    			   $("#bankacco_msg").hide();
+        		   $("#bankacco_msg").siblings(".formErr").html("对不起，银行卡号与所选银行不符！");
+        		   $("#bankacco_msg").siblings(".formErr").show();
+        		   $("#bankacco").focus();
+        		   return false;
+    		   }else{
+    			   $("#bankacco_msg").show();
+    			   $("#bankacco_msg").siblings(".formErr").html("&nbsp;");
+    			   $("#bankacco_msg").siblings(".formErr").hide();
+    			   return true;
+    		   }
+    	   }
+       }
+       
+       // 校验重复账号 
+       var check_bankacco2 = function(){
+    	   var bankacco = $("#bankacco2").val();
+    	   if(bankacco == ''){
+    		   $("#bankacco2_errMsg").html("确认银行账户不能为空！");
+    		   $("#bankacco2_errMsg").show();
+    		   $("#bankacco2").focus();
+    		   return false;
+    	   }else if(bankacco != $("#bankacco").val()){
+    		   $("#bankacco2_errMsg").html("两次银行账号不一致！");
+    		   $("#bankacco2_errMsg").show();
+    		   $("#bankacco2").focus();
+    		   return false;
+    	   }else{
+    		   $("#bankacco2_errMsg").html("&nbsp;");
+    		   $("#bankacco2_errMsg").removeClass("formErr").addClass("formSuc");
+    		   $("#bankacco2_errMsg").show();
+    		   return true;
+    	   }
+       }
+       
+       // 校验交易密码 
+       var check_tradepwd1 = function(){
+    	   var text = check_pwd1($("#tradepwd").val());
+    	   if(text != ''){
+    		   $("#tradepwd_msg").hide();
+    		   $("#tradepwd_msg").siblings(".formErr").html(text);
+    		   $("#tradepwd_msg").siblings(".formErr").show();
+    		   $("#tradepwd").focus();
+    		   return false;
+    	   }else if(check_isTradePwdSame()){
+    		   $("#tradepwd_msg").hide();
+    		   $("#tradepwd_msg").siblings(".formErr").html("交易密码不能与登录密码相同！");
+    		   $("#tradepwd_msg").siblings(".formErr").show();
+    		   $("#tradepwd").focus();
+    		   return false;
+    	   }
+    	   else{
+    		   $("#tradepwd_msg").show();
+    		   $("#tradepwd_msg").siblings(".formErr").html("&nbsp;");
+    		   $("#tradepwd_msg").siblings(".formErr").hide();
+    		   return true;
+    	   }
+       }
+       
+       // 校验确认交易密码  
+       var check_tradepwd2 = function(){
+    	   var text = check_pwd2($("#tradepwd").val(),$("#tradepwd2").val());
+    	   if(text != ''){
+    		   $("#tradepwd2_errMsg").html(text);
+    		   $("#tradepwd2_errMsg").show();
+    		   $("#tradepwd2").focus();
+    		   return false;
+    	   }else{
+    		   $("#tradepwd2_errMsg").html("&nbsp;");
+    		   $("#tradepwd2_errMsg").removeClass("formErr").addClass("formSuc");
+    		   $("#tradepwd2_errMsg").show();
+    		   return true;
+    	   }
+       }
+       
+       // 添加响应事件 
+       $("#subbank").on("blur",check_subbank);
+       $("#bankacco").on("blur",check_bankacco);
+       $("#bankacco2").on("blur",check_bankacco2);
+       $("#tradepwd").on("blur",check_tradepwd1);
+       $("#tradepwd2").on("blur",check_tradepwd2);
+       
+       // 用户输入时，取消错误提示
+     /*  $("form input").on('focus', function(){
+			$(this).parent().parent().siblings().find(".formErr").hide();
+			$(this).parent().parent().siblings().find("font").show();
+			$(this).parent().parent().siblings().find("label").show();
+       });
+       */
+       // 提交表单
+       $("#btn-submit").on("click",function(){
+	       	if(!(check_bankno()&&check_proOrcity()&&check_subbank()&&check_bankacco()
+	       			&&check_bankacco2()&&check_tradepwd1()&&check_tradepwd2())){
+	       		return false;
+	       	}
+	       	$("#sub-form").submit();
+       }) 
+       // 校验交易密码是否与登录密码是相同
+       var check_isTradePwdSame = function(){
+    	   var result = false;
+    	   $.ajax({
+				type: "post",
+				url: '${ufbDomain}/corp/common/isTradePwdSame.htm',
+				data:'tradwpwd='+$("#tradepwd").val(),
+				async:false,
+				success: function(data){
+	    		     var json = $.parseJSON(data);
+	    		     result = json.isSame;
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log('系统出现异常！');
+				}
+			});
+    	   return result;
+       }
+       
+       // 根据银行卡号读取卡bin
+	   var readCardbin = function(bankacco){
+	   		var result = {errCode:'9999'};
+			$.ajax({
+				type: "post",
+				url: '${ufbDomain}/corp/common/cardbin_read.htm',
+				data:'bin='+bankacco.substr(0,6),
+				async:false,
+				success: function(data){
+					result = $.parseJSON(data);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log('系统出现异常！');
+				}
+			});
+			return result;
+	   }
+	   
+	   // 省级联动
+	   function changeProvince(){
+	    	$.ajax({
+			type: "get",
+			url: '${ufbDomain}/corp/common/getCity.htm',
+			data:'province='+$("#province").val(),
+			async:false,
+			success: function(data){
+				var json = $.parseJSON(data);
+				if(json.errCode == '0000'){
+					var cityList=json.cityData;
+					var cityArr = cityList.split(',');
+					var htmlMsg="<option value=''>城市</option>";
+					for(var i=0;i<cityArr.length-1;i++){
+						htmlMsg=htmlMsg+"<option value='"+cityArr[i]+"'>"+cityArr[i]+"</option>"
+					}
+					$("#city").html(htmlMsg);
+					$('#city').selectMenu({refresh:true,change:changeCity});
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log('系统出现异常！');
+			}
+	      });
+	    }
+	    
+	    function changeCity(){
+	    	$('#city').selectMenu();
+	    }
+   });
+</script>	
+</head>
+<body>
+<div id="body">
+	<div class="container">
+		<div class="a1">机构账户安全认证</div>
+		<div class="u2">
+			<ul class="v1">
+				<li>1 基本资料</li>
+				<li>2 提交材料</li>
+				<li class="v1_hover">3 银行账户</li>
+				<li>4 开户完成 </li>
+			</ul>
+		<form id="sub-form" method="post" action="${ufbDomain}/corp/auth/auth_result.htm">
+		<div class="a4 mt20 mb60">
+	    	<div class="b4">此处填写的对公银行账户，将设为默认的收款账户。</div>
+			<div class="b3 mb15">
+				<table>
+					<tr>
+						<td>*银行户名</td>
+						<td><label class="inputText"><input type="text" id="bankname" name="bankname" style="background-color:#cbcbcb;" readonly="readonly" value="${operatorName}"></label></td>
+						<td>
+							<font id="banknm_msg">跟组织机构代码证上的机构名称一致（基本户、一般户均可），<a href="javascript:;" id="AccountWt">对公账户填写指引</a></font>
+							<div class="formErr" style="display:none">错误提示</div>
+						</td>
+					</tr>
+					<tr>
+						<td>*开户银行</td>
+						<td>
+		                    <select class="select bankList" id="bankno" name="bankno">
+		                    	<option value="">--请选择--</option>
+		                    	#foreach($card in $bankBase)
+		                            <option value="${card.bankno}">${card.banknm}</option>
+		                        #end
+		                    </select>
+	                    </td>
+						<td>
+							<font id="bankno_msg">须与<a href="javascript:;" class="proofFile">银行账户证明文件</a>一致</font>
+							<div class="formErr" style="display:none">错误提示</div>
+						</td>
+					</tr>
+					<tr>
+						<td>地址</td>
+						<td>
+							<select class="select" name="province" id="province">
+	                            <option value="">省份</option>
+	                            #foreach($pro in $provinceList)
+                            		<option value="${pro.province}">${pro.province}</option>
+                                #end
+	                        </select>
+						</td>
+						<td>
+							<select class="select"  name="city" id="city">
+	                            <option value="">城市</option>
+	                        </select>
+						</td>
+						<td><div class="formErr" id="pro_city" style="display:none;margin-left: -319px;">错误提示</div></td>
+					</tr>
+					<tr>
+						<td>*支行网点</td>
+						<td><label class="inputText"><input type="text" name="subbank" id="subbank"></label></td>
+						<td>
+							<font id="subbank_msg">须与<a href="javascript:;" class="proofFile">银行账户证明文件</a>一致</font>
+						    <div class="formErr" style="display:none">错误提示</div>
+						</td>
+					</tr>
+					<tr>
+						<td>*银行账号</td>
+						<td><label class="cardFormat" id="card2"><input type="text" name="bankacco" id="bankacco"></label></td>
+						<td>
+							<font id="bankacco_msg">请务必正确填写，填错会造成取现打款失败</font>
+							<div class="formErr" style="display:none">错误提示</div>
+						</td>
+					</tr>
+	                <tr>
+						<td>*重复银行账号</td>
+						<td><label class="cardFormat" id="card3"><input type="text" name="bankacco2" id="bankacco2"></label></td>
+						<td><div class="formErr" style="display:none" id="bankacco2_errMsg">错误提示</div></td>
+					</tr>
+				</table>
+			</div>
+	        <div class="b3">
+			<div class="b4 b4Mag"><span class="form-title title-font">设置<label>交易密码</label></span>涉及资金交易或账户信息修改时输入，确保资金安全</div>
+				<table>
+					<tr>
+						<td>设置交易密码</td>
+						<td><label class="inputText"><input type="password" name="tradepwd" id="tradepwd"><b>6-20个大小写英文字母、符号或数字</b></label></td>
+						<td>
+							<font id="tradepwd_msg">不可与登录密码相同！</font>
+							<div class="formErr" style="display:none">错误提示</div>
+						</td>
+					</tr>
+					<tr>
+						<td>确认交易密码</td>
+						<td><label class="inputText"><input type="password" name="tradepwd2" id="tradepwd2"><b>请再次输入密码</b></label></td>
+						<td><div class="formErr" style="display:none" id="tradepwd2_errMsg">错误提示</div></td>
+					</tr>
+				</table>
+			</div>
+			<div class="b2">
+			    <a href="javascript:;" class="btnA" id="btn-submit">下一步</a>
+			</div>
+		</div>
+		</form>
+	</div>
+	</div>
+</div>
+
+
+<!----------弹层--start----------->
+#parse("control/organ/contract/authcard_contract.vm")
+<!---------弹层--end-------------->	
+</body>
+</html>

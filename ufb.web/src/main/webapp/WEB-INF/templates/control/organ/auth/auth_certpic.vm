@@ -1,0 +1,214 @@
+<html>
+<title>幼富通，托富未来 - 机构认证</title>
+<head>
+<script type="text/javascript">
+	$(function(){
+		$('.nav a:eq(0)').addClass('active');
+		
+	    $(".u2 .v2 .v2_1").click(function(){
+	        $(".u2 .v2").hide();
+	    });
+	    
+	   $("#demo").click(function(){
+	       $(".bgBox , .layerDemo").fadeIn();       
+	   });
+	   $(".layerDemo .close , .bgBox").click(function(){
+	       $(".bgBox , .layerDemo").fadeOut();       
+	   });
+	   
+	   // 上传机构证件照
+	   $(".uploadFile").on('change',function(){
+			var filename = $(this).val();
+			if(filename == ''){
+				$.alert({title:'请选择要上传的图片！'});
+				return false;
+			} 
+			var that = $(this);
+			$(this).closest("form").ajaxSubmit({
+				url:'${ufbDomain}/corp/auth/upload_infopic.htm',
+				type:'POST',
+				async:false,
+				resetForm:true,
+				clearForm:true,
+				success: function(data){
+					var json = $.parseJSON(data);
+					if(json.errCode=='0000'){
+						if(that.next().attr("name") == "license_pic"){
+							that.next().remove()
+						}
+						that.after("<img name='license_pic' src='${ufbDomain}/"+json.picUrl+"' width='100%'>");
+					} 
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					$.alert({title:'系统出现异常！'});
+				}
+			});
+		})
+	   
+	   	var count_ref_obj;
+	    var count = 6;
+	   	var countDown = function(){
+	   		if(count > 0){
+	   			if (count%2 == 0) { 
+	   				count_ref_obj.css("border"," 1px solid #cb3849");
+	   			}else{
+	   				count_ref_obj.css("border"," 1px solid #DADBDB");
+	   			}
+	   			count--; 
+	   			setTimeout(countDown, 150);
+	   		}else{
+	   			clearTimeout(countDown);
+	   			count = 6;
+	   		}
+	   	}
+	   
+	   // 表单提交
+	   $("#btn-submit").on("click",function(){
+		   var checked = true;
+		   $("form").each(function(){
+			   if(($(this).find('img[name="license_pic"]').length == 0)&&$(this).parent().attr("style")!="display:none"){
+				   checked = false;
+				   $(this).find('.uploadFile').focus();
+				   count_ref_obj = $(this).find(".y1");
+				   setTimeout(countDown, 150);
+				   return false;
+			   }
+		   });
+		   
+		   if(checked){
+			   location="${ufbDomain}/corp/auth/auth_card.htm";
+		   }
+	   })
+	});
+</script>
+</head>
+<body>
+<div id="body">
+    <div class="container">
+		<div class="a1">机构账户安全认证</div>
+		<div class="u2">
+			<ul class="v1">
+				<li>1 基本资料</li>
+				<li class="v1_hover">2 提交材料</li>
+				<li>3 银行账户</li>
+				<li>4 开户完成 </li>
+			</ul>
+			<div class="v2">
+			    <i class="v2_1"></i>
+				<p>以下证件材料，均须在有效期内。</p>
+				<p>格式：请提供可清晰辨认的彩色原件扫描件或数码照片；若为复印扫描件均须加盖公章后再提供彩色扫描或照片；禁止使用网上电子照片或通过PS修改过的证件； </p>
+				<p>支持：.jpg .jpeg .bmp .gif格式，大小不超过2M</p>
+			</div>
+		</div>
+		<div class="u3 mb60">
+		    <div class="v1">
+		        <span class="v1_1">授权经办人委托书</span>
+		        <div class="x1">
+		        <form id="uploadForm" enctype="multipart/form-data">
+		        	<input type="hidden" name="pictype" value="01">
+		            <label class="inputFile y1"><input type="file" class="uploadFile" name="file" accept="image/*"><p>授权经办人委托书</p></label>
+		            <div class="y2">
+		                <p>◆ 下载并打印<a href="${staticDomain}/public/images/authorization.jpg" target="_blank">授权经办人委托书</a>，<a href="javascript:;" id="demo">参考样例 </a></p>
+		                <p>&emsp;上传加盖公章的原件照片或扫描件</p>
+		            </div>
+		        </form>
+		        </div>
+		    </div>
+		    <div class="v1">
+		        <span class="v1_1">资质证照</span>
+		        <div class="x1 mb20">
+		        <form id="uploadForm" enctype="multipart/form-data">
+	        		<input type="hidden" name="pictype" value="02">
+		            <label class="inputFile y1"><input type="file" class="uploadFile" name="file" accept="image/*"><p>民非企业登记证/营业执照</p></label>
+		            <div class="y2">
+		                <p>◆ 请上传民办非企业登记证/工商营业执照彩色原件扫描件或数码照片</p>
+		            </div>
+		        </form>
+		        </div>
+		         <div class="x1 mb20">
+		         <form id="uploadForm" enctype="multipart/form-data">
+	        		<input type="hidden" name="pictype" value="03">
+		            <label class="inputFile y1"><input type="file" class="uploadFile" name="file" accept="image/*"><p>组织机构代码证</p></label>
+		            <div class="y2">
+		                <p>◆ 请上传组织机构代码证彩色原件扫描件或数码照片</p>
+		            </div>
+		         </form>
+		        </div>
+		         <div class="x1 mb20">
+		         <form id="uploadForm" enctype="multipart/form-data">
+	        		<input type="hidden" name="pictype" value="04">
+		            <label class="inputFile y1"><input type="file" class="uploadFile" name="file" accept="image/*"><p>税务登记证</p></label>
+		            <div class="y2">
+		                <p>◆ 请上传税务登记证彩色原件扫描件或数码照片</p>
+		            </div>
+		         </form>
+		        </div>
+		         <div class="x1 mb20">
+		         <form id="uploadForm" enctype="multipart/form-data">
+	        		<input type="hidden" name="pictype" value="05">
+		            <label class="inputFile y1"><input type="file" class="uploadFile" name="file" accept="image/*"><p>银行开户证明/开户许可证</p></label>
+		            <div class="y2">
+		                <p>◆ 请上传银行开户证明开户许可证彩色原件扫描件或数码照片</p>
+		            </div>
+		         </form>
+		        </div>
+		        #set($cert = ${Orginfo.type})
+		        <div class="x1" #if($cert=='5'||$cert=='6'||$cert=='7') style="display:none" #else style="display:block" #end>
+		        <form id="uploadForm" enctype="multipart/form-data">
+        			<input type="hidden" name="pictype" value="06">
+		            <label class="inputFile y1"><input type="file" class="uploadFile" name="file" accept="image/*"><p>办学许可证</p></label>
+		            <div class="y2">
+		                <p>◆ 请上传办学许可证彩色原件扫描件或数码照片</p>
+		            </div>
+		        </form>
+		        </div>
+		    </div>
+		     <div class="v1">
+		        <span class="v1_1">举办人/法人身份证</span>
+		        <div class="x1">
+		        <form id="uploadForm" enctype="multipart/form-data">
+        			<input type="hidden" name="pictype" value="07">
+		            <label class="inputFile y1 y5"><input type="file" class="uploadFile" name="file" accept="image/*"><p>身份证 正面</p></label>
+		        </form>
+		        <form id="uploadForm" enctype="multipart/form-data">
+	        		<input type="hidden" name="pictype" value="08">
+		           	<label class="inputFile y1 y3"><input type="file" class="uploadFile" name="file" accept="image/*"><p>身份证 背面</p></label>
+		        </form>
+		            <div class="y4">
+		                <p>◆ 请上传幼教机构举办人或企业法人身份证正、反面</p>
+		                <p>&emsp;彩色原件扫描件或数码照片</p>
+		            </div>
+		        </div>
+		    </div>
+		     <div class="v1">
+		        <span class="v1_1">经办人身份证</span>
+		        <div class="x1">
+		        <form id="uploadForm" enctype="multipart/form-data">
+        			<input type="hidden" name="pictype" value="09">
+		            <label class="inputFile y1 y5"><input type="file" class="uploadFile" name="file" accept="image/*"><p>身份证 正面</p></label>
+		        </form>
+		        <form id="uploadForm" enctype="multipart/form-data">
+	        		<input type="hidden" name="pictype" value="10">
+		            <label class="inputFile y1 y3"><input type="file" class="uploadFile" name="file" accept="image/*"><p>身份证 背面</p></label>
+		        </form>
+		            <div class="y4">
+		                <p>◆ 请上传授权经办人身份证正、反面彩色原件扫描件</p>
+		                <p>&emsp;或数码照片   </p>
+		            </div>
+		        </div>
+                 <a href="javascript:;" class="btnA" id="btn-submit">下一步</a></div>
+			    </div>
+			</div>
+			
+        </div>
+    </div>
+</div>
+
+<!---弹层--->
+<div class="bgBox"></div>
+<div class="layerDemo">
+    <b class="close"></b>
+    <img src="${staticDomain}/public/images/img_35.jpg" alt="">
+</div>	
+</body>
+</html>

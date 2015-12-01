@@ -113,7 +113,17 @@ public class RegexUtil {
 	     return match(text, "^(((13[0-9]{1})|145|147|(15[0-9]{1})|170|17[6-8]{1}|(18[0-9]{1}))+\\d{8})$");
 	 }
 	 
-	 
+	  /**
+	  * 固定电话号码验证   
+	  * 
+	  * @param text
+	  * @return
+	  * @author jiqinlin
+	  */
+	 public final static boolean isTel(String text){
+	     if(text == null || text.length() != 11) return false;
+	     return match(text, "^((\\d{3,5}-\\d{6,8})(-\\d{1,4})?)$");
+	 }
 	   /**
 	   * 正则表达式匹配
 	   * 

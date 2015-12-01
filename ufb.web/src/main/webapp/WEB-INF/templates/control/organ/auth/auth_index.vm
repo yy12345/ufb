@@ -1,7 +1,7 @@
 <html>
-<title>幼富通，幼富未来 - 机构认证</title>
+<title>幼富通，托富未来 - 机构认证</title>
 <head>
-script type="text/javascript">
+<script type="text/javascript">
 $(function(){
 	$('.nav a:eq(0)').addClass('active');
 });
@@ -14,7 +14,7 @@ $(function(){
                <h1>幼教机构账户安全认证</h1>
                <p>适用于幼儿园、早教、幼教培训、厂商、<br>
                 通路服务商等各类幼教企业/机构</p>
-               <a href="${ufbDomain}/corp/account/auth_base.htm" class="Advbtn">立即认证</a>
+               <a href="${ufbDomain}/corp/auth/auth_base.htm" class="Advbtn">立即认证</a>
            </div>
         </div> 
         <div class="inner container-step">

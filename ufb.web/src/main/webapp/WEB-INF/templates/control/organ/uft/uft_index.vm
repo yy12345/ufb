@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+<title>幼富通,托富未来</title>
+<script type="text/javascript">
+$(function(){
+	$('nav a:eq(0)').addClass('active');
+	
+    $(".itemB .a2 .b1 .bubble").hover(function(){
+       $(this).next().toggle();
+   });   
+});
+</script>
+</head>
+<body>
+<div class="body">
+<section class="loadbody">
+	<div class="container">
+		<div class="boxA">
+			<div class="itemA">
+				<div class="a1">学费通</div>
+				<div class="a2"><span class="b1">机构对公账户</span><span class="b2">账号：**0901</span></div>
+			</div>
+		</div>
+		<div class="boxB">
+			<div class="itemB itemBheight">
+				<div class="a1">
+					<div class="b1">资产总额（元）</div>
+					<div class="b2">1,256,700</div>
+					<div class="b3"><a href="charge1.html""javascript:;" class="btnA">收 费</a><a href="centerCash.html""javascript:;" class="btnB">取 现</a></div>
+					<div class="b4"><a href="priceList.html" id="priceList">收费价目表</a><a href="classSetting.html""javascript:;">档案管理</a></div>
+				</div>
+				<div class="a2">
+					<div class="b1">
+						<span>月账单收费</span>
+						<b class="bubble"></b>
+						<div class="bubbleBox" style="display: none;">
+							2015/09/01-2015/09/30
+							<i></i>
+						</div>
+					</div>
+					<div class="b2">2,556,700</div>
+					<div class="b3">月退费（元）</div>
+					<div class="b4">0</div>
+				</div>
+				<div class="a2">
+					<div class="b1">
+						<span>月账单收费</span>
+						<b class="bubble"></b>
+						<div class="bubbleBox" style="display: none;">
+							2015/09/01-2016/01/30
+							<i></i>
+						</div>
+					</div>
+					<div class="b2">2,556,700</div>
+					<div class="b3">学期退费（元）</div>
+					<div class="b4">0</div>
+				</div>
+				<div class="a2">
+					<div class="b1">
+						<span>月账单收费</span>
+						<b class="bubble"></b>
+						<div class="bubbleBox" style="display: none;">
+							2015/09/01-2016/06/30
+							<i></i>
+						</div>
+					</div>
+					<div class="b2">56,700</div>
+					<div class="b3">学年退费（元）</div>
+					<div class="b4">0</div>
+				</div>
+			</div>
+		</div>
+		<div class="boxB  mb60">
+			<div class="itemC">
+				<div class="a1">
+					<div class="b1">收费计划明细</div>
+					<div class="b2"><a href="chargeManagement.html""javascript:;">查看更多</a></div>
+				</div>
+				<div class="a2">
+					<table width="100%">
+						<tr>
+							<th>时间</th>
+							<th>计划名称</th>
+							<th>费用类型</th>
+							<th>应收总计(元)</th>
+							<th>支付成功（人）</th>
+							<th>实收总计（元）</th>
+						</tr>
+						<tr>
+							<td>2015-01-01</td>
+							<td class="b2">2015年6月话剧</td>
+							<td class="b3">退费</td>
+							<td class="minus">-13600</td>
+							<td class="b5"><span class="c1">25</span><span class="c2">/25</span></td>
+							<td class="minus">-13600</td>
+						</tr>
+						<tr>
+							<td>2015-01-01</td>
+							<td class="b2">2015年6月学费</td>
+							<td class="b3">固定周期费用</td>
+							<td class="plus">180000</td>
+							<td class="b5"><span class="c1">25</span><span class="c2">/25</span></td>
+							<td class="plus">455000</td>
+						</tr>
+						<tr>
+							<td>2015-01-01</td>
+							<td class="b2">2015年6月话剧</td>
+							<td class="b3">固定周期费用</td>
+							<td class="plus">180000</td>
+							<td class="b5"><span class="c1">0</span><span class="c2">/25</span></td>
+							<td class="plus">180000</td>
+						</tr>
+						<tr>
+							<td>2015-01-01</td>
+							<td class="b2">2015年6月话剧</td>
+							<td class="b3">临时性费用</td>
+							<td class="plus">60000</td>
+							<td class="b5"><span class="c1">21</span><span class="c2">/25</span></td>
+							<td class="plus">60000</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+   </section>
+  </div>
+</div>
+</body>
+</html>

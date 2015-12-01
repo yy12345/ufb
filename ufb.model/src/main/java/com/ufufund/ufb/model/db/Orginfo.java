@@ -21,10 +21,13 @@ public class Orginfo {
 	private String legal_certno       ;
 	private String state              ;
 	private String passwd             ;
-	private String passwd_err         ;
+	private int passwd_err            ;
 	private String tradepwd           ;
 	private String last_logintime     ;
 	private String createtime         ;
 	private String updatetime         ;
+	
+	private String code;// 机构邀请码
+	private String eqaddress;// 与登记证/营业执照注册地址相同
 
 }

@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+<head>
+<title>幼富通</title>
+</head>
+<body>
+			<div class="body">
+			    <div class="addAdv Verification" id="bgBlue">
+                   <div class="advTitle inner">
+                       <h1>对公银行账户验证</h1>
+                       <p>为了确保机构收款准确安全，幼富通已给你注册的对公银行账户打出1元以内的随机金额，<br>
+                        请查看银行账户并填写所收到的实际金额。   月   日前未填写，机构账户验证将无法通过。 </p>
+                       <div class="advBtn">
+                           <input type="text" value="" placeholder="输入验证码
+        "><a href="myUft.html" class="Advbtn">验 证</a>
+                           <a href="javascript:;" class="more">查看详情</a>
+                       </div>
+                   </div>
+                </div>
+				<!--开始 body内容替换区域-->
+				<section class="loadbody">
+					<div class="container">
+						<div class="boxA">
+							<div class="itemA">
+								<div class="a1">学费通</div>
+								<div class="a2"><span class="b1">机构对公账户</span><span class="b2 Fgrey">账号：**0901</span></div>
+							</div>
+						</div>
+						<div class="boxB">
+							<div class="itemB itemBheight">
+								<div class="a1">
+									<div class="b1">资产总额（元）</div>
+									<div class="b2 Fgrey">--</div>
+									<div class="b3"><a href="javascript:;" class="btnA btnBg-grey">收 费</a><a href="javascript:;" class="btnB btnBod-grey">取 现</a></div>
+									<div class="b4"><a href="priceList.html" id="priceList" class="Fgrey">收费价目表</a><a href="javascript:;" class="Fgrey">档案管理</a></div>
+								</div>
+								<div class="a2">
+									<div class="b1">
+										<span>月账单收费</span>
+										<b class="bubble"></b>
+										<div class="bubbleBox">
+										    2015/09/01-2015/09/30
+										    <i></i>
+										</div>
+									</div>
+									<div class="b2">--</div>
+									<div class="b3">月退费（元）</div>
+									<div class="b4">--</div>
+								</div>
+								<div class="a2">
+									<div class="b1">
+										<span>月账单收费</span>
+										<b class="bubble"></b>
+										<div class="bubbleBox">
+										    2015/09/01-2016/01/30
+										    <i></i>
+										</div>
+									</div>
+									<div class="b2">--</div>
+									<div class="b3">学期退费（元）</div>
+									<div class="b4">--</div>
+								</div>
+								<div class="a2">
+									<div class="b1">
+										<span>月账单收费</span>
+										<b class="bubble"></b>
+										<div class="bubbleBox">
+										    2015/09/01-2016/06/30
+										    <i></i>
+										</div>
+									</div>
+									<div class="b2">--</div>
+									<div class="b3">学年退费（元）</div>
+									<div class="b4">--</div>
+								</div>
+							</div>
+						</div>
+						<div class="boxB mb60">
+							<div class="itemC">
+								<div class="a1">
+									<div class="b1">收费计划明细</div>
+									<div class="b2"><a href="javascript:;" class="Fgrey">查看更多</a></div>
+								</div>
+								<div class="a2">
+									<table width="100%">
+										<tr>
+											<th>时间</th>
+											<th>计划名称</th>
+											<th>费用类型</th>
+											<th>应收总计(元)</th>
+											<th>支付成功（人）</th>
+											<th>实收总计（元）</th>
+										</tr>
+										<tr>
+											<td>--</td>
+											<td class="b2">--</td>
+											<td class="b3">--</td>
+											<td class="minus">--</td>
+											<td class="b5"><span class="c1">--</span><span class="c2">/--</span></td>
+											<td class="minus">--</td>
+										</tr>
+										<tr>
+											<td>--</td>
+											<td class="b2">--</td>
+											<td class="b3">--</td>
+											<td class="minus">--</td>
+											<td class="b5"><span class="c1">--</span><span class="c2">/--</span></td>
+											<td class="minus">--</td>
+										</tr>
+										<tr>
+											<td>--</td>
+											<td class="b2">--</td>
+											<td class="b3">--</td>
+											<td class="minus">--</td>
+											<td class="b5"><span class="c1">--</span><span class="c2">/--</span></td>
+											<td class="minus">--</td>
+										</tr>
+										<tr>
+											<td>--</td>
+											<td class="b2">--</td>
+											<td class="b3">--</td>
+											<td class="minus">--</td>
+											<td class="b5"><span class="c1">--</span><span class="c2">/--</span></td>
+											<td class="minus">--</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--开始 本页面JS-->
+					<script type="text/javascript">
+					$('nav a:eq(1)').addClass('active');
+                    </script>
+					<!--结束 本页面JS-->
+				</section>
+				<!--结束 body内容替换区域-->
+			</div>
+		</section>
+		<!--结束 main内容替换区域-->
+	</div>
+	<div class="sideFixed">
+		<div class="a1">
+			<a href="javascript:;" class="b1"><div>发起收费/退费<b></b></div></a>
+			<a href="javascript:;" class="b2">收费<br>明细</a>
+			<a href="javascript:;" class="b3">查看<br>报表</a>
+			<a href="javascript:;" class="b4">档案<br>管理</a>
+		</div>
+		<div class="a2">
+			<a href="javascript:;" class="b1" onclick="$.scrollTo(0,400);"></a>
+			<a href="javascript:;" class="b2"><div><b></b></div></a>
+			<a href="javascript:;" class="b3">帮助<br>中心</a>
+		</div>
+	</div>
+</div>
+
+<!---弹层--->
+<div class="layer"><b class="close"></b></div>
+<div class="layerBox">
+    <div class="layerOne">
+        <div class="layerTitle">收费价目表</div>
+        <div class="layerTips">设定最新学年的收费价目表<br>
+            便于准确的收费和记账
+        </div>
+    </div>
+    <div class="layerTwo">
+        <div class="layerTitle">档案管理</div>
+        <div class="layerTips">用上几分钟，<br>
+            设置班级并授权班主任，<br>
+            即可管理学生信息
+        </div>
+    </div>
+     <div class="layerThree">
+        <div class="layerTitle">选择文件（Excel）</div>
+        <div class="layerTips">
+               请选择已录入信息的Excel文件<br>
+                即可完成学生信息批量导入
+        </div>
+    </div>
+     <div class="layerFour">
+        <div class="layerTitle">档案模板</div>
+        <div class="layerTips">系统已创建学生信息模板<br>
+                    请下载并按要求录入<br>
+                    （请确认信息准确）
+        </div>
+    </div>
+</div>
+
+
+<!--弹层-->
+<div class="bgBox"></div>
+<div class="layerpop">	
+    <b class="close"></b>
+    <div class="layerTitle">对公银行账户验证详情</div>
+	<div id="content_1" class="content">
+                <h4>1、申请学费通、分期购或幼富贷等业务时，须进行对公银行账户的进一步验证</h4>
+                <p>对公账户是指单位银行结算账户，即以单位名称开立的银行结算账户。（含基本户／一般户）
+请确保在注册时正确填写了对公收款账户信息，幼富通将向该账户汇入人民币1元以内的随机金额，用于验证收款银行账户的准确性。
+在对公银行账户验证期间，你仍可以正常登录幼富通平台，学习如何使用学费通，并预先设置账单周期、价目表及班级，或了解幼富通其他金融业务。
+</p>
+                <h4>2、获取并填写验证码信息</h4>
+                <p>10天内，请将收到的1元以内汇款随机金额的准确数字填写到登录后首页的验证框内。<br>
+    10天内未填写，或3次填写错误，则验证失败，将无法使用收费、分期购或申请贷款等业务。</p>
+                <h4>3、其他问题</h4>	
+                <p>若未能正确提交对公账户信息，幼富通打款失败，你还有2次机会重新填写对公账户信息，加上首次共3次填写的机会。若3次填写的对公账户都不正确，验证将失败。请留意幼富通打款结果的通知。<br>
+幼富通使用银联账户进行打款，跨行打款到账时间可能需要3个工作日，请注意查收到账信息和具体入账金额。若未收到汇款，可能是因为你填写的对公账户信息错误导致银行退票，请留意幼富通的通知。  <a href="helpQA.html">更多常见问题</a></p>
+                <a href="javascript:;" class="btnKnow closebox">我知道了</a>
+                </div>
+	</div>
+
+<script type="text/javascript">
+    $(function(){
+       $(".Verification .advBtn .more").click(function(){
+           $(".layerpop , .bgBox").fadeIn();
+       });
+       $(".layerpop .close , .layerpop .btnKnow").click(function(){
+           $(".layerpop , .bgBox").fadeOut();
+       });
+        
+       $(".itemB .a2 .b1 .bubble").hover(function(){
+           $(this).next().toggle();
+       });    
+    });
+</script>
+</body>
+</html>

@@ -6,21 +6,21 @@
 				<a href="javascript:;">家庭版</a>
 			</div>
 			<div class="b2">
-				#if(${CUSTINFO.invnm})
+				#if(${ORGINFO.operator_mobile})
 			   		<span>你好，<label>
-			   		<a href="${ufbDomain}/corp/setting/account_index.htm" class="c1">${CUSTINFO.invnm}</a></label></span>
+			   		<a href="${ufbDomain}/corp/setting/account_index.htm" class="c1">$!{ORGINFO.operator_name}</a></label></span>
 			   		<a href="${ufbDomain}/corp/logout.htm" class="quit">退出</a>
 				#else
 				   <div class="b2">
-		               <a href="${ufbDomain}/corp/account/index.htm" class="c1" id="login">登录</a>
-		               <a href="${ufbDomain}/corp/account/register.htm" class="c1">注册</a>
+		               <a href="${ufbDomain}/corp/index.htm" class="c1" id="login">登录</a>
+		               <a href="${ufbDomain}/corp/register.htm" class="c1">注册</a>
 				   </div>
 				#end
 			</div>
 		</div>
 	</div>
     <div class="container">
-        <a href="${ufbDomain}/corp/account/index.htm" class="logo"></a>
+        <a href="${ufbDomain}/corp/index.htm" class="logo"></a>
 		<div class="nav">
 			<a href="${ufbDomain}/corp/uft/uft_index.htm">我的账户</a>
 			<a href="${ufbDomain}/corp/uft/records.htm">收费明细</a>

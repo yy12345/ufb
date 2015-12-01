@@ -9,18 +9,18 @@
 	#end
 	<link rel="shortcut icon" href="${staticDomain}/favicon.ico" type="image/x-icon">
 	
-	#if(${corp_module} == "account" && ${corp_page} == "index")
+	#if(${corp_module} == "corp" && ${corp_page} == "index")
 		<link rel="stylesheet" href="${staticDomain}/public/css/reset.css">
 		<link rel="stylesheet" href="${staticDomain}/public/css/common.css">
 		<link rel="stylesheet" href="${staticDomain}/public/css/identification.css">
-	#elseif(${corp_module} == "account" && ${corp_page} == "register")
+	#elseif(${corp_module} == "corp" && ${corp_page} == "register")
 		<link rel="stylesheet" href="${staticDomain}/public/css/tcstyle.css">
 		<link rel="stylesheet" href="${staticDomain}/public/css/common.css">
 		<link rel="stylesheet" href="${staticDomain}/public/css/identification.css">
-	#elseif(${corp_module} == "account" && ${corp_page} == "auth_index")
+	#elseif(${corp_module} == "corp" && ${corp_page} == "auth_index")
 		<link rel="stylesheet" href="${staticDomain}/public/css/common.css">
 		<link rel="stylesheet" href="${staticDomain}/public/css/identification.css">
-	#elseif(${corp_module} == "account" 
+	#elseif(${corp_module} == "corp" 
 		&& (${corp_page} == "auth_base" || ${corp_page} == "auth_certpic" || ${corp_page} == "auth_card" || ${corp_page} == "auth_result"))
 		<link rel="stylesheet" href="${staticDomain}/public/css/tcstyle.css">
 	#elseif(${corp_module} == "help" )
