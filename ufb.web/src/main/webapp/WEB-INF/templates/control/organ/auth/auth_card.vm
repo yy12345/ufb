@@ -125,10 +125,12 @@
     	   var bankacco = $("#bankacco2").val();
     	   if(bankacco == ''){
     		   $("#bankacco2_errMsg").html("确认银行账户不能为空！");
+    		   $("#bankacco2_errMsg").removeClass("formSuc").addClass("formErr");
     		   $("#bankacco2_errMsg").show();
     		   return false;
     	   }else if(bankacco != $("#bankacco").val()){
     		   $("#bankacco2_errMsg").html("两次银行账号不一致！");
+    		   $("#bankacco2_errMsg").removeClass("formSuc").addClass("formErr");
     		   $("#bankacco2_errMsg").show();
     		   return false;
     	   }else{
@@ -166,6 +168,7 @@
     	   var text = check_pwd2($("#tradepwd").val(),$("#tradepwd2").val());
     	   if(text != ''){
     		   $("#tradepwd2_errMsg").html(text);
+    		   $("#tradepwd2_errMsg").removeClass("formSuc").addClass("formErr");
     		   $("#tradepwd2_errMsg").show();
     		   return false;
     	   }else{

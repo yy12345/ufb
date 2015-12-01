@@ -176,10 +176,12 @@ $(function(){
     	var mail = $("#operator_mail").val();
     	if(mail == ''){
     		$("#op_mail_errMsg").html("邮箱不能为空！");
+    		$("#op_mail_errMsg").removeClass("formSuc").addClass("formErr");
     		$("#op_mail_errMsg").show();
 			return false;
     	}else if(mail != ''&&!mail.match(regex)){
     		$("#op_mail_errMsg").html("格式不正确！");
+    		$("#op_mail_errMsg").removeClass("formSuc").addClass("formErr");
     		$("#op_mail_errMsg").show();
 			return false;
     	}else{
