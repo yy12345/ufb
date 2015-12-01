@@ -29,9 +29,9 @@
 	#else
 		<link rel="stylesheet" href="${staticDomain}/public/css/style.css">
 	#end
-	
 	<link rel="stylesheet" href="${staticDomain}/public/css/header.css">
 	<link rel="stylesheet" href="${staticDomain}/public/css/footer.css">
+	
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.form.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.easing.js"></script>
