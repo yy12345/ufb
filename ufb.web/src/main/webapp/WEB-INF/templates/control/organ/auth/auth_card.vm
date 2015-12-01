@@ -51,7 +51,6 @@
     		   $("#bankno_msg").hide();
     		   $("#bankno_msg").siblings(".formErr").html("请选择开户银行！");
     		   $("#bankno_msg").siblings(".formErr").show();
-    		   $("#bankno").focus();
     		   return false;
     	   }else{
     		   $("#bankno_msg").show();
@@ -68,7 +67,6 @@
         	if(province == ''||city == ''){
         		$("#pro_city").html("请选择银行账户开户省份或城市！");
     		    $("#pro_city").show();
-    		    $("#province").focus();
     		    return false;
         	}else{
         		$("#pro_city").html("&nbsp;");
@@ -83,7 +81,6 @@
     		   $("#subbank_msg").hide();
     		   $("#subbank_msg").siblings(".formErr").html("支行网点不能为空！");
     		   $("#subbank_msg").siblings(".formErr").show();
-    		   $("#subbank").focus();
     		   return false;
     	   }else{
     		   $("#subbank_msg").show();
@@ -100,13 +97,11 @@
     		   $("#bankacco_msg").hide();
     		   $("#bankacco_msg").siblings(".formErr").html("银行账户不能为空！");
     		   $("#bankacco_msg").siblings(".formErr").show();
-    		   $("#bankacco").focus();
     		   return false;
     	   }else if(bankacco.length<14||bankacco.length>21){
     		   $("#bankacco_msg").hide();
     		   $("#bankacco_msg").siblings(".formErr").html("请填写正确格式的银行卡号！");
     		   $("#bankacco_msg").siblings(".formErr").show();
-    		   $("#bankacco").focus();
     		   return false;
     	   }else{
     		   var result = readCardbin(bankacco);
@@ -115,7 +110,6 @@
     			   $("#bankacco_msg").hide();
         		   $("#bankacco_msg").siblings(".formErr").html("对不起，银行卡号与所选银行不符！");
         		   $("#bankacco_msg").siblings(".formErr").show();
-        		   $("#bankacco").focus();
         		   return false;
     		   }else{
     			   $("#bankacco_msg").show();
@@ -132,12 +126,10 @@
     	   if(bankacco == ''){
     		   $("#bankacco2_errMsg").html("确认银行账户不能为空！");
     		   $("#bankacco2_errMsg").show();
-    		   $("#bankacco2").focus();
     		   return false;
     	   }else if(bankacco != $("#bankacco").val()){
     		   $("#bankacco2_errMsg").html("两次银行账号不一致！");
     		   $("#bankacco2_errMsg").show();
-    		   $("#bankacco2").focus();
     		   return false;
     	   }else{
     		   $("#bankacco2_errMsg").html("&nbsp;");
@@ -154,13 +146,11 @@
     		   $("#tradepwd_msg").hide();
     		   $("#tradepwd_msg").siblings(".formErr").html(text);
     		   $("#tradepwd_msg").siblings(".formErr").show();
-    		   $("#tradepwd").focus();
     		   return false;
     	   }else if(check_isTradePwdSame()){
     		   $("#tradepwd_msg").hide();
     		   $("#tradepwd_msg").siblings(".formErr").html("交易密码不能与登录密码相同！");
     		   $("#tradepwd_msg").siblings(".formErr").show();
-    		   $("#tradepwd").focus();
     		   return false;
     	   }
     	   else{
@@ -177,7 +167,6 @@
     	   if(text != ''){
     		   $("#tradepwd2_errMsg").html(text);
     		   $("#tradepwd2_errMsg").show();
-    		   $("#tradepwd2").focus();
     		   return false;
     	   }else{
     		   $("#tradepwd2_errMsg").html("&nbsp;");
@@ -195,12 +184,12 @@
        $("#tradepwd2").on("blur",check_tradepwd2);
        
        // 用户输入时，取消错误提示
-     /*  $("form input").on('focus', function(){
+       $("form input").on('focus', function(){
 			$(this).parent().parent().siblings().find(".formErr").hide();
 			$(this).parent().parent().siblings().find("font").show();
 			$(this).parent().parent().siblings().find("label").show();
        });
-       */
+       
        // 提交表单
        $("#btn-submit").on("click",function(){
 	       	if(!(check_bankno()&&check_proOrcity()&&check_subbank()&&check_bankacco()
@@ -344,7 +333,7 @@
 					</tr>
 					<tr>
 						<td>*银行账号</td>
-						<td><label class="cardFormat" id="card2"><input type="text" name="bankacco" id="bankacco"></label></td>
+						<td><label class="cardFormat" id="card4"><input type="text" name="bankacco" id="bankacco" maxlength="19"></label></td>
 						<td>
 							<font id="bankacco_msg">请务必正确填写，填错会造成取现打款失败</font>
 							<div class="formErr" style="display:none">错误提示</div>
@@ -352,7 +341,7 @@
 					</tr>
 	                <tr>
 						<td>*重复银行账号</td>
-						<td><label class="cardFormat" id="card3"><input type="text" name="bankacco2" id="bankacco2"></label></td>
+						<td><label class="cardFormat" id="card5"><input type="text" name="bankacco2" id="bankacco2" maxlength="19"></label></td>
 						<td><div class="formErr" style="display:none" id="bankacco2_errMsg">错误提示</div></td>
 					</tr>
 				</table>

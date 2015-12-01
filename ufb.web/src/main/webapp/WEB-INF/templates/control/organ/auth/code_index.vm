@@ -4,7 +4,7 @@
 <title>幼富通，托富未来 - 账户验证</title>
 <script type="text/javascript">
 $(function(){
-   $('nav a:eq(0)').addClass('active');
+   $('.nav a:eq(0)').addClass('active');
    
    $(".Verification .advBtn .more").click(function(){
        $(".layerpop , .bgBox").fadeIn();
@@ -25,9 +25,9 @@ $(function(){
        <div class="advTitle inner">
            <h1>对公银行账户验证</h1>
            <p>为了确保机构收款准确安全，幼富通已给你注册的对公银行账户打出1元以内的随机金额，<br>
-            请查看银行账户并填写所收到的实际金额。   月   日前未填写，机构账户验证将无法通过。 </p>
+            请查看银行账户并填写所收到的实际金额进行验证，否则机构账户验证将无法通过。 </p>
            <div class="advBtn">
-               <input type="text" value="" placeholder="输入验证码"><a href="javascript:;" class="Advbtn">验 证</a>
+               <input type="text" value="" placeholder="输入实际金额"><a href="javascript:;" class="Advbtn">验 证</a>
                <a href="javascript:;" class="more">查看详情</a>
            </div>
        </div>

@@ -49,7 +49,6 @@ $(function(){
     		$("#orgnm_msg").hide();
     		$("#orgnm_msg").siblings(".formErr").html("机构名称不能为空！");
     		$("#orgnm_msg").siblings(".formErr").show();
-    		$("#orgname").focus();
     		return false;
     	}else{
     		$("#orgnm_msg").show();
@@ -66,7 +65,6 @@ $(function(){
     		$("#license_msg").hide();
     		$("#license_msg").siblings(".formErr").html("营业执照号不能为空！");
     		$("#license_msg").siblings(".formErr").show();
-    		$("#license").focus();
     		return false;
     	}else{
     		$("#license_msg").show();
@@ -83,7 +81,6 @@ $(function(){
      	if(province == ''||city == ''){
      		$("#pro_city").html("请选择办学省份或城市！");
  		    $("#pro_city").show();
- 		    $("#province").focus();
  		    return false;
      	}else{
      		$("#pro_city").html("&nbsp;");
@@ -99,7 +96,6 @@ $(function(){
     		$("#address_msg").hide();
     		$("#address_msg").siblings(".formErr").html("地址不能为空！");
     		$("#address_msg").siblings(".formErr").show();
-    		$("#address").focus();
     		return false;
     	}else{
     		$("#address_msg").show();
@@ -116,7 +112,6 @@ $(function(){
     		$("#op_name_msg").hide();
     		$("#op_name_msg").siblings(".formErr").html("姓名不能为空！");
     		$("#op_name_msg").siblings(".formErr").show();
-    		$("#operator_name").focus();
     		return false;
     	}else{
     		$("#op_name_msg").show();
@@ -138,7 +133,6 @@ $(function(){
     		$("#op_certno_msg").hide();
     		$("#op_certno_msg").siblings(".formErr").html(resultMsg);
     		$("#op_certno_msg").siblings(".formErr").show();
-    		$("#operator_certno").focus();
     		return false;
     	}else{
     		$("#op_certno_msg").show();
@@ -162,13 +156,11 @@ $(function(){
     		$("#op_tel_msg").hide();
     		$("#op_tel_msg").siblings(".formErr").html("电话号码不能为空！");
     		$("#op_tel_msg").siblings(".formErr").show();
-    		$("#operator_tel").focus();
 			return false;
     	}else if(tel != ''&&!tel.match(regex)){
     		$("#op_tel_msg").hide();
     		$("#op_tel_msg").siblings(".formErr").html("格式不正确！");
     		$("#op_tel_msg").siblings(".formErr").show();
-    		$("#operator_tel").focus();
 			return false;
     	}else{
 	 		$("#op_tel_msg").show();
@@ -185,12 +177,10 @@ $(function(){
     	if(mail == ''){
     		$("#op_mail_errMsg").html("邮箱不能为空！");
     		$("#op_mail_errMsg").show();
-    		$("#operator_mail").focus();
 			return false;
     	}else if(mail != ''&&!mail.match(regex)){
     		$("#op_mail_errMsg").html("格式不正确！");
     		$("#op_mail_errMsg").show();
-    		$("#operator_mail").focus();
 			return false;
     	}else{
     		$("#op_mail_errMsg").html("&nbsp;");
@@ -207,7 +197,6 @@ $(function(){
     		$("#legal_name_msg").hide();
     		$("#legal_name_msg").siblings(".formErr").html("姓名不能为空！");
     		$("#legal_name_msg").siblings(".formErr").show();
-    		$("#legal_name").focus();
 			return false;
     	}else{
 	 		$("#legal_name_msg").show();
@@ -224,7 +213,6 @@ $(function(){
     		$("#legal_certno_msg").hide();
     		$("#legal_certno_msg").siblings(".formErr").html(resultMsg);
     		$("#legal_certno_msg").siblings(".formErr").show();
-    		$("#legal_name").focus();
     		return false;
     	}else{
     		$("#legal_certno_msg").show();
@@ -246,11 +234,11 @@ $(function(){
      $("#legal_certno").on("blur",check_legalcertno);
     
     // 用户输入时，取消错误提示
-   /* $("form input").on('focus', function(){
+    $("form input").on('focus', function(){
 			$(this).parent().parent().siblings().find(".formErr").hide();
 			$(this).parent().parent().siblings().find("font").show();
 			$(this).parent().parent().siblings().find("label").show();
-    });*/
+    });
   
     // 提交表单
     $("#submit").on("click",function(){
@@ -413,7 +401,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>身份证号</td>
-					<td><label class="cardFormat" id="card2"><input type="text" name="operator_certno" id="operator_certno"></label></td>
+					<td><label class="cardFormat" id="card2"><input type="text" name="operator_certno" id="operator_certno" maxlength="18"></label></td>
 					<td>
 						<font id="op_certno_msg">若为临时身份证，请输入临时身份证号</font>
 						<div class="formErr" style="display:none">错误提示</div>
@@ -456,7 +444,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>身份证号</td>
-					<td><label class="cardFormat" id="card3"><input type="text" name="legal_certno" id="legal_certno"></label></td>
+					<td><label class="cardFormat" id="card3"><input type="text" name="legal_certno" id="legal_certno" maxlength="18"></label></td>
 					<td>
 						<font id="legal_certno_msg">若为临时身份证，请输入临时身份证号</font>
 						<div class="formErr" style="display:none">错误提示</div>

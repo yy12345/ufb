@@ -79,11 +79,10 @@ public class UfuVelocityView extends VelocityToolboxView {
 		if(uri.indexOf("corp/") > 0){
 			model.put("corp_module", "corp");
 			model.put("corp_container", "id=\"page\"");
-			if(uri.endsWith("index.htm")){
+			if(uri.endsWith("index.htm")||uri.endsWith("auth_index.htm")){
 				model.put("corp_container", "class=\"container\"");
-			}else if(uri.endsWith("auth_index.htm")){
-				model.put("corp_container", "class=\"container\"");
-			}else if(uri.endsWith("code_index.htm")){
+			}
+			if(uri.endsWith("code_index.htm")){
 				model.put("corp_container", "class=\"page\"");
 			}
 			

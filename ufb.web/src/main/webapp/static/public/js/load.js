@@ -264,6 +264,9 @@ $(function(){
      });
      
      if($.fn.cardFormat){
-    	 $('#card2,#card3').cardFormat('####,####,####,####,###');//身份证
+    	 $('#card2,#card3').cardFormat('######,####,####,####');//身份证
+     }
+     if($.fn.cardFormat){
+    	 $('#card4,#card5').cardFormat('####,####,####,####,###');//银行卡号
      }
 });
