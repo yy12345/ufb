@@ -30,10 +30,8 @@
 		<link rel="stylesheet" href="${staticDomain}/public/css/style.css">
 	#end
 	
-	#if(${corp_module} != "help")
 	<link rel="stylesheet" href="${staticDomain}/public/css/header.css">
 	<link rel="stylesheet" href="${staticDomain}/public/css/footer.css">
-	#end
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.form.js"></script>
 	<script type="text/javascript" src="${staticDomain}/public/js/jquery.easing.js"></script>

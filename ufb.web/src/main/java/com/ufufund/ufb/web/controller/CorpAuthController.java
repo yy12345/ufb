@@ -305,5 +305,14 @@ public class CorpAuthController {
 		return "organ/auth/auth_result";
 	}
 	
-
+    /**
+     * 账户金额验证
+     * @param model
+     * @return
+     */
+	@RequestMapping(value="code_index")
+	public String codeIndex(Model model){
+		
+		return "organ/auth/code_index";
+	}
 }
