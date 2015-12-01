@@ -68,12 +68,6 @@ $(function(){
     		$("#license_msg").siblings(".formErr").show();
     		$("#license").focus();
     		return false;
-    	}else if(license.length<15){
-    		$("#license_msg").hide();
-    		$("#license_msg").siblings(".formErr").html("请输入正确的15位营业执照号！");
-    		$("#license_msg").siblings(".formErr").show();
-    		$("#license").focus();
-    		return false;
     	}else{
     		$("#license_msg").show();
     		$("#license_msg").siblings(".formErr").html("&nbsp;");
