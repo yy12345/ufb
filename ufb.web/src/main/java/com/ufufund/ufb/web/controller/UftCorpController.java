@@ -1,9 +1,11 @@
 package com.ufufund.ufb.web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ufufund.ufb.biz.manager.OrganManager;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.model.db.Orginfo;
 import com.ufufund.ufb.web.util.OrgUserHelper;
@@ -23,14 +25,20 @@ public class UftCorpController {
 	private static final String UFT_INDEX = "corp/uft/uft_index.htm";
 	private static final String UFT_INDEX_NAME = "我的账户";
 	
+	@Autowired
+	private OrganManager organManager;
 	/**
 	 * 机构版，幼富通首页
 	 */
 	@RequestMapping(value="uft_index")
 	public String uftIndex(Model model){
 		
-		Orginfo orginfo = OrgUserHelper.getOrginfo();
+		String orgid = OrgUserHelper.getOrgid();
 		try {
+			Orginfo orginfo = new Orginfo();
+			orginfo.setOrgid(orgid);
+			orginfo=organManager.getOrginfo(orginfo);
+			
 			// 新用户进行账户验证
 			if("2".equals(orginfo.getState())){
 				return "redirect:/corp/auth/auth_index.htm";

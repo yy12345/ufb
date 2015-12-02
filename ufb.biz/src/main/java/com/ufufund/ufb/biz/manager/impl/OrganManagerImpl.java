@@ -1,21 +1,27 @@
 package com.ufufund.ufb.biz.manager.impl;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.OrganManager;
-import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.common.exception.UserException;
+import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.RegexUtil;
 import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.dao.BankCardInfoMapper;
+import com.ufufund.ufb.dao.OrgCodesMapper;
 import com.ufufund.ufb.dao.OrginfoMapper;
 import com.ufufund.ufb.dao.PicinfoMapper;
 import com.ufufund.ufb.model.db.Bankcardinfo;
+import com.ufufund.ufb.model.db.OrgCodes;
 import com.ufufund.ufb.model.db.Orginfo;
 import com.ufufund.ufb.model.db.Picinfo;
 
@@ -28,6 +34,10 @@ public class OrganManagerImpl implements OrganManager{
 	private PicinfoMapper picinfoMapper;
 	@Autowired
 	private BankCardInfoMapper  bankCardInfoMapper;
+	@Autowired
+	private OrgCodesMapper orgCodesMapper;
+	@Autowired
+	private WorkDayManager  workDayManager;
 	
 	@Override
 	public Orginfo addOrginfo(Orginfo orginfo) {
@@ -110,13 +120,18 @@ public class OrganManagerImpl implements OrganManager{
 		bankcardinfo.setSerialid(SequenceUtil.getSerial());
 		bankCardInfoMapper.insterBankcardinfo(bankcardinfo);
 		
-		// 更新用户已认证状态
-		Orginfo org = new Orginfo();
-		org.setOrgid(orginfo.getOrgid());
-		org.setState("3");
-		orginfoMapper.updateState(org);
+		// 更新用户状态
+		this.updateState("3", orginfo.getOrgid());
 	}
 
+	@Override
+	public void updateState(String state,String orgid){
+		Orginfo org = new Orginfo();
+		org.setOrgid(orgid);
+		org.setState(state);
+		orginfoMapper.updateState(org);
+	}
+	
 	@Override
 	public boolean isCertnoRegister(String certno) {
 		Orginfo orginfo = new Orginfo();
@@ -124,6 +139,49 @@ public class OrganManagerImpl implements OrganManager{
 		orginfo=orginfoMapper.isCertnoRegister(orginfo);
 		if(orginfo!=null){
 			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void sendAmt(String orgid) {
+		 // 生成随机金额数
+		 DecimalFormat df = new DecimalFormat("######0.00"); 
+		 double amt = Math.random();
+		 String amt_code = df.format(amt);
+		 
+		 OrgCodes orgCodes = new OrgCodes();
+		 orgCodes.setOrgid(orgid);
+		 orgCodes.setAmt_code(amt_code);
+		 String now = workDayManager.getCurrentWorkDay();
+		 orgCodes.setAmt_invalid(workDayManager.getNextWorkDay(now, 5));
+		 orgCodesMapper.updateAmtCode(orgCodes);
+	}
+
+	@Override
+	public boolean getOrgCodes(OrgCodes orgCodes) {
+		List<OrgCodes> orgcodeList = orgCodesMapper.getOrgCodeList(orgCodes);
+		if(orgcodeList.size()>0&&orgcodeList!=null){
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean getAmtInvalid(OrgCodes orgcode){
+		List<OrgCodes> orgcodeList = orgCodesMapper.getOrgCodeList(orgcode);
+		if(orgcodeList.size()>0&&orgcodeList!=null){
+			String amtvalid = ((OrgCodes)orgcodeList.get(0)).getAmt_invalid();
+			String nowdate = DateUtil.format(new Date(), DateUtil.DATE_PATTERN_1);
+			SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+			try {
+				long c = sf.parse(amtvalid).getTime()-sf.parse(nowdate).getTime();
+				if(c < 0){
+					return true;
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 		return false;
 	}

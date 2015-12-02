@@ -1,6 +1,7 @@
 package com.ufufund.ufb.biz.manager;
 
 import com.ufufund.ufb.model.db.Bankcardinfo;
+import com.ufufund.ufb.model.db.OrgCodes;
 import com.ufufund.ufb.model.db.Orginfo;
 import com.ufufund.ufb.model.db.Picinfo;
 
@@ -53,4 +54,29 @@ public interface OrganManager {
 	 * @param bankcardinfo
 	 */
 	public void bindOrgan(Orginfo orginfo,Picinfo picinfo,Bankcardinfo bankcardinfo);
+	
+	/**
+	 * 更新机构用户的状态
+	 * @param state
+	 * @param orgid
+	 */
+	public void updateState(String state,String orgid);
+	
+	/**
+	 * 判断金额验证的失效时间
+	 * @param orgcode
+	 * @return
+	 */
+	public boolean getAmtInvalid(OrgCodes orgcode);
+	/**
+	 * 获得金额校验
+	 * @param orgCodes
+	 * @return
+	 */
+	public boolean getOrgCodes(OrgCodes orgCodes);
+	/**
+	 * 发送1元随机金额
+	 * @param orgid
+	 */
+	public void sendAmt(String orgid);
 }

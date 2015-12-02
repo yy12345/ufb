@@ -31,14 +31,18 @@
 		t.code       ,
 		t.orgid      ,
 		t.amt_code   ,
+		date_format(t.amt_invalid,'%Y%m%d') as amt_invalid,
 		date_format(t.createtime,'%Y-%m-%d') as createtime
 	from org_codes t
 	where 1=1 
-	<if test="code!=null and code!=''">
-		and t.code=#{code,jdbcType=VARCHAR}
-	</if>
 	<if test="orgid!=null and orgid!=''">
 		and t.orgid=#{orgid,jdbcType=VARCHAR}
+	</if>
+	<if test="amt_code!=null and amt_code!=''">
+		and t.amt_code=#{amt_code,jdbcType=VARCHAR}
+	</if>
+	<if test="code!=null and code!=''">
+		and t.code=#{code,jdbcType=VARCHAR}
 	</if>
 </select>
 
@@ -50,7 +54,8 @@
 
 <update id="updateAmtCode" parameterType="OrgCodes">
 	update org_codes t set
-		t.amt_code=#{amt_code ,jdbcType=VARCHAR}
+		t.amt_code=#{amt_code ,jdbcType=VARCHAR},
+		t.amt_invalid=#{amt_invalid ,jdbcType=VARCHAR}
 	where  t.orgid=#{orgid,jdbcType=VARCHAR}
 </update>
 </mapper>

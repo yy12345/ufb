@@ -66,7 +66,7 @@
 	   $("#btn-submit").on("click",function(){
 		   var checked = true;
 		   $("form").each(function(){
-			   if(($(this).find('img[name="license_pic"]').length == 0)&&$(this).parent().attr("style")!="display:none"){
+			   if(($(this).find('img[name="license_pic"]').length == 0)&&$(this).parent().attr("style")!="display: none;"){
 				   checked = false;
 				   $(this).find('.uploadFile').focus();
 				   count_ref_obj = $(this).find(".y1");
@@ -153,7 +153,7 @@
 		         </form>
 		        </div>
 		        #set($cert = ${Orginfo.type})
-		        <div class="x1" #if($cert=='5'||$cert=='6'||$cert=='7') style="display:none" #else style="display:block" #end>
+		        <div class="x1" #if($cert=='5'||$cert=='6'||$cert=='7') style="display:none;" #else style="display:block;" #end>
 		        <form id="uploadForm" enctype="multipart/form-data">
         			<input type="hidden" name="pictype" value="06">
 		            <label class="inputFile y1"><input type="file" class="uploadFile" name="file" accept="image/*"><p>办学许可证</p></label>

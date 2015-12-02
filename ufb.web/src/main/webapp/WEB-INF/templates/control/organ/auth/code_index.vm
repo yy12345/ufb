@@ -16,6 +16,43 @@ $(function(){
    $(".itemB .a2 .b1 .bubble").hover(function(){
        $(this).next().toggle();
    });    
+   
+   // 金额校验 
+   $('#checkAmt').on('click',function(){
+	   if(!check_code()){
+		   $("#amt_code").val("请输入正确的验证金额");
+		   $("#amt_code").attr("style","color:#cb3849");
+		   return false;
+	   }
+	   location.href = '${ufbDomain}/corp/uft/uft_index.htm';
+   })
+   
+   $("form input").on("focus",function(){
+	   $("#amt_code").val("");
+	   $("#amt_code").attr("placeholder","");
+	   $("#amt_code").attr("style","#33");
+   })
+   
+   var check_code = function(){
+	   var result = false;
+	   $.ajax({
+		   type:'get',
+		   url:'${ufbDomain}/corp/auth/checkCode.htm',
+		   data:'amt_code='+$("#amt_code").val(),
+		   async:false,
+		   success:function(data){
+				var json = $.parseJSON(data);
+				if(json.errCode=='0000'){
+					result = json.errMsg;
+				}
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log('系统出现异常！');
+			}
+	   })
+	   
+	   return result;
+   }
 });
 </script>
 </head>
@@ -24,12 +61,14 @@ $(function(){
     <div class="addAdv Verification" id="bgBlue">
        <div class="advTitle inner">
            <h1>对公银行账户验证</h1>
-           <p>为了确保机构收款准确安全，幼富通已给你注册的对公银行账户打出1元以内的随机金额，<br>
-            请查看银行账户并填写所收到的实际金额进行验证，否则机构账户验证将无法通过。 </p>
+           <p>为了确保机构收款准确安全，已给你注册的对公银行账户打出1元以内的随机金额，<br>
+           请查看银行账户并填写所收到的实际金额。若5个工作日内未填写，验证将无法通<br>过并须重新开始验证流程。 </p>
+        <form id="sub-form">
            <div class="advBtn">
-               <input type="text" value="" placeholder="输入实际金额"><a href="javascript:;" class="Advbtn">验 证</a>
+               <input type="text" name="amt_code" id="amt_code" placeholder="输入验证金额" #if(${amtErrMsg}) value="${amtErrMsg}" style="color:#cb3849" #end><a href="javascript:;" class="Advbtn" id="checkAmt">验 证</a>
                <a href="javascript:;" class="more">查看详情</a>
            </div>
+        </form>
        </div>
     </div>
 	<section class="loadbody">
@@ -113,31 +152,7 @@ $(function(){
 								<td class="b5"><span class="c1">--</span><span class="c2">/--</span></td>
 								<td class="minus">--</td>
 							</tr>
-							<tr>
-								<td>--</td>
-								<td class="b2">--</td>
-								<td class="b3">--</td>
-								<td class="minus">--</td>
-								<td class="b5"><span class="c1">--</span><span class="c2">/--</span></td>
-								<td class="minus">--</td>
-							</tr>
-							<tr>
-								<td>--</td>
-								<td class="b2">--</td>
-								<td class="b3">--</td>
-								<td class="minus">--</td>
-								<td class="b5"><span class="c1">--</span><span class="c2">/--</span></td>
-								<td class="minus">--</td>
-							</tr>
-							<tr>
-								<td>--</td>
-								<td class="b2">--</td>
-								<td class="b3">--</td>
-								<td class="minus">--</td>
-								<td class="b5"><span class="c1">--</span><span class="c2">/--</span></td>
-								<td class="minus">--</td>
-									</tr>
-								</table>
+						</table>
 							</div>
 						</div>
 					</div>

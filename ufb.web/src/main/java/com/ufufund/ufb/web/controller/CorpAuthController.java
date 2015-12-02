@@ -1,6 +1,7 @@
 package com.ufufund.ufb.web.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.db.BankBaseInfo;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.City;
+import com.ufufund.ufb.model.db.OrgCodes;
 import com.ufufund.ufb.model.db.Orginfo;
 import com.ufufund.ufb.model.db.Picinfo;
 import com.ufufund.ufb.web.util.OrgUserHelper;
@@ -46,6 +48,8 @@ public class CorpAuthController {
 	
 	private static final String AUTH_INDEX = "corp/auth/auth_base.htm";
 	private static final String AUTH_NAME = "账户认证";
+	private static final String ACCOUNT = "corp/uft/uft_index.htm";
+	private static final String ACCOUNT_NAME = "我的账户";
 	private static final String AUTH_ORGINFO="auth_orginfo";
 	private static final String AUTH_PICINFO="auth_picinfo";
 	
@@ -76,8 +80,17 @@ public class CorpAuthController {
 	 */
 	@RequestMapping(value="auth_base", method=RequestMethod.GET)
 	public String authBase(Model model){
-		Orginfo orginfo = OrgUserHelper.getOrginfo();
+		String orgid = OrgUserHelper.getOrgid();
 		try {
+			Orginfo orginfo = new Orginfo();
+			orginfo.setOrgid(orgid);
+			orginfo=organManager.getOrginfo(orginfo);
+			
+			// 对公银行账户验证
+			if("3".equals(orginfo.getState())){
+				return "redirect:/corp/auth/code_index.htm";
+			}
+			
 			// 获得城市列表
 			List<City> provinceList = cityManager.getAllProvince();
 			model.addAttribute("provinceList", provinceList);
@@ -245,7 +258,7 @@ public class CorpAuthController {
 				
 				model.addAttribute("bankBase", bankBase);
 				model.addAttribute("provinceList", provinceList);
-				model.addAttribute("operatorName", orginfo.getOperator_name());
+				model.addAttribute("operatorName", orginfo.getOrgname());
 			}
 			
 		}catch(UserException ue){
@@ -266,19 +279,19 @@ public class CorpAuthController {
 	 * @return
 	 */
 	@RequestMapping(value="auth_result")
-	public String authResult(Bankcardinfo bankCardInfo,Orginfo orginfo,Model model){
-		
+	public String authResult(Bankcardinfo bankCardInfo,String tradepwd,Model model){
+		Orginfo orginfo = OrgUserHelper.getOrginfo();
 		try {
 			Orginfo organ=(Orginfo)OrgUserHelper.getSessionAttr(AUTH_ORGINFO);
 			Picinfo picinfo=(Picinfo)OrgUserHelper.getSessionAttr(AUTH_PICINFO);
 			if(organ==null||picinfo==null){
 				throw new UserException("系统异常！");
 			}else{
-				if(StringUtils.isBlank(orginfo.getTradepwd())||StringUtils.isBlank(bankCardInfo.getBankacco())||StringUtils.isBlank(bankCardInfo.getBankno())
+				if(StringUtils.isBlank(tradepwd)||StringUtils.isBlank(bankCardInfo.getBankacco())||StringUtils.isBlank(bankCardInfo.getBankno())
 						||StringUtils.isBlank(bankCardInfo.getProvince())||StringUtils.isBlank(bankCardInfo.getCity())||StringUtils.isBlank(bankCardInfo.getSubbank())){
 					throw new UserException("系统异常！");
 				}
-				organ.setTradepwd(EncryptUtil.md5(orginfo.getTradepwd()));
+				organ.setTradepwd(EncryptUtil.md5(tradepwd));
 				
 				// 判断交易密码是否与登录密码相同
 				orginfo=organManager.getOrginfo(organ);
@@ -293,6 +306,9 @@ public class CorpAuthController {
 				
 				// 更新机构信息
 				organManager.bindOrgan(organ, picinfo, bankCardInfo);
+				
+				// 发送1元随机金额   later....
+				organManager.sendAmt(organ.getOrgid());
 			}
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
@@ -306,13 +322,71 @@ public class CorpAuthController {
 	}
 	
     /**
-     * 账户金额验证
+     * 账户金额验证页
      * @param model
      * @return
      */
 	@RequestMapping(value="code_index")
 	public String codeIndex(Model model){
-		
+		String orgid = OrgUserHelper.getOrgid();
+		try {
+			
+			// 判断金额验证的时间是否失效
+			OrgCodes orgCode = new OrgCodes();
+			orgCode.setOrgid(orgid);
+			boolean result = organManager.getAmtInvalid(orgCode);
+			
+			// 如果金额验证时间失效，则重新发送验证金额
+			if(result){
+				organManager.sendAmt(orgid);
+				model.addAttribute("amtErrMsg", "请输入新的验证金额");
+			}
+			
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			model.addAttribute("message_title", "操作失败");
+			model.addAttribute("message_content", ue.getMessage());
+			model.addAttribute("message_url", ACCOUNT);
+			model.addAttribute("back_module", ACCOUNT_NAME);
+			return "error/error";
+		}
 		return "organ/auth/code_index";
+	}
+	
+	/**
+	 * 账户金额验证
+	 * @param orgCodes
+	 * @return
+	 */
+	@RequestMapping(value="checkCode")
+	@ResponseBody
+	public Map<String,Object> checkCode(OrgCodes orgCodes){
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		Orginfo orginfo = OrgUserHelper.getOrginfo();
+		try {
+			if(StringUtils.isBlank(orgCodes.getAmt_code())||StringUtils.isBlank(orginfo.getOrgid())){
+				throw new UserException("系统异常！");
+			}
+			
+			orgCodes.setOrgid(orginfo.getOrgid());
+			boolean result = organManager.getOrgCodes(orgCodes);
+			
+			// 更新用户的状态
+			if(result){
+				organManager.updateState("4", orginfo.getOrgid());
+			}
+			
+			resultMap.put("errCode","0000");
+			resultMap.put("errMsg",result);
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
 	}
 }

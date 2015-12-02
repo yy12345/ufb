@@ -150,7 +150,7 @@ $(function(){
    
     // 校验固定电话 
     var check_tel = function(){
-    	var regex = /^((\d{3,5}-\d{6,8})(-\d{1,4})?)$/;
+    	var regex = /^((\d{3,5}[-,－]\d{6,8})([-,－]\d{1,4})?)$/;
     	var tel = $("#operator_tel").val();
     	if(tel == ''){
     		$("#op_tel_msg").hide();
@@ -175,19 +175,19 @@ $(function(){
     	var regex = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/ ;
     	var mail = $("#operator_mail").val();
     	if(mail == ''){
-    		$("#op_mail_errMsg").html("邮箱不能为空！");
-    		$("#op_mail_errMsg").removeClass("formSuc").addClass("formErr");
-    		$("#op_mail_errMsg").show();
+    		$("#op_tel_mail").hide();
+    		$("#op_tel_mail").siblings(".formErr").html("邮箱不能为空！");
+    		$("#op_tel_mail").siblings(".formErr").show();
 			return false;
     	}else if(mail != ''&&!mail.match(regex)){
-    		$("#op_mail_errMsg").html("格式不正确！");
-    		$("#op_mail_errMsg").removeClass("formSuc").addClass("formErr");
-    		$("#op_mail_errMsg").show();
+    		$("#op_tel_mail").hide();
+    		$("#op_tel_mail").siblings(".formErr").html("格式不正确！");
+    		$("#op_tel_mail").siblings(".formErr").show();
 			return false;
     	}else{
-    		$("#op_mail_errMsg").html("&nbsp;");
-    		$("#op_mail_errMsg").removeClass("formErr").addClass("formSuc");
-    		$("#op_mail_errMsg").show();
+    		$("#op_tel_mail").show();
+    		$("#op_tel_mail").siblings(".formErr").html("&nbsp;");
+    		$("#op_tel_mail").siblings(".formErr").hide();
 			return true;
 	 	}
     }
@@ -260,7 +260,7 @@ $(function(){
     // 省级联动
     function changeProvince(){
     	$.ajax({
-		type: "get",
+		type: "post",
 		url: '${ufbDomain}/corp/common/getCity.htm',
 		data:'province='+$("#province").val(),
 		async:false,
@@ -429,7 +429,8 @@ $(function(){
 					<td>邮箱</td>
 					<td><label class="inputText"><input type="text" name="operator_mail" id="operator_mail"></label></td>
 					<td>
-						<div class="formErr" id="op_mail_errMsg" style="display:none">错误提示</div>
+						<font id="op_tel_mail">请填写你的工作邮箱</font>
+						<div class="formErr" style="display:none">错误提示</div>
 					</td>
 				</tr>
 			</table>

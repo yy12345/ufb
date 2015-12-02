@@ -8,5 +8,6 @@ public class OrgCodes {
 	private String code       ;   
 	private String orgid      ;   
 	private String amt_code   ;   
+	private String amt_invalid   ;   
 	private String createtime ;   
 }

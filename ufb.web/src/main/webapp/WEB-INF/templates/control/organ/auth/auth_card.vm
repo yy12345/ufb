@@ -241,7 +241,7 @@
 	   // 省级联动
 	   function changeProvince(){
 	    	$.ajax({
-			type: "get",
+			type: "post",
 			url: '${ufbDomain}/corp/common/getCity.htm',
 			data:'province='+$("#province").val(),
 			async:false,
@@ -290,7 +290,7 @@
 						<td>*银行户名</td>
 						<td><label class="inputText"><input type="text" id="bankname" name="bankname" style="background-color:#cbcbcb;" readonly="readonly" value="${operatorName}"></label></td>
 						<td>
-							<font id="banknm_msg">跟组织机构代码证上的机构名称一致（基本户、一般户均可），<a href="javascript:;" id="AccountWt">对公账户填写指引</a></font>
+							<font id="banknm_msg">跟组织机构代码证上的机构名称一致（基本户、一般户均可）</font>
 							<div class="formErr" style="display:none">错误提示</div>
 						</td>
 					</tr>
@@ -330,7 +330,7 @@
 						<td>*支行网点</td>
 						<td><label class="inputText"><input type="text" name="subbank" id="subbank"></label></td>
 						<td>
-							<font id="subbank_msg">须与<a href="javascript:;" class="proofFile">银行账户证明文件</a>一致</font>
+							<font id="subbank_msg">须与银行账户证明文件一致</font>
 						    <div class="formErr" style="display:none">错误提示</div>
 						</td>
 					</tr>
