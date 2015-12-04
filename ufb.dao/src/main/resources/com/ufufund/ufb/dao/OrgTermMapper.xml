@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ufufund.ufb.dao.OrgTermMapper">
+    
+ <insert id="addOrgTerm" parameterType="OrgTerm">
+ 	insert into org_term values(
+	 	#{id        ,jdbcType=VARCHAR},
+		#{orgid     ,jdbcType=VARCHAR},
+		#{year      ,jdbcType=VARCHAR},
+		#{type      ,jdbcType=VARCHAR},
+		#{start     ,jdbcType=VARCHAR},
+		#{end       ,jdbcType=VARCHAR},
+		now()
+ 	)
+ </insert>
+ 
+ <select id="getOrgTerm" parameterType="OrgTerm" resultType="OrgTerm">
+ 	select 
+	 	id        ,
+		orgid     ,
+		year      ,
+		type      ,
+		start     ,
+		end       ,
+		date_format(updatetime,'%Y-%m-%d') updatetime
+   from org_term where 1=1 
+   <if test="id!=null and id!=''">
+  		and id=#{id,jdbcType=VARCHAR}
+   </if>
+   <if test="orgid!=null and orgid!=''">
+  		and orgid=#{orgid,jdbcType=VARCHAR}
+   </if>
+ </select>
+ 
+ <update id="updateOrgTerm" parameterType="OrgTerm">
+ 	update org_term set 
+	 	start=#{start     ,jdbcType=VARCHAR},
+		end=#{end       ,jdbcType=VARCHAR},
+		updatetime=now()
+	where id=#{id,jdbcType=VARCHAR}
+ </update>
+ </mapper>
