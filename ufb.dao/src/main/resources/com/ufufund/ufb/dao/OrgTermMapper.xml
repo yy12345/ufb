@@ -25,12 +25,9 @@
 		start     ,
 		end       ,
 		date_format(updatetime,'%Y-%m-%d') updatetime
-   from org_term where 1=1 
+   from org_term where orgid=#{orgid,jdbcType=VARCHAR}
    <if test="id!=null and id!=''">
   		and id=#{id,jdbcType=VARCHAR}
-   </if>
-   <if test="orgid!=null and orgid!=''">
-  		and orgid=#{orgid,jdbcType=VARCHAR}
    </if>
  </select>
  
