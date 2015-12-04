@@ -38,4 +38,17 @@
 		updatetime=now()
 	where id=#{id,jdbcType=VARCHAR}
  </update>
+ 
+ <select id="getOrgYearList" resultType="OrgYear">
+	 select a.year y1, b.year y2 ,a.id t1, b.id t2 
+	   from org_term a, org_term b
+	 where a.type = '2' and b.type = '1' and (a.year+1) = b.year
+ </select>
+ 
+ <select id="getOrgYear" parameterType="String" resultType="OrgYear">
+	 select a.year y1, b.year y2 ,a.id t1, b.id t2 
+	   from org_term a, org_term b where
+	 a.type = '2' and b.type = '1' and (a.year+1) = b.year
+	 and a.year =#{y1,jdbcType=VARCHAR}
+ </select>
  </mapper>
