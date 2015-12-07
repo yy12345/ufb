@@ -54,7 +54,6 @@ public class CorpBaseController {
 	 */
 	@RequestMapping(value="index", method=RequestMethod.GET)
 	public String index(Model model){
-		organManager.createCodes(10);
 		return "organ/index";
 	}
 	
