@@ -125,53 +125,6 @@ public class OrgManagerTest {
 		}
 	}
 	
-	
-	//@Test
-	public void insertOrggplan(){
-		Orgplan orggplan = new Orgplan();
-		orggplan.setOrgid("a");
-		orggplan.setPlanid("b");
-		orggplan.setGradeid("c");
-		orggplan.setTermid("d");
-		orggplan.setPlanname("e");
-		orggplan.setPlantype("f");
-		orggplan.setCycletype("g");
-		orggplan.setType("h");
-		orggplan.setAckdat("i");
-		orggplan.setDat("j");
-		orggplan.setPaydate("1");
-		//orggplan.setNextdate("2");
-		orggplan.setStats("3");
-		orggplan.setReplanid("4");
-		orggplan.setRemark1("5");
-		orggplan.setRemark2("6");
-		orggplan.setCreateno("7");
-		orggplan.setUpdateno("8");
-		orgDeployMapper.insertOrgplan(orggplan);	
-	}
-	
-	//@Test
-	public void insertOrggplandetailList(){
-		List<Orgplandetail> orggplandetailList =  new ArrayList<Orgplandetail>();
-		Orgplandetail orggplandetail = new Orgplandetail();
-		orggplandetail.setPlanid("b");
-		orggplandetail.setStudentid("c");
-		orggplandetail.setDetailid("e");
-		orggplandetail.setPaydiscount("2000");
-		orggplandetail.setPayappamount("5000");
-		orggplandetail.setPayackamount("3000");
-		orggplandetailList.add(orggplandetail);	
-//		orggplandetail = new Orggplandetail();
-//		orggplandetail.setPlanid("1");
-//		orggplandetail.setStudentid("2");
-//		orggplandetail.setDetailid("3");
-//		orggplandetail.setPaydiscount("4000");
-//		orggplandetail.setPayappamount("9000");
-//		orggplandetail.setPayackamount("5000");
-//		orggplandetailList.add(orggplandetail);	
-		orgDeployMapper.insertOrgplandetailList(orggplandetailList);
-	}
-	
 	//@Test
 	public void insertOrggplandetailchargeList(){
 		List<Orgplandetailcharge> plandetailchargeList = new ArrayList<Orgplandetailcharge>(); 

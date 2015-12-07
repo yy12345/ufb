@@ -69,4 +69,8 @@
     	update bankcardinfo set state = 'N',UPDATETIME=sysdate()
     	where custno = #{custno,jdbcType=VARCHAR} and state = 'Y'
     </update>
+    
+    <delete id="deleteBankCard" parameterType="String">
+    	delete from bankcardinfo where serialid=#{serialid,jdbccType=VARCHAR} and state = 'Y'
+    </delete>
 </mapper>

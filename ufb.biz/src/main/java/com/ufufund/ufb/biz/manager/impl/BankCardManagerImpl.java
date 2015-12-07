@@ -403,4 +403,9 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		return null;
 	}
 
+	@Override
+	public void deleteBankCard(String serialid) {
+		bankCardInfoMapper.deleteBankCard(serialid);
+	}
+
 }

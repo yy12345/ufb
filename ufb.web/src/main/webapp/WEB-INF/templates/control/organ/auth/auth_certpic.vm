@@ -79,7 +79,28 @@
 			   location="${ufbDomain}/corp/auth/auth_card.htm";
 		   }
 	   })
+	   
 	});
+	
+	function DownLoadReportIMG(imgPathURL){  
+        
+        //如果隐藏IFRAME不存在，则添加  
+        if (!document.getElementById("IframeReportImg"))  
+            $('<iframe style="display:none;" id="IframeReportImg" name="IframeReportImg" onload="DoSaveAsIMG();" width="0" height="0" src="about:blank"></iframe>').appendTo("body");  
+        if (document.all.IframeReportImg.src != imgPathURL){  
+            //加载图片  
+            document.all.IframeReportImg.src = imgPathURL;  
+        }  
+        else {  
+            //图片直接另存为  
+            DoSaveAsIMG();    
+        }  
+    }  
+	
+    function DoSaveAsIMG(){  
+        if (document.all.IframeReportImg.src != "about:blank")  
+            document.getElementById("IframeReportImg").document.execCommand("SaveAs");          
+    }   
 </script>
 </head>
 <body>
@@ -108,7 +129,7 @@
 		        	<input type="hidden" name="pictype" value="01">
 		            <label class="inputFile y1"><input type="file" class="uploadFile" name="file" accept="image/*"><p>授权经办人委托书</p></label>
 		            <div class="y2">
-		                <p>◆ 下载并打印<a href="${staticDomain}/public/images/authorization.jpg" target="_blank">授权经办人委托书</a>，<a href="javascript:;" id="demo">参考样例 </a></p>
+		                <p>◆ 下载并打印<a href="#" onclick="DownLoadReportIMG('${staticDomain}/public/images/authorization.jpg')">授权经办人委托书</a>，<a href="javascript:;" id="demo">参考样例 </a></p>
 		                <p>&emsp;上传加盖公章的原件照片或扫描件</p>
 		            </div>
 		        </form>

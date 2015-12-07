@@ -63,7 +63,7 @@ public interface OrganManager {
 	public void updateState(String state,String orgid);
 	
 	/**
-	 * 判断金额验证的失效时间
+	 * 判断金额验证的失效时间、金额是否发送成功
 	 * @param orgcode
 	 * @return
 	 */
@@ -79,4 +79,16 @@ public interface OrganManager {
 	 * @param orgid
 	 */
 	public void sendAmt(String orgid);
+	
+	/**
+	 * 账户验证不成功，重新验证时删除已有的银行、证件照信息
+	 * @param orgid
+	 */
+	public void remove(String orgid);
+	
+	/**
+	 * 生成机构的邀请码
+	 * @param n
+	 */
+	public void createCodes(int n);
 }

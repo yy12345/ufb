@@ -6,9 +6,11 @@ public interface OrginfoMapper {
 	
 	int addOrginfo(Orginfo orginfo);
 	
+	Orginfo getOrginfoLogin(Orginfo orginfo);
+	
 	Orginfo getOrginfo(Orginfo orginfo);
 	
-	Orginfo isCertnoRegister(Orginfo orginfo);
+	Orginfo isRegister(Orginfo orginfo);
 	
 	int updateOrginfo(Orginfo orginfo);
 	

@@ -41,29 +41,27 @@
    )
 </insert>
 
-<select id="getOrginfo" parameterType="Orginfo" resultType="Orginfo">
+<select id="getOrginfoLogin" parameterType="Orginfo" resultType="Orginfo">
 	select <include refid="Base_Columns"/> from orginfo t
-		where 1=1
-	<if test="orgid!=null and orgid!=''">
-		and t.orgid=#{orgid,jdbcType=VARCHAR}
-	</if>
-	<if test="operator_mobile!=null and operator_mobile!=''">
-		and t.operator_mobile=#{operator_mobile,jdbcType=VARCHAR}
-	</if>
-    <if test="passwd!=null and passwd!=''">
+		where  t.operator_mobile=#{operator_mobile,jdbcType=VARCHAR}
 		and t.passwd=#{passwd,jdbcType=VARCHAR}
-	</if>
 </select>
 
-<select id="isCertnoRegister" parameterType="Orginfo" resultType="Orginfo">
+<select id="getOrginfo" parameterType="Orginfo" resultType="Orginfo">
 	select <include refid="Base_Columns"/> from orginfo t
-		where 1=1
-	<if test="orgid!=null and orgid!=''">
-		and t.orgid=#{orgid,jdbcType=VARCHAR}
+		where  t.orgid=#{orgid,jdbcType=VARCHAR}
+</select>
+
+<select id="isRegister" parameterType="Orginfo" resultType="Orginfo">
+	select <include refid="Base_Columns"/> from orginfo t
+		where   
+	<if test="operator_mobile!=null and operator_mobile!=''">
+		  t.operator_mobile=#{operator_mobile,jdbcType=VARCHAR} and
 	</if>
 	<if test="operator_certno!=null and operator_certno!=''">
-		and t.operator_certno=#{operator_certno,jdbcType=VARCHAR}
+		  t.operator_certno=#{operator_certno,jdbcType=VARCHAR} and
 	</if>
+	state!='6'
 </select>
 
 <!-- 更新认证用户数据 -->
@@ -78,7 +76,6 @@
 		license_address=#{license_address ,jdbcType=VARCHAR},
 		operator_name=#{operator_name,jdbcType=VARCHAR},
 		operator_certno=#{operator_certno,jdbcType=VARCHAR},
-		operator_mobile=#{operator_mobile,jdbcType=VARCHAR},
 		operator_tel=#{operator_tel,jdbcType=VARCHAR},
 		operator_mail=#{operator_mail,jdbcType=VARCHAR},
 		legal_name=#{legal_name,jdbcType=VARCHAR},

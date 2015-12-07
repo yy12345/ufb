@@ -3,11 +3,19 @@ package com.ufufund.ufb.biz.manager.impl;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.OrganManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.common.exception.UserException;
@@ -38,6 +46,8 @@ public class OrganManagerImpl implements OrganManager{
 	private OrgCodesMapper orgCodesMapper;
 	@Autowired
 	private WorkDayManager  workDayManager;
+	@Autowired
+	private BankCardManager bankCardManager;
 	
 	@Override
 	public Orginfo addOrginfo(Orginfo orginfo) {
@@ -64,7 +74,7 @@ public class OrganManagerImpl implements OrganManager{
 		if(!RegexUtil.isMobile(orginfo.getOperator_mobile())){
 			throw new UserException("手机号格式不正确！");
 		}
-		Orginfo corp=orginfoMapper.getOrginfo(orginfo);
+		Orginfo corp=orginfoMapper.isRegister(orginfo);
 		if(corp!=null&&corp.getOrgid()!=null&&!"".equals(corp.getOrgid())){
 			result=true;
 		}
@@ -83,7 +93,7 @@ public class OrganManagerImpl implements OrganManager{
 		
 		// 获得数据库用户信息
 		orginfo.setPasswd(EncryptUtil.md5(orginfo.getPasswd())); // 根据手机号和密码匹配用户信息,如不同时校验，修改对应的mapper文件(去掉密码的条件)
-		Orginfo org=orginfoMapper.getOrginfo(orginfo);
+		Orginfo org=orginfoMapper.getOrginfoLogin(orginfo);
 		if(org==null||org.getOrgid()==null||"".equals(org.getOrgid())){
 			throw new UserException("登录账号无效!");
 		}
@@ -136,7 +146,7 @@ public class OrganManagerImpl implements OrganManager{
 	public boolean isCertnoRegister(String certno) {
 		Orginfo orginfo = new Orginfo();
 		orginfo.setOperator_certno(certno);
-		orginfo=orginfoMapper.isCertnoRegister(orginfo);
+		orginfo=orginfoMapper.isRegister(orginfo);
 		if(orginfo!=null){
 			return true;
 		}
@@ -145,16 +155,17 @@ public class OrganManagerImpl implements OrganManager{
 
 	@Override
 	public void sendAmt(String orgid) {
-		 // 生成随机金额数
-		 DecimalFormat df = new DecimalFormat("######0.00"); 
-		 double amt = Math.random();
-		 String amt_code = df.format(amt);
+		 // 生成随机金额数 调接口  later...
+		 Random r = new Random();
+		 int n = r.nextInt(100);
+		 if(n == 0)n++;
+		 double amt = ((double)n)/100;
 		 
 		 OrgCodes orgCodes = new OrgCodes();
 		 orgCodes.setOrgid(orgid);
-		 orgCodes.setAmt_code(amt_code);
+		 orgCodes.setAmt_code(String.valueOf(amt));
 		 String now = workDayManager.getCurrentWorkDay();
-		 orgCodes.setAmt_invalid(workDayManager.getNextWorkDay(now, 5));
+		 orgCodes.setAmt_invalid(workDayManager.getNextWorkDay(now, 10));
 		 orgCodesMapper.updateAmtCode(orgCodes);
 	}
 
@@ -171,19 +182,96 @@ public class OrganManagerImpl implements OrganManager{
 	public boolean getAmtInvalid(OrgCodes orgcode){
 		List<OrgCodes> orgcodeList = orgCodesMapper.getOrgCodeList(orgcode);
 		if(orgcodeList.size()>0&&orgcodeList!=null){
-			String amtvalid = ((OrgCodes)orgcodeList.get(0)).getAmt_invalid();
+			orgcode = (OrgCodes)orgcodeList.get(0);
+			
+			// 判断验证金额是否发送成功
+			if(StringUtils.isBlank(orgcode.getAmt_code())){
+				return false;
+			}
+						
+			// 判断金额验证的失效的时间
+			String amtvalid = orgcode.getAmt_invalid();
 			String nowdate = DateUtil.format(new Date(), DateUtil.DATE_PATTERN_1);
 			SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 			try {
 				long c = sf.parse(amtvalid).getTime()-sf.parse(nowdate).getTime();
 				if(c < 0){
-					return true;
+					return false;
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			
 		}
-		return false;
+		return true;
 	}
 
+	@Override
+	@Transactional
+	public void remove(String orgid) {
+		Orginfo orginfo = new Orginfo();
+		Bankcardinfo bankcardinfo = new Bankcardinfo();
+		bankcardinfo=bankCardManager.getBankcardinfo(orgid);
+		if(bankcardinfo!=null){
+			bankCardInfoMapper.deleteBankCard(bankcardinfo.getSerialid());
+		}
+		if(picinfoMapper.getPicinfo(orgid)!=null){
+			picinfoMapper.deletePicinfo(orgid);
+		}
+		orginfo.setOrgid(orgid);
+		orginfoMapper.updateOrginfo(orginfo);
+	}
+
+	@Override
+	public void createCodes(int n) {
+		List<OrgCodes> newlist = new ArrayList<OrgCodes>();
+		List<OrgCodes> codeList = orgCodesMapper.getOrgCodeList(null);
+		Set<String> sets = new HashSet<String>();
+		for(OrgCodes code : codeList){
+			sets.add(code.getId());
+		}
+		
+		for(int i=0;i<n;i++){
+			OrgCodes orgCodes = new OrgCodes();
+			Random r = new Random();
+			int c = r.nextInt(1000);
+			Iterator<String> it = sets.iterator();
+			while(it.hasNext()){
+				if(c == Integer.parseInt(it.next())){
+					c = Integer.parseInt(it.next())+1;
+				}
+				if(c<100){
+					c = Integer.parseInt(it.next())+1;
+				}
+			}
+			
+			// 后五位随机数
+			int  m = r.nextInt(100000);
+			String m5 = String.valueOf(m);
+			if( m!= 0){
+				if(m<10000&&m>1000){
+					m5 = m5+"1";
+				}
+				else if(m<1000&&m>100){
+					m5 = m5+"01";
+				}
+				else if(m<100&&m>10){
+					m5 = m5+"001";
+				}
+				else if(m<10&&m>1){
+					m5 = m5+"0001";
+				}
+				else{
+					m5 = String.valueOf(m);
+				}
+			}else{
+			   m5 = "00001";
+			}
+			sets.add(String.valueOf(c));
+			orgCodes.setId(String.valueOf(c));
+			orgCodes.setCode(String.valueOf(c)+m5);
+			newlist.add(orgCodes);
+		}
+		orgCodesMapper.addOrgCodes(newlist);
+	}
 }

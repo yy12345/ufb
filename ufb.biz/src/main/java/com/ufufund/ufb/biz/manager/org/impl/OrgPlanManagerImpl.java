@@ -129,21 +129,21 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		}
 		Orgplan orggplan = new Orgplan();
 		orggplan.setOrgid(action.getOrgid());
-		orggplan.setPlanid(action.getPlanid());
+		orggplan.setId(action.getPlanid());
 		List<Orgplan> list =  orgDeployMapper.getOrgplan(orggplan);
 		log.debug(processId + " List<Orggplan> ：" + list.size());
 		if(list.size()!=1){
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		orggplan = (Orgplan) list.get(0);
-		if("C".equals(orggplan.getStats())){
+		if("2".equals(orggplan.getState())){
 			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR);
 		}
 		String planid = action.getPlanid();
 		orgDeployMapper.deleteOrgplan(planid);
 		orgDeployMapper.deleteOrgplandetail(planid);
 		orgDeployMapper.deleteOrgplandetailcharge(planid);
-		this.saveAction(action, planid, orggplan.getGroupid() ,processId);
+		//this.saveAction(action, planid, orggplan.getGroupid() ,processId);
 
 	}
 
@@ -166,10 +166,9 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 
 	private void saveAction(CreateOrgPlanAction1 action, String planid, String groupid, String processId) {
 		Orgplan orggplan = OrgPlanHelper.converntOrggplan(action);
-		orggplan.setPlanid(planid);
-		orggplan.setPaydate(action.getPaydate());
-		orggplan.setStats("N");
-		orggplan.setGroupid(groupid);
+		orggplan.setId(planid);
+		orggplan.setPayday(action.getPaydate());
+		orggplan.setState("3");
 		List<Orgplandetail> plandetailList = new ArrayList<Orgplandetail>();
 		List<Orgplandetailcharge> plandetailchargeList = new ArrayList<Orgplandetailcharge>();
 		Orgplandetail orggplandetail = null;
@@ -191,20 +190,18 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 			}
 			orggplandetail = new Orgplandetail();
 			orggplandetail.setOrgid(action.getOrgid());
-			orggplandetail.setPlanid(planid);
-			orggplandetail.setStudentid(action2.getStudentid());
-			orggplandetail.setDetailid(detailid);
-			orggplandetail.setPaydiscount(action2.getDiscount());
-			orggplandetail.setPayappamount(payappamount.toString());
-			payackamount = payappamount.subtract(new BigDecimal(orggplandetail.getPaydiscount()));
-			orggplandetail.setPayackamount(payackamount.toString());
+			orggplandetail.setId(planid);
+			orggplandetail.setSid(action2.getStudentid());
+			orggplandetail.setId(detailid);
+			orggplandetail.setDiscount(action2.getDiscount());
+			orggplandetail.setAmount(payappamount.toString());
 			/*
 			 * 月代扣状态直接确认
 			 */
 			if (Constant.Orggrade.CYCLE_TYPE$M.equals(action.getCycletype())) {
-				orggplandetail.setStats("F");
+				orggplandetail.setState("F");
 			}else{
-				orggplandetail.setStats("N");
+				orggplandetail.setState("N");
 			}
 			plandetailList.add(orggplandetail);
 		}
@@ -232,12 +229,8 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		Orgplandetail orgplandetail = null;
 		for(PersonConfirmList detail : datailList){
 			orgplandetail = new Orgplandetail();
-			orgplandetail.setDetailid(detail.getDetailid());
-			orgplandetail.setStats("1");
-			orgplandetail.setAcktype(action.getAcktype());
-			orgplandetail.setAckcustno(action.getAckcustno());
-			orgplandetail.setAckbankcardid(action.getAckbankcardid());
-			orgplandetail.setAcktradeacco(action.getAcktradeacco());
+			orgplandetail.setId(detail.getDetailid());
+			orgplandetail.setState("1");
 			orgDeployMapper.updatePlandetail(orgplandetail);
 		}
 	}
@@ -253,19 +246,16 @@ public class OrgPlanManagerImpl extends ImplCommon implements OrgPlanManager {
 		for(int i=0;i<detailidArr.length;i++){
 			Orgplandetail detail = new Orgplandetail();
 			String detailid=detailidArr[i];
-			detail.setDetailid(detailid);
-			detail.setAckcustno(d_custinfo.getCustno());
-			detail.setAcktype(paytype);
-			detail.setStats("Y");
-			detail.setIspay("1");
+			detail.setId(detailid);
+			detail.setState("Y");
 			Tradeaccoinfo tradeAcco=tradeAccoManager.getTradeaccoinfo(d_custinfo.getCustno());
-			if(paytype.equals("U")){
+			/*if(paytype.equals("U")){
 				detail.setAckbankcardid(tradeAcco.getBankserialid());
 				detail.setAcktradeacco(tradeAcco.getTradeacco());
 			}else{
 				Bankcardinfo bankcard =	bankCardManager.getBankcardinfo(d_custinfo.getCustno());
 				detail.setAckbankcardid(bankcard.getSerialid());
-			}
+			}*/
 			
 			// 修改计划详情
 			planDetailMapper.updateDetail(detail);

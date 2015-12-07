@@ -1,12 +1,15 @@
 package com.ufufund.ufb.web.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.text.SimpleDateFormat;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,7 @@ import com.ufufund.ufb.model.db.City;
 import com.ufufund.ufb.model.db.OrgCodes;
 import com.ufufund.ufb.model.db.Orginfo;
 import com.ufufund.ufb.model.db.Picinfo;
+import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.OrgUserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -237,6 +241,62 @@ public class CorpAuthController {
 		return resultMap;
 	}
 	
+	@RequestMapping(value="download")
+	@ResponseBody
+	public Map<String,Object> download(String url,String title){
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		try {
+			if(url.indexOf("../")<0){
+				String[] path = url.split("\\.");
+				String hz = "";
+				if (path.length >= 1)
+				{
+					hz = "." + path[1];
+				}
+				BufferedInputStream bufIn = null;
+				BufferedOutputStream bufOut = null;
+				ServletHolder.getResponse().reset();// 清空输出流  
+				try
+				{
+					ServletHolder.getResponse().setContentType("application/x-msdownload");
+					ServletHolder.getResponse().setHeader("Content-disposition", "attachment; filename=" + new String(title.getBytes("gb2312"), "iso8859-1"));
+					bufIn = new BufferedInputStream(new FileInputStream(ServletHolder.getSession().getServletContext().getRealPath(url)));
+					bufOut = new BufferedOutputStream(ServletHolder.getResponse().getOutputStream());
+					byte[] buff = new byte[2048];
+					int bytesRead;
+					while (-1 != (bytesRead = bufIn.read(buff, 0, buff.length)))
+					{
+						bufOut.write(buff, 0, bytesRead);
+					}
+					bufOut.flush();
+				}
+				catch (IOException ex)
+				{
+					log.error("", ex);
+				}
+				finally
+			   {
+					if (bufIn != null)
+						bufIn.close();
+					if (bufOut != null)
+						bufOut.close();
+				}
+				return null;
+			}else{
+				throw new UserException("");
+			}
+		}catch(UserException ue){
+			log.warn(ue.getMessage(), ue);
+			resultMap.put("errCode", ue.getCode());
+			resultMap.put("errMsg", ue.getMessage());
+		}catch (Exception e) {
+			log.error(e.getMessage(), e);
+			resultMap.put("errCode", "9999");
+			resultMap.put("errMsg", "系统出现异常！");
+		}
+		return resultMap;
+	}
+	
 	/**
 	 * 认证页，银行卡资料填写
 	 * @param model
@@ -307,7 +367,7 @@ public class CorpAuthController {
 				// 更新机构信息
 				organManager.bindOrgan(organ, picinfo, bankCardInfo);
 				
-				// 发送1元随机金额   later....
+				// 发送1元随机金额   later   remove....
 				organManager.sendAmt(organ.getOrgid());
 			}
 		}catch(UserException ue){
@@ -331,15 +391,19 @@ public class CorpAuthController {
 		String orgid = OrgUserHelper.getOrgid();
 		try {
 			
-			// 判断金额验证的时间是否失效
+			// 验证金额
 			OrgCodes orgCode = new OrgCodes();
 			orgCode.setOrgid(orgid);
 			boolean result = organManager.getAmtInvalid(orgCode);
 			
-			// 如果金额验证时间失效，则重新发送验证金额
-			if(result){
-				organManager.sendAmt(orgid);
-				model.addAttribute("amtErrMsg", "请输入新的验证金额");
+			// 如果金额验证时间失效或发送失败(短信通知)，则重新账户验证    later...
+			if(!result){
+				// 删除银行卡、证件照信息
+				organManager.remove(orgid);
+				
+				//修改用户状态
+				organManager.updateState("2", orgid);
+				return "redirect:/corp/auth/auth_index.htm";
 			}
 			
 		}catch(UserException ue){

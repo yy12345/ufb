@@ -19,4 +19,15 @@
 		now()     
 	)
 </insert>
+
+<select id="getPicinfo" parameterType="String" resultType="Picinfo">
+	select 
+		custno,img1,img2,img3,img4,img5,img6,img7,img8,img9,img10 
+	from picinfo where custno=#{custno,jdbcType=VARCHAR}
+</select>
+
+<delete id="deletePicinfo" parameterType="String">
+	delete from picinfo where custno=#{custno,jdbcType=VARCHAR}
+</delete>
+
 </mapper>

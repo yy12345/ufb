@@ -10,4 +10,6 @@ public interface BankCardInfoMapper{
 	public List<Bankcardinfo> getBankcardinfo(Bankcardinfo bankcardinfo);
 	
 	public void removeCard(String custno);
+	
+	public void deleteBankCard(String serialid);
 }

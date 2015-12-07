@@ -62,10 +62,10 @@ $(function(){
        <div class="advTitle inner">
            <h1>对公银行账户验证</h1>
            <p>为了确保机构收款准确安全，已给你注册的对公银行账户打出1元以内的随机金额，<br>
-           请查看银行账户并填写所收到的实际金额。若5个工作日内未填写，验证将无法通<br>过并须重新开始验证流程。 </p>
+           请查看银行账户并填写所收到的实际金额。若10个工作日内未填写，验证将无法通<br>过并须重新开始验证流程。 </p>
         <form id="sub-form">
            <div class="advBtn">
-               <input type="text" name="amt_code" id="amt_code" placeholder="输入验证金额" #if(${amtErrMsg}) value="${amtErrMsg}" style="color:#cb3849" #end><a href="javascript:;" class="Advbtn" id="checkAmt">验 证</a>
+               <input type="text" name="amt_code" id="amt_code" placeholder="输入验证金额"><a href="javascript:;" class="Advbtn" id="checkAmt">验 证</a>
                <a href="javascript:;" class="more">查看详情</a>
            </div>
         </form>

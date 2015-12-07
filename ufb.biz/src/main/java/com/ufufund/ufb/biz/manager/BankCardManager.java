@@ -38,4 +38,7 @@ public interface BankCardManager {
 	public void checkAccount(OpenAccountAction openAccountAction);
 	public void updateCard(OpenAccountAction openAccountAction);
 	
+	// 删除银行卡信息
+	public void deleteBankCard(String serialid);
+	
 }

@@ -11,7 +11,7 @@ public class OrgPlanHelper {
 	
 	public static Orgplan converntOrggplan(CreateOrgPlanAction1 action){
 		Orgplan orggplan = new Orgplan();
-		orggplan.setOrgid(action.getOrgid());
+	/*	orggplan.setOrgid(action.getOrgid());
 		//orggplan.setPlanid(String planid);
 		orggplan.setGradeid(action.getGradeid());
 		orggplan.setTermid(action.getTermid());
@@ -29,7 +29,7 @@ public class OrgPlanHelper {
 		//orggplan.setRemark2(String remark2);
 		orggplan.setCreateno(action.getCreateno());
 		//orggplan.setUpdateno(String updateno);
-		return orggplan;
+*/		return orggplan;
 	}
 	
 	public static Orgplandetailcharge converntOrggplandetailcharge(CreateOrgPlanAction3 action){

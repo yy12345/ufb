@@ -31,10 +31,7 @@
 		state     ,
 		date_format(createtime,'%Y-%d-%m') date_format,
 		date_format(updatetime,'%Y-%d-%m') updatetime
-	where 1=1 
-	<if test="orgid!=null and orgid!=''">
-  		and orgid=#{orgid,jdbcType=VARCHAR}
-   </if>
+	where  orgid=#{orgid,jdbcType=VARCHAR}
    <if test="termid!=null and termid!=''">
   		and termid=#{termid,jdbcType=VARCHAR}
    </if>
