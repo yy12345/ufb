@@ -18,7 +18,6 @@ import com.ufufund.ufb.common.exception.SysException;
 import com.ufufund.ufb.common.exception.UserErrorCode;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.SequenceUtil;
-import com.ufufund.ufb.common.utils.ThreadLocalUtil;
 import com.ufufund.ufb.dao.CancelRequestMapper;
 import com.ufufund.ufb.dao.TradeQutyChgMapper;
 import com.ufufund.ufb.dao.TradeRequestMapper;
@@ -41,9 +40,11 @@ import com.ufufund.ufb.model.vo.RedeemVo;
 import com.ufufund.ufb.model.vo.Today;
 import com.ufufund.ufb.remote.hftfund.HftTradeService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class TradeManagerImpl implements TradeManager{
-	private static Logger LOG = LoggerFactory.getLogger(TradeManagerImpl.class);
 
 	@Autowired
 	private HftTradeService hftTradeService;
@@ -80,18 +81,16 @@ public class TradeManagerImpl implements TradeManager{
 		
 		/** 生成本地交易流水 **/
 		TradeRequest tradeRequest = helper.toTradeRequest4SubApply(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 认购流水："+tradeRequest);
+		log.info("认购流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>认购流水：serialno="+tradeRequest.getSerialno());
+			log.error("<Failed>认购流水：serialno="+tradeRequest.getSerialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		
 		/** 调用基金公司接口 **/
 		SubApplyRequest request = helper.toSubApplyRequest(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 认购下单："+request);
+		log.info("认购下单："+request);
 		SubApplyResponse response = hftTradeService.subApply(request);
 		
 		/** 处理交易执行结果  **/
@@ -99,18 +98,15 @@ public class TradeManagerImpl implements TradeManager{
 				&& Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
 			// 执行成功，回写本地数据
 			tradeRequest = helper.toResponse4SubApply(response);
-			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-					+", 认购回写："+tradeRequest);
+			log.info(" 认购回写："+tradeRequest);
 			n = tradeRequestMapper.update(tradeRequest);
 			if(n < 1){
-				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed>认购回写：serialno="+tradeRequest.getSerialno());
+				log.error("<Failed>认购回写：serialno="+tradeRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
 		}else {
 			// 执行失败，处理返回异常码
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>认购下单：serialno="+request.getApplicationNo());
+			log.error("<Failed>认购下单：serialno="+request.getApplicationNo());
 			HftResponseUtil.dealResponseCode(response);
 		}
 		
@@ -131,18 +127,16 @@ public class TradeManagerImpl implements TradeManager{
 		
 		/** 生成本地交易流水 **/
 		TradeRequest tradeRequest = helper.toTradeRequest4BuyApply(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 申购流水："+tradeRequest);
+		log.info("申购流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>申购流水：serialno="+tradeRequest.getSerialno());
+			log.error("<Failed>申购流水：serialno="+tradeRequest.getSerialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		
 		/** 调用基金公司接口 **/
 		BuyApplyRequest request = helper.toBuyApplyRequest(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 申购下单："+request);
+		log.info("申购下单："+request);
 		BuyApplyResponse response = hftTradeService.buyApply(request);
 		
 		/** 处理交易执行结果  **/
@@ -150,12 +144,10 @@ public class TradeManagerImpl implements TradeManager{
 				&& Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
 			// 执行成功，回写本地数据
 			tradeRequest = helper.toResponse4BuyApply(response);
-			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-					+", 申购回写："+tradeRequest);
+			log.info("申购回写："+tradeRequest);
 			n = tradeRequestMapper.update(tradeRequest);
 			if(n < 1){
-				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed>申购回写：serialno="+tradeRequest.getSerialno());
+				log.error("<Failed>申购回写：serialno="+tradeRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
 			
@@ -163,15 +155,13 @@ public class TradeManagerImpl implements TradeManager{
 			TradeQutyChg tradeQutyChg = helper.toTradeQutyChg4BuyApply(vo);
 			n = tradeQutyChgMapper.add(tradeQutyChg);
 			if(n < 1){
-				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed>申购回写份额：serialno="+tradeRequest.getSerialno());
+				log.error("<Failed>申购回写份额：serialno="+tradeRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
 			
 		}else{
 			// 执行失败，处理返回异常码
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>申购下单：serialno="+request.getApplicationNo());
+			log.error("<Failed>申购下单：serialno="+request.getApplicationNo());
 			HftResponseUtil.dealResponseCode(response);
 		}
 		
@@ -192,18 +182,16 @@ public class TradeManagerImpl implements TradeManager{
 		
 		/** 生成本地交易流水 **/
 		TradeRequest tradeRequest = helper.toTradeRequest4Redeem(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 普通赎回流水："+tradeRequest);
+		log.info("普通赎回流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>生成普通赎回流水：serialno="+tradeRequest.getSerialno());
+			log.error("<Failed>生成普通赎回流水：serialno="+tradeRequest.getSerialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		
 		/** 调用基金公司接口 **/
 		RedeemRequest request = helper.toRedeemRequest(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 普通赎回下单："+request);
+		log.info("普通赎回下单："+request);
 		RedeemResponse response = hftTradeService.redeem(request);
 		
 		/** 处理交易执行结果  **/
@@ -211,26 +199,22 @@ public class TradeManagerImpl implements TradeManager{
 				&& Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
 			// 执行成功，回写本地数据
 			tradeRequest = helper.toResponse4Redeem(response);
-			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-					+", 普通赎回回写："+tradeRequest);
+			log.info("普通赎回回写："+tradeRequest);
 			n = tradeRequestMapper.update(tradeRequest);
 			if(n < 1){
-				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed>普通赎回回写：serialno="+tradeRequest.getSerialno());
+				log.error("<Failed>普通赎回回写：serialno="+tradeRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
 			// 货基直接记份额，暂时算成功
 			TradeQutyChg tradeQutyChg = helper.toTradeQutyChg4Redeem(vo);
 			n = tradeQutyChgMapper.add(tradeQutyChg);
 			if(n < 1){
-				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed>普通赎回回写份额：serialno="+tradeRequest.getSerialno());
+				log.error("<Failed>普通赎回回写份额：serialno="+tradeRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
 		}else {
 			// 执行失败，处理返回异常码
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>普通赎回下单：serialno="+request.getApplicationNo());
+			log.error("<Failed>普通赎回下单：serialno="+request.getApplicationNo());
 			HftResponseUtil.dealResponseCode(response);
 		}
 		
@@ -251,18 +235,16 @@ public class TradeManagerImpl implements TradeManager{
 		
 		/** 生成本地交易流水 **/
 		TradeRequest tradeRequest = helper.toTradeRequest4RealRedeem(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 快速赎回流水："+tradeRequest);
+		log.info("快速赎回流水："+tradeRequest);
 		int n = tradeRequestMapper.add(tradeRequest);
 		if(n < 1){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>快速赎回流水：serialno="+tradeRequest.getSerialno());
+			log.error("<Failed>快速赎回流水：serialno="+tradeRequest.getSerialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		
 		/** 调用基金公司接口 **/
 		RealRedeemRequest request = helper.toRealRedeemRequest(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 快速赎回下单："+request);
+		log.info("快速赎回下单："+request);
 		RealRedeemResponse response = hftTradeService.realRedeem(request);
 		
 		/** 处理交易执行结果  **/
@@ -270,26 +252,22 @@ public class TradeManagerImpl implements TradeManager{
 				&& Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
 			// 执行成功，回写本地数据
 			tradeRequest = helper.toResponse4RealRedeem(response);
-			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-					+", 快速赎回回写："+tradeRequest);
+			log.info("快速赎回回写："+tradeRequest);
 			n = tradeRequestMapper.update(tradeRequest);
 			if(n < 1){
-				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed>快速赎回回写：serialno="+tradeRequest.getSerialno());
+				log.error("<Failed>快速赎回回写：serialno="+tradeRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
 			// 货基直接记份额，暂时算成功
 			TradeQutyChg tradeQutyChg = helper.toTradeQutyChg4RealRedeem(vo);
 			n = tradeQutyChgMapper.add(tradeQutyChg);
 			if(n < 1){
-				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed>快速赎回回写份额：serialno="+tradeRequest.getSerialno());
+				log.error("<Failed>快速赎回回写份额：serialno="+tradeRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
 		}else {
 			// 执行失败，处理返回异常码
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>快速赎回下单：serialno="+request.getApplicationNo());
+			log.error("<Failed>快速赎回下单：serialno="+request.getApplicationNo());
 			HftResponseUtil.dealResponseCode(response);
 		}
 		
@@ -312,39 +290,33 @@ public class TradeManagerImpl implements TradeManager{
 		TradeRequest oldtradeRequest = tradeRequestMapper.getBySerialno(vo.getCustno(), vo.getOldserialno());
 		//原交易申请流水号不存在
 		if(null == oldtradeRequest){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>原交易申请流水号不存在：serialno="+vo.getOldserialno());
+			log.error("<Failed>原交易申请流水号不存在：serialno="+vo.getOldserialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		//不能撤销已受理的单		
 		if(!"I".equals(oldtradeRequest.getState())){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>不能撤销已受理的单：serialno="+vo.getOldserialno());
+			log.error("<Failed>不能撤销已受理的单：serialno="+vo.getOldserialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		//撤单业务不能取消
 		if(Apkind.CANCEL.getValue().equals(oldtradeRequest.getApkind())){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>撤单业务不能取消：serialno="+vo.getOldserialno());
+			log.error("<Failed>撤单业务不能取消：serialno="+vo.getOldserialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		//认购业务不能取消
 		if(Apkind.SUBAPPLY.getValue().equals(oldtradeRequest.getApkind())){
-			LOG.error("procc8nhvbessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>认购业务不能取消：serialno="+vo.getOldserialno());
+			log.error("<Failed>认购业务不能取消：serialno="+vo.getOldserialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		// 相同工作日单据财允许撤销
 		if(!vo.getWorkday().equals(oldtradeRequest.getWorkday())){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>相同工作日单据才允许撤销：serialno="+vo.getOldserialno());
+			log.error("<Failed>相同工作日单据才允许撤销：serialno="+vo.getOldserialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		// 不能重复撤单
 		CancelRequest oldCancelRequest = cancelRequestMapper.getByOldSerialno(vo.getCustno(), vo.getOldserialno());
 		if(null != oldCancelRequest){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>不能重复撤单：serialno="+vo.getOldserialno());
+			log.error("<Failed>不能重复撤单：serialno="+vo.getOldserialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		
@@ -355,18 +327,16 @@ public class TradeManagerImpl implements TradeManager{
 		
 		/** 生成本地交易流水 **/
 		CancelRequest cancelRequest = helper.toCancelRequest4Cancel(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-				+", 撤单流水："+cancelRequest);
+		log.info("撤单流水："+cancelRequest);
 		int n = cancelRequestMapper.add(cancelRequest);
 		if(n < 1){
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>撤单流水：serialno="+cancelRequest.getSerialno());
+			log.error("<Failed>撤单流水：serialno="+cancelRequest.getSerialno());
 			throw new SysException(SysErrorCode.SYS_LOCAL_FAILED);
 		}
 		
 		/** 调用基金公司接口 **/
 		com.ufufund.ufb.model.hftfund.CancelRequest request = helper.toCancelRequest(vo);
-		LOG.info("proccessId="+ThreadLocalUtil.getProccessId() +", 撤单下单："+request);
+		log.info("撤单下单："+request);
 		CancelResponse response = hftTradeService.cancel(request);
 		
 		/** 处理交易执行结果  **/
@@ -374,32 +344,28 @@ public class TradeManagerImpl implements TradeManager{
 				&& Constant.RES_CODE_SUCCESS.equals(response.getReturnCode())){
 			// 执行成功，回写本地数据
 			cancelRequest = helper.toResponse4Cancel(response);
-			LOG.info("proccessId="+ThreadLocalUtil.getProccessId()
-					+", 撤单回写："+cancelRequest);
+			log.info("撤单回写："+cancelRequest);
 			n = cancelRequestMapper.update(cancelRequest);
 			if(n < 1){
-				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed>撤单回写：serialno="+cancelRequest.getSerialno());
+				log.error(" <Failed>撤单回写：serialno="+cancelRequest.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
 			
 			// 获得原来那笔赎回单据
 			TradeQutyChg oldTradeQutyChg = tradeQutyChgMapper.getByOldSerialno(vo.getOldserialno());
-			oldTradeQutyChg.setSerialno(cancelRequest.getSerialno()); // SequenceUtil.getSerial()
+			oldTradeQutyChg.setSerialno(cancelRequest.getSerialno());  
 			oldTradeQutyChg.setTotal(BigDecimal.ZERO);
 			oldTradeQutyChg.setAvailable(BigDecimal.ZERO.subtract(oldTradeQutyChg.getAvailable()));
 			oldTradeQutyChg.setFrozen(BigDecimal.ZERO.subtract(oldTradeQutyChg.getFrozen()));
 			n = tradeQutyChgMapper.add(oldTradeQutyChg);
 			if(n < 1){
-				LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-						+", <Failed>撤单回写份额：serialno="+oldTradeQutyChg.getSerialno());
+				log.error("<Failed>撤单回写份额：serialno="+oldTradeQutyChg.getSerialno());
 				throw new UserException(UserErrorCode.USER_LOCAL_FAILED);
 			}
 			
 		}else {
 			// 执行失败，处理返回异常码
-			LOG.error("proccessId="+ThreadLocalUtil.getProccessId()
-					+", <Failed>撤单下单：serialno="+request.getApplicationNo());
+			log.error("<Failed>撤单下单：serialno="+request.getApplicationNo());
 			HftResponseUtil.dealResponseCode(response);
 		}
 		return response.getApplicationNo();

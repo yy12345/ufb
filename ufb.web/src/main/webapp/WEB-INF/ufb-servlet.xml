@@ -23,7 +23,6 @@
 	<!-- enable component scanning (beware that this does not enable mapper scanning!) -->  
 	<context:component-scan base-package="com.ufufund.mvc.exception.handler" />  
     <context:component-scan base-package="com.ufufund.ufb.web.controller" />
-    <context:component-scan base-package="com.ufufund.uft.web.controller" />
 
 	<!-- 避免IE执行AJAX时,返回JSON出现下载文件   -->  
     <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  
@@ -115,21 +114,6 @@
 			<bean id="hftTradeInterceptor" class="com.ufufund.ufb.web.interceptor.HftTradeInterceptor">
 				<property name="redirectUrl">
 					<value>http://localhost:8080/ufb/family/setting/card_index.htm</value>
-				</property>
-			</bean>
-		</mvc:interceptor>
-		<!-- 机构版拦截 -->
-		<mvc:interceptor>
-			<mvc:mapping path="/corp/**/*.htm" />
-			<mvc:exclude-mapping path="/error/*.htm" />
-			<mvc:exclude-mapping path="/corp/common/*.htm" />
-			<mvc:exclude-mapping path="/corp/index.htm" />
-			<mvc:exclude-mapping path="/corp/login.htm" />
-			<mvc:exclude-mapping path="/corp/register.htm" />
-			<mvc:exclude-mapping path="/corp/register_success.htm" />
-			<bean id="orgLoginInterceptor" class="com.ufufund.ufb.web.interceptor.OrgLoginInterceptor">
-				<property name="loginUrl">
-					<value>http://localhost:8080/ufb/corp/index.htm</value>
 				</property>
 			</bean>
 		</mvc:interceptor>

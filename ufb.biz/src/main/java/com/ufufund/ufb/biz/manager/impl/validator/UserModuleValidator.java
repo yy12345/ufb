@@ -28,7 +28,7 @@ public class UserModuleValidator {
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(custno);
 		custinfo = custinfoMapper.getCustinfo(custinfo);
-		if(custinfo != null && pwd.equals(custinfo.getLoginpwd())){
+		if(custinfo != null && pwd.equals(custinfo.getPasswd())){
 			return true;
 		}
 		return false;

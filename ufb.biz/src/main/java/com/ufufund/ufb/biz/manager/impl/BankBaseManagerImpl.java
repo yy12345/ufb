@@ -5,14 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankBaseManager;
 import com.ufufund.ufb.dao.BankBaseMapper;
 import com.ufufund.ufb.model.db.BankBaseInfo;
 import com.ufufund.ufb.model.db.BankCardbin;
 
 @Service
-public class BankBaseManagerImpl extends ImplCommon implements BankBaseManager {
+public class BankBaseManagerImpl implements BankBaseManager {
 
 	@Autowired
 	private BankBaseMapper bankBaseMapper;

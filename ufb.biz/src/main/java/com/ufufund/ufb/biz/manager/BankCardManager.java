@@ -2,7 +2,6 @@ package com.ufufund.ufb.biz.manager;
 
 import java.util.List;
 
-import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 
@@ -22,17 +21,17 @@ public interface BankCardManager {
 	 * @param OpenAccountAction
 	 * @return 
 	 */
-	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction) throws BizException;
-	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException;
-	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException;
-	public OpenAccountAction openAccount4(OpenAccountAction openAccountAction) throws BizException;
+	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction);
+	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction);
+	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction);
+	public OpenAccountAction openAccount4(OpenAccountAction openAccountAction);
 	public String addBankCardinfo(OpenAccountAction openAccountAction);
 	public void addTradeaccoinfo(OpenAccountAction openAccountAction, String bankSerialid);
-	public void openAccountOrg(OpenAccountAction openAccountAction) throws BizException;
+	public void openAccountOrg(OpenAccountAction openAccountAction);
 	
-	public OpenAccountAction openAccoStep1(OpenAccountAction openAccountAction) throws BizException;
-	public OpenAccountAction openAccoStep2(OpenAccountAction openAccountAction) throws BizException;
-	public OpenAccountAction openAccoStep3(OpenAccountAction openAccountAction) throws BizException;
+	public OpenAccountAction openAccoStep1(OpenAccountAction openAccountAction);
+	public OpenAccountAction openAccoStep2(OpenAccountAction openAccountAction);
+	public OpenAccountAction openAccoStep3(OpenAccountAction openAccountAction);
 	
 	// 银联账户验证
 	public void checkAccount(OpenAccountAction openAccountAction);

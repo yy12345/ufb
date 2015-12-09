@@ -1,0 +1,34 @@
+#foreach($d in ${detailList})
+<div class="item" detailid="${d.id}">
+    <div class="fix-content">
+        <ul>
+            <li class="width2">
+                <p class="project">${d.planname}<span class="tip">#if(${d.charge_type}=="01")月代扣#else单笔#end</span></p>
+                <p>缴费交易号：  <span>${d.id}</span></p>
+            </li>
+            <li class="width3">
+                <p class="">${d.sname} </p>
+                <p class="mgtop">${d.orgname}</p>
+            </li>
+            <li class="width4">
+                <p>应收金额(元) ：  <span class="num-red f14">${d.amount}</span>
+                </p><p class="mgtop">扣款日期：  <span>${d.pay_date}</span></p>
+            </li>
+            <li>
+            	<p class="pay-success pay-success-v2">
+                    #if(${d.state}=='2' || ${d.state}=='5') 缴费成功
+                    #else 缴费失败
+                    #end
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>
+#end
+#if(${vo.page}*${vo.pageSize} < ${vo.total})
+<div class="item">
+	<div style="background:#f7f7f7;text-align:center;">
+		<a id="more" href="javascript:;">查看更多</a>
+	</div>
+</div>
+#end

@@ -1,7 +1,7 @@
 package com.ufufund.ufb.web.util;
 
 import com.ufufund.ufb.common.utils.StringUtils;
-import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 
 public class UserHelper {
@@ -10,16 +10,16 @@ public class UserHelper {
 	 * 获取当前客户信息
 	 * @return
 	 */
-	public static CustinfoVo getCustinfoVo(){
-		return (CustinfoVo)ServletHolder.getSession().getAttribute("CUSTINFO");
+	public static Custinfo getCustinfo(){
+		return (Custinfo)ServletHolder.getSession().getAttribute("CUSTINFO");
 	}
 	
 	/**
 	 * 保存当前客户信息
 	 * @return
 	 */
-	public static void saveCustinfoVo(CustinfoVo custinfoVo){
-		ServletHolder.getSession().setAttribute("CUSTINFO", custinfoVo);
+	public static void saveCustinfo(Custinfo custinfo){
+		ServletHolder.getSession().setAttribute("CUSTINFO", custinfo);
 	}
 	
 	/**
@@ -27,8 +27,7 @@ public class UserHelper {
 	 * @return 返回custno；若没有，则返回null
 	 */
 	public static String getCustno(){
-//		if(true)return "0120151018KBP8SY3C8SYS20";
-		CustinfoVo custinfo = (CustinfoVo)ServletHolder.getSession().getAttribute("CUSTINFO");
+		Custinfo custinfo = (Custinfo)ServletHolder.getSession().getAttribute("CUSTINFO");
 		if(custinfo != null && !StringUtils.isBlank(custinfo.getCustno())){
 			return custinfo.getCustno();
 		}

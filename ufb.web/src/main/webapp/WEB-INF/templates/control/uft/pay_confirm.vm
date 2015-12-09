@@ -1,0 +1,249 @@
+<!doctype>
+<html>
+<head>
+<title>幼富通，托富未来 - 缴费</title>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))</script>  <!--scroll美化-->
+<script type="text/javascript">
+    $(function(){
+    	$('.nav a:eq(0)').addClass('active');
+    	
+        // 关闭广告 
+        $(".advertise-close").on("click", function () {
+            $(this).parent(".advertise").hide();
+        });
+        
+        // radio 模拟点击事件 
+        $(".li2 .costpay label").on("click",function(){
+            $(this).parents(".li2").find("input[type='radio']").attr("checked",false);
+            $(this).parents(".li2").find("i").removeClass("check");
+            $(this).children("input[type='radio']").attr("checked",true);
+            $(this).children("i").addClass("check");
+            $(this).parent().find(".payMoney").addClass("showNow")
+                .parent().siblings().find(".payMoney").removeClass("showNow");
+           if($(this).find("input").attr("paytype")=="U"){
+        	   $("#ufbContract").attr("style","display:block");
+           }else{
+        	   $("#ufbContract").attr("style","display:none");
+           }
+        });
+        
+        // 点击具体班级的头部（灰色条）收放事件  
+        $(".grades-item-title").on("click",function(){
+            var thisReduce = $(this).children(".reduce");
+            var nextTable = $(this).next("table");
+            if(thisReduce.text() == "+"){
+                nextTable.show();
+                thisReduce.text("-");
+            }
+            else{
+                nextTable.hide();
+                thisReduce.text("+");
+            }
+        });
+        
+        // 点击弹层出现消失 
+       $("#ufbAuto").click(function(){
+           $(".bgBox , #ufb").fadeIn();       
+       });
+       $("#ufb .close , .btnKnow").click(function(){
+           $(".bgBox , #ufb").fadeOut();       
+       });
+    
+      $(window).load(function(){
+        $(".content_scroll").mCustomScrollbar({
+            theme:"dark", //主题颜色
+            scrollButtons:{
+                enable:true //是否使用上下滚动按钮
+            },
+            autoHideScrollbar: false, //是否自动隐藏滚动条
+            scrollInertia :0,//滚动延迟
+            horizontalScroll : false//水平滚动条
+         });
+      });
+      
+      // 获得缴费机构信息
+      var orgmsg="";
+      var getPayMsg_org=function(){
+    	  $(".affirm-organiz-body").each(function(){
+    		  orgmsg=orgmsg+$(this).find(".orgnm").html()+",";
+    	  })
+    	  return orgmsg;
+      }
+      // 获得缴费详细
+      var detailids="";
+      var getDetailid=function(){
+    	  $(".detail_id").each(function(){
+    		  detailids=detailids+$(this).html()+",";
+    	  })
+    	  return detailids;
+      }
+      // 提交
+      $(".orgFormSub").on("click",function(){
+    	 var type= $("input[name='pay_type']:checked").attr("paytype");
+    	 var amt=$("#allpayamt").html().replace(",","");
+    	 var ufbamt=$("#ufbamt").html().replace(",","");
+    	 if(type=='U'){
+    		 if(parseInt(ufbamt)<parseInt(amt)){
+    			 alert("余额不足，请预先充值！");
+    			 return false;
+    		 }
+    	 }
+    	 if($("#tradePwd").val()==''){
+    		 alert("交易密码不能为空！");
+			 return false;
+    	 }
+    	 $("#detailids").val(getDetailid());
+    	 $("#orgmsg").val(getPayMsg_org());
+    	 $("#paytype").val(type);
+    	 $("#allpayconfirm").val(amt);
+    	 $("#subForm").submit();
+      })
+  }) 
+</script>
+    
+</head>
+<body>
+    <div id="body">
+        <div class="container familyPayAffirm">
+            <div class="advertise">
+                   <h1>充值幼富宝，理财、缴费两不误！</h1>
+                   <p>超活期10-15倍稳健收益；随存随取；安全保障；每月自动缴学费！</p>
+                   <button type="button" class="advertise-close">&times;</button>
+            </div>
+            <div class="pay_confirm" style="margin: 16px 0;height: 22px">
+                <h1 class="fl">确认缴费</h1>
+                <div class="fr f14">
+                	已选<span>$allcount</span>条收费通知，总计： <span class="pay_amount">$totalplanmonthamt</span> 元
+                </div>
+            </div>
+            <div class="select-account select-account-v2">
+                <div class="select-account-top">
+                    <h3 class="fl">选择付费账户</h3>
+                    <a href="${ufbDomain}/family/setting/card_index.htm" class="fr f14 hoverLine">我的银行卡</a>
+                </div>
+                <div class="select-account-body">
+                    <ul>
+                        <li class="li1">使用</li>
+                        <li class="li2">
+                            <div class="costpay"><label class="cost-type"><input type="radio" name="pay_type" paytype="U" checked="checked" style="display: none;"/><i class="imitate-radio check"></i>幼富宝（理财、缴费两不误）</label><span> <font id="ufbamt">$availableBalance</font> 元</span>
+                            <div class="payMoney showNow">支付<span class="pay_amount paymoney"><font id="allpayamt">$totalplanmonthamt</font>元</span></div>
+                            </div>
+                            <div class="costpay"><label class="cost-type"><input type="radio" name="pay_type" paytype="B" style="display: none;"/><i class="imitate-radio"></i>
+                            ${bankcard.banknm} 尾号
+                            #set($tailStr=$bankcard.bankacco)
+							#set($start=$tailStr.length() - 4)
+							#set($end=$tailStr.length())
+                            [$tailStr.substring($start,$end)]</label><span>储蓄卡</span><i class="middel-wire">|</i><span class="num-blue">快捷</span>
+                            <div class="payMoney">支付<span class="num-color paymoney">$totalplanmonthamt元</span></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+			#foreach($planlist in $planlistchecked)
+			#set($list=${planlist.planList})
+			#if($list.size()>0)
+			<div class="affirm-organiz">
+                <div class="affirm-organiz-top">
+                    <h3>确认收费机构</h3>
+                </div>
+                <div class="affirm-organiz-body">
+                  #set($org = $planlist.orginfo)
+                       <div class="organiz-group">
+                           <label>收费机构名称</label>
+                           <p><font class="orgnm">$!{org.orgname}</font></p>
+                       </div>
+                       <div class="organiz-group">
+                           <label>营业执照号</label>
+                           <p>
+                           #set($tail = ${org.license})
+                           #set($start=$tail.substring(0,3))
+      					   #set($l_0=$tail.length() - 4)
+      					   #set($l_1=$tail.length())
+      					   #set($end=$tail.substring($l_0,$l_1))
+      					   $start***$end
+                           </p>
+                       </div>
+                       <div class="organiz-group">
+                           <label>地址</label>
+                           <p>$!{org.address}</p>
+                       </div>
+                       <div class="organiz-group">
+                           <label>开户银行</label>
+                           <p>$!{org.banknm}</p>
+                       </div>
+                       <div class="organiz-group">
+                           <label>银行账号</label>
+                           #if ($org.bankacco)
+       						#set($tailStr=$org.bankacco)
+       						#set($start=$tailStr.substring(0,6))
+       						#set($l_0=$tailStr.length() - 4)
+       						#set($l_1=$tailStr.length())
+       						#set($end=$tailStr.substring($l_0,$l_1))
+       						<p>$start************$end</p>
+       						#end
+                       </div>
+                       <div class="organiz-group">
+                           <label>咨询电话</label>
+                           <p><font class="telno">$!{org.operator_mobile}</font></p>
+                       </div>
+                       <div class="logoimg">
+                          <img src="${staticDomain}/family/images/orglogo.jpg" alt="幼儿园LOGO"/>
+                       </div>
+                      <div class="affirm-content">
+                        <div class="grades-item-title">
+                            <label>缴费明细</label>
+                            <i class="reduce">+</i>
+                        </div>
+                        <table style="display: none;">
+                            <tr>
+                                <th width="20%">缴费交易号</th>
+                                <th width="30%">收费名称</th>
+                                <th width="18%">收费方式</th>
+                                <th width="18%">姓名</th>
+                                <th width="16%">应收金额(元)</th>
+                            </tr>
+							#foreach($planchecked in ${planlist.planList})
+                            <tr>
+                                <td><font class="detail_id">$planchecked.id</font></td>
+                                <td>$planchecked.planname</td>
+                                <td><span class="tip">#if($planchecked.charge_type=='01')多次 #else 单次 #end</span></td>
+                                <td>$planchecked.sname</td>
+                                <td class="num-color">$planchecked.amount</td>
+                            </tr>
+							#end
+                        </table>
+                      </div>
+                </div>
+            </div>
+			#end
+			#end
+            <div class="affirm-organiz-form">
+                <form id="subForm" action="${ufbDomain}/family/uft/pay_result.htm" method="post">
+	                <input type="hidden" name="orgmsg" id="orgmsg"/>
+	                <input type="hidden" name="detailids" id="detailids"/>
+	                <input type="hidden" name="paytype" id="paytype"/>
+	                <input type="hidden" name="allpayconfirm" id="allpayconfirm"/>
+                    <div class="control-group" style="margin-top: 2em;margin-bottom: 1em;">
+                        <label class="form-lbl" style="width:10em;">请输入交易密码</label>
+                        <input type="password" class="tradepw" placeholder="6位数字密码" name="tradePwd" id="tradePwd" maxlength="6" style="width: 190px;"/>
+                        <a href="${ufbDomain}/family/setting/password_index.htm" class="forgetpw hoverLine">忘记密码？</a>
+                    </div>
+                    <div class="control-review">
+                        <p>幼富通是专注为幼教机构提供金融服务的互联网平台。</p>
+                        <p>中国银联为您的幼儿提供安全、稳定、便捷的缴费服务，请放心使用。</p>
+                    </div>
+                    <div class="control-review" style="margin-top: 50px" id="ufbContract">
+                        <p>点击确认表示同意<a href="javascript:;" id="ufbAuto">《幼富宝定时取现服务协议》</a></p>
+                    </div>
+                    <div class="control-review">
+                        <a href="javascript:;" class="btn btn-red orgFormSub">确 认</a>
+                    </div>
+                </form>
+            </div> 
+        </div> 
+    </div> 
+</div> 
+#parse("control/uft/confirm_contract.vm")
+</body>
+</html>

@@ -246,7 +246,6 @@ public class AotoTradeManagerTest {
 //////		custinfo.setIdno("7");
 //////		custinfo.setMobileno("13611686341");
 //////		custinfo.setEmail("9");
-//////		custinfo.setCustst("a");
 //////		custinfo.setPasswd("b");
 //////		custinfo.setLastlogintime("9");
 //////		custinfo.setPasswderr(2);
@@ -288,7 +287,6 @@ public class AotoTradeManagerTest {
 ////
 ////		custinfo.setMobileno("9");
 ////		custinfo.setEmail("10");
-////		custinfo.setCustst("A");
 ////
 ////
 ////		custinfo.setPasswd("12");

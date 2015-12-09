@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.AutotradeManagerHelper;
@@ -28,12 +27,11 @@ import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.AutoTradeType;
-import com.ufufund.ufb.model.enums.ErrorInfo;
 import com.ufufund.ufb.model.vo.Today;
 
 
 @Service
-public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager {
+public class AutotradeManagerImpl implements AutotradeManager{
 
 	
 	@Autowired
@@ -52,8 +50,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	private TradeNotesMapper tradeNotesMapper;
 	
 	@Override
-	public void addAutotrade(AddAutotradeAction action) throws BizException {
-		this.getProcessId(action);
+	public void addAutotrade(AddAutotradeAction action){
 		
 		/** 业务规则校验 **/ 
 		autoTradeManagerValidator.validator(action);
@@ -100,8 +97,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	}
 	
 	@Override
-	public void modifyAutotrade(ModifyAutotradeAction action) throws BizException {
-		this.getProcessId(action);
+	public void modifyAutotrade(ModifyAutotradeAction action){
 		
 		/** 业务验证 **/
 		autoTradeManagerValidator.validatorModify(action);
@@ -179,8 +175,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	}
 	
 	@Override
-	public void changestatus(ChangeAutoStateAction action) throws BizException {
-		this.getProcessId(action);
+	public void changestatus(ChangeAutoStateAction action){
 		
 		/** 业务验证 **/
 		autoTradeManagerValidator.validator(action);
@@ -267,10 +262,9 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	}
 	
 	@Override
-	public String getNextdate(String cycle, String dat) throws BizException {
-		String processId = this.getProcessId("");
+	public String getNextdate(String cycle, String dat){
 		if(dat==null || "".equals(dat)){
-			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR); 
+			throw new UserException(""); 
 		}
 		String systime = workDayManager.getSysTime();
 		String nextdate = "";
@@ -281,7 +275,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 		}else if(Constant.Autotrade.CYCLE$DD.equals(cycle)){
 			nextdate = DateUtil.getDateByDD(systime, dat);		
 		}else{
-			throw new BizException(processId, ErrorInfo.SYSTEM_ERROR); 
+			throw new UserException(""); 
 		}
 		if("".equals(nextdate)){
 			return nextdate;
@@ -295,24 +289,21 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	}
 	
 	@Override
-	public List<Autotrade> getAutotradeList(String custno) throws BizException {
-		this.getProcessId(custno);
+	public List<Autotrade> getAutotradeList(String custno){
 		Autotrade autotrade = new Autotrade();
 		autotrade.setCustno(custno);
 		autotrade.setTradetype(AutoTradeType.AUTORECHARGE.value());
 		return autotradeMapper.getAutotradeList(autotrade);
 	}
 	@Override
-	public List<Autotrade> getAutotradeCList(String custno) throws BizException {
-		this.getProcessId(custno);
+	public List<Autotrade> getAutotradeCList(String custno){
 		Autotrade autotrade = new Autotrade();
 		autotrade.setCustno(custno);
 		autotrade.setTradetype(AutoTradeType.AUTORECHARGE.value());
 		return autotradeMapper.getAutotradeCList(autotrade);
 	}
 	@Override
-	public Autotrade getAutotrade(String autoid) throws BizException {
-		this.getProcessId(autoid);
+	public Autotrade getAutotrade(String autoid){
 		return autotradeMapper.getAutotrade(autoid);
 	}
 
@@ -368,8 +359,7 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	 * 获得取现的数据
 	 */
 	@Override
-	public List<Autotrade> getCashtradeList(String custno,String autoid) throws BizException {
-		this.getProcessId(custno);
+	public List<Autotrade> getCashtradeList(String custno,String autoid){
 		Autotrade autotrade = new Autotrade();
 		autotrade.setCustno(custno);
 		autotrade.setAutoid(autoid);
@@ -380,12 +370,11 @@ public class AutotradeManagerImpl extends ImplCommon implements AutotradeManager
 	 * 删除自动充值业务
 	 */
 	@Override
-	public void deleteAutotrade(String custno, String frombankserialid, String autoid) throws BizException {
+	public void deleteAutotrade(String custno, String frombankserialid, String autoid){
 		autotradeMapper.deleteAutotrade(custno, frombankserialid, autoid);
 	}
 	@Override
-	public void changeAutoPaystatus(ChangeAutoStateAction action) throws BizException {
-		this.getProcessId(action);
+	public void changeAutoPaystatus(ChangeAutoStateAction action){
 		
 		// 业务验证  
 		autoTradeManagerValidator.validator(action);

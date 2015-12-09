@@ -29,7 +29,7 @@ public interface BisConst {
 		public static final String BANKMOBILE = "银行开户手机号";	
 		public static final String BANKMOBILEMSGCODE = "手机验证码";
 		
-		public static final String INVNM = "用户姓名";
+		public static final String NAME = "用户姓名";
 		public static final String IDNO = "证件号码";
 		
 		public static final String RERPIDNO = "法人证件号码";
@@ -100,24 +100,5 @@ public interface BisConst {
 		public static final String PLAN_ID = "计划ID";
 		public static final String PAY_DATE = "默认扣款日";
 		
-//		public static final String CUSTNO = "用户编号";
-//		public static final String APKIND = "用户编号";
-//		public static final String TYPE = "用户编号";
-//		public static final String CYCLE = "用户编号";
-//		public static final String DAT = "用户编号";
-//		public static final String FROMBANKSERIALID = "用户编号";
-//		public static final String TOFUNDCODE = "用户编号";
-//		public static final String TOFUNDCORPNO = "用户编号";
-//		public static final String TOCHARGETYPE = "用户编号";
-//		
-//		public static final String TOBANKSERIALID = "用户编号";
-//		public static final String FROMFUNDCODE = "用户编号";
-//		public static final String FROMFUNDCORPNO = "用户编号";
-//		public static final String FROMCHARGETYPE = "用户编号";
-//		
-//		public static final String AUTOAMT = "用户编号";
-//		public static final String AUTOVOL = "用户编号";
-//		public static final String STATE = "用户编号";
-//	
 		}
 }

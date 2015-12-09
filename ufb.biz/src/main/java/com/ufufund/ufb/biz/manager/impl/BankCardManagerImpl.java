@@ -6,15 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ufufund.ufb.biz.exception.BizException;
 import com.ufufund.ufb.biz.manager.BankCardManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.BankCardManagerHelper;
-import com.ufufund.ufb.biz.manager.impl.helper.CustManagerHelper;
 import com.ufufund.ufb.biz.manager.impl.validator.BankCardManagerValidator;
 import com.ufufund.ufb.biz.manager.impl.validator.CustManagerValidator;
 import com.ufufund.ufb.biz.util.HftResponseUtil;
-import com.ufufund.ufb.common.constant.BisConst;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.EncryptUtil;
@@ -32,8 +29,6 @@ import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.Apkind;
-import com.ufufund.ufb.model.enums.ErrorInfo;
-import com.ufufund.ufb.model.enums.Invtp;
 import com.ufufund.ufb.model.enums.TableName;
 import com.ufufund.ufb.model.hftfund.BankAuthRequest;
 import com.ufufund.ufb.model.hftfund.BankAuthResponse;
@@ -47,17 +42,14 @@ import com.ufufund.ufb.model.vo.Today;
 import com.ufufund.ufb.remote.chinapay.ChinapayService;
 import com.ufufund.ufb.remote.hftfund.HftCustService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
-public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
+@Slf4j
+public class BankCardManagerImpl implements BankCardManager{
 
 	@Autowired
-	private CustManagerValidator custManagerValidator;
-	@Autowired
-	private BankCardManagerValidator bankCardManagerValidator;
-	@Autowired
 	private BankCardManagerHelper bankCardManagerHelper;
-	@Autowired
-	private CustManagerHelper custManagerHelper;
 	@Autowired
 	private HftCustService hftCustService;
 	@Autowired
@@ -72,6 +64,11 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	private WorkDayManager workDayManager;
 	@Autowired
 	private ChinapayService chinapayService;
+	@Autowired
+	private BankCardManagerValidator bankCardManagerValidator;
+	@Autowired
+	private CustManagerValidator custManagerValidator;
+	
 	
 	@Override
 	public List<Bankcardinfo> getBankcardinfoList(String custno){
@@ -86,7 +83,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @param OpenAccountAction
 	 * @return
 	 */
-	public OpenAccountAction openAccoStep1(OpenAccountAction openAccountAction) throws BizException {
+	public OpenAccountAction openAccoStep1(OpenAccountAction openAccountAction)  {
 		
 		return openAccountAction;
 	}
@@ -95,12 +92,9 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @param OpenAccountAction
 	 * @return
 	 */
-	public OpenAccountAction openAccoStep2(OpenAccountAction openAccountAction) throws BizException {
-		this.getProcessId(openAccountAction);
+	public OpenAccountAction openAccoStep2(OpenAccountAction openAccountAction)  {
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
 		bankCardManagerValidator.validator(openAccountAction, "OrgBase");
-		// 用户注册、冻结、已开户验证
-		custManagerValidator.validator(openAccountAction, "OrgBase");
 		
 		return openAccountAction;
 	}
@@ -109,7 +103,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @param OpenAccountAction
 	 * @return
 	 */
-	public OpenAccountAction openAccoStep3(OpenAccountAction openAccountAction) throws BizException {
+	public OpenAccountAction openAccoStep3(OpenAccountAction openAccountAction)  {
 		
 		return openAccountAction;
 	}
@@ -118,20 +112,16 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @param openAccountAction
 	 * @return
 	 */
-	public void openAccountOrg(OpenAccountAction openAccountAction) throws BizException {
+	public void openAccountOrg(OpenAccountAction openAccountAction)  {
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
 		bankCardManagerValidator.validator(openAccountAction, "OrgBase");
-		// 用户注册、冻结、已开户验证
-		custManagerValidator.validator(openAccountAction, "OrgBase");
 		// 银行基本信息验证
 		bankCardManagerValidator.validator(openAccountAction, "OrgBankBase");
 		
 		// 是否已绑卡
 		openAccountAction.setBankacco(openAccountAction.getBankacco().trim());
 		if(0 != tradeAccoinfoMapper.isTradeaccoinfoBind(openAccountAction)){
-			throw new BizException(openAccountAction.getProcessId(), 
-					ErrorInfo.ALREADY_BIND, 
-					BisConst.Register.BANKACCO);
+			throw new UserException("系统异常！");
 		}
 		
 		// 执行开户交易
@@ -146,10 +136,8 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 		openAccountAction.setTransactionaccountid(response.getTransactionAccountID());
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(openAccountAction.getCustno());
-		custinfo.setInvtp(Invtp.ORGANIZATION.getValue());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		
-	    custinfo = custManagerHelper.toOpenAccountOrgAction(openAccountAction);
 		custinfoMapper.updateCustinfo(custinfo);
 		Changerecordinfo changerecordinfo2 = new Changerecordinfo();
 		changerecordinfo2.setCustno(custinfo.getCustno());
@@ -225,8 +213,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @param OpenAccount
 	 * @return
 	 */
-	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction) throws BizException {
-		String processId = this.getProcessId(openAccountAction);
+	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction)  {
 		// 个人基本信息验证（用户名、身份证、交易密码、开户机构）
 		bankCardManagerValidator.validator(openAccountAction, "UserBase");
 		// 用户注册、冻结、已开户验证
@@ -238,9 +225,9 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 			custinfo.setCustno(openAccountAction.getCustno());
 			custinfo = custinfoMapper.getCustinfo(custinfo);
 			String md5 = EncryptUtil.md5(openAccountAction.getTradepwd());
-			if(md5.equals(custinfo.getLoginpwd())){
+			if(md5.equals(custinfo.getPasswd())){
 				// 交易密码不能和登录密码相同
-				throw new BizException(processId, ErrorInfo.CANNOTEQUALPWD, BisConst.Register.TRADEPWD);
+				throw new UserException("系统异常！");
 			}
 		}
 		
@@ -254,9 +241,9 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @param OpenAccount
 	 * @return
 	 */
-	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction) throws BizException {
+	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction)  {
 		// 银行基本信息验证
-		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
+		//bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
 		// 生成流水号
 		openAccountAction.setSerialno(SequenceUtil.getSerial());
@@ -279,7 +266,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @param OpenAccount
 	 * @return
 	 */
-	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction) throws BizException {
+	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction)  {
 		// 银行基本信息验证
 //		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
@@ -301,7 +288,7 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 	 * @param OpenAccount
 	 * @return
 	 */
-	public OpenAccountAction openAccount4(OpenAccountAction openAccountAction) throws BizException {
+	public OpenAccountAction openAccount4(OpenAccountAction openAccountAction)  {
 		// 银行基本信息验证
 //		bankCardManagerValidator.validator(openAccountAction, "UserBankBase");
 		
@@ -377,8 +364,8 @@ public class BankCardManagerImpl extends ImplCommon implements BankCardManager{
 					+", msg="+response.getINFO().getERR_MSG());
 			throw new UserException("系统异常");
 		}
-		}catch(BizException e){
-			log.warn(e.getErrmsg(),e);
+		}catch(UserException e){
+			throw new UserException("系统异常");
 		}
 	}
 

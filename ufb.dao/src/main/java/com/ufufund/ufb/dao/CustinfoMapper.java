@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.db.OrgQuery;
 import com.ufufund.ufb.model.db.Student;
-import com.ufufund.ufb.model.vo.OrgBankInfoVo;
 import com.ufufund.ufb.model.vo.StudentVo;
 
 
@@ -30,7 +30,5 @@ public interface CustinfoMapper  {
 	
 	public StudentVo  queryOrgsByCid(String cid);
 	
-	public Custinfo getCustinfoByCid(String cid);
-	
-	public OrgBankInfoVo  queryOrgBankInfo(String custno);
+	public OrgQuery  queryOrgBankInfo(String custno);
 }

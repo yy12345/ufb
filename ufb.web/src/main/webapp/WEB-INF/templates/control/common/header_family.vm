@@ -8,7 +8,7 @@
 			<div class="b2">
 				#if(${CUSTINFO})
 			   		<span>你好，<label>
-			   		<a href="${ufbDomain}/family/setting/account_index.htm" class="c1">${CUSTINFO.invnm}</a></label></span>
+			   		<a href="${ufbDomain}/family/setting/account_index.htm" class="c1">${CUSTINFO.name}</a></label></span>
 			   		<a href="${ufbDomain}/family/account/logout.htm" class="quit">退出</a>
 				#else
 				   <!--

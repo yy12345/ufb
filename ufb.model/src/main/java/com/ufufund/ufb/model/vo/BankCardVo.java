@@ -34,7 +34,7 @@ public class BankCardVo implements Serializable {
 	private String protocolno; // 银行协议编号
 
 	/** 个人 **/
-	private String invnm; // 用户姓名',
+	private String name; // 用户姓名',
 	private String idno; // 证件号码',
 	private String idtp;
 	private String mobile;

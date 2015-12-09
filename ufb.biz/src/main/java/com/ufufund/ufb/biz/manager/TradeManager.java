@@ -14,35 +14,35 @@ public interface TradeManager {
 	/**
 	 * 认购接口
 	 * @param vo
-	 * @return 成功，返回申请流水号；否则，返回null；业务类异常，直接通过BizException响应给用户
+	 * @return 成功，返回申请流水号；否则，返回null；
 	 */
 	public String subApply(ApplyVo vo);
 	
 	/**
 	 * 申购接口
 	 * @param vo
-	 * @return 成功，返回申请流水号；否则，返回null；业务类异常，直接通过BizException响应给用户
+	 * @return 成功，返回申请流水号；否则，返回null；
 	 */
 	public String buyApply(ApplyVo vo);
 	
 	/**
 	 * 普通赎回接口
 	 * @param vo
-	 * @return 成功，返回申请流水号；否则，返回null；业务类异常，直接通过BizException响应给用户
+	 * @return 成功，返回申请流水号；否则，返回null；
 	 */
 	public String redeem(RedeemVo vo);
 	
 	/**
 	 * 快速赎回接口
 	 * @param vo
-	 * @return 成功，返回申请流水号；否则，返回null；业务类异常，直接通过BizException响应给用户
+	 * @return 成功，返回申请流水号；否则，返回null；
 	 */
 	public String realRedeem(RedeemVo vo);
 	
 	/**
 	 * 撤单
 	 * @param vo
-	 * @return 成功，返回申请流水号；否则，返回null；业务类异常，直接通过BizException响应给用户
+	 * @return 成功，返回申请流水号；否则，返回null；
 	 */
 	public String cancel(CancelVo vo);
 }

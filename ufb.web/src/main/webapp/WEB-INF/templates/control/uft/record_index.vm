@@ -1,0 +1,155 @@
+<html>
+<head>
+<title>幼富通，托富未来 - 缴费明细</title>
+<script type="text/javascript">
+$(function(){
+	$('.nav a:eq(2)').addClass('active');
+
+	// 日期
+	$(".datepicker input").datepicker({
+		showOn: "button",
+		buttonImage: "${staticDomain}/family/images/calendar.png",
+		buttonImageOnly: true
+	});
+	
+	// 查询
+	$('.query').on('click', function(){
+		var dest = $(this).attr('dest');
+		if(dest != 'time'){
+			var value = $(this).attr(dest);
+			$('#'+dest).val(value);
+			$('#pageNum').val('1');
+		}
+		if(dest == 'orgid'){
+			$('#sid').val('');
+		}
+		$('#myform').attr('action','${ufbDomain}/family/uft/record_index.htm');
+		$('#myform').submit();
+	});
+	
+	// 翻页，查看更多
+	$('#more').on('click', function(){
+		$('#pageNum').val(parseInt($('#pageNum').val())+1);
+		$('#myform').attr('action','${ufbDomain}/family/uft/record_unit.htm');
+		$('#myform').ajaxSubmit({
+			async:false,
+			success: function(data){
+				var more = $('#more').closest('.item');
+				more.before(data);
+				more.remove();
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log('系统出现异常！');
+			}
+		})
+	});
+	
+	// 点击弹出收费通知书
+	$(".item").click(function(){
+		var detailid = $(this).attr('detailid');
+		if($("#notice_"+detailid).length == 0){
+			// 加载通知书页
+			$.ajax({
+				type: "get",
+				url: '${ufbDomain}/family/uft/record_notice.htm',
+				data:'detailid='+detailid,
+				async:false,
+				success: function(data){
+					$('.itemAll').after(data);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.log('系统出现异常！');
+				}
+			});
+			
+			// 注册close事件
+	       	$("#notice_"+detailid).click(function(){
+		       $("#notice_"+detailid).fadeOut();       
+		    });
+		}
+        
+       	$("#notice_"+detailid).fadeIn(); 
+    });
+});
+</script>
+</head>
+<body>
+<div id="body">
+    <div class="container familyPayHistory">
+        <div class="notice-title">
+            <h4>历史明细</h4>
+        </div>
+        <div class="notice-content">
+        	<form id="myform" method="post">
+        		<input id="orgid" name="orgid" value="$!{vo.orgid}" type="hidden">
+        		<input id="sid" name="sid" value="$!{vo.sid}" type="hidden">
+        		<input id="type" name="type" value="$!{vo.type}" type="hidden">
+        		<input id="pageNum" name="page" value="$!{vo.page}" type="hidden">
+        		<input id="pageSize" name="pageSize" value="$!{vo.pageSize}" type="hidden">
+            <div class="control-group">
+                <label class="form-lbl">收费机构</label>
+                <p class="inline-block p-eg specific-show">
+                	#foreach($org in ${orglist})
+                		#if(${org.orgid} == ${vo.orgid}) #set($on = "on")
+                		#else #set($on = "")
+                		#end
+                		<span class="mgright $!{on} query" dest="orgid" orgid="${org.orgid}">${org.orgname}</span>
+                    #end
+                </p>
+            </div>
+            <div class="control-group" id="specific-name" style="display: block;">
+                <label class="form-lbl" for=""></label>
+                <p class="inline-block name">
+                	#set($n = ${studentlist.size()})
+                	#foreach($s in ${studentlist})
+                		#if(${s.sid} == ${vo.sid}) #set($select = "select")
+                		#else #set($select = "")
+                		#end
+	                    <span class="$!{select} query" dest="sid" sid="${s.sid}">${s.sname}</span>
+	                    #if($velocityCount < ${n})<i class="middel-wire">|</i>#end
+                    #end
+                </p>
+            </div>
+            <div class="control-group">
+                <label class="form-lbl" for="">付费时间</label>
+                <label class="datepicker"><input id="startTime" name="startTime" type="text" value="${vo.startTime}"></label> 
+                <span style="margin:0 15px;">--</span>
+                <label class="datepicker"><input id="endTime" name="endTime" type="text" value="${vo.endTime}"></label>
+                <span class="query" dest="time" style="margin:0 15px;">确定</span>
+            </div>
+            <div class="control-group">
+                <label class="form-lbl" for="">费用类型</label>
+                <p class="inline-block p-eg">
+                	#if("$!{vo.type}" == "") #set($type_all = "on")
+                	#elseif("$!{vo.type}" == "01") #set($type_f = "on")
+                	#elseif("$!{vo.type}" == "02") #set($type_t = "on")
+                	#elseif("$!{vo.type}" == "03") #set($type_r = "on")
+            		#end
+                    <span class="mgright $!{type_all} query" dest="type" type="">全部</span>
+                    <span class="mgright $!{type_f} query" dest="type" type="01">固定周期费用</span>
+                    <span class="mgright $!{type_t} query" dest="type" type="02">临时性费用</span>
+                    <span class="mgright $!{type_r} query" dest="type" type="03">退费</span>
+                </p>
+            </div>
+            </form>
+            <div class="history-top">
+                <p class="fr f14">
+                    累计付费：<span class="num-red">${paidTotal}</span>元<span class="middel-wire">|</span>
+                    累计收到退费：<span class="num-green">+${reversedTotal}</span>元
+                </p>
+            </div>
+            <div class="itemAll">
+            	#if(${detailList.size()} == 0)
+                <div class="item">
+                	<div style="background:#f7f7f7;text-align:center;">
+                		很抱歉，没有更多记录！
+                	</div>
+                </div>
+                #end
+            	#parse("control/uft/record_unit.vm")
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

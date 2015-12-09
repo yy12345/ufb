@@ -76,26 +76,6 @@ public class UfuVelocityView extends VelocityToolboxView {
 			model.put("family_container", "class=\"container help\"");
 		}
 		
-		if(uri.indexOf("corp/") > 0){
-			model.put("corp_module", "corp");
-			model.put("corp_container", "id=\"page\"");
-			if(uri.endsWith("index.htm")||uri.endsWith("auth_index.htm")){
-				model.put("corp_container", "class=\"container\"");
-			}
-			if(uri.endsWith("code_index.htm")||uri.endsWith("uft_index.htm")){
-				model.put("corp_container", "class=\"page\"");
-			}
-			
-			if(uri.indexOf("help/") > 0){
-				model.put("corp_module", "help");
-				model.put("corp_container", "class=\"container help\"");
-			}
-			
-			String corp_page = uri.substring(uri.lastIndexOf('/')+1, uri.lastIndexOf('.'));
-			model.put("corp_page", corp_page);
-		}
-		
-		
 		exposeHelpers(model, request);
 		Context velocityContext = createVelocityContext(model, request,
 				response);

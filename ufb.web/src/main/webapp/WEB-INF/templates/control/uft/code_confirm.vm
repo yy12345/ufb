@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>幼富通，托富未来 - 添加缴费学生</title>
+<script type="text/javascript">
+$(function(){
+	$('.nav a:eq(0)').addClass('active');
+});
+</script>
+</head>
+<body>
+<div class="addAdv2">
+    <div class="advBox">
+        <div class="div01">
+            <h2>请确认验证信息</h2>
+            <p>首次验证后便可查询缴费及账单，以后无需重复操作。</p>
+            <a href="${ufbDomain}/family/uft/code_result.htm" class="btn">确 认</a>
+        </div>
+        <div class="div02">
+            <ul>
+            	#set($sname = ${student.name})
+            	#set($sname = $sname.substring(1, $sname.length()))
+            	<li class="fontBold"><span>学生姓名：</span><label>*${sname}</label></li>
+                <li><span>所在班级：</span><label>${student.cname}</label></li>
+                <li><span>学生性别：</span><label>#if(${student.sex}=='1')男 #else 女 #end</label></li>
+                <li><span>出生日期：</span><label>${student.birthday}</label></li>
+                <li><span></span><label></label></li>
+                #set($p1_name = ${student.p1_name})
+            	#set($p1_name = $p1_name.substring(1, $p1_name.length()))
+                <li><span>缴费家长：</span><label>*${p1_name}</label></li>
+                #set($p1_mobile=${student.p1_mobile})
+	            #set($start=$p1_mobile.substring(0,3))
+				#set($end=$p1_mobile.substring(7,11))
+                <li><span>预留手机：</span><label>${start}****${end}</label></li>
+            </ul>
+        </div>
+        <div class="div03">
+            <ul>
+                <li class="fontBold"><span>收费机构名称：</span><label>${organ.orgname}</label></li>
+                <li><span>登记证/执照号：</span><label>
+                #set($tail = ${organ.license})
+                #set($end=$tail.substring($tail.length-4,$tail.length))
+                ***$end
+                </label></li>
+                <li><span>经营/办学地址：</span><label>${organ.address}</label></li>
+                #set($bankacco = ${organCard.bankacco})
+                #set($s0 = $bankacco.length() - 4)
+                #set($tail = $bankacco.substring($s0, $bankacco.length()))
+                <li><span>收款对公银行账户：</span><label>${organCard.banknm} ***${tail}</label></li>
+                <li><span>财务经办人：</span><label>${organ.operator_name}</label></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+#parse("control/uft/code_inner.vm")
+</body>
+</html>

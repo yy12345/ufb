@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>幼富通，托富未来 - 添加缴费学生</title>
+<script type="text/javascript">
+$(function(){
+	$('.nav a:eq(0)').addClass('active');
+
+	// 用户输入时，取消错误提示
+	$("input").on('focus', function(){
+		if($('#title').is(':hidden')){
+			$('#title').show();
+			$('#errorMsg').hide();
+		}
+	});
+
+	// 验证识别码和收费家长名
+	$('#verifyParent').on('click', function(){
+	
+		var code = $.trim($('#code').val());
+		var parent_name = $.trim($('#parent_name').val());
+		if(code == '' || parent_name == ''){
+			$('#title').hide();
+			$('#errorMsg').text('请输入正确的信息！');
+			$('#errorMsg').show();
+			return false;
+		}
+		
+		var result = parent_verify(code, parent_name);
+		if(result.errCode == '0004'){
+			$('#title').hide();
+			$('#errorMsg').text('您输入的识别码或收费通知家长姓名有误！');
+			$('#errorMsg').show();
+		}else if(result.errCode == '0000'){
+			location = '${ufbDomain}/family/uft/code_confirm.htm';
+		}
+	});
+
+	// 验证绑定识别码
+	var parent_verify = function(code, parent_name){
+		var result = {errCode:'9999'};
+		$.ajax({
+			type: "post",
+			url: '${ufbDomain}/family/uft/code_parentVerify.htm',
+			data:'code='+code+'&parent_name='+parent_name,
+			async:false,
+			success: function(data){
+				result = $.parseJSON(data);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log('系统出现异常！');
+			}
+		});
+		return result;
+	}
+	
+});
+</script>
+</head>
+<body>
+<div class="addAdv Verification">
+   <div class="advTitle inner advBox">
+       <h1>收费识别码验证</h1>
+       <p>您的姓名与收费通知的缴费家长姓名不符，请检查以下信息是否正确。</p>
+       <div class="advBtn advMag">
+           <p id="title">识别码<span class="parentN">收费通知家长名</span></p>
+           <p id="errorMsg" style="display:none;color:#CB3849;">错误信息！</p>
+           <input id="code" type="text" value="${code}" class="inputMid" readonly>
+           <input id="parent_name" type="text" value="" class="inputSm">
+           <a id="verifyParent" href="javascript:;" class="Advbtn">验 证</a>
+       </div>
+   </div>
+</div>
+
+#parse("control/uft/code_inner.vm")
+</body>
+</html>

@@ -6,51 +6,44 @@
     
    
     
-  	<select id="getCustinfo" parameterType="com.ufufund.ufb.model.db.Custinfo" resultType="com.ufufund.ufb.model.db.Custinfo">
-  		SELECT
-			T1.CUSTNO,
-			T1.INVTP,
-			T1.INVNM,
-			T1.SEX,
-			T1.IDTP,
-			T1.IDNO,
-			T1.MOBILENO,
-			T1.EMAIL AS EMAILADD,
-			T1.CUSTST,
-			T1.PASSWD AS LOGINPWD,
-			DATE_FORMAT(T1.LASTLOGINTIME,'%Y-%m-%d %H:%i:%s') AS LASTLOGINTIME,
-			T1.PASSWDERR,
-			T1.OPENDT,
-			T1.UPDATETIMESTAMP,
-			T1.TRADEPWD,
-			T1.LEVEL,
-			T1.ORGANIZATION AS ORGNM,
-			T1.BUSINESS AS ORGBUSINESS,
-			T1.OPENACCOUNT
-  		FROM CUSTINFO T1 
-		WHERE 
-		<if test="custno != null and custno !=''" >
-		T1.CUSTNO =  #{custno,jdbcType=VARCHAR} AND
-		</if>
-  		<if test="mobileno != null and mobileno !=''" >
-  		 T1.MOBILENO = #{mobileno,jdbcType=VARCHAR} AND
-  		</if>
-		<if test="idno != null and idno !=''" >
-		 T1.IDNO = #{idno,jdbcType=VARCHAR} AND
-		</if>
-		<if test="loginpwd != null and loginpwd !=''" >
-  		 T1.PASSWD = #{loginpwd,jdbcType=VARCHAR} AND
-  		</if>
-  		<if test="tradepwd != null and tradepwd !=''" >
-  		 T1.TRADEPWD = #{tradepwd,jdbcType=VARCHAR} AND
-  		</if>
-  		<if test="custst != null and custst !=''" >
-  		 T1.CUSTST = #{custst,jdbcType=VARCHAR} AND
-  		</if>
-	     T1.CUSTST &lt;&gt; 'C'
+  	<select id="getCustinfo" parameterType="Custinfo" resultType="Custinfo">
+  		select
+			t1.custno,
+			t1.name,
+			t1.sex,
+			t1.idtp,
+			t1.idno,
+			t1.mobileno,
+			t1.email,
+			t1.state,
+			t1.passwd,
+			t1.passwderr,
+			t1.tradepwd,
+			date_format(t1.lastlogintime,'%y-%m-%d %h:%i:%s') as lastlogintime
+  		from custinfo t1 
+			where 
+			<if test="custno != null and custno !=''" >
+			t1.custno =  #{custno,jdbctype=varchar} and
+			</if>
+	  		<if test="mobileno != null and mobileno !=''" >
+	  		 t1.mobileno = #{mobileno,jdbctype=varchar} and
+	  		</if>
+			<if test="idno != null and idno !=''" >
+			 t1.idno = #{idno,jdbctype=varchar} and
+			</if>
+			<if test="passwd != null and passwd !=''" >
+	  		 t1.passwd = #{passwd,jdbctype=varchar} and
+	  		</if>
+	  		<if test="tradepwd != null and tradepwd !=''" >
+	  		 t1.tradepwd = #{tradepwd,jdbctype=varchar} and
+	  		</if>
+	  		<if test="state != null and state !=''" >
+	  		 t1.state = #{state,jdbctype=varchar} and
+	  		</if>
+		     t1.state != '6'
   	</select>
   	
-  	<select id="isTradePwdSet" parameterType="com.ufufund.ufb.model.db.Custinfo" resultType="com.ufufund.ufb.model.db.Custinfo">
+  	<select id="isTradePwdSet" parameterType="Custinfo" resultType="Custinfo">
   		SELECT
 			T1.CUSTNO
   		FROM CUSTINFO T1 
@@ -61,49 +54,49 @@
 	     	T1.TRADEPWD IS NOT NULL
   	</select>
   	
-  	<select id="isIdNoBindByTradeAcco" resultType="com.ufufund.ufb.model.db.Custinfo">
-  		SELECT
-			custinfo.CUSTNO,
-			custinfo.INVTP,
-			custinfo.INVNM,
-			custinfo.SEX,
-			custinfo.IDTP,
-			custinfo.IDNO,
-			custinfo.MOBILENO,
-			custinfo.EMAIL AS EMAILADD,
-			custinfo.CUSTST,
-			custinfo.PASSWD AS LOGINPWD,
-			DATE_FORMAT(custinfo.LASTLOGINTIME,'%Y-%m-%d %H:%i:%s') AS LASTLOGINTIME,
-			custinfo.PASSWDERR,
-			custinfo.OPENDT,
-			custinfo.UPDATETIMESTAMP,
-			custinfo.TRADEPWD,
-			custinfo.LEVEL,
-			custinfo.ORGANIZATION AS ORGNM,
-			custinfo.BUSINESS AS ORGBUSINESS,
-			tradeaccoinfo.CUSTNO,
-			tradeaccoinfo.FUNDCORPNO,
-			tradeaccoinfo.LEVEL,
-			tradeaccoinfo.BANKSERIALID,
-			tradeaccoinfo.TRADEACCO,
-			tradeaccoinfo.TRADEACCOST,
-			tradeaccoinfo.OPENDT,
-			tradeaccoinfo.UPDATETIME
-		FROM
-			tradeaccoinfo,custinfo
-		WHERE 
-			custinfo.CUSTNO = tradeaccoinfo.CUSTNO
+  	<select id="isIdNoBindByTradeAcco" resultType="Custinfo">
+  		select
+			c.custno,
+			c.invtp,
+			c.name,
+			c.sex,
+			c.idtp,
+			c.idno,
+			c.mobileno,
+			c.email,
+			c.state,
+			c.passwd,
+			date_format(c.lastlogintime,'%y-%m-%d %h:%i:%s') as lastlogintime,
+			c.passwderr,
+			c.opendt,
+			c.updatetimestamp,
+			c.tradepwd,
+			c.level,
+			c.organization as orgnm,
+			c.business as orgbusiness,
+			t.custno,
+			t.fundcorpno,
+			t.level,
+			t.bankserialid,
+			t.tradeacco,
+			t.tradeaccost,
+			t.opendt,
+			t.updatetime
+		from
+			tradeaccoinfo t,custinfo c
+		where 
+			c.custno = t.custno
   		<if test="fundcorpno != null and fundcorpno !=''" >
-  			AND tradeaccoinfo.FUNDCORPNO = #{fundcorpno,jdbcType=VARCHAR} 
+  			and t.fundcorpno = #{fundcorpno,jdbctype=varchar} 
   		</if>
   		<if test="level != null and level !=''" >
-  			AND tradeaccoinfo.LEVEL = #{level,jdbcType=VARCHAR} 
+  			and t.level = #{level,jdbctype=varchar} 
   		</if>
   		<if test="invtp != null and invtp !=''" >
-  			AND custinfo.LEVEL = #{invtp,jdbcType=VARCHAR} 
+  			and c.level = #{invtp,jdbctype=varchar} 
   		</if>
   		<if test="idno != null and idno !=''" >
-  		 	AND custinfo.IDNO = #{idno,jdbcType=VARCHAR} 
+  		 	and c.idno = #{idno,jdbctype=varchar} 
   		</if>
   	</select>
   	
@@ -125,113 +118,57 @@
   		</if>
   	</select>
 				
-	<insert id="insertCustinfo" parameterType="com.ufufund.ufb.model.db.Custinfo">
+	<insert id="insertCustinfo" parameterType="Custinfo">
   	 <![CDATA[
-	 		INSERT INTO CUSTINFO (
-	 		CUSTNO,
-		    INVTP,
-		    INVNM,
-			SEX,
-			IDTP,
-			
-		    IDNO,
-		    MOBILENO,
-		    EMAIL,
-		    CUSTST,
-		    PASSWD,
-		    
-		    LASTLOGINTIME,
-		    PASSWDERR,
-		    OPENDT,
-		    UPDATETIMESTAMP,
-		    TRADEPWD,
-		    LEVEL,
-		    ORGANIZATION,
-		    BUSINESS)
-		VALUES (
-			#{custno,jdbcType=VARCHAR},
-			#{invtp,jdbcType=VARCHAR},
-			#{invnm,jdbcType=VARCHAR},
-			#{sex,jdbcType=VARCHAR},
-			#{idtp,jdbcType=VARCHAR},
-			
-			#{idno,jdbcType=VARCHAR},
-			#{mobileno,jdbcType=VARCHAR},
-			#{emailadd,jdbcType=VARCHAR},
-			#{custst,jdbcType=VARCHAR},
-			#{loginpwd,jdbcType=VARCHAR},
-			
+	 		insert into custinfo (
+	 		custno,
+		    name,
+			sex,
+			idtp,
+		    idno,
+		    mobileno,
+		    email,
+		    state,
+		    passwd,
+		    passwderr,
+		    tradepwd,
+		    lastlogintime,
+		    updatetimestamp
+		    )
+		values (
+			#{custno,jdbctype=varchar},
+			#{name,jdbctype=varchar},
+			#{sex,jdbctype=varchar},
+			#{idtp,jdbctype=varchar},
+			#{idno,jdbctype=varchar},
+			#{mobileno,jdbctype=varchar},
+			#{email,jdbctype=varchar},
+			#{state,jdbctype=varchar},
+			#{passwd,jdbctype=varchar},
+			#{passwderr,jdbctype=integer},
+			#{tradepwd,jdbctype=varchar},
 			sysdate(),
-			#{passwderr,jdbcType=INTEGER},
-			sysdate(),
-			sysdate(),
-			#{tradepwd,jdbcType=VARCHAR},
-			
-			#{level,jdbcType=VARCHAR},
-			#{orgnm,jdbcType=VARCHAR},
-			#{orgbusiness,jdbcType=VARCHAR}
+			sysdate()
 			)
 	 ]]>
   	</insert>
 
-	<update id="updateCustinfo" parameterType="com.ufufund.ufb.model.db.Custinfo">
-		UPDATE CUSTINFO T1
-	       SET T1.UPDATETIMESTAMP = sysdate()
-	       	<if test="invnm != null">
-	       	  ,T1.INVNM = #{invnm,jdbcType=VARCHAR}
+	<update id="updateCustinfo" parameterType="Custinfo">
+		update custinfo t1
+	       set t1.updatetimestamp = sysdate()
+			<if test="state != null">
+	       	  ,t1.state = #{state,jdbctype=varchar}
 	       	</if>
-			<if test="sex != null">
-	       	  ,T1.SEX = #{sex,jdbcType=VARCHAR}
-	       	</if>
-	        <if test="idtp != null">
-	       	  ,T1.IDTP = #{idtp,jdbcType=VARCHAR}
-	       	</if>
-			<if test="idno != null">
-	       	  ,T1.IDNO = #{idno,jdbcType=VARCHAR}
-	       	</if>
-	        <if test="mobileno != null">
-	       	  ,T1.MOBILENO = #{mobileno,jdbcType=VARCHAR}
-	       	</if>
-			<if test="emailadd != null">
-	       	  ,T1.EMAIL = #{emailadd,jdbcType=VARCHAR}
-	       	</if>
-			<if test="custst != null">
-	       	  ,T1.CUSTST = #{custst,jdbcType=VARCHAR}
-	       	</if>
-			<if test="loginpwd != null">
-	       	  ,T1.PASSWD = #{loginpwd,jdbcType=VARCHAR}
-	       	</if>
-	        <if test="lastlogintime != null">
-	       	  ,T1.LASTLOGINTIME = sysdate()
+			<if test="passwd != null">
+	       	  ,t1.passwd = #{passwd,jdbctype=varchar}
 	       	</if>
 			<if test="passwderr != null">
-	       	  ,T1.PASSWDERR = #{passwderr,jdbcType=INTEGER}
+	       	  ,t1.passwderr = #{passwderr,jdbctype=integer}
 	       	</if>
 			<if test="tradepwd != null">
-	       	  ,T1.TRADEPWD = #{tradepwd,jdbcType=VARCHAR}
+	       	  ,t1.tradepwd = #{tradepwd,jdbctype=varchar}
 	       	</if>
-	       	<if test="orgprovinceno != null">
-	       	  ,T1.ORGPROVINCENO = #{orgprovinceno,jdbcType=VARCHAR}
-	       	</if>
-	       	<if test="orgcityno != null">
-	       	  ,T1.ORGCITYNO = #{orgcityno,jdbcType=VARCHAR}
-	       	</if>
-	       	<if test="orgadd != null">
-	       	  ,T1.ORGADD = #{orgadd,jdbcType=VARCHAR}
-	       	</if>
-	       	<if test="rerpidtp != null">
-	       	  ,T1.RERPIDTP = #{rerpidtp,jdbcType=VARCHAR}
-	       	</if>
-	       	<if test="rerpidno != null">
-	       	  ,T1.RERPIDNO = #{rerpidno,jdbcType=VARCHAR}
-	       	</if>
-	       	<if test="rerpnm != null">
-	       	  ,T1.RERPNM = #{rerpnm,jdbcType=VARCHAR}
-	       	</if>
-	       	<if test="telno != null">
-	       	  ,T1.TELNO = #{telno,jdbcType=VARCHAR}
-	       	</if>
-	     WHERE T1.custno = #{custno,jdbcType=VARCHAR}
+	     where t1.custno = #{custno,jdbctype=varchar}
 	</update>
    
     <select id="queryStudentsByCustno" parameterType="String" resultType="Student">
@@ -239,29 +176,25 @@
     </select>
     
     <select id="queryOrgsByCid" parameterType="String" resultType="StudentVo">
-    	SELECT u.organization 
+    	SELECT u.orgname  as organization
     	FROM clazz c 
-    	join custinfo u on c.orgid=u.custno 
+    	join orginfo u on c.orgid=u.orgid 
     	 where cid=#{cid,jdbcType=VARCHAR}
     </select>
     
-    <select id="getCustinfoByCid" parameterType="String" resultType="Custinfo">
-    	select a.custno, a.invnm, a.ORGANIZATION orgnm, a.BUSINESS orgbusiness, a.orgadd 
-    	from custinfo a, clazz b where a.custno = b.orgid
-    		and b.cid=#{cid,jdbcType=VARCHAR}
-    </select>
-		<select id="queryOrgBankInfo" parameterType="String" resultType="com.ufufund.ufb.model.vo.OrgBankInfoVo">
-	    select 
-	       b.bankacco,
-	       b.subbank as openbankaddr,
-	       c.ORGANIZATION as orgnm,
-	       c.BUSINESS as business,
-	       c.ORGADD as  orgaddr,
-           c.TELNO
-	    from ufu_dev.bankcardinfo b,ufu_dev.custinfo c
-	        where b.custno=c.custno
-	        and c.custno=#{custno,jdbcType=VARCHAR}
-	        and b.state='Y'
-	</select>
+<select id="queryOrgBankInfo" parameterType="String" resultType="OrgQuery">
+    select 
+       b.bankacco,
+       b.subbank as openbankaddr,
+       c.orgname,
+       c.license,
+       c.address,
+       d.banknm,
+       c.operator_mobile
+    from bankcardinfo b,orginfo c,bankbase d
+        where b.custno=c.orgid and b.bankno=d.bankno
+        and c.orgid=#{orgid,jdbcType=VARCHAR}
+        and b.state='Y'
+</select>
 </mapper>
 

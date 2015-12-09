@@ -1,0 +1,272 @@
+<!doctype>
+<html>
+<head>
+<title>幼富通，托富未来 - 缴费</title>
+<style>
+/*本页面的覆盖样式*/
+   .all-top-v2{
+       margin-top: 40px;
+   }
+   .notice-content {
+       margin-top: 30px;
+       margin-bottom: 20px;
+       background-color: transparent;
+       padding-top: 0px;
+       padding-bottom: 0px;
+   }
+   .item {
+       border: 1px solid #ccc;
+       background-color: #fff;
+   }
+   .item:last-child{
+       border-top: none;
+   }
+   .fix-content {
+       height: 50px;
+       background-color: transparent;
+       padding: 16px 10px;
+       margin-top: 0px;
+   }
+   .item-title{
+       margin-left: 17px;
+       margin-top: 30px;
+       margin-bottom: 10px;
+   }
+   .bottom-fix{
+       position: fixed;
+       left: 0;
+       bottom: 0;
+       width: 100%;
+       z-index: 100;
+   }
+   .bottom-fix-body{
+       width: 935px;
+       margin: 0 auto;
+       border-radius: 2px;
+       background-color: #e2e2e2;
+       box-shadow: 5px 5px 5px #cfcfce;
+       filter:alpha(opacity=90);
+       -moz-opacity:0.9;
+       opacity: 0.9;
+   }
+   .allselect{
+       height: 50px;
+       line-height: 50px;
+       padding: 0 4px 0 21px;
+   }
+</style>
+<script type="text/javascript" src="${staticDomain}/family/scripts/plug.js"></script><!--自定义插件-->
+<script type="text/javascript">
+    $(function(){
+    	$('.nav a:eq(0)').addClass('active');
+    	
+        $(".checkbox").checkbox();
+        
+        // 被选中的金额
+        var amt=0.00;
+        
+        // 点击底部全选事件 
+        $(".cb-allselect").on("click",function(){
+            var thisattr =  $(this).children("input:[type='checkbox']").attr("checked");
+            var allcblabels = $(".checkbox");
+            var allcb =  $("input:[type='checkbox']");
+            var zdkf=$("input:[type='checkbox'][name='zdkf']");
+            if( thisattr == "checked") {
+            	$(".checkcount").show();
+    			$(".allcount").hide();
+                allcblabels.addClass("active");
+                allcb.attr("checked", true);
+            }else{
+            	amt=0.00;
+            	$(".checkcount").hide();
+    			$(".allcount").show();
+                allcblabels.removeClass("active");
+                allcb.attr("checked", false);
+                zdkf.attr("checked", "checked");
+                zdkf.parent().addClass("active");
+            }
+            $(".count").html($plancount);
+			$(".allamt").text(parseFloat($totalplanmonthamt).toFixed(2));
+        });
+        
+        // 点击机构名全选该机构的缴费计划
+        $(".item-title .checkbox").on("click",function(ev){
+            ev.stopPropagation();
+            var thisattr = $(this).children("input:[type='checkbox']").attr("checked");
+            var checkedlabel = $(this).parents(".notice-content").find(".width1").children(".checkbox");
+            var checkeds = checkedlabel.children("input:[type='checkbox']");
+            var allamt=0.00;
+            if( thisattr == "checked"){
+                checkedlabel.addClass("active");
+                checkeds.attr("checked",true);
+            }else{
+                checkedlabel.removeClass("active");
+                checkeds.attr("checked",false);
+            }
+            var length1=$(".familyPayNotice").find("input[type='checkbox'][name='checkid']").length;
+            var length2=$(".familyPayNotice").find("input[name='checkid']:checked").length;
+            change_count(length1,length2);
+        });
+        
+        // 底部缴费总结
+        var bottomfix = function(){
+			if(parseInt($('.bottom-fix').offset().top) >= parseInt($('.LowFoot').offset().top)){
+				$('.bottom-fix').css({'position':'static','margin-bottom':100});
+			}
+			if( $(window).scrollTop() < parseInt($('.LowFoot').offset().top)-100-$(window).height()){
+				$('.bottom-fix').css({'position':'fixed','margin-bottom':0});
+			}
+	   	}
+        bottomfix();
+        $(window).scroll(bottomfix);
+        
+        // 选中的个数和金额
+        var change_count=function(length1,length2){
+		   var allamt=0.00;
+		   $(".familyPayNotice").find("input[name='checkid']").each(function(){
+            	var appamt=parseFloat($(this).parent().parent().siblings(".width4").find(".payappamt").text()).toFixed(2);
+            	if($(this).attr("checked")=="checked"){
+            		allamt=parseFloat((allamt-0)+(appamt-0)).toFixed(2);
+            		amt=allamt;
+            	}
+            })
+    		$(".allamt").html(amt);
+		    if(length2==0){
+	   			$(".count").html($plancount);
+	   			$(".checkcount").hide();
+	   			$(".allcount").show();
+	   			$(".allamt").text(parseFloat($totalplanmonthamt).toFixed(2));
+	        }else{
+	           	$(".checkcount").show();
+	   			$(".allcount").hide();
+	           	$(".allamt").html(amt);
+	           	$(".count").html(length2);
+           }
+           if(length1 ==length2 ){
+   			   $(".cb-allselect").addClass("active");
+   			   $(".cb-allselect").children("input:[type='checkbox']").attr("checked",true);
+   		   }else{
+   			   $(".cb-allselect").removeClass("active");
+   			   $(".cb-allselect").children("input:[type='checkbox']").attr("checked",false);
+   		   }
+        }
+        
+        // 选中事件
+    	$("input[name='checkid']").click(function(){
+    		// 机构全选
+    		var parent_item=$(this).parents(".notice-content");
+    		var itemlength=$(parent_item).find("input[type='checkbox'][name='checkid']").length;
+    		var checklength=$(parent_item).find("input[name='checkid']:checked").length;
+    		if(itemlength ==checklength ){
+    			$(parent_item).find(".item-title .checkbox").addClass("active");
+    		}else{
+    			$(parent_item).find(".item-title .checkbox").removeClass("active");
+    		}
+    		
+    		var length1=$(".familyPayNotice").find("input[type='checkbox'][name='checkid']").length;
+            var length2=$(".familyPayNotice").find("input[name='checkid']:checked").length;
+            change_count(length1,length2);
+         });
+    	
+        // 确认缴费事件
+    	var detailids = "";
+    	$(".payreview").on("click",function(){
+			$(".checkbox.cb-one :checked").each(function(){
+				detailids = detailids + $(this).attr("detailid") + ",";
+			})
+			if(detailids==''){
+				alert("请选择需要缴费的计划！");
+				return false;
+			}
+			$("#detailids").val(detailids);
+			$("#form-payNotice").submit();
+		});
+    	
+    	// 单个缴费事件
+    	$(".payment").on("click",function(){
+    		var check=$(this).parent().siblings(".width1").find(".checkbox.cb-one").children("input:[type='checkbox']");
+    		if(check.attr("checked")=="checked"){
+    			detailids=check.attr("detailid");
+    		}else{
+    			alert("请选择需要缴费的计划！");
+				return false;
+    		}
+    		$("#detailids").val(detailids);
+			$("#form-payNotice").submit();
+    	})
+    })
+</script>
+</head>
+<body>
+    <div id="body">
+		<form id="form-payNotice" class="vote" method="post" action="${ufbDomain}/family/uft/pay_confirm.htm">
+			<input type="hidden" id="totalplanmonthamt" name="totalplanmonthamt" value="${totalplanmonthamt}">
+			<input type="hidden" id="detailids" name="detailids" value="">
+		</form>
+        <div class="container familyPayNotice">
+                <div class="notice-title">
+                    <h4>收费通知</h4>
+                </div>
+                <div class="all-top all-top-v2">
+                    <label class="checkbox cb-allselect"><input type="checkbox"/>全选</label>
+                    <div class="fr all-top-right">
+                    <font class="checkcount" style="display:none;">已选</font><font class="allcount"> 共</font><strong class="num-color count">$plancount</strong>条通知，总计（元）：<strong class="sum-money allamt">$totalplanmonthamt</strong>
+                        <a href="javascript:;" class="payreview btn btn-red" style="margin-right: 28px;">缴 费</a>
+                    </div>
+                </div>
+				#foreach($plans in $planLists)
+                <div class="notice-content">
+				#set($list = ${plans.planList})
+				#if($list.size()>0)
+			    	#set($org = ${plans.orginfo})
+                    <div class="item-title">
+                        <label class="checkbox" orgid="$org.orgid"><input type="checkbox" />$org.orgname</label>
+                    </div>
+                #end
+                    #foreach($plan in ${plans.planList})
+                    <div class="item">
+                        <div class="fix-content">
+                            <ul>
+                                <li class="width1">
+                                    <label class="checkbox cb-one"><input type="checkbox" name="checkid" detailid="$plan.id"/></label>
+                                </li>
+                                <li class="width2">
+                                    <p class="project">$plan.planname<span class="tip">#if($plan.charge_type=='01')月代扣 #else 单笔 #end</span></p>
+                                    <p>缴费交易号：  <span>$plan.id</span></p>
+                                </li>
+                                <li class="width3">
+                                    <p>$plan.sname</p>
+                                    <p class="mgtop">$plan.orgname</p>
+                                </li>
+                                <li class="width4">
+                                    <p>应收金额(元) ：  <span class="num-color f14 payappamt">$plan.amount</span>
+                                    <p class="mgtop">确认截止日：  <span>$!{plan.deadline}</span></p>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" class="payment btn btn-white">缴&nbsp;费</a>
+                                    #if($plan.charge_type=='01') <p class="f14 mgtop10"><label class="checkbox"><input type="checkbox"  name="zdkf" checked="checked"  disabled/>自动扣费</label></p> #end
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+					#end
+					</div> 
+				#end
+				</div>
+        <br/>
+    </div>
+</div>
+<div class="bottom-fix">
+    <div class="bottom-fix-body allselect">
+        <div class="fl">
+            <label class="checkbox cb-allselect"><input type="checkbox"/>全选</label>
+        </div>
+        <div class="fr">
+            <p><font class="checkcount" style="display:none;">已选</font><font class="allcount">共</font><strong class="num-red count">$plancount</strong>条通知，总计（元）：<strong class="num-red allamt">$totalplanmonthamt</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:;" class="payreview btn btn-red btnBigR">缴费</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

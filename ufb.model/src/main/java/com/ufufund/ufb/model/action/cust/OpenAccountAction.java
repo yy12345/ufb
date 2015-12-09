@@ -1,9 +1,8 @@
 package com.ufufund.ufb.model.action.cust;
 
-import com.ufufund.ufb.model.action.CommonAction;
 import lombok.Data;
 @Data
-public class OpenAccountAction extends CommonAction {
+public class OpenAccountAction{
 	
 	private String fundcorpno;
 	private String custno;
@@ -21,12 +20,12 @@ public class OpenAccountAction extends CommonAction {
 	private String protocolno; // 银行协议编号
 	
 	/** 个人 **/
-	private String invnm; // 用户姓名',
+	private String name; // 用户姓名',
 	private String idno; // 证件号码',
 	private String idtp;
 	private String mobile;
 	private String telno;
-	private String emailadd;
+	private String email;
 	
 	/** 机构信息 **/
 	private String orgnm; // 幼教机构名称

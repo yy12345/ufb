@@ -16,22 +16,15 @@ public interface Constant {
 	 * 客户
 	 */
 	public static interface Custinfo {
-		public final static String CUSTST$P = "P";
+		public final static String STATE$P = "P";
 		public final static String OPENACCOUNT$Y = "Y";
 	}
-
-	// public final static String IDTP$0= "0";
 
 	/*
 	 * 字典
 	 */
 	public static interface Dictionary {
 		public final static String DICTIONARY$ERROR = "ERROR";
-		// public final static String DICTIONARY$SYS = "SYS";
-		// public final static String DICTIONARY$HTFERROR = "HFTERROR";
-		// public final static String DICTIONARY$HFTBANKNO = "HFTBANKNO";
-		// public final static String DICTIONARY$HFTIDTP = "HFTIDTP";
-		// public final static String DICTIONARY$HFTAPKIND = "HFTAPKIND";
 	}
 	
 	public static interface Autotrade {
@@ -42,11 +35,6 @@ public interface Constant {
 		public final static String CYCLE$MM = "MM";
 		public final static String CYCLE$WW = "WW";
 		public final static String CYCLE$DD = "DD";
-		// public final static String DICTIONARY$SYS = "SYS";
-		// public final static String DICTIONARY$HTFERROR = "HFTERROR";
-		// public final static String DICTIONARY$HFTBANKNO = "HFTBANKNO";
-		// public final static String DICTIONARY$HFTIDTP = "HFTIDTP";
-		// public final static String DICTIONARY$HFTAPKIND = "HFTAPKIND";
 	}
 
 	public static interface Orggrade {
@@ -59,7 +47,6 @@ public interface Constant {
 		
 		
 		public final static String CYCLE_TYPE$M= "M";
-		//public final static String ISDELETE$Y= "Y";
 	}
 	/*
 	 * 客户

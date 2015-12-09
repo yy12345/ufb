@@ -19,7 +19,6 @@ import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankCardbin;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.vo.BankCardVo;
-import com.ufufund.ufb.model.vo.CustinfoVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.MsgCodeUtils.MsgCode;
@@ -105,7 +104,7 @@ public class UfuCommonController {
 		
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		try{
-			CustinfoVo custinfo = UserHelper.getCustinfoVo();
+			Custinfo custinfo = UserHelper.getCustinfo();
 			if(StringUtils.isBlank(mobileno)){
 				mobileno = custinfo.getMobileno();
 			}
@@ -178,7 +177,7 @@ public class UfuCommonController {
 				 same = EncryptUtil.md5(password).equals(custinfo.getTradepwd());
 			}
 			if(type.equals("2")){
-				same = EncryptUtil.md5(password).equals(custinfo.getLoginpwd());
+				same = EncryptUtil.md5(password).equals(custinfo.getPasswd());
 			}
 			
 			resultMap.put("errCode", "0000");
@@ -261,15 +260,15 @@ public class UfuCommonController {
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try{
 			// 1.注册场景
-			CustinfoVo custinfoVo = (CustinfoVo)ServletHolder.getSession().getAttribute("register_vo");
+			Custinfo Custinfo = (Custinfo)ServletHolder.getSession().getAttribute("register_vo");
 			// 2.登录场景
-			if(custinfoVo == null)custinfoVo = UserHelper.getCustinfoVo();
+			if(Custinfo == null)Custinfo = UserHelper.getCustinfo();
 			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setBankno(bankCardVo.getBankno());//银行编号
-			openAccountAction.setBanknm(custinfoVo.getInvnm());//银行用户名
+			openAccountAction.setBanknm(Custinfo.getName());//银行用户名
 			openAccountAction.setCerttype("0");					//银行证件类型
-			openAccountAction.setCertno(custinfoVo.getIdno());//银行证件号
+			openAccountAction.setCertno(Custinfo.getIdno());//银行证件号
 			openAccountAction.setBankacco(bankCardVo.getBankacco());//银行卡号码
 			openAccountAction.setMobile(bankCardVo.getMobile());//银行手机号
 			

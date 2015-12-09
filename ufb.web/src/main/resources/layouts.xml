@@ -15,22 +15,13 @@
     </layout>
     
     <layout page="layout/blank.vm">
-        <pattern>school/student_list.vm</pattern>
-        <pattern>family/uft/record_unit.vm</pattern>
-        <pattern>family/uft/record_notice.vm</pattern>
+        <pattern>uft/record_unit.vm</pattern>
+        <pattern>uft/record_notice.vm</pattern>
     </layout> 
 	
 	<!-- family -->
 	<layout page="layout/family.vm">
-        <pattern>family/**/*.vm</pattern>
-    </layout>
-    
-    <!-- organ -->
-    <layout page="layout/organ_school.vm">
-        <pattern>school/*.vm</pattern>
-    </layout>
-    <layout page="layout/organ.vm">
-        <pattern>organ/**/*.vm</pattern>
+        <pattern>**/*.vm</pattern>
     </layout>
     
     <layout page="layout/blank.vm" default="true">

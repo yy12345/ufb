@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>幼富通，托富未来 - 缴费</title>
+<style type="text/css">
+    .title.clearfix{
+        margin-top:0;
+    }
+    .pay-info dl{
+       line-height: 2.5em;
+       font-size: 14px;
+    }
+    .pay-info dl dt{
+        float: left;
+        width: 150px;
+    }
+    .pay-info dl dd{
+        color: #333;
+    }
+    .lookup-detail{
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        margin-left: 30px;
+        color: #2f8fbf;
+        font-size: 14px;
+    }
+   .notice{
+      font-size: 12px;
+      color: #999;
+      background: #F0FAFC;
+      padding: 20px 25px;
+      border: 1px solid #E6E6E5;
+      line-height: 1.5;
+      position:relative;
+       margin:-15px 0 20px;
+    }
+   .notice p{
+        padding-left:0;
+        position:relative;
+    }
+    .notice p i{
+        display:block;
+        width:17px;
+        height:17px;
+        background:url(${staticDomain}/family/images/img_25.png) no-repeat;
+        position:absolute;
+        left:0;
+        top:50%;
+        margin-top:-8px;
+    }
+    .notice .v2_1{
+        position:absolute;
+        right:10px;
+        top:10px;
+        display:block;
+        width:10px;
+        height:10px;
+        cursor:pointer;
+        background:url(${staticDomain}/family/images/img_26.png) no-repeat;
+    }
+</style>
+<script type="text/javascript">
+$(function(){
+    $('.nav a:eq(0)').addClass('active');
+    
+    $(".notice .v2_1").click(function(){
+        $(".notice").hide();
+    });
+})
+</script>
+</head>
+<body>
+    <div class="body">
+        <div class="inner container-find">
+           <div class="title clearfix">
+                <h2 class="title-main fl">付费已确认</h2>
+            </div>
+            <div class="notice">
+                 <i class="v2_1"></i><p>充值幼富宝缴费，获得超过银行活期10-15倍收益，余额不足自动通知，每期自动缴费不耽误上学，方便快捷。<br>
+                 </p>
+            </div>
+            <div class="find-panels">
+                <div class="panel">
+                    <div class="form-done" style="margin:-200px 0 0 -200px;">
+                        <div class="title">您已确认付费<span style="color: #cb3849;font-size: 24px;">$allpayconfirm 元</span>！</div>
+                        <div class="pay-info">
+                            <dl>
+                              #set($i = 1)
+                              #foreach($org in $orgnamelist)
+                                <dt>#if($i==1) 收费机构 #else &nbsp;&nbsp; #end</dt>
+                                <dd>$org </dd>
+                                #set($i = $i+1)
+                              #end
+                                <dt>付费账户</dt>
+                                <dd> #if($paytype=='U')幼富宝 #else 银行快捷  #end </dd>
+                                <dt>扣款日</dt>
+                                <dd>$paydate</dd>
+                            </dl>
+                        </div>
+                        <div class="btn-control">
+                            <a class="btn" href="${ufbDomain}/family/ufb/ufb_index.htm" style="display: inline-block;">充值幼富宝</a>
+                            <a href="${ufbDomain}/family/uft/record_index.htm" class="lookup-detail hoverLine">查看付费明细</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

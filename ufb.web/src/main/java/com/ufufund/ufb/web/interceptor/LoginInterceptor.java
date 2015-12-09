@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.ufufund.ufb.model.vo.CustinfoVo;
+import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.web.util.UserHelper;
 
 /**
@@ -26,8 +26,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
 		
-		CustinfoVo custinfoVo = UserHelper.getCustinfoVo();
-		if(custinfoVo == null || StringUtils.isBlank(custinfoVo.getCustno())){
+		Custinfo custinfo = UserHelper.getCustinfo();
+		if(custinfo == null || StringUtils.isBlank(custinfo.getCustno())){
 			response.sendRedirect(loginUrl);
 			return false;
 		}
