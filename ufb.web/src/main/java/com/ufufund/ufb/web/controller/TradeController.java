@@ -759,7 +759,7 @@ public class TradeController {
 			model.addAttribute("back_module", AUTOTRADE_NAME);
 			return "error/error";
 		}
-		ServletHolder.forward("/ufb/autotrade_index.htm?TAB=PR");
+		ServletHolder.forward("/family/ufb/autotrade_index.htm?TAB=PR");
 		return "ufb/autotrade_index";
 	}
 	/**
@@ -819,7 +819,7 @@ public class TradeController {
 			model.addAttribute("back_module", AUTOTRADE_NAME);
 			return "error/error";
 		}
-		ServletHolder.forward("/ufb/autotrade_index.htm?TAB=CR");
+		ServletHolder.forward("/family/ufb/autotrade_index.htm?TAB=CR");
 		return "ufb/autotrade_index";
 	}
 	/**
@@ -842,7 +842,7 @@ public class TradeController {
 			model.addAttribute("back_module", AUTOTRADE_NAME);
 			return "error/error";
 		}
-		ServletHolder.forward("/ufb/autotrade_index.htm?TAB=DR");
+		ServletHolder.forward("/family/ufb/autotrade_index.htm?TAB=DR");
 		return "ufb/autotrade_index";
 	}
 	

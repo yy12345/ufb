@@ -567,7 +567,7 @@ public class PaymentController {
 			BigDecimal discount = new  BigDecimal(payVo.getDiscount());
 			BigDecimal ackamount = amount.subtract(discount);// 应收金额
 			
-			// 确认截止日
+			// 确认截止日  later.....
 			String deadline = DateUtil.format(new Date(), DateUtil.DATE_PATTERN_1);
 			String dead = payVo.getDeadline();
 			

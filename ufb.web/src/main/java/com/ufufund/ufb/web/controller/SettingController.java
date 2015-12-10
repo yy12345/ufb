@@ -43,7 +43,8 @@ public class SettingController {
 	private static final String CARD_INDEX="family/setting/card_index.htm";
 	private static final String CARD_INDEX_NAME="我的银行卡";
 	private static final String ACCOUNT_INDEX="family/setting/account_index.htm";
-	private static final String PASSWORD_INDEX="family/setting/password_index.htm";
+	
+	
 	@Autowired
 	private CustManager custManager;
 	@Autowired
@@ -145,8 +146,6 @@ public class SettingController {
 		 
 		return resultMap;
 	}
- 	
-
 	 
 	/**
 	 * 修改交易密码
@@ -226,7 +225,6 @@ public class SettingController {
 		return resultMap;
 	}
 		
-	
 	/**
 	 * 修改登录密码    未登录状态step1
 	 * @param autotradeVo
@@ -245,6 +243,7 @@ public class SettingController {
 		}
 		return "setting/findpwd_index";
 	}
+	
 	/**
 	 * 修改登录密码   未登录状态step2
 	 * 20151002
@@ -264,6 +263,7 @@ public class SettingController {
 		}
 		return "setting/findpwd_confirm";
 	}
+	
 	/**
 	 * 修改登录密码   未登录状态step3
 	 * 20151002
@@ -292,6 +292,7 @@ public class SettingController {
 		}
 		return resultMap;
 	}
+	
 	/**
 	 * 修改登录密码结果   未登录状态
 	 */
