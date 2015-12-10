@@ -1,14 +1,12 @@
 package com.ufufund.ufb.model.db;
 
-import java.io.Serializable;
 
 import com.ufufund.ufb.model.action.PrintableModel;
 
 import lombok.Data;
 
 @Data
-public class Tradeaccoinfo extends PrintableModel implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Tradeaccoinfo extends PrintableModel{
 	
 	private String custno;     // 客户编号
 	private String fundcorpno; // 交易账号类型：归属基金公司

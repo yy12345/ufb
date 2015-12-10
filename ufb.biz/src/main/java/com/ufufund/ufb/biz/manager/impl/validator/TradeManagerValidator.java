@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.StringUtils;
-import com.ufufund.ufb.model.vo.ApplyVo;
-import com.ufufund.ufb.model.vo.CancelVo;
-import com.ufufund.ufb.model.vo.RedeemVo;
+import com.ufufund.ufb.model.db.Apply;
+import com.ufufund.ufb.model.db.Cancel;
+import com.ufufund.ufb.model.db.Redeem;
 
 @Service
 public class TradeManagerValidator {
@@ -22,7 +22,7 @@ public class TradeManagerValidator {
 	 * 认购校验
 	 * @param vo
 	 */
-	public void validateSubApply(ApplyVo vo){
+	public void validateSubApply(Apply vo){
 		// 参数检查
 		paramCheck4Apply(vo);
 		/** 业务规则校验 **/ 
@@ -36,7 +36,7 @@ public class TradeManagerValidator {
 	 * 申购校验
 	 * @param vo
 	 */
-	public void validateBuyApply(ApplyVo vo){
+	public void validateBuyApply(Apply vo){
 		// 参数检查
 		paramCheck4Apply(vo);
 		
@@ -55,7 +55,7 @@ public class TradeManagerValidator {
 	 * 普通赎回校验
 	 * @param vo
 	 */
-	public void validateRedeem(RedeemVo vo){
+	public void validateRedeem(Redeem vo){
 		// 参数检查
 		paramCheck4Redeem(vo);
 		/** 业务规则校验 **/ 
@@ -69,7 +69,7 @@ public class TradeManagerValidator {
 	 * 快速赎回校验
 	 * @param vo
 	 */
-	public void validateRealRedeem(RedeemVo vo){
+	public void validateRealRedeem(Redeem vo){
 		// 参数检查
 		paramCheck4Redeem(vo);
 		/** 业务规则校验 **/ 
@@ -87,7 +87,7 @@ public class TradeManagerValidator {
 	 * 快速赎回校验
 	 * @param vo
 	 */
-	public void validateCancel(CancelVo vo){
+	public void validateCancel(Cancel vo){
 		// 参数检查
 		paramCheck4Cancel(vo);
 		/** 业务规则校验 **/ 
@@ -97,7 +97,7 @@ public class TradeManagerValidator {
 		}
 	}
 	
-	private void paramCheck4Apply(ApplyVo vo){
+	private void paramCheck4Apply(Apply vo){
 		if(StringUtils.isBlank(vo.getCustno())){
 			throw new UserException("参数[custno]不能为空！");
 		}
@@ -109,7 +109,7 @@ public class TradeManagerValidator {
 		}
 	}
 	
-	private void paramCheck4Redeem(RedeemVo vo){
+	private void paramCheck4Redeem(Redeem vo){
 		if(StringUtils.isBlank(vo.getCustno())){
 			throw new UserException("参数[custno]不能为空！");
 		}
@@ -121,7 +121,7 @@ public class TradeManagerValidator {
 		}
 	}
 	
-	private void paramCheck4Cancel(CancelVo vo){
+	private void paramCheck4Cancel(Cancel vo){
 		if(StringUtils.isBlank(vo.getCustno())){
 			throw new UserException("参数[custno]不能为空！");
 		}

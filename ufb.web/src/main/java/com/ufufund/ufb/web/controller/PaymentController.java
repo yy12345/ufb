@@ -25,17 +25,17 @@ import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.NumberUtils;
+import com.ufufund.ufb.model.db.Assets;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.FamilyCodes;
 import com.ufufund.ufb.model.db.OrgPlanDetail;
 import com.ufufund.ufb.model.db.OrgQuery;
+import com.ufufund.ufb.model.db.PayList;
+import com.ufufund.ufb.model.db.PayRecordQry;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
-import com.ufufund.ufb.model.vo.Assets;
-import com.ufufund.ufb.model.vo.PayListVo;
-import com.ufufund.ufb.model.vo.PayRecordQryVo;
 import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -234,7 +234,7 @@ public class PaymentController {
 	@RequestMapping(value = "pay_preview")
 	public String payPreview(String orgids,Model model) {
 		
-		List<PayListVo> planLists = new ArrayList<PayListVo>();
+		List<PayList> planLists = new ArrayList<PayList>();
 		try{
 			Custinfo custinfo = UserHelper.getCustinfo();
 			
@@ -252,7 +252,7 @@ public class PaymentController {
 				OrgQuery orginfo=new OrgQuery();
 				orginfo.setOrgid(orgid);
 				
-				PayListVo stuPayVo=new PayListVo();
+				PayList stuPayVo=new PayList();
 				List<OrgPlanDetail> planlist=new ArrayList<OrgPlanDetail>();
 				OrgPlanDetail orgdetail = new OrgPlanDetail();
 				
@@ -299,7 +299,7 @@ public class PaymentController {
 	@RequestMapping(value = "pay_confirm")
 	public String payConfirm(String  detailids, Model model) {
 		
-		List<PayListVo> planlistchecked = new ArrayList<PayListVo>();
+		List<PayList> planlistchecked = new ArrayList<PayList>();
 		try{
 			Custinfo custinfo = UserHelper.getCustinfo();
 			
@@ -332,7 +332,7 @@ public class PaymentController {
 				String orgid=org.getOrgid();
 				List<OrgPlanDetail> planOrglist=new  ArrayList<OrgPlanDetail>();
 				OrgQuery orginfo=custManager.queryOrgBankInfo(orgid);
-				PayListVo payVo = new PayListVo();
+				PayList payVo = new PayList();
 				for(OrgPlanDetail plan:planchecked){
 					if(orgid.equals(plan.getOrgid())){
 						BigDecimal planmonthamt = BigDecimal.ZERO;
@@ -422,7 +422,7 @@ public class PaymentController {
 	 * @return
 	 */
 	@RequestMapping(value="record_index")
-	public String recordIndex(PayRecordQryVo vo, Model model){
+	public String recordIndex(PayRecordQry vo, Model model){
 		
 		String custno = UserHelper.getCustno();	
 		try{
@@ -433,7 +433,7 @@ public class PaymentController {
 			}
 			
 			if(vo == null){
-				vo = new PayRecordQryVo();
+				vo = new PayRecordQry();
 			}
 			vo.setCustno(custno);
 			// 选中机构
@@ -503,7 +503,7 @@ public class PaymentController {
 	 * @return
 	 */
 	@RequestMapping(value="record_unit")
-	public String recordUnit(PayRecordQryVo vo, Model model){
+	public String recordUnit(PayRecordQry vo, Model model){
 		
 		String custno = UserHelper.getCustno();	
 		try{

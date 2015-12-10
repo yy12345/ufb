@@ -33,6 +33,7 @@ public interface TradeAccoManager {
 	 * @return
 	 */
 	public TradeAccoinfoOfMore getTradeAcco(String custno, String fundcorpno, String bankserialid); 
+	
 	/**
 	 * 根据用户编号查询交易账号的信息
 	 */

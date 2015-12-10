@@ -7,7 +7,6 @@ package com.ufufund.ufb.model.enums;
 		BANKCARDINFO("BANKCARDINFO"),
 		TRADEACCOINFO("TRADEACCOINFO");
 		
-		
 		private String value;
 
 		private TableName(String value) {

@@ -55,6 +55,7 @@ public interface AutotradeManager {
 	 * @return
 	 */
 	public List<Autotrade> getAutotradeList(String custno);
+	
 	/**
 	 * 获取客户的智能交易
 	 * 
@@ -73,19 +74,20 @@ public interface AutotradeManager {
 	 */
 	public Autotrade getAutotrade(String autoid);
 	
-	
 	/**
 	 * 获取取现信息
 	 * @param String
 	 * @return 
 	 */
 	public List<Autotrade> getCashtradeList(String custno,String autoid);
+	
 	/**
 	 * 删除自动充值业务
 	 * @param String
 	 * @return 
 	 */
 	public void deleteAutotrade(String custno,String frombankserialid,String autoid);
+	
 	/**
 	 * 暂停自动缴费交易
 	 * 

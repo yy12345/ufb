@@ -3,7 +3,7 @@ package com.ufufund.ufb.biz.util;
 import java.util.Date;
 
 import com.ufufund.ufb.common.utils.DateUtil;
-import com.ufufund.ufb.model.vo.Today;
+import com.ufufund.ufb.model.db.Today;
 
 public class UfbCommonUtil {
 

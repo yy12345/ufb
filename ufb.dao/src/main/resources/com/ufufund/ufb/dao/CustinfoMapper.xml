@@ -4,183 +4,106 @@
 
 <mapper namespace="com.ufufund.ufb.dao.CustinfoMapper">
     
-   
-    
-  	<select id="getCustinfo" parameterType="Custinfo" resultType="Custinfo">
-  		select
-			t1.custno,
-			t1.name,
-			t1.sex,
-			t1.idtp,
-			t1.idno,
-			t1.mobileno,
-			t1.email,
-			t1.state,
-			t1.passwd,
-			t1.passwderr,
-			t1.tradepwd,
-			date_format(t1.lastlogintime,'%y-%m-%d %h:%i:%s') as lastlogintime
-  		from custinfo t1 
-			where 
-			<if test="custno != null and custno !=''" >
-			t1.custno =  #{custno,jdbctype=varchar} and
-			</if>
-	  		<if test="mobileno != null and mobileno !=''" >
-	  		 t1.mobileno = #{mobileno,jdbctype=varchar} and
-	  		</if>
-			<if test="idno != null and idno !=''" >
-			 t1.idno = #{idno,jdbctype=varchar} and
-			</if>
-			<if test="passwd != null and passwd !=''" >
-	  		 t1.passwd = #{passwd,jdbctype=varchar} and
-	  		</if>
-	  		<if test="tradepwd != null and tradepwd !=''" >
-	  		 t1.tradepwd = #{tradepwd,jdbctype=varchar} and
-	  		</if>
-	  		<if test="state != null and state !=''" >
-	  		 t1.state = #{state,jdbctype=varchar} and
-	  		</if>
-		     t1.state != '6'
-  	</select>
-  	
-  	<select id="isTradePwdSet" parameterType="Custinfo" resultType="Custinfo">
-  		SELECT
-			T1.CUSTNO
-  		FROM CUSTINFO T1 
-		WHERE 
-		<if test="custno != null and custno !=''" >
-			T1.CUSTNO =  #{custno,jdbcType=VARCHAR} AND
-		</if>
-	     	T1.TRADEPWD IS NOT NULL
-  	</select>
-  	
-  	<select id="isIdNoBindByTradeAcco" resultType="Custinfo">
-  		select
-			c.custno,
-			c.invtp,
-			c.name,
-			c.sex,
-			c.idtp,
-			c.idno,
-			c.mobileno,
-			c.email,
-			c.state,
-			c.passwd,
-			date_format(c.lastlogintime,'%y-%m-%d %h:%i:%s') as lastlogintime,
-			c.passwderr,
-			c.opendt,
-			c.updatetimestamp,
-			c.tradepwd,
-			c.level,
-			c.organization as orgnm,
-			c.business as orgbusiness,
-			t.custno,
-			t.fundcorpno,
-			t.level,
-			t.bankserialid,
-			t.tradeacco,
-			t.tradeaccost,
-			t.opendt,
-			t.updatetime
-		from
-			tradeaccoinfo t,custinfo c
+<select id="getCustinfo" parameterType="Custinfo" resultType="Custinfo">
+ 		select
+		t1.custno,
+		t1.name,
+		t1.sex,
+		t1.idtp,
+		t1.idno,
+		t1.mobileno,
+		t1.email,
+		t1.state,
+		t1.passwd,
+		t1.passwderr,
+		t1.tradepwd,
+		date_format(t1.lastlogintime,'%y-%m-%d %h:%i:%s') as lastlogintime
+ 		from custinfo t1 
 		where 
-			c.custno = t.custno
-  		<if test="fundcorpno != null and fundcorpno !=''" >
-  			and t.fundcorpno = #{fundcorpno,jdbctype=varchar} 
-  		</if>
-  		<if test="level != null and level !=''" >
-  			and t.level = #{level,jdbctype=varchar} 
-  		</if>
-  		<if test="invtp != null and invtp !=''" >
-  			and c.level = #{invtp,jdbctype=varchar} 
-  		</if>
-  		<if test="idno != null and idno !=''" >
-  		 	and c.idno = #{idno,jdbctype=varchar} 
-  		</if>
-  	</select>
-  	
-  	<select id="getCustinfoMapping" resultType="java.lang.String">
-  		SELECT
-			<if test="orgNo != null and orgNo !=''" >
-			T1.oprNo
-			</if>
-			<if test="oprNo != null and oprNo !=''" >
-			T1.orgNo
-			</if>
-  		FROM CUSTINFOMAPPING T1 
-		WHERE 
-		<if test="orgNo != null and orgNo !=''" >
-		T1.orgNo =  #{orgNo,jdbcType=VARCHAR}
+		<if test="custno != null and custno !=''" >
+		t1.custno =  #{custno,jdbctype=varchar} and
 		</if>
-  		<if test="oprNo != null and oprNo !=''" >
-  		 T1.oprNo = #{oprNo,jdbcType=VARCHAR}
+  		<if test="mobileno != null and mobileno !=''" >
+  		 t1.mobileno = #{mobileno,jdbctype=varchar} and
   		</if>
-  	</select>
+		<if test="idno != null and idno !=''" >
+		 t1.idno = #{idno,jdbctype=varchar} and
+		</if>
+		<if test="passwd != null and passwd !=''" >
+  		 t1.passwd = #{passwd,jdbctype=varchar} and
+  		</if>
+  		<if test="tradepwd != null and tradepwd !=''" >
+  		 t1.tradepwd = #{tradepwd,jdbctype=varchar} and
+  		</if>
+  		<if test="state != null and state !=''" >
+  		 t1.state = #{state,jdbctype=varchar} and
+  		</if>
+	     t1.state != '6'
+</select>
 				
-	<insert id="insertCustinfo" parameterType="Custinfo">
-  	 <![CDATA[
-	 		insert into custinfo (
-	 		custno,
-		    name,
-			sex,
-			idtp,
-		    idno,
-		    mobileno,
-		    email,
-		    state,
-		    passwd,
-		    passwderr,
-		    tradepwd,
-		    lastlogintime,
-		    updatetimestamp
-		    )
-		values (
-			#{custno,jdbctype=varchar},
-			#{name,jdbctype=varchar},
-			#{sex,jdbctype=varchar},
-			#{idtp,jdbctype=varchar},
-			#{idno,jdbctype=varchar},
-			#{mobileno,jdbctype=varchar},
-			#{email,jdbctype=varchar},
-			#{state,jdbctype=varchar},
-			#{passwd,jdbctype=varchar},
-			#{passwderr,jdbctype=integer},
-			#{tradepwd,jdbctype=varchar},
-			sysdate(),
-			sysdate()
-			)
-	 ]]>
-  	</insert>
+<insert id="insertCustinfo" parameterType="Custinfo">
+ <![CDATA[
+ 		insert into custinfo (
+ 		custno,
+	    name,
+		sex,
+		idtp,
+	    idno,
+	    mobileno,
+	    email,
+	    state,
+	    passwd,
+	    passwderr,
+	    tradepwd,
+	    lastlogintime,
+	    updatetimestamp
+	    )
+	values (
+		#{custno,jdbctype=varchar},
+		#{name,jdbctype=varchar},
+		#{sex,jdbctype=varchar},
+		#{idtp,jdbctype=varchar},
+		#{idno,jdbctype=varchar},
+		#{mobileno,jdbctype=varchar},
+		#{email,jdbctype=varchar},
+		#{state,jdbctype=varchar},
+		#{passwd,jdbctype=varchar},
+		#{passwderr,jdbctype=integer},
+		#{tradepwd,jdbctype=varchar},
+		sysdate(),
+		sysdate()
+		)
+ ]]>
+</insert>
 
-	<update id="updateCustinfo" parameterType="Custinfo">
-		update custinfo t1
-	       set t1.updatetimestamp = sysdate()
-			<if test="state != null">
-	       	  ,t1.state = #{state,jdbctype=varchar}
-	       	</if>
-			<if test="passwd != null">
-	       	  ,t1.passwd = #{passwd,jdbctype=varchar}
-	       	</if>
-			<if test="passwderr != null">
-	       	  ,t1.passwderr = #{passwderr,jdbctype=integer}
-	       	</if>
-			<if test="tradepwd != null">
-	       	  ,t1.tradepwd = #{tradepwd,jdbctype=varchar}
-	       	</if>
-	     where t1.custno = #{custno,jdbctype=varchar}
-	</update>
+<update id="updateCustinfo" parameterType="Custinfo">
+	update custinfo t1
+       set t1.updatetimestamp = sysdate()
+		<if test="state != null">
+       	  ,t1.state = #{state,jdbctype=varchar}
+       	</if>
+		<if test="passwd != null">
+       	  ,t1.passwd = #{passwd,jdbctype=varchar}
+       	</if>
+		<if test="passwderr != null">
+       	  ,t1.passwderr = #{passwderr,jdbctype=integer}
+       	</if>
+		<if test="tradepwd != null">
+       	  ,t1.tradepwd = #{tradepwd,jdbctype=varchar}
+       	</if>
+     where t1.custno = #{custno,jdbctype=varchar}
+</update>
    
-    <select id="queryStudentsByCustno" parameterType="String" resultType="Student">
-    	select * from  student t where p_custno=#{custno,jdbcType=VARCHAR}
-    </select>
+<select id="queryStudentsByCustno" parameterType="String" resultType="Student">
+	select * from  student t where p_custno=#{custno,jdbcType=VARCHAR}
+</select>
     
-    <select id="queryOrgsByCid" parameterType="String" resultType="StudentVo">
-    	SELECT u.orgname  as organization
-    	FROM clazz c 
-    	join orginfo u on c.orgid=u.orgid 
-    	 where cid=#{cid,jdbcType=VARCHAR}
-    </select>
+<select id="queryOrgsByCid" parameterType="String" resultType="Student">
+	select u.orgname  as organization
+	from clazz c 
+	join orginfo u on c.orgid=u.orgid 
+	 where cid=#{cid,jdbctype=varchar}
+</select>
     
 <select id="queryOrgBankInfo" parameterType="String" resultType="OrgQuery">
     select 
@@ -196,5 +119,6 @@
         and c.orgid=#{orgid,jdbcType=VARCHAR}
         and b.state='Y'
 </select>
+
 </mapper>
 

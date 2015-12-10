@@ -26,10 +26,9 @@ import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.OrgQuery;
 import com.ufufund.ufb.model.db.Student;
+import com.ufufund.ufb.model.db.Today;
 import com.ufufund.ufb.model.enums.Apkind;
 import com.ufufund.ufb.model.enums.TableName;
-import com.ufufund.ufb.model.vo.StudentVo;
-import com.ufufund.ufb.model.vo.Today;
 
 
 @Service
@@ -48,71 +47,6 @@ public class CustManagerImpl implements CustManager {
 	@Autowired
 	private CustManagerHelper custManagerHelper;
 	
-	/**
-	 * 查询手机号是否注册
-	 * 
-	 * @param String
-	 *            mobile
-	 * @return
-	 */
-	@Override
-	public boolean isMobileRegister(String mobile)  {
-		boolean res = false;
-		if (RegexUtil.isNull(mobile)||!RegexUtil.isMobile(mobile)) {
-			throw new UserException("系统异常！");
-		}
-		Custinfo custinfo = new Custinfo();
-		custinfo.setMobileno(mobile.trim());
-		custinfo = custinfoMapper.getCustinfo(custinfo);
-		if (custinfo != null && custinfo.getCustno() != null && !"".equals(custinfo.getCustno())) {
-			res = true;
-		}
-		return res;
-	}
-	
-	@Override
-	public boolean isIdnoRegister(String idno)  {
-		boolean res = false;
-		if (RegexUtil.isNull(idno)) {
-			throw new UserException("系统异常！");
-		}
-		Custinfo custinfo = new Custinfo();
-		custinfo.setIdno(idno.trim());
-		custinfo = custinfoMapper.getCustinfo(custinfo);
-		if (custinfo != null && custinfo.getCustno() != null && !"".equals(custinfo.getCustno())) {
-			res = true;
-		}
-		return res;
-	}
-	
-	/**
-	 * 检查是否已设置交易密码
-	 * 
-	 * @param String
-	 *            mobile
-	 * @return
-	 */
-	@Override
-	public boolean isTradePwdSet(String custno)  {
-		boolean res = false;
-		if (RegexUtil.isNull(custno)) {
-			throw new UserException("系统异常！");
-		}
-		Custinfo custinfo = new Custinfo();
-		custinfo.setCustno(custno);
-		custinfo = custinfoMapper.isTradePwdSet(custinfo);
-		if (custinfo != null && custinfo.getCustno() != null && !"".equals(custinfo.getCustno())) {
-			res = true;
-		}
-		return res;
-	}
-	
-	/**
-	 * 注册
-	 * 
-	 * @param RegisterAction
-	 * @return
-	 */
 	@Override
 	@Transactional
 	public String register(RegisterAction registerAction, OpenAccountAction openAccountAction)  {
@@ -132,32 +66,7 @@ public class CustManagerImpl implements CustManager {
 		return custinfo.getCustno();
 		 
 	}
-
-
-	/**
-	 * 查询该身份证是否注册
-	 * 
-	 * @param idCardNo
-	 * @return
-	 */
-	public boolean isIdNoBindByTradeAcco(String fundcorpno, String invtp, String level, String idno)  {
-		boolean res = false;
-		if (!RegexUtil.isIdCardNo(idno)) {
-			throw new UserException("系统异常！");
-		}
-		Custinfo custinfo = custinfoMapper.isIdNoBindByTradeAcco(fundcorpno, invtp, level, idno);
-		if (custinfo != null && custinfo.getCustno() != null && !"".equals(custinfo.getCustno())) {
-			res = true;
-		}
-		return res;
-	}
-
-	/**
-	 * 登录
-	 * 
-	 * @param custinfo
-	 * @return
-	 */
+	
 	@Override
 	public Custinfo loginIn(Custinfo custinfo){
 		
@@ -194,31 +103,39 @@ public class CustManagerImpl implements CustManager {
 		custinfoMapper.updateCustinfo(cust);
 		return cust;
 	}
-
-	/**
-	 * 根据缓存获取custno获取客户信息 
-	 * 
-	 * @param custno
-	 * @return
-	 */
-	public Custinfo getCustinfo(String custno)  {
+	
+	@Override
+	public boolean isMobileRegister(String mobile)  {
+		boolean res = false;
+		if (RegexUtil.isNull(mobile)||!RegexUtil.isMobile(mobile)) {
+			throw new UserException("系统异常！");
+		}
 		Custinfo custinfo = new Custinfo();
-		custinfo.setCustno(custno);
+		custinfo.setMobileno(mobile.trim());
 		custinfo = custinfoMapper.getCustinfo(custinfo);
-		return custinfo;
+		if (custinfo != null && custinfo.getCustno() != null && !"".equals(custinfo.getCustno())) {
+			res = true;
+		}
+		return res;
 	}
 	
-	/**
-	 * 根据缓存获取family,org获取客户信息 
-	 * 
-	 * @param custno
-	 * @return
-	 */
-	public Custinfo getCustinfoMapping(String orgNo, String oprNo)  {
-		String custno = custinfoMapper.getCustinfoMapping(orgNo, oprNo);
-		if(null == custno){
-			return null;
+	@Override
+	public boolean isIdnoRegister(String idno)  {
+		boolean res = false;
+		if (RegexUtil.isNull(idno)) {
+			throw new UserException("系统异常！");
 		}
+		Custinfo custinfo = new Custinfo();
+		custinfo.setIdno(idno.trim());
+		custinfo = custinfoMapper.getCustinfo(custinfo);
+		if (custinfo != null && custinfo.getCustno() != null && !"".equals(custinfo.getCustno())) {
+			res = true;
+		}
+		return res;
+	}
+	
+	@Override
+	public Custinfo getCustinfo(String custno)  {
 		Custinfo custinfo = new Custinfo();
 		custinfo.setCustno(custno);
 		custinfo = custinfoMapper.getCustinfo(custinfo);
@@ -233,9 +150,7 @@ public class CustManagerImpl implements CustManager {
 	 */
 	private void insterSerialno(Custinfo custinfo, String apkind)  {
 		String seq = SequenceUtil.getSerial();
-		/*
-		 * 插入流水表
-		 */
+		// 插入流水表
 		Fdacfinalresult fdacfinalresult = new Fdacfinalresult();
 		Today today = workDayManager.getSysDayInfo();
 		fdacfinalresult.setCustno(custinfo.getCustno());
@@ -246,9 +161,7 @@ public class CustManagerImpl implements CustManager {
 		fdacfinalresult.setApkind(apkind);
 		tradeNotesMapper.insterFdacfinalresult(fdacfinalresult);
 		
-		/*
-		 * 插入变动记录表
-		 */
+		// 插入变动记录表
 		Changerecordinfo changerecordinfo = new Changerecordinfo();
 		changerecordinfo.setCustno(custinfo.getCustno());
 		changerecordinfo.setRecordafter(custinfo.toString());
@@ -277,9 +190,8 @@ public class CustManagerImpl implements CustManager {
 			if(!("").equals(password0)&&!(password0==null)){ 
 		 	custinfo.setPasswd(EncryptUtil.md5(changePasswordAction.getPassword0()));
 			} 
-		}else{
-			// 找回交易密码
-		}
+		} 
+		
 		custinfo = custinfoMapper.getCustinfo(custinfo);
 		if (custinfo == null || custinfo.getCustno() == null ) {
 			if("TRADE".equals(actionType)){
@@ -292,21 +204,15 @@ public class CustManagerImpl implements CustManager {
 		// 校验是否与登录密码一致
 		String md5 = EncryptUtil.md5(changePasswordAction.getPassword1());
 		if("TRADE".equals(actionType)){
-			// 交易密码
 			 if(md5.equals(custinfo.getPasswd())){
-				// 交易密码不能和登录密码相同
 				 throw new UserException("系统异常！");
 			} 
 		}else if("LOGIN".equals(actionType)){
-			// 登入密码
 			if(md5.equals(custinfo.getTradepwd())){
-				// 交易密码不能和登录密码相同
 				throw new UserException("系统异常！");
 			}
 		}else{
-			// 找回交易密码
 			 if(md5.equals(custinfo.getPasswd())){
-				// 交易密码不能和登录密码相同
 				 throw new UserException("系统异常！");
 			}
 		}
@@ -344,7 +250,7 @@ public class CustManagerImpl implements CustManager {
 	}
 
 	@Override
-	public StudentVo queryOrgsByCid(String cid)  {
+	public Student queryOrgsByCid(String cid)  {
 		return custinfoMapper.queryOrgsByCid(cid);
 	}
 
@@ -357,16 +263,7 @@ public class CustManagerImpl implements CustManager {
 	}
 
 	@Override
-	public void insertBankCardAndTradeAcco(OpenAccountAction openAccountAction)  {
-		// 添加银行卡
-		openAccountAction.setCustno(openAccountAction.getCustno());
-		String bankSerialid = bankCardManager.addBankCardinfo(openAccountAction);
-		// 添加幼富宝基金交易账户
-		bankCardManager.addTradeaccoinfo(openAccountAction, bankSerialid);
-	}
-
-	@Override
-	public OrgQuery queryOrgBankInfo(String custno) {
-		return custinfoMapper.queryOrgBankInfo(custno);
+	public OrgQuery queryOrgBankInfo(String orgid) {
+		return custinfoMapper.queryOrgBankInfo(orgid);
 	}
 }

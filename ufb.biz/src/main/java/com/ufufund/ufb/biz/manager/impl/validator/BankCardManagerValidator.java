@@ -27,14 +27,6 @@ public class BankCardManagerValidator {
 			if (RegexUtil.isNull(action.getCustno())||RegexUtil.isNull(action.getName())||RegexUtil.isNull(action.getIdno())) {
 				throw new UserException("系统异常！");
 			}
-			// 家庭、经办人
-			if (!custManager.isTradePwdSet(action.getCustno())) {
-				// 已经绑卡用户不需要再次设置交易密码
-				// 交易密码
-				if (RegexUtil.isNull(action.getTradepwd())||!RegexUtil.isPwd(action.getTradepwd())) {
-					throw new UserException("系统异常！");
-				}
-			}
 		}
 		
 		//银行基本信息验证

@@ -14,8 +14,8 @@ import com.ufufund.ufb.common.utils.EncryptUtil;
 import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.db.BankCardbin;
+import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Custinfo;
-import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.MsgCodeUtils.MsgCode;
@@ -151,7 +151,6 @@ public class UfuCommonController {
 		return resultMap;
 	}
 	
-	
 	/**
 	 * 检验交易密码是否与登录密码相同
 	 * @param msgcode
@@ -190,6 +189,7 @@ public class UfuCommonController {
 		}
 		return resultMap;
 	}
+	
 	/**
 	 * 未登录状态检验交易密码是否与登录密码相同
 	 * @param msgcode
@@ -247,12 +247,12 @@ public class UfuCommonController {
 	
 	/**
 	 * 海富通银行鉴权
-	 * @param bankCardVo
+	 * @param bankCardinfo
 	 * @return
 	 */
 	@RequestMapping(value = "bank_auth")
 	@ResponseBody
-	public Map<String,String> bankAuth(BankCardVo bankCardVo){
+	public Map<String,String> bankAuth( Bankcardinfo bankCardinfo){
 
 		Map<String,String> resultMap = new HashMap<String,String>();
 		try{
@@ -262,12 +262,12 @@ public class UfuCommonController {
 			if(Custinfo == null)Custinfo = UserHelper.getCustinfo();
 			
 			OpenAccountAction openAccountAction = new OpenAccountAction();
-			openAccountAction.setBankno(bankCardVo.getBankno());//银行编号
+			openAccountAction.setBankno(bankCardinfo.getBankno());//银行编号
 			openAccountAction.setBanknm(Custinfo.getName());//银行用户名
 			openAccountAction.setCerttype("0");					//银行证件类型
 			openAccountAction.setCertno(Custinfo.getIdno());//银行证件号
-			openAccountAction.setBankacco(bankCardVo.getBankacco());//银行卡号码
-			openAccountAction.setMobile(bankCardVo.getMobile());//银行手机号
+			openAccountAction.setBankacco(bankCardinfo.getBankacco());//银行卡号码
+			openAccountAction.setMobile(bankCardinfo.getMobile());//银行手机号
 			
 			// 海富通快捷鉴权
 			bankCardManager.openAccount2(openAccountAction);

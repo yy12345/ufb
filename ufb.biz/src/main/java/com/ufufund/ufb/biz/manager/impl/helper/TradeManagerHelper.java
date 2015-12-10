@@ -5,7 +5,10 @@ import java.math.BigDecimal;
 import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.common.constant.Constant;
+import com.ufufund.ufb.model.db.Apply;
 import com.ufufund.ufb.model.db.CancelRequest;
+import com.ufufund.ufb.model.db.Cancel;
+import com.ufufund.ufb.model.db.Redeem;
 import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.Apkind;
@@ -19,9 +22,6 @@ import com.ufufund.ufb.model.hftfund.RedeemRequest;
 import com.ufufund.ufb.model.hftfund.RedeemResponse;
 import com.ufufund.ufb.model.hftfund.SubApplyRequest;
 import com.ufufund.ufb.model.hftfund.SubApplyResponse;
-import com.ufufund.ufb.model.vo.ApplyVo;
-import com.ufufund.ufb.model.vo.CancelVo;
-import com.ufufund.ufb.model.vo.RedeemVo;
 
 @Service
 public class TradeManagerHelper {
@@ -31,7 +31,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public TradeRequest toTradeRequest4SubApply(ApplyVo vo){
+	public TradeRequest toTradeRequest4SubApply(Apply vo){
 		
 		TradeRequest tradeRequest = new TradeRequest();
 		tradeRequest.setSerialno(vo.getSerialno());
@@ -57,7 +57,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public SubApplyRequest toSubApplyRequest(ApplyVo vo){
+	public SubApplyRequest toSubApplyRequest(Apply vo){
 		
 		SubApplyRequest request = new SubApplyRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
@@ -93,7 +93,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public TradeRequest toTradeRequest4BuyApply(ApplyVo vo){
+	public TradeRequest toTradeRequest4BuyApply(Apply vo){
 		
 		TradeRequest tradeRequest = new TradeRequest();
 		tradeRequest.setSerialno(vo.getSerialno());
@@ -119,7 +119,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public TradeQutyChg toTradeQutyChg4BuyApply(ApplyVo vo){
+	public TradeQutyChg toTradeQutyChg4BuyApply(Apply vo){
 		TradeQutyChg tradeQutyChg = new TradeQutyChg();
 		tradeQutyChg.setSerialno(vo.getSerialno());
 		tradeQutyChg.setCustno(vo.getCustno());
@@ -141,7 +141,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public BuyApplyRequest toBuyApplyRequest(ApplyVo vo){
+	public BuyApplyRequest toBuyApplyRequest(Apply vo){
 		
 		BuyApplyRequest request = new BuyApplyRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
@@ -181,7 +181,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public TradeRequest toTradeRequest4Redeem(RedeemVo vo){
+	public TradeRequest toTradeRequest4Redeem(Redeem vo){
 		TradeRequest tradeRequest = new TradeRequest();
 		tradeRequest.setSerialno(vo.getSerialno());
 		tradeRequest.setCustno(vo.getCustno());
@@ -206,7 +206,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public TradeQutyChg toTradeQutyChg4Redeem(RedeemVo vo){
+	public TradeQutyChg toTradeQutyChg4Redeem(Redeem vo){
 		TradeQutyChg tradeQutyChg = new TradeQutyChg();
 		tradeQutyChg.setSerialno(vo.getSerialno());
 		tradeQutyChg.setCustno(vo.getCustno());
@@ -228,7 +228,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public RedeemRequest toRedeemRequest(RedeemVo vo){
+	public RedeemRequest toRedeemRequest(Redeem vo){
 		RedeemRequest request = new RedeemRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
@@ -269,7 +269,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public TradeRequest toTradeRequest4RealRedeem(RedeemVo vo){
+	public TradeRequest toTradeRequest4RealRedeem(Redeem vo){
 		TradeRequest tradeRequest = new TradeRequest();
 		tradeRequest.setSerialno(vo.getSerialno());
 		tradeRequest.setCustno(vo.getCustno());
@@ -294,7 +294,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public TradeQutyChg toTradeQutyChg4RealRedeem(RedeemVo vo){
+	public TradeQutyChg toTradeQutyChg4RealRedeem(Redeem vo){
 		TradeQutyChg tradeQutyChg = new TradeQutyChg();
 		tradeQutyChg.setSerialno(vo.getSerialno());
 		tradeQutyChg.setCustno(vo.getCustno());
@@ -316,7 +316,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public RealRedeemRequest toRealRedeemRequest(RedeemVo vo){
+	public RealRedeemRequest toRealRedeemRequest(Redeem vo){
 		RealRedeemRequest request = new RealRedeemRequest();
 		request.setVersion(Constant.HftSysConfig.Version);
 		request.setMerchantId(Constant.HftSysConfig.MerchantId);
@@ -357,7 +357,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public CancelRequest toCancelRequest4Cancel(CancelVo vo){
+	public CancelRequest toCancelRequest4Cancel(Cancel vo){
 		CancelRequest cancelRequest = new CancelRequest();
 		
 //		cancelRequest.setVersion(Constant.HftSysConfig.Version);
@@ -391,7 +391,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public com.ufufund.ufb.model.hftfund.CancelRequest toCancelRequest(CancelVo vo){
+	public com.ufufund.ufb.model.hftfund.CancelRequest toCancelRequest(Cancel vo){
 		com.ufufund.ufb.model.hftfund.CancelRequest cancelRequest = 
 				new com.ufufund.ufb.model.hftfund.CancelRequest();
 		
@@ -411,7 +411,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public TradeRequest toTradeRequest4Cancel(CancelVo vo){
+	public TradeRequest toTradeRequest4Cancel(Cancel vo){
 		TradeRequest tradeRequest = new TradeRequest();
 		tradeRequest.setSerialno(vo.getSerialno());
 		tradeRequest.setCustno(vo.getCustno());
@@ -436,7 +436,7 @@ public class TradeManagerHelper {
 	 * @param vo
 	 * @return
 	 */
-	public TradeQutyChg toTradeQutyChg4Cancel(CancelVo vo){
+	public TradeQutyChg toTradeQutyChg4Cancel(Cancel vo){
 		TradeQutyChg tradeQutyChg = new TradeQutyChg();
 		tradeQutyChg.setSerialno(vo.getSerialno());
 		tradeQutyChg.setCustno(vo.getCustno());

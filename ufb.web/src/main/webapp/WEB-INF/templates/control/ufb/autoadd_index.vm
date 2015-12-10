@@ -145,20 +145,20 @@ $(function(){
                                 </li>
                                 <li id="autoamtErrMsg">
                                     <span class="form-title">充值金额</span>
-                                    <input class="input-text" id="autoamt" name="autoamt" maxlength="11" type="text" value="$!{AutoTradeVo.autoamt}">
-                                    <span class="tips-normal">#if(${AutoTradeVo.autoamt}) #else 请填写充值金额 #end</span>元
+                                    <input class="input-text" id="autoamt" name="autoamt" maxlength="11" type="text" value="$!{Autotrade.autoamt}">
+                                    <span class="tips-normal">#if(${Autotrade.autoamt}) #else 请填写充值金额 #end</span>元
                                     <span  class="tips-check"><i class="icon"></i><font id="autoamtTips" >验证提示</font></span>
                                 </li>
                                 <li id="datErrMsg">
                                     <span class="form-title">设置充值时间</span>
-										每月<input class="input-short" id="dat" name="dat" maxlength="2" type="text" value="$!{AutoTradeVo.dat}">日
+										每月<input class="input-short" id="dat" name="dat" maxlength="2" type="text" value="$!{Autotrade.dat}">日
                                     <span class="tips-normal"></span>
                                     <span class="tips-check"><i class="icon"></i><font id="datTips">验证提示</font></span>
                                 </li>
                                 <li>
                                     <span class="form-title">备注</span>
-                                    <input class="input-text" id="summary" name="summary"  maxlength="50" type="text" value="$!{AutoTradeVo.summary}">
-                                    <span class="tips-normal">#if(${AutoTradeVo.summary}) #else 如：每月工资理财 #end</span>
+                                    <input class="input-text" id="summary" name="summary"  maxlength="50" type="text" value="$!{Autotrade.summary}">
+                                    <span class="tips-normal">#if(${Autotrade.summary}) #else 如：每月工资理财 #end</span>
                                     <span id="appamtTips"  class="tips-check"><i class="icon"></i>验证提示</span>
                                 </li>
                                 <li>

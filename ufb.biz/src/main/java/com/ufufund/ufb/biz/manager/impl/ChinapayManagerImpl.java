@@ -30,14 +30,6 @@ public class ChinapayManagerImpl implements ChinapayManager{
 	public void checkAccount(OpenAccountAction openAccountAction) {
 		
 		TransDetail tDetail = new TransDetail();
-		
-//		tDetail.setBANK_CODE(openAccountAction.getBankno());
-//		tDetail.setACCOUNT_NO(openAccountAction.getBankacco());
-//		tDetail.setACCOUNT_NAME(openAccountAction.getBankacnm());
-//		tDetail.setID_TYPE(openAccountAction.getIdtp());
-//		tDetail.setID(openAccountAction.getBankidno());
-//		tDetail.setTEL(openAccountAction.getBankmobile());
-		
 		tDetail.setBANK_CODE("105");
 		tDetail.setACCOUNT_NO("6227001823260036733");
 		tDetail.setACCOUNT_NAME("吴小龄");

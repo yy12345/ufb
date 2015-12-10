@@ -4,31 +4,31 @@
 
 <mapper namespace="com.ufufund.ufb.dao.BankBaseMapper">
 
-	<select id="getBankBaseInfo" parameterType="BankBaseInfo" resultType="BankBaseInfo">
-		select 
-			bankno  ,
-			banknm  ,
-			level   ,
-			disorder,
-			status  ,
-			mark    ,
-			 updatetime
-		from bankbase where 
-			<if test="bankno != null and bankno !=''">
-				bankno = #{bankno,jdbcType=VARCHAR} and
-			</if>
-			status &lt;&gt; 'N' order by level ,disorder 
-	</select>
-	
-	<select id="getBankCardbin" parameterType="String" resultType="BankCardbin">
-		select 
-			bin, bankno, banknm, type, date_format(updatetime,'%Y%m%d%H%i%s') updatetime
-		from bankcardbin 
-		where bin = #{bin,jdbcType=VARCHAR}
-	</select>
-	
-	<select id="getLevelByBankno" parameterType="String" resultType="String">
-		select level from bankbase where bankno=#{bankno,jdbcType=VARCHAR}
-	</select>
+<select id="getBankBaseInfo" parameterType="BankBaseInfo" resultType="BankBaseInfo">
+	select 
+		bankno  ,
+		banknm  ,
+		level   ,
+		disorder,
+		status  ,
+		mark    ,
+		updatetime
+	from bankbase where 
+		<if test="bankno != null and bankno !=''">
+			bankno = #{bankno,jdbcType=VARCHAR} and
+		</if>
+		status &lt;&gt; 'N' order by level ,disorder 
+</select>
+
+<select id="getBankCardbin" parameterType="String" resultType="BankCardbin">
+	select 
+	bin, bankno, banknm, type, date_format(updatetime,'%Y%m%d%H%i%s') updatetime
+	from bankcardbin 
+	where bin = #{bin,jdbcType=VARCHAR}
+</select>
+
+<select id="getLevelByBankno" parameterType="String" resultType="String">
+	select level from bankbase where bankno=#{bankno,jdbcType=VARCHAR}
+</select>
 
 </mapper>

@@ -1,22 +1,10 @@
 package com.ufufund.ufb.model.db;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
-
-import com.ufufund.ufb.model.action.PrintableModel;
-
 import lombok.Data;
 
-/**
- * 
- * 
- * @author gaoxin
- * 
- */
 @Data
-public class Autotrade extends PrintableModel implements Serializable {
-
-	private static final long serialVersionUID = -6338092203128112153L;
+public class Autotrade {
 
 	private String autoid;     // 自动交易ID
 	private String autoname;   // 自动交易名称
@@ -33,6 +21,8 @@ public class Autotrade extends PrintableModel implements Serializable {
 	private String frombankserialid;// 源银行卡id
 	private String frombankacco;
 	private String frombanknm;
+	private String frombankno;
+	private String frombanktail;
 	private String fromtradeacco;   // 源交易账号
 
 	private String tofundcorpno;    // 目标归属基金公司
@@ -52,4 +42,6 @@ public class Autotrade extends PrintableModel implements Serializable {
 	private String createtime;
 	private String updatetime;
     private String detailid;
+    private String tradepwd;
+    private String step;
 }

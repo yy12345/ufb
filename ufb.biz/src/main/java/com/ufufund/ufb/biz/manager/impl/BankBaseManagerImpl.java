@@ -30,10 +30,6 @@ public class BankBaseManagerImpl implements BankBaseManager {
 		return bankBaseMapper.getBankCardbin(bin);
 	}
 	
-	/**
-	 * 根据bankno判断银行卡是否支持幼富通
-	 * parameter bankno
-	 */
 	@Override
 	public String getLevelByBankno(String bankno) {
 		return bankBaseMapper.getLevelByBankno(bankno);

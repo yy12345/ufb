@@ -50,24 +50,24 @@
             <div class="form-cash">
                <form id="form-autoTrade-result" class="common-form" action="${ufbDomain}/family/ufb/autostop_result.htm" method="post">
 				${refreshTools.genInputHtml()}
-				<input id="custno" name="custno" value="${AutoTradeVo.custno}" type="hidden"/>
-				<input id="tofundcorpno" name="tofundcorpno" value="${AutoTradeVo.tofundcorpno}" type="hidden"/>
-				<input id="tofundcode" name="tofundcode" value="${AutoTradeVo.tofundcode}" type="hidden"/>
-				<input id="tradetype" name="tradetype" value="${AutoTradeVo.tradetype}" type="hidden"/>
-				<input id="tochargetype" name="tochargetype" value="${AutoTradeVo.tochargetype}" type="hidden"/>
-				<input id="type" name="type" value="${AutoTradeVo.type}" type="hidden"/>
-				<input id="cycle" name="cycle" value="${AutoTradeVo.cycle}" type="hidden"/>
-				<input id="dat" name="dat" value="${AutoTradeVo.dat}" type="hidden"/>
-				<input id="nextdate" name="nextdate" value="${AutoTradeVo.nextdate}" type="hidden"/>
-				<input id="autoamt" name="autoamt" value="${AutoTradeVo.autoamt}" type="hidden"/>
-				<input id="summary" name="summary" value="${AutoTradeVo.summary}" type="hidden"/>
+				<input id="custno" name="custno" value="${Autotrade.custno}" type="hidden"/>
+				<input id="tofundcorpno" name="tofundcorpno" value="${Autotrade.tofundcorpno}" type="hidden"/>
+				<input id="tofundcode" name="tofundcode" value="${Autotrade.tofundcode}" type="hidden"/>
+				<input id="tradetype" name="tradetype" value="${Autotrade.tradetype}" type="hidden"/>
+				<input id="tochargetype" name="tochargetype" value="${Autotrade.tochargetype}" type="hidden"/>
+				<input id="type" name="type" value="${Autotrade.type}" type="hidden"/>
+				<input id="cycle" name="cycle" value="${Autotrade.cycle}" type="hidden"/>
+				<input id="dat" name="dat" value="${Autotrade.dat}" type="hidden"/>
+				<input id="nextdate" name="nextdate" value="${Autotrade.nextdate}" type="hidden"/>
+				<input id="autoamt" name="autoamt" value="${Autotrade.autoamt}" type="hidden"/>
+				<input id="summary" name="summary" value="${Autotrade.summary}" type="hidden"/>
 				<input id="frombankserialid" name="frombankserialid" value="${curCard.serialid}" type="hidden"/>
                 #set($tailStr=$curCard.bankacco)
 				#set($start=$tailStr.length() - 4)
 				#set($end=$tailStr.length())
 				<input id="frombankno" name="frombankno" value="${curCard.bankno}" type="hidden"/>
 				<input id="frombanktail" name="frombanktail" value="$tailStr.substring($start,$end)" type="hidden"/>
-				<input id="autoid" name="autoid" value="${AutoTradeVo.autoid}" type="hidden"/>
+				<input id="autoid" name="autoid" value="${Autotrade.autoid}" type="hidden"/>
                     <div class="panel">
                         <ul class="txtAuto width600">
                             <li>
@@ -83,7 +83,7 @@
                             </li>
                             <li>
                                 <span class="form-title">充值金额</span>
-                                <span class="form-text">$!{AutoTradeVo.autoamt}元</span>
+                                <span class="form-text">$!{Autotrade.autoamt}元</span>
                             </li>
                             <li>
                                 <span class="form-title">收费模式</span>
@@ -91,15 +91,15 @@
                             </li>
                             <li>
                                 <span class="form-title">充值周期</span>
-                                <span class="form-text">每月$!{AutoTradeVo.dat}日（遇节假日顺延至下个基金工作日）</span>
+                                <span class="form-text">每月$!{Autotrade.dat}日（遇节假日顺延至下个基金工作日）</span>
                             </li>
                             <li>
                                 <span class="form-title">下次充值日期</span>
-                                <span class="form-text">$!{AutoTradeVo.nextdate}</span>
+                                <span class="form-text">$!{Autotrade.nextdate}</span>
                             </li>
                             <li>
                                 <span class="form-title" style="top: 50%;">备注</span>
-                                <span class="form-text">$!{AutoTradeVo.summary}</span>
+                                <span class="form-text">$!{Autotrade.summary}</span>
                             </li>
                             <li id="tradepwdErrMsg">
                                 <span class="form-title">交易密码</span>

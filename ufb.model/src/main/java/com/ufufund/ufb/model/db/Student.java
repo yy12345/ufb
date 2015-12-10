@@ -44,4 +44,6 @@ public class Student {
 	private String care_type       ;
 	private String meal_type       ;
 	private String updatetime;
+	
+   private String organization;
 }

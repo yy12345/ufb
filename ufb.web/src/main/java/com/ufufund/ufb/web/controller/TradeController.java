@@ -27,18 +27,17 @@ import com.ufufund.ufb.common.utils.StringUtils;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.action.cust.ChangeAutoStateAction;
 import com.ufufund.ufb.model.action.cust.ModifyAutotradeAction;
+import com.ufufund.ufb.model.db.Apply;
+import com.ufufund.ufb.model.db.Assets;
 import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.Custinfo;
+import com.ufufund.ufb.model.db.Redeem;
+import com.ufufund.ufb.model.db.Today;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
+import com.ufufund.ufb.model.db.TradeQuery;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.AutoTradeType;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
-import com.ufufund.ufb.model.vo.ApplyVo;
-import com.ufufund.ufb.model.vo.Assets;
-import com.ufufund.ufb.model.vo.AutotradeVo;
-import com.ufufund.ufb.model.vo.RedeemVo;
-import com.ufufund.ufb.model.vo.Today;
-import com.ufufund.ufb.model.vo.TradeQueryVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.UserHelper;
 
@@ -67,6 +66,8 @@ public class TradeController {
 	private AutotradeManager autotradeManager;
 	@Autowired
 	private CustManager custManager;
+	
+	
 	/**
 	 * 充值
 	 * @param vo
@@ -74,7 +75,7 @@ public class TradeController {
 	 * @return
 	 */
 	@RequestMapping(value="pay_index")
-	public String payIndex(ApplyVo vo, Model model){
+	public String payIndex(Apply vo, Model model){
 		
 		try{
 			String custno = UserHelper.getCustno();
@@ -114,7 +115,7 @@ public class TradeController {
 	 * @return
 	 */
 	@RequestMapping(value="pay_result")
-	public String payResult(ApplyVo vo, Model model){
+	public String payResult(Apply vo, Model model){
 		
 		try{
 			String custno = UserHelper.getCustno();
@@ -145,6 +146,7 @@ public class TradeController {
 		
 		return "ufb/pay_result";
 	}
+	
 	/**
 	 * 取现
 	 * @param vo
@@ -152,7 +154,7 @@ public class TradeController {
 	 * @return
 	 */
 	@RequestMapping(value="cash_index")
-	public String cashIndex(RedeemVo vo, Model model){
+	public String cashIndex(Redeem vo, Model model){
 		
 		try{
 			String custno = UserHelper.getCustno();
@@ -204,6 +206,7 @@ public class TradeController {
 		
 		return "ufb/cash_index";
 	}
+	
 	/**
 	 * 取现成功页
 	 * @param vo
@@ -211,7 +214,7 @@ public class TradeController {
 	 * @return
 	 */
 	@RequestMapping(value="cash_result")
-	public String cashResult(RedeemVo vo, Model model){
+	public String cashResult(Redeem vo, Model model){
 		
 		try{
 			String custno = UserHelper.getCustno();
@@ -242,6 +245,7 @@ public class TradeController {
 		}
 		return "ufb/cash_result";
 	}
+	
 	/**
 	 * 交易明细查询
 	 * @param vo
@@ -249,7 +253,7 @@ public class TradeController {
 	 * @return
 	 */
 	@RequestMapping(value="query_index")
-	public String queryIndex(TradeQueryVo vo, Model model){
+	public String queryIndex(TradeQuery vo, Model model){
 		
 		try{
 			String custno = UserHelper.getCustno();
@@ -285,10 +289,8 @@ public class TradeController {
 			    startappdate = new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
 			    endappdate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 			}else{
-				//vo.setAppdateindex("0");
 				Calendar c = Calendar.getInstance();
 			    c.add(Calendar.DATE, -0);
-			    /* startappdate = new SimpleDateFormat("yyyyMMdd").format(c.getTime());*/
 				if(vo.getStartappdate()!=null&&vo.getStartappdate()!=""){
 					startappdate=vo.getStartappdate();
 				}else{
@@ -368,6 +370,7 @@ public class TradeController {
 		}
 		return "ufb/query_index";
 	}
+	
 	/**
 	 * 交易明细查询
 	 * @param vo
@@ -375,7 +378,7 @@ public class TradeController {
 	 * @return
 	 */
 	@RequestMapping(value="query_detail")
-	public String queryDetail(TradeQueryVo vo, Model model){
+	public String queryDetail(TradeQuery vo, Model model){
 		
 		try{
 			String custno = UserHelper.getCustno();
@@ -387,13 +390,12 @@ public class TradeController {
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "交易明细详情查询结果");
-			//model.addAttribute("message_url", TRADEQUERY_INDEX);
 			model.addAttribute("message_content", ue.getMessage());
-			//model.addAttribute("back_module", "返回");
 			return "error/error";
 		}
 		return "ufb/query_detail";
 	}
+	
 	/**
 	 * 自动业务管理
 	 * @param Custinfo
@@ -453,14 +455,15 @@ public class TradeController {
 		}
 		return "ufb/autopay_detail";
 	}
+	
 	/**
 	 * 添加自动充值第一步
-	 * @param autotradeVo
+	 * @param Autotrade
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="autoadd_index")
-	public String autoAddIndex(AutotradeVo autotradeVo, Model model){
+	public String autoAddIndex(Autotrade Autotrade, Model model){
 		try{
 			String custno = UserHelper.getCustno();
 			// 获取交易账户列表
@@ -472,14 +475,14 @@ public class TradeController {
 			}
 			
 			// 从第二步返回
-			String frombankserialid = autotradeVo.getFrombankserialid();
+			String frombankserialid = Autotrade.getFrombankserialid();
 			if(null != frombankserialid && frombankserialid.length() > 0){
 				TradeAccoinfoOfMore tradeAccoinfoOfMore = 
 						tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, frombankserialid);
 				model.addAttribute("curCard", tradeAccoinfoOfMore);
 			}
 			
-			model.addAttribute("AutoTradeVo", autotradeVo);
+			model.addAttribute("Autotrade", Autotrade);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "添加自动充值结果");
@@ -490,27 +493,28 @@ public class TradeController {
 		}
 		return "ufb/autoadd_index";
 	}
+	
 	/**
 	 * 自动充值第二步
-	 * @param autotradeVo
+	 * @param Autotrade
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="autoadd_preview")
-	public String autoAddPreview(AutotradeVo autotradeVo, Model model){
+	public String autoAddPreview(Autotrade Autotrade, Model model){
 		Custinfo s_custinfo = UserHelper.getCustinfo();
 		try{
 			// 用户信息
-			autotradeVo.setCustno(s_custinfo.getCustno());
+			Autotrade.setCustno(s_custinfo.getCustno());
 			// 货币信息
-			autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
-			autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
-			autotradeVo.setTochargetype("A");
+			Autotrade.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			Autotrade.setTofundcode(BasicFundinfo.YFB.getFundCode());
+			Autotrade.setTochargetype("A");
 			// 充值周期
-			autotradeVo.setCycle("MM");
-			String nextdate = autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
+			Autotrade.setCycle("MM");
+			String nextdate = autotradeManager.getNextdate(Autotrade.getCycle(), Autotrade.getDat());
 			nextdate=nextdate.substring(0,4)+"年"+nextdate.substring(4, 6)+"月"+nextdate.substring(6, 8)+"日";
-			autotradeVo.setNextdate(nextdate);
+			Autotrade.setNextdate(nextdate);
 			// 获取交易账户列表 
 			List<TradeAccoinfoOfMore> tradeAccoList = tradeAccoManager.getTradeAccoList(s_custinfo.getCustno());
 						
@@ -519,7 +523,7 @@ public class TradeController {
 					model.addAttribute("cardList", tradeAccoList);
 				}
 			// 跳转确认页
-			model.addAttribute("AutoTradeVo", autotradeVo);
+			model.addAttribute("Autotrade", Autotrade);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "添加自动充值结果");
@@ -530,49 +534,50 @@ public class TradeController {
 		}
 		return "ufb/autoadd_preview";
 	}
+	
 	/**
 	 * 自动充值第三步
-	 * @param autotradeVo
+	 * @param Autotrade
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="autoadd_success")
-	public String autoAddSuccess(AutotradeVo autotradeVo, Model model){
+	public String autoAddSuccess(Autotrade Autotrade, Model model){
 		Custinfo s_custinfo = UserHelper.getCustinfo();
 		try{
 			AddAutotradeAction action = new AddAutotradeAction();
 			// 用户信息
 			action.setCustno(s_custinfo.getCustno());
 			// 银行卡
-			action.setFrombankserialid(autotradeVo.getFrombankserialid());	
+			action.setFrombankserialid(Autotrade.getFrombankserialid());	
 			// 货币信息
-			action.setTofundcorpno(autotradeVo.getTofundcorpno());
-			action.setTofundcode(autotradeVo.getTofundcode());
+			action.setTofundcorpno(Autotrade.getTofundcorpno());
+			action.setTofundcode(Autotrade.getTofundcode());
 			action.setTochargetype("A");
 			// 交易类型
 			action.setTradetype(AutoTradeType.AUTORECHARGE);
 			// 充值周期
 			action.setType("E");
 			action.setCycle("MM");
-			action.setDat(autotradeVo.getDat());
-			action.setNextdate(autotradeVo.getNextdate());
+			action.setDat(Autotrade.getDat());
+			action.setNextdate(Autotrade.getNextdate());
 			// 充值金额
-			action.setAutoamt(autotradeVo.getAutoamt());
+			action.setAutoamt(Autotrade.getAutoamt());
 			// 备注
-			action.setSummary(autotradeVo.getSummary());
+			action.setSummary(Autotrade.getSummary());
 			// 交易密码
-			action.setTradepwd(autotradeVo.getTradepwd());
+			action.setTradepwd(Autotrade.getTradepwd());
 			//申请的时间
 			Calendar c = Calendar.getInstance();
 		    c.add(Calendar.DATE, -0);
 		    String today = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(c.getTime());
 		    //下次充值时间
-		    String nextdate=autotradeVo.getNextdate();
+		    String nextdate=Autotrade.getNextdate();
 		    
 			model.addAttribute("today",today);
 			model.addAttribute("nextWorkDay",nextdate);
-			model.addAttribute("autoamt",autotradeVo.getAutoamt());
-			model.addAttribute("summary",autotradeVo.getSummary());
+			model.addAttribute("autoamt",Autotrade.getAutoamt());
+			model.addAttribute("summary",Autotrade.getSummary());
 			autotradeManager.addAutotrade(action);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
@@ -584,14 +589,15 @@ public class TradeController {
 		}
 		return "ufb/autoadd_success";
 	}
+	
 	/**
 	 * 修改自动充值 第一步
-	 * @param autotradeVo
+	 * @param Autotrade
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="autoupdate_index")
-	public String autoUpdateIndex(AutotradeVo autotradeVo, Model model){
+	public String autoUpdateIndex(Autotrade Autotrade, Model model){
 		try{
 			String custno = UserHelper.getCustno();
 			// 获取交易账户列表
@@ -601,18 +607,18 @@ public class TradeController {
 				model.addAttribute("cardList", tradeAccoList);
 			}
 			
-			String frombankserialid = autotradeVo.getFrombankserialid();
+			String frombankserialid = Autotrade.getFrombankserialid();
 			if(null != frombankserialid && frombankserialid.length() > 0){
 				TradeAccoinfoOfMore tradeAccoinfoOfMore = 
 						tradeAccoManager.getTradeAcco(custno, Constant.HftSysConfig.HftFundCorpno, frombankserialid);
 				model.addAttribute("curCard", tradeAccoinfoOfMore);
 			}
 			
-			if("u2".equals(autotradeVo.getStep())){
-				model.addAttribute("AutoTradeVo", autotradeVo);
+			if("u2".equals(Autotrade.getStep())){
+				model.addAttribute("Autotrade", Autotrade);
 			}else{
-				Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
-				model.addAttribute("AutoTradeVo", autotrade);
+				Autotrade autotrade = autotradeManager.getAutotrade(Autotrade.getAutoid());
+				model.addAttribute("Autotrade", autotrade);
 			}
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
@@ -624,29 +630,30 @@ public class TradeController {
 		}
 		return "ufb/autoupdate_index";
 	}
+	
 	/**
 	 * 修改自动充值 第二步
-	 * @param autotradeVo
+	 * @param Autotrade
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="autoupdate_preview")
-	public String autoUpdatePreview(AutotradeVo autotradeVo, Model model){
+	public String autoUpdatePreview(Autotrade Autotrade, Model model){
 		Custinfo s_custinfo = UserHelper.getCustinfo();
 		try{
 			// 用户信息
-			autotradeVo.setCustno(s_custinfo.getCustno());
+			Autotrade.setCustno(s_custinfo.getCustno());
 			// 货币信息
-			autotradeVo.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
-			autotradeVo.setTofundcode(BasicFundinfo.YFB.getFundCode());
-			autotradeVo.setTochargetype("A");
+			Autotrade.setTofundcorpno(Constant.HftSysConfig.HftFundCorpno);
+			Autotrade.setTofundcode(BasicFundinfo.YFB.getFundCode());
+			Autotrade.setTochargetype("A");
 			// 充值周期
-			autotradeVo.setCycle("MM");
-			String nextdate = autotradeManager.getNextdate(autotradeVo.getCycle(), autotradeVo.getDat());
-			autotradeVo.setNextdate(nextdate);
+			Autotrade.setCycle("MM");
+			String nextdate = autotradeManager.getNextdate(Autotrade.getCycle(), Autotrade.getDat());
+			Autotrade.setNextdate(nextdate);
 			
 			// 跳转确认页
-			model.addAttribute("AutoTradeVo", autotradeVo);
+			model.addAttribute("Autotrade", Autotrade);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "修改自动充值结果");
@@ -657,40 +664,41 @@ public class TradeController {
 		}
 		return "ufb/autoupdate_preview";
 	}
+	
 	/**
 	 * 修改自动充值 第三步
-	 * @param autotradeVo
+	 * @param Autotrade
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="autoupdate_success")
-	public String autoUpdateSuccess(AutotradeVo autotradeVo, Model model){
+	public String autoUpdateSuccess(Autotrade Autotrade, Model model){
 		Custinfo s_custinfo = UserHelper.getCustinfo();
 		try{
 			ModifyAutotradeAction action = new ModifyAutotradeAction();
 			// autoid
-			action.setAutoid(autotradeVo.getAutoid());
+			action.setAutoid(Autotrade.getAutoid());
 			// 用户信息
 			action.setCustno(s_custinfo.getCustno());
 			// 银行卡
-			action.setFrombankserialid(autotradeVo.getFrombankserialid());	
+			action.setFrombankserialid(Autotrade.getFrombankserialid());	
 			// 货币信息
-			action.setTofundcorpno(autotradeVo.getTofundcorpno());
-			action.setTofundcode(autotradeVo.getTofundcode());
+			action.setTofundcorpno(Autotrade.getTofundcorpno());
+			action.setTofundcode(Autotrade.getTofundcode());
 			action.setTochargetype("A");
 			// 交易类型
 			action.setTradetype(AutoTradeType.AUTORECHARGE);
 			// 充值周期
 			action.setType("E");
 			action.setCycle("MM");
-			action.setDat(autotradeVo.getDat());
-			action.setNextdate(autotradeVo.getNextdate());
+			action.setDat(Autotrade.getDat());
+			action.setNextdate(Autotrade.getNextdate());
 			// 充值金额
-			action.setAutoamt(autotradeVo.getAutoamt());
+			action.setAutoamt(Autotrade.getAutoamt());
 			// 备注
-			action.setSummary(autotradeVo.getSummary());
+			action.setSummary(Autotrade.getSummary());
 			// 交易密码
-			action.setTradepwd(autotradeVo.getTradepwd());
+			action.setTradepwd(Autotrade.getTradepwd());
 			
 			autotradeManager.modifyAutotrade(action);
 		}catch(UserException ue){
@@ -703,23 +711,24 @@ public class TradeController {
 		}
 		return "ufb/autoupdate_success";
 	}
+	
 	/**
 	 * 暂停自动充值
-	 * @param autotradeVo
+	 * @param Autotrade
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="auto_pause")
-	public String autoPause(AutotradeVo autotradeVo, Model model){
+	public String autoPause(Autotrade Autotrade, Model model){
 		Custinfo s_custinfo = UserHelper.getCustinfo();
 		try{
-			String frombankserialid = autotradeVo.getFrombankserialid();
+			String frombankserialid = Autotrade.getFrombankserialid();
 			if(null != frombankserialid && frombankserialid.length() > 0){
 				TradeAccoinfoOfMore tradeAccoinfoOfMore = 
 						tradeAccoManager.getTradeAcco(s_custinfo.getCustno(), Constant.HftSysConfig.HftFundCorpno, frombankserialid);
 				model.addAttribute("curCard", tradeAccoinfoOfMore);
 			}
-			Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
+			Autotrade autotrade = autotradeManager.getAutotrade(Autotrade.getAutoid());
 			// 用户信息
 			autotrade.setCustno(s_custinfo.getCustno());
 			// 货币信息
@@ -728,7 +737,7 @@ public class TradeController {
 			autotrade.setTochargetype("A");
 			
 			// 跳转确认页
-			model.addAttribute("AutoTradeVo", autotrade);
+			model.addAttribute("Autotrade", autotrade);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "暂停自动充值结果");
@@ -740,16 +749,22 @@ public class TradeController {
 		return "ufb/auto_pause";
 	}
 	
+	/**
+	 * 暂停自动充值结果
+	 * @param Autotrade
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="autopause_result")
-	public String autoPauseResult(AutotradeVo autotradeVo, Model model){
+	public String autoPauseResult(Autotrade Autotrade, Model model){
 		Custinfo s_custinfo = UserHelper.getCustinfo();
 		try{
 			ChangeAutoStateAction action = new ChangeAutoStateAction();
 			
 			action.setCustno(s_custinfo.getCustno());// 用户信息
-			action.setAutoid(autotradeVo.getAutoid());
+			action.setAutoid(Autotrade.getAutoid());
 			action.setState(Constant.Autotrade.STATE$P); //STATE$N,STATE$P,STATE$C
-			action.setTradepwd(autotradeVo.getTradepwd());
+			action.setTradepwd(Autotrade.getTradepwd());
 			autotradeManager.changestatus(action);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
@@ -762,24 +777,24 @@ public class TradeController {
 		ServletHolder.forward("/family/ufb/autotrade_index.htm?TAB=PR");
 		return "ufb/autotrade_index";
 	}
+	
 	/**
 	 * 终止自动充值计划
-	 * @param autotradeVo
+	 * @param Autotrade
 	 * @param model
 	 * @return
 	 */
-	  
 	@RequestMapping(value="auto_stop")
-	public String autoStop(AutotradeVo autotradeVo, Model model){
+	public String autoStop(Autotrade Autotrade, Model model){
 		Custinfo s_custinfo = UserHelper.getCustinfo();
 		try{
-			String frombankserialid = autotradeVo.getFrombankserialid();
+			String frombankserialid = Autotrade.getFrombankserialid();
 			if(null != frombankserialid && frombankserialid.length() > 0){
 				TradeAccoinfoOfMore tradeAccoinfoOfMore = 
 						tradeAccoManager.getTradeAcco(s_custinfo.getCustno(), Constant.HftSysConfig.HftFundCorpno, frombankserialid);
 				model.addAttribute("curCard", tradeAccoinfoOfMore);
 			}
-			Autotrade autotrade = autotradeManager.getAutotrade(autotradeVo.getAutoid());
+			Autotrade autotrade = autotradeManager.getAutotrade(Autotrade.getAutoid());
 			// 用户信息
 			autotrade.setCustno(s_custinfo.getCustno());
 			// 货币信息
@@ -788,7 +803,7 @@ public class TradeController {
 			autotrade.setTochargetype("A");
 			
 			// 跳转确认页
-			model.addAttribute("AutoTradeVo", autotrade);
+			model.addAttribute("Autotrade", autotrade);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "终止自动充值结果");
@@ -800,16 +815,22 @@ public class TradeController {
 		return "ufb/auto_stop";
 	}
 	
+	/**
+	 * 终止自动充值计划结果
+	 * @param Autotrade
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="autostop_result")
-	public String autoStopResult(AutotradeVo autotradeVo, Model model){
+	public String autoStopResult(Autotrade Autotrade, Model model){
 		Custinfo s_custinfo = UserHelper.getCustinfo();
 		try{
 			ChangeAutoStateAction action = new ChangeAutoStateAction();
 			
 			action.setCustno(s_custinfo.getCustno());// 用户信息
-			action.setAutoid(autotradeVo.getAutoid());
+			action.setAutoid(Autotrade.getAutoid());
 			action.setState(Constant.Autotrade.STATE$C); //STATE$N,STATE$P,STATE$C
-			action.setTradepwd(autotradeVo.getTradepwd());
+			action.setTradepwd(Autotrade.getTradepwd());
 			autotradeManager.changestatus(action);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
@@ -822,17 +843,18 @@ public class TradeController {
 		ServletHolder.forward("/family/ufb/autotrade_index.htm?TAB=CR");
 		return "ufb/autotrade_index";
 	}
+	
 	/**
 	 * 删除自动充值计划
 	 */
 	@RequestMapping(value="auto_delete")
-	public String autoDelete(AutotradeVo autotradeVo, Model model){
+	public String autoDelete(Autotrade Autotrade, Model model){
 		try{
 			String custno = UserHelper.getCustno();
 			
-			String frombankserialid = autotradeVo.getFrombankserialid();
+			String frombankserialid = Autotrade.getFrombankserialid();
 			if(null != frombankserialid && frombankserialid.length() > 0){
-				autotradeManager.deleteAutotrade(custno, frombankserialid, autotradeVo.getAutoid());
+				autotradeManager.deleteAutotrade(custno, frombankserialid, Autotrade.getAutoid());
 			}
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);

@@ -20,8 +20,8 @@ import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.model.action.cust.OpenAccountAction;
 import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.BankBaseInfo;
+import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Custinfo;
-import com.ufufund.ufb.model.vo.BankCardVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.MsgCodeUtils;
 import com.ufufund.ufb.web.util.UserHelper;
@@ -183,7 +183,7 @@ public class FamilyAccountController {
 	 * @return
 	 */
 	@RequestMapping(value = "register_success")
-	public String registerSuccess(BankCardVo bankCardVo, Model model) {
+	public String registerSuccess(Bankcardinfo bankCardinfo, Model model) {
 		
 		try{
 			// 缓存表单提交数据
@@ -205,13 +205,13 @@ public class FamilyAccountController {
 			// 对象组装
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-			openAccountAction.setBankno(bankCardVo.getBankno());
+			openAccountAction.setBankno(bankCardinfo.getBankno());
 			openAccountAction.setBanknm(r_custinfo.getName());
-			openAccountAction.setBankacco(bankCardVo.getBankacco());
+			openAccountAction.setBankacco(bankCardinfo.getBankacco());
 			openAccountAction.setCerttype("0");
 			openAccountAction.setCertno(r_custinfo.getIdno());
-			openAccountAction.setMobile(bankCardVo.getMobile());
-			openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
+			openAccountAction.setMobile(bankCardinfo.getMobile());
+			openAccountAction.setMobileautocode(bankCardinfo.getMobileautocode());
 			openAccountAction.setOtherserial(otherserial);
 			
 			String banklevel = bankBaseManager.getLevelByBankno(openAccountAction.getBankno());

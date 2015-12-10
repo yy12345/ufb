@@ -1,11 +1,11 @@
 package com.ufufund.ufb.biz.manager.impl.helper;
 
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
+import com.ufufund.ufb.model.db.Apply;
 import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
+import com.ufufund.ufb.model.db.Redeem;
 import com.ufufund.ufb.model.enums.AutoTradeType;
-import com.ufufund.ufb.model.vo.ApplyVo;
-import com.ufufund.ufb.model.vo.RedeemVo;
 
 
 public  class AutotradeManagerHelper {
@@ -76,8 +76,8 @@ public  class AutotradeManagerHelper {
 		return fdacfinalresult;
 	}
 	
-	public static ApplyVo toApplyVo(Autotrade vo){
-		ApplyVo applyVo = new ApplyVo();
+	public static Apply toApplyVo(Autotrade vo){
+		Apply applyVo = new Apply();
 		
 		applyVo.setCustno(vo.getCustno());
 		applyVo.setBankid(vo.getFrombankserialid());
@@ -94,8 +94,8 @@ public  class AutotradeManagerHelper {
 		return applyVo;
 	}
 	
-	public static RedeemVo toRedeemVo(Autotrade vo){
-		RedeemVo redeemVo = new RedeemVo();
+	public static Redeem toRedeemVo(Autotrade vo){
+		Redeem redeemVo = new Redeem();
 		redeemVo.setCustno(vo.getCustno());
 		redeemVo.setBankid(vo.getTobankserialid());
 		redeemVo.setBankacco(vo.getTobankacco());

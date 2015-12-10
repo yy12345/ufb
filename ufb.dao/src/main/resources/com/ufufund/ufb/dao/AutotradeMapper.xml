@@ -3,322 +3,319 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ufufund.ufb.dao.AutotradeMapper">
-    
- 
-	
-	<insert id="insertAutotrade" parameterType="com.ufufund.ufb.model.db.Autotrade">
-  	 <![CDATA[
-	 		INSERT INTO AUTOTRADE (
-				AUTOID,
-				AUTONAME,
-				CUSTNO,
-				STATE,
-				TRADETYPE,
-				
-				TYPE,
-				CYCLE,
-				DAT,
-				FROM_FUNDCORPNO,
-				FROM_FUNDCODE,
-				FROM_CHARGETYPE,
-				FROM_BANKSERIALID,
-				FROM_BANKACCO,
-				FROM_TRADEACCO,
-			
-				TO_FUNDCORPNO,
-				TO_FUNDCODE,
-				TO_CHARGETYPE,
-				TO_BANKSERIALID,
-				TO_BANKACCO,
-				TO_TRADEACCO,
-				
-				AUTOAMT,
-				AUTOVOL,
-				LASTDATE,
-				NEXTDATE,
-				SUMMARY,
-				
-				CREATETIME,
-				UPDATETIME,
-				DETAILID
-		  )
-		VALUES (
-			#{autoid,jdbcType=VARCHAR},
-			#{autoname,jdbcType=VARCHAR},
-			#{custno,jdbcType=VARCHAR},
-			#{state,jdbcType=VARCHAR},
-			#{tradetype,jdbcType=VARCHAR},
-			
-			#{type,jdbcType=VARCHAR},
-			#{cycle,jdbcType=VARCHAR},
-			#{dat,jdbcType=VARCHAR},
-			#{fromfundcorpno,jdbcType=VARCHAR},
-			#{fromfundcode,jdbcType=VARCHAR},
-			#{fromchargetype,jdbcType=VARCHAR},
-			#{frombankserialid,jdbcType=VARCHAR},
-			#{frombankacco,jdbcType=VARCHAR},
-			#{fromtradeacco,jdbcType=VARCHAR},
-			
-			#{tofundcorpno,jdbcType=VARCHAR},
-			#{tofundcode,jdbcType=VARCHAR},
-			#{tochargetype,jdbcType=VARCHAR},
-			#{tobankserialid,jdbcType=VARCHAR},
-			#{tobankacco,jdbcType=VARCHAR},
-			#{totradeacco,jdbcType=VARCHAR},
-			
-			#{autoamt,jdbcType=DECIMAL},
-			#{autovol,jdbcType=DECIMAL},
-			#{lastdate,jdbcType=VARCHAR},
-			#{nextdate,jdbcType=VARCHAR},
-			#{summary,jdbcType=VARCHAR},
-			
-			sysdate(),
-			sysdate(),
-			#{detailid,jdbcType=VARCHAR}
-			)
-	 ]]>
-  	</insert>
-  	
-  	
-  	<update id="updateAutotrade" parameterType="com.ufufund.ufb.model.db.Autotrade">
-		UPDATE AUTOTRADE T1
-	       SET T1.UPDATETIME = sysdate()
-	       	
-	       	<if test="autoname != null">
-	       	  ,T1.AUTONAME = #{autoname,jdbcType=VARCHAR}
-	       	</if>
-			<if test="state != null">
-	       	  ,T1.STATE = #{state,jdbcType=VARCHAR}
-	       	</if>
-	        <if test="tradetype != null">
-	       	  ,T1.TRADETYPE = #{tradetype,jdbcType=VARCHAR}
-	       	</if>
-	       	
-			<if test="type != null">
-	       	  ,T1.TYPE = #{type,jdbcType=VARCHAR}
-	       	</if>
-	        <if test="cycle != null">
-	       	  ,T1.CYCLE = #{cycle,jdbcType=VARCHAR}
-	       	</if>
-			<if test="dat != null">
-	       	  ,T1.DAT = #{dat,jdbcType=VARCHAR}
-	       	</if>
-			<if test="frombankserialid != null">
-	       	  ,T1.FROM_BANKSERIALID = #{frombankserialid,jdbcType=VARCHAR}
-	       	</if>
 
-			<if test="fromtradeacco != null">
-	       	  ,T1.FROM_TRADEACCO = #{fromtradeacco,jdbcType=VARCHAR}
-	       	</if>
-	        <if test="fromfundcode != null">
-	       	  ,T1.FROM_FUNDCODE = #{fromfundcode,jdbcType=VARCHAR}
-	       	</if>
-			<if test="fromfundcorpno != null">
-	       	  ,T1.FROM_FUNDCORPNO = #{fromfundcorpno,jdbcType=VARCHAR}
-	       	</if>
-			<if test="fromchargetype != null">
-	       	  ,T1.FROM_CHARGETYPE = #{fromchargetype,jdbcType=VARCHAR}
-	       	</if>
-			<if test="tobankserialid != null">
-	       	  ,T1.TO_BANKSERIALID = #{tobankserialid,jdbcType=VARCHAR}
-	       	</if>
-	       	
-	        <if test="totradeacco != null">
-	       	  ,T1.TO_TRADEACCO = #{totradeacco,jdbcType=VARCHAR}
-	       	</if>
-			<if test="tofundcode != null">
-	       	  ,T1.TO_FUNDCODE = #{tofundcode,jdbcType=VARCHAR}
-	       	</if>
-			<if test="tofundcorpno != null">
-	       	  ,T1.TO_FUNDCORPNO = #{tofundcorpno,jdbcType=VARCHAR}
-	       	</if>
-			<if test="tochargetype != null">
-	       	  ,T1.TO_CHARGETYPE = #{tochargetype,jdbcType=VARCHAR}
-	       	</if>
-	       	<if test="tobankacco != null">
-	       	  ,T1.TO_BANKACCO = #{tobankacco,jdbcType=VARCHAR}
-	       	</if>
-	       	<if test="autoamt != null">
-	       	  ,T1.AUTOAMT = #{autoamt,jdbcType=DECIMAL}
-	       	</if>
-	        <if test="autovol != null">
-	       	  ,T1.AUTOVOL = #{autovol,jdbcType=DECIMAL}
-	       	</if>
-			<if test="lastdate != null">
-	       	  ,T1.LASTDATE = #{lastdate,jdbcType=VARCHAR}
-	       	</if>
-			<if test="nextdate != null">
-	       	  ,T1.NEXTDATE = #{nextdate,jdbcType=VARCHAR}
-	       	</if>
-			<if test="summary != null">
-	       	  ,T1.SUMMARY = #{summary,jdbcType=VARCHAR}
-	       	</if>	       	       	
-	  	       	
-	     WHERE T1.AUTOID = #{autoid,jdbcType=VARCHAR}
-	</update>
-   
-   
-   <select id="getAutotradeList" parameterType="com.ufufund.ufb.model.db.Autotrade" resultType="com.ufufund.ufb.model.db.Autotrade">
-		SELECT
-			t.AUTOID,
-			t.AUTONAME,
-			t.CUSTNO,
-			t.STATE,
-			t.TRADETYPE,
-			t.TYPE,
-			t.CYCLE,
-			t.DAT,
-			t.FROM_FUNDCORPNO AS FROMFUNDCORPNO,
-			t.FROM_FUNDCODE AS FROMFUNDCODE,
-			t.FROM_CHARGETYPE AS FROMCHARGETYPE,
-			t.FROM_BANKSERIALID AS FROMBANKSERIALID,
-			t.FROM_BANKACCO AS FROMBANKACCO,
-			BS2.BANKNM AS FROMBANKNM,
-			t.FROM_TRADEACCO AS FROMTRADEACCO,
-			t.TO_FUNDCORPNO AS TOFUNDCORPNO,
-			t.TO_FUNDCODE AS TOFUNDCODE,
-			t.TO_CHARGETYPE AS TOCHARGETYPE,
-			t.TO_BANKSERIALID AS TOBANKSERIALID,
-			t.TO_BANKACCO AS TOBANKACCO,
-			BS1.BANKNM AS TOBANKNM,
-			BS1.BANKNO AS BANKNO,
-			t.TO_TRADEACCO TOTRADEACCO,
-			t.AUTOAMT,
-			t.AUTOVOL,
-			t.LASTDATE,
-			t.NEXTDATE,
-			t.SUMMARY,
-			t.CREATETIME,
-			t.UPDATETIME
-		FROM
-			AUTOTRADE t
-        LEFT JOIN BANKCARDINFO b1 ON T.TO_BANKSERIALID = b1.SERIALID                                       
-        LEFT JOIN BANKCARDINFO b2 ON T.FROM_BANKSERIALID = b2.SERIALID                  
-        LEFT JOIN BANKBASE bs1 ON b1.BANKNO = bs1.BANKNO                
-        LEFT JOIN BANKBASE bs2 ON b2.BANKNO = bs2.BANKNO 
-		WHERE 
-		<if test="autoid != null and autoid !=''" >
-		t.AUTOID = #{autoid,jdbcType=VARCHAR} AND
-		</if>
-  		<if test="custno != null and custno !=''" >
-  		t.CUSTNO = #{custno,jdbcType=VARCHAR} AND
-  		</if>
-  		<if test="tradetype != null and tradetype !=''" >
-  		t.TRADETYPE = #{tradetype,jdbcType=VARCHAR} AND
-  		</if>
-  		<if test="nextdate != null and nextdate !=''" >
-  		t.NEXTDATE = #{nextdate,jdbcType=VARCHAR} AND
-  		</if>
-	    t.STATE &lt;&gt; 'C'
-	    ORDER BY t.STATE ASC, t.UPDATETIME DESC
-  	</select>
-  	
-  	 <select id="getAutotrade" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.db.Autotrade">
-		SELECT
-			t.AUTOID,
-			t.AUTONAME,
-			t.CUSTNO,
-			t.STATE,
-			t.TRADETYPE,
-			t.TYPE,
-			t.CYCLE,
-			t.DAT,
-			t.FROM_FUNDCORPNO AS FROMFUNDCORPNO,
-			t.FROM_FUNDCODE AS FROMFUNDCODE,
-			t.FROM_CHARGETYPE AS FROMCHARGETYPE,
-			t.FROM_BANKSERIALID AS FROMBANKSERIALID,
-			t.FROM_BANKACCO AS FROMBANKACCO,
-			BS2.BANKNM AS FROMBANKNM,
-			t.FROM_TRADEACCO AS FROMTRADEACCO,
-			t.TO_FUNDCORPNO AS TOFUNDCORPNO,
-			t.TO_FUNDCODE AS TOFUNDCODE,
-			t.TO_CHARGETYPE AS TOCHARGETYPE,
-			t.TO_BANKSERIALID AS TOBANKSERIALID,
-			t.TO_BANKACCO AS TOBANKACCO,
-			BS1.BANKNM AS TOBANKNM,
-			t.TO_TRADEACCO TOTRADEACCO,
-			t.AUTOAMT,
-			t.AUTOVOL,
-			t.LASTDATE,
-			t.NEXTDATE,
-			t.SUMMARY,
-			t.CREATETIME,
-			t.UPDATETIME
-		FROM
-			AUTOTRADE t
-        LEFT JOIN BANKCARDINFO b1 ON T.TO_BANKSERIALID = b1.SERIALID                                       
-        LEFT JOIN BANKCARDINFO b2 ON T.FROM_BANKSERIALID = b2.SERIALID                  
-        LEFT JOIN BANKBASE bs1 ON b1.BANKNO = bs1.BANKNO                
-        LEFT JOIN BANKBASE bs2 ON b2.BANKNO = bs2.BANKNO 
-		WHERE 
-		<if test="autoid != null and autoid !=''" >
-		t.AUTOID = #{autoid,jdbcType=VARCHAR} AND
-		</if>
-	    t.STATE &lt;&gt; 'C'
-  	</select>
-   <delete id="deleteAutotrade" parameterType="String">
-          DELETE
-            FROM 
-            autotrade
-            WHERE AUTOID=#{autoid,jdbcType=VARCHAR}
-            AND CUSTNO=#{custno,jdbcType=VARCHAR}
-             and FROM_BANKSERIALID=#{frombankserialid,jdbcType=VARCHAR}
-   </delete>
-   
-      <select id="getAutotradeCList" parameterType="com.ufufund.ufb.model.db.Autotrade" resultType="com.ufufund.ufb.model.db.Autotrade">
-		SELECT
-			t.AUTOID,
-			t.AUTONAME,
-			t.CUSTNO,
-			t.STATE,
-			t.TRADETYPE,
-			t.TYPE,
-			t.CYCLE,
-			t.DAT,
-			t.FROM_FUNDCORPNO AS FROMFUNDCORPNO,
-			t.FROM_FUNDCODE AS FROMFUNDCODE,
-			t.FROM_CHARGETYPE AS FROMCHARGETYPE,
-			t.FROM_BANKSERIALID AS FROMBANKSERIALID,
-			t.FROM_BANKACCO AS FROMBANKACCO,
-			BS2.BANKNM AS FROMBANKNM,
-			t.FROM_TRADEACCO AS FROMTRADEACCO,
-			t.TO_FUNDCORPNO AS TOFUNDCORPNO,
-			t.TO_FUNDCODE AS TOFUNDCODE,
-			t.TO_CHARGETYPE AS TOCHARGETYPE,
-			t.TO_BANKSERIALID AS TOBANKSERIALID,
-			t.TO_BANKACCO AS TOBANKACCO,
-			BS1.BANKNM AS TOBANKNM,
+<insert id="insertAutotrade" parameterType="com.ufufund.ufb.model.db.Autotrade">
+ <![CDATA[
+ 		INSERT INTO AUTOTRADE (
+			AUTOID,
+			AUTONAME,
+			CUSTNO,
+			STATE,
+			TRADETYPE,
 			
-			t.TO_TRADEACCO TOTRADEACCO,
-			t.AUTOAMT,
-			t.AUTOVOL,
-			t.LASTDATE,
-			t.NEXTDATE,
-			t.SUMMARY,
-			t.CREATETIME,
-			t.UPDATETIME
-		FROM
-			AUTOTRADE t
-        LEFT JOIN BANKCARDINFO b1 ON T.TO_BANKSERIALID = b1.SERIALID                                       
-        LEFT JOIN BANKCARDINFO b2 ON T.FROM_BANKSERIALID = b2.SERIALID                  
-        LEFT JOIN BANKBASE bs1 ON b1.BANKNO = bs1.BANKNO                
-        LEFT JOIN BANKBASE bs2 ON b2.BANKNO = bs2.BANKNO 
-		WHERE 
-		<if test="autoid != null and autoid !=''" >
-		t.AUTOID = #{autoid,jdbcType=VARCHAR} AND
-		</if>
-  		<if test="custno != null and custno !=''" >
-  		t.CUSTNO = #{custno,jdbcType=VARCHAR} AND
-  		</if>
-  		<if test="tradetype != null and tradetype !=''" >
-  		t.TRADETYPE = #{tradetype,jdbcType=VARCHAR} AND
-  		</if>
-  		<if test="nextdate != null and nextdate !=''" >
-  		t.NEXTDATE = #{nextdate,jdbcType=VARCHAR} AND
-  		</if>
-	    t.STATE='C'
-	    ORDER BY t.STATE ASC, t.UPDATETIME DESC
-  	</select>
+			TYPE,
+			CYCLE,
+			DAT,
+			FROM_FUNDCORPNO,
+			FROM_FUNDCODE,
+			FROM_CHARGETYPE,
+			FROM_BANKSERIALID,
+			FROM_BANKACCO,
+			FROM_TRADEACCO,
+		
+			TO_FUNDCORPNO,
+			TO_FUNDCODE,
+			TO_CHARGETYPE,
+			TO_BANKSERIALID,
+			TO_BANKACCO,
+			TO_TRADEACCO,
+			
+			AUTOAMT,
+			AUTOVOL,
+			LASTDATE,
+			NEXTDATE,
+			SUMMARY,
+			
+			CREATETIME,
+			UPDATETIME,
+			DETAILID
+	  )
+	VALUES (
+		#{autoid,jdbcType=VARCHAR},
+		#{autoname,jdbcType=VARCHAR},
+		#{custno,jdbcType=VARCHAR},
+		#{state,jdbcType=VARCHAR},
+		#{tradetype,jdbcType=VARCHAR},
+		
+		#{type,jdbcType=VARCHAR},
+		#{cycle,jdbcType=VARCHAR},
+		#{dat,jdbcType=VARCHAR},
+		#{fromfundcorpno,jdbcType=VARCHAR},
+		#{fromfundcode,jdbcType=VARCHAR},
+		#{fromchargetype,jdbcType=VARCHAR},
+		#{frombankserialid,jdbcType=VARCHAR},
+		#{frombankacco,jdbcType=VARCHAR},
+		#{fromtradeacco,jdbcType=VARCHAR},
+		
+		#{tofundcorpno,jdbcType=VARCHAR},
+		#{tofundcode,jdbcType=VARCHAR},
+		#{tochargetype,jdbcType=VARCHAR},
+		#{tobankserialid,jdbcType=VARCHAR},
+		#{tobankacco,jdbcType=VARCHAR},
+		#{totradeacco,jdbcType=VARCHAR},
+		
+		#{autoamt,jdbcType=DECIMAL},
+		#{autovol,jdbcType=DECIMAL},
+		#{lastdate,jdbcType=VARCHAR},
+		#{nextdate,jdbcType=VARCHAR},
+		#{summary,jdbcType=VARCHAR},
+		
+		sysdate(),
+		sysdate(),
+		#{detailid,jdbcType=VARCHAR}
+		)
+ ]]>
+</insert>
+  	
+<update id="updateAutotrade" parameterType="com.ufufund.ufb.model.db.Autotrade">
+	UPDATE AUTOTRADE T1
+       SET T1.UPDATETIME = sysdate()
+       	
+       	<if test="autoname != null">
+       	  ,T1.AUTONAME = #{autoname,jdbcType=VARCHAR}
+       	</if>
+		<if test="state != null">
+       	  ,T1.STATE = #{state,jdbcType=VARCHAR}
+       	</if>
+        <if test="tradetype != null">
+       	  ,T1.TRADETYPE = #{tradetype,jdbcType=VARCHAR}
+       	</if>
+       	
+		<if test="type != null">
+       	  ,T1.TYPE = #{type,jdbcType=VARCHAR}
+       	</if>
+        <if test="cycle != null">
+       	  ,T1.CYCLE = #{cycle,jdbcType=VARCHAR}
+       	</if>
+		<if test="dat != null">
+       	  ,T1.DAT = #{dat,jdbcType=VARCHAR}
+       	</if>
+		<if test="frombankserialid != null">
+       	  ,T1.FROM_BANKSERIALID = #{frombankserialid,jdbcType=VARCHAR}
+       	</if>
+
+		<if test="fromtradeacco != null">
+       	  ,T1.FROM_TRADEACCO = #{fromtradeacco,jdbcType=VARCHAR}
+       	</if>
+        <if test="fromfundcode != null">
+       	  ,T1.FROM_FUNDCODE = #{fromfundcode,jdbcType=VARCHAR}
+       	</if>
+		<if test="fromfundcorpno != null">
+       	  ,T1.FROM_FUNDCORPNO = #{fromfundcorpno,jdbcType=VARCHAR}
+       	</if>
+		<if test="fromchargetype != null">
+       	  ,T1.FROM_CHARGETYPE = #{fromchargetype,jdbcType=VARCHAR}
+       	</if>
+		<if test="tobankserialid != null">
+       	  ,T1.TO_BANKSERIALID = #{tobankserialid,jdbcType=VARCHAR}
+       	</if>
+       	
+        <if test="totradeacco != null">
+       	  ,T1.TO_TRADEACCO = #{totradeacco,jdbcType=VARCHAR}
+       	</if>
+		<if test="tofundcode != null">
+       	  ,T1.TO_FUNDCODE = #{tofundcode,jdbcType=VARCHAR}
+       	</if>
+		<if test="tofundcorpno != null">
+       	  ,T1.TO_FUNDCORPNO = #{tofundcorpno,jdbcType=VARCHAR}
+       	</if>
+		<if test="tochargetype != null">
+       	  ,T1.TO_CHARGETYPE = #{tochargetype,jdbcType=VARCHAR}
+       	</if>
+       	<if test="tobankacco != null">
+       	  ,T1.TO_BANKACCO = #{tobankacco,jdbcType=VARCHAR}
+       	</if>
+       	<if test="autoamt != null">
+       	  ,T1.AUTOAMT = #{autoamt,jdbcType=DECIMAL}
+       	</if>
+        <if test="autovol != null">
+       	  ,T1.AUTOVOL = #{autovol,jdbcType=DECIMAL}
+       	</if>
+		<if test="lastdate != null">
+       	  ,T1.LASTDATE = #{lastdate,jdbcType=VARCHAR}
+       	</if>
+		<if test="nextdate != null">
+       	  ,T1.NEXTDATE = #{nextdate,jdbcType=VARCHAR}
+       	</if>
+		<if test="summary != null">
+       	  ,T1.SUMMARY = #{summary,jdbcType=VARCHAR}
+       	</if>	       	       	
+  	       	
+     WHERE T1.AUTOID = #{autoid,jdbcType=VARCHAR}
+</update>
+   
+<select id="getAutotradeList" parameterType="com.ufufund.ufb.model.db.Autotrade" resultType="com.ufufund.ufb.model.db.Autotrade">
+	SELECT
+		t.AUTOID,
+		t.AUTONAME,
+		t.CUSTNO,
+		t.STATE,
+		t.TRADETYPE,
+		t.TYPE,
+		t.CYCLE,
+		t.DAT,
+		t.FROM_FUNDCORPNO AS FROMFUNDCORPNO,
+		t.FROM_FUNDCODE AS FROMFUNDCODE,
+		t.FROM_CHARGETYPE AS FROMCHARGETYPE,
+		t.FROM_BANKSERIALID AS FROMBANKSERIALID,
+		t.FROM_BANKACCO AS FROMBANKACCO,
+		BS2.BANKNM AS FROMBANKNM,
+		t.FROM_TRADEACCO AS FROMTRADEACCO,
+		t.TO_FUNDCORPNO AS TOFUNDCORPNO,
+		t.TO_FUNDCODE AS TOFUNDCODE,
+		t.TO_CHARGETYPE AS TOCHARGETYPE,
+		t.TO_BANKSERIALID AS TOBANKSERIALID,
+		t.TO_BANKACCO AS TOBANKACCO,
+		BS1.BANKNM AS TOBANKNM,
+		BS1.BANKNO AS BANKNO,
+		t.TO_TRADEACCO TOTRADEACCO,
+		t.AUTOAMT,
+		t.AUTOVOL,
+		t.LASTDATE,
+		t.NEXTDATE,
+		t.SUMMARY,
+		t.CREATETIME,
+		t.UPDATETIME
+	FROM
+		AUTOTRADE t
+       LEFT JOIN BANKCARDINFO b1 ON T.TO_BANKSERIALID = b1.SERIALID                                       
+       LEFT JOIN BANKCARDINFO b2 ON T.FROM_BANKSERIALID = b2.SERIALID                  
+       LEFT JOIN BANKBASE bs1 ON b1.BANKNO = bs1.BANKNO                
+       LEFT JOIN BANKBASE bs2 ON b2.BANKNO = bs2.BANKNO 
+	WHERE 
+	<if test="autoid != null and autoid !=''" >
+	t.AUTOID = #{autoid,jdbcType=VARCHAR} AND
+	</if>
+ 		<if test="custno != null and custno !=''" >
+ 		t.CUSTNO = #{custno,jdbcType=VARCHAR} AND
+ 		</if>
+ 		<if test="tradetype != null and tradetype !=''" >
+ 		t.TRADETYPE = #{tradetype,jdbcType=VARCHAR} AND
+ 		</if>
+ 		<if test="nextdate != null and nextdate !=''" >
+ 		t.NEXTDATE = #{nextdate,jdbcType=VARCHAR} AND
+ 		</if>
+    t.STATE &lt;&gt; 'C'
+    ORDER BY t.STATE ASC, t.UPDATETIME DESC
+</select>
+  	
+ <select id="getAutotrade" parameterType="java.lang.String" resultType="com.ufufund.ufb.model.db.Autotrade">
+	SELECT
+		t.AUTOID,
+		t.AUTONAME,
+		t.CUSTNO,
+		t.STATE,
+		t.TRADETYPE,
+		t.TYPE,
+		t.CYCLE,
+		t.DAT,
+		t.FROM_FUNDCORPNO AS FROMFUNDCORPNO,
+		t.FROM_FUNDCODE AS FROMFUNDCODE,
+		t.FROM_CHARGETYPE AS FROMCHARGETYPE,
+		t.FROM_BANKSERIALID AS FROMBANKSERIALID,
+		t.FROM_BANKACCO AS FROMBANKACCO,
+		BS2.BANKNM AS FROMBANKNM,
+		t.FROM_TRADEACCO AS FROMTRADEACCO,
+		t.TO_FUNDCORPNO AS TOFUNDCORPNO,
+		t.TO_FUNDCODE AS TOFUNDCODE,
+		t.TO_CHARGETYPE AS TOCHARGETYPE,
+		t.TO_BANKSERIALID AS TOBANKSERIALID,
+		t.TO_BANKACCO AS TOBANKACCO,
+		BS1.BANKNM AS TOBANKNM,
+		t.TO_TRADEACCO TOTRADEACCO,
+		t.AUTOAMT,
+		t.AUTOVOL,
+		t.LASTDATE,
+		t.NEXTDATE,
+		t.SUMMARY,
+		t.CREATETIME,
+		t.UPDATETIME
+	FROM
+		AUTOTRADE t
+       LEFT JOIN BANKCARDINFO b1 ON T.TO_BANKSERIALID = b1.SERIALID                                       
+       LEFT JOIN BANKCARDINFO b2 ON T.FROM_BANKSERIALID = b2.SERIALID                  
+       LEFT JOIN BANKBASE bs1 ON b1.BANKNO = bs1.BANKNO                
+       LEFT JOIN BANKBASE bs2 ON b2.BANKNO = bs2.BANKNO 
+	WHERE 
+	<if test="autoid != null and autoid !=''" >
+	t.AUTOID = #{autoid,jdbcType=VARCHAR} AND
+	</if>
+    t.STATE != 'C'
+</select>
+
+<delete id="deleteAutotrade" parameterType="String">
+    DELETE
+    FROM 
+    autotrade
+    WHERE AUTOID=#{autoid,jdbcType=VARCHAR}
+    AND CUSTNO=#{custno,jdbcType=VARCHAR}
+     and FROM_BANKSERIALID=#{frombankserialid,jdbcType=VARCHAR}
+</delete>
+   
+<select id="getAutotradeCList" parameterType="com.ufufund.ufb.model.db.Autotrade" resultType="com.ufufund.ufb.model.db.Autotrade">
+	SELECT
+		t.AUTOID,
+		t.AUTONAME,
+		t.CUSTNO,
+		t.STATE,
+		t.TRADETYPE,
+		t.TYPE,
+		t.CYCLE,
+		t.DAT,
+		t.FROM_FUNDCORPNO AS FROMFUNDCORPNO,
+		t.FROM_FUNDCODE AS FROMFUNDCODE,
+		t.FROM_CHARGETYPE AS FROMCHARGETYPE,
+		t.FROM_BANKSERIALID AS FROMBANKSERIALID,
+		t.FROM_BANKACCO AS FROMBANKACCO,
+		BS2.BANKNM AS FROMBANKNM,
+		t.FROM_TRADEACCO AS FROMTRADEACCO,
+		t.TO_FUNDCORPNO AS TOFUNDCORPNO,
+		t.TO_FUNDCODE AS TOFUNDCODE,
+		t.TO_CHARGETYPE AS TOCHARGETYPE,
+		t.TO_BANKSERIALID AS TOBANKSERIALID,
+		t.TO_BANKACCO AS TOBANKACCO,
+		BS1.BANKNM AS TOBANKNM,
+		
+		t.TO_TRADEACCO TOTRADEACCO,
+		t.AUTOAMT,
+		t.AUTOVOL,
+		t.LASTDATE,
+		t.NEXTDATE,
+		t.SUMMARY,
+		t.CREATETIME,
+		t.UPDATETIME
+	FROM
+		AUTOTRADE t
+       LEFT JOIN BANKCARDINFO b1 ON T.TO_BANKSERIALID = b1.SERIALID                                       
+       LEFT JOIN BANKCARDINFO b2 ON T.FROM_BANKSERIALID = b2.SERIALID                  
+       LEFT JOIN BANKBASE bs1 ON b1.BANKNO = bs1.BANKNO                
+       LEFT JOIN BANKBASE bs2 ON b2.BANKNO = bs2.BANKNO 
+	WHERE 
+	<if test="autoid != null and autoid !=''" >
+	t.AUTOID = #{autoid,jdbcType=VARCHAR} AND
+	</if>
+ 		<if test="custno != null and custno !=''" >
+ 		t.CUSTNO = #{custno,jdbcType=VARCHAR} AND
+ 		</if>
+ 		<if test="tradetype != null and tradetype !=''" >
+ 		t.TRADETYPE = #{tradetype,jdbcType=VARCHAR} AND
+ 		</if>
+ 		<if test="nextdate != null and nextdate !=''" >
+ 		t.NEXTDATE = #{nextdate,jdbcType=VARCHAR} AND
+ 		</if>
+    t.STATE='C'
+    ORDER BY t.STATE ASC, t.UPDATETIME DESC
+</select>
   	
 </mapper>
 

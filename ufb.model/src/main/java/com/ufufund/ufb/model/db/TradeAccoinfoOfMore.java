@@ -1,6 +1,5 @@
 package com.ufufund.ufb.model.db;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.ufufund.ufb.model.action.PrintableModel;
@@ -8,8 +7,7 @@ import com.ufufund.ufb.model.action.PrintableModel;
 import lombok.Data;
 
 @Data
-public class TradeAccoinfoOfMore extends PrintableModel  implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class TradeAccoinfoOfMore extends PrintableModel{
 	
 	/** tradeacco基本属性 **/
 	private String tradeacco;
@@ -30,7 +28,6 @@ public class TradeAccoinfoOfMore extends PrintableModel  implements Serializable
 	private String subbank;    // 开户网点
 	private String createtime; // 创建时间
 	private String updatetime; // 更新时间	
-	//2151013
 	private String clevel;
 	
 	/** 资金 **/

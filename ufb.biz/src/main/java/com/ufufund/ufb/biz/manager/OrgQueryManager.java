@@ -6,7 +6,7 @@ import java.util.List;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.OrgPlanDetail;
 import com.ufufund.ufb.model.db.OrgQuery;
-import com.ufufund.ufb.model.vo.PayRecordQryVo;
+import com.ufufund.ufb.model.db.PayRecordQry;
 
 
 
@@ -59,28 +59,28 @@ public interface OrgQueryManager {
 	 * @param vo
 	 * @return
 	 */
-	public List<OrgPlanDetail> getPayRecords(PayRecordQryVo vo);
+	public List<OrgPlanDetail> getPayRecords(PayRecordQry vo);
 	
 	/**
 	 * 缴费明细查询：总数
 	 * @param vo
 	 * @return
 	 */
-	public int getPayRecordCount(PayRecordQryVo vo);
+	public int getPayRecordCount(PayRecordQry vo);
 	
 	/**
 	 * 查询已缴费用总额
 	 * @param custno
 	 * @return
 	 */
-	public BigDecimal getPaidTotalAmt(PayRecordQryVo vo);
+	public BigDecimal getPaidTotalAmt(PayRecordQry vo);
 	
 	/**
 	 * 查询已收到的退费总额
 	 * @param custno
 	 * @return
 	 */
-	public BigDecimal getReversedTotalAmt(PayRecordQryVo vo);
+	public BigDecimal getReversedTotalAmt(PayRecordQry vo);
 	
 	/**
 	 * 根据detailid 查询机构信息
@@ -90,5 +90,5 @@ public interface OrgQueryManager {
 	/**
 	 * 查询当月的退费金额
 	 */
-	public BigDecimal getReversedMonthAmt(PayRecordQryVo vo);
+	public BigDecimal getReversedMonthAmt(PayRecordQry vo);
 }

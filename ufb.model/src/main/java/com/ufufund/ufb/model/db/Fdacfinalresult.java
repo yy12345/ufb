@@ -1,14 +1,12 @@
 package com.ufufund.ufb.model.db;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.ufufund.ufb.model.action.PrintableModel;
 
 import lombok.Data;
 @Data
-public class Fdacfinalresult extends PrintableModel  implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Fdacfinalresult extends PrintableModel{
 	private String  serialno;  //流水号
 	private String  custno;    //客户编号
 	private String  apkind;    //业务代码

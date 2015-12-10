@@ -7,7 +7,6 @@ import com.ufufund.ufb.model.action.cust.RegisterAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.OrgQuery;
 import com.ufufund.ufb.model.db.Student;
-import com.ufufund.ufb.model.vo.StudentVo;
 
 public interface CustManager{
 	
@@ -26,39 +25,25 @@ public interface CustManager{
 	public Custinfo loginIn(Custinfo custinfo);
 	
 	/**
-	 * 检查输入的身份证是否已注册
-	 * @param idCardNo
-	 * @return 
-	 */
-	public boolean isIdNoBindByTradeAcco(String fundcorpno, String invtp, String level, String idno);
-	
-	/**
-	 * 检查是否已设置交易密码
-	 * @param custno
-	 * @return 
-	 */
-	public boolean isTradePwdSet(String custno);
-	
-	/**
 	 * 查询手机号是否注册
 	 * @param mobile
 	 * @return 
 	 */
 	public boolean isMobileRegister(String mobile);
 	
-	
+	/**
+	 * 查询身份证号是否注册
+	 * @param mobile
+	 * @return 
+	 */
 	public boolean isIdnoRegister(String idno);
+	
 	/**
 	 * 根据缓存获取custno
-	 * 获取客户信息 判断是否具有身份证
-	 * 没有 必须完善个人信息绑卡
 	 * @param custno
 	 * @return 
 	 */
 	public Custinfo getCustinfo(String custno);
-	
-	
-	public Custinfo getCustinfoMapping(String orgNo, String oprNo);
 	
 	/**
 	 * 修改密码
@@ -86,10 +71,19 @@ public interface CustManager{
 	 * @param String cid
 	 * @return 
 	 */
-	public StudentVo  queryOrgsByCid(String cid);
+	public Student  queryOrgsByCid(String cid);
 	
+	/**
+	 * 根据手机号查询用户信息
+	 * @param mobile
+	 * @return 
+	 */
 	public Custinfo getCustInfoByMobileno(String mobileno);
 	
-	public void insertBankCardAndTradeAcco(OpenAccountAction openAccountAction);
-	public OrgQuery queryOrgBankInfo(String custno);
+	/**
+	 * 根据机构id查询银行信息
+	 * @param orgid
+	 * @return 
+	 */
+	public OrgQuery queryOrgBankInfo(String orgid);
 }

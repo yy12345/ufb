@@ -2,11 +2,8 @@ package com.ufufund.ufb.biz.manager.impl;
 
 import java.math.BigDecimal;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.impl.helper.TradeManagerHelper;
@@ -21,7 +18,11 @@ import com.ufufund.ufb.common.utils.SequenceUtil;
 import com.ufufund.ufb.dao.CancelRequestMapper;
 import com.ufufund.ufb.dao.TradeQutyChgMapper;
 import com.ufufund.ufb.dao.TradeRequestMapper;
+import com.ufufund.ufb.model.db.Apply;
 import com.ufufund.ufb.model.db.CancelRequest;
+import com.ufufund.ufb.model.db.Cancel;
+import com.ufufund.ufb.model.db.Redeem;
+import com.ufufund.ufb.model.db.Today;
 import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.Apkind;
@@ -34,10 +35,6 @@ import com.ufufund.ufb.model.hftfund.RedeemRequest;
 import com.ufufund.ufb.model.hftfund.RedeemResponse;
 import com.ufufund.ufb.model.hftfund.SubApplyRequest;
 import com.ufufund.ufb.model.hftfund.SubApplyResponse;
-import com.ufufund.ufb.model.vo.ApplyVo;
-import com.ufufund.ufb.model.vo.CancelVo;
-import com.ufufund.ufb.model.vo.RedeemVo;
-import com.ufufund.ufb.model.vo.Today;
 import com.ufufund.ufb.remote.hftfund.HftTradeService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -68,7 +65,7 @@ public class TradeManagerImpl implements TradeManager{
 	private TradeManagerHelper helper;
 	
 	@Override
-	public String subApply(ApplyVo vo) {
+	public String subApply(Apply vo) {
 		//  参数及业务规则验证
 		validator.validateSubApply(vo);
 		
@@ -114,7 +111,7 @@ public class TradeManagerImpl implements TradeManager{
 	}
 	
 	@Override
-	public String buyApply(ApplyVo vo) {
+	public String buyApply(Apply vo) {
 		//  参数及业务规则验证
 		validator.validateBuyApply(vo);
 		
@@ -169,7 +166,7 @@ public class TradeManagerImpl implements TradeManager{
 	}
 
 	@Override
-	public String redeem(RedeemVo vo) {
+	public String redeem(Redeem vo) {
 		//  参数及业务规则验证
 		validator.validateRedeem(vo);
 		
@@ -222,7 +219,7 @@ public class TradeManagerImpl implements TradeManager{
 	}
 
 	@Override
-	public String realRedeem(RedeemVo vo) {
+	public String realRedeem(Redeem vo) {
 		//  参数及业务规则验证
 		validator.validateRealRedeem(vo);
 		
@@ -275,7 +272,7 @@ public class TradeManagerImpl implements TradeManager{
 	}
 
 	@Override
-	public String cancel(CancelVo vo) {
+	public String cancel(Cancel vo) {
 		
 		String serialno = SequenceUtil.getSerial();
 		Today today = workDayManager.getSysDayInfo();

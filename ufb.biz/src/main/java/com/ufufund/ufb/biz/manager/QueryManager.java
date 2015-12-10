@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ufufund.ufb.model.db.Assets;
 import com.ufufund.ufb.model.db.FundNav;
+import com.ufufund.ufb.model.db.TradeAcco;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeRequest;
-import com.ufufund.ufb.model.vo.Assets;
-import com.ufufund.ufb.model.vo.TradeAccoVo;
 
 /**
  * 用户资产查询和交易查询类 
@@ -23,7 +23,7 @@ public interface QueryManager {
 	 * @param tradeAccos 交易账号
 	 * @return
 	 */
-	public TradeAccoVo queryAssets(String tradeAcco, String fundCode);
+	public TradeAcco queryAssets(String tradeAcco, String fundCode);
 	
 	/**
 	 * 查询用户总资产

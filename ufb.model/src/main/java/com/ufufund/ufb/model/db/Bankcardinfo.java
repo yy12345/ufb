@@ -18,4 +18,7 @@ public class Bankcardinfo{
 	private String updatetime; // 更新时间	
 	private String banknm;     // 银行名
 	private String level;      // 银行卡级别:1-幼富宝卡；2-普通卡
+	
+	private String mobileautocode; // 手机验证码
+	private String mobile;
 }

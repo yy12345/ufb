@@ -17,17 +17,17 @@ import com.ufufund.ufb.biz.manager.TradeAccoManager;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;
 import com.ufufund.ufb.common.utils.NumberUtils;
+import com.ufufund.ufb.model.db.Assets;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.FundInfo;
 import com.ufufund.ufb.model.db.FundNav;
 import com.ufufund.ufb.model.db.OrgPlanDetail;
 import com.ufufund.ufb.model.db.OrgQuery;
+import com.ufufund.ufb.model.db.PayList;
+import com.ufufund.ufb.model.db.PayRecordQry;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
-import com.ufufund.ufb.model.vo.Assets;
-import com.ufufund.ufb.model.vo.PayListVo;
-import com.ufufund.ufb.model.vo.PayRecordQryVo;
 import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -85,7 +85,7 @@ public class FamilyBaseController {
 			}
 			
 			// 学生缴费信息
-			List<PayListVo> paylist = new ArrayList<PayListVo>();
+			List<PayList> paylist = new ArrayList<PayList>();
 			int allcount=0;
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
 			List<String> ispaylist=new ArrayList<String>();
@@ -95,7 +95,7 @@ public class FamilyBaseController {
 				BigDecimal monthtotalamt = BigDecimal.ZERO;
 				BigDecimal monthbackamt = BigDecimal.ZERO;
 				int count=0;
-				PayListVo stuPayVo=new PayListVo();
+				PayList stuPayVo=new PayList();
 				
 				List<OrgQuery>  studentlist = orgQueryManager.queryStudentByOrgid(org.getOrgid(), custinfo.getCustno());
 				stuPayVo.setStudentList(studentlist);
@@ -121,7 +121,7 @@ public class FamilyBaseController {
 				}
 				
 				//当月的退费   
-				PayRecordQryVo payRecordQryVo = new PayRecordQryVo();
+				PayRecordQry payRecordQryVo = new PayRecordQry();
 				payRecordQryVo.setCustno(custinfo.getCustno());
 				payRecordQryVo.setOrgid(org.getOrgid());
 				monthbackamt=orgQueryManager.getReversedMonthAmt(payRecordQryVo);

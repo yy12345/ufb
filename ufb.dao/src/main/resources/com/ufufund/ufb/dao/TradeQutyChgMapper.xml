@@ -45,13 +45,6 @@
             and APKIND = #{apkind,jdbcType=VARCHAR}
         </if>
     </select>
-    
-	<!-- 
-	<select id="getByOldSerialno" parameterType="String" resultType="TradeQutyChg">
-		select <include refid="Base_Columns" /> from traderequest
-		where oldserialno = #{oldserialno,jdbcType=VARCHAR} 
-	</select>
-	 -->
 	
 	<insert id="add" parameterType="TradeQutyChg">
   	 	insert into tradequtychg values(

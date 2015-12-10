@@ -1,4 +1,4 @@
-package com.ufufund.ufb.model.vo;
+package com.ufufund.ufb.model.db;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import lombok.Data;
  * 2015年11月12日
  */
 @Data
-public class PayRecordQryVo {
+public class PayRecordQry {
 
 	private String custno;
 	private String orgid;

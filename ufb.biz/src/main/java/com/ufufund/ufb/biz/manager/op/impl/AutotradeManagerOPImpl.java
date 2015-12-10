@@ -17,13 +17,13 @@ import com.ufufund.ufb.common.utils.SysoutCommon;
 import com.ufufund.ufb.dao.AutotradeMapper;
 import com.ufufund.ufb.dao.JobcontralMapper;
 import com.ufufund.ufb.dao.TradeNotesMapper;
+import com.ufufund.ufb.model.db.Apply;
 import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
 import com.ufufund.ufb.model.db.Jobcontral;
+import com.ufufund.ufb.model.db.Redeem;
+import com.ufufund.ufb.model.db.Today;
 import com.ufufund.ufb.model.enums.AutoTradeType;
-import com.ufufund.ufb.model.vo.ApplyVo;
-import com.ufufund.ufb.model.vo.RedeemVo;
-import com.ufufund.ufb.model.vo.Today;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -115,11 +115,11 @@ public class AutotradeManagerOPImpl implements AutotradeManagerOP {
 				 */
 				try {
 					if (listAutotrade.getTradetype().equals(AutoTradeType.AUTORECHARGE.value())) {
-						ApplyVo vo = AutotradeManagerHelper.toApplyVo(listAutotrade);
+						Apply vo = AutotradeManagerHelper.toApplyVo(listAutotrade);
 						tradeManager.buyApply(vo);
 						n = 1;
 					} else if (listAutotrade.getTradetype().equals(AutoTradeType.AUTOWITHDRAWAL.value())) {
-						RedeemVo vo = AutotradeManagerHelper.toRedeemVo(listAutotrade);
+						Redeem vo = AutotradeManagerHelper.toRedeemVo(listAutotrade);
 						tradeManager.realRedeem(vo);
 						n = 1;
 					}

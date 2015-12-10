@@ -1,10 +1,8 @@
-package com.ufufund.ufb.model.vo;
+package com.ufufund.ufb.model.db;
 
 import java.io.Serializable;
 
-import com.ufufund.ufb.model.db.TradeRequest;
-
-public class ApplyVo extends TradeRequest implements Serializable{
+public class Apply extends TradeRequest implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	// 交易密码

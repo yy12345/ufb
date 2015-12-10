@@ -14,30 +14,69 @@ public interface BankCardManager {
 	 */
 	public List<Bankcardinfo> getBankcardinfoList(String custno);
 	
+	/**
+	 * 获取用户银行卡列表
+	 * @param custno
+	 * @return
+	 */
 	public Bankcardinfo getBankcardinfo(String custno);
+	
 	/**
 	 *  
-	 * 开户绑卡 1 验证身份， 2 银行快捷鉴权, 3 银行手机验证 ，4 开户
+	 * 开户绑卡:银行快捷鉴权
 	 * @param OpenAccountAction
 	 * @return 
 	 */
-	public OpenAccountAction openAccount1(OpenAccountAction openAccountAction);
 	public OpenAccountAction openAccount2(OpenAccountAction openAccountAction);
+	
+	/**
+	 *  
+	 * 开户绑卡:银行手机验证
+	 * @param OpenAccountAction
+	 * @return 
+	 */
 	public OpenAccountAction openAccount3(OpenAccountAction openAccountAction);
+	
+	/**
+	 *  
+	 * 开户绑卡:开户
+	 * @param OpenAccountAction
+	 * @return 
+	 */
 	public OpenAccountAction openAccount4(OpenAccountAction openAccountAction);
+	
+	/**
+	 *  
+	 * 添加银行卡信息，返回上serialid
+	 * @param OpenAccountAction
+	 * @return 
+	 */
 	public String addBankCardinfo(OpenAccountAction openAccountAction);
+	
+	/**
+	 *  
+	 * 添加交易账户信息
+	 * @param OpenAccountAction
+	 * @return 
+	 */
 	public void addTradeaccoinfo(OpenAccountAction openAccountAction, String bankSerialid);
-	public void openAccountOrg(OpenAccountAction openAccountAction);
 	
-	public OpenAccountAction openAccoStep1(OpenAccountAction openAccountAction);
-	public OpenAccountAction openAccoStep2(OpenAccountAction openAccountAction);
-	public OpenAccountAction openAccoStep3(OpenAccountAction openAccountAction);
-	
-	// 银联账户验证
+	/**
+	 * 银联账户验证
+	 * @param openAccountAction
+	 */
 	public void checkAccount(OpenAccountAction openAccountAction);
+	
+	/**
+	 * 升级银行卡
+	 * @param openAccountAction
+	 */
 	public void updateCard(OpenAccountAction openAccountAction);
 	
-	// 删除银行卡信息
+	/**
+	 * 删除银行卡信息
+	 * @param serialid
+	 */
 	public void deleteBankCard(String serialid);
 	
 }

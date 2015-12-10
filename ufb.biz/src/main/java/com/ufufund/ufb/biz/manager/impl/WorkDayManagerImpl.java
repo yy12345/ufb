@@ -9,7 +9,7 @@ import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.common.utils.DateUtil;
 import com.ufufund.ufb.dao.WorkDayMapper;
 import com.ufufund.ufb.model.db.SysWorkDay;
-import com.ufufund.ufb.model.vo.Today;
+import com.ufufund.ufb.model.db.Today;
 
 @Service
 public class WorkDayManagerImpl implements WorkDayManager{

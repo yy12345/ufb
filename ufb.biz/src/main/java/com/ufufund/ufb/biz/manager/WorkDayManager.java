@@ -1,6 +1,6 @@
 package com.ufufund.ufb.biz.manager;
 
-import com.ufufund.ufb.model.vo.Today;
+import com.ufufund.ufb.model.db.Today;
 
 /**
  * 工作日manager接口定义

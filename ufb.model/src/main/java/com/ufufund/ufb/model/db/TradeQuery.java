@@ -1,9 +1,9 @@
-package com.ufufund.ufb.model.vo;
+package com.ufufund.ufb.model.db;
 
 import lombok.Data;
 
 @Data
-public class TradeQueryVo{
+public class TradeQuery{
 
 	private String custno;
 	private String serialno;        

@@ -1,4 +1,4 @@
-package com.ufufund.ufb.model.vo;
+package com.ufufund.ufb.model.db;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -19,7 +19,7 @@ public class Assets extends PrintableModel  implements Serializable{
 	/**
 	 * 各个交易账号资产明细
 	 */
-	private List<TradeAccoVo> accoList;
+	private List<TradeAcco> accoList;
 	
 	public BigDecimal getTotal() {
 		return total;
@@ -46,10 +46,10 @@ public class Assets extends PrintableModel  implements Serializable{
 	public void setFrozen(BigDecimal frozen) {
 		this.frozen = frozen;
 	}
-	public List<TradeAccoVo> getAccoList() {
+	public List<TradeAcco> getAccoList() {
 		return accoList;
 	}
-	public void setAccoList(List<TradeAccoVo> accoList) {
+	public void setAccoList(List<TradeAcco> accoList) {
 		this.accoList = accoList;
 	}
 	public BigDecimal getFunddayincome() {

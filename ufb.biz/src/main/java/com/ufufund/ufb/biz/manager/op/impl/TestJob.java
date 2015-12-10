@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.ufufund.ufb.biz.manager.WorkDayManager;
 import com.ufufund.ufb.biz.manager.op.AutotradeManagerOP;
+import com.ufufund.ufb.model.db.Today;
 import com.ufufund.ufb.model.enums.AutoTradeType;
-import com.ufufund.ufb.model.vo.Today;
 
 import lombok.extern.slf4j.Slf4j;
 

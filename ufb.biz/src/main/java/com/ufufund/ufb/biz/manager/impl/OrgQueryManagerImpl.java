@@ -19,10 +19,10 @@ import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.OrgPlanDetail;
 import com.ufufund.ufb.model.db.OrgQuery;
+import com.ufufund.ufb.model.db.PayRecordQry;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.AutoTradeType;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
-import com.ufufund.ufb.model.vo.PayRecordQryVo;
 
 
 @Service
@@ -55,7 +55,7 @@ public class OrgQueryManagerImpl implements OrgQueryManager {
 	}
 	
 	@Override
-	public BigDecimal getReversedMonthAmt(PayRecordQryVo vo) {
+	public BigDecimal getReversedMonthAmt(PayRecordQry vo) {
 		return orgQueryMapper.getReversedMonthAmt(vo);
 	}
 	
@@ -168,7 +168,7 @@ public class OrgQueryManagerImpl implements OrgQueryManager {
 	 * @param vo
 	 * @return
 	 */
-	public List<OrgPlanDetail> getPayRecords(PayRecordQryVo vo){
+	public List<OrgPlanDetail> getPayRecords(PayRecordQry vo){
 		return orgQueryMapper.getPayRecords(vo);
 	}
 	
@@ -177,7 +177,7 @@ public class OrgQueryManagerImpl implements OrgQueryManager {
 	 * @param vo
 	 * @return
 	 */
-	public int getPayRecordCount(PayRecordQryVo vo){
+	public int getPayRecordCount(PayRecordQry vo){
 		return orgQueryMapper.getPayRecordCount(vo);
 	}
 	
@@ -186,7 +186,7 @@ public class OrgQueryManagerImpl implements OrgQueryManager {
 	 * @param custno
 	 * @return
 	 */
-	public BigDecimal getPaidTotalAmt(PayRecordQryVo vo){
+	public BigDecimal getPaidTotalAmt(PayRecordQry vo){
 		BigDecimal result = orgQueryMapper.getPaidTotalAmt(vo);
 		if(result == null) result = new BigDecimal("0.00");
 		return result;
@@ -197,7 +197,7 @@ public class OrgQueryManagerImpl implements OrgQueryManager {
 	 * @param custno
 	 * @return
 	 */
-	public BigDecimal getReversedTotalAmt(PayRecordQryVo vo){
+	public BigDecimal getReversedTotalAmt(PayRecordQry vo){
 		BigDecimal result = orgQueryMapper.getReversedTotalAmt(vo);
 		if(result == null) result = new BigDecimal("0.00");
 		return result;

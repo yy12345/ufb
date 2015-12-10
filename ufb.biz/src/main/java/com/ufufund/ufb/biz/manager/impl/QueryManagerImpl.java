@@ -12,21 +12,16 @@ import com.ufufund.ufb.biz.manager.QueryManager;
 import com.ufufund.ufb.dao.FundBalanceMapper;
 import com.ufufund.ufb.dao.TradeQutyChgMapper;
 import com.ufufund.ufb.dao.TradeRequestMapper;
+import com.ufufund.ufb.model.db.Assets;
 import com.ufufund.ufb.model.db.FundBalance;
 import com.ufufund.ufb.model.db.FundNav;
+import com.ufufund.ufb.model.db.TradeAcco;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeQutyChg;
 import com.ufufund.ufb.model.db.TradeRequest;
-import com.ufufund.ufb.model.vo.Assets;
-import com.ufufund.ufb.model.vo.TradeAccoVo;
-import com.ufufund.ufb.remote.hftfund.HftQueryService;
 
 @Service
 public class QueryManagerImpl implements QueryManager{
-//	private static Logger LOG = LoggerFactory.getLogger(QueryManagerImpl.class);
-	
-	@Autowired
-	private HftQueryService hftQueryService;
 
 	@Autowired
 	private TradeRequestMapper tradeRequestMapper;
@@ -38,8 +33,8 @@ public class QueryManagerImpl implements QueryManager{
 	private FundBalanceMapper fundBalanceMapper ;
 
 	@Override
-	public TradeAccoVo queryAssets(String tradeAcco, String fundCode){
-		TradeAccoVo result = new TradeAccoVo();
+	public TradeAcco queryAssets(String tradeAcco, String fundCode){
+		TradeAcco result = new TradeAcco();
 		
 		// 已确认份额
 		FundBalance fundBalance = new FundBalance();
@@ -106,9 +101,9 @@ public class QueryManagerImpl implements QueryManager{
 		
 		Assets result = new Assets();
 		
-		List<TradeAccoVo> accoList = new ArrayList<TradeAccoVo>();
+		List<TradeAcco> accoList = new ArrayList<TradeAcco>();
 		for(TradeAccoinfoOfMore acco : tradeAccoList){
-			TradeAccoVo tradeAccoVo = queryAssets(acco.getTradeacco(), fundCode);
+			TradeAcco tradeAccoVo = queryAssets(acco.getTradeacco(), fundCode);
 			
 			acco.setAvailable(tradeAccoVo.getAvailable());
 			acco.setRealavailable(tradeAccoVo.getRealavailable());

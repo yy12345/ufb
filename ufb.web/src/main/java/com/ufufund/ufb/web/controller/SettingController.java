@@ -27,9 +27,6 @@ import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.Student;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
-import com.ufufund.ufb.model.vo.AutotradeVo;
-import com.ufufund.ufb.model.vo.BankCardVo;
-import com.ufufund.ufb.model.vo.StudentVo;
 import com.ufufund.ufb.web.filter.ServletHolder;
 import com.ufufund.ufb.web.util.UserHelper;
 
@@ -70,17 +67,17 @@ public class SettingController {
 			Custinfo.setName(s_custinfo.getName());        
 			Custinfo.setIdno(s_custinfo.getIdno());             
 			//学生信息
-			List<StudentVo> list=new ArrayList<StudentVo>();
+			List<Student> list=new ArrayList<Student>();
 		    List<Student> slists=custManager.queryStudentsByCustno(s_custinfo.getCustno());
 		    if(slists.size()>0&&slists!=null){
 		    	for(Student student:slists){
-		    		StudentVo studentVo=new StudentVo();
-		    		studentVo.setBirthday(student.getBirthday().substring(0, 4)+"年"+student.getBirthday().substring(5, 7)+"月"+student.getBirthday().substring(8, 10)+"日");
-		    		studentVo.setName(student.getName());
-		    		studentVo.setSex(student.getSex());
-		    		String orgname=((StudentVo)custManager.queryOrgsByCid(student.getCid())).getOrganization();
-		    		studentVo.setOrganization(orgname);
-		    		list.add(studentVo);
+		    		Student Student=new Student();
+		    		Student.setBirthday(student.getBirthday().substring(0, 4)+"年"+student.getBirthday().substring(5, 7)+"月"+student.getBirthday().substring(8, 10)+"日");
+		    		Student.setName(student.getName());
+		    		Student.setSex(student.getSex());
+		    		String orgname=((Student)custManager.queryOrgsByCid(student.getCid())).getOrganization();
+		    		Student.setOrganization(orgname);
+		    		list.add(Student);
 		    	}
 		    }
 			model.addAttribute("Custinfo", Custinfo);
@@ -95,7 +92,6 @@ public class SettingController {
 		return "setting/account_index";
 	}
 	
-	
 	/**
 	 * 密码设置
 	 * @param Custinfo
@@ -108,7 +104,7 @@ public class SettingController {
 	}
 	
 	/**
-	 * 登录状态      修改登录密码
+	 * 登录状态 : 修改登录密码
 	 * @param password1
 	 * @param model
 	 * @return
@@ -232,7 +228,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value="findpwd_index")
-	public String findpwdIndex(AutotradeVo autotradeVo, Model model){
+	public String findpwdIndex(Model model){
 		try{
 			
 		}catch(UserException ue){
@@ -297,10 +293,9 @@ public class SettingController {
 	 * 修改登录密码结果   未登录状态
 	 */
 	@RequestMapping(value="findpwd_result")
-	public String findpwdResult(AutotradeVo autotradeVo, Model model){
+	public String findpwdResult(Model model){
 		return "setting/findpwd_success";
 	}
-	
 		
 	/**
 	 * 银行卡管理
@@ -369,12 +364,12 @@ public class SettingController {
 	
 	/**
 	 * 升级银行卡，确认
-	 * @param bankCardVo
+	 * @param bankCardinfo
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "card_result")
-	public String cardResult(BankCardVo bankCardVo, Model model) {
+	public String cardResult(Bankcardinfo bankCardinfo, Model model) {
 		
 		try{
 			Custinfo Custinfo = UserHelper.getCustinfo();
@@ -382,13 +377,13 @@ public class SettingController {
 			
 			// 数据验证
 			// 1.传入参数验证
-			if(StringUtils.isBlank(bankCardVo.getBankno())||StringUtils.isBlank(bankCardVo.getBankacco())
-					||StringUtils.isBlank(bankCardVo.getMobile())||StringUtils.isBlank(bankCardVo.getMobileautocode())){
+			if(StringUtils.isBlank(bankCardinfo.getBankno())||StringUtils.isBlank(bankCardinfo.getBankacco())
+					||StringUtils.isBlank(bankCardinfo.getMobile())||StringUtils.isBlank(bankCardinfo.getMobileautocode())){
 				throw new UserException("您所填写的信息含空值！");
 			}
 			
 			// 2.业务规则验证
-			String banklevel = bankBaseManager.getLevelByBankno(bankCardVo.getBankno());
+			String banklevel = bankBaseManager.getLevelByBankno(bankCardinfo.getBankno());
 			if(!"1".equals(banklevel)){
 				throw new UserException("您选择的银行卡，不支持幼富宝！");
 			}
@@ -396,13 +391,13 @@ public class SettingController {
 			// 对象组装
 			OpenAccountAction openAccountAction = new OpenAccountAction();
 			openAccountAction.setFundcorpno(Constant.HftSysConfig.HftFundCorpno);
-			openAccountAction.setBankno(bankCardVo.getBankno());
+			openAccountAction.setBankno(bankCardinfo.getBankno());
 			openAccountAction.setBanknm(Custinfo.getName());
-			openAccountAction.setBankacco(bankCardVo.getBankacco());
+			openAccountAction.setBankacco(bankCardinfo.getBankacco());
 			openAccountAction.setCerttype("0");
 			openAccountAction.setCertno(Custinfo.getIdno());
-			openAccountAction.setMobile(bankCardVo.getMobile());
-			openAccountAction.setMobileautocode(bankCardVo.getMobileautocode());
+			openAccountAction.setMobile(bankCardinfo.getMobile());
+			openAccountAction.setMobileautocode(bankCardinfo.getMobileautocode());
 			openAccountAction.setOtherserial(otherserial);
 			openAccountAction.setCustno(Custinfo.getCustno());
 			

@@ -4,31 +4,32 @@
 
 <mapper namespace="com.ufufund.ufb.dao.OrgQueryMapper">
 
-<sql id="planDetailSql">
-	a.orgid,
-		c.orgname,
-		b.name as sname,
-		a.sid,
-		a.id,
-		a.plan_id,
-		a.amount,
-		a.discount,
-		a.state,
-		a.parentid,
-		date_format(a.confirm_date,'%Y-%m-%d') as confirm_date,
-		date_format(a.pay_date,'%Y-%m-%d')  as pay_date,
-		date_format(a.repay_date,'%Y-%m-%d') as repay_date,
-		d.name as planname,
-		d.type,
-		d.charge_type,
-		d.payday,
-        d.plan_date,
-		d.state as p_state,
-		d.deadline,
-		d.bill_month,
-		d.price_detail
-</sql>
-<select id="queryOrgByCustno" parameterType="String" resultType="OrgQuery">
+	<sql id="planDetailSql">
+		a.orgid,
+			c.orgname,
+			b.name as sname,
+			a.sid,
+			a.id,
+			a.plan_id,
+			a.amount,
+			a.discount,
+			a.state,
+			a.parentid,
+			date_format(a.confirm_date,'%Y-%m-%d') as confirm_date,
+			date_format(a.pay_date,'%Y-%m-%d')  as pay_date,
+			date_format(a.repay_date,'%Y-%m-%d') as repay_date,
+			d.name as planname,
+			d.type,
+			d.charge_type,
+			d.payday,
+	        d.plan_date,
+			d.state as p_state,
+			d.deadline,
+			d.bill_month,
+			d.price_detail
+	</sql>
+	
+	<select id="queryOrgByCustno" parameterType="String" resultType="OrgQuery">
 		select
 			distinct
 			t.orgid,
@@ -39,9 +40,9 @@
 			s.cid = c.cid
 			and c.orgid = t.orgid
 			and s.p_custno = #{custno,jdbctype=varchar}   
-</select>
-  
-<select id="queryStudentByOrgid" parameterType="String" resultType="OrgQuery">
+	</select>
+	  
+	<select id="queryStudentByOrgid" parameterType="String" resultType="OrgQuery">
 		SELECT 
 			S.SID , 
 			S.NAME AS sname, 
@@ -53,89 +54,89 @@
 			S.CID = C.CID
 			AND C.ORGID = #{orgid,JDBCTYPE=VARCHAR}   
 			AND S.P_CUSTNO = #{custno,JDBCTYPE=VARCHAR}   
-</select>    
-    
-<!-- 查询缴费详单 -->
- <select id="getQueryCustplandetail" parameterType="OrgPlanDetail" resultType="OrgPlanDetail">
-	SELECT 
-		<include refid="planDetailSql"/>
-	FROM org_plan_detail a, student b, orginfo c, org_plan d
-	where a.sid =b.sid and a.orgid = c.orgid and a.plan_id=d.id 
-	and a.parentid  = #{parentid,jdbcType=VARCHAR} 
-	<if test="orgid != null">
-		and a.orgid = #{orgid,jdbcType=VARCHAR}
-	</if>
-	<if test="id != null">
-		and a.id = #{id,jdbcType=VARCHAR}
-	</if>
-	and a.state in
-	<foreach item="state" collection="ispaylist" separator="," open="(" close=")" index="">
-   		#{state,jdbcType=VARCHAR}
-   	</foreach>
-	order by a.sid desc
- </select>    
-    
- <!-- 当月的退费 -->
-  <select id="getReversedMonthAmt" parameterType="PayRecordQryVo" resultType="BigDecimal">
-	  select ifnull(sum(a.amount), 0) 
-	     from .org_plan_detail a,org_plan b  
-	  where a.plan_id = b.id and a.state in('2','5') and b.type='03' 
-	 	 and date_format(pay_date,'%y-%m')=date_format(sysdate(),'%y-%m')
-	 	 <if test="orgid != null and orgid != ''">
+	</select>    
+	    
+	<!-- 查询缴费详单 -->
+	<select id="getQueryCustplandetail" parameterType="OrgPlanDetail" resultType="OrgPlanDetail">
+		SELECT 
+			<include refid="planDetailSql"/>
+		FROM org_plan_detail a, student b, orginfo c, org_plan d
+		where a.sid =b.sid and a.orgid = c.orgid and a.plan_id=d.id 
+		and a.parentid  = #{parentid,jdbcType=VARCHAR} 
+		<if test="orgid != null">
 			and a.orgid = #{orgid,jdbcType=VARCHAR}
 		</if>
-	 and a.parentid = #{custno,jdbcType=VARCHAR}
-  </select>   
-    
-  <select id="getOrginfoByCid" parameterType="String" resultType="OrgQuery">
-  	select a.orgid, a.orgname,a.license, a.address ,a.operator_name
-  	from orginfo a, clazz b where a.orgid = b.orgid
-  		and b.cid=#{cid,jdbcType=VARCHAR}
-  </select>
-  
-  <select id="getOrgidByDetailid" parameterType="String" resultType="String">
-    	select orgid from org_plan_detail where id=#{id,jdbcType=VARCHAR}
-  </select>
-  
-  <update id="updateDetail"  parameterType="OrgPlanDetail">
-    	update org_plan_detail
-         set 
+		<if test="id != null">
+			and a.id = #{id,jdbcType=VARCHAR}
+		</if>
+		and a.state in
+		<foreach item="state" collection="ispaylist" separator="," open="(" close=")" index="">
+	   		#{state,jdbcType=VARCHAR}
+	   	</foreach>
+		order by a.sid desc
+	</select>    
+	    
+	<!-- 当月的退费 -->
+	<select id="getReversedMonthAmt" parameterType="PayRecordQry" resultType="BigDecimal">
+		  select ifnull(sum(a.amount), 0) 
+		  from .org_plan_detail a,org_plan b  
+		  where a.plan_id = b.id and a.state in('2','5') and b.type='03' 
+	 	  and date_format(pay_date,'%y-%m')=date_format(sysdate(),'%y-%m')
+	 	  <if test="orgid != null and orgid != ''">
+			and a.orgid = #{orgid,jdbcType=VARCHAR}
+		  </if>
+		 and a.parentid = #{custno,jdbcType=VARCHAR}
+	</select>   
+	    
+	<select id="getOrginfoByCid" parameterType="String" resultType="OrgQuery">
+	  	select a.orgid, a.orgname,a.license, a.address ,a.operator_name
+	  	from orginfo a, clazz b where a.orgid = b.orgid
+	  	and b.cid=#{cid,jdbcType=VARCHAR}
+	</select>
+	  
+	 <select id="getOrgidByDetailid" parameterType="String" resultType="String">
+	   	select orgid from org_plan_detail where id=#{id,jdbcType=VARCHAR}
+	 </select>
+	  
+	<update id="updateDetail"  parameterType="OrgPlanDetail">
+	   	update org_plan_detail
+	        set 
 	        state = #{state,jdbcType=VARCHAR}
-    	where id = #{id,jdbcType=VARCHAR} 
-    </update>
-
-    <select id="selectPayDate" parameterType="String" resultType="String">
-    	select b.pay_date 
-    	  from org_plan a,org_plan_detail b
-    	where a.id=b.plan_id 
-    	and b.id=#{id,jdbcType=VARCHAR} 
-    </select>
-  
-   <!-- 缴费明细：总数 -->
-    <select id="getPayRecordCount" parameterType="PayRecordQryVo" resultType="int">
-    		SELECT count(*)
-			FROM org_plan_detail a, student b, orginfo c, org_plan d 
-			where a.sid =b.sid and a.orgid = c.orgid and a.plan_id=d.id 
-			and a.parentid  = #{custno,jdbcType=VARCHAR} and a.state in ('2','4','5')
-			<if test="orgid != null and orgid != ''">
-				and a.orgid = #{orgid,jdbcType=VARCHAR}
-			</if>
-			<if test="sid != null and sid != ''">
-				and a.sid = #{sid,jdbcType=VARCHAR}
-			</if>
-			<if test="startTime != null">
-				and date_format(a.pay_date,'%Y-%m-%d') &gt;= #{startTime,jdbcType=VARCHAR}
-			</if>
-			<if test="endTime != null">
-				and date_format(a.pay_date,'%Y-%m-%d') &lt;= #{endTime,jdbcType=VARCHAR}
-			</if>
-			<if test="type != null and type != ''">
-				and d.type = #{type,jdbcType=VARCHAR}
-			</if>
-    </select>
-  
-   <!--  缴费明细:分页查询 -->
-    <select id="getPayRecords" parameterType="PayRecordQryVo" resultType="OrgPlanDetail">
+	   	where id = #{id,jdbcType=VARCHAR} 
+	</update>
+	
+	<select id="selectPayDate" parameterType="String" resultType="String">
+		select b.pay_date 
+		  from org_plan a,org_plan_detail b
+		where a.id=b.plan_id 
+		and b.id=#{id,jdbcType=VARCHAR} 
+	</select>
+	  
+	<!-- 缴费明细：总数 -->
+	<select id="getPayRecordCount" parameterType="PayRecordQry" resultType="int">
+	  		SELECT count(*)
+		FROM org_plan_detail a, student b, orginfo c, org_plan d 
+		where a.sid =b.sid and a.orgid = c.orgid and a.plan_id=d.id 
+		and a.parentid  = #{custno,jdbcType=VARCHAR} and a.state in ('2','4','5')
+		<if test="orgid != null and orgid != ''">
+			and a.orgid = #{orgid,jdbcType=VARCHAR}
+		</if>
+		<if test="sid != null and sid != ''">
+			and a.sid = #{sid,jdbcType=VARCHAR}
+		</if>
+		<if test="startTime != null">
+			and date_format(a.pay_date,'%Y-%m-%d') &gt;= #{startTime,jdbcType=VARCHAR}
+		</if>
+		<if test="endTime != null">
+			and date_format(a.pay_date,'%Y-%m-%d') &lt;= #{endTime,jdbcType=VARCHAR}
+		</if>
+		<if test="type != null and type != ''">
+			and d.type = #{type,jdbcType=VARCHAR}
+		</if>
+	</select>
+	  
+	<!--  缴费明细:分页查询 -->
+	<select id="getPayRecords" parameterType="PayRecordQry" resultType="OrgPlanDetail">
 		select * from (
 			SELECT
 				<include refid="planDetailSql"/>, (@rownum:=@rownum+1) as rownum 
@@ -160,36 +161,35 @@
 			order by a.pay_date desc, d.plan_date desc
 		) t where t.rownum &gt;= #{start,jdbcType=VARCHAR} 
 			and t.rownum &lt;= #{end,jdbcType=VARCHAR}
-    </select>
-    
-   <!--  家长累计付费 -->
-    <select id="getPaidTotalAmt" parameterType="PayRecordQryVo" resultType="BigDecimal">
-    	select ifnull(sum(a.amount), 0) 
-    	from org_plan_detail a left join org_plan b on a.plan_id = b.id
-    	where a.state in ('2', '5') and b.type in ('01','02')
-    		and a.parentid = #{custno,jdbcType=VARCHAR} 
-    		<if test="orgid != null and orgid != ''">
+	</select>
+	    
+	<!--  家长累计付费 -->
+	<select id="getPaidTotalAmt" parameterType="PayRecordQry" resultType="BigDecimal">
+	   	select ifnull(sum(a.amount), 0) 
+	   	from org_plan_detail a left join org_plan b on a.plan_id = b.id
+	   	where a.state in ('2', '5') and b.type in ('01','02')
+	   		and a.parentid = #{custno,jdbcType=VARCHAR} 
+	   		<if test="orgid != null and orgid != ''">
 				and a.orgid = #{orgid,jdbcType=VARCHAR}
 			</if>
 			<if test="sid != null and sid != ''">
 				and a.sid = #{sid,jdbcType=VARCHAR}
 			</if>
-    </select>
-    
-  <!--   家长累计收到退费 -->
-    <select id="getReversedTotalAmt" parameterType="PayRecordQryVo" resultType="BigDecimal">
-    	select ifnull(sum(a.amount), 0) 
-    	from org_plan_detail a left join org_plan b on a.plan_id = b.id
-    	where a.state in ('2', '5') and b.type = '03'
-    		and a.parentid = #{custno,jdbcType=VARCHAR}
-    		<if test="orgid != null and orgid != ''">
-				and a.orgid = #{orgid,jdbcType=VARCHAR}
-			</if>
-			<if test="sid != null and sid != ''">
-				and a.sid = #{sid,jdbcType=VARCHAR}
-			</if>
-    </select>
-    
+	</select>
+	    
+	<!--   家长累计收到退费 -->
+	<select id="getReversedTotalAmt" parameterType="PayRecordQry" resultType="BigDecimal">
+	  	select ifnull(sum(a.amount), 0) 
+	  	from org_plan_detail a left join org_plan b on a.plan_id = b.id
+	  	where a.state in ('2', '5') and b.type = '03'
+	  		and a.parentid = #{custno,jdbcType=VARCHAR}
+	  		<if test="orgid != null and orgid != ''">
+			and a.orgid = #{orgid,jdbcType=VARCHAR}
+		</if>
+		<if test="sid != null and sid != ''">
+			and a.sid = #{sid,jdbcType=VARCHAR}
+		</if>
+	</select>
   
 </mapper>
 

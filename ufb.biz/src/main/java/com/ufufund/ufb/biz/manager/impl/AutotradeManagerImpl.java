@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
@@ -25,9 +26,9 @@ import com.ufufund.ufb.model.action.cust.ModifyAutotradeAction;
 import com.ufufund.ufb.model.db.Autotrade;
 import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Fdacfinalresult;
+import com.ufufund.ufb.model.db.Today;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
 import com.ufufund.ufb.model.enums.AutoTradeType;
-import com.ufufund.ufb.model.vo.Today;
 
 
 @Service
@@ -50,6 +51,7 @@ public class AutotradeManagerImpl implements AutotradeManager{
 	private TradeNotesMapper tradeNotesMapper;
 	
 	@Override
+	@Transactional
 	public void addAutotrade(AddAutotradeAction action){
 		
 		/** 业务规则校验 **/ 
@@ -97,6 +99,7 @@ public class AutotradeManagerImpl implements AutotradeManager{
 	}
 	
 	@Override
+	@Transactional
 	public void modifyAutotrade(ModifyAutotradeAction action){
 		
 		/** 业务验证 **/
@@ -175,6 +178,7 @@ public class AutotradeManagerImpl implements AutotradeManager{
 	}
 	
 	@Override
+	@Transactional
 	public void changestatus(ChangeAutoStateAction action){
 		
 		/** 业务验证 **/
@@ -295,6 +299,7 @@ public class AutotradeManagerImpl implements AutotradeManager{
 		autotrade.setTradetype(AutoTradeType.AUTORECHARGE.value());
 		return autotradeMapper.getAutotradeList(autotrade);
 	}
+	
 	@Override
 	public List<Autotrade> getAutotradeCList(String custno){
 		Autotrade autotrade = new Autotrade();
@@ -302,6 +307,7 @@ public class AutotradeManagerImpl implements AutotradeManager{
 		autotrade.setTradetype(AutoTradeType.AUTORECHARGE.value());
 		return autotradeMapper.getAutotradeCList(autotrade);
 	}
+	
 	@Override
 	public Autotrade getAutotrade(String autoid){
 		return autotradeMapper.getAutotrade(autoid);
@@ -355,9 +361,7 @@ public class AutotradeManagerImpl implements AutotradeManager{
 		}
 		return autotrade;
 	}
-	/**
-	 * 获得取现的数据
-	 */
+	
 	@Override
 	public List<Autotrade> getCashtradeList(String custno,String autoid){
 		Autotrade autotrade = new Autotrade();
@@ -366,14 +370,14 @@ public class AutotradeManagerImpl implements AutotradeManager{
 		autotrade.setTradetype(AutoTradeType.AUTOWITHDRAWAL.value());
 		return autotradeMapper.getAutotradeList(autotrade);
 	}
-	/**
-	 * 删除自动充值业务
-	 */
+	
 	@Override
 	public void deleteAutotrade(String custno, String frombankserialid, String autoid){
 		autotradeMapper.deleteAutotrade(custno, frombankserialid, autoid);
 	}
+	
 	@Override
+	@Transactional
 	public void changeAutoPaystatus(ChangeAutoStateAction action){
 		
 		// 业务验证  

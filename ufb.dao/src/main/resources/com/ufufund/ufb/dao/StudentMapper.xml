@@ -27,6 +27,7 @@
     		updatetime = now() 
     	where sid = #{sid,jdbcType=VARCHAR}
     </update>
+    
     <select id="getClassNmBySid" parameterType="String" resultType="OrgQuery">
     	select s.cname,f.code 
     		from student s,family_codes f

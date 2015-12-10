@@ -1,15 +1,12 @@
-package com.ufufund.ufb.model.vo;
+package com.ufufund.ufb.model.db;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.ufufund.ufb.model.db.OrgPlanDetail;
-import com.ufufund.ufb.model.db.OrgQuery;
-
 import lombok.Data;
 
 @Data
-public class PayListVo {
+public class PayList {
 
 	private OrgQuery orginfo;       //某机构信息集合
 	private List<OrgQuery> studentList;   //某机构学生信息集合

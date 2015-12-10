@@ -1,8 +1,8 @@
 package com.ufufund.ufb.biz.manager;
 
-import com.ufufund.ufb.model.vo.ApplyVo;
-import com.ufufund.ufb.model.vo.CancelVo;
-import com.ufufund.ufb.model.vo.RedeemVo;
+import com.ufufund.ufb.model.db.Apply;
+import com.ufufund.ufb.model.db.Cancel;
+import com.ufufund.ufb.model.db.Redeem;
 
 /**
  * 交易类manager接口定义
@@ -16,33 +16,33 @@ public interface TradeManager {
 	 * @param vo
 	 * @return 成功，返回申请流水号；否则，返回null；
 	 */
-	public String subApply(ApplyVo vo);
+	public String subApply(Apply vo);
 	
 	/**
 	 * 申购接口
 	 * @param vo
 	 * @return 成功，返回申请流水号；否则，返回null；
 	 */
-	public String buyApply(ApplyVo vo);
+	public String buyApply(Apply vo);
 	
 	/**
 	 * 普通赎回接口
 	 * @param vo
 	 * @return 成功，返回申请流水号；否则，返回null；
 	 */
-	public String redeem(RedeemVo vo);
+	public String redeem(Redeem vo);
 	
 	/**
 	 * 快速赎回接口
 	 * @param vo
 	 * @return 成功，返回申请流水号；否则，返回null；
 	 */
-	public String realRedeem(RedeemVo vo);
+	public String realRedeem(Redeem vo);
 	
 	/**
 	 * 撤单
 	 * @param vo
 	 * @return 成功，返回申请流水号；否则，返回null；
 	 */
-	public String cancel(CancelVo vo);
+	public String cancel(Cancel vo);
 }

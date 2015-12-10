@@ -1,11 +1,11 @@
-package com.ufufund.ufb.model.vo;
+package com.ufufund.ufb.model.db;
 
 import java.math.BigDecimal;
 
 import lombok.Data;
 
 @Data
-public class TradeAccoVo{
+public class TradeAcco{
 
 	private BigDecimal total = new BigDecimal("0.00");
 	private BigDecimal available = new BigDecimal("0.00");
