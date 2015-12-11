@@ -68,78 +68,22 @@
                       <th>余额</th>
                       <th>计费单位</th>
                   </tr>
-                  <tr>
-                      <td>保育费</td>
-                      <td>保育费</td>
-                      <td>1200元</td>
-                      <td>月</td>
-                  </tr>
-                  <tr>
-                      <td>膳食费</td>
-                      <td>膳食费</td>
-                      <td>600元</td>
-                      <td>月</td>
-                  </tr>
-                  <tr>
-                      <td>短期培训班费</td>
-                      <td>15暑期钢琴班</td>
-                      <td>800元</td>
-                      <td>课时</td>
-                  </tr>
-                  <tr>
-                      <td>短期培训班费</td>
-                      <td>日常美术兴趣班</td>
-                      <td>300元</td>
-                      <td>月</td>
-                  </tr>
-                  <tr>
-                      <td>短期培训班费</td>
-                      <td>13秋季奥数提高班</td>
-                      <td>800元</td>
-                      <td>学期</td>
-                  </tr>
-                  <tr>
-                      <td>代收代缴费</td>
-                      <td>保险费</td>
-                      <td>15元</td>
-                      <td>月</td>
-                  </tr>
-                  <tr>
-                      <td>代收代缴费</td>
-                      <td>温控费</td>
-                      <td>600元</td>
-                      <td>月</td>
-                  </tr>
-                  <tr>
-                      <td>代收代缴费</td>
-                      <td>服装费</td>
-                      <td>600元</td>
-                      <td>学期</td>
-                  </tr>
-                  <tr>
-                      <td>代收代缴费</td>
-                      <td>体检费</td>
-                      <td>600元</td>
-                      <td>学年</td>
-                  </tr>
-                  <tr>
-                      <td>代收代缴费</td>
-                      <td>教材费</td>
-                      <td>600元</td>
-                      <td>学期</td>
-                  </tr>
-                  <tr>
-                      <td>其他</td>
-                      <td>补扣</td>
-                      <td>6元</td>
-                      <td>月</td>
-                  </tr>
-                  <tr>
-                      <td>其他</td>
-                      <td>补扣</td>
-                      <td>23元</td>
-                      <td>月</td>
-                  </tr>
+                  #foreach ($priceitem in $planPriceItems)
+                  	<tr>
+                  		<td>$priceitem.type</td>
+                  		<td>$priceitem.name</td>     		
+                  		<td>$priceitem.amount</td>
+                  		#if ($priceitem.chage_type==1||$priceitem.chage_type==2)
+                  		<td>月</td>
+                  		#elseif($priceitem.chage_type==3)
+                  		<td>学期</td>
+                  		#elseif($priceitem.chage_type==4)
+                  		<td>学年</td>
+                  		#elseif($priceitem.chage_type==5)
+                  		<td>临时</td>
+                  		#end
+                  	</tr>
+                  #end
               </tbody></table>
           </div>
           </div>
