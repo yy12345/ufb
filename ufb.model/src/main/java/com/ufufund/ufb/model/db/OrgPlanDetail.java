@@ -16,11 +16,12 @@ public class OrgPlanDetail {
 	private String amount       ;     //  实收金额
 	private String discount     ;     //  折扣金额
 	private String state        ;     //  订单状态:0-等待缴费；1-等待扣款；2-待补扣；3-扣款失败；4-扣款成功；5-手工补缴
+	private String price_detail ;     //  收费明细
 	private String confirm_date ;     //  家长确认日
 	private String pay_date     ;     //  首次扣款日
-	private String payday;            //每月扣款日
+	private String payday;            //  每月扣款日
 	private String repay_date   ;     //  再次扣款日
-	private String charge_type  ;  //收费方式：01-月代扣；02-单笔按月；03-单笔学期；04-单笔学年；05-临时性
+	private String charge_type  ;  	  //收费方式：01-月代扣；02-单笔按月；03-单笔学期；04-单笔学年；05-临时性
 	private String type;
 	private String sname;// 学生姓名
 	private String cname;// 班级姓名
