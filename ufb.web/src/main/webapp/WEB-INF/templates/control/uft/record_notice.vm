@@ -68,19 +68,29 @@
                       <th>余额</th>
                       <th>计费单位</th>
                   </tr>
-                  #foreach ($priceitem in $planPriceItems)
+                  #foreach($priceitem in $planPriceItems)
                   	<tr>
-                  		<td>$priceitem.type</td>
+                  		#if($priceitem.type == "01")
+                  		<td>学费</td>
+                  		#elseif($priceitem.type == "02")
+                  		<td>保育费</td>            
+                  		#elseif($priceitem.type == "03")
+                  		<td>膳食费</td>            
+                  		#elseif($priceitem.type == "04")
+                  		<td>培训费</td>            
+                  		#elseif($priceitem.type == "05")
+                  		<td>代收费</td>            
+                  		#else
+                  		<td>其它</td>
+                  		#end
                   		<td>$priceitem.name</td>     		
                   		<td>$priceitem.amount</td>
-                  		#if ($priceitem.chage_type==1||$priceitem.chage_type==2)
+                  		#if($priceitem.chage_type == "1")
                   		<td>月</td>
-                  		#elseif($priceitem.chage_type==3)
+                  		#elseif($priceitem.chage_type == "2")
                   		<td>学期</td>
-                  		#elseif($priceitem.chage_type==4)
+                  		#elseif($priceitem.chage_type == "3")
                   		<td>学年</td>
-                  		#elseif($priceitem.chage_type==5)
-                  		<td>临时</td>
                   		#end
                   	</tr>
                   #end
