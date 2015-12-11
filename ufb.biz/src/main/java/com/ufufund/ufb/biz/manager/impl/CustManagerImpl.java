@@ -148,6 +148,7 @@ public class CustManagerImpl implements CustManager {
 	 * @param apkind
 	 * @
 	 */
+	@Transactional
 	private void insterSerialno(Custinfo custinfo, String apkind)  {
 		String seq = SequenceUtil.getSerial();
 		// 插入流水表
@@ -172,6 +173,7 @@ public class CustManagerImpl implements CustManager {
 	}
 
 	@Override
+	@Transactional
 	public void changePassword(ChangePasswordAction changePasswordAction)  {
 		String actionType = changePasswordAction.getActionType();
 		/** 校验数据有效性 **/
