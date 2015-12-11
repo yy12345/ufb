@@ -18,6 +18,7 @@ import com.ufufund.ufb.dao.TradeAccoinfoMapper;
 import com.ufufund.ufb.model.action.cust.AddAutotradeAction;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.OrgPlanDetail;
+import com.ufufund.ufb.model.db.OrgPriceItem;
 import com.ufufund.ufb.model.db.OrgQuery;
 import com.ufufund.ufb.model.db.PayRecordQry;
 import com.ufufund.ufb.model.db.Tradeaccoinfo;
@@ -201,6 +202,13 @@ public class OrgQueryManagerImpl implements OrgQueryManager {
 		BigDecimal result = orgQueryMapper.getReversedTotalAmt(vo);
 		if(result == null) result = new BigDecimal("0.00");
 		return result;
+	}
+
+	/**
+	 * 查询收费价目明细
+	 */
+	public List<OrgPriceItem> getPriceItemList(List<String> priceitems) {
+		return orgQueryMapper.getPriceItemList(priceitems);
 	}
 	
 }

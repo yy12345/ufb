@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.OrgPlanDetail;
+import com.ufufund.ufb.model.db.OrgPriceItem;
 import com.ufufund.ufb.model.db.OrgQuery;
 import com.ufufund.ufb.model.db.PayRecordQry;
 
@@ -91,4 +92,11 @@ public interface OrgQueryManager {
 	 * 查询当月的退费金额
 	 */
 	public BigDecimal getReversedMonthAmt(PayRecordQry vo);
+	
+	/**
+	 * 查询家长收费明细
+	 * @param priceitems
+	 * @return
+	 */
+	public List<OrgPriceItem> getPriceItemList(List<String> priceitems);
 }

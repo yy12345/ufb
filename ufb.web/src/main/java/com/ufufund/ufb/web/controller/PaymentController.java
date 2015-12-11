@@ -2,6 +2,7 @@ package com.ufufund.ufb.web.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ import com.ufufund.ufb.model.db.Bankcardinfo;
 import com.ufufund.ufb.model.db.Custinfo;
 import com.ufufund.ufb.model.db.FamilyCodes;
 import com.ufufund.ufb.model.db.OrgPlanDetail;
+import com.ufufund.ufb.model.db.OrgPriceItem;
 import com.ufufund.ufb.model.db.OrgQuery;
 import com.ufufund.ufb.model.db.PayList;
 import com.ufufund.ufb.model.db.PayRecordQry;
@@ -566,7 +568,8 @@ public class PaymentController {
 			BigDecimal amount = new  BigDecimal(payVo.getAmount());
 			BigDecimal discount = new  BigDecimal(payVo.getDiscount());
 			BigDecimal ackamount = amount.subtract(discount);// 应收金额
-			
+			List<String> priceitems = Arrays.asList(payVo.getPrice_detail().split(","));	//计划表中的收费明细
+			List<OrgPriceItem> orgPriceItems = 	orgQueryManager.getPriceItemList(priceitems);	//获取收费价目明细
 			// 确认截止日  later.....
 			String deadline = DateUtil.format(new Date(), DateUtil.DATE_PATTERN_1);
 			String dead = payVo.getDeadline();
@@ -575,6 +578,7 @@ public class PaymentController {
 			model.addAttribute("dead", dead);
 			model.addAttribute("ackamount", ackamount);
 			model.addAttribute("planDetail", payVo);
+			model.addAttribute("planPriceItems", orgPriceItems);
 		}catch(UserException ue){
 			log.warn(ue.getMessage(), ue);
 			model.addAttribute("message_title", "操作失败");

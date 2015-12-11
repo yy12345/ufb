@@ -6,27 +6,38 @@
 
 	<sql id="planDetailSql">
 		a.orgid,
-			c.orgname,
-			b.name as sname,
-			a.sid,
-			a.id,
-			a.plan_id,
-			a.amount,
-			a.discount,
-			a.state,
-			a.parentid,
-			date_format(a.confirm_date,'%Y-%m-%d') as confirm_date,
-			date_format(a.pay_date,'%Y-%m-%d')  as pay_date,
-			date_format(a.repay_date,'%Y-%m-%d') as repay_date,
-			d.name as planname,
-			d.type,
-			d.charge_type,
-			d.payday,
-	        d.plan_date,
-			d.state as p_state,
-			d.deadline,
-			d.bill_month,
-			d.price_detail
+		c.orgname,
+		b.name as sname,
+		a.sid,
+		a.id,
+		a.plan_id,
+		a.amount,
+		a.discount,
+		a.state,
+		a.parentid,
+		date_format(a.confirm_date,'%Y-%m-%d') as confirm_date,
+		date_format(a.pay_date,'%Y-%m-%d')  as pay_date,
+		date_format(a.repay_date,'%Y-%m-%d') as repay_date,
+		d.name as planname,
+		d.type,
+		d.charge_type,
+		d.payday,
+        d.plan_date,
+		d.state as p_state,
+		d.deadline,
+		d.bill_month,
+		d.price_detail
+	</sql>
+	
+	<sql id="orgPriceItemSql">
+		id        ,
+		orgid     ,
+		termid    ,
+		type      ,
+		name      ,
+		amount    ,
+		chage_type,
+		state    
 	</sql>
 	
 	<select id="queryOrgByCustno" parameterType="String" resultType="OrgQuery">
@@ -190,6 +201,17 @@
 			and a.sid = #{sid,jdbcType=VARCHAR}
 		</if>
 	</select>
+	
+	<!-- 查询收费价目明细 -->
+	<select id="getPriceItemList" parameterType="String" resultType="OrgPriceItem">
+	  	select <include refid="orgPriceItemSql"/>
+	  	from org_price_item 
+	  	where id in 
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+	</select>
+	
   
 </mapper>
 

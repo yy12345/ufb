@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ufufund.ufb.model.db.OrgPlanDetail;
+import com.ufufund.ufb.model.db.OrgPriceItem;
 import com.ufufund.ufb.model.db.OrgQuery;
 import com.ufufund.ufb.model.db.PayRecordQry;
 
@@ -94,5 +95,12 @@ public interface OrgQueryMapper{
 	 * @return
 	 */
 	public BigDecimal getReversedMonthAmt(PayRecordQry vo);
+	
+	/**
+	 * 查询收费价目明细
+	 * @param priceitems
+	 * @return
+	 */
+	public List<OrgPriceItem> getPriceItemList(List<String> priceitems);
 	
 }
