@@ -25,6 +25,10 @@
     <filter>
       <filter-name>refreshFilter</filter-name>
       <filter-class>com.ufufund.ufb.web.filter.RefreshHolderFilter</filter-class>
+      <init-param>
+        <param-name>redirectUrl</param-name>
+        <param-value>/ufb/error/expire.htm</param-value>
+      </init-param>
     </filter>
 	<filter>
       <filter-name>encodingFilter</filter-name>

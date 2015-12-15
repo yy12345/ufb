@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RefreshHolderFilter implements Filter{
+	
+	private String redirectUrl;
 
 	@Override
 	public void destroy() {
@@ -25,7 +27,7 @@ public class RefreshHolderFilter implements Filter{
 		String input = req.getParameter(RefreshHolder.INPUT_NAME);
 		if(input != null && RefreshHolder.isRefresh(input)){
 			// 重复刷新跳转
-			((HttpServletResponse)response).sendRedirect("/ufb/error/expire.htm"); 
+			((HttpServletResponse)response).sendRedirect(redirectUrl); 
 			return;
 		}
 		filterChain.doFilter(request, response);
@@ -33,6 +35,10 @@ public class RefreshHolderFilter implements Filter{
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
+	}
+	
+	public void setRedirectUrl(String redirectUrl) {
+		this.redirectUrl = redirectUrl;
 	}
 
 }
