@@ -23,21 +23,6 @@ import com.ufufund.ufb.model.db.Dictionary;
 @Service
 public class DictManager {
 
-	// private final Logger log = Logger.getLogger(DictManager.class);
-
-	// 暂时使用内存缓存，支持开发
-	// private Map<String,List<ParameterDO>> map = new
-	// HashMap<String,List<ParameterDO>>();
-	// @Autowired
-	// private DictMapper dictMapper;
-
-	// private Map<String,ParameterDO> errorMap = new
-	// HashMap<String,ParameterDO>();
-
-	// private List<Dictionary> getDictionary() {
-	// return dictMapper.getDictionary();
-	// }
-
 	private static void getParameterMap() {
 		ApplicationContext context = UfbContextUtil.getContext();
 		DictMapper dictMapper = (DictMapper) context.getBean("dictMapper");
@@ -61,12 +46,6 @@ public class DictManager {
 		s.setValue(parameterMap);
 		CacheManager.putCache(Constant.Cache.CACHE$DICTIONARY, s);
 	}
-
-	// 所有销售机构 写入缓存
-	// private List<ParameterDO> getSeatNoList(){
-	// return parameterMapper.getSeatNo();
-	// }
-	//
 
 	private static HashMap<String, Dictionary> dictionaryByType(String type) {
 		HashMap<String, Dictionary> map = new HashMap<String, Dictionary>();
@@ -124,31 +103,5 @@ public class DictManager {
 		getParameterMap();
 		return dictionaryByType(type);
 	}
-	// /**
-	// * 字典翻译
-	// * @since
-	// * @param key
-	// * @param value
-	// * @return Pmco
-	// * <br><b>作者： gaoxin</b>
-	// * <br>创建时间：2014-7-21 上午9:18:16
-	// */
-	// public Dictionary getDict(HashMap<String,Dictionary> parameterMap,String
-	// value){
-	// Dictionary des = new Dictionary();
-	// if(StringUtils.isEmpty(value)||parameterMap.isEmpty()){
-	// return des;
-	// }
-	// // for(Dictionary dictionary : parameterDOList){
-	// // if(value.equals(dictionary.getPmco())){
-	// // return dictionary;
-	// // }
-	// // }
-	// des = parameterMap.get(value);
-	// return des;
-	// }
-	
-	
-	
 
 }

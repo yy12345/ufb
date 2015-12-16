@@ -1,4 +1,4 @@
-package com.ufufund.ufb.biz.manager.impl.helper;
+package com.ufufund.ufb.biz.manager.helper;
 
 import org.springframework.stereotype.Service;
 

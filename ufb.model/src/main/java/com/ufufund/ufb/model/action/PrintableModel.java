@@ -19,5 +19,6 @@ public abstract class PrintableModel {
 
 		return ToStringBuilder.reflectionToString(this,
 				ToStringStyle.SHORT_PREFIX_STYLE);
+		
 	}
 }

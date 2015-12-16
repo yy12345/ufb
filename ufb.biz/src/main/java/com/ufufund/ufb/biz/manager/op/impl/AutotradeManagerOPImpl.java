@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ufufund.ufb.biz.manager.AutotradeManager;
 import com.ufufund.ufb.biz.manager.TradeManager;
 import com.ufufund.ufb.biz.manager.WorkDayManager;
-import com.ufufund.ufb.biz.manager.impl.helper.AutotradeManagerHelper;
+import com.ufufund.ufb.biz.manager.helper.AutotradeManagerHelper;
 import com.ufufund.ufb.biz.manager.op.AutotradeManagerOP;
 import com.ufufund.ufb.common.constant.Constant;
 import com.ufufund.ufb.common.exception.UserException;

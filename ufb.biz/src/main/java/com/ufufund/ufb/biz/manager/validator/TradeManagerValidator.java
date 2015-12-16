@@ -1,4 +1,4 @@
-package com.ufufund.ufb.biz.manager.impl.validator;
+package com.ufufund.ufb.biz.manager.validator;
 
 
 import java.math.BigDecimal;

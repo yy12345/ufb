@@ -1,4 +1,4 @@
-package com.ufufund.ufb.biz.manager.impl.validator;
+package com.ufufund.ufb.biz.manager.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

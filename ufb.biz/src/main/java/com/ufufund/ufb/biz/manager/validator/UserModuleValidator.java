@@ -1,4 +1,4 @@
-package com.ufufund.ufb.biz.manager.impl.validator;
+package com.ufufund.ufb.biz.manager.validator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
