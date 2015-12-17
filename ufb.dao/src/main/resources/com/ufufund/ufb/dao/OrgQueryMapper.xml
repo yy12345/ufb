@@ -11,22 +11,21 @@
 		a.sid,
 		a.id,
 		a.plan_id,
+		a.price_detail,
 		a.amount,
 		a.discount,
 		a.state,
 		a.parentid,
 		date_format(a.confirm_date,'%Y-%m-%d') as confirm_date,
-		date_format(a.pay_date,'%Y-%m-%d')  as pay_date,
 		date_format(a.repay_date,'%Y-%m-%d') as repay_date,
 		d.name as planname,
 		d.type,
 		d.charge_type,
-		d.payday,
+		d.paydate,
         d.plan_date,
 		d.state as p_state,
 		d.deadline,
-		d.bill_month,
-		d.price_detail
+		d.bill_month
 	</sql>
 	
 	<sql id="orgPriceItemSql">
