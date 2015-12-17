@@ -7,19 +7,14 @@ public class DictUtil {
 
 	private static Map<String,Map<String,String>> globalMapping = new HashMap<String,Map<String,String>>();
 	private static Map<String,String> dic1 = new HashMap<String,String>();
-	private static Map<String,String> dic2 = new HashMap<String,String>();
 	static {
-		globalMapping.put("org_item_price.type", dic1);
-		dic1.put("01", "保育费");
-		dic1.put("02", "膳食费");
-		dic1.put("03", "短期培训班费");
-		dic1.put("04", "代收代缴费");
-		dic1.put("00", "其它");
-		
-		globalMapping.put("org_item_price.chage_type", dic2);
-		dic2.put("1", "月");
-		dic2.put("2", "学期");
-		dic2.put("3", "学年");
+		globalMapping.put("org_plan_detail.state", dic1);
+		dic1.put("1", "草稿");
+		dic1.put("2", "等待缴费");
+		dic1.put("3", "等待扣款");
+		dic1.put("4", "扣款失败");
+		dic1.put("5", "扣款成功");
+		dic1.put("6", "手工补缴");
 	}
 	
 	/**

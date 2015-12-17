@@ -92,14 +92,14 @@ public class OrgQueryManager{
 		String paydate="";
 		
 		List<String> ispaylist=new ArrayList<String>();
-		ispaylist.add("0");
-		ispaylist.add("1");
+		ispaylist.add("2");
+		ispaylist.add("3");
 		
 		for(int i=0;i<detailidArr.length;i++){
 			OrgPlanDetail detail = new OrgPlanDetail();
 			String detailid=detailidArr[i];
 			detail.setId(detailid);
-			detail.setState("1");
+			detail.setState("2");
 			
 			Tradeaccoinfo tradeacco = new Tradeaccoinfo();
 			tradeacco.setCustno(custinfo.getCustno());
@@ -118,7 +118,7 @@ public class OrgQueryManager{
 				if(plan_detilList.size()>0&&plan_detilList!=null){
 					OrgPlanDetail detail_y=(OrgPlanDetail)plan_detilList.get(0);
 						AddAutotradeAction action = new AddAutotradeAction();
-						if(detail_y.getState().equals("1")){
+						if(detail_y.getState().equals("2")){
 							action.setCycle("MM");
 							action.setDat(detail_y.getPayday());
 							action.setType("E");
@@ -135,7 +135,7 @@ public class OrgQueryManager{
 						// 交易类型
 						action.setTradetype(AutoTradeType.AUTOWITHDRAWAL);
 						// 扣款日期
-						action.setNextdate(detail_y.getPay_date().replace("-", ""));
+						action.setNextdate(detail_y.getPaydate().replace("-", ""));
 						// 取现金额
 						action.setAutovol(new BigDecimal(detail_y.getAmount()));
 						// 备注

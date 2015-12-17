@@ -28,6 +28,7 @@ import com.ufufund.ufb.model.db.PayRecordQry;
 import com.ufufund.ufb.model.db.TradeAccoinfoOfMore;
 import com.ufufund.ufb.model.db.TradeRequest;
 import com.ufufund.ufb.model.enums.BasicFundinfo;
+import com.ufufund.ufb.web.util.DictUtil;
 import com.ufufund.ufb.web.util.UserHelper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -89,8 +90,8 @@ public class FamilyBaseController {
 			int allcount=0;
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
 			List<String> ispaylist=new ArrayList<String>();
-			ispaylist.add("0");
-			ispaylist.add("1");
+			ispaylist.add("2");
+			ispaylist.add("3");
 			for(OrgQuery org: orglist){
 				BigDecimal monthtotalamt = BigDecimal.ZERO;
 				BigDecimal monthbackamt = BigDecimal.ZERO;
@@ -113,7 +114,7 @@ public class FamilyBaseController {
 					if(null!=plan.getAmount()){
 						planmonthamt=new BigDecimal(plan.getAmount());
 					}
-					if("0".equals(plan.getState())){
+					if("2".equals(plan.getState())){
 						allcount=allcount+1;
 						count=count+1;
 						monthtotalamt=monthtotalamt.add(planmonthamt);
@@ -132,11 +133,12 @@ public class FamilyBaseController {
 				paylist.add(stuPayVo);
 				totalplanmonthamt = totalplanmonthamt.add(monthtotalamt);
 			}
-			
+			DictUtil dictTools = new DictUtil();
 			model.addAttribute("paylist", paylist);
 			model.addAttribute("orglist", orglist);
 			model.addAttribute("allcount", allcount);
 			model.addAttribute("totalplanmonthamt", totalplanmonthamt);
+			model.addAttribute("dictTools", dictTools);
 
 			// 资产 
 			this.setModel(custinfo, model);

@@ -248,7 +248,7 @@ public class PaymentController {
 			BigDecimal totalplanmonthamt = BigDecimal.ZERO;
 			int plancount = 0;
 			List<String> ispaylist=new ArrayList<String>();
-			ispaylist.add("0");
+			ispaylist.add("2");
 			for(int i=0;i<orgidArr.length;i++){
 				String orgid=orgidArr[i];
 				OrgQuery orginfo=new OrgQuery();
@@ -312,7 +312,7 @@ public class PaymentController {
 			List<OrgPlanDetail> planchecked = new ArrayList<OrgPlanDetail>();
 			String[] detailid=detailids.split(",");
 			List<String> ispaylist=new ArrayList<String>();
-			ispaylist.add("0");
+			ispaylist.add("2");
 			for(int i=0;i<detailid.length;i++){
 				String detail=detailid[i];
 				String orgid=orgQueryManager.getOrgidByDetailid(detail);

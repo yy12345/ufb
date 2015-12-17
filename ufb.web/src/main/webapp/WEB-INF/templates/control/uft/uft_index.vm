@@ -168,10 +168,7 @@ $(function(){
                               <td class="num-red">$plan.amount</td>
                               <td>#if($plan.confirm_date)${plan.confirm_date}#else -- #end</td>
                               <td >
-	                              #if(${plan.state}=='0')等待缴费
-	                              #elseif(${plan.state}=='1')<strong class="num-green">等待扣款 </strong>
-	                              #elseif(${plan.state}=='3')待补扣
-	                              #end
+                              	  $dictTools.get("org_plan_detail.state","${plan.state}")
                               </td>
                           </tr>
 						  #end
